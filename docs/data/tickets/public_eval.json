@@ -1,0 +1,452 @@
+[
+  {
+    "ticket_id": "INC-1001",
+    "subject": "Can't log into Salesforce — SSO error",
+    "description": "Getting 'SAML assertion invalid' when trying to log into Salesforce. Worked fine yesterday. Other apps (Outlook, Teams) work. I have a client meeting in 2 hours and need to pull up their account history.",
+    "reporter": { "name": "Lisa Chang", "email": "lisa.chang@contoso.com", "department": "Wealth Management" },
+    "created_at": "2026-03-18T08:15:00Z",
+    "channel": "portal",
+    "attachments": ["salesforce_error.png"]
+  },
+  {
+    "ticket_id": "INC-1002",
+    "subject": "Need access to the Q1 earnings SharePoint site",
+    "description": "I was added to the Investor Relations team last week but I still can't access the Q1 Earnings SharePoint site at https://contoso.sharepoint.com/sites/Q1Earnings. I get 'You don't have access to this resource.' My manager Angela confirmed I should have access. Can someone add me?",
+    "reporter": { "name": "Ryan Foster", "email": "ryan.foster@contoso.com", "department": "Investor Relations" },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1003",
+    "subject": "Keyboard not working",
+    "description": "keybrd stppd wrking on my lptop. only sme keys wrk. spce bar is fine but mst vwels dnt rspnd. tried extrnl keybrd — wrks fine. lptop is a Dell Ltitude 5550, abt 2 yrs old.",
+    "reporter": { "name": "Tom Barrett", "email": "tom.barrett@contoso.com", "department": "Compliance" },
+    "created_at": "2026-03-18T07:30:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1004",
+    "subject": "WiFi is slow in the Singapore office",
+    "description": "Multiple people on the 4th floor of our Singapore office are reporting extremely slow WiFi since this morning. Speed test shows ~2 Mbps down (normally 200+). Both the 'Contoso-Corp' and 'Contoso-Guest' networks are affected. Wired connections seem fine. We have a client workshop happening on this floor all week.",
+    "reporter": { "name": "Wei Lin Tan", "email": "weilin.tan@contoso.com", "department": "Consulting" },
+    "created_at": "2026-03-18T02:45:00Z",
+    "channel": "portal",
+    "attachments": ["speedtest_results.png"]
+  },
+  {
+    "ticket_id": "INC-1005",
+    "subject": "Outlook keeps crashing when I open attachments",
+    "description": "Every time I try to open a PDF attachment in Outlook, the whole application freezes for about 30 seconds and then crashes. Started after the update that was pushed last night. I've restarted my laptop 3 times. Other file types (Word, Excel) open fine. I'm on Outlook version 16.93 on Windows 11.",
+    "reporter": { "name": "Jennifer Wu", "email": "jennifer.wu@contoso.com", "department": "Legal" },
+    "created_at": "2026-03-18T08:50:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1006",
+    "subject": "Fwd: Invoice #4892 — payment overdue",
+    "description": "---------- Forwarded message ----------\nFrom: accounts@vendor-solutions.com\nDate: March 17, 2026\nSubject: Invoice #4892 — payment overdue\n\nDear Contoso Accounts Payable,\n\nThis is a reminder that invoice #4892 for $34,500 is now 30 days overdue. Please remit payment at your earliest convenience to avoid late fees.\n\nPayment details:\nBank: First National\nAccount: 4892-7731-0012\nRouting: 021000021\n\n--- end forwarded message ---\n\nHey IT, this came to my inbox by mistake. I think it should go to Finance? Not sure who to send it to. Can you forward it to the right person?",
+    "reporter": { "name": "Derek Hall", "email": "derek.hall@contoso.com", "department": "Engineering" },
+    "created_at": "2026-03-18T10:20:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1007",
+    "subject": "Defender flagging false positive on internal tool",
+    "description": "Microsoft Defender for Endpoint is quarantining our internal portfolio risk calculator (risk_calc.exe) on every machine it's deployed to. It's flagging it as 'Trojan:Win32/Generic'. This is a tool built by our internal quant team — it's been in use for 2 years. The latest Defender definition update (March 17) seems to have added a new signature that matches our binary. 47 machines in the Trading floor are affected. Traders can't run risk calculations.",
+    "reporter": { "name": "Samantha Green", "email": "samantha.green@contoso.com", "department": "Trading" },
+    "created_at": "2026-03-18T06:30:00Z",
+    "channel": "portal",
+    "attachments": ["defender_alert_screenshot.png"]
+  },
+  {
+    "ticket_id": "INC-1008",
+    "subject": "help",
+    "description": "help",
+    "reporter": { "name": "Carlos Reyes", "email": "carlos.reyes@contoso.com", "department": "Operations" },
+    "created_at": "2026-03-18T11:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1009",
+    "subject": "Bloomberg terminal showing stale data — trades not updating",
+    "description": "My Bloomberg terminal (B-Unit serial BT-4471) stopped receiving live market data around 08:15 EST. The terminal itself is powered on and I can navigate menus, but all price feeds show a timestamp from 08:14 and aren't updating. The terminal next to mine (Janet's) is working fine. I've already tried the green-green-red restart sequence. No effect. I'm mid-trade and need this resolved immediately.",
+    "reporter": { "name": "Victor Osei", "email": "victor.osei@contoso.com", "department": "Trading" },
+    "created_at": "2026-03-18T08:25:00Z",
+    "channel": "phone",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1010",
+    "subject": "Request: install Python 3.12 on my machine",
+    "description": "Hi, I need Python 3.12 installed on my work laptop for a data analysis project. I tried installing it myself but got 'Administrator privileges required.' My laptop is a Lenovo ThinkPad T14s, Windows 11. I also need pip and the ability to install packages from PyPI. Thanks!",
+    "reporter": { "name": "Priya Kapoor", "email": "priya.kapoor@contoso.com", "department": "Analytics" },
+    "created_at": "2026-03-18T09:15:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1011",
+    "subject": "Two-factor authentication locked me out of everything",
+    "description": "I lost my phone over the weekend and now I can't get past MFA for any of our systems. I can log in with my password but every app asks for the authenticator code and I don't have the phone anymore. I'm at my desk in the NYC office — can someone verify my identity in person and reset my MFA? I've got client deliverables due today.",
+    "reporter": { "name": "Alexandra Petrov", "email": "alexandra.petrov@contoso.com", "department": "Consulting" },
+    "created_at": "2026-03-18T08:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1012",
+    "subject": "Unsubscribe",
+    "description": "Please remove me from this mailing list. I don't want to receive these notifications anymore.\n\nSent from my iPhone",
+    "reporter": { "name": "Martin Joyce", "email": "martin.joyce@contoso.com", "department": "Retail Banking" },
+    "created_at": "2026-03-18T12:30:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1013",
+    "subject": "Can't connect to VPN from hotel — urgent travel issue",
+    "description": "I'm at the Marriott in London for client meetings tomorrow. The hotel WiFi connects fine but GlobalProtect VPN fails with 'Gateway not reachable.' I tried the London gateway and the auto-select option. I need to access the deal room on SharePoint tonight to prepare for tomorrow's presentation. Is there an alternative way to connect? Can we whitelist the hotel's IP range?",
+    "reporter": { "name": "Daniel Kim", "email": "daniel.kim@contoso.com", "department": "Investment Banking" },
+    "created_at": "2026-03-18T19:45:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1014",
+    "subject": "Potential compliance violation — client data in personal OneDrive",
+    "description": "During a routine review I noticed that a team member has been syncing client PII (names, SSNs, account numbers) to their personal OneDrive folder instead of the team SharePoint site. Approximately 340 client records are affected. The data has been there for at least 3 weeks based on file modification dates. I've spoken to the individual privately. This may trigger our data handling policy and potentially SEC notification requirements. Please advise on next steps and containment.",
+    "reporter": { "name": "Margaret Liu", "email": "margaret.liu@contoso.com", "department": "Compliance" },
+    "created_at": "2026-03-18T07:00:00Z",
+    "channel": "portal",
+    "attachments": ["file_listing.csv"]
+  },
+  {
+    "ticket_id": "INC-1015",
+    "subject": "Docking station won't charge my laptop",
+    "description": "My Dell WD22TB4 docking station stopped charging my laptop. Monitors and peripherals connected through the dock work fine, but the laptop battery keeps draining. Tried a different USB-C cable, same issue. Colleague's laptop charges fine on the same dock, so it might be my laptop's USB-C port? Laptop is a Dell Latitude 5550.",
+    "reporter": { "name": "Natalie Brooks", "email": "natalie.brooks@contoso.com", "department": "HR" },
+    "created_at": "2026-03-18T10:30:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1016",
+    "subject": "Azure subscription costs spiked 300% — investigate",
+    "description": "The March invoice for Azure subscription 'contoso-prod-eastus2' (sub ID: a1b2c3d4-...) shows $47,000 against a usual monthly spend of ~$12,000. Cost analysis shows the spike started March 10 and is coming from the 'rg-ml-experiments' resource group. Looks like someone left GPU VMs running. Need to identify the owner, shut down unused resources immediately, and set up budget alerts so this doesn't happen again.",
+    "reporter": { "name": "Patricia Gomez", "email": "patricia.gomez@contoso.com", "department": "Finance" },
+    "created_at": "2026-03-18T09:30:00Z",
+    "channel": "email",
+    "attachments": ["azure_cost_analysis.pdf"]
+  },
+  {
+    "ticket_id": "INC-1017",
+    "subject": "New conference room AV setup — Building 2, Room 201",
+    "description": "We're converting Room 201 in Building 2 into a video conference room. Need the following installed by April 1:\n- Teams Room system (Poly or equivalent)\n- 75\" display\n- Ceiling microphone array\n- USB-C and HDMI connectivity for BYOD\n- Room scheduling panel outside the door\n\nBudget approved by VP Singh. PO number: PO-2026-3847. Please schedule a site survey this week.",
+    "reporter": { "name": "Robert Kim", "email": "robert.kim@contoso.com", "department": "Facilities" },
+    "created_at": "2026-03-18T11:15:00Z",
+    "channel": "portal",
+    "attachments": ["room_201_floor_plan.pdf"]
+  },
+  {
+    "ticket_id": "INC-1018",
+    "subject": "테스트 — 시스템 테스트 무시하세요",
+    "description": "이것은 테스트 티켓입니다. 무시하세요. This is a test ticket from the Seoul office. Please ignore.",
+    "reporter": { "name": "Min-jun Park", "email": "minjun.park@contoso.com", "department": "Engineering" },
+    "created_at": "2026-03-18T00:15:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1019",
+    "subject": "Intune not pushing latest security policy to remote devices",
+    "description": "We pushed a new Intune compliance policy (POL-SEC-2026-03) on Friday that requires BitLocker encryption + 14-character minimum password. As of today, 127 out of 340 remote devices still show as non-compliant. The policy shows 'Pending' status for these devices in the Intune admin center. Most of the affected devices are in the London and Singapore offices. We need 100% compliance by the March 25 audit deadline.",
+    "reporter": { "name": "James Wilson", "email": "james.wilson@contoso.com", "department": "IT Security" },
+    "created_at": "2026-03-18T08:45:00Z",
+    "channel": "portal",
+    "attachments": ["intune_compliance_report.csv"]
+  },
+  {
+    "ticket_id": "INC-1020",
+    "subject": "Can someone fix the coffee machine on floor 6?",
+    "description": "The Nespresso machine on the 6th floor kitchen has been displaying 'Descale Required' for a week. Nobody knows how to do it and the facilities team said to contact IT. It's the one near the east stairwell. Half the floor is going to Starbucks now.",
+    "reporter": { "name": "Amy Zhang", "email": "amy.zhang@contoso.com", "department": "Analytics" },
+    "created_at": "2026-03-18T10:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1021",
+    "subject": "Service account password expiring in 48 hours — batch jobs will break",
+    "description": "The service account 'svc-etl-prod' (used by our nightly batch processing jobs) has a password expiring on March 20 at 00:00 UTC. If the password expires, all 14 scheduled ADF pipelines in rg-data-prod will fail because they authenticate via this service account. We need to either rotate the password and update all pipeline credentials, or convert this account to use managed identity. The current password was set 90 days ago per our rotation policy.",
+    "reporter": { "name": "Raj Mehta", "email": "raj.mehta@contoso.com", "department": "Data Engineering" },
+    "created_at": "2026-03-18T06:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1022",
+    "subject": "Screen flickering on ALL monitors in trading floor section B",
+    "description": "About 15 monitors in Section B of the NYC trading floor started flickering simultaneously around 09:30 EST. It's not individual monitor failures — all of them are doing it at the same time, which suggests a power or signal issue upstream. The monitors are connected through KVM switches to Bloomberg and internal trading workstations. Section A is fine.",
+    "reporter": { "name": "Frank DeLuca", "email": "frank.deluca@contoso.com", "department": "Trading" },
+    "created_at": "2026-03-18T09:35:00Z",
+    "channel": "phone",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1023",
+    "subject": "Firewall rule change request — allow traffic to vendor API",
+    "description": "We need a firewall rule to allow outbound HTTPS (443) traffic from our app servers in VLAN 42 (10.50.42.0/24) to the new KYC vendor API at api.verifyfast.com (IP: 203.0.113.50). This is for the customer onboarding automation project, go-live target April 7. Security review JIRA ticket: SEC-2026-0224 (approved by SecOps on March 15).",
+    "reporter": { "name": "Nina Patel", "email": "nina.patel@contoso.com", "department": "Engineering" },
+    "created_at": "2026-03-18T11:30:00Z",
+    "channel": "portal",
+    "attachments": ["sec_review_approval.pdf"]
+  },
+  {
+    "ticket_id": "INC-1024",
+    "subject": "Laptop stolen from car — need immediate lockdown",
+    "description": "My work laptop was stolen from my car last night (parked in downtown NYC). Dell Latitude 5550, asset tag CT-L-5102. It has BitLocker enabled but I'm not 100% sure if it was locked when taken — I might have had it in sleep mode. I have client financial data on it. Please disable the device remotely, wipe it if possible, and revoke my VPN access until I get a replacement. I've filed a police report (NYPD case #2026-NY-44891).",
+    "reporter": { "name": "Michael Torres", "email": "michael.torres@contoso.com", "department": "Wealth Management" },
+    "created_at": "2026-03-18T07:15:00Z",
+    "channel": "phone",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1025",
+    "subject": "Re: Re: Re: Re: Office printer issue",
+    "description": ">>> Original message from Sarah (March 10):\n>>> The printer on 4th floor isn't working\n>> Reply from IT (March 11):\n>> Which printer? There are 3 on that floor.\n> Reply from Sarah (March 14):\n> The one near the window. The HP one.\n\nHi, this is Sarah's manager. It's been over a week and the printer still isn't fixed. This is the HP LaserJet Pro M404 near the east window on floor 4. It shows 'Ready' but nothing prints. The queue builds up and then all jobs disappear after about 10 minutes. Three of my team members need this for client reports. Can we please get this resolved today?",
+    "reporter": { "name": "David Chen", "email": "david.chen@contoso.com", "department": "Wealth Management" },
+    "created_at": "2026-03-18T14:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1026",
+    "subject": "DNS not resolving internal hostnames from Singapore office",
+    "description": "Users in the Singapore office can't resolve internal hostnames (e.g., intranet.contoso.local, jira.contoso.local) but external DNS works fine (google.com resolves). Started about 30 minutes ago. Affecting the entire Singapore office (~200 users). I checked the local DNS server (10.60.1.10) and it's responding to pings but queries timeout. The secondary DNS (10.60.1.11) isn't configured on most client machines.",
+    "reporter": { "name": "Kevin Ng", "email": "kevin.ng@contoso.com", "department": "IT Operations" },
+    "created_at": "2026-03-18T03:30:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1027",
+    "subject": "Need 50 guest WiFi accounts for conference next week",
+    "description": "We're hosting the annual Financial Services Technology Conference on March 25-26. Expecting ~200 external attendees. Need:\n- 50 pre-provisioned guest WiFi accounts (bulk credentials we can print on cards)\n- Guest network isolated from corporate\n- Bandwidth reservation: minimum 100 Mbps on floors 1-3\n- Accounts should auto-expire March 27\n\nEvent coordinator: Julie Park (julie.park@contoso.com)",
+    "reporter": { "name": "Steve Reynolds", "email": "steve.reynolds@contoso.com", "department": "Events" },
+    "created_at": "2026-03-18T13:00:00Z",
+    "channel": "portal",
+    "attachments": ["conference_agenda.pdf"]
+  },
+  {
+    "ticket_id": "INC-1028",
+    "subject": "Application error: 'NullReferenceException' in client portal",
+    "description": "The client-facing portal (portal.contoso.com) is throwing NullReferenceException errors intermittently. Stack trace points to AccountService.GetBalance() at line 247. About 15% of requests are failing. Started around 06:00 UTC after last night's deployment (release v3.14.2). Rollback to v3.14.1 is possible but would revert the new compliance reporting feature that Legal needs by Friday.",
+    "reporter": { "name": "Amanda Liu", "email": "amanda.liu@contoso.com", "department": "Engineering" },
+    "created_at": "2026-03-18T06:45:00Z",
+    "channel": "portal",
+    "attachments": ["stack_trace.txt", "deployment_log.txt"]
+  },
+  {
+    "ticket_id": "INC-1029",
+    "subject": "Monthly IT report — February stats",
+    "description": "Hi team, attaching the monthly IT operations report for February. Key highlights:\n- Total tickets: 3,847 (up 12% MoM)\n- Avg resolution time: 4.2 hours\n- SLA compliance: 91%\n- Top categories: Password resets (34%), Software installs (18%), VPN issues (12%)\n\nNo action needed — this is FYI only. Let me know if you have questions.\n\nBest,\nRaj",
+    "reporter": { "name": "Raj Mehta", "email": "raj.mehta@contoso.com", "department": "IT Operations" },
+    "created_at": "2026-03-18T15:00:00Z",
+    "channel": "email",
+    "attachments": ["feb_2026_it_report.pdf"]
+  },
+  {
+    "ticket_id": "INC-1030",
+    "subject": "Teams calls dropping every 5 minutes",
+    "description": "Every Teams call I join drops after exactly 4-5 minutes. Audio and video cut out simultaneously. Happens on my laptop AND my phone (when using the Teams mobile app on the same WiFi). Other people in the call stay connected — it's just me. I'm on the 3rd floor NYC office. My colleague sitting 10 feet away has no issues. Restarted laptop, cleared Teams cache, reinstalled the app. Still happening.",
+    "reporter": { "name": "Hannah Park", "email": "hannah.park@contoso.com", "department": "Consulting" },
+    "created_at": "2026-03-18T10:15:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1031",
+    "subject": "URGENT: production database backup failed — daily job skipped",
+    "description": "The daily backup for the production client database (sql-prod-eastus2-01) failed at 02:00 UTC with error 'Insufficient disk space on backup target.' This means we have no backup from last night. RPO is now 48 hours instead of our required 24 hours. The backup storage volume (/mnt/sql-backups) is at 97% capacity. We need to free space and re-run the backup before tonight's batch processing starts at 22:00 UTC.",
+    "reporter": { "name": "Chris Henderson", "email": "chris.henderson@contoso.com", "department": "Database Operations" },
+    "created_at": "2026-03-18T06:15:00Z",
+    "channel": "portal",
+    "attachments": ["backup_failure_log.txt"]
+  },
+  {
+    "ticket_id": "INC-1032",
+    "subject": "Contractor needs temporary access — starts tomorrow",
+    "description": "We have a security penetration testing contractor (Apex Security Solutions) starting tomorrow March 19 at 9 AM. They need:\n- Temporary Entra ID guest accounts for 3 consultants (names in attachment)\n- VPN access limited to the test lab VLAN (10.99.0.0/24)\n- Access to the staging environment only — NOT production\n- Accounts should expire April 2\n\nApproved by CISO Sarah Morton. Approval email in attachment.",
+    "reporter": { "name": "James Wilson", "email": "james.wilson@contoso.com", "department": "IT Security" },
+    "created_at": "2026-03-18T16:00:00Z",
+    "channel": "email",
+    "attachments": ["contractor_names.pdf", "ciso_approval.msg"]
+  },
+  {
+    "ticket_id": "INC-1033",
+    "subject": "I think someone is reading my emails",
+    "description": "This is going to sound paranoid but I need to report it. Over the past two weeks, my manager has been referencing things from my private emails to a colleague — conversations he shouldn't have access to. I checked my Outlook delegate settings and they look normal. I also noticed two 'Unknown device' entries in my recent sign-in activity that I don't recognize (both from US IP addresses, so it's not an overseas hacker). Could someone check if there are any mail forwarding rules or delegate access on my account that I might not be aware of?",
+    "reporter": { "name": "Jessica Palmer", "email": "jessica.palmer@contoso.com", "department": "Compliance" },
+    "created_at": "2026-03-18T13:30:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1034",
+    "subject": "Office 365 license upgrade needed — E3 to E5",
+    "description": "I need my Office 365 license upgraded from E3 to E5. My team lead Sarah Chen approved it (cc'd). I specifically need the E5 features for:\n- Advanced eDiscovery (compliance investigation I'm leading)\n- Audio conferencing (international client calls)\n- Power BI Pro (already included in E5)\n\nIs there a process for this or can you just switch it?",
+    "reporter": { "name": "Omar Hassan", "email": "omar.hassan@contoso.com", "department": "Legal" },
+    "created_at": "2026-03-18T11:45:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1035",
+    "subject": "CI/CD pipeline failing — GitHub Actions runner out of disk",
+    "description": "Our main CI/CD pipeline (repo: contoso/client-portal, workflow: deploy-staging.yml) has been failing for the last 6 runs with 'No space left on device' on the self-hosted GitHub Actions runner (runner-prod-01). The runner VM has a 100GB OS disk and it looks like Docker images are accumulating without cleanup. Need to either clean up the disk or resize the runner VM. Staging deployments are blocked.",
+    "reporter": { "name": "Tony Park", "email": "tony.park@contoso.com", "department": "Engineering" },
+    "created_at": "2026-03-18T14:30:00Z",
+    "channel": "portal",
+    "attachments": ["github_actions_failure.png"]
+  },
+  {
+    "ticket_id": "INC-1036",
+    "subject": "Phishing email received — very convincing, almost clicked",
+    "description": "I received a very convincing phishing email that looked like it came from our CEO (elena.costa@contoso.com) but the actual sender address was elena.costa@c0ntoso.com (zero instead of 'o'). It asked me to urgently approve a wire transfer of $125,000 to a new vendor. I did NOT click any links or respond. Forwarding the original email to phishing@contoso.com separately. Wanted to flag this in case others received it too.",
+    "reporter": { "name": "Grace Kim", "email": "grace.kim@contoso.com", "department": "Finance" },
+    "created_at": "2026-03-18T09:50:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1037",
+    "subject": "Monitor arm broke — monitor fell on desk",
+    "description": "The Ergotron monitor arm at my desk just snapped and my monitor fell on the desk. Monitor seems OK but the arm is definitely broken — the joint cracked. I need a replacement arm. My desk is 4th floor NYC, desk B-47. Not urgent but I can't adjust my monitor height now and it's giving me neck pain.",
+    "reporter": { "name": "Scott Miller", "email": "scott.miller@contoso.com", "department": "Retail Banking" },
+    "created_at": "2026-03-18T12:00:00Z",
+    "channel": "chat",
+    "attachments": ["broken_arm_photo.jpg"]
+  },
+  {
+    "ticket_id": "INC-1038",
+    "subject": "OneDrive sync stuck — 'Processing changes' for 3 days",
+    "description": "OneDrive has been showing 'Processing changes' for 3 days. It's stuck on a folder called 'Client Proposals' that has about 200 files. I can't tell if my files are synced to the cloud or not, which means if my laptop dies I might lose 3 days of work. I've tried pausing and resuming sync, signing out and back in. Nothing works. I'm running OneDrive version 24.030.0210.0002 on Windows 11.",
+    "reporter": { "name": "Elena Martinez", "email": "elena.martinez@contoso.com", "department": "Wealth Management" },
+    "created_at": "2026-03-18T08:30:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1039",
+    "subject": "JIRA is down — can't access any projects",
+    "description": "Getting a 502 Bad Gateway when trying to access jira.contoso.local. All projects are inaccessible. Checked with colleagues — everyone on the Engineering team is affected. The Sprint 14 standup is in 20 minutes and we can't see the board. Can't find any scheduled maintenance notifications. This is our primary project tracking tool — ~150 engineers are blocked.",
+    "reporter": { "name": "Andrew Nakamura", "email": "andrew.nakamura@contoso.com", "department": "Engineering" },
+    "created_at": "2026-03-18T09:10:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1040",
+    "subject": "Employee departing — concerned about data exfiltration",
+    "description": "Confidential: An employee in the Wealth Management team (I won't name them in a ticket) gave their 2-week notice yesterday. Since then, DLP alerts show they've downloaded 2.3 GB of files from SharePoint including client account files and internal strategy documents. This may be legitimate cleanup of personal files, or it may be data exfiltration. We need to investigate the file download activity and determine if any client data or proprietary information was transferred to personal devices or accounts. Please treat this as sensitive.",
+    "reporter": { "name": "Sarah Morton", "email": "sarah.morton@contoso.com", "department": "IT Security" },
+    "created_at": "2026-03-18T07:30:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1041",
+    "subject": "Power BI report showing wrong numbers — executive dashboard",
+    "description": "The executive KPI dashboard in Power BI (workspace: 'Exec Dashboards', report: 'Q1 Revenue Tracker') is showing revenue numbers that don't match what Finance reported. The dashboard shows $47.2M YTD but Finance says $52.1M. Difference is ~$4.9M. The dashboard refreshes from the data warehouse nightly. I suspect the data pipeline is dropping records or the refresh failed. CEO reviews this every Monday morning — we have until then to fix it.",
+    "reporter": { "name": "Linda Park", "email": "linda.park@contoso.com", "department": "Finance" },
+    "created_at": "2026-03-18T15:30:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1042",
+    "subject": "USB-C hub not detected after Windows update",
+    "description": "After the Windows update that was pushed over the weekend, my USB-C hub (CalDigit TS4) is no longer detected. When I plug it in, nothing happens — no monitors, no USB devices, no charging. Device Manager shows a yellow exclamation mark on 'Unknown USB Device (Device Descriptor Request Failed)'. Tried different USB-C ports on my laptop, same result. Laptop: Dell Latitude 5550. Windows 11 23H2 build 22631.3374.",
+    "reporter": { "name": "Patricia Williams", "email": "patricia.williams@contoso.com", "department": "Legal" },
+    "created_at": "2026-03-18T08:40:00Z",
+    "channel": "portal",
+    "attachments": ["device_manager_screenshot.png"]
+  },
+  {
+    "ticket_id": "INC-1043",
+    "subject": "Need to set up data room for Meridian acquisition",
+    "description": "We need a secure virtual data room for the Meridian Capital acquisition (Project Atlas). Requirements:\n- Isolated SharePoint site with DLP policies\n- External sharing enabled for Meridian's legal team (5 named users, list attached)\n- Watermarking and download restrictions on all documents\n- Audit logging for every file access\n- MFA required for all external users\n- Must be operational by March 20\n\nThis is a Board-mandated priority. Budget owner: CFO James Wright.",
+    "reporter": { "name": "Catherine Reynolds", "email": "catherine.reynolds@contoso.com", "department": "Corporate Development" },
+    "created_at": "2026-03-18T08:00:00Z",
+    "channel": "portal",
+    "attachments": ["meridian_external_users.xlsx"]
+  },
+  {
+    "ticket_id": "INC-1044",
+    "subject": "Noise complaint — server room is too loud",
+    "description": "The server room on the 2nd floor is really loud today. You can hear the fans through the wall in the adjacent conference room (Room 210). We had to move a client meeting because of it. Has something changed? Is a cooling unit malfunctioning? This wasn't this loud last week.",
+    "reporter": { "name": "Jake Morrison", "email": "jake.morrison@contoso.com", "department": "Facilities" },
+    "created_at": "2026-03-18T14:45:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1045",
+    "subject": "Azure Key Vault access denied — production app failing",
+    "description": "Production app 'client-portal-api' (running on AKS cluster aks-prod-eastus2) is failing to read secrets from Azure Key Vault 'kv-contoso-prod' with error 'Caller is not authorized to perform action.' This started at 05:00 UTC — the app's managed identity seems to have lost its access policy. The Key Vault access logs show the identity was removed at 04:47 UTC. 100% of API requests are failing. This is a P1 — clients can't log in.",
+    "reporter": { "name": "Alex Petrov", "email": "alex.petrov@contoso.com", "department": "Cloud Infrastructure" },
+    "created_at": "2026-03-18T05:10:00Z",
+    "channel": "portal",
+    "attachments": ["keyvault_access_error.txt"]
+  },
+  {
+    "ticket_id": "INC-1046",
+    "subject": "plsssss help my laptop is making a weird noise",
+    "description": "omgggg my laptop is making this CLICKING sound from the bottom left side and its getting worse!! its like click-click-click every few seconds. also its been super slow this week. is it gonna die?? I have my thesis defense presentation on it and I didnt back it up 😭😭😭 its a dell latitude i think?? the silver one. pls help asap!!",
+    "reporter": { "name": "Sophie Adams", "email": "sophie.adams@contoso.com", "department": "Research" },
+    "created_at": "2026-03-18T11:30:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1047",
+    "subject": "SAP transport stuck in queue — month-end close blocked",
+    "description": "SAP transport request TR-2026-0847 (changes to FI-GL posting logic for the new revenue recognition rules) has been stuck in 'Released' status for 6 hours. The transport queue shows 3 transports ahead of it but they're all showing 'Error' status. The month-end financial close process is blocked until this transport is applied to production. Close deadline is March 21 COB. The SAP Basis team is in India and currently unavailable (it's 2 AM there).",
+    "reporter": { "name": "Robert Chang", "email": "robert.chang@contoso.com", "department": "Finance" },
+    "created_at": "2026-03-18T16:30:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1048",
+    "subject": "Duplicate emails — receiving every email twice",
+    "description": "For the past 2 days I've been receiving every email twice. Both copies arrive at the same time with identical content. I checked my Outlook rules — nothing unusual. I have Outlook on my laptop and on my phone, but the duplicates show up in webmail too (outlook.office.com). I've gotten about 300 duplicate emails so far. It's making it impossible to manage my inbox.",
+    "reporter": { "name": "Karen O'Brien", "email": "karen.obrien@contoso.com", "department": "Compliance" },
+    "created_at": "2026-03-18T09:20:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1049",
+    "subject": "Requesting headset for work-from-home setup",
+    "description": "I just got approved for 3 days/week WFH. Can I get a Jabra Evolve2 75 headset for video calls? My manager David Liu approved it. I'm in the NYC office today if someone wants to hand it off directly. If not, shipping to my home address also works.",
+    "reporter": { "name": "Emily Watson", "email": "emily.watson@contoso.com", "department": "HR" },
+    "created_at": "2026-03-18T12:45:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-1050",
+    "subject": "Kubernetes pods crashing in loop — staging environment",
+    "description": "All pods in the 'client-onboarding' namespace on our AKS staging cluster (aks-staging-eastus2) are in CrashLoopBackOff. Started after deploying image tag v2.8.0-rc3 about an hour ago. Logs show 'FATAL: Cannot connect to Redis — connection refused.' The Redis instance in staging (redis-staging.redis.cache.windows.net) seems unreachable from inside the cluster but I can telnet to it from my laptop. Might be a network policy or DNS issue within the cluster.",
+    "reporter": { "name": "Tony Park", "email": "tony.park@contoso.com", "department": "Engineering" },
+    "created_at": "2026-03-18T15:15:00Z",
+    "channel": "portal",
+    "attachments": ["pod_logs.txt", "kubectl_describe.txt"]
+  }
+]

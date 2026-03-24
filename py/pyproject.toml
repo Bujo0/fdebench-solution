@@ -1,5 +1,5 @@
 [project]
-name = "ms-fde-root"
+name = "be-an-fde-for-a-day"
 version = "0.0.0"
 description = "uv workspace root"
 requires-python = ">=3.12"

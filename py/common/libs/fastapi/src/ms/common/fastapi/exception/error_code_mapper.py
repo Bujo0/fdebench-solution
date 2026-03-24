@@ -1,3 +1,4 @@
+# Copyright (c) Microsoft. All rights reserved.
 from abc import ABC
 from abc import abstractmethod
 from enum import StrEnum

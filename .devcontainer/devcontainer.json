@@ -10,9 +10,7 @@
     },
     "postCreateCommand": {
         "auto-push-remote": "git config push.autoSetupRemote true",
-        "claude-cli-install": "curl -fsSL https://claude.ai/install.sh | bash",
-        "copilot-cli-install": "curl -fsSL https://gh.io/copilot-install | bash",
-        "pre-commit-install": "uvx pre-commit install && uvx pre-commit run --all-files",
+        "pre-commit-install": "uvx pre-commit install",
         "py-install": "cd py && uv sync",
         "ts-install": "cd ts && pnpm install"
     }

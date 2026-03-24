@@ -1,0 +1,435 @@
+[
+  {
+    "ticket_id": "INC-0001",
+    "category": "Network & Connectivity",
+    "priority": "P3",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": [],
+    "next_best_action": "Investigate VPN client compatibility with the latest Windows update. Check for known Wi-Fi issues in Building 4 Floor 2. Verify VPN client v3.2 is the latest supported version.",
+    "remediation_steps": [
+      "Verify Contoso VPN client v3.2 is the latest supported version",
+      "Check for known Wi-Fi connectivity issues in Building 4 Floor 2",
+      "Test VPN reconnection behavior after the latest Windows update on a reference device",
+      "If issue persists, escalate to network engineering for VPN client patch review"
+    ]
+  },
+  {
+    "ticket_id": "INC-0002",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [
+      "application_version",
+      "device_info"
+    ],
+    "next_best_action": "Investigate whether Teams crash and Outlook calendar sync issues are related to the new laptop migration. Verify that user profile and application data were properly transferred to the new device.",
+    "remediation_steps": [
+      "Verify laptop provisioning and data migration completed successfully",
+      "Clear Teams cache and reinstall if crash persists",
+      "Check Outlook profile migration status and force calendar resync",
+      "Confirm application versions match the supported standard image",
+      "If issues persist after cache clear and resync, re-provision applications on the new device"
+    ]
+  },
+  {
+    "ticket_id": "INC-0003",
+    "category": "Hardware & Peripherals",
+    "priority": "P1",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": true,
+    "missing_information": [
+      "device_info"
+    ],
+    "next_best_action": "Dispatch immediate on-site support to Main Boardroom with a portable backup projector. Time-critical: $2.3M client contract review with external partners in 25 minutes.",
+    "remediation_steps": [
+      "Dispatch on-site technician to Main Boardroom immediately",
+      "Bring portable backup projector from IT supply room",
+      "Check projector power source, HDMI connections, and input source settings",
+      "If main projector cannot be restored, set up portable unit before meeting starts",
+      "After meeting, schedule full diagnostic of the main boardroom projector"
+    ]
+  },
+  {
+    "ticket_id": "INC-0004",
+    "category": "Access & Authentication",
+    "priority": "P2",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [
+      "affected_system",
+      "error_message",
+      "device_info",
+      "steps_to_reproduce"
+    ],
+    "next_best_action": "Contact user to gather specifics: which systems are inaccessible, what error messages appear, what device they are using, and when the issue started. Cannot triage effectively without more detail.",
+    "remediation_steps": [
+      "Contact user to gather specific details about the issue",
+      "Determine which systems and applications are affected",
+      "Check if the issue is isolated to this user or affecting others in Marketing",
+      "Once root cause is identified, route to the appropriate specialist team"
+    ]
+  },
+  {
+    "ticket_id": "INC-0005",
+    "category": "Not a Support Ticket",
+    "priority": "P4",
+    "assigned_team": "None",
+    "needs_escalation": false,
+    "missing_information": [],
+    "next_best_action": "Close — this is an automated out-of-office reply to a maintenance notification, not a support request. No action required.",
+    "remediation_steps": [
+      "No action required — auto-reply detected, close ticket"
+    ]
+  },
+  {
+    "ticket_id": "INC-0006",
+    "category": "Security & Compliance",
+    "priority": "P2",
+    "assigned_team": "Security Operations",
+    "needs_escalation": true,
+    "missing_information": [
+      "timestamp"
+    ],
+    "next_best_action": "Initiate security incident investigation. Review authentication logs for unauthorized access, check OneDrive audit trail for document access from the suspicious IP, and verify that the password change and MFA are in effect.",
+    "remediation_steps": [
+      "Review authentication logs for the user's account over the past 48 hours",
+      "Check OneDrive audit trail for any unauthorized file access or downloads",
+      "Verify password change was successful and MFA is active",
+      "If unauthorized access is confirmed, escalate to incident response and notify data protection officer",
+      "Brief user on interim security measures and monitor account for further anomalies"
+    ]
+  },
+  {
+    "ticket_id": "INC-0007",
+    "category": "Data & Storage",
+    "priority": "P2",
+    "assigned_team": "Data Platform",
+    "needs_escalation": false,
+    "missing_information": [],
+    "next_best_action": "Check service principal credentials and RBAC role assignments on the ADLS Gen2 storage account in rg-data-prod. Restore the Storage Blob Data Contributor role if it was removed during the subscription cleanup.",
+    "remediation_steps": [
+      "Verify service principal token expiration for the ADF pipeline identity",
+      "Check RBAC role assignments on the ADLS Gen2 storage account in rg-data-prod",
+      "Restore Storage Blob Data Contributor role assignment if missing",
+      "Re-run the ADF pipeline 'prod-customer-ingest' and verify successful execution",
+      "Investigate why the role assignment was removed during the subscription cleanup to prevent recurrence"
+    ]
+  },
+  {
+    "ticket_id": "INC-0008",
+    "category": "Data & Storage",
+    "priority": "P1",
+    "assigned_team": "Data Platform",
+    "needs_escalation": true,
+    "missing_information": [],
+    "next_best_action": "Investigate production database connection pool exhaustion immediately. This is a customer-facing production incident — 40% of API requests are failing regardless of the submitter's priority classification.",
+    "remediation_steps": [
+      "Investigate connection pool configuration on the primary database replica",
+      "Identify and terminate long-running queries or leaked connections",
+      "Increase connection pool size or restart the primary replica as immediate mitigation",
+      "Verify read replica health and confirm it is handling redirected traffic",
+      "Post-incident: conduct root cause analysis on connection pool exhaustion"
+    ]
+  },
+  {
+    "ticket_id": "INC-0009",
+    "category": "Access & Authentication",
+    "priority": "P3",
+    "assigned_team": "Identity & Access Management",
+    "needs_escalation": true,
+    "missing_information": [
+      "previous_ticket_id"
+    ],
+    "next_best_action": "Escalate badge access issue for Building 7 — third report without resolution. Verify badge permissions in the updated access management system post-migration and cross-reference with INC-2834 if accessible.",
+    "remediation_steps": [
+      "Check user's badge permissions in the updated access management system",
+      "Verify Building 7 access rights were properly migrated from the old system",
+      "If permissions appear correct, test the physical badge and card reader",
+      "Escalate to facilities management if badge and permissions are both confirmed working",
+      "Follow up with user to confirm resolution"
+    ]
+  },
+  {
+    "ticket_id": "INC-0010",
+    "category": "General Inquiry",
+    "priority": "P3",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [
+      "contact_info"
+    ],
+    "next_best_action": "Initiate new employee onboarding workflow for Alex Rivera (start date March 31). Coordinate hardware, software, access, and group membership provisioning across teams. Target readiness by March 28.",
+    "remediation_steps": [
+      "Order MacBook Pro M4 32GB from hardware procurement",
+      "Prepare standard software image with Python, Conda, and Jupyter environment",
+      "Request Azure ML workspace access (rg-ml-prod) from cloud_ops",
+      "Request data catalog read access from data_engineering",
+      "Request Building 3 badge access from identity_ops",
+      "Add Alex Rivera to analytics-team distribution list and Teams channel",
+      "Schedule equipment handoff and walkthrough for March 28"
+    ]
+  },
+  {
+    "ticket_id": "INC-0011",
+    "category": "Access & Authentication",
+    "priority": "P3",
+    "assigned_team": "Identity & Access Management",
+    "needs_escalation": false,
+    "missing_information": [
+      "device_info",
+      "application_version"
+    ],
+    "next_best_action": "Investigate MFA push approval failure in the Authenticator app. Check Entra ID MFA registration status and recent policy changes. User can continue with SMS fallback in the meantime.",
+    "remediation_steps": [
+      "Verify MFA registration status for this user in Entra ID",
+      "Check for recent Conditional Access or MFA policy changes that may affect push notifications",
+      "Have user verify Authenticator app is updated to the latest version",
+      "If issue persists, remove and re-register the MFA method in Entra ID",
+      "Confirm push approval works after re-registration"
+    ]
+  },
+  {
+    "ticket_id": "INC-0012",
+    "category": "Hardware & Peripherals",
+    "priority": "P3",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [
+      "device_info",
+      "affected_users"
+    ],
+    "next_best_action": "Investigate monitor flickering as primary issue — likely hardware or cable fault. Route the Salesforce license question separately to Enterprise Applications.",
+    "remediation_steps": [
+      "Test with a replacement DisplayPort cable",
+      "Test monitor with a different source device to isolate whether it's the monitor or the terminal",
+      "If flickering persists with new cable and source, schedule monitor replacement",
+      "Create a separate ticket for the Salesforce license expiry and route to Enterprise Applications"
+    ]
+  },
+  {
+    "ticket_id": "INC-0013",
+    "category": "Security & Compliance",
+    "priority": "P1",
+    "assigned_team": "Security Operations",
+    "needs_escalation": true,
+    "missing_information": [],
+    "next_best_action": "Initiate data breach investigation immediately. This is a potential regulatory incident involving PII exposure of 1,200 clients under MAS TRM guidelines. Determine scope of external access, identify who created the sharing link, and assess notification obligations.",
+    "remediation_steps": [
+      "Confirm the external sharing link has been fully revoked and verify no other sites have similar permissions",
+      "Pull SharePoint audit logs to identify who created the public sharing link and when",
+      "Analyze audit logs for any external access to the site between February 15 and today",
+      "Engage Legal and Compliance to assess MAS TRM notification obligations",
+      "Document findings for the incident report and regulatory record",
+      "Conduct a broader SharePoint permissions audit across all sites containing PII"
+    ]
+  },
+  {
+    "ticket_id": "INC-0014",
+    "category": "Not a Support Ticket",
+    "priority": "P4",
+    "assigned_team": "None",
+    "needs_escalation": false,
+    "missing_information": [],
+    "next_best_action": "Close — this is a thank-you message, not a support request. No action required.",
+    "remediation_steps": [
+      "No action required — positive feedback, close ticket"
+    ]
+  },
+  {
+    "ticket_id": "INC-0015",
+    "category": "Network & Connectivity",
+    "priority": "P2",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": [
+      "affected_system",
+      "environment_details"
+    ],
+    "next_best_action": "Investigate 200ms→50ms latency regression on the APAC trading path before London open. Check network path to the exchange gateway, recent firewall or routing changes, and whether the latency is on Contoso's side or the exchange side.",
+    "remediation_steps": [
+      "Check network latency metrics on the path between Contoso's APAC trading cluster and the exchange gateway",
+      "Review recent firewall rule, routing, or proxy changes that may affect the trading path",
+      "Compare current latency baseline against historical data to confirm the regression",
+      "If latency is on Contoso's side, escalate to network engineering for immediate remediation before London open",
+      "If exchange-side, contact exchange operations and notify trading desk of potential impact"
+    ]
+  },
+  {
+    "ticket_id": "INC-0016",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "environment_details"
+    ],
+    "next_best_action": "Investigate SSO token invalidation after password rotation. Likely the SAP SSO ticket needs to be reissued after the Windows password change. Time-sensitive due to month-end reconciliation deadline.",
+    "remediation_steps": [
+      "Verify the user's Entra ID session and Kerberos ticket are refreshed after the password change",
+      "Check SAP SSO configuration — confirm whether SAP GUI uses Kerberos or SAML-based SSO",
+      "Reissue the SAP SSO logon ticket or have the user log into SAP with explicit credentials as a workaround",
+      "If SSO token regeneration doesn't resolve it, check whether the password policy change affected the SAP SNC configuration",
+      "Confirm SAP access is restored and the user can complete month-end reconciliation"
+    ]
+  },
+  {
+    "ticket_id": "INC-0017",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [
+      "affected_system",
+      "error_message",
+      "device_info",
+      "steps_to_reproduce"
+    ],
+    "next_best_action": "Contact reporter on the 5th floor (Robert Chen, robert.chen2@contoso.com, Operations) to gather actual symptom details. Ticket as submitted has insufficient detail to triage. Phone transcription is too garbled to act on.",
+    "remediation_steps": [
+      "Contact Robert Chen (5th floor near kitchen, Operations department) to clarify the issue in person or via Teams",
+      "Determine which application or system is failing",
+      "Gather specific error messages and reproduction steps",
+      "Once the actual issue is identified, re-triage and route to the correct specialist team"
+    ]
+  },
+  {
+    "ticket_id": "INC-0018",
+    "category": "Software & Applications",
+    "priority": "P1",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": true,
+    "missing_information": [],
+    "next_best_action": "Dispatch support to the 8th floor executive boardroom immediately. SVP-level VIP ticket — treat as one priority level higher. Investigate Teams sharing policy blocking screen share for this user. Active board meeting with institutional clients.",
+    "remediation_steps": [
+      "Dispatch technician to the 8th floor executive boardroom immediately",
+      "Check Conditional Access and Teams meeting policies applied to Carlos Martinez's account",
+      "Verify whether the 'Sharing is blocked by your organization's policy' error is caused by a DLP policy, Teams admin policy, or Conditional Access restriction",
+      "As immediate workaround: have someone else share the presentation on his behalf, or use the Teams Room device with a different account",
+      "Once the meeting is unblocked, investigate and resolve the underlying policy conflict"
+    ]
+  },
+  {
+    "ticket_id": "INC-0019",
+    "category": "General Inquiry",
+    "priority": "P2",
+    "assigned_team": "Identity & Access Management",
+    "needs_escalation": false,
+    "missing_information": [],
+    "next_best_action": "Initiate employee offboarding workflow for Jessica Palmer (last day March 21). Coordinate across IAM, Endpoint Engineering, and Data Platform for account disable, device wipe, file transfer, and mailbox archival. Note: sensitive compliance files require special handling.",
+    "remediation_steps": [
+      "Schedule Entra ID account disable for 6 PM EST on March 21",
+      "Prepare VPN and remote access revocation to trigger simultaneously with account disable",
+      "Coordinate with Endpoint Engineering for laptop wipe of Dell Latitude 5540 (asset tag CT-L-4892)",
+      "Transfer OneDrive and SharePoint file ownership to David Liu (david.liu@contoso.com)",
+      "Remove from all distribution lists and Teams channels",
+      "Archive mailbox per 7-year retention policy",
+      "Ensure sensitive compliance investigation files are preserved in a secured location and access is revoked"
+    ]
+  },
+  {
+    "ticket_id": "INC-0020",
+    "category": "Hardware & Peripherals",
+    "priority": "P3",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": [
+      "device_info",
+      "network_location"
+    ],
+    "next_best_action": "Investigate network printer print queue issue on the 3rd floor. Multiple users affected and jobs are queuing but not printing, which suggests a network or print server issue rather than an endpoint problem.",
+    "remediation_steps": [
+      "Identify the printer model and check whether it is network-attached or connected via print server",
+      "Check print server spooler service status and restart if necessary",
+      "Verify network connectivity between the printer and the print server or direct network path",
+      "If network-connected, check the printer's IP address and network interface status",
+      "Clear stuck print queue and test with a fresh print job"
+    ]
+  },
+  {
+    "ticket_id": "INC-0021",
+    "category": "General Inquiry",
+    "priority": "P4",
+    "assigned_team": "None",
+    "needs_escalation": false,
+    "missing_information": [],
+    "next_best_action": "Redirect to Facilities/Office Management — meeting room booking and catering are not IT support functions. Provide brief guidance on how to book rooms via Outlook (add room resource) and direct catering questions to Office Management.",
+    "remediation_steps": [
+      "Reply with instructions: in Outlook, create a new meeting and click 'Add a room' to search for available meeting rooms",
+      "Note that catering requests should go to the Office Management team, not IT",
+      "If the user cannot see room resources in Outlook, verify their mailbox has the room finder permission and route to Enterprise Applications if needed"
+    ]
+  },
+  {
+    "ticket_id": "INC-0022",
+    "category": "Security & Compliance",
+    "priority": "P1",
+    "assigned_team": "Security Operations",
+    "needs_escalation": true,
+    "missing_information": [
+      "configuration_details",
+      "environment_details"
+    ],
+    "next_best_action": "Renew or replace the TLS certificate on client-api.contoso.com before it expires on March 20. This is a production-facing API gateway — expiry will break all external client integrations. Treat as P1 given 3-day window and the fact that the original provisioner has left the company.",
+    "remediation_steps": [
+      "Identify the current certificate authority and certificate type (public CA, internal PKI, or Let's Encrypt)",
+      "Determine whether auto-renewal was configured or if the cert was manually provisioned",
+      "If auto-renewal exists, trigger a manual renewal cycle and verify the new cert is issued",
+      "If manual, generate a CSR, obtain a new certificate from the CA, and install it on the API gateway",
+      "Verify the new certificate is correctly installed and all client connections work without TLS errors",
+      "Configure auto-renewal and monitoring alerts to prevent recurrence"
+    ]
+  },
+  {
+    "ticket_id": "INC-0023",
+    "category": "Hardware & Peripherals",
+    "priority": "P3",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [
+      "device_info",
+      "error_message"
+    ],
+    "next_best_action": "Investigate laptop performance degradation. Symptoms (slow performance, fan running, pop-ups about 'updating system components') are more consistent with a stuck Windows update or background Intune policy compliance than malware, especially since Defender found nothing. Check update history and system resource usage.",
+    "remediation_steps": [
+      "Check Windows Update history — verify whether recent updates completed or are stuck retrying",
+      "Review Task Manager for high CPU/disk processes (likely Windows Update or Intune compliance)",
+      "If updates are stuck, run Windows Update troubleshooter or manually reset the update components",
+      "Verify Defender definitions are current and run a quick scan to confirm no threats",
+      "If the user clicked a suspicious email, forward the email to phishing@contoso.com and notify Security Operations as a precaution"
+    ]
+  },
+  {
+    "ticket_id": "INC-0024",
+    "category": "Security & Compliance",
+    "priority": "P3",
+    "assigned_team": "Security Operations",
+    "needs_escalation": false,
+    "missing_information": [],
+    "next_best_action": "Confirm this is a phishing/scam email and advise the user NOT to click any links. Forward the original email to phishing@contoso.com for analysis. No breach has occurred if the user hasn't clicked.",
+    "remediation_steps": [
+      "Reply to the user immediately: this is a scam email — do NOT click any links or provide any personal information",
+      "Have the user forward the original email as an attachment to phishing@contoso.com",
+      "Check whether the email bypassed Contoso's email filtering and report to SecOps if so",
+      "If the user already clicked the link, escalate to a full security incident and initiate credential reset"
+    ]
+  },
+  {
+    "ticket_id": "INC-0025",
+    "category": "Data & Storage",
+    "priority": "P1",
+    "assigned_team": "Data Platform",
+    "needs_escalation": true,
+    "missing_information": [],
+    "next_best_action": "Investigate Azure VM prod-analytics-01 stuck at 'Applying computer settings' after scheduled OS patching reboot. Executive analytics dashboard dependent on this VM — 2-hour window before the 9 AM briefing.",
+    "remediation_steps": [
+      "Check Azure boot diagnostics serial console output for the stuck state",
+      "Attempt to connect via Azure Serial Console to bypass the stuck login screen",
+      "If Serial Console access is possible, check if a GPO or startup script is hanging",
+      "If the VM is unrecoverable, redeploy from the latest snapshot or restore from backup",
+      "Verify the analytics dashboard is accessible once the VM is restored",
+      "Post-incident: review the OS patching procedure to prevent boot failures after scheduled updates"
+    ]
+  }
+]

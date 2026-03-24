@@ -1,3 +1,4 @@
+# Copyright (c) Microsoft. All rights reserved.
 import pytest
 from pydantic import ValidationError
 

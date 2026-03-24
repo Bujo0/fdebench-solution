@@ -1,3 +1,4 @@
+# Copyright (c) Microsoft. All rights reserved.
 from datetime import timedelta
 from datetime import timezone
 from enum import StrEnum

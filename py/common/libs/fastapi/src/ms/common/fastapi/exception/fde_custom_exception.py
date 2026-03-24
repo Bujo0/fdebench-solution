@@ -1,3 +1,4 @@
+# Copyright (c) Microsoft. All rights reserved.
 from abc import ABC
 from enum import StrEnum
 from typing import Any

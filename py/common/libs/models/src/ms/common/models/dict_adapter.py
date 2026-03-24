@@ -1,3 +1,4 @@
+# Copyright (c) Microsoft. All rights reserved.
 import functools
 from collections.abc import Callable
 from typing import Any

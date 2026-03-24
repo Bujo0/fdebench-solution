@@ -1,3 +1,4 @@
+# Copyright (c) Microsoft. All rights reserved.
 import logging
 from datetime import UTC
 from datetime import datetime

@@ -1,3 +1,4 @@
+# Copyright (c) Microsoft. All rights reserved.
 from typing import Any
 
 from pydantic import ConfigDict

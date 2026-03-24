@@ -1,4 +1,0 @@
-config:
-  azure-native:useOidc: "true"
-  azure-native:location: eastus2
-  infra:hello: world-staging

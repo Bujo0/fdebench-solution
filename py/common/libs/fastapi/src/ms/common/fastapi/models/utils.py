@@ -1,3 +1,4 @@
+# Copyright (c) Microsoft. All rights reserved.
 from typing import Any
 
 from pydantic import BaseModel  # noqa: TID251 # required for model introspection utilities

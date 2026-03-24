@@ -1,7 +1,0 @@
-name: github-actions-azure
-description: Pulumi setup for Azure <> GitHub Actions
-runtime:
-  name: python
-  options:
-    toolchain: uv
-    typechecker: pyright

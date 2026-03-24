@@ -1,3 +1,4 @@
+# Copyright (c) Microsoft. All rights reserved.
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient

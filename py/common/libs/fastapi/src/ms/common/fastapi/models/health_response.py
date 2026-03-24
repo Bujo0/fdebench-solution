@@ -1,3 +1,4 @@
+# Copyright (c) Microsoft. All rights reserved.
 from datetime import datetime
 
 from ms.common.fastapi.models.api_response import ApiResponseBaseModel

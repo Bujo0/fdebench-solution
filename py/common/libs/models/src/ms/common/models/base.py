@@ -1,3 +1,4 @@
+# Copyright (c) Microsoft. All rights reserved.
 """Base Pydantic models with common configurations.
 
 This module provides base model classes that enforce consistent behavior

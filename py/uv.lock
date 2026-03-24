@@ -4,9 +4,9 @@ requires-python = "==3.12.*"
 
 [manifest]
 members = [
+    "be-an-fde-for-a-day",
     "ms-common-fastapi",
     "ms-common-models",
-    "ms-fde-root",
 ]
 
 [[package]]
@@ -39,6 +39,16 @@ sdist = { url = "https://files.pythonhosted.org/packages/96/f0/5eb65b2bb0d09ac67
 wheels = [
     { url = "https://files.pythonhosted.org/packages/38/0e/27be9fdef66e72d64c0cdc3cc2823101b80585f8119b5c112c2e8f5f7dab/anyio-4.12.1-py3-none-any.whl", hash = "sha256:d405828884fc140aa80a3c667b8beed277f1dfedec42ba031bd6ac3db606ab6c", size = 113592, upload-time = "2026-01-06T11:45:19.497Z" },
 ]
+
+[[package]]
+name = "be-an-fde-for-a-day"
+version = "0.0.0"
+source = { virtual = "." }
+
+[package.metadata]
+
+[package.metadata.requires-dev]
+dev = []
 
 [[package]]
 name = "certifi"
@@ -396,16 +406,6 @@ dev = [
     { name = "pyright", specifier = ">=1.1.407" },
     { name = "pytest", specifier = ">=9.0.1" },
 ]
-
-[[package]]
-name = "ms-fde-root"
-version = "0.0.0"
-source = { virtual = "." }
-
-[package.metadata]
-
-[package.metadata.requires-dev]
-dev = []
 
 [[package]]
 name = "nodeenv"
