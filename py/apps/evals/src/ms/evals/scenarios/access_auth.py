@@ -1123,3 +1123,228 @@ register(ScenarioTemplate(
         ],
     ],
 ))
+
+register(ScenarioTemplate(
+    scenario_id="aa-031",
+    category=Category.ACCESS_AUTH,
+    priority=Priority.P2,
+    assigned_team=Team.IAM,
+    needs_escalation=False,
+    missing_information=[
+        MissingInfo.AUTHENTICATION_METHOD,
+        MissingInfo.PREVIOUS_TICKET_ID,
+        MissingInfo.REPRODUCTION_FREQUENCY,
+    ],
+    subjects=[
+        "SAML SSO failures after IdP certificate rotation — happening on and off",
+        "Intermittent SSO login errors since certificate change on our IdP",
+        "SSO broken after IdP cert renewal — some users affected, not all",
+    ],
+    descriptions=[
+        "Since our identity provider certificate was rotated last Thursday, a number of users in the "
+        "London office are reporting intermittent SAML SSO failures when signing into our internal "
+        "finance portal. The error is not consistent — it seems to work sometimes and fail other "
+        "times. I filed a ticket about this last week but I can't find the reference number. I'm not "
+        "sure if we're using SAML 2.0 or WS-Fed for this particular app.",
+        "After our IdP certificate renewal, SSO logins to several Contoso Financial Services apps "
+        "are failing sporadically. Some users can log in on the first try, others get a certificate "
+        "validation error after multiple attempts. We reported a similar issue a few months ago when "
+        "the last rotation happened but I don't have the old ticket number handy. Not sure how often "
+        "it reproduces — maybe 30-40% of the time.",
+    ],
+    next_best_actions=[
+        "Verify the updated IdP certificate has been imported into the Entra ID SAML configuration "
+        "for the affected application. Check whether both old and new certificates are active during "
+        "the rollover window.",
+        "Look up the user's previous ticket to identify if this is a recurring issue from the last "
+        "certificate rotation. Compare the SAML configuration and federation metadata between the "
+        "two incidents.",
+    ],
+    remediation_steps=[
+        [
+            "Identify the SAML or WS-Fed federation protocol in use for the affected application",
+            "Verify the new IdP signing certificate is uploaded in the Entra ID enterprise app SSO config",
+            "Check if the old certificate needs to remain active during a rollover period",
+            "Update the federation metadata URL or manually replace the certificate if needed",
+            "Test SSO login with an affected user and confirm consistent success",
+            "Search for the previous ticket to document recurrence and update the knowledge base",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="aa-032",
+    category=Category.ACCESS_AUTH,
+    priority=Priority.P3,
+    assigned_team=Team.IAM,
+    needs_escalation=False,
+    missing_information=[MissingInfo.SCREENSHOT_OR_ATTACHMENT, MissingInfo.CONTACT_INFO, MissingInfo.DEVICE_INFO],
+    subjects=[
+        "External contractor can't access Contoso portal from personal laptop",
+        "BYOD access issue — contractor locked out of partner portal",
+        "Contractor unable to reach internal apps on their own device",
+    ],
+    descriptions=[
+        "One of our external contractors from Adatum Consulting is unable to access the Contoso "
+        "partner portal from their personal laptop. They say they see an error page but didn't "
+        "capture a screenshot. I don't have their direct contact info or their company IT team's "
+        "details to troubleshoot further. They mentioned they were able to access it last week.",
+        "A contractor working with our risk analytics team reports they're blocked from accessing "
+        "the partner portal on their personal device. They get redirected to some kind of compliance "
+        "error but couldn't describe it exactly and didn't take a screenshot. I'm not sure who their "
+        "IT admin is at their company, and they didn't leave a callback number. The device is "
+        "unmanaged as far as I know.",
+        "External consultant from Adatum can't log into our collaboration portal on their BYOD "
+        "laptop. They emailed us saying it shows some access denied message. No screenshot was "
+        "provided. We need their company IT contact to check device compliance status on their end.",
+    ],
+    next_best_actions=[
+        "Check Conditional Access policies for BYOD and guest user scenarios. Request a screenshot "
+        "of the error and the contractor's direct contact information or their IT admin's details.",
+        "Review Entra ID sign-in logs for the contractor's guest account to identify the specific "
+        "Conditional Access policy blocking access. Obtain their contact info for follow-up.",
+    ],
+    remediation_steps=[
+        [
+            "Look up the contractor's guest account in Entra ID and review recent sign-in logs",
+            "Identify the Conditional Access policy that is blocking the unmanaged device",
+            "Request a screenshot of the error and direct contact info from the contractor",
+            "Contact the contractor's company IT admin to verify device compliance posture",
+            "Add a CA policy exception for the partner portal or require MAM enrollment for BYOD",
+            "Confirm the contractor can access the portal and document the resolution",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="aa-033",
+    category=Category.ACCESS_AUTH,
+    priority=Priority.P2,
+    assigned_team=Team.IAM,
+    needs_escalation=False,
+    missing_information=[MissingInfo.AUTHENTICATION_METHOD, MissingInfo.SCREENSHOT_OR_ATTACHMENT],
+    subjects=[
+        "Smartcard authentication failing at secure workstation",
+        "PIV card login not working — getting certificate error at kiosk",
+        "Can't log in with smartcard at restricted terminal in DC office",
+    ],
+    descriptions=[
+        "I'm in the Washington DC office and I can't log into the secure workstation using my "
+        "smartcard. It prompts me to insert the card, I enter my PIN, and then it shows a brief "
+        "error about a certificate problem before kicking me back to the login screen. I didn't "
+        "get a screenshot because it disappears quickly. I'm not sure if this is a PIV card, CAC, "
+        "or a Contoso-issued smartcard — it was given to me by building security during onboarding.",
+        "My smartcard-based login to the secure terminal in the trading floor area has stopped "
+        "working. I swipe or insert my card and enter the PIN, and it just fails with some kind "
+        "of certificate trust error. The error flashes too fast to read or capture. I don't know "
+        "the specific type of card — I just know it's the one issued for accessing restricted "
+        "workstations. This started happening after the weekend.",
+    ],
+    next_best_actions=[
+        "Identify the smartcard type (PIV, CAC, or virtual smartcard) and check the certificate "
+        "chain trust on the workstation. Verify the user's certificate has not expired or been "
+        "revoked.",
+        "Check the workstation's certificate trust store and CRL/OCSP responder connectivity. Ask "
+        "the user to capture a phone photo of the error message on next attempt.",
+    ],
+    remediation_steps=[
+        [
+            "Determine the smartcard type by inspecting the user's account or asking security team",
+            "Check the user's smartcard certificate expiration and revocation status in the CA",
+            "Verify the workstation trusts the issuing CA and intermediate certificates",
+            "Test CRL and OCSP endpoint connectivity from the secure workstation",
+            "Re-issue the smartcard certificate if expired or re-enroll if corrupted",
+            "Test smartcard login end-to-end and ask user to capture the error if it recurs",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="aa-034",
+    category=Category.ACCESS_AUTH,
+    priority=Priority.P2,
+    assigned_team=Team.IAM,
+    needs_escalation=False,
+    missing_information=[MissingInfo.PREVIOUS_TICKET_ID, MissingInfo.REPRODUCTION_FREQUENCY, MissingInfo.ERROR_MESSAGE],
+    subjects=[
+        "OAuth token refresh failing for our API integration — intermittent",
+        "API calls returning 401 after token expiry — refresh flow broken",
+        "Service integration OAuth tokens not refreshing — sporadic failures",
+    ],
+    descriptions=[
+        "Our trading platform API integration with the Contoso identity service has started failing "
+        "intermittently when refreshing OAuth tokens. The refresh call sometimes returns a 401 and "
+        "other times works fine. I don't have the exact error body because our logging wasn't "
+        "capturing the response payload at the time. We had a similar token refresh issue about two "
+        "months ago that was resolved by your team but I can't locate that ticket number.",
+        "The OAuth 2.0 refresh token flow for our risk reporting service is intermittently returning "
+        "errors. It's been happening for about three days but we're not sure of the exact failure "
+        "rate — maybe a few times per hour. We opened a ticket for a nearly identical issue earlier "
+        "this quarter but I don't have the reference. The error message in our logs just says "
+        "'unauthorized' without further detail.",
+    ],
+    next_best_actions=[
+        "Check the OAuth app registration in Entra ID for token lifetime policies and refresh token "
+        "validity. Review Entra ID sign-in and audit logs for the service principal to identify the "
+        "root cause of intermittent failures.",
+        "Search for the previous related ticket to check if the same root cause applies. Request "
+        "the full error response body and review the app's token configuration.",
+    ],
+    remediation_steps=[
+        [
+            "Identify the app registration and service principal in Entra ID for the integration",
+            "Review token lifetime and refresh token policies applied to the app",
+            "Check Entra ID sign-in logs for the service principal to find detailed error codes",
+            "Request the team enable verbose logging to capture the full error response body",
+            "Rotate the client secret or certificate if credentials have expired or been revoked",
+            "Test the token refresh flow and monitor for recurrence over 24 hours",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="aa-035",
+    category=Category.ACCESS_AUTH,
+    priority=Priority.P3,
+    assigned_team=Team.IAM,
+    needs_escalation=False,
+    missing_information=[MissingInfo.CONTACT_INFO, MissingInfo.PREVIOUS_TICKET_ID],
+    subjects=[
+        "Bulk account creation request for new hires starting next month",
+        "Need 25 new accounts provisioned for incoming analyst class",
+        "HR requesting batch provisioning of accounts for new hire cohort",
+    ],
+    descriptions=[
+        "HR has requested that we create accounts for approximately 25 new hires joining the "
+        "investment banking analyst program next month. I received the request forwarded from "
+        "someone in HR but I'm not sure who the actual point of contact is to verify the list and "
+        "confirm start dates. I think a similar bulk request was handled a few months ago and there "
+        "may have been a ticket with a CSV template we used, but I can't find it.",
+        "We need to provision user accounts, mailboxes, and group memberships for a cohort of new "
+        "analysts starting in the Chicago and NYC offices. The request came through our HR portal "
+        "but the submitter didn't include a direct contact for validation. We've done this before "
+        "for a previous cohort and I believe there was a standardized process documented in an "
+        "older ticket, but I don't have the reference number to look it up.",
+        "Incoming batch of new hires for Contoso Financial Services needs accounts set up across "
+        "AD, Entra ID, Exchange, and our finance applications. HR sent a spreadsheet but didn't "
+        "include who to reach out to for clarifications on role assignments or start dates. We "
+        "handled a similar request last quarter — is there a previous ticket we can reference?",
+    ],
+    next_best_actions=[
+        "Obtain the HR contact responsible for the new hire list to verify names, start dates, and "
+        "role assignments. Search for previous bulk provisioning tickets to reuse the established "
+        "process and CSV template.",
+        "Reach out to the HR department to identify the point of contact for this cohort. Look up "
+        "prior bulk account creation tickets for the provisioning checklist and template.",
+    ],
+    remediation_steps=[
+        [
+            "Contact HR to identify the responsible person and obtain a verified new hire list",
+            "Search for previous bulk provisioning tickets to retrieve the CSV template and process",
+            "Validate the new hire list — names, start dates, office locations, and role assignments",
+            "Create accounts in AD and Entra ID using the established bulk provisioning workflow",
+            "Provision mailboxes, group memberships, and application access per role",
+            "Send welcome emails with credentials and confirm with the HR contact that all accounts are ready",
+        ],
+    ],
+))
