@@ -968,3 +968,192 @@ register(
         ],
     )
 )
+
+# ---------------------------------------------------------------------------
+# ns-026  Employee forwarding marketing newsletter asking to unsubscribe
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ns-026",
+        category=Category.NOT_SUPPORT,
+        priority=Priority.P4,
+        assigned_team=Team.NONE,
+        needs_escalation=False,
+        missing_information=[],
+        subjects=[
+            "Please unsubscribe me from this newsletter",
+            "FW: Weekly Marketing Digest — how do I stop getting these?",
+            "Remove me from this mailing list",
+        ],
+        descriptions=[
+            "Hi, I keep getting this marketing newsletter every week and I can't figure out how to "
+            "unsubscribe. I've attached a screenshot of the email. I tried clicking the unsubscribe "
+            "link at the bottom but it just takes me to a broken page. Can you remove me from the "
+            "list? I don't even remember signing up for this.",
+            "Hey, I'm forwarding this newsletter I keep receiving — it's from the marketing team's "
+            "external vendor. I've asked them twice to take me off the distribution list but the "
+            "emails keep coming. This isn't really an IT issue but I didn't know who else to ask. "
+            "Can someone help me stop receiving these?",
+        ],
+        next_best_actions=[
+            "Close — this is a newsletter unsubscribe request, not an IT support issue. Redirect "
+            "the employee to the marketing team or the newsletter's unsubscribe link.",
+        ],
+        remediation_steps=[
+            [
+                "No action required — newsletter unsubscribe request, close ticket and redirect "
+                "to marketing team",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# ns-027  Accidental ticket from auto-reply email bot
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ns-027",
+        category=Category.NOT_SUPPORT,
+        priority=Priority.P4,
+        assigned_team=Team.NONE,
+        needs_escalation=False,
+        missing_information=[],
+        subjects=[
+            "Re: Re: Re: Automatic Reply",
+            "Auto-Reply: Message delivery notification",
+            "Undeliverable: Re: Your recent request",
+        ],
+        descriptions=[
+            "This is an automated message to confirm that your email was received. Please do not "
+            "reply to this message as this mailbox is not monitored. If you need immediate "
+            "assistance, please contact the service desk directly. Reference ID: AUTO-8847231.",
+            "Your message to noreply@contoso.com has been received and logged. This is an automated "
+            "acknowledgment — no human has reviewed your request yet. You will receive a follow-up "
+            "within 24 business hours. This mailbox does not accept replies.",
+        ],
+        next_best_actions=[
+            "Close — this is an auto-generated bot reply that accidentally created a ticket.",
+        ],
+        remediation_steps=[
+            [
+                "No action required — auto-reply bot message, close ticket",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# ns-028  Employee submitting expense report to wrong portal
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ns-028",
+        category=Category.NOT_SUPPORT,
+        priority=Priority.P4,
+        assigned_team=Team.NONE,
+        needs_escalation=False,
+        missing_information=[],
+        subjects=[
+            "Expense report submission — business trip to Chicago",
+            "Reimbursement request: client dinner 11/15",
+            "Expense claim for Q4 travel",
+        ],
+        descriptions=[
+            "Hi, I'm submitting my expense report for the Chicago business trip last week. I have "
+            "receipts for the hotel ($189/night for 3 nights), flights ($342 round trip), meals "
+            "($127 total), and ground transportation ($45 Uber). Please process at your earliest "
+            "convenience. My cost center is CC-4410 and my manager has already approved it verbally.",
+            "Please find attached my reimbursement request for the client dinner on November 15th. "
+            "Total amount is $237.50 for four attendees. I've included the itemized receipt and the "
+            "pre-approval form signed by my director. Let me know if you need anything else to "
+            "process this. Thanks!",
+        ],
+        next_best_actions=[
+            "Close — this is an expense report submission, not an IT support request. Redirect "
+            "the employee to the finance portal or accounts payable team.",
+        ],
+        remediation_steps=[
+            [
+                "No action required — expense report submitted to wrong portal, close ticket "
+                "and redirect to finance or accounts payable",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# ns-029  Vendor sales pitch disguised as a support request
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ns-029",
+        category=Category.NOT_SUPPORT,
+        priority=Priority.P4,
+        assigned_team=Team.NONE,
+        needs_escalation=False,
+        missing_information=[],
+        subjects=[
+            "Improving your endpoint security — free assessment",
+            "Partnership opportunity: next-gen cloud monitoring solution",
+            "Quick question about your current IT infrastructure",
+        ],
+        descriptions=[
+            "Hi there! I'm reaching out from SecureNet Solutions. We help mid-size enterprises "
+            "reduce endpoint vulnerabilities by up to 60%. I noticed your company might benefit "
+            "from our managed detection and response platform. Would you have 15 minutes this week "
+            "for a quick demo? We're offering a complimentary security assessment for new customers "
+            "through the end of the quarter.",
+            "Hello, my name is Jordan from CloudWatch Pro. I wanted to connect with someone on your "
+            "IT team about our cloud infrastructure monitoring tool. We work with several companies "
+            "in your industry and have helped them cut downtime by 40%. I'd love to schedule a "
+            "brief call to discuss how we can help your organization. No commitment — just a "
+            "friendly conversation!",
+        ],
+        next_best_actions=[
+            "Close — this is a vendor sales pitch, not an IT support request.",
+        ],
+        remediation_steps=[
+            [
+                "No action required — unsolicited vendor sales outreach, close ticket",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# ns-030  Employee sharing meeting notes — wrong recipient
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ns-030",
+        category=Category.NOT_SUPPORT,
+        priority=Priority.P4,
+        assigned_team=Team.NONE,
+        needs_escalation=False,
+        missing_information=[],
+        subjects=[
+            "Meeting notes from today's product sync",
+            "FW: Action items — Q4 planning session",
+            "Notes & follow-ups from the Wednesday standup",
+        ],
+        descriptions=[
+            "Hey team, here are the notes from today's product sync meeting. Key decisions: we're "
+            "pushing the launch to January 15th, the design team will deliver final mockups by "
+            "Friday, and we need to schedule a follow-up with the sales team about pricing tiers. "
+            "Action items are listed below. Let me know if I missed anything. — Sam",
+            "Forwarding the action items from this morning's Q4 planning session. Highlights: "
+            "budget for the new hire has been approved, we agreed to consolidate the two vendor "
+            "contracts into one, and the marketing launch date is tentatively set for February. "
+            "Please review and add any corrections. Next meeting is Thursday at 2pm in Room 301.",
+        ],
+        next_best_actions=[
+            "Close — these are meeting notes sent to the wrong recipient, not a support request.",
+        ],
+        remediation_steps=[
+            [
+                "No action required — meeting notes sent to wrong address, close ticket",
+            ],
+        ],
+    )
+)

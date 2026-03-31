@@ -1070,3 +1070,497 @@ register(
         ],
     )
 )
+
+# ---------------------------------------------------------------------------
+# ds-021  Accidental bulk delete in production database
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ds-021",
+        category=Category.DATA,
+        priority=Priority.P1,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=True,
+        missing_information=[MissingInfo.AFFECTED_USERS, MissingInfo.TIMESTAMP],
+        subjects=[
+            "URGENT — accidentally ran DELETE without WHERE on production table",
+            "Production data loss — bulk delete on client_transactions table",
+            "P1 — accidental mass deletion in prod database, need immediate help",
+        ],
+        descriptions=[
+            "I accidentally ran DELETE without a WHERE clause on the client_transactions table in "
+            "our production Azure SQL database. I killed the query after about 3 seconds but I "
+            "don't know how many rows were deleted. The table had approximately 2.4 million rows "
+            "before the accident. I haven't told anyone else yet — I'm panicking. The database is "
+            "contoso-prod-sql in the East US resource group. Please help me figure out how to "
+            "recover this data.",
+            "I made a terrible mistake. I was testing a DELETE statement in what I thought was "
+            "our dev environment, but I was connected to production. The query ran against the "
+            "client_transactions table — no WHERE clause. I noticed within seconds and cancelled "
+            "it, but rows are definitely gone. This is a financial transactions table and we may "
+            "have regulatory issues if we can't recover. Is there a point-in-time restore option?",
+        ],
+        next_best_actions=[
+            "Immediately check the most recent backup and point-in-time restore options for the "
+            "database. Assess the scope of data loss by comparing row counts against the last "
+            "known good state.",
+            "Initiate point-in-time restore to a secondary database and compare data to identify "
+            "deleted rows. Prevent further writes to the affected table if possible.",
+        ],
+        remediation_steps=[
+            [
+                "Confirm the database name, table, and approximate time of the incident",
+                "Check Azure SQL point-in-time restore availability (up to 35-day retention)",
+                "Restore the database to a point just before the DELETE was executed",
+                "Compare row counts and data between the restored and current databases",
+                "Re-insert the missing rows from the restored copy into production",
+                "Verify data integrity and reconcile with upstream/downstream systems",
+                "Conduct a post-incident review and restrict production write access",
+            ],
+        ],
+        attachment_options=[
+            ["Query execution history screenshot", "Database row count before/after"],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# ds-022  GDPR data subject access request
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ds-022",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AFFECTED_SYSTEM, MissingInfo.CONFIGURATION_DETAILS],
+        subjects=[
+            "GDPR data subject access request — 30-day deadline",
+            "Client DSAR received — need to locate all personal data",
+            "Formal GDPR Article 15 request — data extraction needed",
+        ],
+        descriptions=[
+            "A client has formally requested all data we hold about them under GDPR Article 15. "
+            "Legal received the request and says we have 30 days to comply. The client's data "
+            "could be in Azure SQL, Cosmos DB, blob storage, and possibly in log files. We need "
+            "to identify every system that contains this person's data and extract it in a "
+            "readable format. Client reference ID is CLT-88421. Legal is tracking this closely.",
+            "We received a data subject access request (DSAR) under GDPR from a European client. "
+            "They want a full export of all personal data we hold, including transaction history, "
+            "support interactions, and any analytics or profiling data. Our data is spread across "
+            "multiple Azure services and I'm not sure we have a comprehensive data map. The legal "
+            "deadline is 28 days from now.",
+        ],
+        next_best_actions=[
+            "Initiate the DSAR workflow: identify all systems containing the subject's data "
+            "using the data catalog, coordinate extraction, and prepare the response package.",
+            "Engage the data governance team to map all data stores containing the subject's "
+            "personal data and begin extraction within the compliance timeline.",
+        ],
+        remediation_steps=[
+            [
+                "Log the DSAR and confirm the 30-day compliance deadline",
+                "Consult the data catalog to identify all systems holding the subject's data",
+                "Query each system (Azure SQL, Cosmos DB, blob storage, logs) for the subject's records",
+                "Extract and compile data into a structured, readable format",
+                "Review the package with legal/privacy team before sending",
+                "Deliver the data package to the client within the deadline",
+                "Document the process for future DSAR handling improvements",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# ds-023  Cross-region data residency compliance concern
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ds-023",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=True,
+        missing_information=[MissingInfo.CONFIGURATION_DETAILS, MissingInfo.AFFECTED_SYSTEM],
+        subjects=[
+            "Data residency violation? Singapore client data replicating to US",
+            "Possible compliance issue — cross-region data replication",
+            "URGENT — client data may be stored outside permitted geography",
+        ],
+        descriptions=[
+            "I noticed in the Azure portal that our Singapore client data appears to be replicating "
+            "to the US East region. Our contract with these clients stipulates that their data must "
+            "remain within the APAC region. If this replication is intentional, was it approved by "
+            "compliance? If not, we may have a data residency violation on our hands. The storage "
+            "account is sg-client-data-prod and I can see geo-redundant replication is enabled.",
+            "During a routine audit of our Azure storage configuration, I found that geo-redundant "
+            "storage (GRS) is enabled on several accounts holding client data from our Singapore "
+            "operations. GRS replicates to a paired region in the US, which could violate data "
+            "residency requirements under Singapore's PDPA. We need to determine if this affects "
+            "regulated data and whether we need to switch to zone-redundant storage (ZRS) instead.",
+        ],
+        next_best_actions=[
+            "Verify the replication configuration and determine if regulated data is being copied "
+            "cross-region. Engage the compliance team to assess the impact.",
+            "Audit the storage account's replication settings and cross-reference with data "
+            "classification policies. Escalate to compliance if regulated data is affected.",
+        ],
+        remediation_steps=[
+            [
+                "Check the storage account replication type (GRS, ZRS, LRS) in the Azure portal",
+                "Identify what data is stored in the affected accounts using the data catalog",
+                "Determine if any regulated or contractually restricted data is being replicated",
+                "Engage the compliance and legal teams with findings",
+                "If a violation is confirmed, switch to ZRS or LRS to stop cross-region replication",
+                "Notify affected clients if required by contract or regulation",
+                "Update data governance policies to prevent future misconfigurations",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# ds-024  Storage costs exploding unexpectedly
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ds-024",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AFFECTED_SYSTEM, MissingInfo.TIMESTAMP],
+        subjects=[
+            "Azure storage bill jumped from $2k to $18k — need investigation",
+            "Unexpected 9x increase in blob storage costs this month",
+            "Storage cost anomaly — massive unexplained data writes",
+        ],
+        descriptions=[
+            "Our Azure storage bill went from approximately $2,000 last month to $18,000 this "
+            "month. Something is writing massive amounts of data to blob storage but I can't "
+            "figure out what. We haven't deployed any new applications or data pipelines. The "
+            "cost spike appears to be concentrated in the 'analytics-raw' storage account. I "
+            "need help identifying the source before next month's bill is even worse.",
+            "Finance flagged our Azure bill — storage costs have increased by 800% month over "
+            "month. I checked Azure Cost Management and the spike is coming from blob storage "
+            "write transactions and data-at-rest in a storage account I don't recognize. It "
+            "might be a runaway pipeline, an application bug writing in a loop, or possibly "
+            "unauthorized usage. We need to trace the source of these writes urgently.",
+        ],
+        next_best_actions=[
+            "Analyze Azure Storage Analytics logs and Cost Management data to identify the "
+            "source of the excessive writes. Check for runaway pipelines or application bugs.",
+            "Review blob storage metrics and access logs to pinpoint which containers and "
+            "applications are responsible for the cost spike.",
+        ],
+        remediation_steps=[
+            [
+                "Open Azure Cost Management and drill into the storage cost breakdown by account",
+                "Enable or review Storage Analytics logs for the affected storage account",
+                "Identify the top containers by size growth and transaction volume",
+                "Trace write operations to the originating application or pipeline",
+                "Fix the root cause (runaway pipeline, application bug, misconfiguration)",
+                "Set up cost alerts and budget thresholds to catch future anomalies early",
+                "Delete or archive unnecessary data to reduce ongoing costs",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# ds-025  Legacy system migration data loss
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ds-025",
+        category=Category.DATA,
+        priority=Priority.P1,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=True,
+        missing_information=[MissingInfo.CONFIGURATION_DETAILS, MissingInfo.SCREENSHOT_OR_ATTACHMENT],
+        subjects=[
+            "CRITICAL — 200,000 records missing after weekend migration to Azure SQL",
+            "Data loss during SQL Server 2016 to Azure SQL migration",
+            "P1 — post-migration data integrity failure in accounts table",
+        ],
+        descriptions=[
+            "During this weekend's migration from SQL Server 2016 on-prem to Azure SQL, we're "
+            "missing approximately 200,000 records in the accounts table. The source had 1.8 million "
+            "rows and the target only shows 1.6 million. We used Azure Database Migration Service "
+            "and the migration status shows 'completed successfully' — but it clearly didn't migrate "
+            "everything. We cannot go live on Monday with missing account data. The source server "
+            "is still running but we need to figure out what was lost and re-migrate.",
+            "Our production migration from SQL Server 2016 to Azure SQL completed over the weekend "
+            "but post-migration validation shows a significant row count discrepancy. The accounts "
+            "table is short by about 200k records. Other tables appear to be intact. We suspect "
+            "either a filter was applied accidentally, rows with constraint violations were skipped, "
+            "or the migration tool hit a timeout. We need to reconcile and recover before business "
+            "hours on Monday.",
+        ],
+        next_best_actions=[
+            "Compare source and target databases to identify exactly which records are missing. "
+            "Check Azure DMS migration logs for errors, warnings, or skipped rows.",
+            "Run a row-by-row reconciliation on the accounts table between source and target. "
+            "Review DMS activity logs and error output to understand the data loss.",
+        ],
+        remediation_steps=[
+            [
+                "Run SELECT COUNT(*) on the accounts table in both source and target to confirm the gap",
+                "Review Azure DMS migration logs for errors, warnings, or skipped records",
+                "Identify the missing rows by comparing primary keys between source and target",
+                "Check for constraint violations, data type mismatches, or truncation issues",
+                "Re-migrate the missing records using a targeted query or bulk insert",
+                "Run full data validation (row counts, checksums, spot checks) across all tables",
+                "Do not cut over to Azure SQL until all validation checks pass",
+            ],
+        ],
+        attachment_options=[
+            ["DMS migration activity log", "Source vs. target row count comparison"],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# ds-026  SharePoint document versioning not retaining all versions
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ds-026",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.SCREENSHOT_OR_ATTACHMENT, MissingInfo.REPRODUCTION_FREQUENCY],
+        subjects=[
+            "SharePoint document versioning not retaining all versions",
+            "Missing version history entries in SharePoint Online library",
+            "SharePoint version history shows gaps — older versions disappeared",
+        ],
+        descriptions=[
+            "Users in the compliance team report that SharePoint Online is not retaining all "
+            "document versions for files in the Regulatory Filings library. A document that "
+            "should have 15 versions only shows 8 in the version history. This is critical "
+            "because we need full version history for audit purposes. We haven't been able to "
+            "capture a screenshot of the version history yet, and we're not sure how often "
+            "this is happening — it was only noticed during a routine audit check.",
+            "Our legal team discovered that version history for key contract documents in "
+            "SharePoint is incomplete. Several intermediate versions appear to have been pruned "
+            "or lost. The versioning settings show major and minor versions are enabled, but the "
+            "count doesn't match what users expect. No one has taken a screenshot of the version "
+            "history page, and we don't know if this affects all documents or just certain ones. "
+            "The team isn't sure how frequently versions go missing.",
+        ],
+        next_best_actions=[
+            "Check the SharePoint library versioning settings and any version trimming policies. "
+            "Capture screenshots of the affected document's version history for investigation.",
+        ],
+        remediation_steps=[
+            [
+                "Review the document library's versioning settings (major/minor version limits)",
+                "Check for any SharePoint retention policies or version trimming rules",
+                "Capture screenshots of the version history for affected documents",
+                "Compare expected version counts with actual counts across multiple documents",
+                "Adjust version limits or retention policies to preserve required history",
+                "Restore missing versions from SharePoint Recycle Bin or backup if available",
+                "Set up monitoring to detect future version history discrepancies",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# ds-027  Azure Blob storage access key rotation broke app
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ds-027",
+        category=Category.DATA,
+        priority=Priority.P1,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=True,
+        missing_information=[MissingInfo.PREVIOUS_TICKET_ID, MissingInfo.AUTHENTICATION_METHOD],
+        subjects=[
+            "Azure Blob storage key rotation broke production application",
+            "App failing after storage account access key was rotated",
+            "Storage key rotation caused outage — need rollback guidance",
+        ],
+        descriptions=[
+            "We rotated the access keys on our primary Azure Blob storage account as part of a "
+            "scheduled security maintenance, and now our document processing application is "
+            "returning 403 Forbidden errors on all blob operations. The app was apparently using "
+            "the old key directly in its configuration. We did a similar rotation six months ago "
+            "and had the same issue, but I can't find the previous incident ticket to see how it "
+            "was resolved. I'm also not sure whether the app authenticates using shared keys, "
+            "SAS tokens, or managed identity.",
+            "After rotating the access keys on the 'contoso-docs-prod' storage account, multiple "
+            "services started failing. The key rotation was required by our security policy but "
+            "we didn't have a full inventory of what depends on these keys. This same scenario "
+            "happened during the last rotation cycle but the remediation steps from that ticket "
+            "are lost. We need to identify whether the affected services use shared access keys, "
+            "connection strings with SAS tokens, or another auth mechanism.",
+        ],
+        next_best_actions=[
+            "Identify all applications using the rotated storage account keys and update their "
+            "configurations. Locate the previous rotation incident for remediation reference.",
+        ],
+        remediation_steps=[
+            [
+                "Regenerate Key 2 (or the unused key) and update the failing application immediately",
+                "Identify all services and connection strings referencing the storage account",
+                "Determine the authentication method each service uses (shared key, SAS, managed identity)",
+                "Update all affected configurations with the new key or migrate to managed identity",
+                "Search the ticketing system for the previous key rotation incident and document findings",
+                "Create a key rotation runbook to prevent recurrence during future rotations",
+                "Test all dependent services to confirm normal operation after the fix",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# ds-028  Database replication lag causing stale reads
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ds-028",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.REPRODUCTION_FREQUENCY, MissingInfo.TIMESTAMP],
+        subjects=[
+            "Database replication lag causing stale reads in reporting",
+            "Azure SQL read replica showing outdated data intermittently",
+            "Replication delay between primary and secondary database",
+        ],
+        descriptions=[
+            "Our reporting dashboard is showing stale data that appears to be several minutes "
+            "behind the primary database. We use Azure SQL geo-replication with a read replica "
+            "for reporting queries. The lag seems to come and go — sometimes data is current, "
+            "other times it's 5-10 minutes behind. We haven't been able to pin down a specific "
+            "time when the lag occurs or how frequently it happens. The reports team only notices "
+            "it when a client points out that their latest transaction isn't showing.",
+            "Users are complaining that the analytics portal shows inconsistent data compared to "
+            "the transactional system. We suspect replication lag on our Azure SQL read replica "
+            "is the cause. The issue is intermittent and hard to reproduce on demand — it might "
+            "correlate with peak load times but we haven't confirmed that. We don't have specific "
+            "timestamps of when the stale reads were observed because users only report it after "
+            "the fact.",
+        ],
+        next_best_actions=[
+            "Monitor the Azure SQL replication lag metrics and correlate with the reported stale "
+            "read incidents. Collect specific timestamps when stale data is observed.",
+        ],
+        remediation_steps=[
+            [
+                "Check Azure SQL replication health and lag metrics in the Azure portal",
+                "Enable alerts on replication lag exceeding an acceptable threshold",
+                "Correlate lag spikes with database workload patterns and peak usage times",
+                "Ask reporting users to record exact timestamps when they observe stale data",
+                "Consider scaling the read replica or optimizing heavy queries that may cause lag",
+                "Implement application-level staleness checks to warn users when data may be delayed",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# ds-029  OneDrive sync conflict for shared folder
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ds-029",
+        category=Category.DATA,
+        priority=Priority.P3,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.CONTACT_INFO, MissingInfo.SCREENSHOT_OR_ATTACHMENT],
+        subjects=[
+            "OneDrive sync conflict on shared folder — duplicate files appearing",
+            "Sync conflicts in OneDrive shared folder with co-owner",
+            "OneDrive creating duplicate files in shared project folder",
+        ],
+        descriptions=[
+            "I'm getting sync conflicts in a OneDrive shared folder that I co-own with a "
+            "colleague in the London office. Files keep getting duplicated with '-conflict' "
+            "suffixes and we're not sure which version is the correct one. I need to coordinate "
+            "with the co-owner to resolve the conflicts but their contact details aren't in the "
+            "directory — they recently transferred from another department. I haven't taken a "
+            "screenshot of the sync status or the conflicted files yet.",
+            "Our project team has a shared OneDrive folder and multiple members are reporting "
+            "sync conflict errors. Duplicate copies of spreadsheets are appearing with names "
+            "like 'Budget (Company Name)-conflict.xlsx'. The main co-owner of the folder is "
+            "working remotely this week and I don't have their current phone number or personal "
+            "email to reach them. We need a screenshot of the OneDrive sync client status to "
+            "diagnose whether this is a client-side or server-side issue.",
+        ],
+        next_best_actions=[
+            "Obtain the co-owner's contact information and coordinate to pause syncing on one "
+            "side. Capture screenshots of the sync client status and conflicted files.",
+        ],
+        remediation_steps=[
+            [
+                "Locate the co-owner's current contact information through HR or their manager",
+                "Coordinate with the co-owner to pause OneDrive sync on one machine temporarily",
+                "Capture screenshots of the OneDrive sync client status on both machines",
+                "Identify and resolve conflicted files by comparing modification timestamps",
+                "Remove duplicate '-conflict' files after confirming the correct versions",
+                "Ensure both users are running the latest OneDrive sync client version",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# ds-030  SQL Server backup job failing silently
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="ds-030",
+        category=Category.DATA,
+        priority=Priority.P1,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=True,
+        missing_information=[
+            MissingInfo.SCREENSHOT_OR_ATTACHMENT,
+            MissingInfo.PREVIOUS_TICKET_ID,
+            MissingInfo.ERROR_MESSAGE,
+        ],
+        subjects=[
+            "SQL Server backup job failing silently — no backups for 3 days",
+            "Production database backup job stopped without alerts",
+            "Missing SQL backups discovered during disaster recovery audit",
+        ],
+        descriptions=[
+            "During a routine disaster recovery audit, we discovered that the nightly backup job "
+            "for our production SQL Server instance has not completed successfully in three days. "
+            "The SQL Agent job shows a status of 'succeeded' but the backup files are not being "
+            "written to the target storage. There is no error message in the job history — it "
+            "just silently fails to produce output. We had a similar backup issue last quarter "
+            "that was tracked in a ticket, but I can't find the reference number. No one captured "
+            "a screenshot of the job history or the storage target.",
+            "Our DBA team noticed that the latest SQL Server backups are missing from the backup "
+            "share. The maintenance plan shows the backup task as completed, but the .bak files "
+            "are nowhere to be found. There's no error message logged in SQL Server Agent or the "
+            "Windows Event Log. We believe this may be related to a storage permission change "
+            "that was made recently. A similar silent failure happened before and was resolved in "
+            "a previous ticket, but we don't have that ticket number handy.",
+        ],
+        next_best_actions=[
+            "Investigate the SQL Server Agent job history and backup target storage permissions. "
+            "Locate the previous backup failure ticket for reference.",
+        ],
+        remediation_steps=[
+            [
+                "Check SQL Server Agent job history for the backup job's detailed step output",
+                "Verify the backup target path exists and the SQL Server service account has write access",
+                "Review recent permission or configuration changes to the backup storage location",
+                "Run the backup job manually and monitor for errors in real time",
+                "Search the ticketing system for the previous backup failure incident",
+                "Configure backup alerting to notify the DBA team on job failure or missing backup files",
+                "Validate that the restored backups are functional by performing a test restore",
+            ],
+        ],
+    )
+)

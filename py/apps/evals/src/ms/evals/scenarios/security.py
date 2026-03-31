@@ -1344,3 +1344,212 @@ register(ScenarioTemplate(
         ],
     ],
 ))
+
+register(ScenarioTemplate(
+    scenario_id="sec-031",
+    category=Category.SECURITY,
+    priority=Priority.P2,
+    assigned_team=Team.SECOPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.AUTHENTICATION_METHOD, MissingInfo.SCREENSHOT_OR_ATTACHMENT],
+    subjects=[
+        "Suspicious OAuth consent grant — app requesting broad permissions",
+        "Unknown third-party app granted wide-scope OAuth permissions",
+        "OAuth consent prompt for unrecognized application",
+    ],
+    descriptions=[
+        "A user in the finance department accepted an OAuth consent prompt from an application "
+        "we don't recognize. The app requested Mail.ReadWrite, Files.ReadWrite.All, and "
+        "User.Read.All permissions on their Microsoft 365 account. We're not sure how the user "
+        "authenticated when granting consent — whether it was through SSO, password-only, or MFA. "
+        "No one took a screenshot of the consent screen before it was approved.",
+        "Entra ID audit logs show a new OAuth app was granted broad Graph API permissions by "
+        "someone in the accounting team. The app name looks plausible but isn't in our approved "
+        "application catalog. We need to determine what authentication method was used during the "
+        "consent flow and assess the scope of access. Unfortunately the user closed the consent "
+        "dialog and we have no screenshot of the permissions that were displayed.",
+    ],
+    next_best_actions=[
+        "Review the OAuth consent grant in Entra ID to identify the application and its "
+        "permissions. Determine the authentication method used during the consent flow.",
+    ],
+    remediation_steps=[
+        [
+            "Review the Entra ID enterprise application registrations for the suspicious app",
+            "Check audit logs to determine the authentication method used during consent",
+            "Capture screenshots of the app's current permissions and API access scope",
+            "Revoke the OAuth consent grant if the application is not recognized or approved",
+            "Notify the user and their manager about the potential risk",
+            "Block future consent grants for unverified apps via admin consent workflow",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="sec-032",
+    category=Category.SECURITY,
+    priority=Priority.P3,
+    assigned_team=Team.SECOPS,
+    needs_escalation=False,
+    missing_information=[
+        MissingInfo.PREVIOUS_TICKET_ID,
+        MissingInfo.SCREENSHOT_OR_ATTACHMENT,
+        MissingInfo.REPRODUCTION_FREQUENCY,
+    ],
+    subjects=[
+        "DLP policy false positives keep triggering on the same document",
+        "Recurring DLP false positive — previously reported and unresolved",
+        "Repeated DLP policy match on compliant document",
+    ],
+    descriptions=[
+        "Our Data Loss Prevention policy keeps flagging a quarterly compliance report that "
+        "contains sample credit card number formats used for training purposes. We reported this "
+        "as a false positive before, but I can't find the original ticket ID. The document is "
+        "flagged every time someone opens or shares it, but I'm not sure exactly how often — "
+        "maybe twice a week. I didn't capture a screenshot of the latest policy match notification.",
+        "Purview DLP rules are repeatedly matching on a template document in our legal team's "
+        "SharePoint library. The document contains redacted PII examples that aren't real data. "
+        "We submitted a ticket about this months ago and were told it would be tuned, but the "
+        "alerts are still coming. I don't have the previous ticket reference or a screenshot of "
+        "the current alert. It seems to happen whenever the file is accessed but I haven't "
+        "tracked the exact frequency.",
+    ],
+    next_best_actions=[
+        "Locate the previous false positive ticket and review the DLP policy rule that is "
+        "triggering. Capture the current match details to assess whether a policy exception is needed.",
+    ],
+    remediation_steps=[
+        [
+            "Search the ticketing system for previous DLP false positive reports for this document",
+            "Capture a screenshot of the current DLP policy match details in Purview",
+            "Review the specific DLP rule and sensitive information type that is triggering",
+            "Create a policy exception or custom sensitive information type to exclude the document",
+            "Test the updated policy to confirm the false positive no longer triggers",
+            "Document the exception and link it to both the old and new tickets",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="sec-033",
+    category=Category.SECURITY,
+    priority=Priority.P3,
+    assigned_team=Team.SECOPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.CONTACT_INFO, MissingInfo.PREVIOUS_TICKET_ID],
+    subjects=[
+        "Vendor requesting access audit report for annual review",
+        "Third-party vendor needs security access audit documentation",
+        "External auditor requesting user access report",
+    ],
+    descriptions=[
+        "Our third-party payment processing vendor, TrustPay Solutions, is requesting an access "
+        "audit report as part of their annual security review. They need a list of all Contoso "
+        "employees who have access to the payment gateway integration. I don't have a direct "
+        "contact at TrustPay to confirm the scope of what they need — the request came through "
+        "a generic email. There was a similar request last year and a report was generated, but "
+        "I can't locate that ticket for reference.",
+        "A vendor we use for cloud infrastructure management is asking for an audit of who at "
+        "Contoso has administrative access to their platform. This is part of their SOC 2 "
+        "compliance process. The request came through our procurement team and I don't have the "
+        "vendor's security contact details to clarify requirements. We fulfilled a similar "
+        "request previously but the ticket ID from that engagement is unknown.",
+    ],
+    next_best_actions=[
+        "Obtain the vendor's direct security contact to confirm the audit scope. Locate the "
+        "previous audit ticket for reference on format and scope.",
+    ],
+    remediation_steps=[
+        [
+            "Contact procurement or vendor management to obtain the vendor's security team contact",
+            "Confirm the exact scope and format requirements for the access audit report",
+            "Search the ticketing system for prior audit requests from the same vendor",
+            "Generate the access report from Entra ID or the relevant access management system",
+            "Review the report with the security team before sharing externally",
+            "Send the report through a secure channel and document the disclosure",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="sec-034",
+    category=Category.SECURITY,
+    priority=Priority.P2,
+    assigned_team=Team.SECOPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.REPRODUCTION_FREQUENCY, MissingInfo.APPLICATION_VERSION],
+    subjects=[
+        "Endpoint detection blocking legitimate admin tool intermittently",
+        "Defender for Endpoint false positive on IT admin utility",
+        "EDR keeps quarantining approved sysadmin tool",
+    ],
+    descriptions=[
+        "Microsoft Defender for Endpoint is intermittently blocking PsExec, which our IT team "
+        "uses for legitimate remote administration tasks. The tool is on our approved software "
+        "list but Defender flags it as a potential threat roughly every few days — though I "
+        "haven't tracked exactly how often. I'm not sure which version of PsExec the team is "
+        "currently running. When it gets blocked, the admin has to manually allow it each time, "
+        "which disrupts urgent maintenance windows.",
+        "Our endpoint detection is quarantining an approved network diagnostic tool used by the "
+        "infrastructure team. The blocks seem to come and go — sometimes it works fine for days, "
+        "then suddenly gets flagged again. We don't know the exact version of the tool deployed "
+        "across all endpoints. This is causing delays in incident response because engineers "
+        "can't rely on having the tool available when they need it.",
+    ],
+    next_best_actions=[
+        "Identify the exact application version being flagged and create a Defender for Endpoint "
+        "indicator or exclusion policy for the approved tool.",
+    ],
+    remediation_steps=[
+        [
+            "Check Defender for Endpoint alerts to identify the specific detection name and threat classification",
+            "Determine the exact version of the tool installed on affected endpoints",
+            "Verify the tool is on the approved software list and the hash matches the approved version",
+            "Create a custom indicator or exclusion in Defender for Endpoint for the approved binary",
+            "Track the reproduction frequency over the next week to confirm the exclusion is effective",
+            "Document the exclusion with business justification for audit purposes",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="sec-035",
+    category=Category.SECURITY,
+    priority=Priority.P2,
+    assigned_team=Team.SECOPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.AUTHENTICATION_METHOD, MissingInfo.CONTACT_INFO, MissingInfo.DEVICE_INFO],
+    subjects=[
+        "USB device policy exception request for hardware security key",
+        "Need USB exception for FIDO2 security key — blocked by endpoint policy",
+        "Hardware security key blocked by USB restriction policy",
+    ],
+    descriptions=[
+        "Our USB device restriction policy is blocking a hardware security key that an employee "
+        "needs for authenticating to a partner organization's VPN. The employee says it's a FIDO2 "
+        "key but couldn't provide the exact make, model, or device ID. We're not sure what "
+        "authentication method the partner's system requires — it could be FIDO2, PIV, or OTP. "
+        "The employee's direct contact number is missing from the directory, and we need to "
+        "reach them to get the device details for the exception request.",
+        "A senior engineer is requesting a USB device policy exception so they can use a hardware "
+        "security key for multi-factor authentication on a client-facing system. The endpoint "
+        "protection policy currently blocks all USB HID devices. We don't have details on the "
+        "specific key hardware — brand, model, or USB vendor ID. The engineer didn't specify "
+        "which authentication protocol the key uses, and their listed phone number is out of "
+        "date so we can't call them to clarify.",
+    ],
+    next_best_actions=[
+        "Contact the employee to obtain the security key device details and determine the "
+        "required authentication method. Create a scoped USB policy exception for the specific device.",
+    ],
+    remediation_steps=[
+        [
+            "Obtain the employee's current contact information through their manager or team lead",
+            "Collect the security key details: make, model, USB vendor ID, and supported protocols",
+            "Determine the authentication method required by the target system (FIDO2, PIV, or OTP)",
+            "Create a device-specific USB policy exception in the endpoint management console",
+            "Test the exception to confirm the security key functions without disabling broader USB controls",
+            "Document the exception with the employee's name, device details, and business justification",
+        ],
+    ],
+))

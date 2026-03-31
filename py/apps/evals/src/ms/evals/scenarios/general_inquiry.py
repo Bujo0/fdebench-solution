@@ -850,3 +850,453 @@ register(
         ],
     )
 )
+
+# ---------------------------------------------------------------------------
+# gi-021  Onboarding + offboarding in the same ticket
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="gi-021",
+        category=Category.GENERAL,
+        priority=Priority.P2,
+        assigned_team=Team.IAM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.TIMESTAMP, MissingInfo.AFFECTED_SYSTEM],
+        subjects=[
+            "New hire replacing departing employee — need simultaneous setup and teardown",
+            "Employee transition: offboard John, onboard Jane on same day",
+            "Replacement hire — need accounts deprovisioned and provisioned together",
+        ],
+        descriptions=[
+            "We have an employee leaving on Friday and their replacement starting the same day. "
+            "I need the departing employee's accounts disabled, laptop wiped, and access revoked "
+            "across all systems (Azure AD, SAP, Salesforce, VPN). Simultaneously, the new hire "
+            "needs a laptop provisioned, accounts created in the same systems, and access to the "
+            "same shared mailbox and Teams channels. Can this be coordinated as one request?",
+            "Our team lead is departing and a new person is starting as a direct replacement. We "
+            "need to transfer ownership of several shared resources — a Teams channel, a SharePoint "
+            "site, and a shared mailbox — from the departing employee to the new hire. We also need "
+            "standard offboarding for the leaver and full onboarding for the joiner. The transition "
+            "date is next Monday.",
+        ],
+        next_best_actions=[
+            "Create linked onboarding and offboarding work items. Coordinate IAM, Endpoint, and "
+            "Enterprise Apps teams to execute both workflows on the transition date.",
+            "Gather details for both employees and initiate parallel onboarding/offboarding "
+            "checklists with a shared target date.",
+        ],
+        remediation_steps=[
+            [
+                "Confirm transition date and gather details for both employees",
+                "Initiate offboarding checklist: disable accounts, revoke access, schedule laptop wipe",
+                "Initiate onboarding checklist: create accounts, provision laptop, assign licenses",
+                "Transfer ownership of shared resources (mailbox, Teams, SharePoint) to new hire",
+                "Coordinate with IAM, Endpoint, and Enterprise Apps for same-day execution",
+                "Verify both workflows completed successfully on transition date",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# gi-022  IT policy question hinting at a real issue
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="gi-022",
+        category=Category.GENERAL,
+        priority=Priority.P3,
+        assigned_team=Team.NONE,
+        needs_escalation=False,
+        missing_information=[MissingInfo.BUSINESS_IMPACT],
+        subjects=[
+            "Just curious — what happens if someone bypasses the DLP policy?",
+            "Hypothetical question about data loss prevention controls",
+            "Question about DLP enforcement gaps",
+        ],
+        descriptions=[
+            "I have a theoretical question. What happens if someone finds a way to move files "
+            "outside of our DLP-protected environment? Like, say they use a personal cloud storage "
+            "account or a USB drive that somehow isn't blocked? I'm asking because I want to "
+            "understand how robust our controls are. Not planning anything, just curious.",
+            "Hey, I noticed that our DLP policy blocks uploading to personal OneDrive, but what "
+            "about other cloud providers like Mega or WeTransfer? Has anyone tested whether those "
+            "are blocked too? Asking for awareness purposes — I want to make sure our sensitive "
+            "data is actually protected.",
+        ],
+        next_best_actions=[
+            "Treat as a genuine policy inquiry. Provide a general explanation of DLP coverage "
+            "without revealing specific control gaps. Optionally flag for security awareness.",
+            "Answer the policy question at a high level and note the inquiry for the security "
+            "team's awareness.",
+        ],
+        remediation_steps=[
+            [
+                "Provide a high-level explanation of DLP policy coverage",
+                "Avoid disclosing specific technical details of enforcement mechanisms",
+                "Note the inquiry in the ticket for security team visibility",
+                "If the user has a legitimate business need, direct them to the security team",
+                "Recommend the user complete the data handling awareness training",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# gi-023  Request in wrong language with broken English
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="gi-023",
+        category=Category.GENERAL,
+        priority=Priority.P3,
+        assigned_team=Team.NONE,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AFFECTED_SYSTEM, MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "コンピュータの問題 — computer problem please help",
+            "PC trouble — すみません、英語が苦手です",
+            "ヘルプ needed with laptop — sorry bad English",
+        ],
+        descriptions=[
+            "すみません、私のパソコンが動かなくなりました。朝から画面がフリーズしています。"
+            "Sorry, my computer is not working. Since morning the screen is... 止まっている... "
+            "frozen? I try restart but same problem. Blue screen sometimes appears with error code "
+            "but I cannot read it fast enough. 助けてください。 My employee ID is E-29471. I am in "
+            "Tokyo office, 3rd floor.",
+            "Hello, I am sorry for my English. 私のラップトップでOutlookが開けません。Error message "
+            "が出ますが、日本語で書いてあるのでスクリーンショットを送ります。I cannot open Outlook "
+            "since yesterday. パスワードは変えていません。Please help, I have important meeting today. "
+            "東京オフィスの田中です。",
+        ],
+        next_best_actions=[
+            "Acknowledge the request and respond in both English and Japanese if possible. "
+            "Gather device details and the specific error message via screenshot.",
+            "Route to a support agent with Japanese language capability or use translation "
+            "services. Collect device info and error details.",
+        ],
+        remediation_steps=[
+            [
+                "Acknowledge the ticket and respond bilingually if possible",
+                "Request a screenshot of any error messages",
+                "Gather device model, OS version, and employee ID for lookup",
+                "If language barrier persists, engage a Japanese-speaking support agent",
+                "Troubleshoot the reported issue once details are clarified",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# gi-024  Ticket referencing multiple prior unresolved tickets
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="gi-024",
+        category=Category.GENERAL,
+        priority=Priority.P2,
+        assigned_team=Team.NONE,
+        needs_escalation=True,
+        missing_information=[MissingInfo.AFFECTED_SYSTEM, MissingInfo.STEPS_TO_REPRODUCE],
+        subjects=[
+            "FIFTH time reporting this — INC-1234, INC-2345, INC-3456, INC-4567, INC-5678",
+            "Repeated issue — none of my previous 5 tickets were resolved",
+            "Ongoing unresolved problem — ticket history inside",
+        ],
+        descriptions=[
+            "I've reported this issue 5 times now and it's still not fixed. Here are my previous "
+            "tickets: INC-1234, INC-2345, INC-3456, INC-4567, and INC-5678. Each time I'm told "
+            "it's resolved but the problem comes back within a week. I'm beyond frustrated. "
+            "Somebody needs to actually look at the root cause instead of applying band-aid fixes. "
+            "My manager is aware and is ready to escalate to the CIO if this isn't handled properly.",
+            "This is my SIXTH ticket for the same problem. Previous tickets: INC-1234, INC-2345, "
+            "INC-3456, INC-4567, INC-5678. Every single one was closed as 'resolved' but nothing "
+            "was actually fixed. I keep losing access to the shared drive every few days and have "
+            "to call in each time. I've wasted hours on this. Please don't just reset my permissions "
+            "again — find out WHY this keeps happening.",
+        ],
+        next_best_actions=[
+            "Review all referenced tickets to identify the recurring pattern. Escalate for root "
+            "cause analysis rather than applying another temporary fix.",
+            "Consolidate the ticket history, identify the common failure pattern, and assign to "
+            "a senior engineer for root cause investigation.",
+        ],
+        remediation_steps=[
+            [
+                "Pull up all referenced tickets (INC-1234 through INC-5678) and review resolution notes",
+                "Identify the common pattern — what was fixed each time and why it recurred",
+                "Escalate to a senior engineer or team lead for root cause analysis",
+                "Apply a permanent fix rather than a temporary workaround",
+                "Follow up with the user after 1 week and 1 month to confirm stability",
+                "Update the knowledge base if the root cause reveals a systemic issue",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# gi-025  Intern asking about everything at once
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="gi-025",
+        category=Category.GENERAL,
+        priority=Priority.P4,
+        assigned_team=Team.NONE,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.CONTACT_INFO],
+        subjects=[
+            "New intern — how does ANYTHING work here?",
+            "First day questions: WiFi, email, software, badge, everything",
+            "Hi! I'm new and I need help with literally everything",
+        ],
+        descriptions=[
+            "Hi! I'm a new intern starting today and I have no idea how anything works. How do I "
+            "connect to WiFi? How do I set up my email on my phone? Where do I go to install "
+            "software like VS Code and Python? Also, how do I get a badge for building access? "
+            "And where's the cafeteria? Sorry for all the questions — nobody gave me an onboarding "
+            "guide and my manager is out today.",
+            "Hello, I'm a summer intern and today is my first day. I have a laptop but I can't "
+            "figure out how to get on the network. I also need to set up Teams, Outlook, and some "
+            "development tools. Is there a guide or someone who can walk me through everything? "
+            "I tried asking around but everyone seems busy. Also, do I need a VPN to work from "
+            "home? And how do I book a desk?",
+        ],
+        next_best_actions=[
+            "Provide the standard new-hire onboarding guide covering WiFi, email, software, "
+            "badge access, and common resources. Offer to schedule a walkthrough.",
+            "Share the intern onboarding checklist and IT self-service portal link. Address "
+            "the most urgent needs (WiFi, email) first.",
+        ],
+        remediation_steps=[
+            [
+                "Share the new-hire IT onboarding guide and self-service portal link",
+                "Help connect to corporate WiFi (provide SSID and auth instructions)",
+                "Walk through email setup on mobile and desktop",
+                "Provide the software request process for development tools",
+                "Direct to facilities for badge and building access questions",
+                "Offer a follow-up session if the intern has more questions",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# gi-026  New employee asking about VPN setup process
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="gi-026",
+        category=Category.GENERAL,
+        priority=Priority.P4,
+        assigned_team=Team.NONE,
+        needs_escalation=False,
+        missing_information=[MissingInfo.CONTACT_INFO, MissingInfo.PREVIOUS_TICKET_ID],
+        subjects=[
+            "How do I set up VPN access?",
+            "New hire — need help getting VPN configured",
+            "VPN setup process for new employees",
+        ],
+        descriptions=[
+            "Hi there, I just started last Monday and I need to set up VPN so I can work from home "
+            "on Fridays. My manager mentioned there's a specific client I need to install and some "
+            "certificates to configure, but I'm not sure where to start. I don't have any previous "
+            "tickets open for this. Could someone walk me through the process?",
+            "Hello, I'm a new employee in the marketing department and I was told I need VPN access "
+            "for remote work days. I tried searching the intranet but the articles I found seem "
+            "outdated. Is there a current guide or can someone help me get set up? I'm not sure who "
+            "my IT contact is yet since I just joined.",
+        ],
+        next_best_actions=[
+            "Provide the VPN setup guide for the user's operating system and confirm the correct "
+            "VPN client to download. Request employee contact details for follow-up.",
+            "Share the self-service VPN enrollment portal link and verify the user's remote access "
+            "entitlements in the directory.",
+        ],
+        remediation_steps=[
+            [
+                "Collect the employee's contact information and employee ID",
+                "Share the VPN setup knowledge base article for their OS",
+                "Walk through VPN client installation and certificate enrollment",
+                "Verify successful VPN connection and confirm remote access works",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# gi-027  IT asset return process for departing employee
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="gi-027",
+        category=Category.GENERAL,
+        priority=Priority.P4,
+        assigned_team=Team.NONE,
+        needs_escalation=False,
+        missing_information=[MissingInfo.SCREENSHOT_OR_ATTACHMENT, MissingInfo.CONTACT_INFO],
+        subjects=[
+            "How do I return IT assets before my last day?",
+            "Departing employee — asset return process question",
+            "IT equipment return for offboarding",
+        ],
+        descriptions=[
+            "Hi, my last day is next Friday and I need to return my laptop, monitor, keyboard, and "
+            "docking station. I pulled up my asset list in the self-service portal but I'm not sure "
+            "if it's complete — I think I also have a spare mouse somewhere. What's the process for "
+            "returning everything? Do I ship it or drop it off somewhere? I tried attaching a "
+            "screenshot of my asset list but the upload didn't seem to work.",
+            "Hello, I'm leaving the company at the end of the month and my manager said I need to "
+            "coordinate IT asset returns with your team. I have a laptop, two monitors, and some "
+            "peripherals. Where should I bring them and is there a checklist I should follow? I'd "
+            "like to make sure I don't miss anything so it doesn't delay my offboarding.",
+        ],
+        next_best_actions=[
+            "Provide the IT asset return checklist and schedule a drop-off or shipping label. "
+            "Request a screenshot of the employee's current asset inventory for reconciliation.",
+            "Share the offboarding asset return guide and confirm the list of assets assigned "
+            "to the employee in the asset management system.",
+        ],
+        remediation_steps=[
+            [
+                "Request the employee's contact information and last working date",
+                "Ask for a screenshot of their asset list from the self-service portal",
+                "Provide the asset return checklist and drop-off or shipping instructions",
+                "Coordinate with the offboarding team to confirm all assets are accounted for",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# gi-028  Which authentication methods are supported for remote access?
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="gi-028",
+        category=Category.GENERAL,
+        priority=Priority.P4,
+        assigned_team=Team.NONE,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AUTHENTICATION_METHOD, MissingInfo.DEVICE_INFO],
+        subjects=[
+            "What authentication methods are supported for remote access?",
+            "Question about MFA options for VPN and remote login",
+            "Supported auth methods for working remotely",
+        ],
+        descriptions=[
+            "I'm trying to understand which authentication methods are supported for remote access "
+            "to company systems. I currently use a password plus SMS codes but I heard we're moving "
+            "to authenticator apps or hardware keys. Can someone clarify what options are available "
+            "and whether I need to re-enroll? I'm not sure if it matters what device I'm using.",
+            "Quick question — I want to switch from SMS-based two-factor to something more secure "
+            "for remote access. Does the company support FIDO2 security keys or just the "
+            "authenticator app? I work from both a Windows laptop and a Mac and I want to make sure "
+            "whatever I pick works on both. Where can I find the official list of supported methods?",
+        ],
+        next_best_actions=[
+            "Provide the list of supported authentication methods for remote access and link to "
+            "the MFA enrollment portal. Ask which device the user connects from.",
+            "Share the remote access authentication policy document and guide the user through "
+            "enrolling in their preferred MFA method.",
+        ],
+        remediation_steps=[
+            [
+                "Ask the user which device(s) they use for remote access",
+                "Provide the supported authentication methods documentation",
+                "Guide the user to the MFA enrollment or re-enrollment portal",
+                "Confirm the new authentication method works on their device(s)",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# gi-029  Software request process — intermittent portal access
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="gi-029",
+        category=Category.GENERAL,
+        priority=Priority.P3,
+        assigned_team=Team.NONE,
+        needs_escalation=False,
+        missing_information=[MissingInfo.REPRODUCTION_FREQUENCY, MissingInfo.SCREENSHOT_OR_ATTACHMENT],
+        subjects=[
+            "How do I request new software? Portal seems flaky",
+            "Software request process — portal keeps timing out",
+            "Need to install licensed software but request portal is unreliable",
+        ],
+        descriptions=[
+            "Hi, I need to request a license for Adobe Creative Cloud for a design project. I know "
+            "there's a self-service portal for software requests but every time I try to load it, "
+            "the page either times out or shows a blank screen. It's been happening on and off for "
+            "the past two days. Can someone tell me the correct process and maybe submit the request "
+            "on my behalf? I tried to screenshot the error but it's intermittent.",
+            "Hello, my team needs access to Tableau Desktop and I was told to use the software "
+            "request portal. The portal loads sometimes but other times it just hangs on a spinner. "
+            "I'm not sure if it's a browser issue or something on the server side. Could you let me "
+            "know the steps for requesting software and whether there's an alternative way to submit "
+            "if the portal is down?",
+        ],
+        next_best_actions=[
+            "Provide the software request process documentation and offer to submit the request "
+            "on the user's behalf. Ask how frequently the portal issue occurs.",
+            "Share the alternative software request method (email or form) and log the portal "
+            "intermittent access issue for investigation.",
+        ],
+        remediation_steps=[
+            [
+                "Ask the user how often the portal issue occurs and for a screenshot if possible",
+                "Provide the software request process steps and any alternative submission methods",
+                "Submit or assist with the software request if the portal is unavailable",
+                "Log the portal reliability issue for the web services team to investigate",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# gi-030  Follow-up on training session enrollment
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="gi-030",
+        category=Category.GENERAL,
+        priority=Priority.P4,
+        assigned_team=Team.NONE,
+        needs_escalation=False,
+        missing_information=[MissingInfo.PREVIOUS_TICKET_ID, MissingInfo.CONTACT_INFO],
+        subjects=[
+            "Follow-up: training session enrollment status",
+            "Checking on my training enrollment request",
+            "Any update on the IT security training I signed up for?",
+        ],
+        descriptions=[
+            "Hi, I submitted a request a couple of weeks ago to enroll in the advanced IT security "
+            "training session that's scheduled for next month. I never received a confirmation email "
+            "and I'm not sure if my spot was reserved. I don't remember the ticket number "
+            "unfortunately. Could someone look into this for me? My manager approved it verbally "
+            "but I'm not sure the approval was recorded anywhere.",
+            "Hello, I'm following up on a training enrollment I requested recently — I think it was "
+            "the cloud administration certification course. I got an auto-reply saying the request "
+            "was received but nothing since then. I want to make sure I'm still on the list because "
+            "the class has limited seats. I can't find the original ticket ID. Can you check the "
+            "status using my name or email?",
+        ],
+        next_best_actions=[
+            "Look up the user's previous training enrollment request by name or email and provide "
+            "a status update. Confirm contact details for follow-up.",
+            "Search for the original ticket in the system and verify enrollment status. Ask the "
+            "user for any reference details they may have.",
+        ],
+        remediation_steps=[
+            [
+                "Ask the user for their name, email, or any reference details from the original request",
+                "Search the ticketing system for the previous training enrollment request",
+                "Provide the enrollment status and confirmation details",
+                "Update the user's contact information if needed for future notifications",
+            ],
+        ],
+    )
+)
