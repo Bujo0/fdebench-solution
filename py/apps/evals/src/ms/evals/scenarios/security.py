@@ -1136,3 +1136,211 @@ register(ScenarioTemplate(
         ],
     ],
 ))
+
+register(ScenarioTemplate(
+    scenario_id="sec-026",
+    category=Category.SECURITY,
+    priority=Priority.P2,
+    assigned_team=Team.SECOPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.PREVIOUS_TICKET_ID, MissingInfo.SCREENSHOT_OR_ATTACHMENT],
+    subjects=[
+        "Same user targeted by phishing AGAIN — third time this quarter",
+        "Recurring phishing attempts on one employee — prior incidents on file",
+        "Repeat phishing targeting — this has happened before",
+    ],
+    descriptions=[
+        "One of our senior advisors is being targeted by phishing emails again. This is at least "
+        "the third time this quarter. We had incidents reported previously where they received "
+        "highly targeted spear-phishing emails impersonating our CEO and a major client. The "
+        "advisor didn't save the previous ticket numbers but says IT handled them each time. This "
+        "latest email claims to be from our custodian bank requesting wire transfer confirmation. "
+        "The advisor deleted the email before forwarding it or taking a screenshot.",
+        "We're seeing another phishing campaign targeting the same group in the trading division. "
+        "The SOC handled similar incidents in the past but I don't have the previous incident "
+        "references. This time the phishing email had a QR code leading to a credential "
+        "harvesting page. Unfortunately, the user clicked 'Report Phishing' in Outlook which "
+        "removed the email before we could capture a screenshot of the content.",
+    ],
+    next_best_actions=[
+        "Search for previous phishing incidents involving this user to establish a pattern. "
+        "Recover the email from quarantine or message trace and analyze the threat.",
+    ],
+    remediation_steps=[
+        [
+            "Search the ticketing system for prior phishing incidents involving the same user",
+            "Recover the deleted or reported email from the quarantine or admin message trace",
+            "Analyze the email headers, sender, and any URLs or attachments",
+            "Check if the user clicked any links or entered credentials — reset password if so",
+            "Block the sender domain and phishing URLs at the email gateway",
+            "Escalate to the threat intelligence team if this is a persistent targeted campaign",
+            "Consider additional protection for the user (VIP mailbox monitoring, stricter filtering)",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="sec-027",
+    category=Category.SECURITY,
+    priority=Priority.P1,
+    assigned_team=Team.SECOPS,
+    needs_escalation=True,
+    missing_information=[MissingInfo.AUTHENTICATION_METHOD, MissingInfo.TIMESTAMP],
+    subjects=[
+        "MFA bypass attempt detected on executive account",
+        "Alert: possible MFA bypass — suspicious sign-in succeeded",
+        "Authentication anomaly — MFA challenge may have been bypassed",
+    ],
+    descriptions=[
+        "Entra ID Protection flagged a sign-in to an executive's account that appears to have "
+        "bypassed MFA. The sign-in was marked as satisfied for MFA but the user says they didn't "
+        "approve any MFA prompt at that time. We're not sure what MFA method the executive has "
+        "registered — it could be push notification, phone call, or a hardware token. The alert "
+        "doesn't specify the exact time clearly, just 'early this morning.'",
+        "A suspicious successful authentication was detected on a senior VP's account from an "
+        "unusual location. The sign-in log shows MFA was completed but the user denies approving "
+        "anything. We need to determine which MFA method was used to complete the challenge and "
+        "whether it was a token theft, session hijack, or MFA fatigue attack. The exact timestamp "
+        "is unclear from the initial alert.",
+    ],
+    next_best_actions=[
+        "Immediately revoke all sessions for the affected account. Identify the MFA method used "
+        "and the exact sign-in time from Entra ID logs to determine if this was a legitimate bypass.",
+    ],
+    remediation_steps=[
+        [
+            "Revoke all refresh tokens and active sessions for the affected account immediately",
+            "Pull the detailed sign-in log from Entra ID to identify the exact timestamp and MFA method",
+            "Determine if the MFA challenge was satisfied via push approval, phone call, TOTP, or FIDO2",
+            "Check for MFA fatigue patterns (repeated push notifications followed by an approval)",
+            "Review conditional access policy evaluation for the sign-in event",
+            "If compromise is confirmed, reset the user's password and re-register MFA methods",
+            "Enable number matching and additional context for MFA push notifications",
+            "Brief the executive on the incident and monitor for further anomalous activity",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="sec-028",
+    category=Category.SECURITY,
+    priority=Priority.P2,
+    assigned_team=Team.SECOPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.SCREENSHOT_OR_ATTACHMENT, MissingInfo.PREVIOUS_TICKET_ID],
+    subjects=[
+        "Suspicious login alert keeps recurring — same pattern as before",
+        "Repeated impossible-travel alert — saw this last month too",
+        "Another suspicious activity alert on the same account",
+    ],
+    descriptions=[
+        "I'm getting impossible-travel alerts for the same user account again. This happened last "
+        "month and we investigated it — turned out to be a VPN issue. But I don't have the "
+        "previous incident ID to reference. The alert is showing logins from New York and "
+        "Singapore within 10 minutes. I dismissed the alert in the portal before taking a "
+        "screenshot of the details, so I don't have the full alert data anymore.",
+        "Defender for Identity keeps flagging suspicious lateral movement from the same service "
+        "account we investigated before. There was a prior security incident ticket for this "
+        "but I can't find the reference number. The alert dashboard shows a red indicator but "
+        "I didn't capture the alert details before the system auto-resolved it. We need to "
+        "determine if this is the same false positive or a new genuine threat.",
+    ],
+    next_best_actions=[
+        "Retrieve the alert details from the Defender portal's history. Search for prior "
+        "incident tickets to determine if this is a known false positive or a new threat.",
+    ],
+    remediation_steps=[
+        [
+            "Retrieve the full alert details from the Defender portal's alert history or API",
+            "Search the ticketing system for previous incidents involving the same account",
+            "Compare the current alert indicators with the prior incident's root cause",
+            "If it matches the prior false positive, create a suppression rule with documentation",
+            "If the pattern differs, investigate as a new potential compromise",
+            "Document the alert with full details and link to any prior incident tickets",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="sec-029",
+    category=Category.SECURITY,
+    priority=Priority.P1,
+    assigned_team=Team.SECOPS,
+    needs_escalation=True,
+    missing_information=[MissingInfo.AUTHENTICATION_METHOD, MissingInfo.CONTACT_INFO],
+    subjects=[
+        "Security key may be compromised — user unsure which type",
+        "Lost or stolen hardware security key — potential credential compromise",
+        "Employee's authentication device possibly stolen",
+    ],
+    descriptions=[
+        "An employee reports that their security key may have been stolen from their bag during "
+        "their commute. They're not sure exactly what kind of key it is — they think it's a "
+        "YubiKey but it might be a different brand. They use it for logging into everything. "
+        "The employee called from a colleague's phone and didn't leave a direct number — they "
+        "said they'd try to come to the IT desk but they're not sure when. We need to disable "
+        "the key immediately.",
+        "A manager reported that one of their team members lost their hardware authentication "
+        "device. The manager isn't sure what type it is — FIDO2, smart card, or something else. "
+        "The affected employee is currently traveling and unreachable by phone. The manager "
+        "doesn't have the employee's current contact information since they're overseas. We need "
+        "to secure the account as a precaution.",
+    ],
+    next_best_actions=[
+        "Immediately disable all hardware security key credentials for the user in Entra ID. "
+        "Obtain contact details to reach the affected employee for verification.",
+    ],
+    remediation_steps=[
+        [
+            "Look up the user's registered authentication methods in Entra ID to identify the key type",
+            "Immediately disable or remove the FIDO2 security key registration from the account",
+            "Revoke all active sessions and refresh tokens for the user",
+            "Obtain the user's current contact information through their manager or HR",
+            "Contact the user to verify the report and assess whether the key was used after loss",
+            "Issue a temporary authentication method until a replacement security key is provisioned",
+            "Review sign-in logs for any suspicious authentications using the lost key",
+            "Order and provision a replacement security key for the user",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="sec-030",
+    category=Category.SECURITY,
+    priority=Priority.P2,
+    assigned_team=Team.SECOPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.PREVIOUS_TICKET_ID, MissingInfo.CONTACT_INFO],
+    subjects=[
+        "DLP violation by the same user again — prior incident exists",
+        "Repeat DLP policy violation — second occurrence this quarter",
+        "Another data loss prevention trigger from same department",
+    ],
+    descriptions=[
+        "We have another DLP policy violation from the same employee who triggered one last month. "
+        "They attempted to upload client financial data to a personal cloud storage service. There "
+        "was a previous incident and I believe the user was given a warning, but I don't have the "
+        "prior ticket number. The user's manager needs to be notified but the manager recently "
+        "changed and I don't have the new manager's contact details.",
+        "A DLP alert fired for an employee trying to email a spreadsheet with client SSNs to a "
+        "personal Gmail address. Purview shows this is the same type of violation we dealt with "
+        "previously for this user — they were supposed to complete remedial training after the "
+        "last incident. I can't find the original ticket reference and the employee's listed "
+        "manager in the directory left the company last week, so I don't know who to escalate to.",
+    ],
+    next_best_actions=[
+        "Block the data transfer and locate the previous DLP incident for this user. Identify "
+        "the user's current manager through HR for escalation of a repeat violation.",
+    ],
+    remediation_steps=[
+        [
+            "Verify the DLP policy blocked the data transfer successfully",
+            "Search the ticketing system for the user's prior DLP violation tickets",
+            "Identify the user's current manager through HR or the corporate directory",
+            "Notify the current manager about the repeat DLP violation",
+            "Review whether the user completed the required remedial training from the prior incident",
+            "If this is a second violation, escalate per the data handling policy (formal warning or HR action)",
+            "Document the incident with references to all prior violations",
+        ],
+    ],
+))

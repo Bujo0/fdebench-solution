@@ -1338,3 +1338,242 @@ register(
         ],
     )
 )
+
+# ---------------------------------------------------------------------------
+# hw-026  Laptop screen cracked — no photo evidence
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="hw-026",
+        category=Category.HARDWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.SCREENSHOT_OR_ATTACHMENT,
+            MissingInfo.DEVICE_INFO,
+        ],
+        subjects=[
+            "Laptop screen is cracked — need a replacement",
+            "Display cracked on my work laptop — can't use it",
+            "Broken laptop screen — requesting repair or replacement",
+        ],
+        descriptions=[
+            "My laptop screen is cracked. I think it happened in my bag during my commute. The "
+            "display has a big spiderweb crack on the right side and part of the screen is black. "
+            "I can still see about half the screen but it's unusable for real work. I don't have "
+            "a photo of the damage — I'm submitting this from my phone. I'm in the London office, "
+            "Operations team, and I need a working machine urgently.",
+            "The screen on my laptop is shattered. I opened it this morning and it was already "
+            "cracked — not sure what happened. I can barely make out anything on the display. "
+            "I didn't take a picture because I figured you'd just need my asset tag, but I don't "
+            "know my asset tag either. Can someone come look at it?",
+        ],
+        next_best_actions=[
+            "Request a photo of the damage for the warranty or insurance claim. Identify the "
+            "device model and asset tag, then issue a loaner while the screen is repaired.",
+        ],
+        remediation_steps=[
+            [
+                "Ask the user to take a photo of the screen damage and attach it to the ticket",
+                "Identify the device model and asset tag from the CMDB or device label",
+                "Issue a loaner laptop from the local spare pool",
+                "Submit the damaged laptop for screen repair under warranty or accidental damage coverage",
+                "Migrate the user's profile to the loaner via Autopilot and OneDrive",
+                "Track the repair and swap back once the original device is fixed",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# hw-027  Repeat hardware failure — prior ticket reference
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="hw-027",
+        category=Category.HARDWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.PREVIOUS_TICKET_ID,
+            MissingInfo.DEVICE_INFO,
+        ],
+        subjects=[
+            "Same laptop issue AGAIN — this was supposedly fixed last month",
+            "Repeat hardware failure — third time reporting this",
+            "Laptop overheating problem is back — had a ticket for this before",
+        ],
+        descriptions=[
+            "My laptop is overheating and shutting down randomly again. This is the same problem "
+            "I reported before — IT replaced the thermal paste and cleaned the fans last time, "
+            "but the issue is back after just three weeks. I don't have the old ticket number "
+            "handy. The laptop gets extremely hot on the bottom and then just shuts off without "
+            "warning. I'm losing unsaved work every time. NYC office, Risk team.",
+            "This is the third time I'm reporting the same issue. My laptop randomly freezes and "
+            "then blue-screens. It was sent for repair twice already. I know there are previous "
+            "tickets but I didn't save the numbers. At this point I think the machine needs to be "
+            "fully replaced rather than repaired again.",
+        ],
+        next_best_actions=[
+            "Search for the user's previous hardware tickets to review repair history. If the "
+            "device has had multiple failures, escalate for a full replacement.",
+        ],
+        remediation_steps=[
+            [
+                "Search the ticketing system for the user's previous hardware repair tickets",
+                "Review the device's repair history in the CMDB or asset management system",
+                "If the device has had three or more repairs, process a full replacement",
+                "Issue a loaner immediately to minimize productivity loss",
+                "Decommission the repeatedly failing device and update asset records",
+                "Provision a new laptop and migrate the user's profile",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# hw-028  Remote worker equipment broken — no callback info
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="hw-028",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.CONTACT_INFO,
+            MissingInfo.DEVICE_INFO,
+        ],
+        subjects=[
+            "Remote worker keyboard and trackpad not working",
+            "Work-from-home setup broken — keyboard died",
+            "Home office equipment failure — need replacement shipped",
+        ],
+        descriptions=[
+            "I work from home full-time and my laptop keyboard just stopped working. Several keys "
+            "are unresponsive and the trackpad is glitchy. I'm typing this from an old personal "
+            "keyboard I found. I need a repair or replacement shipped to me but I realize you "
+            "might not have my current home address on file — I moved last month. I also don't "
+            "have a direct desk phone since I'm remote.",
+            "My company-issued monitor died — the screen just went black and won't turn back on. "
+            "I'm fully remote so I can't just walk up to the IT desk. I need a replacement "
+            "shipped but I'm not sure if my shipping address in the system is correct. I don't "
+            "have a good phone number for callbacks either since I mostly use Teams, which I "
+            "currently can't access without the second screen.",
+        ],
+        next_best_actions=[
+            "Verify the remote worker's current shipping address and preferred contact method. "
+            "Arrange equipment replacement via courier to their home office.",
+        ],
+        remediation_steps=[
+            [
+                "Contact the user via Teams or email to confirm their current mailing address",
+                "Verify the device model and warranty status from the CMDB",
+                "Ship a replacement device via next-day courier to the confirmed address",
+                "Provide remote setup instructions or schedule a remote support session",
+                "Arrange a return shipping label for the defective equipment",
+                "Update the user's contact and address records in the HR and IT systems",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# hw-029  Monitor color calibration off — no screenshot
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="hw-029",
+        category=Category.HARDWARE,
+        priority=Priority.P4,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.SCREENSHOT_OR_ATTACHMENT,
+            MissingInfo.ENVIRONMENT_DETAILS,
+        ],
+        subjects=[
+            "Monitor colors look completely wrong",
+            "External monitor has a yellow/green tint — display is off",
+            "Color calibration on my monitor is way off since this morning",
+        ],
+        descriptions=[
+            "My external monitor's colors are completely off. Everything has a yellowish-green "
+            "tint that makes it really hard to work with. Charts and reports look wrong and I "
+            "can't trust what I'm seeing on screen. I don't have a screenshot because a "
+            "screenshot wouldn't show the hardware color issue — it looks fine in the screenshot "
+            "but terrible on the physical screen. I'm in the Singapore office, Design team.",
+            "The monitor at my desk suddenly shifted to very warm, orangey tones. Whites look "
+            "yellow and blues look green. I work with financial dashboards and the color-coding "
+            "is meaningless now. I tried adjusting the monitor's on-screen settings but nothing "
+            "helped. I can't easily photograph it because the camera doesn't capture it well. "
+            "Not sure if it's the cable, the monitor, or a Windows setting.",
+        ],
+        next_best_actions=[
+            "Ask the user to take a phone photo of the monitor showing the color issue. Check "
+            "whether it's a hardware fault, a cable issue, or a Night Light / color profile setting.",
+        ],
+        remediation_steps=[
+            [
+                "Ask the user to capture a phone photo of the monitor to document the color shift",
+                "Check Windows display settings — verify Night Light and HDR are off",
+                "Reset the color profile to sRGB default in Display Settings > Color Management",
+                "Try a different display cable (HDMI, DisplayPort, or USB-C) to rule out cable faults",
+                "Test the monitor with another laptop to determine if the issue is monitor-specific",
+                "If the monitor is faulty, replace it from inventory and update asset records",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# hw-030  Second docking station failure — prior ticket reference
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="hw-030",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.PREVIOUS_TICKET_ID,
+            MissingInfo.SCREENSHOT_OR_ATTACHMENT,
+        ],
+        subjects=[
+            "Docking station failed again — same issue as before",
+            "Replacement dock also not working — this is the second one",
+            "Another docking station failure — had a ticket for the first one",
+        ],
+        descriptions=[
+            "The replacement docking station I received last month is now having the same issue as "
+            "the original one. It intermittently loses connection to my monitors and Ethernet — "
+            "everything flickers off for a few seconds and comes back. This happened with the "
+            "previous dock too and I had a ticket open for it, but I don't remember the ticket "
+            "number. I didn't capture a video of the flicker because it's unpredictable. London "
+            "office, Equities desk.",
+            "This is my second dock failure in two months. The first one was replaced after I "
+            "reported it but the new one is doing the exact same thing — random disconnects of "
+            "all peripherals. I think there might be a ticket from when the first dock was "
+            "replaced but I can't find the reference. It's hard to capture because it happens "
+            "randomly and only lasts a few seconds.",
+        ],
+        next_best_actions=[
+            "Look up the user's previous dock-related ticket to review the pattern. Investigate "
+            "whether the issue is the dock model, the laptop's Thunderbolt port, or a driver problem.",
+        ],
+        remediation_steps=[
+            [
+                "Search for the user's prior dock replacement ticket in the ticketing system",
+                "Compare the dock models from both failures to identify a pattern",
+                "Ask the user to capture a short video next time the flicker occurs",
+                "Test the laptop with a different dock model to rule out a laptop port issue",
+                "Update Thunderbolt and dock firmware to the latest versions",
+                "If the laptop port is suspected, schedule a hardware diagnostic",
+            ],
+        ],
+    )
+)

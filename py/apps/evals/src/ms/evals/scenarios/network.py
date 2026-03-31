@@ -1199,3 +1199,218 @@ register(ScenarioTemplate(
         ],
     ],
 ))
+
+# ---------------------------------------------------------------------------
+# net-026  Recurring VPN issue — references old ticket
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="net-026",
+    category=Category.NETWORK,
+    priority=Priority.P2,
+    assigned_team=Team.NETWORK,
+    needs_escalation=False,
+    missing_information=[MissingInfo.PREVIOUS_TICKET_ID, MissingInfo.SCREENSHOT_OR_ATTACHMENT],
+    subjects=[
+        "VPN dropping again — same issue as my previous ticket",
+        "VPN disconnects are back — this was fixed before but it's happening again",
+        "Recurring VPN timeout issue — had a ticket for this last quarter",
+    ],
+    descriptions=[
+        "My VPN keeps dropping every 30-45 minutes, which is exactly what was happening before. "
+        "IT fixed it last time — something about a split-tunnel configuration — but the issue has "
+        "come back. I don't have the old ticket number but it was sometime in February. I didn't "
+        "grab a screenshot of the VPN client error because it reconnects automatically and the "
+        "error disappears. London office, working from home today.",
+        "The VPN disconnect issue I reported months ago is back. I lose connectivity every hour "
+        "or so and have to manually reconnect. There was a previous ticket where the network team "
+        "adjusted something on the gateway, but I can't find the reference. The GlobalProtect "
+        "client just shows 'Reconnecting...' briefly but I haven't managed to capture the error "
+        "state in a screenshot.",
+    ],
+    next_best_actions=[
+        "Search for the user's previous VPN-related tickets to review the prior fix. Check VPN "
+        "gateway logs and client configuration for recurring timeout issues.",
+    ],
+    remediation_steps=[
+        [
+            "Search the ticketing system for the user's prior VPN disconnect tickets",
+            "Review the previous resolution to determine if the same fix needs to be reapplied",
+            "Check VPN gateway logs for the user's session disconnect patterns",
+            "Ask the user to export the GlobalProtect or VPN client log after the next disconnect",
+            "Reapply the configuration fix or implement a permanent solution",
+            "Monitor the user's VPN session stability for the next 48 hours",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# net-027  WiFi issue reported on behalf of someone else
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="net-027",
+    category=Category.NETWORK,
+    priority=Priority.P3,
+    assigned_team=Team.NETWORK,
+    needs_escalation=False,
+    missing_information=[MissingInfo.CONTACT_INFO, MissingInfo.NETWORK_LOCATION],
+    subjects=[
+        "Reporting WiFi issue for a colleague who can't submit a ticket",
+        "WiFi problem on behalf of another employee — they have no connectivity",
+        "Submitting for someone else — their WiFi is completely down",
+    ],
+    descriptions=[
+        "I'm submitting this on behalf of my colleague Sarah in the trading team. Her WiFi "
+        "dropped completely and she can't get online to submit a ticket herself. She's somewhere "
+        "on the trading floor but I'm not sure exactly which section or floor. I don't have her "
+        "direct extension or mobile number — I just saw her struggling and offered to report it. "
+        "She said her laptop can't see any WiFi networks at all.",
+        "Filing this for a contractor who started today — their laptop won't connect to WiFi and "
+        "they can't log in to submit a ticket. I don't have their phone number or employee ID. "
+        "I think they're sitting somewhere on Floor 8 but I'm not certain. They said they were "
+        "given a laptop but WiFi doesn't connect to any of our networks.",
+    ],
+    next_best_actions=[
+        "Obtain the affected user's direct contact information and exact location. Determine "
+        "whether the issue is device-specific or a broader WiFi coverage problem.",
+    ],
+    remediation_steps=[
+        [
+            "Get the affected user's name, employee ID, and direct contact details from the reporter",
+            "Identify the user's exact floor and desk location for WiFi coverage analysis",
+            "Check the wireless controller for the user's device MAC to see connection attempts",
+            "Verify the user's device has the correct WiFi profile and certificates",
+            "If the device is new, ensure it's been provisioned with the corporate WiFi configuration",
+            "Test WiFi connectivity on-site at the user's location with a reference device",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# net-028  Same DNS issue as last month — prior ticket reference
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="net-028",
+    category=Category.NETWORK,
+    priority=Priority.P2,
+    assigned_team=Team.NETWORK,
+    needs_escalation=False,
+    missing_information=[MissingInfo.PREVIOUS_TICKET_ID, MissingInfo.ERROR_MESSAGE],
+    subjects=[
+        "DNS resolution failing again — same issue as last month",
+        "Internal DNS not resolving — we had this exact problem before",
+        "DNS issue is back — thought this was permanently fixed",
+    ],
+    descriptions=[
+        "Internal DNS resolution is failing again for several of our application servers. This is "
+        "the same issue we had last month where internal hostnames wouldn't resolve but external "
+        "sites worked fine. The network team fixed it by flushing the DNS cache on the server "
+        "or something — I don't remember exactly. I can't find the old ticket number. The "
+        "applications just time out but I'm not sure what the exact DNS error message is because "
+        "the apps just show a generic 'connection failed' screen.",
+        "We're experiencing DNS failures again — nslookup for internal resources returns 'server "
+        "failed' intermittently. This happened before and there was a ticket about a DNS forwarder "
+        "misconfiguration. I don't have that ticket number. The error is inconsistent — sometimes "
+        "it resolves, sometimes it doesn't — so I haven't been able to capture the exact error "
+        "message reliably.",
+    ],
+    next_best_actions=[
+        "Search for prior DNS incident tickets and check DNS server health. Run diagnostic "
+        "queries to identify whether this is a forwarder, zone, or caching issue.",
+    ],
+    remediation_steps=[
+        [
+            "Search the ticketing system for prior DNS-related incidents and review the resolution",
+            "Check DNS server health and query response times from the affected subnet",
+            "Run nslookup and dig from affected clients to capture the exact error responses",
+            "Verify DNS forwarder configuration matches the last known-good state",
+            "Flush DNS caches on the DNS servers and affected clients",
+            "Monitor DNS resolution stability and set up an alert for future failures",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# net-029  Network latency — no traceroute screenshot
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="net-029",
+    category=Category.NETWORK,
+    priority=Priority.P3,
+    assigned_team=Team.NETWORK,
+    needs_escalation=False,
+    missing_information=[MissingInfo.SCREENSHOT_OR_ATTACHMENT, MissingInfo.REPRODUCTION_FREQUENCY],
+    subjects=[
+        "Terrible network latency to cloud applications",
+        "Everything is slow on the network — high latency suspected",
+        "Network lag making cloud apps unusable",
+    ],
+    descriptions=[
+        "I'm experiencing horrible latency to all our cloud applications — Salesforce, O365, and "
+        "our Azure-hosted internal tools are all painfully slow. Pages take 10-15 seconds to load. "
+        "I've been asked to run a traceroute but I'm not sure how and didn't manage to capture "
+        "any output to share. I'm in the Singapore office on the 12th floor. It's hard to say "
+        "how often it happens — sometimes it's fine, sometimes it's terrible.",
+        "Network latency is making it impossible to work. Teams calls are choppy, SharePoint takes "
+        "forever, and saving files to OneDrive times out frequently. I tried running a speed test "
+        "but closed the browser tab before saving the results. I don't know if this is constant or "
+        "only at certain times — it seems random. Several people near me are complaining too.",
+    ],
+    next_best_actions=[
+        "Guide the user through running a traceroute and speed test and have them share the "
+        "results. Check network monitoring for latency spikes on the user's subnet.",
+    ],
+    remediation_steps=[
+        [
+            "Walk the user through running tracert and a speed test, and have them save the output",
+            "Check network monitoring dashboards for latency anomalies on the user's floor/subnet",
+            "Verify the user's traffic path — is it going through the local internet breakout or backhauled",
+            "Check the proxy and firewall for bandwidth saturation or throttling",
+            "If the issue is intermittent, set up continuous monitoring on the user's subnet",
+            "Review QoS policies to ensure cloud application traffic is prioritized",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# net-030  VPN issue from hotel — no callback info
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="net-030",
+    category=Category.NETWORK,
+    priority=Priority.P2,
+    assigned_team=Team.NETWORK,
+    needs_escalation=False,
+    missing_information=[MissingInfo.CONTACT_INFO, MissingInfo.NETWORK_LOCATION],
+    subjects=[
+        "Can't connect to VPN from hotel — need urgent help",
+        "VPN blocked at hotel — no way to work remotely",
+        "Hotel WiFi blocking VPN — traveling for work and stuck",
+    ],
+    descriptions=[
+        "I'm traveling for work and the hotel WiFi is blocking our VPN. I can connect to the "
+        "hotel WiFi fine but GlobalProtect can't establish a tunnel — it just times out. I think "
+        "the hotel might be blocking certain ports. I have a critical client meeting first thing "
+        "tomorrow and need to access our systems tonight to prepare. I'm not sure what my hotel "
+        "room phone number is and my cell service is roaming with spotty coverage. Email is the "
+        "best way to reach me.",
+        "Stuck at a conference hotel and the VPN won't connect. I've tried both the lobby WiFi "
+        "and the in-room WiFi — neither works with our VPN. I need to finalize a presentation "
+        "that's on our internal SharePoint. I don't have a reliable phone number right now since "
+        "I'm overseas. I'm not sure exactly what network I'm on — the hotel has multiple SSIDs "
+        "and I've tried a few of them.",
+    ],
+    next_best_actions=[
+        "Obtain an alternate contact method for the user. Guide them to try the VPN on an "
+        "alternate port (TCP 443) or provide a web-based VPN portal as a fallback.",
+    ],
+    remediation_steps=[
+        [
+            "Get the user's current contact info (personal email, hotel front desk number, WhatsApp)",
+            "Determine the hotel name and location to check for known network restrictions",
+            "Instruct the user to try the VPN on TCP port 443 (SSL VPN mode) to bypass port blocks",
+            "If the VPN client fails, provide access to the web-based SSL VPN portal URL",
+            "As a fallback, suggest using a mobile hotspot from a personal phone if cellular works",
+            "If all else fails, enable a temporary conditional access exception for the user's account",
+        ],
+    ],
+))

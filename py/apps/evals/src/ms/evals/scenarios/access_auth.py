@@ -926,3 +926,200 @@ register(ScenarioTemplate(
         ],
     ],
 ))
+
+register(ScenarioTemplate(
+    scenario_id="aa-026",
+    category=Category.ACCESS_AUTH,
+    priority=Priority.P2,
+    assigned_team=Team.IAM,
+    needs_escalation=False,
+    missing_information=[MissingInfo.PREVIOUS_TICKET_ID, MissingInfo.AUTHENTICATION_METHOD],
+    subjects=[
+        "Login issue is back again — same problem as last time",
+        "Recurring authentication failure — had a ticket for this before",
+        "Same login error I reported last month — still not fixed",
+    ],
+    descriptions=[
+        "I'm getting the same login failure I reported a few weeks ago. IT fixed it last time but "
+        "the issue has come back. I can't remember the ticket number but it was sometime in March. "
+        "The login just spins and then times out. I'm not sure if it's my password, MFA, or "
+        "something else — I just know the sign-in page won't let me through. I'm in the London "
+        "office, Fixed Income team, and I have a client call in an hour.",
+        "This is the third time I've had this authentication issue. There's a previous ticket "
+        "somewhere in the system — the last tech said it was a known problem with my account. "
+        "I keep getting 'Authentication failed' but no details about what specifically is failing. "
+        "Can someone look up my history and figure out the root cause this time?",
+    ],
+    next_best_actions=[
+        "Search for the user's previous tickets to identify recurring patterns. Determine the "
+        "specific authentication method failing and apply a permanent fix.",
+    ],
+    remediation_steps=[
+        [
+            "Search the ticketing system for the user's prior authentication-related tickets",
+            "Review the previous resolution to identify if the same root cause has recurred",
+            "Check Entra ID sign-in logs to identify the specific authentication failure reason",
+            "Determine which authentication method is failing (password, MFA push, TOTP, etc.)",
+            "Apply a permanent fix based on the recurring pattern (e.g., re-register MFA, fix CA policy)",
+            "Document the root cause linkage between the old and new tickets",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="aa-027",
+    category=Category.ACCESS_AUTH,
+    priority=Priority.P2,
+    assigned_team=Team.IAM,
+    needs_escalation=False,
+    missing_information=[MissingInfo.CONTACT_INFO, MissingInfo.DEVICE_INFO],
+    subjects=[
+        "Remote worker can't authenticate — need callback",
+        "Working from a client site and can't log in — no way to reach me easily",
+        "Traveling employee locked out — please help urgently",
+    ],
+    descriptions=[
+        "I'm at a client site in Tokyo and I can't authenticate to any of our systems. My laptop "
+        "keeps saying my credentials are expired but I changed my password before I left. I don't "
+        "have reliable phone service here so calling my usual number won't work. I managed to send "
+        "this from the client's guest WiFi on my personal phone. Please help — I have a "
+        "presentation in two hours.",
+        "I'm working remotely from a rural area with very limited cell coverage and can't log in. "
+        "MFA push notifications aren't coming through and I can't receive SMS codes either. I "
+        "need someone to help me get authenticated but I'm not sure how you can reach me since my "
+        "normal phone isn't working well out here. Email is the only reliable way to contact me "
+        "right now.",
+    ],
+    next_best_actions=[
+        "Obtain an alternate contact method for the user. Issue a temporary access pass or "
+        "alternative MFA method that works without cellular connectivity.",
+    ],
+    remediation_steps=[
+        [
+            "Obtain a working contact method (personal email, Teams chat, client site phone)",
+            "Verify the user's identity through an alternate channel",
+            "Issue a Temporary Access Pass (TAP) in Entra ID for immediate access",
+            "Guide the user to set up an offline MFA method (TOTP authenticator app)",
+            "Confirm the user can authenticate and access required systems",
+            "Schedule a follow-up to restore standard MFA when connectivity improves",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="aa-028",
+    category=Category.ACCESS_AUTH,
+    priority=Priority.P2,
+    assigned_team=Team.IAM,
+    needs_escalation=False,
+    missing_information=[MissingInfo.AUTHENTICATION_METHOD, MissingInfo.AFFECTED_SYSTEM],
+    subjects=[
+        "SSO broken across multiple applications",
+        "Single sign-on fails for several apps but works for others",
+        "SSO not working — have to log in separately to every app",
+    ],
+    descriptions=[
+        "SSO has stopped working for me across multiple apps. I can get into Outlook and Teams "
+        "fine but when I try to access Workday, ServiceNow, or Salesforce through the SSO portal, "
+        "I get redirected back to a login page. I don't know what SSO method these apps use — I "
+        "just usually click the tile and it works. This has been going on since yesterday "
+        "afternoon. Singapore office, Wealth Management.",
+        "My single sign-on is broken for a bunch of apps. Some work, some don't. The ones that "
+        "don't work just loop back to the sign-in page or show a vague 'authentication error'. "
+        "I'm not sure if these apps use SAML or something else — they've always just worked "
+        "seamlessly until now. I need access to at least five different systems for my daily work.",
+    ],
+    next_best_actions=[
+        "Check the SSO configuration for the failing applications in Entra ID. Identify whether "
+        "the issue is SAML, OIDC, or WS-Fed specific and review recent changes to app registrations.",
+    ],
+    remediation_steps=[
+        [
+            "Identify which applications are failing SSO and which protocol they use (SAML, OIDC, WS-Fed)",
+            "Check Entra ID enterprise application sign-in logs for error details",
+            "Review recent changes to app registrations or conditional access policies",
+            "Test SSO for each failing app and capture the specific error codes",
+            "Repair the SSO configuration (certificate renewal, endpoint update, or claim rule fix)",
+            "Verify the user can access all affected applications via SSO",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="aa-029",
+    category=Category.ACCESS_AUTH,
+    priority=Priority.P3,
+    assigned_team=Team.IAM,
+    needs_escalation=False,
+    missing_information=[MissingInfo.CONTACT_INFO, MissingInfo.PREVIOUS_TICKET_ID],
+    subjects=[
+        "Account issue called in from front desk phone",
+        "Someone called in about an account lockout — no callback number",
+        "Account disabled — employee called from a colleague's phone",
+    ],
+    descriptions=[
+        "An employee called in from the front desk phone to report that their account has been "
+        "disabled. They said they had a ticket about this before but couldn't remember the number. "
+        "They hung up before I could get a callback number. The employee's name is in the notes "
+        "but I have no way to reach them directly to verify their identity or walk them through "
+        "the fix. They're apparently in the NYC office.",
+        "I received a voicemail about an account lockout from someone who called from a shared "
+        "phone in a conference room. They mentioned this happened once before and was fixed by "
+        "the IAM team. They didn't leave a direct number or extension to call back, just their "
+        "name and that they're on the compliance team. I need to find them to resolve this.",
+    ],
+    next_best_actions=[
+        "Look up the user in the directory to find their contact information and previous tickets. "
+        "Reach out via Teams or manager to verify identity before making account changes.",
+    ],
+    remediation_steps=[
+        [
+            "Look up the user in the corporate directory for direct contact info",
+            "Search the ticketing system for any previous tickets under their name",
+            "Reach out to the user via Teams chat or their manager to verify identity",
+            "Once identity is verified, investigate the account lockout or disabled state",
+            "Re-enable or unlock the account and resolve the root cause",
+            "Update the ticket with verified contact information for follow-up",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="aa-030",
+    category=Category.ACCESS_AUTH,
+    priority=Priority.P2,
+    assigned_team=Team.IAM,
+    needs_escalation=False,
+    missing_information=[MissingInfo.AUTHENTICATION_METHOD, MissingInfo.SCREENSHOT_OR_ATTACHMENT],
+    subjects=[
+        "Passwordless login stopped working — not sure which method I use",
+        "Can't sign in without a password anymore — passwordless broken",
+        "FIDO key or Windows Hello not working — can't tell which is failing",
+    ],
+    descriptions=[
+        "I've been using passwordless login for months and it suddenly stopped working. I'm not "
+        "sure exactly which method I was using — I either tap my security key or use the fingerprint "
+        "reader, whatever pops up. Now neither seems to work but I can't describe the exact error "
+        "because it just flashes briefly and goes back to the login screen. I didn't think to take "
+        "a screenshot. NYC office, M&A team.",
+        "My passwordless sign-in is broken. I used to just look at the camera or touch the "
+        "fingerprint sensor and I was in. Now it prompts me for something but then fails. I'm not "
+        "technical enough to know if it's Windows Hello, FIDO2, or what — it was just set up for "
+        "me during onboarding. I don't have a screenshot of the error because it disappears too "
+        "quickly. Can someone help me figure out what's going on?",
+    ],
+    next_best_actions=[
+        "Check the user's registered authentication methods in Entra ID to identify the "
+        "passwordless method in use. Re-register the credential if it has become corrupted.",
+    ],
+    remediation_steps=[
+        [
+            "Check the user's registered authentication methods in Entra ID (FIDO2, WHfB, phone sign-in)",
+            "Review Entra ID sign-in logs to identify which method was attempted and the failure reason",
+            "Ask the user to reproduce the error and capture a screenshot or photo of the message",
+            "Re-register the passwordless credential (re-enroll FIDO2 key or reset Windows Hello)",
+            "Test the passwordless sign-in flow end-to-end with the user",
+            "Set up a backup authentication method in case the primary fails again",
+        ],
+    ],
+))
