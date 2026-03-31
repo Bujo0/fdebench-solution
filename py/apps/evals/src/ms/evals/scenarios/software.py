@@ -1076,3 +1076,418 @@ register(ScenarioTemplate(
         ],
     ],
 ))
+
+register(ScenarioTemplate(
+    scenario_id="sw-031",
+    category=Category.SOFTWARE,
+    priority=Priority.P3,
+    assigned_team=Team.ENDPOINT,
+    needs_escalation=False,
+    missing_information=[
+        MissingInfo.ERROR_MESSAGE,
+        MissingInfo.ENVIRONMENT_DETAILS,
+        MissingInfo.STEPS_TO_REPRODUCE,
+    ],
+    subjects=[
+        "Trading app works for everyone except me — same hardware and OS",
+        "Only person on team who can't launch internal trading application",
+        "App failure on my machine only — rest of team is fine",
+    ],
+    descriptions=[
+        "I'm the only person in my team of 12 who can't run the internal trading application "
+        "(TradeDesk Pro v4.2). Everyone else is fine. We all have the same laptop model (Surface "
+        "Laptop 5), same OS build, same network. The app just freezes on the splash screen for "
+        "me. I've reinstalled it twice, rebooted, cleared the cache — nothing works. My manager "
+        "is on my case because I'm falling behind.",
+        "Something about my specific machine is preventing the trading app from loading. I've "
+        "compared my setup with a colleague's — same model, same Windows version, same software "
+        "list in Apps & Features. The app opens fine on their machine but hangs on mine. I even "
+        "tried running it as administrator. Could it be a profile corruption issue or a rogue "
+        "group policy? I need this fixed ASAP — it's my primary work tool.",
+    ],
+    next_best_actions=[
+        "Compare the user's machine configuration in detail against a working machine. Check "
+        "for profile-specific settings, group policy differences, or corrupted local app data.",
+    ],
+    remediation_steps=[
+        [
+            "Gather detailed system info: OS build, installed updates, group policy (gpresult)",
+            "Compare against a known working machine for any configuration drift",
+            "Check the user profile for corrupted app data or settings",
+            "Review Event Viewer for application errors during launch attempts",
+            "Test with a fresh user profile on the same machine to isolate the issue",
+            "If profile-related, migrate the user to a new profile and restore data",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="sw-032",
+    category=Category.SOFTWARE,
+    priority=Priority.P2,
+    assigned_team=Team.ENTERPRISE_APPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.CONFIGURATION_DETAILS],
+    subjects=[
+        "New compliance agent conflicts with SAP — uninstalling agent fixes SAP",
+        "SAP crashes on startup since compliance monitoring agent was installed",
+        "Software conflict: compliance agent vs. SAP — can't have both running",
+    ],
+    descriptions=[
+        "Ever since the new compliance monitoring agent (ComplianceGuard v3.1) was deployed to "
+        "our machines last Tuesday, SAP GUI crashes on startup with an access violation error. "
+        "I've confirmed the correlation: uninstalling the agent fixes SAP immediately. "
+        "Reinstalling it brings the crash back. The problem is we're required to have the "
+        "compliance agent installed — it's mandated by InfoSec. So right now I have to choose "
+        "between SAP and compliance. I need both.",
+        "SAP has been unusable since the compliance monitoring agent rollout. It crashes within "
+        "seconds of launching — sometimes with an error, sometimes it just disappears. Three of "
+        "us in Finance have confirmed that removing the compliance agent resolves the issue. But "
+        "IT policy requires the agent. We're stuck. Can someone figure out a compatibility fix "
+        "or get us an exception while this is sorted out?",
+    ],
+    next_best_actions=[
+        "Investigate the conflict between the compliance agent and SAP. Check for known "
+        "compatibility issues and work with both vendors on a resolution.",
+    ],
+    remediation_steps=[
+        [
+            "Confirm the exact versions of both SAP GUI and the compliance agent",
+            "Check the compliance agent vendor's known issues for SAP conflicts",
+            "Review Windows Event Viewer for crash details and conflicting DLLs",
+            "Test adding SAP directories to the compliance agent's exclusion list",
+            "If exclusion resolves it, coordinate with InfoSec to approve the exception",
+            "Push the updated configuration to all affected machines",
+            "Monitor for recurrence after the next compliance agent update",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="sw-033",
+    category=Category.SOFTWARE,
+    priority=Priority.P3,
+    assigned_team=Team.ENTERPRISE_APPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.AFFECTED_USERS, MissingInfo.SCREENSHOT_OR_ATTACHMENT],
+    subjects=[
+        "Internal web app gets slower throughout the day — unusable by 3pm",
+        "Progressive performance degradation in web app — reboot helps briefly",
+        "Web app fast in morning, crawling by afternoon — memory leak?",
+    ],
+    descriptions=[
+        "Our internal web application (FieldTracker) gets progressively slower throughout the "
+        "day. At 9am when I first log in, pages load in under a second. By noon it's taking 5-10 "
+        "seconds. By 3pm it's completely unusable — clicks take 30+ seconds to respond. Restarting "
+        "my browser helps, but only for about 10 minutes before it slows down again. I suspect a "
+        "memory leak in the app. This has been happening daily for about two weeks.",
+        "There's a worsening performance issue with our internal project management web app. It's "
+        "snappy in the morning but degrades steadily. By mid-afternoon the browser tab is consuming "
+        "over 2GB of RAM according to Task Manager. Closing and reopening the tab resets it "
+        "temporarily. I've tried Chrome and Edge — same behavior in both. I think the app has a "
+        "JavaScript memory leak. It's affecting my entire team's productivity.",
+    ],
+    next_best_actions=[
+        "Investigate the client-side performance degradation. Capture browser memory profiles "
+        "at different times of day to confirm a memory leak in the web application.",
+    ],
+    remediation_steps=[
+        [
+            "Collect browser Task Manager data showing memory growth over time",
+            "Take heap snapshots in browser DevTools at 9am, noon, and 3pm",
+            "Identify which JavaScript objects are accumulating and not being garbage collected",
+            "Report the memory leak to the application development team with evidence",
+            "As a temporary workaround, advise the user to refresh the browser tab every 2 hours",
+            "Track the fix through the development team's release cycle",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="sw-034",
+    category=Category.SOFTWARE,
+    priority=Priority.P4,
+    assigned_team=Team.ENDPOINT,
+    needs_escalation=False,
+    missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.DEVICE_INFO],
+    subjects=[
+        "Outlook schedule-send feature is broken — can't find the button",
+        "Bug report: Outlook missing the delayed send option",
+        "Outlook doesn't let me schedule emails for later — feature missing",
+    ],
+    descriptions=[
+        "I think Outlook is broken because I can't find the option to schedule an email to send "
+        "at a specific time. I've looked in every menu and it's not there. My colleague showed me "
+        "it works on their computer so clearly something is wrong with my installation. Can you "
+        "fix this? I need to schedule emails for different time zones.",
+        "I'm reporting a bug in Outlook — the 'Schedule Send' or 'Delay Delivery' feature is "
+        "missing from my version. I've checked under Options > Delay Delivery and it's grayed "
+        "out. Other people seem to have it. I rely on this to send emails at appropriate times "
+        "to our APAC team. Please update my Outlook or fix whatever is preventing this from "
+        "appearing.",
+    ],
+    next_best_actions=[
+        "Clarify whether this is a missing feature (version-dependent) or a misconfiguration. "
+        "Check the user's Outlook version and license to determine feature availability.",
+    ],
+    remediation_steps=[
+        [
+            "Check the user's Outlook version (classic vs. new Outlook, desktop vs. web)",
+            "Verify their Microsoft 365 license tier — some features are license-dependent",
+            "If the feature exists in their version, guide them to the correct menu location",
+            "If it's a version limitation, explain the difference and suggest alternatives",
+            "If Delay Delivery is grayed out, check group policies or admin restrictions",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="sw-035",
+    category=Category.SOFTWARE,
+    priority=Priority.P3,
+    assigned_team=Team.ENDPOINT,
+    needs_escalation=False,
+    missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.ERROR_MESSAGE],
+    subjects=[
+        "Microsoft Store app immediately quarantined by Defender",
+        "Defender blocking app I downloaded from the Microsoft Store",
+        "App from official store flagged as threat — need it for work",
+    ],
+    descriptions=[
+        "I downloaded an app called 'DevTunnel Tools' from the Microsoft Store and Windows "
+        "Defender immediately quarantined it. The notification says it detected a potential "
+        "threat but doesn't give details. This app was recommended by my tech lead for local "
+        "development tunneling. I need it for work but I can't override the quarantine — the "
+        "'Allow' button is grayed out. Can someone whitelist this or verify it's safe?",
+        "Windows Defender is blocking an app I installed from the Microsoft Store. The app is "
+        "'Network Profiler Pro' and I need it for diagnosing connectivity issues as part of my "
+        "job in the network team. Defender flags it as 'PUA:Win32/Presenoker' and quarantines "
+        "it. I've confirmed it's the official app from a reputable publisher. I can't allow it "
+        "myself due to policy restrictions. Please review and whitelist if appropriate.",
+    ],
+    next_best_actions=[
+        "Review the Defender quarantine details and the app's legitimacy. If the app is safe "
+        "and business-justified, submit a Defender exclusion request through the security team.",
+    ],
+    remediation_steps=[
+        [
+            "Check the Defender quarantine log for the specific threat classification",
+            "Verify the app's publisher and legitimacy in the Microsoft Store",
+            "If the app is a false positive, submit an exclusion request to the security team",
+            "If approved, add the app to the Defender exclusion policy via Intune",
+            "Confirm the user can install and run the app after the exclusion is applied",
+            "Report the false positive to Microsoft through the Defender portal",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# sw-036  Excel macro breaking after Office update
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="sw-036",
+    category=Category.SOFTWARE,
+    priority=Priority.P3,
+    assigned_team=Team.ENTERPRISE_APPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.REPRODUCTION_FREQUENCY],
+    subjects=[
+        "Excel macro stopped working after Office update",
+        "VBA macro broken since last Office patch",
+        "Excel automation scripts failing — recent update suspected",
+    ],
+    descriptions=[
+        "My Excel macro that generates the weekly finance report stopped working after the "
+        "latest Office update was pushed to my machine. It throws a 'Run-time error 1004' "
+        "when it tries to access a named range. I'm not sure which Office version I'm on now "
+        "or what build was installed. The macro has been working fine for months. I'm not sure "
+        "if it fails every time or only on certain workbooks.",
+        "Since the Office update last Tuesday, my VBA macros in our budget tracking spreadsheet "
+        "are completely broken. The code references some ActiveX controls that seem to have "
+        "changed. I don't know my exact Office build number and I haven't checked whether it "
+        "fails consistently or just intermittently — I've only tried a few times and it broke "
+        "each time so far.",
+    ],
+    next_best_actions=[
+        "Determine the user's current Office version and build number. Ask them to test the "
+        "macro on multiple workbooks to establish reproduction frequency.",
+    ],
+    remediation_steps=[
+        [
+            "Get the Office version via File > Account > About in Excel",
+            "Check the Office update history to identify which build was recently installed",
+            "Test the macro to reproduce the error and capture the exact error message",
+            "Check Microsoft's known issues list for the installed build",
+            "If a known regression, roll back to the previous Office build via deployment tool",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# sw-037  Outlook calendar sync issues
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="sw-037",
+    category=Category.SOFTWARE,
+    priority=Priority.P3,
+    assigned_team=Team.ENTERPRISE_APPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.SCREENSHOT_OR_ATTACHMENT, MissingInfo.REPRODUCTION_FREQUENCY],
+    subjects=[
+        "Outlook calendar not syncing — meetings disappearing",
+        "Calendar sync broken in Outlook — intermittent",
+        "Outlook shows wrong meeting times and missing appointments",
+    ],
+    descriptions=[
+        "My Outlook calendar is not syncing properly. Meetings that colleagues send me show up "
+        "on my phone but not in the desktop Outlook client. Sometimes they appear hours later, "
+        "and twice this week a meeting vanished completely and I missed it. I get an error "
+        "briefly in the status bar but it disappears too fast to read. I haven't been able to "
+        "screenshot it yet.",
+        "Outlook desktop is having intermittent calendar sync failures. My shared team calendar "
+        "shows appointments that don't match what others see, and some recurring meetings have "
+        "wrong times. I'm not sure how often the sync fails — I just notice it when something "
+        "is missing. I tried to capture the sync error popup but it closes before I can grab it.",
+    ],
+    next_best_actions=[
+        "Ask the user to capture a screenshot of the sync error. Determine how frequently "
+        "the sync failures occur and whether the issue is limited to specific calendars.",
+    ],
+    remediation_steps=[
+        [
+            "Ask the user to watch for the status bar error and capture a screenshot",
+            "Check the Outlook sync status via the Connection Status dialog (Ctrl+right-click tray icon)",
+            "Verify the Exchange Online mailbox health using Get-MailboxStatistics",
+            "Reset the Outlook profile or repair the OST file if corruption is suspected",
+            "Monitor sync behavior after the repair and confirm meetings appear correctly",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# sw-038  Power BI gateway connection timeout
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="sw-038",
+    category=Category.SOFTWARE,
+    priority=Priority.P2,
+    assigned_team=Team.ENTERPRISE_APPS,
+    needs_escalation=True,
+    missing_information=[MissingInfo.PREVIOUS_TICKET_ID, MissingInfo.ERROR_MESSAGE],
+    subjects=[
+        "Power BI gateway timing out — reports not refreshing",
+        "Power BI data refresh failing — gateway connection issue",
+        "Gateway error in Power BI — can't pull live data",
+    ],
+    descriptions=[
+        "Our Power BI on-premises data gateway is timing out when refreshing datasets. The "
+        "executive dashboards haven't updated since yesterday morning. The gateway status page "
+        "shows 'Connected' but scheduled refreshes fail with a timeout. We had a similar "
+        "incident about three weeks ago that was resolved by the data platform team, but I "
+        "don't have the old ticket number.",
+        "Power BI reports connected to our on-prem SQL Server are failing to refresh. The error "
+        "says something about a gateway timeout but I didn't copy the full message. This is "
+        "blocking the finance team's daily reporting. There was a previous incident with the "
+        "same gateway last month — I think someone from infrastructure fixed it, but I can't "
+        "locate that ticket.",
+    ],
+    next_best_actions=[
+        "Find the previous gateway incident ticket to check for a recurring root cause. "
+        "Capture the full error message from the Power BI service refresh history.",
+    ],
+    remediation_steps=[
+        [
+            "Retrieve the full error message from Power BI Service > Dataset > Refresh History",
+            "Search for the previous gateway incident ticket by date and keywords",
+            "Check the gateway machine's resource utilization (CPU, memory, network)",
+            "Restart the on-premises data gateway service and test a manual refresh",
+            "If the timeout persists, review firewall rules and proxy settings between gateway and data source",
+            "Escalate to the data platform team if the issue matches the prior incident pattern",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# sw-039  Teams phone system (PSTN) call quality degradation
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="sw-039",
+    category=Category.SOFTWARE,
+    priority=Priority.P2,
+    assigned_team=Team.ENTERPRISE_APPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.CONTACT_INFO, MissingInfo.NETWORK_LOCATION],
+    subjects=[
+        "Teams phone calls have terrible audio quality",
+        "PSTN calls via Teams are choppy and dropping",
+        "Teams calling — voice quality degraded for external calls",
+    ],
+    descriptions=[
+        "Since last week, every PSTN call I make through Teams has terrible audio quality. "
+        "External callers say I sound robotic and the audio cuts in and out. Internal Teams "
+        "calls seem fine — it's only when dialing external phone numbers. I'm in the trading "
+        "floor area but I'm not sure which network segment that's on. I need a callback but "
+        "my Teams number is the one having issues, so you'll need my cell.",
+        "Teams phone system calls to external numbers are experiencing severe quality "
+        "degradation — echoing, packet loss, and sometimes calls drop entirely. This is "
+        "impacting our client-facing team. I'm not sure what floor or office my network "
+        "jack connects to. My desk phone is a Teams-certified device but I'd rather be "
+        "contacted on my personal mobile since the Teams line is unreliable right now.",
+    ],
+    next_best_actions=[
+        "Get the user's alternate contact number for callback. Determine their network "
+        "location to check QoS and media path for PSTN calls.",
+    ],
+    remediation_steps=[
+        [
+            "Collect the user's personal mobile number or alternate contact for follow-up",
+            "Identify the user's network location (floor, switch, VLAN) to check QoS policies",
+            "Pull the Teams Call Quality Dashboard (CQD) data for the user's recent PSTN calls",
+            "Check the SBC (Session Border Controller) health and PSTN trunk utilization",
+            "Verify QoS markings are applied correctly for media traffic on the user's subnet",
+            "If the issue is network-related, engage the network team to prioritize voice traffic",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# sw-040  Adobe Creative Cloud license activation failure
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="sw-040",
+    category=Category.SOFTWARE,
+    priority=Priority.P3,
+    assigned_team=Team.ENTERPRISE_APPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.AUTHENTICATION_METHOD, MissingInfo.SCREENSHOT_OR_ATTACHMENT],
+    subjects=[
+        "Adobe Creative Cloud won't activate — license error",
+        "Can't sign into Adobe CC — activation keeps failing",
+        "Adobe license not recognized after reinstall",
+    ],
+    descriptions=[
+        "I reinstalled Adobe Creative Cloud on my new workstation and it won't activate. When "
+        "I try to sign in, it says my license can't be verified and prompts me to try again. "
+        "I'm not sure whether I should be using my Contoso SSO credentials or a separate Adobe "
+        "ID — I've tried both and neither works. I tried to screenshot the error but the dialog "
+        "closed before I could capture it.",
+        "Adobe Creative Cloud apps (Photoshop, Illustrator) are showing 'Trial Expired' even "
+        "though our team has enterprise licenses. The activation dialog asks me to sign in but "
+        "I don't know if I should use federated SSO or a named-user Adobe account. I've tried "
+        "signing in multiple ways and keep getting a generic activation error. I haven't been "
+        "able to capture the exact error screen.",
+    ],
+    next_best_actions=[
+        "Clarify the correct authentication method for Adobe CC (SSO vs. Adobe ID). Ask the "
+        "user to capture a screenshot of the activation error on their next attempt.",
+    ],
+    remediation_steps=[
+        [
+            "Confirm the correct sign-in method — check if Contoso uses Federated ID or Enterprise ID for Adobe",
+            "Verify the user's Adobe license assignment in the Adobe Admin Console",
+            "Have the user sign out of all Adobe apps and clear the OOBE folder to reset activation",
+            "Guide the user through signing in with the correct credentials and capture any errors",
+            "If activation still fails, re-provision the license in the Adobe Admin Console",
+        ],
+    ],
+))

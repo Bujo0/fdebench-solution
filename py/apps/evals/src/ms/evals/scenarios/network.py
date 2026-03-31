@@ -1414,3 +1414,212 @@ register(ScenarioTemplate(
         ],
     ],
 ))
+
+# ---------------------------------------------------------------------------
+# net-031  WiFi authentication failing with certificate-based 802.1X
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="net-031",
+    category=Category.NETWORK,
+    priority=Priority.P3,
+    assigned_team=Team.NETWORK,
+    needs_escalation=False,
+    missing_information=[MissingInfo.AUTHENTICATION_METHOD, MissingInfo.REPRODUCTION_FREQUENCY],
+    subjects=[
+        "WiFi keeps dropping — 802.1X certificate auth failing",
+        "Can't stay connected to corporate WiFi — certificate error",
+        "Intermittent WiFi disconnects with authentication failure",
+    ],
+    descriptions=[
+        "My laptop keeps losing its WiFi connection to the corporate SSID. When I look at the "
+        "event log I see 802.1X authentication failures, and sometimes the certificate prompt "
+        "pops up but the handshake still fails. It seems to happen randomly — sometimes I'm "
+        "connected for hours, other times it drops every few minutes.",
+        "I'm experiencing intermittent WiFi disconnects on the Contoso-Secure network. The "
+        "Windows notification says 'Authentication failed' and references a certificate issue. "
+        "I'm not sure if my machine is using a user certificate or a machine certificate for "
+        "802.1X. The problem started a few days ago but I can't pinpoint a pattern for when "
+        "it occurs.",
+    ],
+    next_best_actions=[
+        "Determine the 802.1X authentication method configured on the user's device and "
+        "whether the certificate is expired or misconfigured. Ask the user to describe how "
+        "frequently the disconnects happen.",
+    ],
+    remediation_steps=[
+        [
+            "Identify the 802.1X profile and authentication method (EAP-TLS, PEAP, etc.) on the device",
+            "Check whether the client certificate is expired, revoked, or missing from the personal store",
+            "Verify the NPS/RADIUS server logs for the user's authentication attempts",
+            "Re-push the WiFi profile and certificate via Intune if the certificate is stale",
+            "Test the connection after re-provisioning and monitor for further failures",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# net-032  VPN split-tunnel policy not applying for specific app
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="net-032",
+    category=Category.NETWORK,
+    priority=Priority.P3,
+    assigned_team=Team.NETWORK,
+    needs_escalation=False,
+    missing_information=[MissingInfo.SCREENSHOT_OR_ATTACHMENT, MissingInfo.APPLICATION_VERSION],
+    subjects=[
+        "VPN split-tunnel not working — app traffic going through tunnel",
+        "Split-tunnel policy ignored for specific application",
+        "App routed through VPN despite split-tunnel config",
+    ],
+    descriptions=[
+        "Our VPN is supposed to split-tunnel so that traffic to Salesforce goes direct, but "
+        "on my machine all Salesforce traffic is still routing through the VPN tunnel. This "
+        "makes Salesforce painfully slow. I'd share a screenshot of my routing table but I'm "
+        "not sure how to capture it. I recently updated GlobalProtect but I'm not sure which "
+        "version I'm on now.",
+        "I was told that our new split-tunnel policy should send Microsoft 365 traffic directly "
+        "to the internet, but a traceroute shows it's still going through the VPN gateway. "
+        "Performance is terrible on Teams calls because of the extra hops. I think my VPN "
+        "client was updated last week but I don't know the exact version. I tried taking a "
+        "screenshot of the route print output but forgot to save it.",
+    ],
+    next_best_actions=[
+        "Request a screenshot or export of the user's routing table while connected to VPN. "
+        "Confirm the VPN client version to verify the split-tunnel policy is supported.",
+    ],
+    remediation_steps=[
+        [
+            "Ask the user to run 'route print' and share the output or a screenshot",
+            "Check the VPN client version and confirm it supports the current split-tunnel policy",
+            "Verify the split-tunnel configuration on the GlobalProtect portal for the user's group",
+            "Push an updated VPN profile if the policy is not being applied correctly",
+            "Test connectivity to the affected application after the policy update",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# net-033  DNS resolution intermittent for internal domains
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="net-033",
+    category=Category.NETWORK,
+    priority=Priority.P2,
+    assigned_team=Team.NETWORK,
+    needs_escalation=False,
+    missing_information=[MissingInfo.PREVIOUS_TICKET_ID, MissingInfo.REPRODUCTION_FREQUENCY],
+    subjects=[
+        "Internal sites not resolving — DNS issue again",
+        "DNS lookup failures for internal domains — intermittent",
+        "Can't reach intranet apps — DNS seems broken on and off",
+    ],
+    descriptions=[
+        "I'm getting intermittent DNS resolution failures for internal domains like "
+        "portal.contoso.local and hr.contoso.local. External sites resolve fine. This "
+        "happened last month too and I submitted a ticket, but I don't remember the ticket "
+        "number. The issue comes and goes — sometimes nslookup works, sometimes it times out.",
+        "Several internal applications are unreachable because DNS lookups fail randomly. "
+        "I can ping external sites by IP but internal hostnames don't resolve half the time. "
+        "We had a similar incident a few weeks ago that was supposedly fixed. I don't have the "
+        "old ticket reference handy. I'm not sure if this happens every hour or every few hours "
+        "— it feels random.",
+    ],
+    next_best_actions=[
+        "Locate the previous ticket to check if this is a recurring issue. Ask the user to "
+        "track how often the DNS failures occur over the next hour.",
+    ],
+    remediation_steps=[
+        [
+            "Ask the user for the previous ticket ID or search by their name in the ticketing system",
+            "Have the user run 'nslookup' periodically and note success/failure times",
+            "Check the DNS server health and logs for the user's configured DNS servers",
+            "Verify the user's DNS settings (DHCP-assigned vs. static) and flush the local DNS cache",
+            "If the issue matches the prior incident, escalate to the DNS infrastructure team",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# net-034  Guest WiFi portal redirect loop
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="net-034",
+    category=Category.NETWORK,
+    priority=Priority.P3,
+    assigned_team=Team.NETWORK,
+    needs_escalation=False,
+    missing_information=[MissingInfo.CONTACT_INFO, MissingInfo.SCREENSHOT_OR_ATTACHMENT],
+    subjects=[
+        "Guest WiFi captive portal keeps looping — contractor can't connect",
+        "WiFi portal redirect loop on guest network",
+        "Contractor stuck in WiFi login loop — can't get online",
+    ],
+    descriptions=[
+        "I'm a contractor visiting the downtown office and the guest WiFi captive portal keeps "
+        "redirecting me in a loop. I select 'Accept Terms' and it sends me right back to the "
+        "same page. I've tried Chrome and Edge. My Contoso contact is in a meeting and I don't "
+        "have another way to reach the internal IT team. I tried to screenshot the error but "
+        "the page keeps refreshing before I can capture it.",
+        "The Contoso-Guest WiFi portal is stuck in an infinite redirect loop. Every time I "
+        "enter my details and click 'Connect', the browser just reloads the login page. I'm "
+        "a visiting consultant and I need internet access for my presentation in an hour. My "
+        "host hasn't given me an alternate contact for IT support, and I can't capture the "
+        "behavior easily because the page keeps cycling.",
+    ],
+    next_best_actions=[
+        "Obtain an alternate contact method for the contractor. Ask them to try a different "
+        "browser or device, and attempt to capture a screenshot of the portal loop.",
+    ],
+    remediation_steps=[
+        [
+            "Get the contractor's phone number or personal email for follow-up",
+            "Ask them to try an incognito/private browsing window to bypass cached redirects",
+            "Check the captive portal controller for errors on the guest SSID",
+            "Verify the guest network VLAN and DHCP are functioning correctly",
+            "If the portal is malfunctioning, create a temporary guest access bypass",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# net-035  Network printer losing connection after IP change
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="net-035",
+    category=Category.NETWORK,
+    priority=Priority.P3,
+    assigned_team=Team.NETWORK,
+    needs_escalation=False,
+    missing_information=[MissingInfo.CONTACT_INFO, MissingInfo.PREVIOUS_TICKET_ID, MissingInfo.NETWORK_LOCATION],
+    subjects=[
+        "Network printer offline after IP address change",
+        "Printer lost connection — think the IP changed",
+        "Floor printer unreachable since network maintenance last night",
+    ],
+    descriptions=[
+        "Our floor printer stopped working after what I think was a network maintenance window "
+        "last night. It's showing as offline and I suspect its IP address changed. I'm on the "
+        "7th floor but the printer is actually on the 6th floor in the copy room. I believe a "
+        "ticket was filed for the maintenance but I don't have the reference. My desk phone "
+        "extension isn't set up yet so email is best for reaching me.",
+        "The network printer in our wing has been offline since this morning. Other people on "
+        "my floor are affected too. I think there was a DHCP change or something because the "
+        "printer's old IP doesn't respond to ping. I'm not sure exactly which floor or subnet "
+        "the printer is on — I just know it's the one near the south elevator. There was a "
+        "previous ticket about printer connectivity last week but I can't find the number.",
+    ],
+    next_best_actions=[
+        "Identify the printer's current IP and network location. Locate the previous ticket "
+        "about printer or network maintenance. Get the user's contact info for follow-up.",
+    ],
+    remediation_steps=[
+        [
+            "Confirm the printer's hostname and locate its current IP via DHCP logs or ARP table",
+            "Determine the printer's physical location (floor, wing, subnet)",
+            "Search for the previous maintenance or printer ticket by date and location",
+            "Update the printer's IP in the print server or assign a DHCP reservation",
+            "Notify affected users once the printer is back online and confirm with the reporter",
+        ],
+    ],
+))
