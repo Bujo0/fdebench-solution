@@ -1491,3 +1491,105 @@ register(ScenarioTemplate(
         ],
     ],
 ))
+
+# ---------------------------------------------------------------------------
+# sw-041  SharePoint Online performance issues — ambiguous: Enterprise Apps vs Data Platform
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="sw-041",
+    category=Category.SOFTWARE,
+    priority=Priority.P2,
+    assigned_team=Team.ENTERPRISE_APPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.AFFECTED_USERS, MissingInfo.ENVIRONMENT_DETAILS],
+    subjects=[
+        "SharePoint Online extremely slow — pages take forever to load",
+        "SharePoint performance degraded — document libraries timing out",
+        "SharePoint sites crawling — impacting team productivity",
+    ],
+    descriptions=[
+        "Our SharePoint Online sites have been extremely slow for the past two days. Document "
+        "libraries take 20-30 seconds to load and uploading files frequently times out. The issue "
+        "seems worse on sites with large document libraries. I'm not sure if this is affecting "
+        "just our team or the entire organization — I've heard a couple of other people complain "
+        "but haven't confirmed broadly. We recently migrated a large batch of documents from our "
+        "on-prem file server to SharePoint, and I wonder if that's related. I'm not sure which "
+        "SharePoint environment or tenant region we're in.",
+        "SharePoint Online performance has degraded significantly. Pages load slowly, search is "
+        "nearly unusable, and document previews time out. The Microsoft 365 Service Health "
+        "dashboard doesn't show any active incidents for SharePoint, so this seems specific to "
+        "our tenant. I don't know how many users are affected — my immediate team of five all "
+        "experience it, but I haven't surveyed other departments. We have several large custom "
+        "lists and document libraries that may be contributing to the issue, but I'm not sure "
+        "about the specifics of our SharePoint environment configuration.",
+    ],
+    next_best_actions=[
+        "Determine the scope of impact — survey additional users and check SharePoint admin center "
+        "analytics. Review the recent document migration for any impact on site collection storage "
+        "limits or throttling.",
+        "Check SharePoint admin center for tenant-level health indicators and identify if specific "
+        "site collections are affected. Determine the number of affected users and the environment "
+        "details (tenant region, any custom solutions deployed).",
+    ],
+    remediation_steps=[
+        [
+            "Check the M365 Service Health dashboard and SharePoint admin center for tenant-level issues",
+            "Survey a broader set of users to determine the scope — team-level or organization-wide",
+            "Review recent changes: document migration volume, custom solutions, large list thresholds",
+            "Check site collection storage quotas and list view throttling limits",
+            "If related to the recent migration, check for indexing backlog or throttling on the affected sites",
+            "Open a Microsoft support request if the issue is tenant-wide and no local cause is found",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# sw-042  Teams integration with third-party app broken — ambiguous: Enterprise Apps vs Network
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="sw-042",
+    category=Category.SOFTWARE,
+    priority=Priority.P3,
+    assigned_team=Team.ENTERPRISE_APPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.ERROR_MESSAGE],
+    subjects=[
+        "Teams integration with Jira broken — can't create issues from Teams",
+        "Third-party app connector in Teams stopped working",
+        "Teams app integration with project management tool failing",
+    ],
+    descriptions=[
+        "The Jira Cloud integration in Microsoft Teams stopped working last week. When I try to "
+        "create a Jira issue from the Teams message action, I get a spinner that eventually fails "
+        "with a vague error. The Jira tab in our project channel also shows a connection error "
+        "instead of the board view. Other Teams features work fine — it's specifically the "
+        "third-party app integration that's broken. I don't know what version of the Jira Teams "
+        "app we have installed or the exact error message because the dialog disappears quickly. "
+        "The integration was working fine until recently, so something must have changed on either "
+        "the Teams or Jira side.",
+        "Our project management tool's Teams connector has stopped syncing. Notifications from "
+        "Jira that used to appear in our Teams channel have ceased, and the embedded Jira tab "
+        "throws an error when loading. I checked and other Teams connectors like our CI/CD "
+        "notifications still work, so it's isolated to this specific app integration. I'm not "
+        "sure of the app version or the exact error text. The Teams admin may have updated app "
+        "permissions or the Jira API endpoint configuration might have changed — I don't have "
+        "visibility into either.",
+    ],
+    next_best_actions=[
+        "Check the Teams admin center for the Jira app's status, version, and permission "
+        "configuration. Review the app's OAuth consent and API connectivity to Jira Cloud.",
+        "Verify the third-party app's installation and permissions in the Teams admin center. "
+        "Ask the user to capture the exact error message on the next occurrence and check if "
+        "the app needs to be re-authorized.",
+    ],
+    remediation_steps=[
+        [
+            "Check the Teams admin center for the Jira app's installation status and version",
+            "Review the app's permissions and OAuth consent — check if re-authorization is needed",
+            "Ask the user to capture the exact error message on the next failure attempt",
+            "Test the Jira API endpoint connectivity from the Teams environment",
+            "If permissions or API config changed, re-authorize the app and update the connector settings",
+            "Verify the integration is working by testing issue creation and channel notifications end-to-end",
+        ],
+    ],
+))

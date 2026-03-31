@@ -1348,3 +1348,142 @@ register(ScenarioTemplate(
         ],
     ],
 ))
+
+register(ScenarioTemplate(
+    scenario_id="aa-036",
+    category=Category.ACCESS_AUTH,
+    priority=Priority.P2,
+    assigned_team=Team.IAM,
+    needs_escalation=False,
+    missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.AUTHENTICATION_METHOD],
+    subjects=[
+        "MFA not working on my mobile app — can't approve sign-in",
+        "Authenticator app on phone won't complete MFA challenge",
+        "Mobile MFA broken — push notifications not coming through",
+    ],
+    descriptions=[
+        "I can't complete the MFA challenge when signing into my Contoso account. The Microsoft "
+        "Authenticator app on my phone either doesn't receive the push notification or shows an "
+        "error when I try to approve it. I've tried over WiFi and cellular. I'm not sure if this "
+        "is a problem with my phone or with my account's MFA configuration — I recently got a new "
+        "phone and I thought I migrated the authenticator correctly. I don't know which MFA method "
+        "my account is set to use as the default.",
+        "My multi-factor authentication has stopped working on my mobile device. When I log in on "
+        "my laptop, I get the MFA prompt but the approval request never reaches my phone app. I "
+        "tried reinstalling the authenticator but the issue persists. I'm not sure if the problem "
+        "is the app registration on my device or something with my Entra ID MFA settings — I don't "
+        "know whether my account uses push notifications, TOTP codes, or SMS as the primary method.",
+    ],
+    next_best_actions=[
+        "Collect the user's device details (phone model, OS version) and determine the configured "
+        "MFA method in Entra ID. Check if the authenticator app registration is still valid after "
+        "the device change.",
+        "Verify the user's MFA registration status in Entra ID and identify the primary "
+        "authentication method. Check for recent device changes that may have invalidated the "
+        "authenticator enrollment.",
+    ],
+    remediation_steps=[
+        [
+            "Check the user's MFA registration in Entra ID to identify the configured methods",
+            "Determine if the authenticator app registration was properly migrated to the new device",
+            "Collect device details — phone model, OS version, and authenticator app version",
+            "If the registration is stale, have the user re-register the authenticator app via aka.ms/mysecurityinfo",
+            "Test the MFA flow end-to-end and confirm push notifications are received",
+            "Set up a backup MFA method (phone call or FIDO2 key) to prevent future lockouts",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="aa-037",
+    category=Category.ACCESS_AUTH,
+    priority=Priority.P2,
+    assigned_team=Team.IAM,
+    needs_escalation=False,
+    missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.ERROR_MESSAGE],
+    subjects=[
+        "SSO not working for Salesforce — login fails with federation error",
+        "Can't sign into Salesforce via single sign-on",
+        "Salesforce SSO broken — redirects to error page after login",
+    ],
+    descriptions=[
+        "When I try to log into Salesforce using our company SSO, I get redirected through the "
+        "Contoso Entra ID login page, authenticate successfully, and then Salesforce shows a "
+        "federation error page instead of letting me in. This started after the Salesforce team "
+        "mentioned they updated something on their side, but I'm not sure what version of "
+        "Salesforce we're running. I didn't copy the exact error message because I assumed it "
+        "was a temporary glitch, but it's been happening all day. Other SaaS apps with SSO work "
+        "fine — it's just Salesforce.",
+        "Our Salesforce single sign-on integration broke sometime this morning. I can authenticate "
+        "through the Contoso identity provider but the SAML assertion seems to fail on the "
+        "Salesforce side — I land on an error page instead of my dashboard. I don't have the "
+        "exact error text or the Salesforce instance version. Other SAML-based apps like "
+        "ServiceNow and Workday work normally, so the issue seems specific to the Salesforce SSO "
+        "configuration or their recent changes.",
+    ],
+    next_best_actions=[
+        "Check the Entra ID Enterprise Application SSO configuration for Salesforce and review "
+        "the SAML assertion attributes. Ask the user to capture the exact error message from "
+        "the Salesforce error page.",
+        "Review the Entra ID SAML signing certificate and claim mappings for the Salesforce app "
+        "registration. Determine if Salesforce made federation metadata changes that need to be "
+        "reflected in Entra ID.",
+    ],
+    remediation_steps=[
+        [
+            "Ask the user to capture the full error message from the Salesforce federation error page",
+            "Check the Entra ID Enterprise Application SAML configuration for Salesforce",
+            "Review the SAML signing certificate expiration and claim/attribute mappings",
+            "Contact the Salesforce admin to determine what changes were made and the current instance version",
+            "Compare the Entra ID federation metadata with what Salesforce expects",
+            "Update the SAML configuration if mismatches are found and test SSO end-to-end",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="aa-038",
+    category=Category.ACCESS_AUTH,
+    priority=Priority.P3,
+    assigned_team=Team.IAM,
+    needs_escalation=False,
+    missing_information=[MissingInfo.CONTACT_INFO, MissingInfo.ENVIRONMENT_DETAILS],
+    subjects=[
+        "New contractor needs access to network share and application portal",
+        "Contractor onboarding — requesting file share and portal access",
+        "Set up access for new external contractor — shared drive and app portal",
+    ],
+    descriptions=[
+        "We have a new contractor from Woodgrove Consulting starting next week who needs access to "
+        "both our finance department's network share (\\\\contoso-fs01\\finance) and the internal "
+        "project management portal. The request came through the hiring manager but they didn't "
+        "include the contractor's direct contact information for account setup verification. I'm "
+        "not sure which environment this needs to be set up in — we have both a staging and "
+        "production instance of the portal, and the file share may have different permission tiers "
+        "depending on the project.",
+        "A new external contractor needs to be provisioned with access to our shared drive for "
+        "project documents and the Contoso application portal for time tracking and deliverables. "
+        "The contractor's manager submitted the request but didn't provide the contractor's phone "
+        "number or personal email for identity verification. I also need clarification on which "
+        "environment — the contractor may only need the sandbox portal for the first month, or they "
+        "might need full production access. The network share permissions depend on which project "
+        "team they're joining.",
+    ],
+    next_best_actions=[
+        "Obtain the contractor's direct contact information for identity verification and account "
+        "setup. Clarify the specific environment (staging vs. production) and permission level "
+        "needed for both the network share and application portal.",
+        "Contact the hiring manager to get the contractor's personal email or phone number. "
+        "Determine the exact environment and access scope before provisioning accounts.",
+    ],
+    remediation_steps=[
+        [
+            "Contact the hiring manager to obtain the contractor's direct contact details",
+            "Verify the contractor's identity and confirm the engagement start date",
+            "Clarify the target environment (staging vs. production) and required permission levels",
+            "Create the contractor's account in Entra ID with the appropriate external user type",
+            "Grant access to the network share with the correct permission tier for their project",
+            "Provision application portal access in the confirmed environment and send credentials to the contractor",
+        ],
+    ],
+))

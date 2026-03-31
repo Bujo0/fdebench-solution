@@ -30,6 +30,9 @@ MODIFIER_FORWARDED_EMAIL = "forwarded_email"
 MODIFIER_PASSIVE_AGGRESSIVE = "passive_aggressive"
 MODIFIER_AUTO_TRANSLATED = "auto_translated"
 MODIFIER_CORPORATE_JARGON = "corporate_jargon"
+MODIFIER_TYPOS = "typos"
+MODIFIER_MINIMAL_INFO = "minimal_info"
+MODIFIER_SCREENSHOT_REFERENCE = "screenshot_reference"
 
 ALL_MODIFIERS = [
     MODIFIER_VAGUE,
@@ -52,6 +55,9 @@ ALL_MODIFIERS = [
     MODIFIER_PASSIVE_AGGRESSIVE,
     MODIFIER_AUTO_TRANSLATED,
     MODIFIER_CORPORATE_JARGON,
+    MODIFIER_TYPOS,
+    MODIFIER_MINIMAL_INFO,
+    MODIFIER_SCREENSHOT_REFERENCE,
 ]
 
 # Weights controlling how often each modifier is applied
@@ -76,6 +82,9 @@ MODIFIER_WEIGHTS: dict[str, float] = {
     MODIFIER_PASSIVE_AGGRESSIVE: 0.04,
     MODIFIER_AUTO_TRANSLATED: 0.03,
     MODIFIER_CORPORATE_JARGON: 0.03,
+    MODIFIER_TYPOS: 0.04,
+    MODIFIER_MINIMAL_INFO: 0.03,
+    MODIFIER_SCREENSHOT_REFERENCE: 0.03,
 }
 
 
@@ -744,6 +753,111 @@ def apply_corporate_jargon(subject: str, description: str, rng: random.Random) -
     return rng.choice(jargon_intros)
 
 
+def apply_typos(subject: str, description: str, rng: random.Random) -> tuple[str, str]:
+    """Introduce realistic typos and misspellings."""
+    common_typos = {
+        "the": "teh",
+        "because": "becuase",
+        "receive": "recieve",
+        "access": "acess",
+        "password": "pasword",
+        "computer": "computre",
+        "system": "systme",
+        "working": "workign",
+        "trying": "tryign",
+        "connection": "conection",
+        "application": "aplicaiton",
+        "configuration": "configration",
+        "authentication": "authentification",
+        "immediately": "immedately",
+        "unfortunately": "unfortunatly",
+        "environment": "enviroment",
+        "available": "availble",
+        "resolution": "resoluton",
+        "intermittent": "intermitent",
+        "performance": "preformance",
+    }
+
+    result_desc = description
+    # Apply 2-5 random typos
+    typo_count = rng.randint(2, 5)
+    available_typos = list(common_typos.items())
+    rng.shuffle(available_typos)
+
+    applied = 0
+    for original, typo in available_typos:
+        if applied >= typo_count:
+            break
+        if original in result_desc.lower():
+            # Only replace first occurrence to keep it subtle
+            idx = result_desc.lower().find(original)
+            if idx >= 0:
+                result_desc = result_desc[:idx] + typo + result_desc[idx + len(original):]
+                applied += 1
+
+    # Also add a missing word or doubled word occasionally
+    if rng.random() < 0.5:
+        words = result_desc.split()
+        if len(words) > 10:
+            insert_pos = rng.randint(5, len(words) - 3)
+            words[insert_pos] = words[insert_pos] + " " + words[insert_pos]
+            result_desc = " ".join(words)
+
+    return subject, result_desc
+
+
+def apply_minimal_info(subject: str, description: str, rng: random.Random) -> tuple[str, str]:
+    """Reduce the description to minimal information."""
+    # Extract a key phrase from the original description
+    sentences = description.replace(". ", ".\n").split("\n")
+    first_sentence = sentences[0] if sentences else description[:60]
+
+    minimal_styles = [
+        (subject, f"{first_sentence} Please fix."),
+        (subject, f"{first_sentence}"),
+        (subject, f"Hi, {first_sentence.lower()} Thanks."),
+        (
+            subject,
+            f"Same issue as before. {first_sentence} "
+            f"Ticket was INC-{rng.randint(1000, 9999)}.",
+        ),
+    ]
+    return rng.choice(minimal_styles)
+
+
+def apply_screenshot_reference(
+    subject: str, description: str, rng: random.Random,
+) -> tuple[str, str]:
+    """Add references to screenshots/attachments that may or may not exist."""
+    screenshot_refs = [
+        (
+            subject,
+            f"{description}\n\nSee attached screenshot for the exact error message. "
+            f"[screenshot_{rng.randint(1, 999):03d}.png]",
+        ),
+        (
+            subject,
+            f"{description}\n\nI took a photo of the screen with my phone — "
+            f"see IMG_{rng.randint(20260101, 20260331)}_{rng.randint(100000, 999999)}.jpg attached.",
+        ),
+        (
+            subject,
+            f"{description}\n\nPlease refer to the screen recording I attached "
+            f"(screen_recording_{rng.randint(1, 50)}.mp4). It shows exactly what happens "
+            f"when I try to reproduce the issue.",
+        ),
+        (
+            subject,
+            f"{description}\n\nAttached:\n"
+            f"- error_log_{rng.randint(1, 100)}.txt\n"
+            f"- screenshot_before.png\n"
+            f"- screenshot_after.png\n\n"
+            f"The screenshots show the state before and after the error occurs.",
+        ),
+    ]
+    return rng.choice(screenshot_refs)
+
+
 _MODIFIER_FUNCTIONS: dict[str, object] = {
     MODIFIER_VAGUE: apply_vague,
     MODIFIER_VERBOSE: apply_verbose,
@@ -765,23 +879,29 @@ _MODIFIER_FUNCTIONS: dict[str, object] = {
     MODIFIER_PASSIVE_AGGRESSIVE: apply_passive_aggressive,
     MODIFIER_AUTO_TRANSLATED: apply_auto_translated,
     MODIFIER_CORPORATE_JARGON: apply_corporate_jargon,
+    MODIFIER_TYPOS: apply_typos,
+    MODIFIER_MINIMAL_INFO: apply_minimal_info,
+    MODIFIER_SCREENSHOT_REFERENCE: apply_screenshot_reference,
 }
 
 ModifierFunc = type[None]  # just for documentation; actual type is callable
 
 
-def select_modifiers(rng: random.Random, max_modifiers: int = 2) -> list[str]:
+def select_modifiers(rng: random.Random, max_modifiers: int = 3) -> list[str]:
     """Select 0 to max_modifiers modifiers based on weighted probabilities.
 
-    About 35% of tickets get no modifier (clean), 45% get one, 20% get two.
+    About 30% of tickets get no modifier (clean), 40% get one, 20% get two,
+    10% get three for maximum diversity.
     """
     roll = rng.random()
-    if roll < 0.35:
+    if roll < 0.30:
         count = 0
-    elif roll < 0.80:
+    elif roll < 0.70:
         count = 1
+    elif roll < 0.90:
+        count = 2
     else:
-        count = min(2, max_modifiers)
+        count = min(3, max_modifiers)
 
     if count == 0:
         return []

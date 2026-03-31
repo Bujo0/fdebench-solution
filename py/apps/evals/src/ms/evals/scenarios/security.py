@@ -1553,3 +1553,99 @@ register(ScenarioTemplate(
         ],
     ],
 ))
+
+register(ScenarioTemplate(
+    scenario_id="sec-036",
+    category=Category.SECURITY,
+    priority=Priority.P1,
+    assigned_team=Team.SECOPS,
+    needs_escalation=True,
+    missing_information=[MissingInfo.TIMESTAMP, MissingInfo.AUTHENTICATION_METHOD],
+    subjects=[
+        "Suspicious login alert from unknown location — possible account compromise",
+        "Got an alert for sign-in from a country I've never been to",
+        "Unusual sign-in activity detected — unfamiliar location and device",
+    ],
+    descriptions=[
+        "I received an email alert from Microsoft about a successful sign-in to my Contoso account "
+        "from an IP address in Eastern Europe. I have not traveled there and don't recognize the "
+        "device listed in the alert. I'm worried my account may have been compromised. I'm not "
+        "sure exactly when the sign-in happened — the alert email came in this morning but might "
+        "refer to activity from last night. I also don't know which authentication method was used "
+        "to satisfy the MFA requirement, or if MFA was somehow bypassed. I've already changed my "
+        "password but I'm not sure what else I should do.",
+        "There's a sign-in on my account from a location I've never visited — it shows up as a "
+        "different country in my recent activity. The sign-in appears to have been successful, "
+        "which is alarming because I don't know how they got past MFA. I can't tell the precise "
+        "timestamp from the notification — it just says 'recent activity' — and I don't know if "
+        "the sign-in used my authenticator app, a phone call, or something else. I want this "
+        "investigated immediately because I handle sensitive financial data.",
+    ],
+    next_best_actions=[
+        "Immediately review the Entra ID sign-in logs for the user's account to determine the "
+        "exact sign-in timestamp, location, device, and authentication method. Check for signs of "
+        "token theft or MFA bypass. Initiate the compromised account response procedure.",
+        "Pull the user's sign-in and audit logs from Entra ID to confirm the suspicious activity. "
+        "Revoke all active sessions and refresh tokens immediately while investigating the "
+        "authentication method used.",
+    ],
+    remediation_steps=[
+        [
+            "Review Entra ID sign-in logs to identify the exact timestamp, IP, device, and auth method",
+            "Revoke all active sessions and refresh tokens for the user's account immediately",
+            "Check for any mailbox rules, app consents, or data exfiltration during the suspicious session",
+            "Reset the user's password and require MFA re-registration on a verified device",
+            "Investigate whether MFA was bypassed, intercepted, or satisfied via a compromised method",
+            "Escalate to the incident response team and document the timeline for the security incident record",
+        ],
+    ],
+))
+
+register(ScenarioTemplate(
+    scenario_id="sec-037",
+    category=Category.SECURITY,
+    priority=Priority.P2,
+    assigned_team=Team.SECOPS,
+    needs_escalation=False,
+    missing_information=[MissingInfo.AFFECTED_SYSTEM, MissingInfo.SCREENSHOT_OR_ATTACHMENT],
+    subjects=[
+        "Compliance tool flagging user's PowerShell scripts as malicious",
+        "Security alert on PowerShell scripts — not sure if false positive",
+        "PowerShell execution policy violation flagged by compliance scanner",
+    ],
+    descriptions=[
+        "Our compliance scanning tool is flagging several PowerShell scripts that I use for "
+        "automating report generation. The alerts classify them as potentially malicious due to "
+        "obfuscation patterns, but these scripts have been in use for months and were reviewed by "
+        "my manager. I'm not sure which specific system or server triggered the alert — I run "
+        "these scripts on multiple machines. I tried to export the alert details but the "
+        "compliance dashboard wouldn't let me download a screenshot or report file. These scripts "
+        "do use encoded commands for passing complex parameters, which might be why they're being "
+        "flagged.",
+        "I'm getting compliance violations for PowerShell scripts that I wrote for data "
+        "processing automation. The security dashboard says they contain suspicious patterns like "
+        "Base64 encoding and Invoke-Expression usage, but these are legitimate techniques for the "
+        "type of data transformation I'm doing. I don't know which endpoint or server the alert "
+        "originated from since the scripts run across our automation infrastructure. I couldn't "
+        "capture a screenshot of the alert details because the dashboard session timed out before "
+        "I could save it.",
+    ],
+    next_best_actions=[
+        "Identify the specific system(s) where the alerts were generated and obtain the full alert "
+        "details from the compliance tool. Review the flagged scripts for any genuinely suspicious "
+        "patterns beyond the legitimate use of encoded commands.",
+        "Pull the compliance alert details from the backend to determine the affected system and "
+        "exact patterns flagged. Conduct a security review of the scripts to confirm they are "
+        "benign before creating any exclusions.",
+    ],
+    remediation_steps=[
+        [
+            "Retrieve the full alert details from the compliance tool's backend or admin console",
+            "Identify all systems where the flagged scripts have executed recently",
+            "Review the PowerShell scripts for genuinely malicious patterns vs. legitimate encoded commands",
+            "If scripts are confirmed safe, work with the security team to create a policy exception",
+            "Ask the user to capture a screenshot of the alert on next occurrence for documentation",
+            "Update the compliance tool's allowlist with approved script hashes and document the exception",
+        ],
+    ],
+))

@@ -1623,3 +1623,148 @@ register(ScenarioTemplate(
         ],
     ],
 ))
+
+# ---------------------------------------------------------------------------
+# net-036  Teams calls dropping — ambiguous: Network vs Enterprise Apps
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="net-036",
+    category=Category.NETWORK,
+    priority=Priority.P2,
+    assigned_team=Team.NETWORK,
+    needs_escalation=False,
+    missing_information=[MissingInfo.NETWORK_LOCATION, MissingInfo.DEVICE_INFO],
+    subjects=[
+        "Teams calls keep dropping — audio cuts out mid-conversation",
+        "Microsoft Teams calls disconnecting repeatedly",
+        "Call quality terrible on Teams — constant drops and lag",
+    ],
+    descriptions=[
+        "My Microsoft Teams calls keep dropping after a few minutes of conversation. The audio "
+        "cuts out first, then the call disconnects entirely. It's happening on both scheduled "
+        "meetings and ad-hoc calls. I've noticed my other cloud apps also lag at the same time — "
+        "file uploads to SharePoint stall and web pages load slowly. I'm not sure what floor or "
+        "network jack I'm connected to — I moved desks last week. I don't know if it's my laptop "
+        "or the network because I haven't tried from a different device.",
+        "Teams voice and video calls are dropping multiple times a day. When a call drops, I also "
+        "see brief connectivity blips on other network-dependent tools like our CRM and intranet. "
+        "This suggests it's not just a Teams issue — something is wrong with my network "
+        "connection. I recently switched to a new desk but I'm not sure which switch port or "
+        "VLAN I'm on. I haven't tested from a different machine to rule out a device issue.",
+    ],
+    next_best_actions=[
+        "Determine the user's physical network location (floor, switch port, VLAN) and check for "
+        "packet loss or bandwidth issues on that segment. Ask the user to provide device details "
+        "to rule out a client-side problem.",
+        "Identify the user's network jack and switch port assignment after the desk move. Run "
+        "network diagnostics to check for intermittent connectivity issues on the segment.",
+    ],
+    remediation_steps=[
+        [
+            "Identify the user's current desk, network jack, and switch port assignment",
+            "Run a network health check on the port — check for CRC errors, packet loss, and duplex mismatches",
+            "Collect device details (laptop model, network adapter, driver version) to rule out client issues",
+            "Review QoS policies on the user's VLAN to ensure real-time media traffic is prioritized",
+            "If the port or cable is faulty, move the user to a known-good jack and retest",
+            "Monitor the connection for 24 hours and confirm with the user that calls are stable",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# net-037  Can't connect to SQL database remotely — ambiguous: Network vs Data Platform
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="net-037",
+    category=Category.NETWORK,
+    priority=Priority.P2,
+    assigned_team=Team.NETWORK,
+    needs_escalation=False,
+    missing_information=[MissingInfo.ERROR_MESSAGE, MissingInfo.ENVIRONMENT_DETAILS],
+    subjects=[
+        "Can't connect to SQL Server from home — connection times out",
+        "Remote SQL database connection failing over VPN",
+        "SQL Server unreachable when working remotely — timeout errors",
+    ],
+    descriptions=[
+        "I can't connect to our on-premises SQL Server instance from home over the VPN. The "
+        "connection just times out — I never get an authentication prompt or SQL error, which "
+        "makes me think the traffic isn't even reaching the server. When I was in the office "
+        "last week, the same connection string worked fine. I didn't capture the exact error "
+        "message from SQL Server Management Studio. I'm not sure if I'm supposed to connect "
+        "to the production or staging SQL instance from remote — the connection string I have "
+        "might be pointing to the wrong environment.",
+        "Since switching to remote work this week, I can't reach our SQL database through the "
+        "VPN tunnel. The connection attempt hangs and eventually times out without any SQL-level "
+        "error, suggesting the network path is blocked. Other VPN resources like file shares "
+        "work, but the database port seems unreachable. I don't have the exact timeout error "
+        "text and I'm unsure whether the firewall rules for VPN users allow traffic to the SQL "
+        "server's port. I'm also not certain which database environment my connection string "
+        "targets.",
+    ],
+    next_best_actions=[
+        "Check the VPN split-tunnel configuration and firewall rules to verify that SQL Server "
+        "port traffic (1433) is allowed from VPN client subnets. Ask the user to capture the "
+        "exact error and confirm the target environment.",
+        "Verify network connectivity from the VPN subnet to the SQL Server IP on port 1433. "
+        "Review firewall ACLs and confirm which database environment the user needs to reach.",
+    ],
+    remediation_steps=[
+        [
+            "Ask the user to capture the exact error message and confirm the SQL Server hostname and port",
+            "Determine which environment (production vs. staging) the user needs to access remotely",
+            "Test port 1433 connectivity from the VPN subnet to the SQL Server using telnet or Test-NetConnection",
+            "Review firewall rules and VPN split-tunnel configuration for SQL traffic from remote clients",
+            "If blocked, create a firewall rule to allow the VPN subnet to reach the SQL Server port",
+            "Test the SQL connection end-to-end over VPN and confirm with the user",
+        ],
+    ],
+))
+
+# ---------------------------------------------------------------------------
+# net-038  Outlook slow only from home — ambiguous: Network vs Enterprise Apps
+# ---------------------------------------------------------------------------
+register(ScenarioTemplate(
+    scenario_id="net-038",
+    category=Category.NETWORK,
+    priority=Priority.P3,
+    assigned_team=Team.NETWORK,
+    needs_escalation=False,
+    missing_information=[MissingInfo.NETWORK_LOCATION, MissingInfo.STEPS_TO_REPRODUCE],
+    subjects=[
+        "Outlook extremely slow when working from home",
+        "Email takes forever to sync over VPN — Outlook crawling",
+        "Outlook performance terrible on home network — fine in office",
+    ],
+    descriptions=[
+        "Outlook has been painfully slow since I started working from home this week. Emails "
+        "take 30+ seconds to open and the folder list hangs when I click on it. When I was in "
+        "the office on Monday, Outlook worked perfectly on the same laptop. I'm connected over "
+        "the VPN and other apps like Teams and SharePoint also feel sluggish, which makes me "
+        "think it's a network or VPN throughput issue rather than an Outlook-specific problem. "
+        "I'm not sure what my home internet speed is or whether I'm on WiFi or ethernet.",
+        "My Outlook client is almost unusable from home — it takes minutes to sync new mail and "
+        "calendar updates are significantly delayed. The same laptop runs Outlook perfectly in "
+        "the office, so the issue seems tied to my remote connection. I also notice that file "
+        "downloads over the VPN are much slower than usual. I haven't done a formal speed test "
+        "or tried disconnecting the VPN to see if Outlook Web Access works better, but the "
+        "pattern suggests a bandwidth or routing problem on the VPN path.",
+    ],
+    next_best_actions=[
+        "Have the user run a speed test and determine if they are on WiFi or ethernet at home. "
+        "Check the VPN tunnel throughput and routing for Exchange traffic.",
+        "Ask the user to test Outlook Web Access without VPN to isolate whether the issue is "
+        "VPN-related. Review VPN bandwidth utilization and split-tunnel policies for Microsoft "
+        "365 traffic.",
+    ],
+    remediation_steps=[
+        [
+            "Ask the user to run a speed test (with and without VPN) and note WiFi vs. ethernet",
+            "Have the user try Outlook Web Access (OWA) without VPN to test direct M365 connectivity",
+            "Review the VPN split-tunnel configuration to check if M365 traffic is being routed through the tunnel",
+            "If M365 traffic is tunneled, enable split-tunnel for Outlook/Exchange endpoints to reduce VPN load",
+            "Check VPN concentrator utilization for bandwidth saturation during peak hours",
+            "Retest Outlook performance after any VPN or routing changes and confirm with the user",
+        ],
+    ],
+))
