@@ -80,27 +80,32 @@ MODIFIER_WEIGHTS: dict[str, float] = {
 
 
 def apply_vague(subject: str, description: str, rng: random.Random) -> tuple[str, str]:
-    """Replace specific details with vague language."""
-    vague_subjects = [
-        "Something's not working",
-        "Need help",
-        "Issue with my computer",
-        "Problem",
-        "IT issue",
-        "Help please",
-        "Broken",
-        "Can't do anything",
-        "Not working",
+    """Replace specific details with vague language while preserving some uniqueness."""
+    vague_prefixes = [
+        "Something's not working — ",
+        "Need help with ",
+        "Issue with my ",
+        "Problem — ",
+        "IT issue: ",
+        "Help please — ",
+        "Broken: ",
+        "Can't do anything — ",
+        "Not working: ",
     ]
     vague_addons = [
         " I'm not sure what else to tell you. It just doesn't work.",
         " This has been happening for a while. Please fix it.",
         " I've tried everything I can think of.",
         " Not sure if this is the right place to submit this.",
+        " I really need this fixed ASAP.",
+        " Can someone please take a look?",
     ]
-    new_subject = rng.choice(vague_subjects)
-    shortened = description[:80] + "..." if len(description) > 80 else description
-    new_desc = shortened + rng.choice(vague_addons)
+    # Keep a hint of the original subject for uniqueness
+    words = subject.split()
+    hint = " ".join(words[:3]).lower() if len(words) >= 3 else subject.lower()
+    new_subject = rng.choice(vague_prefixes) + hint
+    # Keep full description but make it vaguer
+    new_desc = description + rng.choice(vague_addons)
     return new_subject, new_desc
 
 
@@ -165,13 +170,31 @@ def apply_frustrated(subject: str, description: str, rng: random.Random) -> tupl
 def apply_contradictory(subject: str, description: str, rng: random.Random) -> tuple[str, str]:
     """Make the subject contradict or mislead about the body content."""
     contradictions = [
-        ("Low priority — minor issue", description + "\n\n[Note: despite the subject line, "
-         "this appears to involve production systems and multiple users.]"),
-        ("FYI — no action needed", description + "\n\n[The reporter says no action needed but "
-         "the description clearly describes a system failure requiring attention.]"),
-        ("Quick question about settings", description),
-        ("Not urgent at all — whenever you have time", description +
-         "\n\nUpdate: Actually this is affecting the trading floor. Several traders can't work."),
+        (
+            f"Low priority — {subject.lower()}",
+            f"{description}\n\n[Note: despite the subject line, "
+            f"this appears to involve production systems and multiple users.]",
+        ),
+        (
+            f"FYI only — {subject.lower()}",
+            f"{description}\n\n[The reporter says no action needed but "
+            f"the description clearly describes a system failure requiring attention.]",
+        ),
+        (
+            f"Quick question — {subject.lower()}",
+            description,
+        ),
+        (
+            f"Not urgent — {subject.lower()}",
+            f"{description}\n\nUpdate: Actually this is affecting the "
+            f"{rng.choice(['trading floor', 'compliance team', 'entire finance department'])}. "
+            f"Several {rng.choice(['traders', 'analysts', 'team members'])} can't work.",
+        ),
+        (
+            f"Resolved (not really) — {subject.lower()}",
+            f"{description}\n\nI marked this as resolved in the portal by accident "
+            f"but the problem is very much still happening.",
+        ),
     ]
     new_subject, new_desc = rng.choice(contradictions)
     return new_subject, new_desc
@@ -363,24 +386,41 @@ def apply_multilingual(subject: str, description: str, rng: random.Random) -> tu
 
 def apply_phone_transcript(subject: str, description: str, rng: random.Random) -> tuple[str, str]:
     """Simulate messy phone transcription quality."""
+    # Use full description to maintain uniqueness
+    hour = rng.randint(8, 17)
+    minute = rng.randint(0, 59)
+    timestamp = f"{hour:02d}:{minute:02d}"
+    floors = ["3", "5", "7", "12", "14", "18", "22", "ground"]
+    floor_num = rng.choice(floors)
+
     transcript_wrappers = [
         (
             f"Phone call transcript — {subject}",
-            f"[Transcribed from phone call at {{time}}]\n\n"
-            f"Caller: Yeah hi um so I'm having this... this problem with my... what do you call "
-            f"it... the thing on my computer. [inaudible] ...it's not working and I really need "
-            f"it for... hold on... [background noise] ...OK sorry about that. So basically "
-            f"{description[:100]}... [caller paused] ...and it's been like this since um... "
+            f"[Transcribed from phone call at {timestamp}]\n\n"
+            f"Caller: Yeah hi um so I'm having this... this problem. [inaudible] ...it's not "
+            f"working and I really need it fixed. Hold on... [background noise] ...OK sorry about "
+            f"that. So basically here's the deal:\n\n{description}\n\n"
+            f"[caller paused] ...and it's been like this since um... "
             f"I think maybe Tuesday? Or was it Wednesday. Anyway it's really messing things up. "
-            f"Can someone just come look at it? I'm on floor... [inaudible] ...thanks.",
+            f"Can someone just come look at it? I'm on floor {floor_num}. Thanks.",
         ),
         (
             f"Phone: {subject}",
-            f"[Auto-transcribed — confidence: 72%]\n\n"
-            f"User called about: {description[:150]}\n\n"
-            f"Additional notes from call: User seemed [unintelligible] about the issue. Mentioned "
-            f"it started 'a few days ago' but couldn't be specific. Asked to have someone call "
-            f"back. Best time to reach: mornings before 10am.",
+            f"[Auto-transcribed — confidence: {rng.randint(58, 84)}%]\n\n"
+            f"User called at {timestamp} about the following:\n\n{description}\n\n"
+            f"Additional notes from call: User seemed "
+            f"{rng.choice(['frustrated', 'confused', 'calm but concerned', 'anxious'])} "
+            f"about the issue. Mentioned it started 'a few days ago' but couldn't be specific. "
+            f"Asked to have someone call back. Best time to reach: "
+            f"{rng.choice(['mornings before 10am', 'after 2pm', 'anytime except lunch'])}.",
+        ),
+        (
+            f"Voicemail transcription — {subject}",
+            f"[Voicemail received at {timestamp}, duration: {rng.randint(1, 4)}m{rng.randint(10, 59)}s]\n\n"
+            f"Hi this is a message for IT support. I'm calling because... um...\n\n"
+            f"{description}\n\n"
+            f"...so yeah if someone could get back to me that would be great. "
+            f"I'll be at my desk until {rng.randint(3, 6)}pm. Extension {rng.randint(4000, 4999)}. Thanks bye.",
         ),
     ]
     new_subject, new_desc = rng.choice(transcript_wrappers)
@@ -456,7 +496,8 @@ def apply_hidden_urgency(subject: str, description: str, rng: random.Random) -> 
         (
             f"Minor issue — {subject.lower()}",
             f"Not a big deal but thought I'd report it. {description}\n\n"
-            f"Oh, also, I think this might be affecting the other 40 people on the trading floor "
+            f"Oh, also, I think this might be affecting the other "
+            f"{rng.randint(20, 100)} people on the trading floor "
             f"too, but I haven't confirmed. The trade execution system seems a bit slow as well.",
         ),
         (
@@ -464,6 +505,26 @@ def apply_hidden_urgency(subject: str, description: str, rng: random.Random) -> 
             f"Hey team, just a small thing. {description}\n\n"
             f"By the way, I noticed the same issue showing up on the monitoring dashboard for "
             f"the production database. Probably nothing but wanted to mention it.",
+        ),
+        (
+            f"FYI — {subject.lower()}",
+            f"Just an FYI, no rush. {description}\n\n"
+            f"Side note: the error message also mentions something about 'data corruption' "
+            f"but I'm sure it's fine. The backup probably ran last night anyway.",
+        ),
+        (
+            f"Not urgent at all — {subject.lower()}",
+            f"Whenever you have time, no rush. {description}\n\n"
+            f"Oh one more thing — the compliance dashboard is also showing some red flags "
+            f"but I'm sure someone is already looking at that. The audit is only in "
+            f"{rng.choice(['two days', 'next week', 'three days'])}.",
+        ),
+        (
+            f"Low priority — {subject.lower()}",
+            f"Probably not a big deal at all. {description}\n\n"
+            f"I only mention it because the same thing happened right before the "
+            f"{rng.choice(['last outage', 'security incident last month', 'data loss event'])}. "
+            f"But I'm sure it's unrelated.",
         ),
     ]
     new_subject, new_desc = rng.choice(hidden_urgency_styles)
@@ -475,18 +536,18 @@ def apply_chat_shorthand(subject: str, description: str, rng: random.Random) -> 
     chat_styles = [
         (
             subject.lower().replace(".", ""),
-            f"hey can someone help w this?? {description[:80]}... tbh idk what happened "
-            f"it just stopped working lol. thx",
+            f"hey can someone help w this??\n\n{description}\n\n"
+            f"tbh idk what happened it just stopped working lol. thx",
         ),
         (
             f"🚨 {subject}",
-            f"pls help asap 😭 {description[:100]}... its been like this all morning and "
-            f"i have stuff due today. ty in advance!! 🙏",
+            f"pls help asap 😭\n\n{description}\n\n"
+            f"its been like this all morning and i have stuff due today. ty in advance!! 🙏",
         ),
         (
             subject.lower(),
-            f"yo so {description[:120]}... tried restarting didn't help. "
-            f"anyone around to take a look? im at my desk rn",
+            f"yo so heres the deal:\n\n{description}\n\n"
+            f"tried restarting didn't help. anyone around to take a look? im at my desk rn",
         ),
     ]
     new_subject, new_desc = rng.choice(chat_styles)
@@ -618,7 +679,7 @@ def apply_auto_translated(subject: str, description: str, rng: random.Random) ->
     translations = [
         (
             f"[Translated from Portuguese] {subject}",
-            f"Good afternoon. I have the problem with the {description[:60]}. "
+            f"Good afternoon. I have the following problem:\n\n{description}\n\n"
             f"The system it does not function since the morning of today. "
             f"I already made the restart but continues with the same situation. "
             f"Please to resolve with urgency because I have much work pending. "
@@ -627,18 +688,20 @@ def apply_auto_translated(subject: str, description: str, rng: random.Random) ->
         (
             f"[Auto-translated] {subject}",
             f"Dear IT Support honored team, I am writing to inform about "
-            f"following difficulty: {description[:80]}. This phenomenon started to "
-            f"manifest itself from two days ago approximately. The colleagues from "
-            f"my section also suffer identical inconvenience. We request the "
-            f"amicable resolution of this matter at earliest possibility."
+            f"following difficulty:\n\n{description}\n\n"
+            f"This phenomenon started to manifest itself from "
+            f"{rng.choice(['two', 'three', 'several'])} days ago approximately. "
+            f"The colleagues from my section also suffer identical inconvenience. "
+            f"We request the amicable resolution of this matter at earliest possibility."
         ),
         (
             subject,
-            f"Hello, excuse the translation please. {description[:70]}. "
+            f"Hello, excuse the translation please. Here is my issue:\n\n{description}\n\n"
             f"The error message shows itself when I make click on the button "
-            f"of submit. I have probed in three navigators different and the "
-            f"result is the same one. It is very necessary to fix this because "
-            f"the end of trimester report must be delivered Friday."
+            f"of submit. I have probed in {rng.choice(['three', 'two', 'multiple'])} "
+            f"navigators different and the result is the same one. It is very necessary "
+            f"to fix this because the end of trimester report must be delivered "
+            f"{rng.choice(['Friday', 'Monday', 'tomorrow', 'this week'])}."
         ),
     ]
     return rng.choice(translations)
@@ -650,24 +713,32 @@ def apply_corporate_jargon(subject: str, description: str, rng: random.Random) -
         (
             f"[ACTION REQUIRED] {subject}",
             f"Per our cross-functional alignment session, I'm raising this to ensure we're "
-            f"tracking against our Q2 OKRs. The core issue: {description} This is a blocker "
-            f"for our north-star metric and needs to be de-risked ASAP. Let's circle back "
-            f"with a solution by EOD."
+            f"tracking against our Q2 OKRs. The core issue:\n\n{description}\n\n"
+            f"This is a blocker for our north-star metric and needs to be de-risked ASAP. "
+            f"Let's circle back with a solution by EOD."
         ),
         (
             f"[HIGH VISIBILITY] {subject}",
-            f"Wanted to socialize this with the team. {description} From a strategic lens, "
-            f"this is impacting our ability to move the needle on key deliverables. We need "
-            f"to right-size our approach and ensure we have the bandwidth to action this. "
-            f"Happy to jump on a call to discuss the art of the possible."
+            f"Wanted to socialize this with the team.\n\n{description}\n\n"
+            f"From a strategic lens, this is impacting our ability to move the needle on "
+            f"key deliverables. We need to right-size our approach and ensure we have the "
+            f"bandwidth to action this. Happy to jump on a call to discuss the art of the possible."
         ),
         (
             f"Synergy blocker — {subject}",
-            f"Flagging for visibility. {description} This is creating friction in our "
-            f"value stream and negatively impacting our velocity. We should probably "
-            f"take a holistic view here and ensure we're not boiling the ocean. "
-            f"Can someone own this and drive to resolution? Let's not let perfect "
-            f"be the enemy of good."
+            f"Flagging for visibility.\n\n{description}\n\n"
+            f"This is creating friction in our value stream and negatively impacting our velocity. "
+            f"We should probably take a holistic view here and ensure we're not boiling the ocean. "
+            f"Can someone own this and drive to resolution? Let's not let perfect be the enemy "
+            f"of good."
+        ),
+        (
+            f"[BLOCKER] {subject} — needs alignment",
+            f"Looping in the team for awareness. Per our standup this morning:\n\n"
+            f"{description}\n\n"
+            f"This is table stakes for our {rng.choice(['Q2', 'H1', 'Q3'])} roadmap. "
+            f"We need to leverage our existing capabilities and take this offline for a deep dive. "
+            f"Let's ensure we're rowing in the same direction."
         ),
     ]
     return rng.choice(jargon_intros)

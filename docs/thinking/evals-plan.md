@@ -33,7 +33,7 @@ The current eval dataset has only **75 total tickets** (25 sample + 50 public ev
 - Limited VIP/executive scenarios
 - No explicit contradiction scenarios tested
 
-## Target: 2,000 Unique Eval Tickets
+## Target: 5,000 Unique Eval Tickets
 
 ### Category Distribution (balanced with realism)
 
@@ -227,3 +227,66 @@ For each ticket, missing_info should reflect what's genuinely absent:
 - etc.
 
 The gold answer's missing_info must match the actual content gaps in the ticket text.
+
+---
+
+## Iteration 2 Results (5,000 tickets)
+
+### Scenario Templates: 265 total
+| File | Count | IDs |
+|---|---|---|
+| access_auth.py | 35 | aa-001 to aa-035 |
+| hardware.py | 30 | hw-001 to hw-030 |
+| network.py | 35 | net-001 to net-035 |
+| software.py | 40 | sw-001 to sw-040 |
+| security.py | 35 | sec-001 to sec-035 |
+| data_storage.py | 30 | ds-001 to ds-030 |
+| general_inquiry.py | 30 | gi-001 to gi-030 |
+| not_support.py | 30 | ns-001 to ns-030 |
+
+### Modifiers: 20 total
+Original 15 + 5 new: stack_trace, forwarded_email, passive_aggressive, auto_translated, corporate_jargon
+
+### Coverage Improvements
+| Missing Info | Before (2k) | After (5k) | Improvement |
+|---|---|---|---|
+| previous_ticket_id | 11 (0.6%) | 434 (8.7%) | 39× |
+| authentication_method | 21 (1.1%) | 293 (5.9%) | 14× |
+| contact_info | 58 (2.9%) | 496 (9.9%) | 9× |
+| screenshot_or_attachment | 80 (4.0%) | 555 (11.1%) | 7× |
+| reproduction_frequency | 96 (4.8%) | 421 (8.4%) | 4× |
+
+### Distribution Quality
+- Categories: 10.0%–17.1% (target-aligned)
+- Priorities: P1 11.8%, P2 25.0%, P3 38.3%, P4 24.8%
+- Teams: all 7 teams represented, 9.8%–19.2%
+- Channels: email 30.3%, portal 29.5%, chat 25.1%, phone 15.1%
+- Unique subjects: 4583/5000 (91.7%)
+- Unique descriptions: 4799/5000 (96.0%)
+
+---
+
+## Iteration 3 Plan — Next Improvements
+
+### A. Increase Subject/Description Uniqueness
+- Current: 91.7% unique subjects — need more subject variants per scenario
+- Add 3-5 additional subject variants to scenarios with high reuse
+- Add description parameterization (system names, error codes, department names)
+
+### B. Add Boundary-Testing Scenarios
+- Tickets that look like "Not a Support Ticket" but ARE real issues (boundary confusion)
+- Tickets that look like one category but belong to another (ambiguous routing)
+- Tickets with conflicting priority signals (VIP + low-impact vs. junior + critical)
+- Tickets that need split routing (touches 2+ teams)
+
+### C. New Modifier Ideas
+- `typos_and_misspellings` — realistic typos, swap letters, missing words
+- `extremely_long` — 2000+ word descriptions with buried key details
+- `minimal_info` — one-line descriptions with almost no detail
+- `copy_paste_template` — user fills in a template form badly
+- `screenshot_text` — "see attached screenshot" with no attachment
+
+### D. Scale Considerations
+- Can push to 7,500 or 10,000 tickets if needed
+- May need to add more scenario variants to maintain uniqueness above 95%
+- Consider adding time-series patterns (multiple related tickets from same user)
