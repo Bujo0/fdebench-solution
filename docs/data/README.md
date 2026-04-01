@@ -47,7 +47,7 @@ Your `/triage` endpoint must return **all 8 fields**:
 | `next_best_action` | string | No* | Required but not deterministically scored |
 | `remediation_steps` | string[] | No* | Required but not deterministically scored |
 
-*Remediation quality is assessed as part of engineering quality (Part 2).
+*Remediation quality is assessed during the separate engineering review.
 
 See [schemas/output.json](schemas/output.json) for the formal JSON Schema with all valid enum values.
 
@@ -55,15 +55,15 @@ See [schemas/output.json](schemas/output.json) for the formal JSON Schema with a
 
 The tickets include:
 
-- **Clean tickets** — well-written, clear, all the details you need
-- **Vague tickets** — "system is down" with zero specifics
-- **Multi-issue tickets** — "can't login AND my monitor is flickering" (good luck picking one category)
-- **Hidden urgency** — no "URGENT" flag, but the body describes a production outage
-- **Missing info** — half the context you need isn't there
-- **Contradictions** — subject says "low priority", body says revenue is impacted
-- **Noise** — auto-replies, "thanks" messages, out-of-office, spam (these are "Not a Support Ticket", routed to "None")
-- **Jargon** — dense technical language that requires actually understanding IT support
-- **Ambiguous routing** — is an MFA issue Identity or Security? Depends on the context. (Sound familiar? Read the routing guide.)
+- **Clean tickets**: well-written, clear, all the details you need
+- **Vague tickets**: "system is down" with zero specifics
+- **Multi-issue tickets**: "can't login AND my monitor is flickering" (good luck picking one category)
+- **Hidden urgency**: no "URGENT" flag, but the body describes a production outage
+- **Missing info**: half the context you need isn't there
+- **Contradictions**: subject says "low priority", body says revenue is impacted
+- **Noise**: auto-replies, "thanks" messages, out-of-office, spam (these are "Not a Support Ticket", routed to "None")
+- **Jargon**: dense technical language that requires actually understanding IT support
+- **Ambiguous routing**: is an MFA issue Identity or Security? Depends on the context. (Sound familiar? Read the routing guide.)
 
 This is what real enterprise tickets look like. Your system needs to handle all of it.
 
@@ -71,8 +71,8 @@ This is what real enterprise tickets look like. Your system needs to handle all 
 
 | Set | Tickets | Gold answers? | Purpose |
 |---|---|---|---|
-| **Sample** | 25 | Yes | Primary development loop — score locally |
-| **Public eval** | 50 | No | Pre-submission validation — checks for errors and timeouts |
-| **Hidden eval** | ~100 | No (held back) | Final scoring — includes edge cases not in public data |
+| **Sample** | 25 | Yes | Primary development loop, score locally |
+| **Public eval** | 50 | No | Pre-submission validation, checks for errors and timeouts |
+| **Hidden eval** | 1000+ | No (held back) | Final scoring, includes edge cases not in public data |
 
 > **Don't overfit.** The hidden set has ticket types you won't find in the public data. Build for robustness, not memorization.
