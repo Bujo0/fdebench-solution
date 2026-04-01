@@ -1,14 +1,12 @@
 # Be a Microsoft FDE for a Day
 
-> **Build like an FDE. Bring your best.**
-
 ## What Is This
 
-A **24-hour build challenge** where you solve a real enterprise problem: build an AI-powered ticket triage API for a fictional financial services company drowning in IT support requests.
+A **build challenge** where you tackle the kind of problem FDEs actually solve: a financial services company is drowning in IT support tickets, and they need an AI-powered triage API. Yesterday.
 
-You'll read their customer brief, explore their messy ticket data, build a deployed API that classifies, routes, and generates remediation — and submit it for automated scoring against a hidden evaluation set.
+You'll read their (messy, incomplete) customer brief, dig through their ticket data, build a real deployed API, and ship it — then we score it against a hidden evaluation set you've never seen.
 
-**This is not a chatbot challenge.** It's an engineering challenge. One endpoint, one JSON in, one JSON out, deployed and live.
+**This is not a chatbot challenge.** It's an engineering challenge. One endpoint, one JSON in, one JSON out, deployed and callable. The kind of thing you'd actually build for a customer.
 
 ## Getting Started
 
@@ -17,7 +15,7 @@ You'll read their customer brief, explore their messy ticket data, build a deplo
 3. **Read the challenge spec** — [docs/challenge/](docs/challenge/) — API contract, schemas, scoring rubric
 4. **Explore the data** — [docs/data/](docs/data/) — synthetic tickets for development and testing
 5. **Test locally** — [docs/eval/](docs/eval/) — run the eval harness against your endpoint
-6. **Submit** — [docs/submission/](docs/submission/) — deploy, push, submit
+6. **Submit** — deploy, push, then go to **[aka.ms/fde/hackathon](https://aka.ms/fde/hackathon)** to submit
 
 ## Repository Structure
 
@@ -57,20 +55,19 @@ uvx pre-commit install
 
 ## Rules
 
-- **24-hour build window** from the published start time
-- **One final submission** per participant
-- You may use any programming language, framework, or AI model
-- AI coding assistants are allowed
-- Your solution must be deployable and callable via API
-- Documentation is required
+- **One submission** per person. Make it count.
+- Any language, any framework, any AI model. Your call.
+- Copilot, Cursor, Claude — all fair game. Use everything you've got.
+- Must be deployed and callable via HTTPS. Not "it works on my machine".
+- Documentation is required. If you can't explain it, you didn't build it.
 
 ## Evaluation
 
-Submissions are scored on a **100-point scale**: **50%** functional accuracy (does your triage match the gold standard?) and **50%** engineering quality (design, code, docs, evals, production readiness).
+Your score is **0–100**: half from whether your system actually works (functional accuracy), half from how you built it (engineering quality).
 
-Functional scoring uses exact match for classification/routing, F1 for missing-info detection, and **LLM-as-judge** for remediation quality. See [docs/challenge/](docs/challenge/) for the full rubric.
+Functional scoring is deterministic — **macro F1** for classification and routing, **partial credit** for priority, **set F1** for missing info, **binary F1** for escalation. Plus latency and cost. No LLM judges. No vibes. Just math. See [docs/challenge/](docs/challenge/) for every detail.
 
-Final rankings use a **hidden evaluation set** with additional edge cases. Don't overfit to the public data. Build your solution as if it's going to production tomorrow — use what you consider best practices and explain why. We are looking for engineering. 
+Final rankings use a **hidden evaluation set** with edge cases you haven't seen. Don't overfit to the public data. Build it like it's going to production tomorrow.
 
 
 ## Before You Submit
@@ -84,7 +81,7 @@ Your solution must:
 - Include three mandatory docs: `docs/architecture.md`, `docs/methodology.md`, `docs/evals.md`
 - Have a clean, well-tested, well-documented **public repository**
 
-See [docs/submission/](docs/submission/) for the full checklist.
+See [docs/submission/](docs/submission/) for the full checklist, then submit at **[aka.ms/fde/hackathon](https://aka.ms/fde/hackathon)**.
 
 ## License
 

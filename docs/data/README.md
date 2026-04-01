@@ -1,22 +1,22 @@
 # Dataset
 
-This directory contains the synthetic ticket data for the challenge.
+Synthetic tickets modeled on real enterprise IT support. They're messy on purpose.
 
 ## Structure
 
 ```
 data/
-├── README.md                # This file
+├── README.md                  # This file
 ├── tickets/
-│   ├── sample.json          # ~10 tickets for local development
-│   ├── sample_gold.json     # Gold-standard triage outputs for the sample set
-│   └── public_eval.json     # ~50 tickets for self-evaluation
+│   ├── sample.json            # 25 tickets for local development
+│   ├── sample_gold.json       # Gold-standard triage outputs for the sample set
+│   └── public_eval.json       # 50 tickets for pre-submission testing
 └── schemas/
-    ├── input.json           # JSON Schema for ticket input
-    └── output.json          # JSON Schema for triage output
+    ├── input.json             # JSON Schema for ticket input
+    └── output.json            # JSON Schema for expected triage output
 ```
 
-## Ticket Format
+## Ticket Format (Input)
 
 Each ticket has these fields:
 
@@ -32,28 +32,47 @@ Each ticket has these fields:
 
 See [schemas/input.json](schemas/input.json) for the formal JSON Schema.
 
+## Triage Output Format
+
+Your `/triage` endpoint must return **all 8 fields**:
+
+| Field | Type | Scored? | Notes |
+|---|---|---|---|
+| `ticket_id` | string | — | Must match the input exactly |
+| `category` | string | **Yes** (20%) | One of 8 valid categories |
+| `priority` | string | **Yes** (20%) | `P1`, `P2`, `P3`, or `P4` |
+| `assigned_team` | string | **Yes** (20%) | One of 7 valid teams (including `"None"`) |
+| `needs_escalation` | boolean | **Yes** (10%) | `true` or `false` |
+| `missing_information` | string[] | **Yes** (15%) | From the 16-value constrained vocabulary |
+| `next_best_action` | string | No* | Required but not deterministically scored |
+| `remediation_steps` | string[] | No* | Required but not deterministically scored |
+
+*Remediation quality is assessed as part of engineering quality (Part 2).
+
+See [schemas/output.json](schemas/output.json) for the formal JSON Schema with all valid enum values.
+
 ## What to Expect
 
-The tickets are synthetic but modeled after real enterprise IT support data. They include:
+The tickets include:
 
-- **Clean tickets** — well-written with clear descriptions and relevant details
-- **Vague tickets** — "system is down" with no specifics
-- **Multi-issue tickets** — "can't login AND my monitor is flickering"
-- **Urgency hidden in context** — no "URGENT" flag but the body implies time sensitivity
-- **Missing information** — common fields omitted, context insufficient
-- **Contradictions** — subject says "low priority" but body describes a production outage
-- **Noise** — auto-replies, "thanks" messages, out-of-office, spam
-- **Domain jargon** — dense technical language that requires real understanding
-- **Multiple valid approaches** — some tickets have more than one reasonable classification
+- **Clean tickets** — well-written, clear, all the details you need
+- **Vague tickets** — "system is down" with zero specifics
+- **Multi-issue tickets** — "can't login AND my monitor is flickering" (good luck picking one category)
+- **Hidden urgency** — no "URGENT" flag, but the body describes a production outage
+- **Missing info** — half the context you need isn't there
+- **Contradictions** — subject says "low priority", body says revenue is impacted
+- **Noise** — auto-replies, "thanks" messages, out-of-office, spam (these are "Not a Support Ticket", routed to "None")
+- **Jargon** — dense technical language that requires actually understanding IT support
+- **Ambiguous routing** — is an MFA issue Identity or Security? Depends on the context. (Sound familiar? Read the routing guide.)
 
-This reflects reality. Real enterprise tickets are messy. Your system should handle all of these gracefully.
+This is what real enterprise tickets look like. Your system needs to handle all of it.
 
 ## Dataset Splits
 
-| Set | Tickets | Visibility | Purpose |
+| Set | Tickets | Gold answers? | Purpose |
 |---|---|---|---|
-| **Sample** | ~10 | Public (in this repo) | Local development |
-| **Public eval** | ~50 | Public (in this repo) | Self-testing with the eval harness |
-| **Hidden eval** | ~100 | Private (not in this repo) | Final scoring — includes additional edge cases |
+| **Sample** | 25 | Yes | Primary development loop — score locally |
+| **Public eval** | 50 | No | Pre-submission validation — checks for errors and timeouts |
+| **Hidden eval** | ~100 | No (held back) | Final scoring — includes edge cases not in public data |
 
-> **Do not overfit to the public evaluation set.** Final rankings are determined by the hidden set, which includes scenarios not present in the public data.
+> **Don't overfit.** The hidden set has ticket types you won't find in the public data. Build for robustness, not memorization.
