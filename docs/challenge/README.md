@@ -238,7 +238,35 @@ They're **required** in your response (the schema enforces it). But they're **no
 
 We review your repo the way a senior engineer reviews a pull request. Not a checkbox exercise, but a holistic read of how you think, build, and communicate.
 
+This part is **not** a second hidden deterministic test set. There is no public `run_eng_eval.py` because this half is about the quality of the system you shipped and the reasoning you can show in your repo.
+
+Think of it like this:
+
+- **Part 1** asks: did your live system make the right triage decisions on hidden tickets?
+- **Part 2** asks: if we opened your repo and reviewed it like teammates, would we trust the engineering?
+
+The signal we care about is very FDE-shaped: can you take an ambiguous customer problem, turn it into a clean service, make sensible tradeoffs, and ship something that still looks solid when we ask about latency, cost, failure modes, scale, security, and testing?
+
 We're looking for: clean code, good tests, sensible architecture, infrastructure that works, and documentation that shows you *understood* the problem, not just threw tokens at it.
+
+In practice, the strongest submissions usually do these things well:
+
+- Thin API layer, with business logic separated from route handlers
+- Typed models and schema validation on both input and output
+- Async external calls with explicit timeouts
+- Clear error handling instead of generic 500s everywhere
+- Tests for core logic, edge cases, and API behavior
+- Environment-based configuration, no secrets in source, and runnable deployment setup
+- Docs that explain **why** decisions were made, not just what files exist
+
+In other words, we are not just looking for a model call that happens to classify tickets well on a lucky day. We want to see engineering judgment:
+
+- Can the service stay fast enough to survive the scoring run?
+- Did you think about cost instead of brute-forcing everything with the biggest model?
+- Do you validate inputs and outputs so bad responses do not leak into the API contract?
+- Will the system fail gracefully when the model is slow, wrong, or unavailable?
+- Did you test the edge cases you know customers will hit?
+- Could another engineer clone the repo, understand the design, and extend it without guessing what you meant?
 
 **Three documents are mandatory.** Skip one and you'll feel it in the score.
 
@@ -271,6 +299,50 @@ We're looking for: clean code, good tests, sensible architecture, infrastructure
 > **Real talk:** a straightforward solution with honest error analysis and clear docs will outscore a complex system with no explanation. Every time. We've seen it.
 
 We also look at: code quality, test coverage, error handling, infrastructure, CI/CD, and whether your README actually lets someone else clone and run your system in under 5 minutes.
+
+### FAQ
+
+#### Is the engineering score another hidden test suite?
+
+No. The hidden eval set applies to the **functional** half. The engineering half comes from reviewing your repo, docs, code structure, tests, deployment readiness, and the quality of the system you built.
+
+#### If the engineering half is reviewed, what should I optimize for?
+
+Optimize for trust. A reviewer should be able to open your repo and quickly see:
+
+- how requests flow through the system
+- where the LLM or rules logic lives
+- how failures are handled
+- how to run and test the service
+- what you tried, what failed, and what tradeoffs you made
+
+If your repo is hard to follow, missing tests, or only works with undocumented setup magic, that will show up here.
+
+#### Do I need a complicated multi-agent system to score well?
+
+No. A simple system with good judgment, good validation, solid tests, and honest writeups is a stronger submission than an overbuilt pipeline you can't explain.
+
+#### Are `next_best_action` and `remediation_steps` part of the hidden functional score?
+
+Not directly. They are required by the schema, but they are reviewed as part of the engineering-quality half. If those fields are vague, generic, or obviously low effort, that hurts you.
+
+#### What usually makes an engineering submission look weak?
+
+- Business logic buried in one route file
+- No timeouts or retry handling around model calls
+- No tests beyond a happy path
+- Missing docs or docs that only describe the final state
+- Hardcoded config, secrets, or localhost-only assumptions
+- README that does not let someone run the project quickly
+
+#### What makes a submission feel strong in an FDE way?
+
+- The design is simple, but clearly intentional
+- The API contract is treated seriously, with validation and predictable errors
+- Latency and cost are managed as engineering constraints, not ignored until the end
+- Tests cover weird tickets, failure cases, and non-happy paths
+- The repo shows evidence of iteration, tradeoffs, and honest evaluation
+- The whole thing feels like something a customer team could actually operate
 
 ---
 
