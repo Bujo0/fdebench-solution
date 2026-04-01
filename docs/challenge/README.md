@@ -149,14 +149,14 @@ Tickets vary in quality. Some are clean. Some are vague, contradictory, multi-is
 
 ## How We Score You
 
-Your final score is **0–100**. Two halves, equally weighted:
+Your hidden-set **functional score** is **0–100**. Separately, we also review your repo for engineering quality.
 
 | Part | Weight | What we're looking at |
 |---|---|---|
-| **Functional accuracy** | 50 pts | Does your system actually triage correctly? How fast and cheap is it? |
-| **Engineering quality** | 50 pts | How did you build it? Can we read your code? Did you test it? Do your docs tell us *why*? |
+| **Functional scoring** | 0-100 | Does your system actually triage correctly? How fast and cheap is it? |
+| **Engineering review** | Separate review | How did you build it? Can we read your code? Did you test it? Do your docs tell us *why*? |
 
-### Part 1: Functional Score (50 pts)
+### Functional Score (0-100)
 
 We call your live endpoint with **1000+ tickets you've never seen**. Every response is scored deterministically against gold answers. **No LLM judges. No vibes. Same logic as the local eval harness.** You can see exactly how you'll be scored before you submit.
 
@@ -226,15 +226,15 @@ functional_score = classification_pts + efficiency_pts
                  = 0–100
 ```
 
-This 0–100 number is then weighted as 50% of your leaderboard score.
+This is the 0–100 functional score you should optimize for on the hidden set.
 
 #### What about `next_best_action` and `remediation_steps`?
 
-They're **required** in your response (the schema enforces it). But they're **not part of the functional score**. We look at remediation quality when we review your repo (Part 2). Write good ones anyway. A system that says "investigate the issue" for every ticket is telling us you phoned it in.
+They're **required** in your response (the schema enforces it). But they're **not part of the functional score**. We look at remediation quality when we review your repo. Write good ones anyway. A system that says "investigate the issue" for every ticket is telling us you phoned it in.
 
 ---
 
-### Part 2: Engineering Quality (50 pts)
+### Engineering Review
 
 We review your repo the way a senior engineer reviews a pull request. Not a checkbox exercise, but a holistic read of how you think, build, and communicate.
 
@@ -242,8 +242,8 @@ This part is **not** a second hidden deterministic test set. There is no public 
 
 Think of it like this:
 
-- **Part 1** asks: did your live system make the right triage decisions on hidden tickets?
-- **Part 2** asks: if we opened your repo and reviewed it like teammates, would we trust the engineering?
+- **Functional score** asks: did your live system make the right triage decisions on hidden tickets?
+- **Engineering review** asks: if we opened your repo and reviewed it like teammates, would we trust the engineering?
 
 The signal we care about is very FDE-shaped: can you take an ambiguous customer problem, turn it into a clean service, make sensible tradeoffs, and ship something that still looks solid when we ask about latency, cost, failure modes, scale, security, and testing?
 
@@ -268,7 +268,7 @@ In other words, we are not just looking for a model call that happens to classif
 - Did you test the edge cases you know customers will hit?
 - Could another engineer clone the repo, understand the design, and extend it without guessing what you meant?
 
-**Three documents are mandatory.** Skip one and you'll feel it in the score.
+**Three documents are mandatory.** Skip one and it will hurt the engineering review.
 
 #### `docs/architecture.md`
 
@@ -302,11 +302,11 @@ We also look at: code quality, test coverage, error handling, infrastructure, CI
 
 ### FAQ
 
-#### Is the engineering score another hidden test suite?
+#### Is engineering review another hidden test suite?
 
-No. The hidden eval set applies to the **functional** half. The engineering half comes from reviewing your repo, docs, code structure, tests, deployment readiness, and the quality of the system you built.
+No. The hidden eval set applies to the **functional score**. Engineering review happens separately based on your repo, docs, code structure, tests, deployment readiness, and the quality of the system you built.
 
-#### If the engineering half is reviewed, what should I optimize for?
+#### If engineering review happens separately, what should I optimize for?
 
 Optimize for trust. A reviewer should be able to open your repo and quickly see:
 

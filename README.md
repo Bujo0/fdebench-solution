@@ -63,11 +63,11 @@ uvx pre-commit install
 
 ## Evaluation
 
-Your score is **0–100**: half from whether your system actually works (functional accuracy), half from how you built it (engineering quality).
+Your hidden-set **functional score** is **0–100**.
 
 Functional scoring is deterministic: **macro F1** for classification and routing, **partial credit** for priority, **set F1** for missing info, **binary F1** for escalation. Plus latency and cost. No LLM judges. No vibes. Just math. See [docs/challenge/](docs/challenge/) for every detail.
 
-The other 50 points are simpler: when we open your repo, does it look like solid FDE work? Clean design, sensible tradeoffs, attention to latency and cost, real tests, and a system another engineer could trust.
+Separately, we review repos for engineering quality: clean design, sensible tradeoffs, attention to latency and cost, real tests, and a system another engineer could trust.
 
 Final rankings use a **hidden evaluation set** with edge cases you haven't seen. Don't overfit to the public data. Build it like it's going to production tomorrow.
 

@@ -47,7 +47,7 @@ Your `/triage` endpoint must return **all 8 fields**:
 | `next_best_action` | string | No* | Required but not deterministically scored |
 | `remediation_steps` | string[] | No* | Required but not deterministically scored |
 
-*Remediation quality is assessed as part of engineering quality (Part 2).
+*Remediation quality is assessed during the separate engineering review.
 
 See [schemas/output.json](schemas/output.json) for the formal JSON Schema with all valid enum values.
 

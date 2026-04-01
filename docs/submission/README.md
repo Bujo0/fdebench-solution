@@ -24,9 +24,9 @@ your-repo/
 └── ...                      # Your code, tests, infrastructure
 ```
 
-**All three docs are mandatory.** Missing one is a big hit to your engineering score.
+**All three docs are mandatory.** Missing one is a big hit in engineering review.
 
-Important nuance: the hidden tickets are for the **functional** half. The **engineering** half comes from reviewing what is in your repo after you submit.
+Important nuance: the hidden tickets are for the **0-100 functional score**. Engineering review happens separately from what is in your repo after you submit.
 
 What we want to see is not just that you got a decent score. We want to see how you built a system: clear design, sensible model usage, attention to latency and cost, tests that cover real failure modes, and engineering choices that would hold up in front of a customer team.
 
@@ -47,15 +47,15 @@ Drop this at the root of your repo:
 
 | Component | Weight | How it's scored |
 |---|---|---|
-| **Classification accuracy** | 42.5 pts | 5 dimensions via macro F1, ordinal credit, set F1, binary F1 (max 85 pts × 50% leaderboard weight) |
-| **Efficiency** | 7.5 pts | Latency (p50) + cost ($/ticket) from response headers (max 15 pts × 50%) |
-| **Engineering quality** | 50 pts | Repo review of system design, code quality, tests, docs, evals, infrastructure, and production readiness. This is not a second hidden deterministic harness |
+| **Classification accuracy** | Up to 85 pts | 5 dimensions via macro F1, ordinal credit, set F1, binary F1 |
+| **Efficiency** | Up to 15 pts | Latency (p50) + cost ($/ticket) from response headers |
+| **Engineering review** | Separate review | Repo review of system design, code quality, tests, docs, evals, infrastructure, and production readiness |
 
 Full scoring details: [challenge README](../challenge/README.md#how-we-score-you)
 
 ## Required Documents
 
-See [challenge README: Engineering Quality](../challenge/README.md#part-2-engineering-quality-50-pts) for what goes in each one.
+See [challenge README: Engineering Review](../challenge/README.md#engineering-review) for what goes in each one.
 
 | Document | What we want to see |
 |---|---|
@@ -94,5 +94,5 @@ See [challenge README: Engineering Quality](../challenge/README.md#part-2-engine
 - **Return valid JSON even when confused.** A reasonable default beats a stack trace.
 - **Explain your decisions.** "I chose X because Y" is worth more than a polished README that says nothing. We want to see how you think.
 - **Send the cost headers.** It's only 5% of the score, but it signals you actually read the spec.
-- **Treat the repo like part of the product.** The endpoint gets you through Part 1. The repo is what earns the other 50 points.
+- **Treat the repo like part of the product.** The endpoint drives your functional score. The repo is what reviewers use to judge the engineering.
 - **Show engineering judgment.** Good submissions usually have explicit timeouts, validation, useful tests, clean config, and a believable story for scale, security, and operability.
