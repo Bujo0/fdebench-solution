@@ -129,7 +129,7 @@ Your service must also respond to `GET /health` with HTTP 200.
 |---|---|---|---|
 | **Sample + gold answers** | 25 | [sample.json](../data/tickets/sample.json) + [sample_gold.json](../data/tickets/sample_gold.json) | Iterate locally — compare your output to the correct answers |
 | **Public eval set** | 50 | [public_eval.json](../data/tickets/public_eval.json) | Test at scale before submitting (no gold answers provided) |
-| **Hidden eval set** | 100+ | Not in this repo | Final scoring — includes edge cases not in the public data |
+| **Hidden eval set** | 1000+ | Not in this repo | Final scoring — includes edge cases not in the public data |
 
 Tickets vary in quality. Some are clean. Some are vague, contradictory, multi-issue, garbled, or not real support requests at all. That's not a bug in the dataset — that's what enterprise tickets actually look like.
 
@@ -158,7 +158,7 @@ Your final score is **0–100**. Two halves, equally weighted:
 
 ### Part 1 — Functional Score (50 pts)
 
-We call your live endpoint with **100+ tickets you've never seen**. Every response is scored deterministically against gold answers. **No LLM judges. No vibes. Same logic as the local eval harness** — you can see exactly how you'll be scored before you submit.
+We call your live endpoint with **1000+ tickets you've never seen**. Every response is scored deterministically against gold answers. **No LLM judges. No vibes. Same logic as the local eval harness** — you can see exactly how you'll be scored before you submit.
 
 #### What the platform does when it scores you
 
@@ -166,7 +166,7 @@ Here's exactly what happens when you hit "submit" on the platform:
 
 1. **Health check** — `GET /health` must return 200. If it doesn't, scoring fails immediately.
 2. **Warm-up** — We send 3 throwaway requests first. These don't count toward your score. They exist so your cold start / first-request latency doesn't penalize you unfairly.
-3. **Scoring run** — We send all 100+ tickets to your `POST /triage` endpoint with **up to 10 requests in parallel**. Your API needs to handle concurrent load — if it can only process one request at a time, you'll hit timeouts.
+3. **Scoring run** — We send all 1000+ tickets to your `POST /triage` endpoint with **up to 10 requests in parallel**. Your API needs to handle concurrent load — if it can only process one request at a time, you'll hit timeouts.
 4. **Timeout** — Each request has a **30-second timeout**. If your endpoint doesn't respond in 30 seconds, that ticket scores zero on all dimensions.
 5. **Retries** — Transient failures (5xx, timeouts) get **2 automatic retries** with backoff. Don't rely on this — fix your errors instead.
 6. **Latency measurement** — We record the wall-clock time per request. Top and bottom 5% of latencies are trimmed before computing p50/p95 so a single spike doesn't tank your latency score.
