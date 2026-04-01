@@ -3,7 +3,7 @@
 This is the same scoring logic the platform uses. Run it locally, see exactly how you'll be scored. No surprises on submission day.
 
 > **What this scores:** The 5 classification dimensions (up to 85 pts).
-> **What it doesn't score:** Efficiency (latency + cost) and engineering quality — those happen after you submit.
+> **What it doesn't score:** Efficiency (latency + cost) and the separate engineering review. Those happen after you submit.
 
 ## Quick Start
 
@@ -141,7 +141,7 @@ Health check: ✓ OK
   ...
 
   ════════════════════════════════════════════════════════════
-    FUNCTIONAL SCORE (Part 1 of final leaderboard)
+    FUNCTIONAL SCORE
   ════════════════════════════════════════════════════════════
 
     Classification dimensions (max 85 pts):
@@ -162,8 +162,8 @@ Health check: ✓ OK
     ┌─────────────────────────────────────────────────────────┐
     │  Classification score: up to 85 pts from 5 dimensions  │
     │  Efficiency score: up to 15 pts (latency + cost)       │
-    │  Total functional score: 0–100 (50% of leaderboard)    │
-    │  Engineering quality: 50% of leaderboard               │
+    │  Total functional score: 0–100 on the hidden set       │
+    │  Engineering review happens separately                 │
     └─────────────────────────────────────────────────────────┘
 
   Results saved to eval_results.json
@@ -173,7 +173,7 @@ The `eval_results.json` file contains full per-ticket breakdowns for error analy
 
 ## Running the Tests
 
-The scoring functions have their own test suite — 84 tests covering every edge case. Run them if you want to understand exactly how scoring works (or if you've been poking at the harness code):
+The scoring functions have their own test suite (84 tests covering every edge case). Run them if you want to understand exactly how scoring works, or if you've been poking at the harness code:
 
 ```bash
 cd docs/eval
