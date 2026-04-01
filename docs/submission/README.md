@@ -2,19 +2,16 @@
 
 ## How to Submit
 
-1. **Fork** this repository to your own GitHub account (your fork must be **public**)
-2. **Build** your solution in your fork
-3. **Deploy** your solution so it's callable via HTTPS
-4. **Verify** `GET /health` returns HTTP 200 and `POST /triage` returns valid JSON
-5. **Run** the eval harness against the sample gold set — make sure your scores are where you want them
-6. **Create** `submission.json` at the root of your repo (see below)
-7. **Write** the three mandatory documents: `docs/architecture.md`, `docs/methodology.md`, `docs/evals.md`
-8. **Push** everything to your public fork
-9. **Submit** your entry via the designated submission form (link shared at competition start)
+1. **Fork** this repo (your fork must be **public**)
+2. **Build** your solution
+3. **Deploy** it somewhere callable via HTTPS
+4. **Test** with the eval harness — sample set for scoring, public eval for smoke testing
+5. **Write** your three docs: `docs/architecture.md`, `docs/methodology.md`, `docs/evals.md`
+6. **Create** `submission.json` at the root (see below)
+7. **Push** everything
+8. **Submit** at **[aka.ms/fde/hackathon](https://aka.ms/fde/hackathon)** — the hackathon platform where you register your endpoint and trigger scoring
 
 ## Required Files
-
-All of the following are **mandatory**. Missing documents = reduced engineering score.
 
 ```
 your-repo/
@@ -27,7 +24,11 @@ your-repo/
 └── ...                      # Your code, tests, infrastructure
 ```
 
+**All three docs are mandatory.** Missing one is a big hit to your engineering score.
+
 ## submission.json
+
+Drop this at the root of your repo:
 
 ```json
 {
@@ -40,44 +41,52 @@ your-repo/
 
 ## What Gets Evaluated
 
-Your leaderboard score is **0–100**: 50% functional accuracy + 50% engineering quality.
-
-| Part | Weight | How |
+| Component | Weight | How it's scored |
 |---|---|---|
-| **Functional accuracy** | 50% | ~100 hidden tickets scored deterministically against gold answers |
-| **Engineering quality** | 50% | System design, code, infrastructure, docs, evals, production readiness |
-| **Finalist round** | Unscored | 30-min walkthrough + 30-min Q&A with FDE engineers (top N only) |
+| **Classification accuracy** | 42.5 pts | 5 dimensions via macro F1, ordinal credit, set F1, binary F1 (max 85 pts × 50% leaderboard weight) |
+| **Efficiency** | 7.5 pts | Latency (p50) + cost ($/ticket) from response headers (max 15 pts × 50%) |
+| **Engineering quality** | 50 pts | System design, code quality, tests, docs, evals, infrastructure, production readiness |
+
+Full scoring details: [challenge README](../challenge/README.md#how-we-score-you)
 
 ## Required Documents
 
-Full guidance on what to include: [challenge README — Engineering Quality](../challenge/README.md#part-2--engineering-quality).
+See [challenge README — Engineering Quality](../challenge/README.md#part-2--engineering-quality-50-pts) for what goes in each one.
 
-**`docs/architecture.md`** — System design, component diagram, data flow, AI pipeline, tradeoffs, production readiness.
+| Document | What we want to see |
+|---|---|
+| `docs/architecture.md` | System design, data flow, AI pipeline, tradeoffs, what you'd change for prod |
+| `docs/methodology.md` | How you approached it, what you tried, what failed, how you spent your time |
+| `docs/evals.md` | Your actual numbers, which tickets you got wrong and why, where your system breaks |
 
-**`docs/methodology.md`** — Problem framing, strategy, iteration, prompt engineering, time allocation, retrospective.
+> **Seriously:** a clean, simple solution with honest error analysis beats a complex system with no explanation. Every single time.
 
-**`docs/evals.md`** — Eval approach, quantitative results on sample set, error analysis, edge cases, known limitations.
-
-Thoughtful docs from a simple solution score higher than a complex system with no explanation.
-
-## Before You Submit Checklist
+## Before You Submit
 
 - [ ] `GET /health` returns HTTP 200
-- [ ] `POST /triage` returns valid JSON matching the output schema
-- [ ] Eval harness runs successfully against the 25 sample tickets
-- [ ] Eval harness runs against the 50 public eval tickets without errors or timeouts
-- [ ] `submission.json` is at the root of your repo with correct endpoint URL
-- [ ] `docs/architecture.md` exists and is filled in
-- [ ] `docs/methodology.md` exists and is filled in
-- [ ] `docs/evals.md` exists and is filled in
+- [ ] `POST /triage` returns valid JSON matching the [output schema](../data/schemas/output.json)
+- [ ] All 8 response fields are present: `ticket_id`, `category`, `priority`, `assigned_team`, `needs_escalation`, `missing_information`, `next_best_action`, `remediation_steps`
+- [ ] `category` values are from the 8 valid categories
+- [ ] `assigned_team` values are from the 7 valid teams (including `"None"`)
+- [ ] `missing_information` values are from the 16-value constrained vocabulary
+- [ ] Your API handles **10 concurrent requests** without errors or timeouts
+- [ ] Each request responds in **under 30 seconds** (that's the timeout — aim for well under)
+- [ ] Eval harness runs against 25 sample tickets with gold scoring
+- [ ] Eval harness runs against 50 public eval tickets without errors or timeouts
+- [ ] `submission.json` at repo root with correct endpoint URL
+- [ ] `docs/architecture.md` exists and is substantive
+- [ ] `docs/methodology.md` exists and is substantive
+- [ ] `docs/evals.md` exists and includes actual numbers from the sample set
 - [ ] Your repo is **public** on GitHub
-- [ ] All CI checks pass (pre-commit, pyright, pytest)
-- [ ] Your README explains how to install, run, and test your solution
+- [ ] Your README explains how to install, run, and test your solution locally
+- [ ] You've submitted at **[aka.ms/fde/hackathon](https://aka.ms/fde/hackathon)**
 
 ## Tips
 
-- **Deploy early.** Don't wait until hour 23 to deploy. Get something live in the first few hours and iterate.
-- **Test with the eval harness.** Run it against sample data, then public eval data. Iterate on your weak dimensions.
-- **Read the customer brief.** It contains business context that should inform your classification, routing, and remediation decisions. Candidates who skip it produce worse output.
-- **Handle errors gracefully.** If your system can't process a ticket, return a valid JSON response with reasonable defaults — don't return a 500.
-- **Document your decisions.** "I chose X because Y" is more valuable than a polished README with no reasoning.
+- **Deploy early.** Get something live in hour 2 and iterate. The number of people who deploy at hour 23 and then panic is... nonzero.
+- **Run the eval harness constantly.** It's the same scoring logic as the platform. Trust the numbers.
+- **Read the customer brief.** Candidates who skip it produce noticeably worse output. The business context matters for routing and remediation.
+- **Handle the weird tickets.** The hidden eval has stuff you haven't seen — vague tickets, multi-issue tickets, spam. If your system 500s on a confusing ticket, that's a zero on every dimension.
+- **Return valid JSON even when confused.** A reasonable default beats a stack trace.
+- **Explain your decisions.** "I chose X because Y" is worth more than a polished README that says nothing. We want to see how you think.
+- **Send the cost headers.** It's only 5% of the score, but it signals you actually read the spec.

@@ -1,75 +1,80 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "TriageDecision",
-  "description": "The expected triage output for a single ticket.",
-  "type": "object",
-  "required": [
-    "ticket_id",
-    "category",
-    "priority",
-    "assigned_team",
-    "needs_escalation",
-    "missing_information",
-    "next_best_action",
-    "remediation_steps"
-  ],
-  "properties": {
-    "ticket_id": {
-      "type": "string",
-      "description": "Must match the input ticket_id exactly."
-    },
-    "category": {
-      "type": "string",
-      "description": "The issue category. Expected values: 'Access & Authentication', 'Hardware & Peripherals', 'Network & Connectivity', 'Software & Applications', 'Security & Compliance', 'Data & Storage', 'General Inquiry', 'Not a Support Ticket'."
-    },
-    "priority": {
-      "type": "string",
-      "enum": ["P1", "P2", "P3", "P4"],
-      "description": "Priority level. P1 = Critical, P2 = High, P3 = Medium, P4 = Low."
-    },
-    "assigned_team": {
-      "type": "string",
-      "description": "The specialist team to route to. Expected values: 'Identity & Access Management', 'Endpoint Engineering', 'Network Operations', 'Enterprise Applications', 'Security Operations', 'Data Platform'."
-    },
-    "needs_escalation": {
-      "type": "boolean",
-      "description": "True if the ticket requires escalation beyond normal routing (security incidents, VIP, repeat failures, compliance)."
-    },
-    "missing_information": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "enum": [
-          "affected_system",
-          "error_message",
-          "steps_to_reproduce",
-          "affected_users",
-          "environment_details",
-          "timestamp",
-          "previous_ticket_id",
-          "contact_info",
-          "device_info",
-          "application_version",
-          "network_location",
-          "business_impact",
-          "reproduction_frequency",
-          "screenshot_or_attachment",
-          "authentication_method",
-          "configuration_details"
-        ]
-      },
-      "description": "Information missing from the ticket that is needed for resolution. Use only values from the enum. Empty array if the ticket is complete."
-    },
-    "next_best_action": {
-      "type": "string",
-      "description": "A single sentence describing the most important next step for the assigned team."
-    },
-    "remediation_steps": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "Ordered list of specific, actionable remediation steps an L1 analyst should follow."
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "TriageDecision",
+    "description": "The expected triage output for a single ticket.",
+    "type": "object",
+    "required": [
+        "ticket_id",
+        "category",
+        "priority",
+        "assigned_team",
+        "needs_escalation",
+        "missing_information",
+        "next_best_action",
+        "remediation_steps"
+    ],
+    "properties": {
+        "ticket_id": {
+            "type": "string",
+            "description": "Must match the input ticket_id exactly."
+        },
+        "category": {
+            "type": "string",
+            "description": "The issue category. Expected values: 'Access & Authentication', 'Hardware & Peripherals', 'Network & Connectivity', 'Software & Applications', 'Security & Compliance', 'Data & Storage', 'General Inquiry', 'Not a Support Ticket'."
+        },
+        "priority": {
+            "type": "string",
+            "enum": [
+                "P1",
+                "P2",
+                "P3",
+                "P4"
+            ],
+            "description": "Priority level. P1 = Critical, P2 = High, P3 = Medium, P4 = Low."
+        },
+        "assigned_team": {
+            "type": "string",
+            "description": "The specialist team to route to. Expected values: 'Identity & Access Management', 'Endpoint Engineering', 'Network Operations', 'Enterprise Applications', 'Security Operations', 'Data Platform', 'None'. Use 'None' only when the ticket is not a real support request."
+        },
+        "needs_escalation": {
+            "type": "boolean",
+            "description": "True if the ticket requires escalation beyond normal routing (security incidents, VIP, repeat failures, compliance)."
+        },
+        "missing_information": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "affected_system",
+                    "error_message",
+                    "steps_to_reproduce",
+                    "affected_users",
+                    "environment_details",
+                    "timestamp",
+                    "previous_ticket_id",
+                    "contact_info",
+                    "device_info",
+                    "application_version",
+                    "network_location",
+                    "business_impact",
+                    "reproduction_frequency",
+                    "screenshot_or_attachment",
+                    "authentication_method",
+                    "configuration_details"
+                ]
+            },
+            "description": "Information missing from the ticket that is needed for resolution. Use only values from the enum. Empty array if the ticket is complete."
+        },
+        "next_best_action": {
+            "type": "string",
+            "description": "A single sentence describing the most important next step for the assigned team."
+        },
+        "remediation_steps": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Ordered list of specific, actionable remediation steps an L1 analyst should follow."
+        }
     }
-  }
 }
