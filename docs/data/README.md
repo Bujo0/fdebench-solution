@@ -73,6 +73,6 @@ This is what real enterprise tickets look like. Your system needs to handle all 
 |---|---|---|---|
 | **Sample** | 25 | Yes | Primary development loop — score locally |
 | **Public eval** | 50 | No | Pre-submission validation — checks for errors and timeouts |
-| **Hidden eval** | ~100 | No (held back) | Final scoring — includes edge cases not in public data |
+| **Hidden eval** | 100+ | No (held back) | Final scoring — includes edge cases not in public data |
 
 > **Don't overfit.** The hidden set has ticket types you won't find in the public data. Build for robustness, not memorization.
