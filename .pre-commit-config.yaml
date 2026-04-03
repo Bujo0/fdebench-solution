@@ -22,6 +22,7 @@ repos:
           - --autofix
           - --indent=4
           - --no-sort-keys
+          - --no-ensure-ascii
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.14.10

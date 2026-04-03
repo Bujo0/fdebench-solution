@@ -1,0 +1,215 @@
+[
+    {
+        "ticket_id": "INC-5001",
+        "subject": "Can't access SharePoint — long email thread below",
+        "description": "Hi IT,\n\nI've been going back and forth with my team about this but nobody can figure it out. I can't access the Finance Q4 SharePoint site since Monday morning. Getting 'Access Denied' every time.\n\n--- Original message ---\nFrom: karen.mills@contoso.com\nSent: Friday, March 13, 2026 4:45 PM\nTo: finance-team@contoso.com\nSubject: RE: RE: RE: RE: RE: RE: RE: RE: Q4 SharePoint access\n\nThanks everyone for the suggestions. I tried clearing my cache like David said but it didn't help. Also tried a different browser (Edge, Chrome, Firefox) — same error in all of them. I was able to access it fine last week.\n\n--- Original message ---\nFrom: david.park@contoso.com\nSent: Friday, March 13, 2026 4:30 PM\nTo: finance-team@contoso.com\nSubject: RE: RE: RE: RE: RE: RE: RE: Q4 SharePoint access\n\nKaren, try clearing your browser cache and cookies. That fixed it for me last month when I had a similar issue.\n\n--- Original message ---\nFrom: sarah.jones@contoso.com\nSent: Friday, March 13, 2026 4:15 PM\nTo: finance-team@contoso.com\nSubject: RE: RE: RE: RE: RE: RE: Q4 SharePoint access\n\nI can access it fine. Maybe it's a permissions thing? Did someone change the group membership recently?\n\n--- Original message ---\nFrom: mike.chen@contoso.com\nSent: Friday, March 13, 2026 3:58 PM\nTo: finance-team@contoso.com\nSubject: RE: RE: RE: RE: RE: Q4 SharePoint access\n\nSame here, works for me. Karen, are you on VPN or in the office?\n\n--- Original message ---\nFrom: karen.mills@contoso.com\nSent: Friday, March 13, 2026 3:45 PM\nTo: finance-team@contoso.com\nSubject: RE: RE: RE: RE: Q4 SharePoint access\n\nI'm in the office, Floor 3. VPN shouldn't matter since I'm on the corporate network.\n\n--- Original message ---\nFrom: david.park@contoso.com\nSent: Friday, March 13, 2026 3:30 PM\nTo: finance-team@contoso.com\nSubject: RE: RE: RE: Q4 SharePoint access\n\nKaren, can you try incognito mode?\n\n--- Original message ---\nFrom: karen.mills@contoso.com\nSent: Friday, March 13, 2026 3:15 PM\nTo: finance-team@contoso.com\nSubject: RE: RE: Q4 SharePoint access\n\nYes I tried that too. No luck.\n\n--- Original message ---\nFrom: sarah.jones@contoso.com\nSent: Friday, March 13, 2026 3:00 PM\nTo: finance-team@contoso.com\nSubject: RE: Q4 SharePoint access\n\nMaybe IT needs to look at it? The permissions might have changed during last week's migration.\n\n--- Original message ---\nFrom: karen.mills@contoso.com\nSent: Friday, March 13, 2026 2:45 PM\nTo: finance-team@contoso.com\nSubject: Q4 SharePoint access\n\nHey team, is anyone else having trouble accessing the Finance Q4 SharePoint site? I keep getting an Access Denied error. Need to upload the quarterly report by EOD Monday.\n\nThanks,\nKaren Mills\nSenior Financial Analyst\nContoso Financial Services\nPhone: +1 (555) 234-5678\nEmail: karen.mills@contoso.com\n\nThis email and any attachments are confidential and intended solely for the addressee. If you are not the intended recipient, please notify the sender immediately and delete this message. Contoso Financial Services, LLC. Member FINRA/SIPC.",
+        "reporter": {
+            "name": "Karen Mills",
+            "email": "karen.mills@contoso.com",
+            "department": "Finance"
+        },
+        "created_at": "2026-03-16T09:00:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5002",
+        "subject": "Screenshot of error attached (see inline image)",
+        "description": "Hi support,\n\nMy Outlook keeps showing this error when I try to send emails with large attachments. Here's a screenshot:\n\n[image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==]\n\n[image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mNk+M9Qz0AEYBxVSF+FABJADfl50BorAAAAAElFTkSuQmCC]\n\n[image: data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAFRABAQAAAAAAAAAAAAAAAAAAAwD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8ApsA//9k=]\n\nThe error says something about exceeding the 25MB attachment limit but the file I'm trying to send is only 15MB. This started happening after the Outlook update last week. I need to send this contract to a client by end of day.\n\nThanks,\nRobert",
+        "reporter": {
+            "name": "Robert Kim",
+            "email": "robert.kim@contoso.com",
+            "department": "Legal"
+        },
+        "created_at": "2026-03-17T11:30:00Z",
+        "channel": "email",
+        "attachments": [
+            "error_screenshot.png"
+        ]
+    },
+    {
+        "ticket_id": "INC-5003",
+        "subject": "<b>URGENT</b> - Printer not working &amp; need help ASAP!!!",
+        "description": "<html><body><p style=\"font-family: Calibri; font-size: 14px; color: #1a1a1a;\">Hi IT Team,</p><p>The printer on <strong>Floor 5</strong> (HP LaserJet Pro M404n) is showing an <span style=\"color: red; font-weight: bold;\">\"Paper Jam\"</span> error but there's <em>no paper jammed</em> anywhere. I've checked all the trays and the back panel.</p><p>I've tried:</p><ul><li>Power cycling the printer</li><li>Removing and reinserting all paper trays</li><li>Clearing the print queue</li></ul><p>Nothing works. I have <u>200 pages</u> of compliance reports that need to be printed and distributed by 3 PM today for the board meeting.</p><br/><p>Thanks,<br/>Amanda Torres<br/><img src=\"cid:image001.png\" alt=\"Contoso Logo\" width=\"150\"/><br/><small>Amanda Torres | Compliance Manager<br/>Contoso Financial Services<br/>Tel: +1 (555) 987-6543 | Fax: +1 (555) 987-6544<br/><a href=\"mailto:amanda.torres@contoso.com\">amanda.torres@contoso.com</a></small></p><hr/><p style=\"font-size: 9px; color: #666;\">CONFIDENTIALITY NOTICE: This e-mail message, including any attachments, is for the sole use of the intended recipient(s) and may contain confidential and privileged information. Any unauthorized review, use, disclosure, or distribution is prohibited. If you are not the intended recipient, please contact the sender by reply e-mail and destroy all copies of the original message.</p></body></html>",
+        "reporter": {
+            "name": "Amanda Torres",
+            "email": "amanda.torres@contoso.com",
+            "department": "Compliance"
+        },
+        "created_at": "2026-03-17T12:15:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5004",
+        "subject": "lptop issu",
+        "description": "",
+        "reporter": {
+            "name": "Jake Morrison",
+            "email": "jake.morrison@contoso.com",
+            "department": "Operations"
+        },
+        "created_at": "2026-03-17T08:00:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5005",
+        "subject": "VPN issue VPN issue VPN issue VPN issue VPN issue",
+        "description": "I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I can't connect to VPN. I keep getting an error when I try to connect from home. Using GlobalProtect on Windows 11. Was working fine yesterday. I have a client presentation at 2 PM and need access to internal resources.",
+        "reporter": {
+            "name": "Nina Petrova",
+            "email": "nina.petrova@contoso.com",
+            "department": "Consulting"
+        },
+        "created_at": "2026-03-17T10:00:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5006",
+        "subject": "CanÃ¢â‚¬â„¢t access email â€“ getting weird error",
+        "description": "Iâ€™m having trouble with my email. Every time I open Outlook it shows â€œCannot connect to serverâ€ and then crashes. This started after I updated Windows yesterday. Iâ€™ve tried restarting but nothing works. My colleague JosÃ© says heâ€™s having the same issue. Weâ€™re both on the 3rd floor in the London office.\n\nPlease help â€“ I have important client emails I need to respond to.\n\nThanks,\nFranÃ§ois Dubois",
+        "reporter": {
+            "name": "François Dubois",
+            "email": "francois.dubois@contoso.com",
+            "department": "Wealth Management"
+        },
+        "created_at": "2026-03-17T08:45:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5007",
+        "subject": "Password reset needed 🔒🔑 HELP!!!!! 🚨🚨🚨",
+        "description": "I 🔒 locked myself out of my account AGAIN 😭😭😭. The self-service password reset portal 💻 says my security questions are wrong ❌ but I KNOW I'm entering them correctly ✅. I've been locked out for 2️⃣ hours now and I can't do ANY work 😤. My manager 👨‍💼 is going to kill me if I miss the deadline today ⏰.\n\nPlease help ASAP 🙏🙏🙏!!!\n\n💼 Emily Watson\n📧 emily.watson@contoso.com\n🏢 HR Department, Floor 2\n📱 +1 (555) 123-4567",
+        "reporter": {
+            "name": "Emily Watson",
+            "email": "emily.watson@contoso.com",
+            "department": "HR"
+        },
+        "created_at": "2026-03-17T10:30:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5008",
+        "subject": "RE: RE: FW: RE: FW: RE: FW: RE: Out of Office: Quarterly IT Review — action items from last meeting",
+        "description": "Hi IT,\n\nBuried in this thread somewhere is my original request — our team's shared mailbox (apac-trading@contoso.com) stopped receiving external emails around 9 AM SGT. Internal emails are fine. We're a trading desk and missing client orders.\n\n-------- Forwarded Message --------\nFrom: Out of Office AutoReply <noreply@contoso.com>\nSubject: Out of Office: Quarterly IT Review\n\nI am currently out of the office with no access to email. For urgent matters, please contact my backup at it-backup@contoso.com.\n\n-------- Original Message --------\nFrom: Jennifer Walsh <jennifer.walsh@contoso.com>\nTo: IT Planning <it-planning@contoso.com>\nSubject: RE: Quarterly IT Review — action items from last meeting\n\nThanks all. I'll update the tracker and send the revised timeline by EOW.\n\nJennifer Walsh\nIT Project Manager\nContoso Financial Services\n\n-------- Original Message --------\nFrom: IT Planning <it-planning@contoso.com>\nSubject: Quarterly IT Review — action items from last meeting\n\nTeam, please review the attached action items from our Q1 review meeting and confirm your assigned deliverables by Friday.\n\nRegards,\nIT Planning Team\n\nDISCLAIMER: This email is intended for the named recipient only. If you have received this email in error, please notify the sender and delete it immediately. The contents of this email may be confidential and/or subject to legal privilege.\n\n-------- Original Message --------\nThis is an automated message. Please do not reply.\n\nYour ticket INC-3847 has been resolved. If you are still experiencing issues, please open a new ticket.\n\nContoso IT Service Desk\nHours: Mon-Fri 8AM-6PM EST\nEmergency: +1 (555) 999-0000",
+        "reporter": {
+            "name": "Vincent Lau",
+            "email": "vincent.lau@contoso.com",
+            "department": "Trading"
+        },
+        "created_at": "2026-03-18T01:15:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5009",
+        "subject": "Database connection timeout",
+        "description": "SELECT * FROM production.client_accounts WHERE status = 'active' AND last_login < '2026-01-01' ORDER BY account_value DESC;\n\n-- Above query has been timing out for the past 3 hours on the prod SQL Server instance (sql-prod-east.contoso.internal). Normally runs in ~2 seconds. Connection string: Server=sql-prod-east.contoso.internal;Database=ClientDB;Trusted_Connection=True;Connection Timeout=30;\n\nI checked sys.dm_exec_requests and there are 47 blocked sessions. Looks like there might be a long-running transaction holding locks. The blocking_session_id points to SPID 89 which has been running for 6+ hours.\n\nThis is affecting the client portal — customers can't view their account balances. ~500 users impacted based on the error rate in Application Insights.\n\nResource group: rg-data-prod-east\nServer: sql-prod-east (Azure SQL Managed Instance, Business Critical tier)\nDatabase: ClientDB",
+        "reporter": {
+            "name": "Priya Nair",
+            "email": "priya.nair@contoso.com",
+            "department": "Data Engineering"
+        },
+        "created_at": "2026-03-17T14:00:00Z",
+        "channel": "portal",
+        "attachments": [
+            "blocked_sessions_screenshot.png",
+            "app_insights_error_rate.png"
+        ]
+    },
+    {
+        "ticket_id": "INC-5010",
+        "subject": "Need help with اتصال VPN مشكلة — mixed language ticket",
+        "description": "مرحبا فريق الدعم التقني,\n\nI'm having trouble with my VPN connection. عندما أحاول الاتصال I get error code 812. I've been working remote from our Dubai office هذا الأسبوع and the VPN was working fine until this morning.\n\nI tried:\n- إعادة تشغيل الكمبيوتر (restarting my computer)\n- Clearing the VPN client cache\n- تحديث تطبيق GlobalProtect (updating GlobalProtect)\n\nMy colleague أحمد is having the same issue. We both need VPN access for the client demo tomorrow.\n\nشكرا,\nOmar Hassan\nSenior Consultant\nContoso Financial Services — Dubai Office",
+        "reporter": {
+            "name": "Omar Hassan",
+            "email": "omar.hassan@contoso.com",
+            "department": "Consulting"
+        },
+        "created_at": "2026-03-17T06:30:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5011",
+        "subject": "Laptop issue\t\t\t\tneed   help      now",
+        "description": "my   laptop     screen   is     \t\t  cracked.     dropped    it\n\n\n\n\n\nthis     morning.\n\n\n\n\n\n\n\n\n\n\n\n\n\nstill    works    but     the\t\t\tright   side   of    the   screen   is   \t\tblack.\n\n\n\n\n\n\n\nusing    an    external     monitor     for    now    but    \tneed   a    replacement.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nits   a   thinkpad  x1  carbon   gen  11\n\n\n\n\n\n\n\n\nassigned   to    me   2   months   ago",
+        "reporter": {
+            "name": "Chris Taylor",
+            "email": "chris.taylor@contoso.com",
+            "department": "Engineering"
+        },
+        "created_at": "2026-03-17T09:15:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5012",
+        "subject": "MFA issue (email sent from phone, sorry for typos)",
+        "description": "hwy tean, mu MFA isnt wokring on ny new ohohe. i git a nwe iphome 16 yestsrday abd the micrisoft authenticstor app wint lrt me apprve anu logun requists. it jusr shwos a spinnig wherl and thn says timsd out. i trued delering the acount and re-addung it but aame issye. i can stull log un usimg SMS codrs but thts realy slwo. my old phohe doent hve the app anymroe sicne i trasferred everthing ovr.\n\nplz help i hav importnt meetins todya\n\nrachel",
+        "reporter": {
+            "name": "Rachel Green",
+            "email": "rachel.green@contoso.com",
+            "department": "Marketing"
+        },
+        "created_at": "2026-03-17T07:45:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5013",
+        "subject": "Network issue — see attached log (300MB)",
+        "description": "Our entire floor (Building 2, Floor 7) has been experiencing intermittent network drops every 15-20 minutes since Monday. I've captured packet traces and switch logs. The drops last about 30-60 seconds each time and affect both wired and wireless connections.\n\nI noticed the issue correlates with spikes in broadcast traffic from what looks like a misconfigured device at MAC address AA:BB:CC:DD:EE:FF. The ARP table shows this device flip-flopping between two IP addresses.\n\nAttaching everything I've gathered — sorry about the file sizes, the pcap alone is quite large.",
+        "reporter": {
+            "name": "Daniel Park",
+            "email": "daniel.park@contoso.com",
+            "department": "Engineering"
+        },
+        "created_at": "2026-03-17T15:00:00Z",
+        "channel": "portal",
+        "attachments": [
+            "network_capture_20260317.pcap",
+            "switch_logs_building2_floor7.txt",
+            "arp_table_dump.csv",
+            "network_topology_floor7.vsd",
+            "broadcast_traffic_analysis.xlsx",
+            "wireshark_filters.txt",
+            "interface_error_counters.json",
+            "spanning_tree_status.txt",
+            "dhcp_lease_table.csv",
+            "dns_query_log.txt",
+            "netflow_export.nfcapd",
+            "snmp_walk_output.txt"
+        ]
+    },
+    {
+        "ticket_id": "INC-5014",
+        "subject": "Software request + question + complaint + follow-up on old ticket + unrelated FYI",
+        "description": "Hey IT, several things:\n\n1) I need Visio Professional installed on my laptop (asset tag CT-L-4892). My manager approved it last week — approval ticket is REQ-2341.\n\n2) Quick question — is there a way to increase my OneDrive storage quota? I'm at 95% capacity and keep getting warnings.\n\n3) Also, the response time on my last ticket (INC-4100) was terrible. I waited 3 days for someone to look at it and then the fix didn't even work. The printer on Floor 3 is STILL jamming every 20 pages. I've reported this 4 times now.\n\n4) Oh and FYI — the coffee machine in the 2nd floor kitchen is broken again. I know that's not IT but I don't know who else to tell.\n\n5) One more thing — my colleague Sarah needs access to the same SharePoint site I requested last month. Can you add sarah.chen@contoso.com to the Finance Reports site? She just transferred to our team.\n\nThanks,\nMichael",
+        "reporter": {
+            "name": "Michael Santos",
+            "email": "michael.santos@contoso.com",
+            "department": "Finance"
+        },
+        "created_at": "2026-03-17T13:00:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5015",
+        "subject": "=?UTF-8?B?VlBOIGlzc3Vl?= =?iso-8859-1?Q?=20=2D=20urgent?=",
+        "description": "Content-Type: multipart/alternative; boundary=\"----=_Part_12345\"\nMIME-Version: 1.0\n\n------=_Part_12345\nContent-Type: text/plain; charset=UTF-8\n\nHi, I got locked out of VPN after entering wrong password 3 times. Now it says my account is disabled. I'm working from home today and have a client call in 45 minutes. Need access to CRM and the shared drive.\n\nPlease help urgently.\n\nThanks,\nStephanie Lee\n\n------=_Part_12345\nContent-Type: text/html; charset=UTF-8\n\n<html><body><p>Hi, I got locked out of VPN after entering wrong password 3 times. Now it says my account is disabled. I'm working from home today and have a client call in 45 minutes. Need access to CRM and the shared drive.</p><p>Please help urgently.</p><p>Thanks,<br>Stephanie Lee</p></body></html>\n------=_Part_12345--",
+        "reporter": {
+            "name": "Stephanie Lee",
+            "email": "stephanie.lee@contoso.com",
+            "department": "Sales"
+        },
+        "created_at": "2026-03-17T09:45:00Z",
+        "channel": "email",
+        "attachments": []
+    }
+]

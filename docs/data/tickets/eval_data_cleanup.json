@@ -1,210 +1,496 @@
 [
-    {
-        "ticket_id": "INC-5001",
-        "subject": "Can't access SAP — need help urgently",
-        "description": "Hi IT Support,\n\nI've been trying to log into SAP all morning but keep getting an error. I really need this fixed because I have month-end reports due today and my manager is already asking where the numbers are. I tried restarting my computer but that didn't help. Then I tried clearing my browser cache and cookies but that didn't work either. I also tried using a different browser (Chrome instead of Edge) but same error. My colleague sitting next to me can access SAP fine so it's definitely something with my account or machine.\n\nLet me give you some more context — I was able to access SAP yesterday afternoon around 3pm without any issues. I made some changes to a few reports and saved them. Then this morning when I came in around 7:30am, I tried to log in and it just wouldn't work. The error message says something about 'authentication failed' but I'm using the same password I've always used. I haven't changed it recently and it's not expired as far as I know.\n\nI should mention that we had a power outage in our building last night — the facilities team sent an email about it. Not sure if that's related but I thought I'd mention it. Also, I noticed that my Outlook is working fine, Teams is working fine, and I can access SharePoint without any problems. It's literally just SAP that won't let me in.\n\nI tried calling the help desk earlier but was on hold for 20 minutes and had to hang up because of a meeting. I'm really frustrated because this is costing me hours of productivity. I've been with the company for 8 years and this has never happened before. My employee ID is 4829 and my manager is David Chen in the Finance department.\n\nCan someone please look into this ASAP? I need SAP access restored before 2pm today at the latest because that's when my manager wants the month-end reconciliation numbers. If I can't get this done today, it affects the entire finance team's workflow and potentially delays the quarterly filing.\n\nAlso, while I have your attention, is there any way to get the SAP interface to display in a larger font? I've been having trouble reading the small text on my 24-inch monitor. This isn't urgent but if someone could help with that too, I'd appreciate it.\n\nOne more thing — I noticed that the SAP application seems to have been updated recently. The login screen looks different from what I remember. Did IT push an update? Maybe that's what's causing the issue? I remember reading an email about planned maintenance but I thought that was for SharePoint, not SAP.\n\nHere's exactly what happens when I try to log in:\n1. I open Chrome and go to sap.contoso.com\n2. The login page loads (new interface with Contoso branding)\n3. I enter my username (jthompson@contoso.com) and password\n4. I click 'Sign In'\n5. The page shows a spinning wheel for about 10 seconds\n6. Then I get a red banner that says 'Authentication Failed — Please contact your administrator'\n7. If I click 'Try Again' it just does the same thing\n\nI've tried this about 15 times now. Same result every time. Please help!\n\nThanks,\nJennifer Thompson\nSenior Financial Analyst\nFinance Department, 5th Floor\nExt: 4829\njennifer.thompson@contoso.com",
-        "reporter": {
-            "name": "Jennifer Thompson",
-            "email": "jennifer.thompson@contoso.com",
-            "department": "Finance"
-        },
-        "created_at": "2026-03-18T07:45:00Z",
-        "channel": "email",
-        "attachments": []
+  {
+    "ticket_id": "INC-5001",
+    "subject": "Re: Re: Re: Re: Re: FW: VPN disconnects during market open",
+    "description": "Hi IT Support,\n\nJust following up again — the VPN still drops every morning between 09:28 and 09:32 ET.\nI have to reconnect 3-4 times before it stabilizes. This is impacting my ability to\nexecute trades at market open.\n\nThanks,\nMarco\n\n--- Original Message ---\nFrom: Marco Bellini <marco.bellini@contoso.com>\nSent: Monday, March 10, 2026 8:45 AM\nTo: IT Support <itsupport@contoso.com>\nSubject: Re: Re: Re: Re: FW: VPN disconnects during market open\n\nStill happening today. I ran the diagnostics you asked for — attached.\n\n--- Original Message ---\nFrom: IT Support <itsupport@contoso.com>\nSent: Friday, March 7, 2026 4:10 PM\nTo: Marco Bellini <marco.bellini@contoso.com>\nSubject: Re: Re: Re: FW: VPN disconnects during market open\n\nHi Marco, could you run 'netsh wlan show all' and send us the output? Also please\nconfirm your GlobalProtect client version. Thanks, Amy\n\n--- Original Message ---\nFrom: Marco Bellini <marco.bellini@contoso.com>\nSent: Friday, March 7, 2026 9:05 AM\nTo: IT Support <itsupport@contoso.com>\nSubject: Re: Re: FW: VPN disconnects during market open\n\nIt happened again. I lost the VPN tunnel at exactly 09:30. My colleague Raj in the\nsame building says his works fine, so I don't think it's the office network.\n\n--- Original Message ---\nFrom: IT Support <itsupport@contoso.com>\nSent: Thursday, March 6, 2026 3:00 PM\nTo: Marco Bellini <marco.bellini@contoso.com>\nSubject: Re: FW: VPN disconnects during market open\n\nHi Marco, thanks for reporting. Can you tell us which office and floor you're on?\nAlso, are you on Wi-Fi or Ethernet? Regards, Amy\n\n--- Original Message ---\nFrom: Marco Bellini <marco.bellini@contoso.com>\nSent: Thursday, March 6, 2026 9:35 AM\nTo: IT Support <itsupport@contoso.com>\nSubject: FW: VPN disconnects during market open\n\nHi team, my VPN keeps disconnecting every morning around market open. I'm on the\n5th floor, Building 3, New York office, using Wi-Fi. It's been going on for a week.",
+    "reporter": {
+      "name": "Marco Bellini",
+      "email": "marco.bellini@contoso.com",
+      "department": "Equity Trading"
     },
-    {
-        "ticket_id": "INC-5002",
-        "subject": "Screenshot of error",
-        "description": "Please see the attached screenshot of the error I'm getting.\n\n[image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==]\n\n[image: data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AKwA//9k=]\n\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAACCAIAAACl/BQAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABESURBVHhe7cExAQAAAMKg9U9tDB+gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOBqBMIAAQF9YMAAAAAASUVORK5CYII=\n\nThis has been happening since yesterday. My laptop won't connect to the wireless network. I've tried turning wifi off and on. Can someone help?",
-        "reporter": {
-            "name": "Alex Kumar",
-            "email": "alex.kumar@contoso.com",
-            "department": "Trading"
-        },
-        "created_at": "2026-03-18T09:20:00Z",
-        "channel": "email",
-        "attachments": [
-            "error_screenshot.png",
-            "wifi_settings.png"
-        ]
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5002",
+    "subject": "Monitor flickering — screenshot attached inline",
+    "description": "Hi,\n\nMy external monitor keeps flickering every few seconds. I took a screenshot but our\nmail client embedded it inline. Here it is:\n\n[image: screenshot.png]\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVQYV2P8z8BQz0AEYBxVOHIVAvcHBQHzKSECAAAAAElFTkSuQmCC\ndata:image/png;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAFBABaaaaAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ALQAB//Z\n\nThe flickering started Monday after a Windows Update. It's a Dell U2722D connected\nvia DisplayPort to my docking station (Dell WD19S). The built-in laptop screen is\nfine. I've tried a different DisplayPort cable already — same issue.\n\nPriya Nair\nRisk Management, Building 2, 7th floor",
+    "reporter": {
+      "name": "Priya Nair",
+      "email": "priya.nair@contoso.com",
+      "department": "Risk Management"
     },
-    {
-        "ticket_id": "INC-5003",
-        "subject": "Network issue",
-        "description": "<html><head><style>body{font-family:Calibri,sans-serif;font-size:11pt;}.signature{color:#666;font-size:9pt;border-top:1px solid #ccc;margin-top:20px;padding-top:10px;}</style></head><body><p>Hi Team,</p><p>I&#39;m having trouble with the <b>VPN connection</b> from our London office. It keeps <span style=\"color:red;font-weight:bold\">disconnecting every 10-15 minutes</span> and I have to manually reconnect each time.</p><p>I&#39;ve attached a <a href=\"file:///C:/Users/rjones/Desktop/vpn_log.txt\">log file</a> from the VPN client.</p><p>This is affecting my ability to access the <u>internal SharePoint sites</u> and <em>SAP system</em>.</p><table border=\"1\" cellpadding=\"5\"><tr><th>Time</th><th>Status</th></tr><tr><td>09:00</td><td style=\"color:green\">Connected</td></tr><tr><td>09:12</td><td style=\"color:red\">Disconnected</td></tr><tr><td>09:15</td><td style=\"color:green\">Reconnected</td></tr><tr><td>09:28</td><td style=\"color:red\">Disconnected</td></tr></table><div class=\"signature\"><p><b>Robert Jones</b><br>Director, Institutional Sales<br>Contoso Financial Services — London<br>Tel: +44 20 7123 4567 | Mobile: +44 7700 900123<br>Email: robert.jones@contoso.com<br><img src=\"cid:contoso_logo\" alt=\"Contoso Logo\" width=\"150\"><br><font size=\"1\" color=\"#999\">This email is confidential and intended solely for the use of the individual to whom it is addressed. If you are not the intended recipient, be advised that you have received this email in error and that any use, dissemination, forwarding, printing, or copying of this email is strictly prohibited. If you have received this email in error, please contact the sender immediately and delete all copies.</font></p></div></body></html>",
-        "reporter": {
-            "name": "Robert Jones",
-            "email": "robert.jones@contoso.com",
-            "department": "Institutional Sales"
-        },
-        "created_at": "2026-03-18T09:30:00Z",
-        "channel": "email",
-        "attachments": [
-            "vpn_log.txt"
-        ]
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5003",
+    "subject": "Cannot access SharePoint after migration",
+    "description": "<html><body style=\"font-family:Calibri,sans-serif;font-size:11pt\"><div style=\"margin:0;padding:0\"><p><b>Hi IT Team,</b></p><p style=\"color:#1F4E79\">Since the SharePoint migration last Friday I can&rsquo;t open the <b>Compliance Policy Library</b> site. I get a &ldquo;403 Forbidden&rdquo; error every time I click the link.</p><p>Steps I&apos;ve tried:</p><ol><li>Cleared browser cache &amp; cookies</li><li>Tried Edge, Chrome, and Firefox &mdash; same result</li><li>Verified my account at <u>myaccount.microsoft.com</u> &mdash; looks fine</li><li>Asked my manager Deirdre who can access it fine from her machine</li></ol><p>My URL is: <a href=\"https://contoso.sharepoint.com/sites/CompliancePolicyLib\">https://contoso.sharepoint.com/sites/CompliancePolicyLib</a></p><p style=\"font-size:9pt;color:gray\">Sent from Outlook for Windows</p><p style=\"font-size:8pt;color:gray\">CONFIDENTIALITY NOTICE: This email and any attachments are for the exclusive and confidential use of the intended recipient. If you are not the intended recipient, please do not read, distribute, or take action based on this message.&nbsp;&nbsp;</p></div></body></html>",
+    "reporter": {
+      "name": "Aiden O'Sullivan",
+      "email": "aiden.osullivan@contoso.com",
+      "department": "Compliance"
     },
-    {
-        "ticket_id": "INC-5004",
-        "subject": "🚨🚨🚨 HELP!!! 💻🔥 Computer is SO SLOW 😤😤😤 Can't work!!! 🆘🆘🆘",
-        "description": "😡😡😡 OMG my computer is SOOOOO slow today!!! 🐌🐌🐌\n\nI can't even open Excel without waiting like 5️⃣ minutes!!! ⏰⏰\nThis is UNACCEPTABLE!!! 🚫🚫\n\nI have a 📊 presentation due in 2️⃣ hours and I can't even open my files!!! 📁😱\n\nPlease fix this ASAP!!! 🏃‍♂️💨\n\n- Laptop model: ThinkPad T14 💻\n- OS: Windows 11 🪟\n- Apps affected: Excel 📊, PowerPoint 📽️, Outlook 📧\n\nThis has been happening since Monday 📅 and it's getting worse every day!!! ⬇️📉\n\n🙏🙏🙏 PLEASE HELP!!! 🆘🆘🆘\n\nThanks!! 🙏✨💯🎉",
-        "reporter": {
-            "name": "Maria Santos",
-            "email": "maria.santos@contoso.com",
-            "department": "Marketing"
-        },
-        "created_at": "2026-03-18T10:15:00Z",
-        "channel": "chat",
-        "attachments": []
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5004",
+    "subject": "Printer producing garbled output — urgënt",
+    "description": "Hi,\n\nThe printer on the 3rd floor (HP LaserJet MFP M634) is printing garbled\ncharacters on every document. Here’s what the output looks like:\n\nÃ©Ã±Ã¼Ã¨Â«Â» ï¿½ï¿½ï¿½ RÃ©port_Q1_2026.xlsx â Page 1 of 4\nÃÃ§Ã§Ã¨ÃŸÃŸ DÃ¨niÃ¨d: PlÃ¨Ã sÃ¨ contÃ ct IT\n\nI’ve tried restarting the printer and switching paper trays. My colleague\nFatima confirmed it’s happening for her documents too. We need this fixed\ntoday — we have a board presentation to print.\n\nRegards,\nWei Chen\nFinance, Building 1, 3rd floor, New York",
+    "reporter": {
+      "name": "Wei Chen",
+      "email": "wei.chen@contoso.com",
+      "department": "Finance"
     },
-    {
-        "ticket_id": "INC-5005",
-        "subject": "Issue with account",
-        "description": "---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Issue with account\nTo: David Park <david.park@contoso.com>\n\nHi David,\n\nWe've reset your password. Please try logging in again.\n\nBest,\nIT Helpdesk\n\n---------- Forwarded message ---------\nFrom: David Park <david.park@contoso.com>\nDate: Mon, Mar 16, 2026 at 2:30 PM\nSubject: Re: Issue with account\nTo: IT Helpdesk <helpdesk@contoso.com>\n\nThanks but I already tried that. The password reset worked but now I'm getting a different error — it says 'Your account has been disabled. Contact your administrator.' I think something happened during the directory sync last night because my manager mentioned other people in our team are having similar issues.\n\n---------- Original message ---------\nFrom: David Park <david.park@contoso.com>\nDate: Mon, Mar 16, 2026 at 10:15 AM\nSubject: Issue with account\nTo: IT Helpdesk <helpdesk@contoso.com>\n\nHi, I can't log into my workstation this morning. Getting 'account locked out' error. Tried the self-service password reset portal but it said my account doesn't qualify. I'm in the Singapore office if that matters.\n\nThanks,\nDavid Park\nCompliance Team",
-        "reporter": {
-            "name": "David Park",
-            "email": "david.park@contoso.com",
-            "department": "Compliance"
-        },
-        "created_at": "2026-03-18T08:00:00Z",
-        "channel": "email",
-        "attachments": []
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5005",
+    "subject": "Slack integration broken 🚨🚨🚨",
+    "description": "🚨🚨🚨 URGENT 🚨🚨🚨\n\nHeyy so the Slack ↔️ Jira integration is totally broken 😭😭😭\nWhen I create a ticket in #trading-incidents it used to auto-create a Jira issue 📋 but now NOTHING happens ❌❌\n\nI’ve checked:\n✅ Slack app is still installed in our workspace\n✅ I can see the Jira bot in the channel\n❌ But the /jira create command gives me 👉 \"Oops! Something went wrong (error 502)\" 👈\n\nThis is blocking our whole incident workflow 🔥🔥🔥 we literally cannot track prod issues rn 💩\n\npls help asap 🙏🙏🙏\n\n— Deshawn\n💼 Institutional Trading\n📍 NYC Building 4, 8th floor",
+    "reporter": {
+      "name": "Deshawn Carter",
+      "email": "deshawn.carter@contoso.com",
+      "department": "Institutional Trading"
     },
-    {
-        "ticket_id": "INC-5006",
-        "subject": "Error dump from application",
-        "description": "Application crashed with the following error:\n\n{\"timestamp\":\"2026-03-18T06:45:12.345Z\",\"level\":\"ERROR\",\"logger\":\"com.contoso.trading.OrderService\",\"message\":\"Unhandled exception in order processing pipeline\",\"exception\":{\"type\":\"System.NullReferenceException\",\"message\":\"Object reference not set to an instance of an object.\",\"stackTrace\":[\"at com.contoso.trading.OrderService.ProcessOrder(Order order) in /src/services/OrderService.cs:line 142\",\"at com.contoso.trading.Pipeline.Execute(PipelineContext ctx) in /src/pipeline/Pipeline.cs:line 89\",\"at com.contoso.trading.MessageHandler.HandleAsync(Message msg) in /src/handlers/MessageHandler.cs:line 56\",\"at com.contoso.trading.ServiceBus.ProcessMessage(BrokeredMessage msg) in /src/bus/ServiceBus.cs:line 234\"],\"innerException\":{\"type\":\"System.InvalidOperationException\",\"message\":\"Sequence contains no matching element\",\"stackTrace\":[\"at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)\",\"at com.contoso.trading.OrderService.GetClientAccount(String clientId) in /src/services/OrderService.cs:line 198\"]}}}\n\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<configuration>\n  <appSettings>\n    <add key=\"ServiceBus.ConnectionString\" value=\"[REDACTED]\" />\n    <add key=\"OrderService.MaxRetries\" value=\"3\" />\n    <add key=\"OrderService.TimeoutMs\" value=\"5000\" />\n  </appSettings>\n</configuration>\n\nThis is happening on every order submission since 6:45 AM UTC. Trading desk is blocked. Need immediate fix.",
-        "reporter": {
-            "name": "Wei Zhang",
-            "email": "wei.zhang@contoso.com",
-            "department": "Trading Technology"
-        },
-        "created_at": "2026-03-18T07:00:00Z",
-        "channel": "portal",
-        "attachments": [
-            "error_log_full.txt",
-            "app_config.xml"
-        ]
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5006",
+    "subject": "Outlook keeps crashing — error details inside",
+    "description": "Outlook crashes every time I open a specific email from the Legal team.\n\nHere's the error from Event Viewer (it repeated many times):\n\nFaulting application name: OUTLOOK.EXE, version: 16.0.18227.20162\nFaulting module name: mso40uiwin32client.dll, version: 16.0.18227.20162\nException code: 0xc0000005\nFault offset: 0x00000000005a3b10\nFaulting application name: OUTLOOK.EXE, version: 16.0.18227.20162\nFaulting module name: mso40uiwin32client.dll, version: 16.0.18227.20162\nException code: 0xc0000005\nFault offset: 0x00000000005a3b10\nFaulting application name: OUTLOOK.EXE, version: 16.0.18227.20162\nFaulting module name: mso40uiwin32client.dll, version: 16.0.18227.20162\nException code: 0xc0000005\nFault offset: 0x00000000005a3b10\nFaulting application name: OUTLOOK.EXE, version: 16.0.18227.20162\nFaulting module name: mso40uiwin32client.dll, version: 16.0.18227.20162\nException code: 0xc0000005\nFault offset: 0x00000000005a3b10\nFaulting application name: OUTLOOK.EXE, version: 16.0.18227.20162\nFaulting module name: mso40uiwin32client.dll, version: 16.0.18227.20162\nException code: 0xc0000005\nFault offset: 0x00000000005a3b10\n\nThis is the only email that causes it. All other emails open fine.\nI'm on Windows 11 with Microsoft 365 Apps, Current Channel.\n\nNadia Al-Rashid\nLegal, Building 2, 4th floor, New York",
+    "reporter": {
+      "name": "Nadia Al-Rashid",
+      "email": "nadia.al-rashid@contoso.com",
+      "department": "Legal"
     },
-    {
-        "ticket_id": "INC-5007",
-        "subject": "Printer issue",
-        "description": "    \n\n\n      \n    \n\n\n\n         \n\n\n   Printer not working     \n\n\n\n\n       \n\n\n   3rd floor    \n\n\n\n\n\n          ",
-        "reporter": {
-            "name": "Tom Richards",
-            "email": "tom.richards@contoso.com",
-            "department": "HR"
-        },
-        "created_at": "2026-03-18T11:00:00Z",
-        "channel": "portal",
-        "attachments": []
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5007",
+    "subject": "Badge not working at Building 6 turnstile",
+    "description": "My badge stopped working at the Building 6 main entrance turnstile this morning. I had to be let in by security. Can you please reactivate it?\n\nThanks,\nJonathan Pretorius\nVice President, Corporate Strategy\nContoso Financial Services\n1 World Financial Center, 42nd Floor\nNew York, NY 10281\nTel: +1 (212) 555-0142 | Mobile: +1 (917) 555-0198\nFax: +1 (212) 555-0199\nEmail: jonathan.pretorius@contoso.com\nLinkedIn: linkedin.com/in/jonathanpretorius\n\n====================================================================\nCONFIDENTIALITY NOTICE: This email message, including any attachments,\nis for the sole use of the intended recipient(s) and may contain\nconfidential and privileged information. Any unauthorized review, use,\ndisclosure, or distribution is prohibited. If you are not the intended\nrecipient, please contact the sender by reply email and destroy all\ncopies of the original message. Receipt by anyone other than the\nintended recipient(s) is not a waiver of any attorney-client,\nwork product, or other applicable privilege.\n\nENVIRONMENTAL NOTICE: Please consider the environment before printing\nthis email. Contoso Financial Services is committed to sustainable\nbusiness practices.\n\nIRS CIRCULAR 230 DISCLOSURE: To ensure compliance with requirements\nimposed by the IRS, we inform you that any U.S. federal tax advice\ncontained in this communication (including any attachments) is not\nintended or written to be used, and cannot be used, for the purpose\nof (i) avoiding penalties under the Internal Revenue Code or (ii)\npromoting, marketing, or recommending to another party any transaction\nor matter addressed herein.\n====================================================================",
+    "reporter": {
+      "name": "Jonathan Pretorius",
+      "email": "jonathan.pretorius@contoso.com",
+      "department": "Corporate Strategy"
     },
-    {
-        "ticket_id": "INC-5008",
-        "subject": "printer printer printer printer printer printer printer printer printer printer not working not working not working not working not working please fix please fix please fix please fix please fix please fix please fix please fix please fix please fix",
-        "description": "The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. I already submitted ticket about this last week. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer on floor 2 near the kitchen. HP LaserJet. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working.",
-        "reporter": {
-            "name": "Carol Hughes",
-            "email": "carol.hughes@contoso.com",
-            "department": "Operations"
-        },
-        "created_at": "2026-03-18T11:30:00Z",
-        "channel": "portal",
-        "attachments": []
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5008",
+    "subject": "VDI session freezes / VDI会话冻结 / Session VDI gelée",
+    "description": "Hello IT,\n\nI work across the Singapore, New York, and London offices and my VDI session\nhas been freezing intermittently.\n\n当我连接到新加坡数据中心的VDI时，会话在大约20分钟后冻结。屏幕停止响应，我必须断开并重新连接。这种情况每天发生3-4次。\n\nQuand je me connecte depuis le bureau de Londres, la session VDI gèle\naprès environ 20 minutes. L'écran ne répond plus et je dois me\ndéconnecter puis me reconnecter. Cela arrive 3 à 4 fois par jour.\n\nFrom New York the connection is stable. The issue only happens when I connect\nto the Singapore or London VDI pools. My laptop is a ThinkPad X1 Carbon Gen 11\nwith VMware Horizon Client 2312.\n\nXin Li (李欣)\nQuantitative Analysis\nBuilding 5, 9th floor, New York (home office)",
+    "reporter": {
+      "name": "Xin Li",
+      "email": "xin.li@contoso.com",
+      "department": "Quantitative Analysis"
     },
-    {
-        "ticket_id": "INC-5009",
-        "subject": "Fwd: Fwd: Fwd: Fwd: Fwd: Re: Re: Re: Original issue — WiFi in Building 3",
-        "description": "See below.\n\n---------- Forwarded message ---------\nFrom: Amy Liu <amy.liu@contoso.com>\nTo: Karen White <karen.white@contoso.com>\n\n> Can you forward this to IT? I don't have the email.\n>\n> ---------- Forwarded message ---------\n> From: James Brown <james.brown@contoso.com>\n> To: Amy Liu <amy.liu@contoso.com>\n>\n>> Hey Amy, can you help with this? IT isn't responding to me.\n>>\n>> ---------- Forwarded message ---------\n>> From: James Brown <james.brown@contoso.com>\n>> To: IT Helpdesk <helpdesk@contoso.com>\n>>\n>>> WiFi in Building 3, Floor 2 has been extremely slow for the past week.\n>>> Speed test shows 2 Mbps down when it should be 100+.\n>>> Multiple people on our team are affected — at least 8 of us.\n>>> We've tried forgetting and reconnecting to the network.\n>>> It's the 'Contoso-Corp' SSID specifically. Guest WiFi works fine.\n>>> Building 3, Floor 2, near conference rooms 3A and 3B.",
-        "reporter": {
-            "name": "Karen White",
-            "email": "karen.white@contoso.com",
-            "department": "Risk Management"
-        },
-        "created_at": "2026-03-18T14:00:00Z",
-        "channel": "email",
-        "attachments": []
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5009",
+    "subject": "Database replication lag causing stale portfolio data",
+    "description": "Hi Data Platform team,\n\nWe've noticed that the portfolio valuations dashboard is showing data that's\napproximately 45 minutes stale. The replication from the primary SQL Server\n(SQLPROD-NYC-01) to the read replica (SQLREPLICA-NYC-03) appears to be lagging.\n\nImpact: Portfolio managers are making decisions based on outdated valuations.\nThis affects approximately 30 PMs across Wealth Management and Asset Management.\n\nWhat we've confirmed so far:\n- Primary database is current (checked via direct query at 14:22 ET)\n- Read replica is behind by ~2,700 transactions\n- The lag started around 13:35 ET today\n- No recent schema changes or maintenance windows\n- Disk I/O on the replica server looks elevated: avg write latency 48ms vs\n  normal 5ms\n\nWe need this resolved urgently. The EOD NAV calculation process kicks off at\n16:00 ET and reads from the replica. If the lag isn't cleared by then, we'll\nhave incorrect NAV calculations which will trigger regulatory reporting\ndiscrepancies and we'll need to file correc",
+    "reporter": {
+      "name": "Soren Andersen",
+      "email": "soren.andersen@contoso.com",
+      "department": "Data Engineering"
     },
-    {
-        "ticket_id": "INC-5010",
-        "subject": "Mój komputer nie działa — pilne! / My computer not working — urgent!",
-        "description": "Przepraszam, mój angielski nie jest najlepszy.\n\nMy computer — blue screen. Error: KERNEL_DATA_INPAGE_ERROR.\nPotem się restartuje i znowu ten sam błąd.\n\nIt restarts and same error again. Próbuję pracować ale nie mogę.\nI have ThinkPad T14s, Windows 11. Kupiłem go 6 miesięcy temu.\n\nProszę o pomoc! / Please help!\n\nŁukasz Kowalski\nDział Finansów / Finance Department\nBiuro w Londynie / London Office",
-        "reporter": {
-            "name": "Lukasz Kowalski",
-            "email": "lukasz.kowalski@contoso.com",
-            "department": "Finance"
-        },
-        "created_at": "2026-03-18T08:45:00Z",
-        "channel": "email",
-        "attachments": []
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5010",
+    "subject": "Can&#39;t log in to trading platform &mdash; &quot;session expired&quot;",
+    "description": "Every time I try to log in to the Contoso Trading Platform (CTP) I get the\nerror: &quot;Your session has expired. Please contact your administrator.&quot;\n\nI&apos;ve tried:\n1. Clearing cookies &amp; cache\n2. Using incognito&#47;private mode\n3. Trying from a different machine\n4. Resetting my password via the &quot;Forgot Password&quot; link\n\nNone of these work. I&apos;m getting the same error on both my laptop &amp;\nmy desktop. My colleagues in the same team can log in fine.\n\nThis started after the maintenance window last night (March 17 &ndash; 18).\nI&apos;m locked out of all my positions and can&apos;t execute trades.\n\nKenji Watanabe &lt;kenji.watanabe@contoso.com&gt;\nDerivatives, Building 4, 6th floor\nExt: 5&#45;4477",
+    "reporter": {
+      "name": "Kenji Watanabe",
+      "email": "kenji.watanabe@contoso.com",
+      "department": "Derivatives"
     },
-    {
-        "ticket_id": "INC-5011",
-        "subject": "help",
-        "description": "https://contoso.sharepoint.com/sites/hr-portal/Lists/Equipment%20Request/AllItems.aspx?viewid=7a8b9c0d-1234-5678-90ab-cdef12345678&FilterField1=Status&FilterValue1=Pending&FilterField2=Department&FilterValue2=Trading",
-        "reporter": {
-            "name": "Nina Patel",
-            "email": "nina.patel@contoso.com",
-            "department": "Trading"
-        },
-        "created_at": "2026-03-18T12:00:00Z",
-        "channel": "chat",
-        "attachments": []
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5011",
+    "subject": "Jenkins build pipeline failing since this morning",
+    "description": "The CI/CD pipeline for the risk-engine repo has been failing since 06:15 AM.\nHere's the full console output:\n\n[2026-03-18T06:15:02Z] Starting pipeline: risk-engine/main #1847\n[2026-03-18T06:15:02Z] Checking out git repo...\n[2026-03-18T06:15:05Z] HEAD is now at a3f7c21 Merge PR #492\n[2026-03-18T06:15:05Z] Running stage: Install Dependencies\n[2026-03-18T06:15:06Z] npm ci --prefer-offline\n[2026-03-18T06:15:12Z] added 1847 packages in 6.1s\n[2026-03-18T06:15:12Z] Running stage: Build\n[2026-03-18T06:15:13Z] tsc --build tsconfig.json\n[2026-03-18T06:15:28Z] Build completed successfully\n[2026-03-18T06:15:28Z] Running stage: Unit Tests\n[2026-03-18T06:15:29Z] jest --ci --coverage\n[2026-03-18T06:16:45Z] Tests: 342 passed, 342 total\n[2026-03-18T06:16:45Z] Running stage: Integration Tests\n[2026-03-18T06:16:46Z] jest --ci --config jest.integration.config.js\n[2026-03-18T06:17:01Z] Connecting to test database: sqltest-nyc-02:1433\n[2026-03-18T06:17:16Z] ERROR: Connection refused to sqltest-nyc-02:1433\n[2026-03-18T06:17:16Z] Error: connect ECONNREFUSED 10.42.8.15:1433\n[2026-03-18T06:17:16Z]     at TCPConnectWrap.afterConnect [as oncomplete]\n[2026-03-18T06:17:16Z] Tests: 0 passed, 18 failed, 18 total\n[2026-03-18T06:17:16Z] Pipeline FAILED at stage: Integration Tests\n[2026-03-18T06:17:17Z] Sending failure notification to #risk-engine-ci\n[2026-03-18T06:17:17Z] Pipeline duration: 2m 15s\n\nThis has failed on every retry (5 times now). The test DB seems to be down.\n\n— Rafael Oliveira, Backend Engineering",
+    "reporter": {
+      "name": "Rafael Oliveira",
+      "email": "rafael.oliveira@contoso.com",
+      "department": "Backend Engineering"
     },
-    {
-        "ticket_id": "INC-5012",
-        "subject": "Cannot access email",
-        "description": "",
-        "reporter": {
-            "name": "Frank Miller",
-            "email": "frank.miller@contoso.com",
-            "department": "Legal"
-        },
-        "created_at": "2026-03-18T08:30:00Z",
-        "channel": "phone",
-        "attachments": []
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5012",
+    "subject": "Zoom phone not ringing — calls go straight to voicemail",
+    "description": "Hi,\n\nMy Zoom Phone has stopped ringing for incoming calls. Calls go straight to\nvoicemail. My Zoom Phone has stopped ringing for incoming calls. Calls go\nstraight to voicemail.\n\nI've checked my Do Not Disturb settings and they are off. I've checked my Do\nNot Disturb settings and they are off. The Zoom desktop client shows I'm\navailable (green dot). The Zoom desktop client shows I'm available (green dot).\n\nMy extension is 5-2201 and my direct number is +1 (212) 555-2201. Clients have\nbeen complaining they can't reach me. My extension is 5-2201 and my direct\nnumber is +1 (212) 555-2201. Clients have been complaining they can't reach me.\n\nThis started yesterday afternoon. I tried signing out and back in, same issue.\nThis started yesterday afternoon. I tried signing out and back in, same issue.\n\nPlease help,\nElena Vasquez\nClient Services, Building 1, 6th floor",
+    "reporter": {
+      "name": "Elena Vasquez",
+      "email": "elena.vasquez@contoso.com",
+      "department": "Client Services"
     },
-    {
-        "ticket_id": "INC-5013",
-        "subject": "Application server errors — full stack trace attached",
-        "description": "Production app server throwing 500 errors since 3 AM. Here's the last 50 lines of the log:\n\n2026-03-18T03:00:01Z ERROR [pool-3-thread-7] c.c.t.OrderProcessor - Failed to process order ORD-78234\njava.lang.OutOfMemoryError: Java heap space\n\tat java.base/java.util.Arrays.copyOf(Arrays.java:3512)\n\tat java.base/java.util.ArrayList.grow(ArrayList.java:237)\n\tat java.base/java.util.ArrayList.addAll(ArrayList.java:687)\n\tat com.contoso.trading.OrderProcessor.loadHistoricalData(OrderProcessor.java:456)\n\tat com.contoso.trading.OrderProcessor.processOrder(OrderProcessor.java:123)\n\tat com.contoso.trading.QueueConsumer.onMessage(QueueConsumer.java:89)\n2026-03-18T03:00:01Z ERROR [pool-3-thread-7] c.c.t.QueueConsumer - Message processing failed, requeueing\n2026-03-18T03:00:02Z WARN  [pool-3-thread-2] c.c.t.HealthCheck - Heap usage at 94%\n2026-03-18T03:00:03Z ERROR [pool-3-thread-1] c.c.t.OrderProcessor - Failed to process order ORD-78235\njava.lang.OutOfMemoryError: Java heap space\n\tat java.base/java.util.Arrays.copyOf(Arrays.java:3512)\n\tat java.base/java.util.ArrayList.grow(ArrayList.java:237)\n\tat com.contoso.trading.OrderProcessor.loadHistoricalData(OrderProcessor.java:456)\n\tat com.contoso.trading.OrderProcessor.processOrder(OrderProcessor.java:123)\n2026-03-18T03:00:05Z ERROR [main] c.c.t.Application - Application health check FAILED\n2026-03-18T03:00:06Z WARN  [main] c.c.t.Application - Initiating graceful shutdown\n2026-03-18T03:00:10Z ERROR [main] c.c.t.Application - Shutdown timeout exceeded, forcing exit\n\nThis is the trading order processor — all client orders are failing. Revenue impact is direct. Need immediate attention. The app runs on Azure VM prod-trading-01 in eastus2.",
-        "reporter": {
-            "name": "Amir Hassan",
-            "email": "amir.hassan@contoso.com",
-            "department": "Trading Technology"
-        },
-        "created_at": "2026-03-18T06:30:00Z",
-        "channel": "portal",
-        "attachments": [
-            "full_server_log.txt",
-            "heap_dump.hprof"
-        ]
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5013",
+    "subject": "FW: Quarterly IT Infrastructure Review — action items and network issue",
+    "description": "Hi IT Support,\n\nForwarding the full infrastructure review notes below — my actual issue is buried\nnear the bottom. Please scroll down.\n\n====== QUARTERLY IT INFRASTRUCTURE REVIEW — Q1 2026 ======\nDate: March 14, 2026 | Attendees: IT Steering Committee\nLocation: Building 4, Executive Conference Room 4A\n\nAGENDA ITEM 1: Cloud Migration Status\n- Azure landing zone provisioning is 94% complete across all three regions.\n- Remaining workloads: legacy COBOL settlement engine (target: May 2026),\n  on-prem Oracle RAC cluster for derivatives pricing (target: July 2026).\n- Cost optimization: reserved instance coverage improved from 61% to 78%.\n- Action: Cloud team to finalize RI recommendations for Q2 by March 28.\n\nAGENDA ITEM 2: Endpoint Refresh Program\n- 1,200 of 3,400 laptops refreshed to Dell Latitude 5550 with Windows 11 23H2.\n- Remaining rollout schedule: NYC Building 1-3 (April), London (May), Singapore (June).\n- Dock compatibility issues reported with TB16 docks — WD19S replacement in progress.\n- BitLocker recovery key escrow migration to Intune on track for April 1.\n- Action: Endpoint team to publish refresh FAQ on the intranet by March 21.\n\nAGENDA ITEM 3: Network Capacity Planning\n- Core switch fabric utilization peaked at 72% during February month-end processing.\n- Wireless controller firmware upgraded to 8.10.185 across all NYC APs.\n- SD-WAN deployment for London and Singapore branch offices approved — RFP in April.\n- Action: Network ops to model 100G uplink requirements for 2027 budget.\n\nAGENDA ITEM 4: Security & Compliance Update\n- SOC 2 Type II audit fieldwork begins April 7. All evidence must be staged by April 1.\n- Phishing simulation click rate dropped from 12% to 8.5% — goal is 5% by year-end.\n- Privileged Access Workstation (PAW) rollout to Tier 0 admins complete.\n- Action: Security ops to deliver PAW Tier 1 rollout plan by March 28.\n\nAGENDA ITEM 5: Service Desk Metrics\n- Mean time to resolve (MTTR): 4.2 hours (target 4.0) — slight regression from Feb.\n- First-contact resolution rate: 68% (target 70%).\n- Top ticket categories: Password resets (24%), VPN issues (18%), Outlook (14%).\n- Action: Evaluate chatbot deflection for password reset tickets.\n\nAGENDA ITEM 6: Disaster Recovery Testing\n- Full DR failover test for Azure-hosted trading platform scheduled for April 19-20.\n- RPO target: 15 minutes. RTO target: 2 hours. Last test achieved RPO 12m, RTO 1h 48m.\n- Cross-region replication lag for Cosmos DB reduced from 320ms to 95ms.\n- Action: DR team to coordinate with Trading and Compliance for the test window.\n\nAGENDA ITEM 7: Data Center Decommissioning\n- Secaucus DC lease expires September 2026. 14 remaining racks to be migrated.\n- Physical server inventory audit complete — 6 servers unaccounted for, investigating.\n- Tape backup archive migration to Azure Blob Archive tier: 340TB of 480TB complete.\n- Action: Facilities to confirm decommissioning timeline with vendor by April 4.\n\n--- END OF AGENDA ITEMS ---\n\n** MY ACTUAL ISSUE (sorry for the long email) **\n\nOn page 2 of the notes it mentions TB16 dock compatibility issues. I'm one of the\naffected users — my Dell Latitude 5550 with the TB16 dock loses USB-C video output\nintermittently. Both my external Dell U2722D monitors go black for 5-10 seconds\nevery 20-30 minutes. I'm on the 8th floor, Building 4. The old WD19S dock I had\nbefore worked perfectly but it was collected during the refresh.\n\nCan I get a replacement WD19S dock or a fix for the TB16 compatibility?\n\nThanks,\nJonathan Park\nPortfolio Management, Building 4, 8th floor, New York",
+    "reporter": {
+      "name": "Jonathan Park",
+      "email": "jonathan.park@contoso.com",
+      "department": "Portfolio Management"
     },
-    {
-        "ticket_id": "INC-5014",
-        "subject": "RE: RE: RE: RE: Monthly IT Newsletter — March 2026",
-        "description": "This message is intended for the designated recipient only. If you have received this message in error, please delete it and notify the sender immediately.\n\nCONFIDENTIALITY NOTICE: This electronic message and any attachments are confidential and may be privileged. They are intended for the sole use of the original recipient. If you are not the intended recipient, any disclosure, copying, distribution, or use of this message or its attachments is strictly prohibited.\n\nDISCLAIMER: Contoso Financial Services accepts no liability for the content of this email, or for the consequences of any actions taken on the basis of the information provided. Views expressed in this message are those of the individual sender.\n\nIRS CIRCULAR 230 NOTICE: Any U.S. federal tax advice contained in this communication was not intended or written to be used, and cannot be used, for the purpose of avoiding penalties.\n\nPlease consider the environment before printing this email.\n🌿♻️🌎\n\nSent from my iPhone",
-        "reporter": {
-            "name": "Linda Walsh",
-            "email": "linda.walsh@contoso.com",
-            "department": "Finance"
-        },
-        "created_at": "2026-03-18T15:30:00Z",
-        "channel": "email",
-        "attachments": []
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5014",
+    "subject": "Badge reader error — photos attached",
+    "description": "My badge is not working at the Building 6 south entrance turnstile.\n\nI took several photos of the error on the badge reader screen. Here they are:\n\nPhoto 1 - Front of badge reader:\ndata:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDBALDBKSEF4THBYdHRweGxwdICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABAAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAABAgMEBQYHCAkKC//EAFAQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6ery8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xABREAACAQIEBAMEBgUDBgMAAAABAgMAEQQSITFBBRNRYQYicZGBBzKhsRRCUsHB8BYj0fEUFTNickOSstIkZKLC4vDzGBcaNTY3JDREVSRFVWND/9oADAMBAAIRAxEAAAAB0AAAAFaGBogKoAAAAA0MFNNNAFiAAAAAAAAJIAAAAAAIIIAAAAAAAAAAAAAAAAAAAAAAA//2Q==\n\nPhoto 2 - Error message closeup:\ndata:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDABsSFBcUERsXFhceHBsgKEIrKCUlKFE6PTBCYFVlZF9VXFtqeJmBanGQc1tdhbWGkJ6jq62rZ4C8ybqmx5moq6T/2wBDARceHigsKE4rKU5qd1p3ampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqamr/wAARCAAgACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAFRABAAAAAAAAAAAAAAAAAAAAcP/EABQRAQAAAAAAAAAAAAAAAAAAYP/aAAwDAQACEQMRAD8AlgVVHcjIGcZHPSn1BDKkybkZWHqDmn0AFFFFAB/9k=\n\nPhoto 3 - My badge (front side):\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAACXBIWXMAAAsTAAALEwEAmpwYAAACcElEQVR4nO3dO27CQBSG4TPiCehpoKGjpMwWKNgSJTtgB2yBgjJboKOkpKGh4wnIK7gIhGDGc+Z/PkmWkC3N+BvN2BrnAAAAAAAAAAAAAAAAAMDUVWM/gTYq5+9x3/6Y4kQwGpkARAkARAIAkQBAJAAQCQBEAgCRAEAkABAJAEQCAJEAQCQAEAkARAIA0X9Bep+0vJOUlpJykWQn6UPSLMq8AAAAAAAAAAAAAAAAAAAAAAAAAAA//2Q==\n\nPhoto 4 - Badge reader model number plate:\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVQYV2P8z8BQz0AEYBxVOHIVAvcHBQHzKSECAAAAAElFTkSuQmCCiVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVQYV2P4z8BQz0AEYBxVSHEVAvMHBQPxKSMCAAAAAElFTkSuQmCC\n\nPhoto 5 - Side angle of turnstile:\ndata:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAFBABAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8ALQAB//Z=\n\nThe error message on the screen said 'Card Read Error - Contact Facilities' in red.\nI tried tapping multiple times. My badge works fine at the north entrance.\n\nYuki Tanaka\nQuantitative Analysis, Building 6, 3rd floor",
+    "reporter": {
+      "name": "Yuki Tanaka",
+      "email": "yuki.tanaka@contoso.com",
+      "department": "Quantitative Analysis"
     },
-    {
-        "ticket_id": "INC-5015",
-        "subject": "المساعدة في مشكلة VPN — Singapore office connectivity",
-        "description": "السلام عليكم\n\nI'm having VPN issues from the Singapore office. The connection drops every few minutes. \n\n我也试过用中文描述这个问题 — VPN 连接在新加坡办公室断断续续的。\n\nSpecifically:\n- VPN client: GlobalProtect v5.2\n- OS: macOS Sonoma 14.3\n- Connected to Singapore office WiFi (Contoso-SG)\n- Error in client: 'Gateway timed out'\n- Started Monday morning after the weekend maintenance\n\nMerci d'avance pour votre aide.\n\nありがとうございます。\n\nBest regards,\nYusuf Ibrahim\nSingapore Office",
-        "reporter": {
-            "name": "Yusuf Ibrahim",
-            "email": "yusuf.ibrahim@contoso.com",
-            "department": "Wealth Management"
-        },
-        "created_at": "2026-03-18T02:15:00Z",
-        "channel": "email",
-        "attachments": [
-            "vpn_error_screenshot.png"
-        ]
-    }
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5015",
+    "subject": "Server performance degradation — metrics attached inline",
+    "description": "Hi team,\n\nThe sqlprod-nyc-04 server is running very slow. Here are the performance metrics\nI exported from our monitoring tool:\n\ntimestamp,cpu_pct,mem_pct,disk_io_mbps,net_in_mbps,net_out_mbps,active_connections,query_queue\n2026-03-17T08:00:00Z,42.3,61.2,120.5,45.2,32.1,342,12\n2026-03-17T08:05:00Z,44.1,62.0,125.3,47.8,33.4,351,14\n2026-03-17T08:10:00Z,48.7,63.5,131.2,49.1,35.2,367,18\n2026-03-17T08:15:00Z,55.2,65.8,142.7,52.3,38.6,389,24\n2026-03-17T08:20:00Z,62.8,68.4,158.3,56.7,41.2,412,32\n2026-03-17T08:25:00Z,71.3,72.1,175.6,61.4,44.8,438,45\n2026-03-17T08:30:00Z,78.9,76.3,192.4,67.2,48.3,461,58\n2026-03-17T08:35:00Z,84.2,79.8,210.1,72.8,52.1,487,72\n2026-03-17T08:40:00Z,89.1,83.4,228.7,78.3,56.7,512,89\n2026-03-17T08:45:00Z,93.7,87.2,245.3,83.9,61.2,538,105\n2026-03-17T08:50:00Z,96.2,90.1,261.8,89.4,65.8,561,128\n2026-03-17T08:55:00Z,98.1,92.8,278.4,94.7,70.3,589,156\n2026-03-17T09:00:00Z,99.3,95.4,295.1,100.2,74.9,612,189\n2026-03-17T09:05:00Z,99.7,96.8,310.6,105.8,79.4,641,224\n2026-03-17T09:10:00Z,99.8,97.5,326.2,111.3,83.8,668,261\n2026-03-17T09:15:00Z,99.9,98.1,341.7,116.9,88.3,694,298\n2026-03-17T09:20:00Z,99.9,98.6,357.3,122.4,92.7,721,336\n2026-03-17T09:25:00Z,99.9,99.0,372.8,128.0,97.2,748,374\n2026-03-17T09:30:00Z,100.0,99.2,388.4,133.5,101.6,776,412\n\nAs you can see CPU goes from 42% to 100% in 90 minutes. The query queue is\nbacking up and users are complaining about slow report generation.\n\nLeon Fischer\nData Engineering, NYC",
+    "reporter": {
+      "name": "Leon Fischer",
+      "email": "leon.fischer@contoso.com",
+      "department": "Data Engineering"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5016",
+    "subject": "Broken links on the intranet compliance pages",
+    "description": "Hi,\n\nMultiple links on our compliance intranet site are broken. Here are all the ones\nI've checked (some work, most don't):\n\nBROKEN:\n- https://intranet.contoso.com/compliance/policies/aml-kyc-policy-v3.2.pdf\n- https://intranet.contoso.com/compliance/policies/insider-trading-guidelines.pdf\n- https://intranet.contoso.com/compliance/training/annual-certification-2026.aspx\n- https://intranet.contoso.com/compliance/forms/conflict-of-interest-disclosure.docx\n- https://intranet.contoso.com/compliance/policies/data-retention-schedule-v2.1.xlsx\n- https://intranet.contoso.com/compliance/external/sec-rule-17a-4-reference.pdf\n- https://intranet.contoso.com/compliance/external/finra-rule-4511-guidance.pdf\n- https://intranet.contoso.com/compliance/procedures/sar-filing-checklist.pdf\n- https://intranet.contoso.com/compliance/procedures/whistleblower-procedure.pdf\n- https://intranet.contoso.com/compliance/training/code-of-conduct-quiz.aspx\n- https://intranet.contoso.com/compliance/reports/q4-2025-compliance-dashboard.pbix\n- https://intranet.contoso.com/compliance/reports/regulatory-exam-tracker.xlsx\n\nWORKING:\n- https://intranet.contoso.com/compliance/index.aspx\n- https://intranet.contoso.com/compliance/team/contact-us.aspx\n- https://intranet.contoso.com/compliance/news/latest-updates.aspx\n\nWe have a regulatory exam next week and auditors need access to these documents.\nThis is urgent.\n\nMaya Johal\nRegulatory Affairs, Building 1, 9th floor",
+    "reporter": {
+      "name": "Maya Johal",
+      "email": "maya.johal@contoso.com",
+      "department": "Regulatory Affairs"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5017",
+    "subject": "Emails from external clients being delayed — headers included",
+    "description": "Hi IT team,\n\nI'm getting emails from external clients with delays of 2-4 hours. I grabbed the\nfull message headers from one of the delayed emails — here they are:\n\nReturn-Path: <john.smith@acmecapital.com>\nReceived: from EX01.contoso.com (10.1.4.21) by EX03.contoso.com (10.1.4.23)\n with Microsoft SMTP Server (version=TLS1_2,\n cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40;\n Tue, 17 Mar 2026 14:22:31 -0500\nReceived: from edge01.contoso.com (10.1.2.10) by EX01.contoso.com (10.1.4.21)\n with Microsoft SMTP Server (version=TLS1_2,\n cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40;\n Tue, 17 Mar 2026 14:22:28 -0500\nReceived: from mail-yw1-f169.google.com (209.85.128.169) by edge01.contoso.com\n (10.1.2.10) with Microsoft SMTP Server (version=TLS1_2,\n cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1118.40\n via Frontend Transport; Tue, 17 Mar 2026 12:15:44 -0500\nReceived: by mail-yw1-f169.google.com with SMTP id\n 00721157ae682-6f2b3c2e9d4so12345678b3.1\n for <nadia.okafor@contoso.com>; Tue, 17 Mar 2026 09:15:42 -0800 (PST)\nDKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acmecapital.com;\n s=google; h=from:to:subject:date:message-id:mime-version;\n bh=abc123def456ghi789jkl012mno345pqr678stu901vwx=;\n b=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmn\nAuthentication-Results: edge01.contoso.com;\n dkim=pass (signature was verified) header.d=acmecapital.com;\n spf=pass (sender IP is 209.85.128.169) smtp.mailfrom=acmecapital.com;\n dmarc=pass action=none header.from=acmecapital.com;\nX-MS-Exchange-Organization-SCL: 1\nX-MS-Exchange-Organization-AuthSource: edge01.contoso.com\nX-MS-Exchange-Organization-AuthAs: Anonymous\nX-MS-Exchange-Transport-CrossTenantHeadersStamped: EX03.contoso.com\nX-Forefront-Antispam-Report: CIP:209.85.128.169;CTRY:US;LANG:en;\n SFV:NSPM;SFS:;DIR:INB;SFP:;SCL:1;SRVR:EX03;\nMessage-ID: <CABx+XYZ123@mail.gmail.com>\nDate: Tue, 17 Mar 2026 09:15:40 -0800\nFrom: John Smith <john.smith@acmecapital.com>\nTo: Nadia Okafor <nadia.okafor@contoso.com>\nSubject: Q1 Portfolio Rebalancing - Urgent Review\nMIME-Version: 1.0\nContent-Type: multipart/alternative; boundary=\"0000000000abc123def456\"\n\nAs you can see, there's a 2+ hour gap between when it hits edge01 at 12:15\nand when it reaches EX01 at 14:22. This is happening on most external emails.\nInternal emails are fine.\n\nNadia Okafor\nClient Services, Building 1, 4th floor, New York",
+    "reporter": {
+      "name": "Nadia Okafor",
+      "email": "nadia.okafor@contoso.com",
+      "department": "Client Services"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5018",
+    "subject": "Can’t upload files to SharePoint ‎‏​⁩— help needed",
+    "description": "Hi,\n\nI’m having trouble uploading files to our team’s SharePoint site.​​​\n\nWhen I try to upload, I get this error:‎\n‏‫الخطأ: فشل التحميل‬‎ \"Upload failed: The file name contains invalid characters\"​​\n\nThe file I’m trying to upload is:‎\n‏Q1​_2026_‎‏Portfolio​_‎Analysis‏_FINAL​​​.xlsx‎\n\nI renamed it from the original which was:‎\n‏‫تحليل_المحفظة_الربع_الأول‬‎_2026.xlsx\n\nEven the renamed version won’t upload.​ My colleague Amir can upload\nfiles fine from his machine.​​​ I’m using Edge on Windows 11.​\n\nThe SharePoint site URL is:‎\nhttps://contoso.sharepoint.com/sites/‏WealthMgmt‎/Shared%20Documents​\n\nPlease help, I have a client presentation tomorrow and need\nto share these files with the team.​​​\n\nLayla Mansouri‎‏\nWealth Management, Building 2, 5th floor, London​",
+    "reporter": {
+      "name": "Layla Mansouri",
+      "email": "layla.mansouri@contoso.com",
+      "department": "Wealth Management"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5019",
+    "subject": "Application gateway returning 502 — config dump attached",
+    "description": "Hi,\n\nOur Azure Application Gateway (appgw-prod-eus2-01) is returning 502 Bad Gateway\nerrors intermittently. I exported the current backend pool configuration:\n\n```json\n{\n  \"backendAddressPools\": [\n    {\n      \"name\": \"pool-api-prod\",\n      \"properties\": {\n        \"backendAddresses\": [\n          { \"ipAddress\": \"10.42.1.10\" },\n          { \"ipAddress\": \"10.42.1.11\" },\n          { \"ipAddress\": \"10.42.1.12\" },\n          { \"ipAddress\": \"10.42.1.13\" }\n        ],\n        \"provisioningState\": \"Succeeded\"\n      }\n    },\n    {\n      \"name\": \"pool-web-prod\",\n      \"properties\": {\n        \"backendAddresses\": [\n          { \"ipAddress\": \"10.42.2.10\" },\n          { \"ipAddress\": \"10.42.2.11\" },\n          { \"ipAddress\": \"10.42.2.12\" }\n        ],\n        \"provisioningState\": \"Succeeded\"\n      }\n    }\n  ],\n  \"backendHttpSettingsCollection\": [\n    {\n      \"name\": \"http-settings-api\",\n      \"properties\": {\n        \"port\": 8443,\n        \"protocol\": \"Https\",\n        \"requestTimeout\": 30,\n        \"probe\": { \"id\": \"/subscriptions/.../probes/probe-api-health\" },\n        \"hostName\": \"api-internal.contoso.com\",\n        \"pickHostNameFromBackendAddress\": false\n      }\n    },\n    {\n      \"name\": \"http-settings-web\",\n      \"properties\": {\n        \"port\": 443,\n        \"protocol\": \"Https\",\n        \"requestTimeout\": 60,\n        \"probe\": { \"id\": \"/subscriptions/.../probes/probe-web-health\" },\n        \"hostName\": \"www-internal.contoso.com\",\n        \"pickHostNameFromBackendAddress\": false\n      }\n    }\n  ],\n  \"probes\": [\n    {\n      \"name\": \"probe-api-health\",\n      \"properties\": {\n        \"protocol\": \"Https\",\n        \"host\": \"api-internal.contoso.com\",\n        \"path\": \"/health\",\n        \"interval\": 30,\n        \"timeout\": 10,\n        \"unhealthyThreshold\": 3\n      }\n    },\n    {\n      \"name\": \"probe-web-health\",\n      \"properties\": {\n        \"protocol\": \"Https\",\n        \"host\": \"www-internal.contoso.com\",\n        \"path\": \"/healthz\",\n        \"interval\": 30,\n        \"timeout\": 10,\n        \"unhealthyThreshold\": 3\n      }\n    }\n  ]\n}\n```\n\nThe 502 errors happen mostly between 09:00-09:30 when traffic spikes. The health\nprobes seem to be passing fine in Azure Portal. Could be a backend timeout issue\nsince the API pool timeout is only 30 seconds.\n\nHenrik Svensson\nCloud Infrastructure, New York",
+    "reporter": {
+      "name": "Henrik Svensson",
+      "email": "henrik.svensson@contoso.com",
+      "department": "Cloud Infrastructure"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5020",
+    "subject": "Re: Re: Re: Automatic reply: Re: Automatic reply: VPN token expired",
+    "description": "--- Automatic Reply ---\nThank you for your email. I am currently out of the office from March 14\nthrough March 21 with limited access to email. For urgent IT matters, please\ncontact the IT Service Desk at x5000 or itsupport@contoso.com.\n\nBest regards,\nAmy Chen\nIT Service Desk Analyst\n\n--- Automatic Reply ---\nHi, this is Carlos Mendez. I'm out of the office until March 19.\nFor immediate assistance please reach out to my backup, Jenny Park\n(jenny.park@contoso.com).\n\n--- Automatic Reply ---\nThank you for your email. I am currently out of the office from March 14\nthrough March 21 with limited access to email. For urgent IT matters, please\ncontact the IT Service Desk at x5000 or itsupport@contoso.com.\n\nBest regards,\nAmy Chen\nIT Service Desk Analyst\n\n--- Automatic Reply ---\nHi, this is Carlos Mendez. I'm out of the office until March 19.\nFor immediate assistance please reach out to my backup, Jenny Park\n(jenny.park@contoso.com).\n\n--- Original Message ---\nFrom: Carlos Mendez <carlos.mendez@contoso.com>\nSent: Thursday, March 14, 2026 2:05 PM\nTo: IT Support <itsupport@contoso.com>\nSubject: VPN token expired\n\nHi team,\n\nMy RSA SecurID soft token expired and I can't generate new VPN codes. The\ntoken shows 'Token Disabled' in the app. I need VPN access to work from\nhome next week while the office is closed for maintenance.\n\nMy employee ID is E-28491. Can you please re-provision my token?\n\nThanks,\nCarlos Mendez\nDerivatives, Building 3, 6th floor, New York",
+    "reporter": {
+      "name": "Carlos Mendez",
+      "email": "carlos.mendez@contoso.com",
+      "department": "Derivatives"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5021",
+    "subject": "FW: FW: FW: FW: FW: FW: FW: FW: FW: FW: Re: SAP access for new joiner",
+    "description": "--- Latest reply ---\nHi IT, can someone PLEASE just grant the SAP access already? This has been bouncing around for two weeks.\n— Anita\n\n--- Forwarded by: Raj Kapoor (raj.kapoor@contoso.com) ---\nAnita, I don't handle SAP provisioning anymore. Forwarding to IT.\n\n--- Forwarded by: Chen Wei (chen.wei@contoso.com) ---\nRaj, can you take this? I think SAP is under your team now.\n\n--- Forwarded by: Lisa Johansson (lisa.johansson@contoso.com) ---\nChen, this came to me by mistake. Please route to the right team.\n\n--- Forwarded by: Mike Torres (mike.torres@contoso.com) ---\nLisa, not sure who handles this. Adding you since you did it last time.\n\n--- Forwarded by: Priya Sharma (priya.sharma@contoso.com) ---\nMike, I'm on parental leave. Please find someone else.\n\n--- Forwarded by: David Kim (david.kim@contoso.com) ---\nPriya, you did SAP access last quarter — can you handle this?\n\n--- Forwarded by: Fatima Al-Rashid (fatima.al-rashid@contoso.com) ---\nDavid, this should go to the SAP team. I only handle Salesforce.\n\n--- Forwarded by: Tom O'Brien (tom.obrien@contoso.com) ---\nFatima, can your team handle this? I think it's an enterprise app thing.\n\n--- Forwarded by: Sandra Nguyen (sandra.nguyen@contoso.com) ---\nTom, forwarding to you since you're the app team lead.\n\n--- Original Message ---\nFrom: Anita Desai <anita.desai@contoso.com>\nSent: Monday, March 3, 2026 9:00 AM\nTo: IT Support <itsupport@contoso.com>\nSubject: SAP access for new joiner\n\nHi team,\n\nI just joined the Finance department last week and need SAP access (modules: FI, CO, and MM) to start processing invoices. My employee ID is E-31024 and my manager is Robert Chen (Director, Finance).\n\nThanks,\nAnita Desai\nFinance, Building 1, 3rd floor, New York",
+    "reporter": {
+      "name": "Anita Desai",
+      "email": "anita.desai@contoso.com",
+      "department": "Finance"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5022",
+    "subject": "Cannot open expense report — raw PDF data below",
+    "description": "Hi IT,\n\nI can't open an expense report PDF that a vendor sent me. When I try to open it in Adobe, it shows 'This file is damaged and could not be repaired.' I'm pasting the raw file content since the portal won't let me attach:\n\nJVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5k\nb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4K\nZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3gg\nWzAgMCA2MTIgNzkyXSAvQ29udGVudHMgNCAwIFIgL1Jlc291cmNlcyA8PCAvRm9udCA8PCAv\nRjEgNSAwIFIgPj4gPj4gPj4KZW5kb2JqCjQgMCBvYmoKPDwgL0xlbmd0aCAxMjQgPj4Kc3Ry\nZWFtCkJUCi9GMSAxOCBUZgowIDAgVGQKKEV4cGVuc2UgUmVwb3J0IC0gVmVuZG9yIEluYykg\nVGoKMCAtMjUgVGQKKFRvdGFsOiAkMTIsMzQ1LjY3KSBUagowIC0yNSBUZAooU3RhdHVzOiBQ\nZW5kaW5nIEFwcHJvdmFsKSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCjUgMCBvYmoKPDwgL1R5\ncGUgL0ZvbnQgL1N1YnR5cGUgL1R5cGUxIC9CYXNlRm9udCAvSGVsdmV0aWNhID4+CmVuZG9i\nagp4cmVmCjAgNgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMDkgMDAwMDAgbiAKMMDAwMD\nAwMDA2MyAwMDAwMCBuIAowMDAwMDAwMTIwIDAwMDAwIG4gCjAwMDAwMDAzMDQgMDAwMDAgbiAK\nMDAwMDAwMDQ4MCAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDYgL1Jvb3QgMSAwIFIgPj4K\nc3RhcnR4cmVmCjU3MQolJUVPRgo=\n\nThe expense amount is $12,345.67 from Vendor Inc. and I need to submit it for approval by end of week. I'm using Adobe Acrobat Reader DC 2024 on Windows 11.",
+    "reporter": {
+      "name": "Hannah Eriksson",
+      "email": "hannah.eriksson@contoso.com",
+      "department": "Procurement"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5023",
+    "subject": "Azure deployment failing — full terminal output",
+    "description": "Hi,\n\nOur Azure deployment pipeline keeps failing. Here's the full output:\n\nPS C:\\deploy> .\\deploy-infra.ps1 -Environment prod -Region eastus2\nVERBOSE: [2026-03-17 14:22:01] Starting deployment to eastus2...\nVERBOSE: [2026-03-17 14:22:01] Loading ARM template: main.bicep\nVERBOSE: [2026-03-17 14:22:02] Validating template parameters...\nVERBOSE: [2026-03-17 14:22:02] Parameter 'vmSize': Standard_D4s_v3\nVERBOSE: [2026-03-17 14:22:02] Parameter 'nodeCount': 5\nVERBOSE: [2026-03-17 14:22:02] Parameter 'aksVersion': 1.28.5\nVERBOSE: [2026-03-17 14:22:03] Connecting to subscription: prod-sub-001\nVERBOSE: [2026-03-17 14:22:03] Resource group: rg-prod-eus2-001\nVERBOSE: [2026-03-17 14:22:04] Starting what-if analysis...\nVERBOSE: [2026-03-17 14:22:15] What-if: 47 resources to create/modify\nVERBOSE: [2026-03-17 14:22:16] Deploying resource 1/47: Microsoft.Network/virtualNetworks\nVERBOSE: [2026-03-17 14:22:22] ✓ vnet-prod-eus2 created\nVERBOSE: [2026-03-17 14:22:23] Deploying resource 2/47: Microsoft.Network/networkSecurityGroups\nVERBOSE: [2026-03-17 14:22:28] ✓ nsg-aks-prod created\nVERBOSE: [2026-03-17 14:22:29] Deploying resource 3/47: Microsoft.Network/privateDnsZones\nVERBOSE: [2026-03-17 14:22:35] ✓ privatelink.eastus2.azmk8s.io created\nVERBOSE: [2026-03-17 14:22:36] Deploying resource 4/47: Microsoft.ContainerService/managedClusters\nVERBOSE: [2026-03-17 14:22:37] Waiting for AKS cluster provisioning...\nVERBOSE: [2026-03-17 14:25:42] ✓ aks-prod-eus2 provisioning started\nVERBOSE: [2026-03-17 14:30:01] Deploying resource 5/47: Microsoft.KeyVault/vaults\nVERBOSE: [2026-03-17 14:30:15] ✓ kv-prod-eus2-001 created\nVERBOSE: [2026-03-17 14:30:16] Deploying resource 6/47: Microsoft.Storage/storageAccounts\nVERBOSE: [2026-03-17 14:30:22] ✓ stprodeus2001 created\nVERBOSE: [2026-03-17 14:30:23] Deploying resource 7/47: Microsoft.Sql/servers\nVERBOSE: [2026-03-17 14:30:45] ✓ sql-prod-eus2 created\nVERBOSE: [2026-03-17 14:30:46] Deploying resource 8/47: Microsoft.Sql/servers/databases\nERROR: [2026-03-17 14:31:02] ✗ DEPLOYMENT FAILED\nERROR: New-AzResourceGroupDeployment: 14:31:02 - Resource Microsoft.Sql/servers/databases 'sql-prod-eus2/appdb-prod' failed with message: 'The DTU quota for the subscription has been exceeded. Requested: 250 DTU, Available: 0 DTU. Please increase your DTU quota or reduce the requested DTU.'\nERROR: Deployment 'deploy-20260317-142201' failed.\nVERBOSE: [2026-03-17 14:31:03] Rolling back 8 resources...\nVERBOSE: [2026-03-17 14:32:15] Rollback complete.\nPS C:\\deploy>\n\nCan you help? We need this in production by Friday.",
+    "reporter": {
+      "name": "Alex Petrov",
+      "email": "alex.petrov@contoso.com",
+      "department": "Cloud Infrastructure"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5024",
+    "subject": "FW: [ALERT] Multiple monitoring alerts — disk space",
+    "description": "--- Alert 1 of 12 ---\n[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 98% full (467GB/476GB) | Triggered: 2026-03-17 02:15:00 UTC\nHost: db-prod-03.contoso.local | Service: disk_space_/data\nContact: oncall-data@contoso.com | Notification: 1/5\n\n--- Alert 2 of 12 ---\n[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 98% full (468GB/476GB) | Triggered: 2026-03-17 02:30:00 UTC\nHost: db-prod-03.contoso.local | Service: disk_space_/data\nContact: oncall-data@contoso.com | Notification: 2/5\n\n--- Alert 3 of 12 ---\n[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 99% full (469GB/476GB) | Triggered: 2026-03-17 02:45:00 UTC\nHost: db-prod-03.contoso.local | Service: disk_space_/data\nContact: oncall-data@contoso.com | Notification: 3/5\n\n--- Alert 4 of 12 ---\n[WARNING] Nagios Alert: SWAP WARNING - Swap usage on db-prod-03 is 82% | Triggered: 2026-03-17 02:47:00 UTC\nHost: db-prod-03.contoso.local | Service: swap_usage\n\n--- Alert 5 of 12 ---\n[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 99% full (470GB/476GB) | Triggered: 2026-03-17 03:00:00 UTC\n\n--- Alerts 6-11 (same pattern, 15-minute intervals) ---\n\n--- Alert 12 of 12 ---\n[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 99% full (475GB/476GB) | Triggered: 2026-03-17 05:45:00 UTC\nHost: db-prod-03.contoso.local | Service: disk_space_/data\nContact: oncall-data@contoso.com | Notification: 5/5 (FINAL)\n\nHi IT,\n\nThe on-call team forwarded these alerts to us. The /data volume on db-prod-03 is nearly full and it's our production PostgreSQL server. If it fills up completely the database will crash. Please investigate urgently.\n\n— Operations team",
+    "reporter": {
+      "name": "Operations Team",
+      "email": "ops-team@contoso.com",
+      "department": "Operations"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5025",
+    "subject": "RE: RE: RE: RE: ALL-HANDS: Office printer toner replacement",
+    "description": "To: IT Support <itsupport@contoso.com>\nCC: john.smith@contoso.com; jane.doe@contoso.com; mike.jones@contoso.com; sarah.wilson@contoso.com; david.brown@contoso.com; lisa.taylor@contoso.com; james.anderson@contoso.com; mary.thomas@contoso.com; robert.jackson@contoso.com; patricia.white@contoso.com; christopher.harris@contoso.com; linda.martin@contoso.com; daniel.garcia@contoso.com; nancy.martinez@contoso.com; matthew.robinson@contoso.com; betty.clark@contoso.com; anthony.rodriguez@contoso.com; margaret.lewis@contoso.com; mark.lee@contoso.com; dorothy.walker@contoso.com; steven.hall@contoso.com; elizabeth.allen@contoso.com; paul.young@contoso.com; jennifer.king@contoso.com; andrew.wright@contoso.com; barbara.scott@contoso.com; joshua.green@contoso.com; susan.adams@contoso.com; kenneth.baker@contoso.com; helen.nelson@contoso.com; kevin.hill@contoso.com; donna.ramirez@contoso.com; brian.campbell@contoso.com; carol.mitchell@contoso.com; george.roberts@contoso.com; ruth.carter@contoso.com; edward.phillips@contoso.com; sharon.evans@contoso.com; ronald.turner@contoso.com; michelle.torres@contoso.com; all-floor7@contoso.com; all-floor8@contoso.com; all-building2@contoso.com\n\n--- Reply from Ruth Carter ---\nPlease stop replying all! My inbox is flooded!\n\n--- Reply from Ronald Turner ---\nUnsubscribe\n\n--- Reply from Edward Phillips ---\n+1 to Ruth, please use reply not reply-all\n\n--- Reply from George Roberts ---\nCan someone remove me from this thread?\n\n--- Reply from Carol Mitchell ---\nSTOP REPLYING ALL!!!\n\n--- Original Message ---\nFrom: Kevin Hill <kevin.hill@contoso.com>\nTo: IT Support; all-floor7; all-floor8; all-building2\nSubject: Office printer toner replacement\n\nHi IT,\n\nThe large MFP printer on Floor 7 (Canon imageRUNNER ADVANCE C5560i, asset tag BLD2-PRN-0012) is printing with faded streaks — I think the cyan toner is running low. Can you send a replacement cartridge?\n\nKevin Hill\nAsset Management, Building 2, Floor 7",
+    "reporter": {
+      "name": "Kevin Hill",
+      "email": "kevin.hill@contoso.com",
+      "department": "Asset Management"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5026",
+    "subject": "Scanned error message from kiosk — OCR text below",
+    "description": "Hi IT,\n\nThe lobby kiosk is showing an error. I took a photo and ran OCR on it since I couldn't copy-paste. Here's what I got:\n\nWiridows Errar\nA prOblem has been detectad and Windows h4s been\nshut dawri to prevEnt damaGe to y0ur comput3r.\n\nIRQL_NOT_L3SS_OR_EQUAI.\n\nlf this ls the flrst tirne you've se€n this\nSt0p error scre8n, r3start your c0mputer. lf\nthis scr€en app8ars ag4in, foIIow th3se steps:\n\nCh3ck to mak€ sure any n3w hardwar€ 0r softwar3\nis prop€rly instaIl3d. lf this is a n3w\ninstallati0n, ask your h4rdware or s0ftware\nmanufactur3r f0r any Wlndows updat3s you might\nn3ed.\n\nT3chnical lnformation:\n*** ST0P: 0x0000000A (0x000O0028, 0x00000002,\n0x00000001, Oxid3ntlfy)\n\nThe kiosk is in the main lobby, Building 1. It's the visitor check-in terminal. This is blocking all guest sign-ins today.\n\n— Reception team",
+    "reporter": {
+      "name": "Reception Team",
+      "email": "reception@contoso.com",
+      "department": "Facilities"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "phone",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5027",
+    "subject": "Internal portal showing blank page — console errors",
+    "description": "Hi IT,\n\nOur internal benefits portal (https://benefits.contoso.com) is showing a completely blank white page. I opened the browser console and this is what I see:\n\nUncaught TypeError: Cannot read properties of undefined (reading 'map')\n    at Object.render (app.min.js:1:28847)\n\nThe minified source at that location is:\n!function(e){\"use strict\";var t=function(e,t){return e.filter(function(e){return t.indexOf(e.id)>-1})},n=function(e){return e.benefits.map(function(e){return{id:e.id,name:e.name,enrolled:e.enrolled,deductible:e.deductible,copay:e.copay,premium:e.premium,provider:e.provider,effectiveDate:e.effectiveDate,status:e.status}})},r=function(e,t){var n=e.querySelector(t);return n?n.textContent:\"\"},o=function(e){var t=document.createElement(\"div\");t.className=\"benefit-card \"+e.status;var n=document.createElement(\"h3\");n.textContent=e.name;var r=document.createElement(\"p\");r.textContent=\"Premium: $\"+e.premium+\"/mo\";var o=document.createElement(\"p\");o.textContent=\"Deductible: $\"+e.deductible;var i=document.createElement(\"span\");i.className=\"status-badge \"+e.status;i.textContent=e.status;t.appendChild(n);t.appendChild(r);t.appendChild(o);t.appendChild(i);return t};e.init=function(){var e=document.getElementById(\"benefits-root\");fetch(\"/api/benefits\").then(function(e){return e.json()}).then(function(t){var r=n(t);r.forEach(function(t){e.appendChild(o(t))})}).catch(function(e){console.error(\"Failed to load benefits:\",e)})}}(window.BenefitsApp=window.BenefitsApp||{});\n\nThis started after the maintenance window last night. All browsers affected (Edge, Chrome). The API endpoint /api/benefits returns a 200 but the response body is empty.\n\n— HR portal admin",
+    "reporter": {
+      "name": "HR Portal Admin",
+      "email": "hr-portal-admin@contoso.com",
+      "department": "HR"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5028",
+    "subject": "Badge reader not working — MIME-encoded email follows",
+    "description": "Content-Type: multipart/mixed; boundary=\"----=_Part_8847_1302567890\"\nMIME-Version: 1.0\nX-Mailer: Lotus Notes 9.0.1\nX-MimeOLE: Produced By Microsoft MimeOLE V6.3.9600.20091\n\n------=_Part_8847_1302567890\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: quoted-printable\n\nHi IT,\n\nThe badge reader at the Building 4 parking garage entrance (Gate B) stopped working this morning around 7:30 AM. Employees are having to =\nwait for security to manually open the gate, causing a 20-minute backup =\nduring morning rush.\n\nThe reader's LED is solid red instead of the normal blinking green.=20\nBadge number on the reader unit: BDG-PK-0044.\n\n=E2=80=94 Facilities team\n\n------=_Part_8847_1302567890\nContent-Type: text/html; charset=UTF-8\nContent-Transfer-Encoding: quoted-printable\n\n<html><body>\n<p>Hi IT,</p>\n<p>The badge reader at the <b>Building 4 parking garage entrance</b>=\n (Gate B) stopped working this morning around 7:30 AM. Employees are=\n having to wait for security to manually open the gate, causing a=\n <span style=3D\"color:red;font-weight:bold\">20-minute backup</span>=\n during morning rush.</p>\n<p>The reader=E2=80=99s LED is solid red instead of the normal blinking=\n green. Badge number on the reader unit: <code>BDG-PK-0044</code>.</p>\n<p>=E2=80=94 Facilities team</p>\n</body></html>\n\n------=_Part_8847_1302567890\nContent-Type: image/jpeg; name=\"badge_reader_photo.jpg\"\nContent-Transfer-Encoding: base64\nContent-Disposition: attachment; filename=\"badge_reader_photo.jpg\"\n\n/9j/4AAQSkZJRgABAQEASABIAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9\nPDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2f/wAALCABAAEABAREA/8QAHwAA\nAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUF\n\n------=_Part_8847_1302567890--",
+    "reporter": {
+      "name": "Facilities Team",
+      "email": "facilities@contoso.com",
+      "department": "Facilities"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5029",
+    "subject": "URGENT: laptop wont turn on at all completely dead",
+    "description": "hi IT my laptop is completely dead it wont turn on at all i've tried holding the power button for 30 seconds and nothing happens the charging light isnt coming on either i tried a different charger from my colleague and still nothing i have a really important client presentation in 2 hours and all my slides are on this laptop i saved them locally because i was working on the plane yesterday and didnt have wifi to sync to onedrive i know i shouldve saved to the cloud but i didnt and now im panicking the laptop is a lenovo thinkpad x1 carbon gen 11 and its only about 6 months old so it shouldnt be dying already i think the battery might be completely drained because i left it in my bag overnight with the lid open and it might have been running all night but even plugged in it shows absolutely nothing no lights no fan noise no screen flicker nothing at all its like its a brick i tried the paper clip reset hole on the bottom too and that didnt help either my employee id is E-20145 and im on the 4th floor of building 2 in the london office can someone please come help me or give me a loaner laptop so i can at least pull my slides from the local backup i desperately need this resolved in the next hour",
+    "reporter": {
+      "name": "Oliver Smythe",
+      "email": "oliver.smythe@contoso.com",
+      "department": "Private Banking"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5030",
+    "subject": "Multiple monitor setup not working — inline photos",
+    "description": "Hi IT,\n\nI just moved to a new desk and I can't get my triple monitor setup working. Here's a photo of how the cables are connected:\n\n[Photo 1 — rear of dock]\ndata:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAoACgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKR\n\nThe dock is a Lenovo ThinkPad USB-C Dock Gen 2 (40AS). I have three Dell U2722D monitors connected via:\n- Monitor 1: DisplayPort from dock (works)\n- Monitor 2: HDMI from dock (shows 'No Signal')\n- Monitor 3: USB-C to DisplayPort adapter from laptop directly (flickering)\n\n[Photo 2 — monitor 2 showing no signal]\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH6QMRDhQHLFcKRgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAABKUlEQVR42u3bMQ6DMBCFYe5/aaogRaJCwmDPjP2eRKfA/NiLvQAAAAAAAAAAAACwm+OqF3Ye55ev/fx73xvXdzj5d/Fz1j78vOr5bfn61nXf4/ct77v6e13H8fWt51v1HHa5hrOfc8Xz3v39r3w9q+6/1f1fcV1XvL7V\n\n[Photo 3 — monitor 3 flickering]\ndata:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAdIbGludQIQAABtbnRyUkdCIFhZWiAH4gACAAkABgAxAABhY3NwTVNGVAAAAABJRUMgc1JHQgAAAAAAAAAAAAAAAPbWAAEAAAAA0y1obGlubAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARY3BydAAAAbAAAAA2d3RwdAAAAagAAAAUZGVzYwAAAcgAAAAwAAAAAAAA\n\nI've tried updating the dock firmware and the Intel graphics driver (version 31.0.101.5186) but no change. My laptop is a ThinkPad T14s Gen 4 running Windows 11 23H2.\n\n— Yuki Tanaka, Fixed Income, Building 3, 8th floor, Singapore",
+    "reporter": {
+      "name": "Yuki Tanaka",
+      "email": "yuki.tanaka@contoso.com",
+      "department": "Fixed Income"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5031",
+    "subject": "Network drive mapping failure - cannot access \\\\fs-compliance-01\\shared",
+    "description": "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat{\\fonttbl{\\f0\\fswiss\\fcharset0 Calibri;}{\\f1\\fnil\\fcharset2 Symbol;}}\n{\\colortbl ;\\red0\\green0\\blue0;\\red44\\green62\\blue80;}\n{\\*\\generator Riched20 10.0.22621}\\viewkind4\\uc1\n\\pard\\sl276\\slmult1\\cf1\\f0\\fs22 Hi Support Team,\\par\n\\par\n\\b Problem Description:\\b0\\par\nI am unable to map the network drive \\\\\\\\fs-compliance-01\\\\shared on my workstation since this morning.  When I try to reconnect the mapped drive through \\cf2\\ul File Explorer > Map Network Drive\\cf1\\ulnone , I receive a generic Windows error and the connection times out after roughly 30 seconds.\\par\n\\par\n\\b Steps I have already tried:\\b0\\par\n{\\pntext\\f1\\'B7\\tab}{\\*\\pn\\pnlvlblt\\pnf1\\pnindent360{\\pntxtb\\'B7}}\\fi-360\\li720 Rebooted the workstation twice\\par\n{\\pntext\\f1\\'B7\\tab}Cleared the Windows credential cache via \\f0\\fs18 cmdkey /delete:fs-compliance-01\\f0\\fs22\\par\n{\\pntext\\f1\\'B7\\tab}Ran \\f0\\fs18 net use \\\\\\\\fs-compliance-01\\\\shared /user:CONTOSO\\\\amoretti P@ss\\f0\\fs22  — same timeout\\par\n{\\pntext\\f1\\'B7\\tab}Pinged fs-compliance-01 — responds with 10.42.7.20, avg 2 ms\\par\n\\par\n\\b Impact:\\b0  I cannot access any of the shared compliance audit files and have a regulatory filing due by end of day Friday.\\par\n\\par\nPlease advise urgently.\\par\n\\par\n\\i Angela Moretti\\i0\\par\nCompliance Department | Desk 4-118 | Ext. 7742\\par\n}\n",
+    "reporter": {
+      "name": "Angela Moretti",
+      "email": "angela.moretti@contoso.com",
+      "department": "Compliance"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5032",
+    "subject": "Re: Re: FW: Multiple IT issues - VPN / printer / password",
+    "description": "From: Tomás Reyes <tomas.reyes@contoso.com>\nSent: Wednesday, April 2, 2026 3:18 PM\nTo: IT Support <it.support@contoso.com>\n\nHi team — sorry for all the back-and-forth.  Please DISREGARD the VPN and printer issues from my earlier emails, those were resolved by a colleague.\n\nMy ACTUAL current problem: I cannot reset my Active Directory password.  When I go to https://passwordreset.contoso.com and enter my username (treyes), the MFA challenge never arrives on my phone.  I have tried both SMS and the Authenticator app push notification — neither comes through.  My account is not locked (I can still log in with my current password) but it expires tomorrow and I will be locked out of all trading systems.\n\nPlease help ASAP.\nTomás\n\n────────────────────────────────────────\nFrom: Tomás Reyes <tomas.reyes@contoso.com>\nSent: Wednesday, April 2, 2026 1:45 PM\nTo: IT Support <it.support@contoso.com>\n\nUpdate — the VPN issue fixed itself after the network team rebooted the concentrator, but now the 4th-floor color printer (HP LaserJet MFP E877) is jammed and showing error code 13.A3.D4 on the display panel.  Can someone come take a look?  Also I still need to reset my password before tomorrow.\n\n────────────────────────────────────────\nFrom: Tomás Reyes <tomas.reyes@contoso.com>\nSent: Wednesday, April 2, 2026 9:02 AM\nTo: IT Support <it.support@contoso.com>\n\nGood morning, I'm having trouble connecting to the Contoso VPN from my home office.  The Cisco AnyConnect client shows 'Connection attempt has failed' after entering my credentials.  I'm on Comcast residential, if that matters.  I also need a password reset but the VPN thing is more urgent right now.\n",
+    "reporter": {
+      "name": "Tomás Reyes",
+      "email": "tomas.reyes@contoso.com",
+      "department": "Trading"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5033",
+    "subject": "URGENT — db-analytics-07 disk space critical",
+    "description": "Here is the data from our Grafana dashboard for the last 6 hours.  I exported the raw Prometheus metrics so you can see the trend:\n\n# HELP node_cpu_seconds_total Seconds the CPUs spent in each mode.\n# TYPE node_cpu_seconds_total counter\nnode_cpu_seconds_total{cpu=\"0\",mode=\"idle\"} 1.84629837e+06\nnode_cpu_seconds_total{cpu=\"0\",mode=\"system\"} 42871.23\nnode_cpu_seconds_total{cpu=\"0\",mode=\"user\"} 318744.91\nnode_cpu_seconds_total{cpu=\"1\",mode=\"idle\"} 1.83998241e+06\nnode_cpu_seconds_total{cpu=\"1\",mode=\"system\"} 44102.67\nnode_cpu_seconds_total{cpu=\"1\",mode=\"user\"} 321556.88\n# HELP node_memory_MemTotal_bytes Total memory in bytes.\nnode_memory_MemTotal_bytes 6.7479674880e+10\nnode_memory_MemAvailable_bytes 4.129587200e+09\nnode_memory_Buffers_bytes 2.18390528e+08\nnode_memory_Cached_bytes 1.2884901888e+10\n# HELP node_disk_io_time_seconds_total Total seconds spent doing I/Os.\nnode_disk_io_time_seconds_total{device=\"sda\"} 98712.44\nnode_disk_io_time_seconds_total{device=\"sdb\"} 341289.71\nnode_disk_io_time_seconds_total{device=\"sdc\"} 2187.03\n# HELP node_filesystem_avail_bytes Available filesystem size in bytes.\nnode_filesystem_avail_bytes{device=\"/dev/sda1\",mountpoint=\"/\"} 8.1289175040e+09\nnode_filesystem_avail_bytes{device=\"/dev/sdb1\",mountpoint=\"/data\"} 1.048576e+07\nnode_filesystem_size_bytes{device=\"/dev/sdb1\",mountpoint=\"/data\"} 1.073741824e+12\nnode_filesystem_avail_bytes{device=\"/dev/sdc1\",mountpoint=\"/backup\"} 4.29496729e+11\n# HELP node_disk_read_bytes_total Total number of bytes read.\nnode_disk_read_bytes_total{device=\"sda\"} 5.8100735e+10\nnode_disk_read_bytes_total{device=\"sdb\"} 9.7821548134e+11\nnode_disk_written_bytes_total{device=\"sdb\"} 1.06889410765e+12\n\nAs you can see /data on sdb1 has only ~10 MB free out of 1 TB.  The database server db-analytics-07 is about to run out of disk and the analytics pipeline will halt.  We need emergency cleanup or a volume expansion ASAP before the overnight batch job kicks off at 02:00 UTC.",
+    "reporter": {
+      "name": "Priyanka Sharma",
+      "email": "priyanka.sharma@contoso.com",
+      "department": "Data Engineering"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5034",
+    "subject": "Software license expiration — Bloomberg Terminal B-PIPE",
+    "description": "C o n t o s o   F i n a n c i a l   S e r v i c e s        Page 1 of 3\n─────────────────────────────────────────────────────────────\nIT  Ser vice  Reques t  For m        Date:  03 / 28 / 2026\n─────────────────────────────────────────────────────────────\n\nReques tor :   Kwame  Asan te        Dep t:  Ri sk  Managemen t\nExt :  6 6 1 4        Fl oor :  12        Buil ding :  HQ - Eas t\n\nCate gory :  So f tware  License  Renewal\nPriori ty :  Medium\n\nDescri p tion :\nOur  Bl oomberg  Terminal  B-PIPE  da ta  f eed  license  is  set  to  expi re  on  Apri l  15 ,  2026.   We  cur ren tly  have  8  concurren t  sea ts  and  need  to  renew  f or  at  leas t  12  sea ts  to  cover  the  new  hi res  in  Ri sk  and  Por t f olio  Managemen t.\n\nC o n t o s o   F i n a n c i a l   S e r v i c e s        Page 2 of 3\n─────────────────────────────────────────────────────────────\n\nThe  cur ren t  con t rac t  number  is  BB - ENT - 2024 - 04871  and  our  accoun t  manager  at  Bl oomberg  is  Sarah  Chen  ( schen@bloomberg.ne t ) .  I  have  a t tached  the  origi nal  order  f orm  ( PDF )  bu t  the  a t tachmen t  may  no t  have  come  through  proper ly.\n\nAddi tional  no tes :\n- The  f i  ligature  in  ' fi nancial '  renders  as  separ ate  chars\n- Head ers  and  f oo ters  repea t  on  every  page  due  to  PDF  extrac tion\n- Page  numbers  are  in tersp ersed  in  the  tex t  s tream\n\nC o n t o s o   F i n a n c i a l   S e r v i c e s        Page 3 of 3\n─────────────────────────────────────────────────────────────\n\nPlease  process  this  renewal  be f ore  Apri l  10  to  avoi d  any  in terrup tion  in  ser vice.   The  cos t  cen ter  is  CC - 4420 - RM.\n\nThan k  you ,\nKwame  Asan te",
+    "reporter": {
+      "name": "Kwame Asante",
+      "email": "kwame.asante@contoso.com",
+      "department": "Risk Management"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5035",
+    "subject": "Re: Shared mailbox clientservices@ not receiving external emails",
+    "description": "From: Nadia Volkov <nadia.volkov@contoso.com>\nTo: IT Support <it.support@contoso.com>\nCC: james.wu@contoso.com; maria.gonzalez@contoso.com; ahmed.hassan@contoso.com; lisa.chen@contoso.com; robert.smith@contoso.com; patricia.jones@contoso.com; david.kim@contoso.com; sarah.taylor@contoso.com; michael.brown@contoso.com; jennifer.davis@contoso.com; christopher.wilson@contoso.com; amanda.martinez@contoso.com; daniel.anderson@contoso.com; jessica.thomas@contoso.com; matthew.jackson@contoso.com; ashley.white@contoso.com; joshua.harris@contoso.com; emily.clark@contoso.com; andrew.lewis@contoso.com; stephanie.walker@contoso.com; clientservices@contoso.com\n\nHi IT,\n\nOur shared mailbox clientservices@contoso.com has stopped receiving emails from external senders.  Internal emails arrive fine.  We first noticed the problem sometime this week but are unsure of the exact time.  Our clients are complaining that their emails bounce with a '550 5.7.1 Unable to relay' NDR.  This is affecting multiple client relationships.\n\nCan someone investigate the Exchange transport rules or the inbound connector?  The mailbox has 47 members and we all see the same behaviour.\n\nThanks,\nNadia\n\n--- Auto-reply from james.wu@contoso.com ---\nThank you for your email.  I am currently out of the office from March 31 to April 7 with limited access to email.  For urgent matters please contact maria.gonzalez@contoso.com.\n\n--- Auto-reply from patricia.jones@contoso.com ---\nI am on parental leave until June 2026.  Please direct all Client Services inquiries to the clientservices@contoso.com shared mailbox or contact david.kim@contoso.com.\n\n--- Auto-reply from ashley.white@contoso.com ---\nThanks for reaching out!  I'm in training all week and will respond when I return on April 8.  For immediate assistance email clientservices@contoso.com.\n\n--- Auto-reply from daniel.anderson@contoso.com ---\nI am out sick today.  I will reply as soon as I am able.\n",
+    "reporter": {
+      "name": "Nadia Volkov",
+      "email": "nadia.volkov@contoso.com",
+      "department": "Client Services"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5036",
+    "subject": "SAP transaction VA01 failing — screenshot attached",
+    "description": "[OCR extracted text from screenshot — original image lost in transit]\n\n+---------------------+-------------------+--------------------+\n|  SAP  ECC  6.0      |   Tran  saction   |    VA 01           |\n+---------------------+-------------------+--------------------+\n|  Cli ent  :  800    |   Us er  :  HJO   |  Sys  :  PRD      |\n|                     |   HAN  SSON       |                    |\n+---------------------+-------------------+--------------------+\n\nErr or  Mes sage  (red  bar  at  bot tom  of  scr een):\n+----------------------------------------------------------+\n|  M7  021  :  \" Materi al  40 0 - 1 1 7  has  no t  been  |\n|  mai ntai ned  in  pla nt  21 00 \"                        |\n+----------------------------------------------------------+\n\nI  am  try ing  to  cre ate  a  sal es  ord er  in  VA 01  for\nmat eri al  40 0 - 1 1 7  (Wi dge t  Assembl y  Ki t  -  Lar ge)\nbu t  the  sys tem  thr ows  err or  M7  021  when  I  sel ect\npla nt  21 00  ( Chi cago  Dist ribu tion  Cen ter ) .\n\nThi s  mat eri al  was  wor king  fi ne  las t  wee k.   I  thi nk\nsome one  may  have  dele ted  or  modi fi ed  the  mat eri al\nmas ter  reco rd  f or  pla nt  21 00  duri ng  the  week end\nmain tenan ce  win dow.\n\nHen ri k  Johann sson  |  Fin ance  |  Ext  48 81",
+    "reporter": {
+      "name": "Henrik Johansson",
+      "email": "henrik.johansson@contoso.com",
+      "department": "Finance"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5037",
+    "subject": "SharePoint upload failing — document too large",
+    "description": "Hi IT Support,\n\nI have been trying to upload a regulatory filing bundle to our SharePoint site (https://contoso.sharepoint.com/sites/Legal/FilingArchive) but keep getting a 'File size exceeds the allowed limit' error.  The bundle is a ZIP file containing three documents that total about 380 MB.\n\nI've pasted the base64-encoded files below in case the attachment didn't come through:\n\n=== BEGIN regulatory_response_v4.docx (base64) ===\nUEsDBBQAAAAIAGRVZ1kAAAAAAAAAAAAAABIAHAB3b3JkL2RvY3VtZW50LnhtbFVUCQADk9J2Z5PSdmd1eAsAAQT2AQAABBQAAAANy7EOgCAQBNC9X0F6ew8TY0Ws/Q0LuJgTuSN3GPn7YGHiZCYz+XlkfdVCnoMOqxIYGAEBfmqNvDSEeJ6uc+yiKiHhHUGHTQ6tBfY3++sPAAAA//8DAFBLAQItABQAAAAIAGRVZ1kAAAAAAAAAAAAAAAASABgAAAAAAAEAAACkgQAAAA... [truncated — approximately 87,000 more base64 characters] ...\n=== END regulatory_response_v4.docx ===\n\n=== BEGIN counterparty_exposure_summary.csv (base64) ===\nQ291bnRlcnBhcnR5LERlc2ssRXhwb3N1cmVfVVNELE5vdGlvbmFsX1VTRCxSYXRpbmcsTWF0dXJpdHkNCkFjbWUgQ29ycCxGaXhlZCBJbmNvbWUsMTI1MDAwMDAsNTAwMDAwMDAsQUEsMjAyNy0wNi0xNQ0KQmV0YSBMdGQsRXF1aXRpZXMsODcwMDAwMCwzMjAwMDAwMCw... [truncated — approximately 41,000 more base64 characters] ...\n=== END counterparty_exposure_summary.csv ===\n\n=== BEGIN original_request_thread.eml (base64) ===\nRnJvbTogRmF0aW1hIEFsLVJhc2hpZCA8ZmF0aW1hLmFscmFzaGlkQGNvbnRvc28uY29tPgpUbzogTGVnYWwgRmlsaW5ncyA8bGVnYWwuZmlsaW5nc0Bjb250b3NvLmNvbT4KU3ViamVjdDogUmVndWxhdG9yeSBGaWxpbmcgQnVuZGxlIC0gUTEgMjAyNgpEYXRlOiBUaHUs... [truncated — approximately 23,000 more base64 characters] ...\n=== END original_request_thread.eml ===\n\nThe SharePoint site collection admin is Marcus Webb (marcus.webb@contoso.com).  Our current upload limit seems to be set to 250 MB.  Can you increase it to at least 500 MB or suggest an alternative way to upload this bundle?\n\nThanks,\nFatima Al-Rashid\nLegal Department | Floor 9 | Ext. 5523",
+    "reporter": {
+      "name": "Fatima Al-Rashid",
+      "email": "fatima.alrashid@contoso.com",
+      "department": "Legal"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5038",
+    "subject": "Laptop battery draining very fast",
+    "description": "[Transcript from voicemail — automated speech-to-text conversion]\n\nyeah hi um this is jin ho park from uh quantitative analysis on the um seventh floor and i'm calling about my laptop um the battery is like draining super fast like i charge it too a hundred percent in the morning and buy lunch time its already at like fifteen percent um and thats with the screen brightness turned all the way down and like no external monitors or anything plugged in um so its not like im drawing a lot of power from like peripherals or whatever um i think the problem started about too weeks ago uh maybe after that windows update that got pushed out i dont really remember the exact date but it was like right around when we got that email about the security patch um anyway the laptop is basically unusable after lunch because i have too keep it plugged in at my desk which kind of defeats the whole purpose of having a laptop right um i need too take it too meetings and work from the trading floor sometimes and their are no power outlets buy the hot desks um also i noticed the bottom of the laptop gets really hot like uncomfortably hot um i looked in task manager and theres this process called like system interrupts or something thats using like thirty percent of the cpu even when im not doing anything um i dont no if thats related but it seems like it mite be um could someone please take a look at this i can bring the laptop buy the help desk on the forth floor whenever is convenient um my extension is four two eight seven um thanks bye",
+    "reporter": {
+      "name": "Jin-Ho Park",
+      "email": "jinho.park@contoso.com",
+      "department": "Quantitative Analysis"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "phone",
+    "attachments": []
+  }
 ]

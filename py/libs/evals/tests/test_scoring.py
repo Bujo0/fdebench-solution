@@ -2,24 +2,24 @@
 """Tests for scoring functions.
 
 Mirrors the structure in docs/eval/test_scoring.py but operates on
-typed Pydantic models from ms.evals.
+typed Pydantic models from ms.evals_core.
 """
 
 import pytest
 
-from ms.evals.models import DimensionScores
-from ms.evals.models import GoldAnswer
-from ms.evals.models import TriageResponse
-from ms.evals.scoring import WEIGHTS
-from ms.evals.scoring import binary_f1
-from ms.evals.scoring import compute_aggregate_scores
-from ms.evals.scoring import macro_f1
-from ms.evals.scoring import score_category
-from ms.evals.scoring import score_escalation
-from ms.evals.scoring import score_missing_info
-from ms.evals.scoring import score_priority
-from ms.evals.scoring import score_routing
-from ms.evals.scoring import score_ticket
+from ms.evals_core.eval_models import DimensionScores
+from ms.evals_core.eval_models import GoldAnswer
+from ms.evals_core.eval_models import TriageResponse
+from ms.evals_core.scoring import WEIGHTS
+from ms.evals_core.scoring import binary_f1
+from ms.evals_core.scoring import compute_aggregate_scores
+from ms.evals_core.scoring import macro_f1
+from ms.evals_core.scoring import score_category
+from ms.evals_core.scoring import score_escalation
+from ms.evals_core.scoring import score_missing_info
+from ms.evals_core.scoring import score_priority
+from ms.evals_core.scoring import score_routing
+from ms.evals_core.scoring import score_ticket
 
 # ── Category ────────────────────────────────────────────────────
 

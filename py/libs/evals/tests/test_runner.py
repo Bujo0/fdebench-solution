@@ -6,10 +6,10 @@ import httpx
 import pytest
 import respx
 
-from ms.evals.datasets import DatasetKind
-from ms.evals.datasets import load_dataset
-from ms.evals.models import GoldAnswer
-from ms.evals.runner import EvalRunner
+from ms.evals_core.datasets import DatasetKind
+from ms.evals_core.datasets import load_dataset
+from ms.evals_core.eval_models import GoldAnswer
+from ms.evals_core.eval_runner import EvalRunner
 
 
 def _gold_response_for(gold: GoldAnswer) -> dict:
@@ -46,8 +46,8 @@ class TestEvalRunner:
         runner = EvalRunner("http://test:8000")
         summary = runner.run(DatasetKind.DATA_CLEANUP)
 
-        assert summary.tickets_total == 15
-        assert summary.tickets_scored == 15
+        assert summary.tickets_total == 38
+        assert summary.tickets_scored == 38
         assert summary.tickets_errored == 0
         assert summary.classification_score == 85.0
 
@@ -68,8 +68,8 @@ class TestEvalRunner:
         runner = EvalRunner("http://test:8000")
         summary = runner.run(DatasetKind.RESPONSIBLE_AI)
 
-        assert summary.tickets_total == 15
-        assert summary.tickets_scored == 15
+        assert summary.tickets_total == 35
+        assert summary.tickets_scored == 35
         assert summary.tickets_errored == 0
         assert summary.classification_score == 85.0
 
@@ -83,7 +83,7 @@ class TestEvalRunner:
         runner = EvalRunner("http://test:8000")
         summary = runner.run(DatasetKind.DATA_CLEANUP)
 
-        assert summary.tickets_errored == 15
+        assert summary.tickets_errored == 38
         assert summary.tickets_scored == 0
 
     @respx.mock
@@ -111,7 +111,7 @@ class TestEvalRunner:
         summary = runner.run(DatasetKind.DATA_CLEANUP)
 
         assert summary.tickets_errored == 5
-        assert summary.tickets_scored == 10
+        assert summary.tickets_scored == 33
 
     def test_no_gold_raises(self) -> None:
         """Running against a dataset with no gold should raise ValueError."""

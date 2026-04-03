@@ -4,13 +4,13 @@
 import pytest
 from pydantic import ValidationError
 
-from ms.evals.models import AssignedTeam
-from ms.evals.models import Category
-from ms.evals.models import GoldAnswer
-from ms.evals.models import MissingInfoItem
-from ms.evals.models import Reporter
-from ms.evals.models import Ticket
-from ms.evals.models import TriageResponse
+from ms.evals_core.eval_models import AssignedTeam
+from ms.evals_core.eval_models import Category
+from ms.evals_core.eval_models import GoldAnswer
+from ms.evals_core.eval_models import MissingInfoItem
+from ms.evals_core.eval_models import Reporter
+from ms.evals_core.eval_models import Ticket
+from ms.evals_core.eval_models import TriageResponse
 
 
 class TestTicketModel:
