@@ -7,6 +7,7 @@ members = [
     "be-an-fde-for-a-day",
     "ms-common-fastapi",
     "ms-common-models",
+    "ms-evals",
 ]
 
 [[package]]
@@ -400,6 +401,29 @@ dev = [
 
 [package.metadata]
 requires-dist = [{ name = "pydantic", specifier = ">=2.8.0" }]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pyright", specifier = ">=1.1.407" },
+    { name = "pytest", specifier = ">=9.0.1" },
+]
+
+[[package]]
+name = "ms-evals"
+version = "0.0.0"
+source = { editable = "apps/evals" }
+dependencies = [
+    { name = "ms-common-models" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "pyright" },
+    { name = "pytest" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "ms-common-models", editable = "common/libs/models" }]
 
 [package.metadata.requires-dev]
 dev = [
