@@ -1777,4 +1777,485 @@ def get_scenarios() -> list[ScenarioDefinition]:
             tags=["data-cleanup", "base64", "interleaved-images", "inline-image"],
             difficulty="hard",
         ),
+        # ── DC-031  RTF / Rich Text formatting markup noise ─────────────
+        ScenarioDefinition(
+            scenario_id="DC-031",
+            subject="Network drive mapping failure - cannot access \\\\fs-compliance-01\\shared",
+            description=(
+                "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat{\\fonttbl{\\f0\\fswiss\\fcharset0 "
+                "Calibri;}{\\f1\\fnil\\fcharset2 Symbol;}}\n"
+                "{\\colortbl ;\\red0\\green0\\blue0;\\red44\\green62\\blue80;}\n"
+                "{\\*\\generator Riched20 10.0.22621}\\viewkind4\\uc1\n"
+                "\\pard\\sl276\\slmult1\\cf1\\f0\\fs22 Hi Support Team,\\par\n"
+                "\\par\n"
+                "\\b Problem Description:\\b0\\par\n"
+                "I am unable to map the network drive \\\\\\\\fs-compliance-01\\\\shared on my "
+                "workstation since this morning.  When I try to reconnect the mapped drive "
+                "through \\cf2\\ul File Explorer > Map Network Drive\\cf1\\ulnone , I receive a "
+                "generic Windows error and the connection times out after roughly 30 seconds.\\par\n"
+                "\\par\n"
+                "\\b Steps I have already tried:\\b0\\par\n"
+                "{\\pntext\\f1\\'B7\\tab}{\\*\\pn\\pnlvlblt\\pnf1\\pnindent360{\\pntxtb\\'B7}}"
+                "\\fi-360\\li720 Rebooted the workstation twice\\par\n"
+                "{\\pntext\\f1\\'B7\\tab}Cleared the Windows credential cache via "
+                "\\f0\\fs18 cmdkey /delete:fs-compliance-01\\f0\\fs22\\par\n"
+                "{\\pntext\\f1\\'B7\\tab}Ran \\f0\\fs18 net use \\\\\\\\fs-compliance-01\\\\shared "
+                "/user:CONTOSO\\\\amoretti P@ss\\f0\\fs22  — same timeout\\par\n"
+                "{\\pntext\\f1\\'B7\\tab}Pinged fs-compliance-01 — responds with 10.42.7.20, "
+                "avg 2 ms\\par\n"
+                "\\par\n"
+                "\\b Impact:\\b0  I cannot access any of the shared compliance audit files "
+                "and have a regulatory filing due by end of day Friday.\\par\n"
+                "\\par\n"
+                "Please advise urgently.\\par\n"
+                "\\par\n"
+                "\\i Angela Moretti\\i0\\par\n"
+                "Compliance Department | Desk 4-118 | Ext. 7742\\par\n"
+                "}\n"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.AFFECTED_SYSTEM, MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate network drive mapping failure for \\\\fs-compliance-01\\shared — "
+                "user receives a timeout after 30 seconds despite the server responding to "
+                "ping.  Strip RTF formatting noise to extract the core issue, then check "
+                "SMB connectivity and credential cache state."
+            ),
+            remediation_steps=[
+                "Verify SMB connectivity to fs-compliance-01 on port 445 from the user's subnet.",
+                "Check if the user's AD computer account has valid Kerberos tickets for the file server.",
+                "Confirm the shared folder permissions on fs-compliance-01 include the Compliance group.",
+                "Review recent Group Policy changes that may have altered drive-mapping logon scripts.",
+                "If SMB signing or encryption policies changed, ensure client and server negotiate the same version.",
+            ],
+            reporter_name="Angela Moretti",
+            reporter_email="angela.moretti@contoso.com",
+            reporter_department="Compliance",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "rtf-markup", "formatting-noise"],
+            difficulty="hard",
+        ),
+        # ── DC-032  Email reply chain with conflicting information ───────
+        ScenarioDefinition(
+            scenario_id="DC-032",
+            subject="Re: Re: FW: Multiple IT issues - VPN / printer / password",
+            description=(
+                "From: Tomás Reyes <tomas.reyes@contoso.com>\n"
+                "Sent: Wednesday, April 2, 2026 3:18 PM\n"
+                "To: IT Support <it.support@contoso.com>\n\n"
+                "Hi team — sorry for all the back-and-forth.  Please DISREGARD the VPN and "
+                "printer issues from my earlier emails, those were resolved by a colleague.\n\n"
+                "My ACTUAL current problem: I cannot reset my Active Directory password.  "
+                "When I go to https://passwordreset.contoso.com and enter my username "
+                "(treyes), the MFA challenge never arrives on my phone.  I have tried both "
+                "SMS and the Authenticator app push notification — neither comes through.  "
+                "My account is not locked (I can still log in with my current password) but "
+                "it expires tomorrow and I will be locked out of all trading systems.\n\n"
+                "Please help ASAP.\n"
+                "Tomás\n\n"
+                "────────────────────────────────────────\n"
+                "From: Tomás Reyes <tomas.reyes@contoso.com>\n"
+                "Sent: Wednesday, April 2, 2026 1:45 PM\n"
+                "To: IT Support <it.support@contoso.com>\n\n"
+                "Update — the VPN issue fixed itself after the network team rebooted the "
+                "concentrator, but now the 4th-floor color printer (HP LaserJet MFP E877) "
+                "is jammed and showing error code 13.A3.D4 on the display panel.  Can "
+                "someone come take a look?  Also I still need to reset my password before "
+                "tomorrow.\n\n"
+                "────────────────────────────────────────\n"
+                "From: Tomás Reyes <tomas.reyes@contoso.com>\n"
+                "Sent: Wednesday, April 2, 2026 9:02 AM\n"
+                "To: IT Support <it.support@contoso.com>\n\n"
+                "Good morning, I'm having trouble connecting to the Contoso VPN from my "
+                "home office.  The Cisco AnyConnect client shows 'Connection attempt has "
+                "failed' after entering my credentials.  I'm on Comcast residential, if "
+                "that matters.  I also need a password reset but the VPN thing is more "
+                "urgent right now.\n"
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P3,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.AUTHENTICATION_METHOD],
+            next_best_action=(
+                "Process password reset for treyes — user reports that the self-service "
+                "password reset MFA challenge (SMS and Authenticator push) is not arriving, "
+                "and the current password expires tomorrow.  Ignore earlier VPN and printer "
+                "issues which the user confirmed are resolved."
+            ),
+            remediation_steps=[
+                "Verify the user's MFA registration in Azure AD — confirm phone number and Authenticator device.",
+                "Check Azure MFA service health for any delivery delays on SMS or push notifications.",
+                "If MFA is unreachable, perform an admin-assisted password reset with temp password; force change.",
+                "Re-register the user's MFA methods if the Authenticator token has drifted or phone number changed.",
+                "Extend the password expiry by 48 hours if the reset cannot be completed before end of day.",
+            ],
+            reporter_name="Tomás Reyes",
+            reporter_email="tomas.reyes@contoso.com",
+            reporter_department="Trading",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "conflicting-replies", "reply-chain"],
+            difficulty="hard",
+        ),
+        # ── DC-033  Raw Prometheus / Grafana metrics dump ────────────────
+        ScenarioDefinition(
+            scenario_id="DC-033",
+            subject="URGENT — db-analytics-07 disk space critical",
+            description=(
+                "Here is the data from our Grafana dashboard for the last 6 hours.  "
+                "I exported the raw Prometheus metrics so you can see the trend:\n\n"
+                "# HELP node_cpu_seconds_total Seconds the CPUs spent in each mode.\n"
+                "# TYPE node_cpu_seconds_total counter\n"
+                "node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"} 1.84629837e+06\n"
+                "node_cpu_seconds_total{cpu=\"0\",mode=\"system\"} 42871.23\n"
+                "node_cpu_seconds_total{cpu=\"0\",mode=\"user\"} 318744.91\n"
+                "node_cpu_seconds_total{cpu=\"1\",mode=\"idle\"} 1.83998241e+06\n"
+                "node_cpu_seconds_total{cpu=\"1\",mode=\"system\"} 44102.67\n"
+                "node_cpu_seconds_total{cpu=\"1\",mode=\"user\"} 321556.88\n"
+                "# HELP node_memory_MemTotal_bytes Total memory in bytes.\n"
+                "node_memory_MemTotal_bytes 6.7479674880e+10\n"
+                "node_memory_MemAvailable_bytes 4.129587200e+09\n"
+                "node_memory_Buffers_bytes 2.18390528e+08\n"
+                "node_memory_Cached_bytes 1.2884901888e+10\n"
+                "# HELP node_disk_io_time_seconds_total Total seconds spent doing I/Os.\n"
+                "node_disk_io_time_seconds_total{device=\"sda\"} 98712.44\n"
+                "node_disk_io_time_seconds_total{device=\"sdb\"} 341289.71\n"
+                "node_disk_io_time_seconds_total{device=\"sdc\"} 2187.03\n"
+                "# HELP node_filesystem_avail_bytes Available filesystem size in bytes.\n"
+                "node_filesystem_avail_bytes{device=\"/dev/sda1\",mountpoint=\"/\"} 8.1289175040e+09\n"
+                "node_filesystem_avail_bytes{device=\"/dev/sdb1\",mountpoint=\"/data\"} 1.048576e+07\n"
+                "node_filesystem_size_bytes{device=\"/dev/sdb1\",mountpoint=\"/data\"} 1.073741824e+12\n"
+                "node_filesystem_avail_bytes{device=\"/dev/sdc1\",mountpoint=\"/backup\"} 4.29496729e+11\n"
+                "# HELP node_disk_read_bytes_total Total number of bytes read.\n"
+                "node_disk_read_bytes_total{device=\"sda\"} 5.8100735e+10\n"
+                "node_disk_read_bytes_total{device=\"sdb\"} 9.7821548134e+11\n"
+                "node_disk_written_bytes_total{device=\"sdb\"} 1.06889410765e+12\n\n"
+                "As you can see /data on sdb1 has only ~10 MB free out of 1 TB.  The "
+                "database server db-analytics-07 is about to run out of disk and the "
+                "analytics pipeline will halt.  We need emergency cleanup or a volume "
+                "expansion ASAP before the overnight batch job kicks off at 02:00 UTC."
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P1,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=True,
+            missing_info=[MissingInfo.AFFECTED_USERS, MissingInfo.BUSINESS_IMPACT],
+            next_best_action=(
+                "URGENT — db-analytics-07 /data volume is nearly full (~10 MB free of 1 TB).  "
+                "Expand the volume or purge stale data before the 02:00 UTC batch job.  "
+                "Ignore the large Prometheus metrics dump and focus on the disk-space issue."
+            ),
+            remediation_steps=[
+                "SSH into db-analytics-07 and confirm current disk usage with df -h /data.",
+                "Identify and remove or archive old analytics temp files under /data/tmp and /data/staging.",
+                "If immediate space cannot be freed, expand the /dev/sdb1 volume via the storage array or cloud.",
+                "Notify the Data Engineering team to delay the 02:00 UTC batch job until disk space is safe.",
+                "Set up a Prometheus alert for node_filesystem_avail_bytes < 5% to catch this earlier in future.",
+            ],
+            reporter_name="Priyanka Sharma",
+            reporter_email="priyanka.sharma@contoso.com",
+            reporter_department="Data Engineering",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "monitoring-metrics", "time-series-dump"],
+            difficulty="hard",
+        ),
+        # ── DC-034  PDF-to-text conversion artifacts ─────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-034",
+            subject="Software license expiration — Bloomberg Terminal B-PIPE",
+            description=(
+                "C o n t o s o   F i n a n c i a l   S e r v i c e s        Page 1 of 3\n"
+                "─────────────────────────────────────────────────────────────\n"
+                "IT  Ser vice  Reques t  For m        Date:  03 / 28 / 2026\n"
+                "─────────────────────────────────────────────────────────────\n\n"
+                "Reques tor :   Kwame  Asan te        Dep t:  Ri sk  Managemen t\n"
+                "Ext :  6 6 1 4        Fl oor :  12        Buil ding :  HQ - Eas t\n\n"
+                "Cate gory :  So f tware  License  Renewal\n"
+                "Priori ty :  Medium\n\n"
+                "Descri p tion :\n"
+                "Our  Bl oomberg  Terminal  B-PIPE  da ta  f eed  license  is  set  to  "
+                "expi re  on  Apri l  15 ,  2026.   We  cur ren tly  have  8  concurren t  "
+                "sea ts  and  need  to  renew  f or  at  leas t  12  sea ts  to  cover  the  "
+                "new  hi res  in  Ri sk  and  Por t f olio  Managemen t.\n\n"
+                "C o n t o s o   F i n a n c i a l   S e r v i c e s        Page 2 of 3\n"
+                "─────────────────────────────────────────────────────────────\n\n"
+                "The  cur ren t  con t rac t  number  is  BB - ENT - 2024 - 04871  and  our  "
+                "accoun t  manager  at  Bl oomberg  is  Sarah  Chen  ( schen@bloomberg.ne t ) .  "
+                "I  have  a t tached  the  origi nal  order  f orm  ( PDF )  bu t  the  "
+                "a t tachmen t  may  no t  have  come  through  proper ly.\n\n"
+                "Addi tional  no tes :\n"
+                "- The  f i  ligature  in  ' fi nancial '  renders  as  separ ate  chars\n"
+                "- Head ers  and  f oo ters  repea t  on  every  page  due  to  PDF  extrac tion\n"
+                "- Page  numbers  are  in tersp ersed  in  the  tex t  s tream\n\n"
+                "C o n t o s o   F i n a n c i a l   S e r v i c e s        Page 3 of 3\n"
+                "─────────────────────────────────────────────────────────────\n\n"
+                "Please  process  this  renewal  be f ore  Apri l  10  to  avoi d  any  "
+                "in terrup tion  in  ser vice.   The  cos t  cen ter  is  CC - 4420 - RM.\n\n"
+                "Than k  you ,\n"
+                "Kwame  Asan te"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.APPLICATION_VERSION],
+            next_best_action=(
+                "Renew Bloomberg Terminal B-PIPE license (contract BB-ENT-2024-04871) "
+                "before April 15, 2026 — expand from 8 to 12 concurrent seats.  Contact "
+                "Bloomberg account manager Sarah Chen.  Ignore PDF-to-text conversion "
+                "artifacts (broken ligatures, repeated headers/footers, page numbers)."
+            ),
+            remediation_steps=[
+                "Contact Bloomberg account manager Sarah Chen to initiate renewal of contract BB-ENT-2024-04871.",
+                "Confirm the seat count increase from 8 to 12 with the Risk Management budget owner.",
+                "Obtain purchase approval for cost center CC-4420-RM and submit the PO before April 10.",
+                "Coordinate with Enterprise Apps to provision the 4 additional B-PIPE seats once license is active.",
+                "Update the software asset inventory with the new seat count and expiry date.",
+            ],
+            reporter_name="Kwame Asante",
+            reporter_email="kwame.asante@contoso.com",
+            reporter_department="Risk Management",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "pdf-conversion", "ocr-artifacts"],
+            difficulty="hard",
+        ),
+        # ── DC-035  Email with enormous CC/BCC list and auto-reply noise ─
+        ScenarioDefinition(
+            scenario_id="DC-035",
+            subject="Re: Shared mailbox clientservices@ not receiving external emails",
+            description=(
+                "From: Nadia Volkov <nadia.volkov@contoso.com>\n"
+                "To: IT Support <it.support@contoso.com>\n"
+                "CC: james.wu@contoso.com; maria.gonzalez@contoso.com; "
+                "ahmed.hassan@contoso.com; lisa.chen@contoso.com; "
+                "robert.smith@contoso.com; patricia.jones@contoso.com; "
+                "david.kim@contoso.com; sarah.taylor@contoso.com; "
+                "michael.brown@contoso.com; jennifer.davis@contoso.com; "
+                "christopher.wilson@contoso.com; amanda.martinez@contoso.com; "
+                "daniel.anderson@contoso.com; jessica.thomas@contoso.com; "
+                "matthew.jackson@contoso.com; ashley.white@contoso.com; "
+                "joshua.harris@contoso.com; emily.clark@contoso.com; "
+                "andrew.lewis@contoso.com; stephanie.walker@contoso.com; "
+                "clientservices@contoso.com\n\n"
+                "Hi IT,\n\n"
+                "Our shared mailbox clientservices@contoso.com has stopped receiving "
+                "emails from external senders.  Internal emails arrive fine.  We first "
+                "noticed the problem sometime this week but are unsure of the exact time.  "
+                "Our clients are complaining that their emails bounce with a '550 5.7.1 "
+                "Unable to relay' NDR.  This is affecting multiple client relationships.\n\n"
+                "Can someone investigate the Exchange transport rules or the inbound "
+                "connector?  The mailbox has 47 members and we all see the same behaviour.\n\n"
+                "Thanks,\nNadia\n\n"
+                "--- Auto-reply from james.wu@contoso.com ---\n"
+                "Thank you for your email.  I am currently out of the office from March 31 "
+                "to April 7 with limited access to email.  For urgent matters please "
+                "contact maria.gonzalez@contoso.com.\n\n"
+                "--- Auto-reply from patricia.jones@contoso.com ---\n"
+                "I am on parental leave until June 2026.  Please direct all Client "
+                "Services inquiries to the clientservices@contoso.com shared mailbox or "
+                "contact david.kim@contoso.com.\n\n"
+                "--- Auto-reply from ashley.white@contoso.com ---\n"
+                "Thanks for reaching out!  I'm in training all week and will respond when "
+                "I return on April 8.  For immediate assistance email "
+                "clientservices@contoso.com.\n\n"
+                "--- Auto-reply from daniel.anderson@contoso.com ---\n"
+                "I am out sick today.  I will reply as soon as I am able.\n"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.TIMESTAMP, MissingInfo.AFFECTED_USERS],
+            next_best_action=(
+                "Investigate why the shared mailbox clientservices@contoso.com is rejecting "
+                "external inbound email with '550 5.7.1 Unable to relay'.  Check Exchange "
+                "transport rules and inbound connectors.  Ignore the large CC list and "
+                "concatenated out-of-office auto-replies."
+            ),
+            remediation_steps=[
+                "Check Exchange Online message trace for emails sent to clientservices@contoso.com in the last 7 days.",
+                "Review inbound mail-flow connectors for changes that may block external relay to shared mailboxes.",
+                "Inspect Exchange transport rules for any rule rejecting mail based on recipient type or origin.",
+                "Verify that the shared mailbox has not exceeded its storage quota, which can cause inbound rejection.",
+                "Once resolved, ask Nadia's team to confirm receipt of a test email from an external address.",
+            ],
+            reporter_name="Nadia Volkov",
+            reporter_email="nadia.volkov@contoso.com",
+            reporter_department="Client Services",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "massive-cc-list", "auto-reply-noise"],
+            difficulty="hard",
+        ),
+        # ── DC-036  Screenshot OCR with layout / table artifacts ─────────
+        ScenarioDefinition(
+            scenario_id="DC-036",
+            subject="SAP transaction VA01 failing — screenshot attached",
+            description=(
+                "[OCR extracted text from screenshot — original image lost in transit]\n\n"
+                "+---------------------+-------------------+--------------------+\n"
+                "|  SAP  ECC  6.0      |   Tran  saction   |    VA 01           |\n"
+                "+---------------------+-------------------+--------------------+\n"
+                "|  Cli ent  :  800    |   Us er  :  HJO   |  Sys  :  PRD      |\n"
+                "|                     |   HAN  SSON       |                    |\n"
+                "+---------------------+-------------------+--------------------+\n\n"
+                "Err or  Mes sage  (red  bar  at  bot tom  of  scr een):\n"
+                "+----------------------------------------------------------+\n"
+                "|  M7  021  :  \" Materi al  40 0 - 1 1 7  has  no t  been  |\n"
+                "|  mai ntai ned  in  pla nt  21 00 \"                        |\n"
+                "+----------------------------------------------------------+\n\n"
+                "I  am  try ing  to  cre ate  a  sal es  ord er  in  VA 01  for\n"
+                "mat eri al  40 0 - 1 1 7  (Wi dge t  Assembl y  Ki t  -  Lar ge)\n"
+                "bu t  the  sys tem  thr ows  err or  M7  021  when  I  sel ect\n"
+                "pla nt  21 00  ( Chi cago  Dist ribu tion  Cen ter ) .\n\n"
+                "Thi s  mat eri al  was  wor king  fi ne  las t  wee k.   I  thi nk\n"
+                "some one  may  have  dele ted  or  modi fi ed  the  mat eri al\n"
+                "mas ter  reco rd  f or  pla nt  21 00  duri ng  the  week end\n"
+                "main tenan ce  win dow.\n\n"
+                "Hen ri k  Johann sson  |  Fin ance  |  Ext  48 81"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE, MissingInfo.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Investigate SAP error M7 021 for material 400-117 in plant 2100 — the "
+                "material master record may have been modified or deleted during the "
+                "weekend maintenance window.  Restore or re-extend the material to plant "
+                "2100 so sales order creation in VA01 works again."
+            ),
+            remediation_steps=[
+                "Check material master for 400-117 in SAP transaction MM03 — verify plant 2100 view exists.",
+                "Review the change log (CDHDR/CDPOS) for material 400-117 to identify recent modifications.",
+                "If plant 2100 view was deleted, re-extend material using MM01 with sales, MRP, and purchasing views.",
+                "Test sales order creation in VA01 with material 400-117 and plant 2100 to confirm the fix.",
+                "Notify SAP Basis team to review weekend maintenance scripts that may have altered material masters.",
+            ],
+            reporter_name="Henrik Johansson",
+            reporter_email="henrik.johansson@contoso.com",
+            reporter_department="Finance",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "ocr-layout", "table-artifacts"],
+            difficulty="hard",
+        ),
+        # ── DC-037  Multiple inline base64-encoded non-image files ───────
+        ScenarioDefinition(
+            scenario_id="DC-037",
+            subject="SharePoint upload failing — document too large",
+            description=(
+                "Hi IT Support,\n\n"
+                "I have been trying to upload a regulatory filing bundle to our SharePoint "
+                "site (https://contoso.sharepoint.com/sites/Legal/FilingArchive) but keep "
+                "getting a 'File size exceeds the allowed limit' error.  The bundle is a "
+                "ZIP file containing three documents that total about 380 MB.\n\n"
+                "I've pasted the base64-encoded files below in case the attachment didn't "
+                "come through:\n\n"
+                "=== BEGIN regulatory_response_v4.docx (base64) ===\n"
+                "UEsDBBQAAAAIAGRVZ1kAAAAAAAAAAAAAABIAHAB3b3JkL2RvY3VtZW50LnhtbFVUCQAD"
+                "k9J2Z5PSdmd1eAsAAQT2AQAABBQAAAANy7EOgCAQBNC9X0F6ew8TY0Ws/Q0LuJgTuSN3"
+                "GPn7YGHiZCYz+XlkfdVCnoMOqxIYGAEBfmqNvDSEeJ6uc+yiKiHhHUGHTQ6tBfY3++sP"
+                "AAAA//8DAFBLAQItABQAAAAIAGRVZ1kAAAAAAAAAAAAAAAASABgAAAAAAAEAAACkgQAAAA"
+                "... [truncated — approximately 87,000 more base64 characters] ...\n"
+                "=== END regulatory_response_v4.docx ===\n\n"
+                "=== BEGIN counterparty_exposure_summary.csv (base64) ===\n"
+                "Q291bnRlcnBhcnR5LERlc2ssRXhwb3N1cmVfVVNELE5vdGlvbmFsX1VTRCxSYXRpbmcs"
+                "TWF0dXJpdHkNCkFjbWUgQ29ycCxGaXhlZCBJbmNvbWUsMTI1MDAwMDAsNTAwMDAwMDAs"
+                "QUEsMjAyNy0wNi0xNQ0KQmV0YSBMdGQsRXF1aXRpZXMsODcwMDAwMCwzMjAwMDAwMCw"
+                "... [truncated — approximately 41,000 more base64 characters] ...\n"
+                "=== END counterparty_exposure_summary.csv ===\n\n"
+                "=== BEGIN original_request_thread.eml (base64) ===\n"
+                "RnJvbTogRmF0aW1hIEFsLVJhc2hpZCA8ZmF0aW1hLmFscmFzaGlkQGNvbnRvc28uY29t"
+                "PgpUbzogTGVnYWwgRmlsaW5ncyA8bGVnYWwuZmlsaW5nc0Bjb250b3NvLmNvbT4KU3Vi"
+                "amVjdDogUmVndWxhdG9yeSBGaWxpbmcgQnVuZGxlIC0gUTEgMjAyNgpEYXRlOiBUaHUs"
+                "... [truncated — approximately 23,000 more base64 characters] ...\n"
+                "=== END original_request_thread.eml ===\n\n"
+                "The SharePoint site collection admin is Marcus Webb (marcus.webb@contoso.com).  "
+                "Our current upload limit seems to be set to 250 MB.  Can you increase it "
+                "to at least 500 MB or suggest an alternative way to upload this bundle?\n\n"
+                "Thanks,\n"
+                "Fatima Al-Rashid\n"
+                "Legal Department | Floor 9 | Ext. 5523"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P3,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Increase the SharePoint upload size limit for the Legal/FilingArchive site "
+                "collection from 250 MB to at least 500 MB, or guide the user to upload via "
+                "the SharePoint migration tool / OneDrive sync client.  Ignore the inline "
+                "base64-encoded file contents."
+            ),
+            remediation_steps=[
+                "Verify the current max upload size for the Legal site collection in the SharePoint admin center.",
+                "Increase the file upload limit to 500 MB via Set-SPOSite -MaxUploadSize or the admin UI.",
+                "If the tenant-wide limit is below 500 MB, raise it at the tenant level after IT governance approval.",
+                "Advise the user to upload large bundles via the OneDrive sync client or SharePoint Migration Tool.",
+                "Confirm the user can successfully upload the 380 MB ZIP file after the limit change.",
+            ],
+            reporter_name="Fatima Al-Rashid",
+            reporter_email="fatima.alrashid@contoso.com",
+            reporter_department="Legal",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "base64", "non-image-attachments", "encoded-files"],
+            difficulty="hard",
+        ),
+        # ── DC-038  Voice-to-text transcript with severe recognition errors
+        ScenarioDefinition(
+            scenario_id="DC-038",
+            subject="Laptop battery draining very fast",
+            description=(
+                "[Transcript from voicemail — automated speech-to-text conversion]\n\n"
+                "yeah hi um this is jin ho park from uh quantitative analysis on the um "
+                "seventh floor and i'm calling about my laptop um the battery is like "
+                "draining super fast like i charge it too a hundred percent in the morning "
+                "and buy lunch time its already at like fifteen percent um and thats with "
+                "the screen brightness turned all the way down and like no external "
+                "monitors or anything plugged in um so its not like im drawing a lot of "
+                "power from like peripherals or whatever um i think the problem started "
+                "about too weeks ago uh maybe after that windows update that got pushed "
+                "out i dont really remember the exact date but it was like right around "
+                "when we got that email about the security patch um anyway the laptop is "
+                "basically unusable after lunch because i have too keep it plugged in at "
+                "my desk which kind of defeats the whole purpose of having a laptop right "
+                "um i need too take it too meetings and work from the trading floor "
+                "sometimes and their are no power outlets buy the hot desks um also i "
+                "noticed the bottom of the laptop gets really hot like uncomfortably hot "
+                "um i looked in task manager and theres this process called like system "
+                "interrupts or something thats using like thirty percent of the cpu even "
+                "when im not doing anything um i dont no if thats related but it seems "
+                "like it mite be um could someone please take a look at this i can bring "
+                "the laptop buy the help desk on the forth floor whenever is convenient "
+                "um my extension is four two eight seven um thanks bye"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate rapid battery drain and overheating on Jin-Ho Park's laptop — "
+                "battery goes from 100% to 15% by midday, 'System Interrupts' process at "
+                "~30% CPU.  Likely a driver issue introduced by a recent Windows security "
+                "patch.  Schedule a desk-side visit or ask user to bring the device to the "
+                "help desk on the 4th floor."
+            ),
+            remediation_steps=[
+                "Run powercfg /batteryreport and check design capacity vs. full-charge capacity for cell degradation.",
+                "Review recently installed Windows updates and cross-reference with known battery-drain issues.",
+                "Investigate high 'System Interrupts' CPU — run LatencyMon or xperf to find the offending driver.",
+                "If a specific driver is the cause, roll it back or install the latest version from the manufacturer.",
+                "If battery health shows significant degradation (>20% loss), initiate a warranty battery replacement.",
+            ],
+            reporter_name="Jin-Ho Park",
+            reporter_email="jinho.park@contoso.com",
+            reporter_department="Quantitative Analysis",
+            channel=Channel.PHONE,
+            tags=["data-cleanup", "speech-to-text", "transcription-errors", "voice-transcript"],
+            difficulty="hard",
+        ),
     ]
