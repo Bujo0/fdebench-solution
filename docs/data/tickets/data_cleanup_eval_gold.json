@@ -234,7 +234,7 @@
         "missing_information": [],
         "next_best_action": "No action required. This is an auto-forwarded chain of automated messages (out-of-office reply, ticket confirmation, newsletter) and does not contain an actionable support request.",
         "remediation_steps": [
-            "Close the ticket as not actionable \u2014 it contains only auto-forwarded automated messages",
+            "Close the ticket as not actionable — it contains only auto-forwarded automated messages",
             "Check if the helpdesk inbox has a mail rule that is incorrectly creating tickets from auto-replies",
             "If the forwarding rule is misconfigured, update it to filter out automatic replies and newsletters"
         ]
