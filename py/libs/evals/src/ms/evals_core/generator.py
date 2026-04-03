@@ -4,13 +4,13 @@ import json
 from collections import Counter
 from pathlib import Path
 
-from ms.evals.constants import Category
-from ms.evals.constants import Priority
-from ms.evals.constants import Team
-from ms.evals.models import Scenario
-from ms.evals.scenarios import get_all_scenarios
-from ms.evals.scenarios.base import ScenarioDefinition
-
+from ms.evals_core.constants import Category
+from ms.evals_core.constants import Channel
+from ms.evals_core.constants import Priority
+from ms.evals_core.constants import Team
+from ms.evals_core.models import Scenario
+from ms.evals_core.scenarios import get_all_scenarios
+from ms.evals_core.scenarios.base import ScenarioDefinition
 
 TICKET_ID_START = 2000
 
@@ -130,11 +130,11 @@ def print_distribution(dataset: list[Scenario]) -> None:
     # Channel distribution
     print("\n  Channel Distribution:")
     chan_counts = Counter(s.ticket.channel for s in dataset)
-    for chan_name in ["portal", "email", "chat", "phone"]:
-        count = chan_counts.get(chan_name, 0)
+    for chan in Channel:
+        count = chan_counts.get(chan, 0)
         pct = count / total * 100
         bar = "█" * int(pct / 2)
-        print(f"    {chan_name:<28s}  {count:4d}  ({pct:5.1f}%)  {bar}")
+        print(f"    {chan.value:<28s}  {count:4d}  ({pct:5.1f}%)  {bar}")
 
     # Escalation
     esc_count = sum(1 for s in dataset if s.gold.needs_escalation)
@@ -153,7 +153,7 @@ def print_distribution(dataset: list[Scenario]) -> None:
     for s in dataset:
         all_tags.extend(s.tags)
     tag_counts = Counter(all_tags)
-    print(f"\n  Top 20 Tags:")
+    print("\n  Top 20 Tags:")
     for tag, count in tag_counts.most_common(20):
         print(f"    {tag:<28s}  {count:4d}")
 

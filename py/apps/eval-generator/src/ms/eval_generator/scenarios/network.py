@@ -264,10 +264,10 @@ NETWORK_SCENARIOS: list[ScenarioDefinition] = [
             "Mapped drive to file server disconnected",
         ),
         descriptions=(
-            "My mapped drive (Z:) to \\fileserver01\shared is showing 'network path not found.' It was "
+            "My mapped drive (Z:) to \\\\fileserver01\\shared is showing 'network path not found.' It was "
             "working fine until this morning. I need access to the Finance department's shared files for "
             "month-end close. Other people in my team can still access it.",
-            "The network drive where we store all our project files (\\nas-prod\projects) is inaccessible. "
+            "The network drive where we store all our project files (\\\\nas-prod\\projects) is inaccessible. "
             "Getting 'Windows cannot access' error. This affects our entire Engineering team of 30 people — "
             "we can't access any project repositories.",
         ),

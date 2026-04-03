@@ -7,12 +7,12 @@ Power BI refresh failures, blob storage, Redis cache, Elasticsearch, data qualit
 and archive/retention policies.
 """
 
-from ms.evals.constants import Category
-from ms.evals.constants import Channel
-from ms.evals.constants import MissingInfo
-from ms.evals.constants import Priority
-from ms.evals.constants import Team
-from ms.evals.scenarios.base import ScenarioDefinition
+from ms.evals_core.constants import Category
+from ms.evals_core.constants import Channel
+from ms.evals_core.constants import MissingInfo
+from ms.evals_core.constants import Priority
+from ms.evals_core.constants import Team
+from ms.evals_core.scenarios.base import ScenarioDefinition
 
 
 def get_scenarios() -> list[ScenarioDefinition]:

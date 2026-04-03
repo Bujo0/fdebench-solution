@@ -4,16 +4,16 @@
 import hashlib
 import json
 import random
+from collections import Counter
 from pathlib import Path
 
-from ms.eval_generator.models import Reporter
-from ms.eval_generator.models import Ticket
-from ms.eval_generator.models import TriageGold
 from ms.eval_generator.models import VALID_CATEGORIES
-from ms.eval_generator.models import VALID_CHANNELS
 from ms.eval_generator.models import VALID_MISSING_INFO
 from ms.eval_generator.models import VALID_PRIORITIES
 from ms.eval_generator.models import VALID_TEAMS
+from ms.eval_generator.models import Reporter
+from ms.eval_generator.models import Ticket
+from ms.eval_generator.models import TriageGold
 from ms.eval_generator.reporters import COMMON_ATTACHMENTS
 from ms.eval_generator.reporters import DEPARTMENTS
 from ms.eval_generator.reporters import FIRST_NAMES
@@ -113,7 +113,7 @@ class EvalDatasetGenerator:
         for s in scenarios:
             all_errors.extend(_validate_scenario(s))
         if all_errors:
-            raise ValueError(f"Scenario validation errors:\n" + "\n".join(all_errors))
+            raise ValueError("Scenario validation errors:\n" + "\n".join(all_errors))
 
         tickets: list[Ticket] = []
         golds: list[TriageGold] = []
@@ -155,7 +155,7 @@ class EvalDatasetGenerator:
                 golds.append(gold)
 
         # Shuffle to avoid category clustering
-        combined = list(zip(tickets, golds))
+        combined = list(zip(tickets, golds, strict=True))
         self._rng.shuffle(combined)
         tickets = [t for t, _ in combined]
         golds = [g for _, g in combined]
@@ -194,10 +194,8 @@ class EvalDatasetGenerator:
 
 def print_dataset_stats(tickets: list[Ticket], golds: list[TriageGold]) -> None:
     """Print distribution statistics for the generated dataset."""
-    from collections import Counter
-
     print(f"\n{'=' * 60}")
-    print(f"  EVAL DATASET STATISTICS")
+    print("  EVAL DATASET STATISTICS")
     print(f"{'=' * 60}\n")
     print(f"  Total tickets: {len(tickets)}\n")
 

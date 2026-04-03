@@ -69,7 +69,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             ),
             next_best_action="Collect crash dump files and analyze the BSOD driver fault",
             remediation_steps=(
-                "Collect crash dump files from C:\Windows\Minidump",
+                "Collect crash dump files from C:\\Windows\\Minidump",
                 "Analyze dump with WinDbg to identify the faulting driver",
                 "Update or roll back the network driver referenced in ndis.sys",
                 "Test without the USB-C dock to isolate the cause",

@@ -188,8 +188,6 @@ def generate_dataset(
     # Import all scenario modules to populate the registry
     import ms.evals.scenarios.access_auth  # noqa: F401, PLC0415
     import ms.evals.scenarios.data_storage  # noqa: F401, PLC0415
-    import ms.evals.scenarios.edge_cases  # noqa: F401, PLC0415
-    import ms.evals.scenarios.financial_services  # noqa: F401, PLC0415
     import ms.evals.scenarios.general_inquiry  # noqa: F401, PLC0415
     import ms.evals.scenarios.hardware  # noqa: F401, PLC0415
     import ms.evals.scenarios.low_priority  # noqa: F401, PLC0415

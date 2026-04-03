@@ -2,8 +2,7 @@
 
 import random
 
-from ms.evals.constants import DEPARTMENTS
-
+from ms.evals_core.constants import DEPARTMENTS
 
 FIRST_NAMES: list[str] = [
     "James", "Mary", "Robert", "Patricia", "John", "Jennifer", "Michael", "Linda",

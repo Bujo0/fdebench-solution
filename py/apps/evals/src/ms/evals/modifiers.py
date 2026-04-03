@@ -964,7 +964,7 @@ def apply_garbled_text(subject: str, description: str, rng: random.Random) -> tu
             subject,
             f"{description}\n\n"
             f"Copy-pasted from the error dialog (might have some weird characters):\n"
-            f"â€œAccess Deniedâ€\x9d â€" The requested resource requires "
+            f"â€œAccess Deniedâ€\x9d â€\" The requested resource requires "
             f"authentificationâ€¦ Please contact your system administratorâ€™s "
             f"office for assistanceâ€¦",
         ),

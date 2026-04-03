@@ -45,11 +45,7 @@ def main() -> int:
     args = parser.parse_args()
 
     # Resolve output directory
-    if args.output:
-        output_dir = Path(args.output)
-    else:
-        # Default: project root docs/data/tickets/
-        output_dir = Path(__file__).resolve().parents[5] / "docs" / "data" / "tickets"
+    output_dir = Path(args.output) if args.output else Path(__file__).resolve().parents[5] / "docs" / "data" / "tickets"
 
     print(f"Seed: {args.seed}")
     print(f"Max variants per scenario: {args.max_variants}")

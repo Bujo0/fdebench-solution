@@ -152,7 +152,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             "File share to SharePoint Online migration request",
         ),
         descriptions=(
-            "Our department still uses a legacy file share (\\fileserver02\LegalDocs) with about 500 GB of "
+            "Our department still uses a legacy file share (\\\\fileserver02\\LegalDocs) with about 500 GB of "
             "data. We need to migrate this to SharePoint Online as part of the company initiative. Can the "
             "Data Platform team help plan and execute this migration?",
             "Requesting migration of the Engineering department's file share to SharePoint. The share has "
@@ -507,7 +507,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
         descriptions=(
             "New files and subfolders created in our shared drive aren't inheriting the parent folder's "
             "permissions. Users create a new folder and only they can see it. We have to manually set "
-            "permissions on every new item. This is the \\fileserver01\Legal share.",
+            "permissions on every new item. This is the \\\\fileserver01\\Legal share.",
             "Permission inheritance is broken on our department file share. When I create a new document, "
             "my colleagues can't access it until IT manually fixes the permissions. This started after the "
             "server migration last month.",

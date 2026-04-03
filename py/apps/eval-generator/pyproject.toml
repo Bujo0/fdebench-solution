@@ -22,3 +22,6 @@ build-backend = "uv_build"
 [tool.uv.build-backend]
 module-name = "ms.eval_generator"
 module-root = "src"
+
+[tool.uv.sources]
+ms-common-models = { workspace = true }

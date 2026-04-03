@@ -3,10 +3,10 @@
 import sys
 from pathlib import Path
 
-from ms.evals.generator import export_dataset
-from ms.evals.generator import generate_dataset
-from ms.evals.generator import print_distribution
-from ms.evals.generator import validate_dataset
+from ms.evals_core.generator import export_dataset
+from ms.evals_core.generator import generate_dataset
+from ms.evals_core.generator import print_distribution
+from ms.evals_core.generator import validate_dataset
 
 
 def main() -> int:

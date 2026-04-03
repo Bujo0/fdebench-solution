@@ -1,14 +1,14 @@
 """Base scenario definition and builder for eval ticket generation."""
 
-from ms.evals.constants import Category
-from ms.evals.constants import Channel
-from ms.evals.constants import MissingInfo
-from ms.evals.constants import Priority
-from ms.evals.constants import Team
-from ms.evals.models import GoldAnswer
-from ms.evals.models import Reporter
-from ms.evals.models import Scenario
-from ms.evals.models import Ticket
+from ms.evals_core.constants import Category
+from ms.evals_core.constants import Channel
+from ms.evals_core.constants import MissingInfo
+from ms.evals_core.constants import Priority
+from ms.evals_core.constants import Team
+from ms.evals_core.models import GoldAnswer
+from ms.evals_core.models import Reporter
+from ms.evals_core.models import Scenario
+from ms.evals_core.models import Ticket
 
 
 class ScenarioDefinition:
