@@ -1835,3 +1835,1258 @@ register(
         ],
     )
 )
+
+# ---------------------------------------------------------------------------
+# dc-028  RTF / Rich Text formatting markup noise
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-028",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AFFECTED_SYSTEM, MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "Network drive mapping failure — details below",
+            "Can't access shared drive — see description",
+            "Mapped drive disappeared after reboot",
+        ],
+        descriptions=[
+            r"{\rtf1\ansi\ansicpg1252\deff0\nouicompat{\fonttbl{\f0\fswiss\fcharset0 "
+            r"Calibri;}{\f1\fnil\fcharset0 Calibri;}}"
+            r"\viewkind4\uc1"
+            r"\pard\sa200\sl276\slmult1\f0\fs22\lang9 "
+            r"Hi IT Support,\par"
+            r"\par"
+            r"\b The network drive \\\\contoso-fs01\\{department} is no longer accessible "
+            r"from my laptop.\b0\par"
+            r"\par"
+            r"I\rquote ve been using this drive for years and it was working fine until "
+            r"this morning. When I try to open it in File Explorer, I get a "
+            r"\i red X\i0  on the drive icon and it says \ldblquote The network path was "
+            r"not found.\rdblquote\par"
+            r"\par"
+            r"I\rquote ve tried:\par"
+            r"{\pntext\f1 1.\tab}Disconnecting and remapping the drive\par"
+            r"{\pntext\f1 2.\tab}Running \f1 net use\f0  from the command line\par"
+            r"{\pntext\f1 3.\tab}Restarting my laptop\par"
+            r"\par"
+            r"Nothing works. Other colleagues in {department} can still access it. "
+            r"I need this drive for my daily reports.\par"
+            r"\par"
+            r"Thanks,\par"
+            r"{name}\par"
+            r"}",
+            r"{\rtf1\ansi{\fonttbl{\f0 Times New Roman;}}\f0\fs24 "
+            r"\pard Dear IT,\par\par"
+            r"My mapped drive (letter H:) to \\\\contoso-nas\\shared\\{department} "
+            r"stopped working after the {os} update last night. \par\par"
+            r"\b Steps tried:\b0\par"
+            r"\tab - Ran \i gpupdate /force\i0\par"
+            r"\tab - Checked Group Policy for drive mappings\par"
+            r"\tab - Verified I can ping contoso-nas from command prompt\par\par"
+            r"The ping works but the drive won\rquote t map. Error: \ldblquote System "
+            r"error 53 has occurred. The network path was not found.\rdblquote\par\par"
+            r"This is blocking my end-of-day reconciliation.\par"
+            r"}",
+        ],
+        next_best_actions=[
+            "Investigate network drive mapping failure — user cannot access file share "
+            "despite network connectivity. Likely a DNS, SMB, or Group Policy issue.",
+            "Diagnose mapped drive loss after OS update — ping succeeds but drive "
+            "mapping fails with 'network path not found', suggesting SMB version mismatch.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the file server (contoso-fs01 or contoso-nas) is online and the share is accessible",
+                "Check DNS resolution for the file server hostname from the user's machine",
+                "Verify SMB protocol version compatibility after the recent OS update",
+                "Re-apply Group Policy drive mappings or manually remap via net use",
+                "If SMB1 was disabled by the update, ensure the share supports SMB2/3",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-029  Email reply chain with conflicting information
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-029",
+        category=Category.ACCESS_AUTH,
+        priority=Priority.P3,
+        assigned_team=Team.IAM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AUTHENTICATION_METHOD],
+        subjects=[
+            "Re: Re: Re: Re: Multiple issues — latest is password reset",
+            "RE: FW: RE: Various problems — need password help now",
+            "Re: Re: Re: FW: Different issue each time — password locked out",
+        ],
+        descriptions=[
+            "Hi, I need my password reset please. I'm locked out of my account "
+            "as of this morning.\n\n"
+            "--- Original Message ---\n"
+            "From: {name} <{name1}@contoso.com>\n"
+            "Sent: Wednesday, March 18, 2026 2:15 PM\n"
+            "To: IT Support <itsupport@contoso.com>\n"
+            "Subject: Re: Re: Re: Multiple issues\n\n"
+            "Actually, forget about the printer. My VPN is now dropping every "
+            "20 minutes. This is a bigger problem.\n\n"
+            "--- Original Message ---\n"
+            "From: {name} <{name1}@contoso.com>\n"
+            "Sent: Tuesday, March 17, 2026 9:00 AM\n"
+            "To: IT Support <itsupport@contoso.com>\n"
+            "Subject: Re: Re: Multiple issues\n\n"
+            "Update: the monitor issue fixed itself but now the printer on "
+            "Floor {floor} is jammed. Can someone look at it?\n\n"
+            "--- Original Message ---\n"
+            "From: {name} <{name1}@contoso.com>\n"
+            "Sent: Monday, March 16, 2026 8:30 AM\n"
+            "To: IT Support <itsupport@contoso.com>\n"
+            "Subject: Multiple issues\n\n"
+            "Hi IT, my external monitor is not being detected by my laptop. "
+            "I've tried different cables and ports.",
+            "My account is locked — I've tried my password 5 times and it "
+            "won't let me in. Please reset ASAP.\n\n"
+            "On Wed, Mar 18, 2026 at 1:00 PM, I wrote:\n"
+            "> Scratch the Outlook thing — it synced after I restarted.\n"
+            "> But now I can't print to the HP on Floor {floor}.\n\n"
+            "On Tue, Mar 17, 2026 at 10:00 AM, IT Support wrote:\n"
+            "> We've looked at your Outlook sync issue. Can you try removing "
+            "and re-adding your email account?\n\n"
+            "On Mon, Mar 16, 2026 at 9:00 AM, I wrote:\n"
+            "> My Outlook won't sync on my phone. Also my {vpn} VPN is slow. "
+            "And the WiFi in Building 2 keeps dropping.\n\n"
+            "IGNORE the previous messages — I just need a password reset now.",
+        ],
+        next_best_actions=[
+            "Process password reset for the user — the most recent message supersedes "
+            "all prior issues in the thread (monitor, printer, VPN, Outlook).",
+            "Unlock and reset the user's account password — this is the latest and "
+            "current issue, regardless of the earlier mixed complaints in the chain.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the user's identity through the standard authentication process",
+                "Reset the user's Active Directory password and unlock the account",
+                "Confirm the user can log in with the temporary password",
+                "Advise the user to change their password at next logon",
+                "If previous issues in the thread are still relevant, create separate tickets",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-030  Raw monitoring metrics / Prometheus-style data dump
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-030",
+        category=Category.DATA,
+        priority=Priority.P1,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=True,
+        missing_information=[MissingInfo.AFFECTED_USERS, MissingInfo.BUSINESS_IMPACT],
+        subjects=[
+            "ALERT: Database disk utilization critical — metrics attached",
+            "Monitoring alert — DB server storage threshold breach",
+            "Urgent: prod database running out of disk — see metrics",
+        ],
+        descriptions=[
+            "Forwarding the monitoring output. The prod SQL database is almost full.\n\n"
+            "--- PROMETHEUS METRICS DUMP ---\n"
+            "# HELP node_cpu_seconds_total Total CPU seconds.\n"
+            "# TYPE node_cpu_seconds_total counter\n"
+            "node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"} 1.84293817e+06\n"
+            "node_cpu_seconds_total{cpu=\"0\",mode=\"system\"} 48291.73\n"
+            "node_cpu_seconds_total{cpu=\"0\",mode=\"user\"} 192847.44\n"
+            "node_cpu_seconds_total{cpu=\"1\",mode=\"idle\"} 1.83847291e+06\n"
+            "node_cpu_seconds_total{cpu=\"1\",mode=\"system\"} 51029.88\n"
+            "# HELP node_memory_MemTotal_bytes Total memory.\n"
+            "# TYPE node_memory_MemTotal_bytes gauge\n"
+            "node_memory_MemTotal_bytes 6.7108864e+10\n"
+            "node_memory_MemAvailable_bytes 4.294967296e+09\n"
+            "# HELP node_filesystem_avail_bytes Available filesystem bytes.\n"
+            "# TYPE node_filesystem_avail_bytes gauge\n"
+            "node_filesystem_avail_bytes{device=\"/dev/sda1\",mountpoint=\"/\"} 2.147483648e+09\n"
+            "node_filesystem_avail_bytes{device=\"/dev/sdb1\",mountpoint=\"/data\"} 5.36870912e+08\n"
+            "node_filesystem_size_bytes{device=\"/dev/sdb1\",mountpoint=\"/data\"} 1.07374182e+11\n"
+            "# HELP mssql_io_stall_seconds_total IO stall time.\n"
+            "mssql_io_stall_seconds_total{database=\"ContosoProd\",type=\"read\"} 89241.7\n"
+            "mssql_io_stall_seconds_total{database=\"ContosoProd\",type=\"write\"} 142819.3\n"
+            "--- END METRICS ---\n\n"
+            "The /data mount has only 512MB free out of 100GB. This hosts the ContosoProd "
+            "database. It will fill up within hours at the current write rate.",
+            "Got a Grafana alert at {time}. Pasting the raw metrics:\n\n"
+            "disk_used_percent{{host=\"sql-prod-01\",mount=\"/data\"}} 98.7\n"
+            "disk_used_percent{{host=\"sql-prod-01\",mount=\"/\"}} 45.2\n"
+            "disk_used_percent{{host=\"sql-prod-01\",mount=\"/backup\"}} 72.1\n"
+            "mssql_active_transactions{{db=\"TradingDB\"}} 847\n"
+            "mssql_log_space_used_percent{{db=\"TradingDB\"}} 94.2\n"
+            "mssql_deadlocks_total 23\n"
+            "process_cpu_percent{{service=\"mssql\"}} 78.3\n"
+            "process_memory_bytes{{service=\"mssql\"}} 5.8e+10\n"
+            "net_bytes_recv{{interface=\"eth0\"}} 2.4e+12\n"
+            "net_bytes_sent{{interface=\"eth0\"}} 1.8e+12\n"
+            "go_goroutines 1247\n"
+            "go_memstats_alloc_bytes 4.29e+08\n"
+            "http_requests_total{{status=\"200\"}} 9847291\n"
+            "http_requests_total{{status=\"500\"}} 4821\n\n"
+            "Bottom line: the TradingDB data partition is at 98.7% and the "
+            "transaction log is at 94.2%. We need to free space immediately or "
+            "the database will stop accepting writes.",
+        ],
+        next_best_actions=[
+            "Urgently address critical disk space on the production SQL database server — "
+            "data partition is nearly full and will halt database writes imminently.",
+            "Emergency storage intervention for TradingDB — disk at 98.7% and transaction "
+            "log at 94.2%, risk of database going read-only within hours.",
+        ],
+        remediation_steps=[
+            [
+                "Immediately check for old backups, temp files, or orphaned data that can be safely removed",
+                "Shrink or back up the transaction log if it is consuming excessive space",
+                "Expand the data volume if the storage backend supports online resizing",
+                "Identify and archive or purge large tables with stale data",
+                "Set up proactive disk space monitoring alerts at 80% and 90% thresholds",
+                "Plan a capacity review to prevent recurrence",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-031  PDF-to-text conversion artifacts
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-031",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.APPLICATION_VERSION],
+        subjects=[
+            "Software license expired — details from vendor PDF",
+            "License renewal needed — see extracted notice below",
+            "Application license expiry — copied from PDF letter",
+        ],
+        descriptions=[
+            "Hi IT,\n\n"
+            "I received a license expiry notice from the vendor. I copied the text "
+            "from the PDF but it came out garbled:\n\n"
+            "C O N T O S O   F I N A N C I A L   S E R V I C E S\n"
+            "Lic ense  Exp ira tion  Not ice\n"
+            "                                                        Page 1 of 3\n"
+            "---------------------------------------------------------------\n"
+            "Pr oduct:        Bloomber g Ter minal Enterpr ise\n"
+            "Lic ense ID:     BT-ENT-{number}\n"
+            "Exp iry Date:    {date}\n"
+            "                                                        Page 2 of 3\n"
+            "Aut hor ized Us ers:   47\n"
+            "Ren ewal Cos t:  $284,000 / year\n"
+            "---------------------------------------------------------------\n"
+            "                                                        Page 3 of 3\n\n"
+            "The Bloomber g ter minals on the trad ing f loor will stop working "
+            "when this exp ires. We need to get the ren ewal processed.",
+            "Pasting the text from the vendor's PDF renewal letter. The copy "
+            "didn't preserve formatting:\n\n"
+            "S O F T W A R E   L I C E N S E   R E N E W A L\n\n"
+            "Cust omer: Contoso F inancial Servi ces      Ref: SLR-{number}\n"
+            "App lication: {app}\n"
+            "Curr ent Exp iry: {date}         Ren ewal Per iod: 12 months\n"
+            "Lic ensed Sea ts: 250           Tier: Enter prise\n\n"
+            "  *** IMPORT ANT: Fail ure to ren ew bef ore the exp iry dat e ***\n"
+            "  *** will res ult in imm ediate loss of acc ess for all us ers. ***\n\n"
+            "We use {app} daily across the {department} team. Please initiate "
+            "the renewal process before we lose access.",
+        ],
+        next_best_actions=[
+            "Initiate software license renewal process — the enterprise license is "
+            "approaching expiry and will block access for authorized users.",
+            "Process vendor license renewal before expiration date to prevent "
+            "service disruption for the team.",
+        ],
+        remediation_steps=[
+            [
+                "Identify the current license agreement and renewal terms in the asset management system",
+                "Contact the vendor or account manager to initiate the renewal process",
+                "Verify budget approval for the renewal cost with the department head",
+                "Process the purchase order through procurement",
+                "Update the license key or activation once the renewal is confirmed",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-032  Enormous CC list with auto-reply noise
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-032",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.TIMESTAMP, MissingInfo.AFFECTED_USERS],
+        subjects=[
+            "Shared mailbox not receiving external emails",
+            "External emails not arriving in shared mailbox",
+            "Shared team inbox — missing inbound messages",
+        ],
+        descriptions=[
+            "CC: john.smith@contoso.com; sarah.jones@contoso.com; "
+            "mike.chen@contoso.com; lisa.wong@contoso.com; "
+            "david.patel@contoso.com; emma.wilson@contoso.com; "
+            "ravi.kumar@contoso.com; sophia.garcia@contoso.com; "
+            "ahmed.hassan@contoso.com; nina.petrov@contoso.com; "
+            "carlos.rivera@contoso.com; yuki.sato@contoso.com; "
+            "olivia.brown@contoso.com; wei.zhang@contoso.com; "
+            "fatima.ali@contoso.com; james.murphy@contoso.com; "
+            "priya.nair@contoso.com; thomas.andersen@contoso.com; "
+            "helen.kim@contoso.com; marcus.johnson@contoso.com; "
+            "anna.kowalski@contoso.com; daniel.okafor@contoso.com\n\n"
+            "--- Auto-Reply from sarah.jones@contoso.com ---\n"
+            "I am currently out of the office until March 28th with limited "
+            "access to email. For urgent matters, contact lisa.wong@contoso.com.\n\n"
+            "--- Auto-Reply from ahmed.hassan@contoso.com ---\n"
+            "Thank you for your message. I am on annual leave and will return "
+            "on April 2nd. Your email will not be monitored.\n\n"
+            "--- Auto-Reply from nina.petrov@contoso.com ---\n"
+            "I'm attending a conference this week. For immediate assistance "
+            "please reach out to the {department} team lead.\n\n"
+            "ACTUAL ISSUE: Our shared mailbox clientservices@contoso.com has "
+            "stopped receiving emails from external senders. Internal emails "
+            "arrive fine. This has been going on for at least a day. Our clients "
+            "are complaining that their emails are bouncing.",
+            "To: IT Support\n"
+            "CC: entire-{department}-team@contoso.com (35 recipients)\n\n"
+            "--- Out of Office: {name1}@contoso.com ---\n"
+            "I will be out of the office from March 20-27. Please contact "
+            "{name2}@contoso.com in my absence.\n\n"
+            "--- Out of Office: {name3}@contoso.com ---\n"
+            "Currently on PTO. Back on April 1. No access to email.\n\n"
+            "--- Auto-Reply: {name2}@contoso.com ---\n"
+            "I am in training all week. Response times may be delayed.\n\n"
+            "Hi IT,\n\n"
+            "The shared inbox for our team (compliance-inbox@contoso.com) is "
+            "not getting external emails since the weekend. Internal sends "
+            "work. We handle regulatory submissions through this mailbox so "
+            "this is urgent.",
+        ],
+        next_best_actions=[
+            "Investigate shared mailbox external email delivery failure — internal "
+            "mail works but external senders are getting bounces.",
+            "Diagnose external email delivery to shared mailbox — likely a transport "
+            "rule, connector, or anti-spam policy blocking inbound external mail.",
+        ],
+        remediation_steps=[
+            [
+                "Check Exchange message trace for external emails sent to the shared mailbox",
+                "Review anti-spam and transport rules for any recent changes blocking external senders",
+                "Verify the shared mailbox MX record and mail flow connectors",
+                "Check if the mailbox has hit a storage quota that could reject inbound mail",
+                "Test by sending a test email from an external account and tracing its path",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-033  Screenshot OCR with layout artifacts
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-033",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE, MissingInfo.STEPS_TO_REPRODUCE],
+        subjects=[
+            "SAP transaction failing — OCR'd error from screen",
+            "SAP error — text copied from screenshot",
+            "{app} transaction error — extracted from screen capture",
+        ],
+        descriptions=[
+            "I took a screenshot of the error and used OCR to copy the text. "
+            "Sorry if the formatting is weird:\n\n"
+            "| SAP Easy Access                                     |\n"
+            "|-----------------------------------------------------|\n"
+            "| Tra nsaction   | FB50       | Post Document          |\n"
+            "|  Comp any Code | 1000       | Con toso Fin ancial    |\n"
+            "| Fi scal Year   | 2026       |                        |\n"
+            "|-----------------------------------------------------|\n"
+            "|                                                     |\n"
+            "|  E rror:  Doc ument  cou ld  not  be  pos ted       |\n"
+            "|  Mes sage  no. F5 729                                |\n"
+            "|  \" Bal ance in tra nsaction cur rency \"              |\n"
+            "|                                                     |\n"
+            "| |  Deb it   |  Cre dit  |  Diff erence |            |\n"
+            "| | 142,847  |  139,291  |    3,556     |            |\n"
+            "|-----------------------------------------------------|\n\n"
+            "This happens when I try to post journal entries for "
+            "the month-end close. It was working last week.",
+            "Copied text from my screen using the snipping tool OCR:\n\n"
+            "SAP Tran saction:   VA01 - Cre ate Sal es Ord er\n"
+            "-----------------------------------------------\n"
+            "  Err or   Mes sage:\n"
+            "  \"Mat erial  {number}  is  not  def ined  for\n"
+            "   sal es  org  1000 /  dis tribution  cha nnel  10\"\n\n"
+            "  Mes sage  No:   VE  021\n"
+            "  Mes sage  Ty pe:  E  (Err or)\n\n"
+            "  |  Ord er Type  |  Sal es Org  |  Dist Ch  |  Div  |\n"
+            "  |  ZOR          |  1000         |  10        |  00   |\n\n"
+            "The {department} team needs to create sales orders but "
+            "this error blocks every attempt since the last SAP update.",
+        ],
+        next_best_actions=[
+            "Investigate SAP posting error — document cannot be posted due to balance "
+            "discrepancy or material master data issue after recent update.",
+            "Troubleshoot SAP transaction failure — likely a configuration or master data "
+            "issue introduced by the latest system update.",
+        ],
+        remediation_steps=[
+            [
+                "Check SAP transaction logs for the specific error message number",
+                "Verify the material or GL account master data configuration",
+                "Review recent SAP transport or configuration changes",
+                "Test the transaction in the QA environment to confirm it is not environment-specific",
+                "If a configuration change caused the issue, coordinate with the SAP Basis team to revert",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-034  Base64 encoded non-image files inline
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-034",
+        category=Category.DATA,
+        priority=Priority.P3,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "SharePoint upload failing — files attached inline",
+            "Can't upload documents to SharePoint — see files below",
+            "SharePoint document library rejecting uploads",
+        ],
+        descriptions=[
+            "Hi IT,\n\n"
+            "I can't upload documents to our SharePoint site. I'm attaching the files "
+            "inline since the portal file upload is also broken.\n\n"
+            "[File: quarterly_report.docx]\n"
+            "data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;"
+            "base64,UEsDBBQAAAAIAGFiV1gAAAAAAAAAAAAAABIAHABbQ29udGVudF9UeXBlc10ueG1sV"
+            "VQJAANxYWhmcWFoZnV4CwABBPUBAAAEFAAAAG2RTU7DMASFN+cUVrZNaiFBlRANi8IGVKUH"
+            "cJJ3iYX/ZLupu+foFITKZjTz5pvnz+P5s8n12I1yx2hAXCHVKi4O5L4oK8+fBg7dqG7erq"
+            "5mxW2Y/gzCKkQDjM6j9yKXjCJQN2yqVTaQJLkoL97/dRwVwjhSjfA1k8jqJkAxZzLJ4HPT"
+            "\n\n"
+            "[File: expense_data.csv]\n"
+            "data:text/csv;base64,RGF0ZSxEZXBhcnRtZW50LEFtb3VudCxDYXRlZ29yeSxBcHByb3Z"
+            "lZApNYXIgMDEsV2VhbHRoIE1hbmFnZW1lbnQsMTI0NTcuODAsVHJhdmVsLFllcwpNYXIgMD"
+            "IsVHJhZGluZyw4OTIuNDUsTWVhbHMsWWVzCk1hciAwMyxDb21wbGlhbmNlLDM0NTY3Ljkw"
+            "\n\n"
+            "[File: original_ticket.eml]\n"
+            "data:message/rfc822;base64,RnJvbTogam9obi5kb2VAY29udG9zby5jb20NClRvOiBpdHN"
+            "1cHBvcnRAY29udG9zby5jb20NClN1YmplY3Q6IFNoYXJlUG9pbnQgdXBsb2FkIGVycm9yDQ"
+            "pEYXRlOiBNb24sIDE3IE1hciAyMDI2IDA5OjAwOjAwICswMDAwDQoNCkkga2VlcCBnZXR0aW"
+            "\n\n"
+            "The error says something about file size limits. These are all under 10MB "
+            "individually but the SharePoint library might have a lower limit set.",
+            "SharePoint keeps rejecting my uploads with a vague error. Here are the "
+            "files I'm trying to upload (pasted as base64 since I can't attach):\n\n"
+            "data:application/pdf;base64,JVBERi0xLjcKCjEgMCBvYmoKPDwKL1R5cGUgL0NhdGFsb"
+            "2cKL1BhZ2VzIDIgMCBSCj4+CmVuZG9iagoKMiAwIG9iago8PAovVHlwZSAvUGFnZXMKL0tp"
+            "ZHMgWzMgMCBSXQovQ291bnQgMQo+PgplbmRvYmoKCjMgMCBvYmoKPDwKL1R5cGUgL1BhZ2"
+            "UKL1BhcmVudCAyIDAgUgovTWVkaWFCb3ggWzAgMCA2MTIgNzkyXQovQ29udGVudHMgNCAw"
+            "\n\n"
+            "data:application/vnd.ms-excel;base64,0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7"
+            "/CQAGAAAAAAAAAAAAAAABAAAA/v///wAAAAAAAAAAAAAAAAAAAAAA//////////////8AAAAA"
+            "\n\n"
+            "I need to upload these to the {department} document library on SharePoint. "
+            "The library has been working for months but started failing last week.",
+        ],
+        next_best_actions=[
+            "Investigate SharePoint document upload failure — likely a file size limit, "
+            "library quota, or version limit configuration issue.",
+            "Troubleshoot SharePoint upload rejection — check document library settings, "
+            "storage quotas, and any recent policy changes.",
+        ],
+        remediation_steps=[
+            [
+                "Check the SharePoint document library's file size and storage quota settings",
+                "Verify if the site collection storage limit has been reached",
+                "Review SharePoint admin center for any recent policy changes on upload limits",
+                "Test uploading a small test file to isolate whether it's size-related",
+                "If the quota is the issue, request a storage increase or archive old documents",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-035  Voice-to-text transcript with severe recognition errors
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-035",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.ENVIRONMENT_DETAILS],
+        subjects=[
+            "Laptop battery draining fast — phone transcript",
+            "Battery issue — transcribed from voicemail",
+            "Laptop dies quickly — voice message transcript",
+        ],
+        descriptions=[
+            "[Automated Voice-to-Text Transcript]\n\n"
+            "um hi this is uh {name} from the {department} department um i'm "
+            "calling because my laptop battery is like dying really fast um its "
+            "like its not even lasting um like too hours two hours maybe like um "
+            "it used too last the hole day and now its like uh buy the time i get "
+            "too my first meeting its already at like thirty purse scent um i "
+            "mean thirty percent sorry um i think their might be something wrong "
+            "with the batter he or maybe like a program thats using too much um "
+            "i dont no what its called but theirs this fan noise to like the fan "
+            "is running all the time even when im just um reading emails its like "
+            "really loud and the bottom of the laptop is super hot um i tried "
+            "restarting it but it didnt help um can some one please look at this "
+            "its really affecting my work uh because i have too carry the charger "
+            "every wear now and sum meeting rooms dont have outlets um thanks bye",
+            "[Phone Transcript — Automated Speech Recognition]\n\n"
+            "yeah hi uh this is about my think pad um the battery is terrible now "
+            "like it was fine a weak ago but now it only lasts maybe an our and a "
+            "half um i noticed the um task manager shows something called uh "
+            "anti malware service executable using like forty percent see pee you "
+            "um forty percent CPU all the time um and theirs also this windows "
+            "up date thing that keeps trying too run in the background its been "
+            "like pending for days um i think the updates stuck and its killing "
+            "my battery um also the laptop gets really hot on the left side near "
+            "the charging port which is kind of concerning um i work on floor "
+            "{floor} in the {office} office if some one needs too come look at it "
+            "um or i can bring it too the help desk whatever works um thanks",
+        ],
+        next_best_actions=[
+            "Investigate rapid laptop battery drain — symptoms suggest a runaway process "
+            "(possibly antimalware scan or stuck update) causing high CPU and thermal throttling.",
+            "Diagnose laptop battery and thermal issue — excessive CPU usage from background "
+            "processes is likely draining the battery and causing overheating.",
+        ],
+        remediation_steps=[
+            [
+                "Check Task Manager for high-CPU processes (antimalware, Windows Update, etc.)",
+                "Run Windows Update troubleshooter to resolve any stuck updates",
+                "Generate a battery health report using 'powercfg /batteryreport'",
+                "If the battery health is degraded below 80%, schedule a battery replacement",
+                "Check power plan settings and reset to Balanced if set to High Performance",
+                "If a specific process is the culprit, investigate and remediate (e.g., re-trigger scan)",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-028  RTF/Rich Text formatting markup noise
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-028",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AFFECTED_SYSTEM, MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "Network drive mapping failure — cannot access shared folders",
+            "Mapped drive disconnected, formatting issues in original email",
+            "Unable to map network drive since this morning — garbled ticket text",
+        ],
+        descriptions=[
+            "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat{\\fonttbl{\\f0\\fswiss"
+            "\\fcharset0 Calibri;}{\\f1\\fnil\\fcharset0 Calibri;}}\n"
+            "{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \n"
+            "\\pard\\sa200\\sl276\\slmult1\\f0\\fs22\\lang9 "
+            "Hi IT Support,\\par\n"
+            "\\b I can\\'92t map my network drive anymore.\\b0\\par\n"
+            "Since about 8:30 AM today I get a \\i connection refused\\i0  "
+            "error when trying to map \\\\\\\\filesvr03\\\\{department}$ "
+            "from my {os} workstation on the {floor} floor. "
+            "\\par\\pard\n"
+            "I\\'92ve tried:\\par\n"
+            "{\\pntext\\f1\\'B7\\tab}Disconnecting and re-mapping the "
+            "drive\\par\n"
+            "{\\pntext\\f1\\'B7\\tab}Restarting the Workstation service\\par\n"
+            "{\\pntext\\f1\\'B7\\tab}Running \\f1 net use * /delete \\f0 "
+            "and remapping\\par\n"
+            "{\\pntext\\f1\\'B7\\tab}Rebooting my machine entirely\\par\n"
+            "\\pard\\sa200\\sl276\\slmult1 Nothing works. Other people in "
+            "{department} are also affected. We need this drive for our "
+            "end-of-quarter reports due by {date}.\\par\n"
+            "Thanks,\\par\n"
+            "{name}\\par\n"
+            "}",
+            "{\\rtf1\\ansi{\\fonttbl{\\f0 Calibri;}}\n"
+            "\\f0\\fs24 Hello,\\par\n"
+            "\\par\n"
+            "\\b Problem:\\b0  Network drive \\\\\\\\filesvr03\\\\shared "
+            "is not accessible.\\par\n"
+            "\\b When:\\b0  Started around {time} today.\\par\n"
+            "\\b Error:\\b0  \\i \"The network path was not found\"\\i0\\par\n"
+            "\\par\n"
+            "I am on a {os} laptop, connected via Ethernet on floor "
+            "{floor}. I was able to access the drive yesterday without any "
+            "problems. Today when I click on the mapped drive letter in "
+            "File Explorer it spins for about 15 seconds and then shows "
+            "the error above.\\par\n"
+            "\\par\n"
+            "\\pard I pinged the server name and it resolves to "
+            "10.42.{number}.12 but the ping times out. I can still reach "
+            "other servers like the intranet portal.\\par\n"
+            "\\par\n"
+            "Please help \\emdash  I need access to the shared folder "
+            "for a client deliverable due {date}.\\par\n"
+            "\\par\n"
+            "Regards,\\par\n"
+            "{name}\\par\n"
+            "}",
+        ],
+        next_best_actions=[
+            "Investigate network drive mapping failure for \\\\filesvr03 — "
+            "multiple users on the same floor are unable to connect to the "
+            "shared drive with 'connection refused' or 'network path not found' "
+            "errors.",
+            "Diagnose network file share connectivity issue — mapped drive to "
+            "\\\\filesvr03 is failing for users in the {department} department "
+            "since this morning despite the server IP resolving correctly.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the file server (filesvr03) is online and the Server service is running",
+                "Check SMB port 445 connectivity from the affected subnet",
+                "Review recent firewall or Group Policy changes that may block SMB traffic",
+                "Restart the Server service on filesvr03 if it is unresponsive",
+                "Confirm drive access is restored and notify affected users",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-029  Email reply chain with conflicting information
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-029",
+        category=Category.ACCESS_AUTH,
+        priority=Priority.P3,
+        assigned_team=Team.IAM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AUTHENTICATION_METHOD],
+        subjects=[
+            "Re: Re: Re: Password reset not working — also printer issue",
+            "RE: RE: RE: FW: Multiple issues — password and VPN and email",
+            "Re: Re: FW: Can't log in — update on earlier printer problem",
+        ],
+        descriptions=[
+            "Hi, I still can't log in to my account. Please reset my password "
+            "for {name1}@contoso.com.\n\n"
+            "--- Original Message ---\n"
+            "From: {name} <{name1}@contoso.com>\n"
+            "Sent: Wednesday, {date} 3:15 PM\n"
+            "To: IT Support <itsupport@contoso.com>\n"
+            "Subject: Re: Re: Password reset not working — also printer issue\n\n"
+            "Actually, ignore the printer thing — someone fixed it already. "
+            "The real problem now is that my password expired and the self-service "
+            "portal says my security questions are wrong. I definitely know "
+            "the answers. Can you just reset it on your end?\n\n"
+            "--- Original Message ---\n"
+            "From: {name} <{name1}@contoso.com>\n"
+            "Sent: Wednesday, {date} 1:42 PM\n"
+            "To: IT Support <itsupport@contoso.com>\n"
+            "Subject: Re: Password reset not working — also printer issue\n\n"
+            "Update: now my VPN is also not connecting but that might be "
+            "because of the expired password? Not sure. Also the printer "
+            "on {floor} floor is jamming again — can someone look at that "
+            "too?\n\n"
+            "--- Original Message ---\n"
+            "From: {name} <{name1}@contoso.com>\n"
+            "Sent: Wednesday, {date} 10:05 AM\n"
+            "To: IT Support <itsupport@contoso.com>\n"
+            "Subject: Password reset not working\n\n"
+            "Hi, I tried to reset my password using the self-service portal "
+            "but it keeps saying 'answer does not match'. I need to get into "
+            "my account ASAP for a {department} presentation this afternoon.",
+            "I need my password reset please. Username is {name2}@contoso.com. "
+            "I've been locked out since this morning.\n\n"
+            "---------- Forwarded message ----------\n"
+            "From: {name} <{name2}@contoso.com>\n"
+            "Date: {date} 11:20 AM\n"
+            "Subject: RE: RE: RE: FW: Multiple issues\n\n"
+            "OK so the email issue resolved itself after I cleared my Outlook "
+            "cache. But I still can't log in to Windows — it says the trust "
+            "relationship between this workstation and the primary domain "
+            "has failed. Wait, actually it might be a password issue because "
+            "I changed my password from my phone last week and maybe it "
+            "didn't sync?\n\n"
+            "---------- Forwarded message ----------\n"
+            "From: {name3} <{name3}@contoso.com>\n"
+            "Date: {date} 9:05 AM\n"
+            "Subject: RE: RE: FW: Multiple issues\n\n"
+            "I'm replying on behalf of {name} who asked me to forward this. "
+            "Their laptop shows a domain trust error and their email on the "
+            "phone is showing a certificate warning. Not sure if those are "
+            "related.\n\n"
+            "---------- Forwarded message ----------\n"
+            "From: {name} <{name2}@contoso.com>\n"
+            "Date: {date} 8:30 AM\n"
+            "Subject: Multiple issues\n\n"
+            "Hi, three things: 1) can't log in to laptop, 2) email on "
+            "phone has certificate error, 3) need VPN access set up for "
+            "remote work starting next week.",
+        ],
+        next_best_actions=[
+            "Process password reset for user {name1}@contoso.com — the latest "
+            "message in this reply chain confirms the core issue is an expired "
+            "password with self-service reset failing due to mismatched security "
+            "questions.",
+            "Reset user credentials for {name2}@contoso.com — the underlying "
+            "issue across multiple forwarded messages is a password/domain trust "
+            "failure; VPN and email issues are likely secondary symptoms.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the user's identity through an out-of-band channel",
+                "Reset the user's Active Directory password",
+                "Update or re-enroll the user's self-service password reset security questions",
+                "Have the user log in and confirm access to Windows, VPN, and email",
+                "If domain trust error persists, rejoin the workstation to the domain",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-030  Raw monitoring metrics dump — database disk space
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-030",
+        category=Category.DATA,
+        priority=Priority.P1,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=True,
+        missing_information=[MissingInfo.AFFECTED_USERS, MissingInfo.BUSINESS_IMPACT],
+        subjects=[
+            "ALERT: Database server disk utilization critical — metrics attached",
+            "Urgent — db-prod-07 disk space alert firing, full metrics dump inside",
+            "Production database disk at 96% — Grafana export below",
+        ],
+        descriptions=[
+            "Prometheus alert fired at {time} for db-prod-07. Dumping full "
+            "metric payload below.\n\n"
+            "# HELP node_cpu_seconds_total Total CPU seconds.\n"
+            "# TYPE node_cpu_seconds_total counter\n"
+            "node_cpu_seconds_total{{cpu=\"0\",mode=\"idle\"}} 1.284903e+06\n"
+            "node_cpu_seconds_total{{cpu=\"0\",mode=\"system\"}} 48205.3\n"
+            "node_cpu_seconds_total{{cpu=\"0\",mode=\"user\"}} 97312.7\n"
+            "node_cpu_seconds_total{{cpu=\"1\",mode=\"idle\"}} 1.290441e+06\n"
+            "node_cpu_seconds_total{{cpu=\"1\",mode=\"system\"}} 45891.1\n"
+            "node_cpu_seconds_total{{cpu=\"1\",mode=\"user\"}} 94278.4\n"
+            "# HELP node_memory_MemTotal_bytes Total memory in bytes.\n"
+            "# TYPE node_memory_MemTotal_bytes gauge\n"
+            "node_memory_MemTotal_bytes 6.7108864e+10\n"
+            "node_memory_MemAvailable_bytes 8.12409e+09\n"
+            "node_memory_Buffers_bytes 2.1847e+08\n"
+            "node_memory_Cached_bytes 1.209384e+10\n"
+            "# HELP node_filesystem_avail_bytes Available filesystem bytes.\n"
+            "# TYPE node_filesystem_avail_bytes gauge\n"
+            "node_filesystem_avail_bytes{{device=\"/dev/sda1\",mountpoint=\"/\"}} "
+            "4.2949673e+09\n"
+            "node_filesystem_avail_bytes{{device=\"/dev/sdb1\",mountpoint=\"/data\"}} "
+            "1.8253612e+08\n"
+            "node_filesystem_size_bytes{{device=\"/dev/sdb1\",mountpoint=\"/data\"}} "
+            "5.36870912e+10\n"
+            "# HELP node_disk_io_time_seconds_total Total I/O time.\n"
+            "# TYPE node_disk_io_time_seconds_total counter\n"
+            "node_disk_io_time_seconds_total{{device=\"sdb\"}} 987214.4\n"
+            "node_disk_read_bytes_total{{device=\"sdb\"}} 4.81036e+12\n"
+            "node_disk_written_bytes_total{{device=\"sdb\"}} 7.93102e+12\n\n"
+            "---\n"
+            "The /data mount on db-prod-07 is at 96.6% utilization with only "
+            "~174 MB free of 50 GB. This is the primary data volume for the "
+            "production PostgreSQL instance. Transaction logs and temp files "
+            "are growing. If this fills up the database will go read-only.",
+            "Grafana alert notification — db-prod-07 disk critical.\n\n"
+            "[firing] DiskSpaceCritical\n"
+            "  instance: db-prod-07:9100\n"
+            "  severity: critical\n"
+            "  mountpoint: /data\n"
+            "  threshold: 95%\n"
+            "  current: 96.6%\n\n"
+            "--- Panel: System Overview (last 6h) ---\n"
+            "CPU Usage:  avg 34.2%  max 71.8%  current 38.5%\n"
+            "Memory:     avg 78.1%  max 84.3%  current 80.2%\n"
+            "Disk I/O:   read 12.4 MB/s  write 28.7 MB/s\n"
+            "Network:    rx 145 Mbps  tx 89 Mbps\n\n"
+            "--- Panel: Disk Usage by Mount ---\n"
+            "/        12.1 GB / 100 GB  (12.1%)\n"
+            "/data    49.8 GB /  50 GB  (96.6%)   << CRITICAL\n"
+            "/backup  410 GB  / 500 GB  (82.0%)\n"
+            "/logs     18 GB  /  20 GB  (90.0%)\n\n"
+            "--- Panel: Top Tables by Size ---\n"
+            "public.transactions       22.4 GB\n"
+            "public.audit_log          11.8 GB\n"
+            "public.session_data        6.2 GB\n"
+            "public.event_queue         4.1 GB\n"
+            "pg_wal                     3.8 GB\n\n"
+            "The database volume is nearly full. If the disk fills "
+            "completely, PostgreSQL will switch to read-only mode and all "
+            "write operations will fail.",
+        ],
+        next_best_actions=[
+            "Address critical disk space shortage on db-prod-07 /data volume "
+            "(96.6% full, ~174 MB remaining) — the production PostgreSQL "
+            "instance will go read-only if the disk fills up.",
+            "Immediately free disk space on the production database server "
+            "db-prod-07 — the /data partition hosting PostgreSQL is at 96.6% "
+            "with large tables (transactions, audit_log) consuming most space.",
+        ],
+        remediation_steps=[
+            [
+                "Purge or archive old rows from the audit_log and session_data tables",
+                "Run VACUUM FULL on the largest tables to reclaim dead tuple space",
+                "Rotate and compress PostgreSQL WAL files and old transaction logs",
+                "Extend the /data volume or add additional storage if available",
+                "Set up automated alerting at 80% and 90% thresholds to prevent recurrence",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-031  PDF-to-text conversion artifacts — software license expiration
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-031",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.APPLICATION_VERSION],
+        subjects=[
+            "License expired for design software — need renewal",
+            "So\ufb00ware license issue — applica\ufb03on won't launch",
+            "Adobe Creative Suite license expiring, request renewal",
+        ],
+        descriptions=[
+            "Ti cket submitted via PDF upload from the {department} department.\n\n"
+            "P age 1 of 2\n\n"
+            "TO: IT Servi ces | FROM: {name} | DATE: {date}\n"
+            "RE: So\ufb00ware License Renewal Request\n\n"
+            "I am wri\ufb03ng to request a renewal of our Adobe Crea\ufb03ve "
+            "Suite license. The current license key expired on {date} and "
+            "the applica\ufb03on now displays a \u201cLicense has expired\u201d "
+            "dialog on launch, preven\ufb03ng all {number} designers in "
+            "{department} from working.\n\n"
+            "   Applica\ufb03on:    Adobe Crea\ufb03ve Suite\n"
+            "   License Type:   Enterprise Volume (site license)\n"
+            "   Sea ts:         {number}\n"
+            "   Expiry:         {date}\n"
+            "   Cos t Center:   CC-40{number}\n\n"
+            "We have a client deliverable due on {date} and cannot proceed "
+            "without Illustrator and InDesign.\n\n"
+            "P age 2 of 2\n\n"
+            "Please priori\ufb03ze this request. Our manager {name2} has "
+            "approved the budget alloca\ufb03on.\n\n"
+            "Thank you,\n"
+            "{name}\n"
+            "{department} Department\n"
+            "Ext. {number}",
+            "--- Converted from a\ufb00ached PDF ---\n\n"
+            "                        INTERNAL MEMO\n"
+            "                        =============\n\n"
+            "From :     {name}, {department}\n"
+            "To :       IT Help Desk\n"
+            "D ate:     {date}\n"
+            "Sub ject:  So\ufb00ware license renewal \u2014 URGENT\n\n"
+            "Hi,\n\n"
+            "Our team\u2019s license for Adobe Crea\ufb03ve Cloud has expired. "
+            "When I try to open Photoshop or Illustrator I see a pop-up:\n\n"
+            "    \u201cYour license has expired. Plea se contact your IT\n"
+            "     administrator to renew your subscrip\ufb03on.\u201d\n\n"
+            "This a\ufb00ects our en\ufb03re {department} team ({number} "
+            "people). We are in the middle of the Q{number} marke\ufb03ng "
+            "campaign and need these tools immediately.\n\n"
+            "Details:\n"
+            "\u2022  Product: Adobe Crea\ufb03ve Cloud \u2014 All Apps\n"
+            "\u2022  License ID: ACR-ENT-{number}-{number}\n"
+            "\u2022  # of seats: {number}\n"
+            "\u2022  Expiry date: {date}\n"
+            "\u2022  Renewal PO#: Pending \ufb01nance approval\n\n"
+            "Plea se expedite. Thank you.\n\n"
+            "{name}\n"
+            "Ext {number}",
+        ],
+        next_best_actions=[
+            "Renew the expired Adobe Creative Suite/Creative Cloud enterprise "
+            "license — the entire {department} design team ({number} users) is "
+            "blocked from launching applications.",
+            "Process urgent software license renewal for Adobe Creative Cloud — "
+            "license has expired and is preventing the design team from working "
+            "on active client deliverables.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the current license agreement and expiry details with the software asset team",
+                "Submit or expedite the purchase order for the license renewal",
+                "Apply the new license key or update the license server with the renewed entitlement",
+                "Have affected users sign out and back in to Adobe Creative Cloud to pick up the new license",
+                "Confirm all seats are activated and users can launch applications",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-032  Enormous CC list with auto-reply noise — shared mailbox
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-032",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.TIMESTAMP, MissingInfo.AFFECTED_USERS],
+        subjects=[
+            "Shared mailbox not receiving external email — buried in auto-replies",
+            "External emails not reaching shared mailbox — huge CC thread",
+            "Shared mailbox issue — sales-team@ not getting outside mail",
+        ],
+        descriptions=[
+            "CC: ajohnson@contoso.com; bsmith@contoso.com; clee@contoso.com; "
+            "dgarcia@contoso.com; ewilliams@contoso.com; fbrown@contoso.com; "
+            "gjones@contoso.com; hmiller@contoso.com; idavis@contoso.com; "
+            "jwilson@contoso.com; kmoore@contoso.com; ltaylor@contoso.com; "
+            "manderson@contoso.com; nthomas@contoso.com; ojackson@contoso.com; "
+            "pwhite@contoso.com; qharris@contoso.com; rmartin@contoso.com; "
+            "sthompson@contoso.com; trobinson@contoso.com; uclark@contoso.com; "
+            "vrodriguez@contoso.com; wlewis@contoso.com; xwalker@contoso.com; "
+            "yhall@contoso.com; zyoung@contoso.com\n\n"
+            "--- Auto-Reply from dgarcia@contoso.com ---\n"
+            "Thank you for your message. I am out of the office from {date} "
+            "through {date} with limited access to email. For urgent matters, "
+            "please contact {name2} at ext. {number}.\n\n"
+            "--- Auto-Reply from hmiller@contoso.com ---\n"
+            "I am currently on PTO and will return on {date}. Your email "
+            "will not be forwarded. Please reach out to the {department} "
+            "team alias for immediate assistance.\n\n"
+            "--- Auto-Reply from ltaylor@contoso.com ---\n"
+            "I am on parental leave until {date}. For anything related to "
+            "the {department} project, please contact {name3}.\n\n"
+            "--- Auto-Reply from sthompson@contoso.com ---\n"
+            "Thank you for reaching out! I'm attending a conference this week "
+            "and will reply after {date}.\n\n"
+            "--- Actual Issue (from {name}) ---\n"
+            "Hi IT, our shared mailbox sales-team@contoso.com has stopped "
+            "receiving emails from external senders. Internal emails arrive "
+            "fine. This started sometime recently and our sales reps are "
+            "missing client inquiries. I only noticed because a client called "
+            "to ask why we hadn't responded to their email from three "
+            "days ago.",
+            "To: itsupport@contoso.com\n"
+            "CC: {name1}@contoso.com; {name2}@contoso.com; "
+            "{name3}@contoso.com; akim@contoso.com; bpatel@contoso.com; "
+            "cchen@contoso.com; dmuller@contoso.com; enakamura@contoso.com; "
+            "fsingh@contoso.com; gkumar@contoso.com; hpark@contoso.com; "
+            "iali@contoso.com; jzhang@contoso.com; kgupta@contoso.com; "
+            "lnguyen@contoso.com; mwong@contoso.com; nsato@contoso.com; "
+            "otanaka@contoso.com; pyamamoto@contoso.com; qsuzuki@contoso.com\n\n"
+            "--- Auto-Reply: {name2}@contoso.com ---\n"
+            "Thanks for your email! I'm OOO until {date}. For urgent items "
+            "contact the {department} manager.\n\n"
+            "--- Auto-Reply: bpatel@contoso.com ---\n"
+            "I am currently out of office with no access to email until {date}.\n\n"
+            "--- Auto-Reply: gkumar@contoso.com ---\n"
+            "Hi! I'm at an offsite event this week. Back on {date}.\n\n"
+            "--- Auto-Reply: mwong@contoso.com ---\n"
+            "On annual leave. Will respond when I return on {date}. Thanks!\n\n"
+            "--- Original Message from {name} ---\n"
+            "Hello, the sales-team@contoso.com shared mailbox is not "
+            "receiving any external emails. Internal emails between contoso "
+            "users arrive immediately, but anything from external domains "
+            "(gmail.com, clients, partners) never appears. We checked the "
+            "junk folder — nothing there either. This is impacting our "
+            "ability to respond to inbound sales leads and client requests.",
+        ],
+        next_best_actions=[
+            "Investigate external email delivery failure to the "
+            "sales-team@contoso.com shared mailbox — internal mail works but "
+            "no messages from external senders are being received.",
+            "Diagnose why the shared mailbox sales-team@contoso.com is not "
+            "receiving external email — internal delivery is functioning but "
+            "external messages are silently dropped.",
+        ],
+        remediation_steps=[
+            [
+                "Check Exchange message trace for external messages sent to sales-team@contoso.com",
+                "Verify the shared mailbox has not exceeded its storage quota",
+                "Review mail flow rules and transport rules for any that may block external senders",
+                "Check the spam/quarantine policies for overly aggressive external filtering",
+                "Send a test email from an external address and trace its delivery path",
+                "Restore delivery and monitor for 24 hours to confirm the fix",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-033  Screenshot OCR with layout artifacts — SAP transaction
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-033",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE, MissingInfo.STEPS_TO_REPRODUCE],
+        subjects=[
+            "SAP transaction VA01 failing — error screenshot attached",
+            "Cannot create sales order in SAP — OCR of error screen",
+            "SAP error when posting VA01 — screen capture text below",
+        ],
+        descriptions=[
+            "[OCR extracted from screenshot — original image corrupt]\n\n"
+            "+------------------------------------------------------------------+\n"
+            "|  SAP Easy Access                                    [_] [口] [X]  |\n"
+            "+------------------------------------------------------------------+\n"
+            "|  Transaction: VA01           | Cr eate Sal es Order               |\n"
+            "+------------------------------------------------------------------+\n"
+            "|  Order Type :   |  OR  |      Std Order                          |\n"
+            "|  Sales Org. :   | 1000 |      Contoso NA                         |\n"
+            "|  Distr. Chan.:  |  10  |      Direct Sales                       |\n"
+            "|  Division:      |  00  |      Cross-divi sion                    |\n"
+            "+------------------------------------------------------------------+\n"
+            "|  Sol d-to Party:  200{number}                                     |\n"
+            "|  Ship-to Party:  200{number}                                      |\n"
+            "|  PO Number :     C LIEN T-PO-{number}                            |\n"
+            "|  PO Date:        {date}                                          |\n"
+            "+------------------------------------------------------------------+\n"
+            "|                                                                   |\n"
+            "|  [!] Error:  Pr icing procedure could not be de termin ed         |\n"
+            "|      Message No. V1 - 301                                         |\n"
+            "|                                                                   |\n"
+            "+------------------------------------------------------------------+\n\n"
+            "I keep ge\ufb03ing this error when trying to create a sales order "
+            "in VA01. It was working \ufb01ne yesterday. I\u2019m using the same "
+            "order type and sales area I always use. Customer {name} needs "
+            "this order processed today.",
+            "[Text extracted from screen capture]\n\n"
+            "SAP GUI 770  |  Cl ient 100  |  User: {name1}\n"
+            "-------------------------------------------\n"
+            "Tcode:  VA01\n"
+            "Order Type:  OR    Sal es Org:  1000\n"
+            "Dist Ch:     10    Div:        00\n\n"
+            "I t e m |  Mat eri al   |  Qty  |  UoM  |  Plant\n"
+            "--------|--------------|-------|-------|-------\n"
+            "   10   |  MAT-{number}|  100  |   EA  |  1000\n"
+            "   20   |  MAT-{number}|   50  |   EA  |  1000\n\n"
+            " +-------------------------------------------------+\n"
+            " |  Mess age: Prici ng procedu re could not be      |\n"
+            " |  deter mi ned (V1-301)                           |\n"
+            " |  Mess age Type: E (Error)                        |\n"
+            " +-------------------------------------------------+\n\n"
+            "This has bee n happening since this morn ing. I tried with "
+            "differ ent cust omer numbers and materi als but same error "
+            "every time. Our tea m needs to proc ess approximately "
+            "{number} orders today for month-end close.",
+        ],
+        next_best_actions=[
+            "Investigate SAP pricing procedure determination failure (V1-301) "
+            "in transaction VA01 — sales order creation is blocked for sales "
+            "org 1000, distribution channel 10.",
+            "Resolve SAP error V1-301 preventing sales order creation in VA01 "
+            "— pricing procedure lookup is failing across all customers and "
+            "materials, suggesting a configuration issue.",
+        ],
+        remediation_steps=[
+            [
+                "Check OVKK for the pricing procedure assignment to sales org 1000, dist. channel 10, div. 00",
+                "Verify that the pricing procedure condition records have not been deleted or expired",
+                "Review any SAP transport requests moved to production recently that may have affected pricing config",
+                "If a transport caused the issue, roll back or apply a corrective transport",
+                "Test sales order creation in VA01 to confirm the error is resolved",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-034  Base64 encoded non-image files inline — SharePoint upload
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-034",
+        category=Category.DATA,
+        priority=Priority.P3,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "SharePoint upload failing for large files — base64 error dump",
+            "Cannot upload documents to SharePoint — file content below",
+            "SharePoint file upload size limit error — attached file data",
+        ],
+        descriptions=[
+            "I'm trying to upload a quarterly report to our {department} "
+            "SharePoint site but it keeps failing. Here's the file I'm "
+            "trying to upload — maybe you can see what's wrong:\n\n"
+            "--- report_Q{number}_{date}.docx (base64) ---\n"
+            "UEsDBBQAAAAIAGFiV1kAAAAAAAAAAAAAABIAHABDb250ZW50X1R5cGVz\n"
+            "Lnht bFVUCQADt2hRZ7doUWd1eAsAAQT2AQAABBQAAABNzrEKwjAQgOG9\n"
+            "4DuE7Nr qICJdnQRnce0lLW1yIXex+vZGwe H7h//jbN13s3UPmu0QGMiY\n"
+            "kAaqoDX0GWGfb6cr4BIleeQ+DGQMzC cDk8kqVj8k3h5LlhOBjxRarPbC\n"
+            "pXQpNg6i WIkMzJGmSEBdx7LqPkM/4HHiB60SLbEDNw/iX8AAAD//wMA\n"
+            "UEsDBBQAAAAIAGFiV1kAAAAAAAAAAAA AAAoAHABfcmVscy8ucmVsc1VU\n"
+            "CQAD ... [truncated, ~48000 more characters] ...\n\n"
+            "--- budget_data.csv (base64) ---\n"
+            "RGVwYXJ0bWVudCxRMSBCdWRnZXQsUTEgQWN0dWFsLFEyIEJ1ZGdldCxR\n"
+            "MiBBY3R1YWwsUTMgQnVkZ2V0LFEzIEFjdHVhbCxRNCBCdWRnZXQsUTQg\n"
+            "QWN0dWFsCk1hcmtldGluZywxMjAwMD AsMTE1MDAsMTMwMDAsMTI4MDAsMTEw\n"
+            "MDAsMTEyMDAsMTUwMDAsMCAgCkVuZ2luZWVya W5nLDI1MDAwLDI0ODAwLDI2\n"
+            "MDAwLDI1NTAwLDI3MDAwLDI2ODAwLDI4MDAwLDAK ... [truncated] ...\n\n"
+            "The error says something about file size limit but this file is "
+            "only about 35 MB. The SharePoint site is at "
+            "https://contoso.sharepoint.com/sites/{department}. I've been "
+            "able to upload smaller files (~5 MB) without issues. This is "
+            "blocking our {department} quarterly review.",
+            "Hi, when I drag and drop files to our SharePoint document "
+            "library at https://contoso.sharepoint.com/sites/{department}/"
+            "Shared%20Documents I get an error popup. I tried the desktop "
+            "sync client and also the browser upload — same result.\n\n"
+            "Here is the content of one of the files I'm trying to upload "
+            "(someone told me to paste it so you can check if it's "
+            "corrupted):\n\n"
+            "--- client_proposal_{name1}.eml (base64) ---\n"
+            "RnJvbTogc2FsZXNAY29udG9zby5jb20NClRvOiBjbGllbnRAZXhhbXBs\n"
+            "ZS5jb20NClN1YmplY3Q6IFByb3Bvc2FsIGZvciBRMyBFbmdhZ2VtZW50\n"
+            "DQpEYXRlOiBNb24sIDEwIE1hciAyMDI2IDA5OjAwOjAwIC0wNTAwDQpN\n"
+            "SU1FLVZlcnNpb246IDEuMA0KQ29udGVudC1UeXBlOiBtdWx0aXBhcnQv\n"
+            "bWl4ZWQ7IGJvdW5kYXJ5PS0tPV9OZXh0UGFydA0K ... "
+            "[truncated, ~92000 more characters] ...\n\n"
+            "The total folder I need to upload is about {number} files, "
+            "totaling around {number} GB. Individual files range from 5 MB to "
+            "80 MB. The error message flashes briefly before disappearing — "
+            "I couldn't capture it. Can you increase whatever limit is "
+            "preventing the upload?",
+        ],
+        next_best_actions=[
+            "Investigate SharePoint upload size limit blocking file uploads to "
+            "the {department} site — user reports that files around 35-80 MB "
+            "fail while smaller files succeed.",
+            "Resolve SharePoint document upload failure — large files are being "
+            "rejected with a size limit error on the {department} document "
+            "library; verify tenant and site-level upload limits.",
+        ],
+        remediation_steps=[
+            [
+                "Check the SharePoint tenant maximum upload file size in the SharePoint admin center",
+                "Verify the site collection storage quota and remaining capacity",
+                "If needed, increase the maximum file upload size (up to 250 GB per file is supported)",
+                "Advise the user to use the OneDrive sync client for large batch uploads instead of browser upload",
+                "Confirm successful upload of a large test file after the change",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-035  Voice-to-text transcript with severe recognition errors
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-035",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.ENVIRONMENT_DETAILS],
+        subjects=[
+            "Laptop battery draining super fast — need help",
+            "Batter he issue on my lap top — voice message transcript",
+            "Battery life problem on work laptop",
+        ],
+        descriptions=[
+            "[Voicemail transcript — auto-generated]\n\n"
+            "hey um this is {name} from the {department} department im "
+            "calling about my lap top um the batter he is draining like "
+            "really really fast like i charged it to full last night and "
+            "buy this morning at like nine thirty it was already down to "
+            "like for tee percent um and i wasnt even doing anything heavy "
+            "just had out look open and like one chrome tab um and then buy "
+            "lunch it was completely dead and i had to sit next to a power "
+            "out let for my hole afternoon meeting witch was really "
+            "inconvenient because the only out let was like in the back of "
+            "the conference room on the {floor} floor um so yeah its "
+            "definately not holding a charge like it used to i think i got "
+            "this lap top may be too years ago or may be eighteen months um "
+            "and the batter he used to last like eight hours easily um can "
+            "some one take a look at it or may be replace the batter he or "
+            "some thing i also noticed the bottom of the lap top gets "
+            "really hot like un comfortably hot um oh and some times the "
+            "fan is super loud even when im just reading email so yeah "
+            "please call me back at extension {number} or just email me "
+            "at {name1} at contoso dot com thanks bye",
+            "[Speech-to-text transcript from phone call]\n\n"
+            "hi this is {name} calling from {department} ive been having "
+            "a batter he problem with my work lap top for the passed "
+            "too weak snow um basically the batter he goes from a hundred "
+            "purse ent to like twenty purse ent in about too ours of normal "
+            "use and that is like way worse then it used to be um i looked "
+            "in the settings and the batter he health says its at like "
+            "seventy ate purse ent um but even that doesnt explain y its "
+            "draining so fast rite um i also noticed in tack manager "
+            "their is this process called system in ter upts that is using "
+            "like thirty purse ent see pee you all the time witch seems "
+            "weired um i dont no if thats re lated but yeah the batter he "
+            "is the mane issue i cant get threw a to our meeting with out "
+            "plugging in witch is really an oying especially when were in "
+            "the big conference room on {floor} that only has like too "
+            "out lets for twenty pee pull um can you guys take a look at "
+            "it or may be order a new batter he for me the lap top is a "
+            "contoso issued one i think its a dell or may be a lena vo "
+            "im not shore um thanks you can reach me at {name1} at "
+            "contoso dot com or extension {number}",
+        ],
+        next_best_actions=[
+            "Investigate rapid battery drain on user's laptop — battery "
+            "depletes from 100% to under 40% within a few hours of light "
+            "use, accompanied by excessive heat and fan noise.",
+            "Diagnose laptop battery and thermal issue — user reports the "
+            "battery drains in approximately two hours under normal workload "
+            "with high CPU usage from system interrupts.",
+        ],
+        remediation_steps=[
+            [
+                "Identify the laptop make and model and check the battery health report (powercfg /batteryreport)",
+                "Investigate the high 'System interrupts' CPU usage — check for faulty drivers or peripherals",
+                "Update BIOS, chipset, and power management drivers to the latest versions",
+                "If battery health is below 80%, submit a request for battery replacement",
+                "Advise the user to use a power-saver profile as a temporary workaround",
+            ],
+        ],
+    )
+)
