@@ -2347,7 +2347,8 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "newsletter content."
             ),
             remediation_steps=[
-                "Ask the user to confirm the Outlook version (File > Office Account) and whether they are using desktop or New Outlook.",
+                "Ask the user to confirm the Outlook version (File > Office Account) and whether "
+                "they are using desktop or New Outlook.",
                 "Launch Outlook in safe mode (outlook.exe /safe) to rule out add-in conflicts.",
                 "Clear the Outlook calendar cache by renaming the local .ost file and letting it rebuild.",
                 "If the issue persists, run the Microsoft Support and Recovery Assistant (SaRA) calendar diagnostic.",
@@ -2408,8 +2409,10 @@ def get_scenarios() -> list[ScenarioDefinition]:
             ),
             remediation_steps=[
                 "Request Rachel resend the manager approval PDF as a proper email attachment.",
-                "Verify the Bloomberg seat ID BT-4471 in the license management portal and confirm the current expiration date.",
-                "Submit the renewal request through the enterprise software procurement workflow with manager approval attached.",
+                "Verify the Bloomberg seat ID BT-4471 in the license management portal "
+                "and confirm the current expiration date.",
+                "Submit the renewal request through the enterprise software procurement workflow "
+                "with manager approval attached.",
                 "Confirm with Bloomberg vendor support that the renewal will be processed before month-end cutoff.",
                 "Notify Rachel once the renewal is confirmed and verify terminal connectivity.",
             ],
@@ -2487,11 +2490,14 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "Ignore the CSS/style block noise in the ticket."
             ),
             remediation_steps=[
-                "Check the SharePoint admin center for service health alerts affecting the Regulatory Filings site collection.",
+                "Check the SharePoint admin center for service health alerts affecting "
+                "the Regulatory Filings site collection.",
                 "Verify site collection storage quota — a full quota can cause infinite loading spinners.",
                 "Review recent changes to site permissions or page customizations that may have broken rendering.",
-                "Test access with a SharePoint admin account to determine if the issue is site-wide or permission-specific.",
-                "If the site collection is corrupted, initiate a restore from the most recent backup and notify affected users.",
+                "Test access with a SharePoint admin account to determine if the issue is "
+                "site-wide or permission-specific.",
+                "If the site collection is corrupted, initiate a restore from the most recent "
+                "backup and notify affected users.",
             ],
             reporter_name="Gregory Ashworth",
             reporter_email="gregory.ashworth@contoso.com",
@@ -2568,10 +2574,13 @@ def get_scenarios() -> list[ScenarioDefinition]:
             ),
             remediation_steps=[
                 "Check application gateway and load balancer health for PROD-APPGW-East-02 in the Azure portal.",
-                "Review TradeSettlement-API application logs for the correlation ID a9f3c7e2-81d4-4b6a-bc0f-3e7d91a24c88.",
-                "Investigate downstream clearing house integration for connection pool exhaustion or certificate issues.",
+                "Review TradeSettlement-API application logs for the correlation ID "
+                "a9f3c7e2-81d4-4b6a-bc0f-3e7d91a24c88.",
+                "Investigate downstream clearing house integration for connection pool "
+                "exhaustion or certificate issues.",
                 "If the API is overloaded, scale out additional instances and drain the pending settlement queue.",
-                "Coordinate with the settlements operations team to manually process any trades at risk of missing T+1 cutoff.",
+                "Coordinate with the settlements operations team to manually process "
+                "any trades at risk of missing T+1 cutoff.",
             ],
             reporter_name="PROD-APPGW-East-02 (Automated Monitor)",
             reporter_email="monitoring-alerts@contoso.com",
@@ -2654,10 +2663,12 @@ def get_scenarios() -> list[ScenarioDefinition]:
             ),
             remediation_steps=[
                 "Check the data warehouse for any maintenance jobs or schema changes that ran over the weekend.",
-                "Review the query execution plan for missing or fragmented indexes on the trades, positions, and fx_rates tables.",
+                "Review the query execution plan for missing or fragmented indexes on "
+                "the trades, positions, and fx_rates tables.",
                 "Rebuild or reorganize indexes on high-traffic tables if fragmentation exceeds 30%.",
                 "Update table statistics for the affected tables and verify the query plan improves.",
-                "If the issue is data volume growth, work with the user to optimize the query or add appropriate covering indexes.",
+                "If the issue is data volume growth, work with the user to optimize the query "
+                "or add appropriate covering indexes.",
             ],
             reporter_name="Henry Wong",
             reporter_email="henry.wong@contoso.com",
@@ -2721,7 +2732,8 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "appear in Teams calendar. User has already cleared cache and restarted."
             ),
             remediation_steps=[
-                "Verify the Exchange-Teams interop prerequisites are met for the user's mailbox (Exchange Online, not on-prem).",
+                "Verify the Exchange-Teams interop prerequisites are met for the user's "
+                "mailbox (Exchange Online, not on-prem).",
                 "Check the Teams admin center for known issues with client version 24.7.1 and calendar sync.",
                 "Re-register the Teams Outlook add-in by running the Teams meeting add-in troubleshooter.",
                 "If the add-in is missing, repair the Office installation from Programs and Features.",
@@ -2795,8 +2807,10 @@ def get_scenarios() -> list[ScenarioDefinition]:
             ),
             remediation_steps=[
                 "Verify the access request approval from Isabelle Fontaine in the access governance portal.",
-                "Create a VPN access profile for the APAC regional network subnet 10.42.0.0/16 in the GlobalProtect admin console.",
-                "Assign the profile to Lukas Brenner's AD account and add him to the Cross-Border Settlements security group.",
+                "Create a VPN access profile for the APAC regional network subnet "
+                "10.42.0.0/16 in the GlobalProtect admin console.",
+                "Assign the profile to Lukas Brenner's AD account and add him to "
+                "the Cross-Border Settlements security group.",
                 "Send the user VPN configuration instructions and test connectivity to an APAC host.",
                 "Set a review date for the access in 90 days per the temporary project access policy.",
             ],
@@ -2876,11 +2890,14 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "capacity expansion."
             ),
             remediation_steps=[
-                "Investigate and fix the failed AuditLog retention job from March 16 — old records are not being purged.",
+                "Investigate and fix the failed AuditLog retention job from March 16 "
+                "— old records are not being purged.",
                 "Manually run the AuditLog purge to reclaim space from records past the retention window.",
                 "Review TempDB sizing and shrink if the 105 GB allocation is excessive for current workload.",
-                "Request an emergency capacity expansion for the E: drive if free space drops below 5% before the retention fix takes effect.",
-                "Set up a recurring disk space trend report and adjust the growth_rate alert threshold to trigger earlier.",
+                "Request an emergency capacity expansion for the E: drive if free space "
+                "drops below 5% before the retention fix takes effect.",
+                "Set up a recurring disk space trend report and adjust the growth_rate "
+                "alert threshold to trigger earlier.",
             ],
             reporter_name="System Monitor (PROD-SQL-NODE-03)",
             reporter_email="monitoring-alerts@contoso.com",
@@ -2930,10 +2947,14 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "paper jam error. User has a client presentation at 3 PM today."
             ),
             remediation_steps=[
-                "Dispatch a technician to the 6th floor, Building 1, to physically inspect the HP LaserJet Pro MFP M428fdn.",
-                "Check the paper path sensors for debris, torn paper fragments, or sensor misalignment causing the false jam.",
-                "Perform a full power cycle with the rear access panel open and inspect the fuser area for obstructions.",
-                "If the sensor is faulty, replace the paper path sensor assembly or swap in a loaner printer before the 3 PM deadline.",
+                "Dispatch a technician to the 6th floor, Building 1, to physically "
+                "inspect the HP LaserJet Pro MFP M428fdn.",
+                "Check the paper path sensors for debris, torn paper fragments, or sensor "
+                "misalignment causing the false jam.",
+                "Perform a full power cycle with the rear access panel open and inspect "
+                "the fuser area for obstructions.",
+                "If the sensor is faulty, replace the paper path sensor assembly or swap in "
+                "a loaner printer before the 3 PM deadline.",
                 "Update the printer asset record with any parts replaced and schedule preventive maintenance.",
             ],
             reporter_name="Olivia Santos",
@@ -3002,11 +3023,16 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "the 10 AM compliance audit."
             ),
             remediation_steps=[
-                "Review Azure AD sign-in logs for Marcus Adeyemi's account for failed attempts and the unsolicited MFA prompts from 11 PM.",
-                "Check if the account triggered any Impossible Travel or Unfamiliar Sign-In Properties risk detections in Azure AD Identity Protection.",
-                "Unlock the account in Active Directory and force an immediate password reset via a secure channel (phone verification).",
-                "Revoke all active refresh tokens and sessions (Revoke-AzureADUserAllRefreshToken) to invalidate any compromised sessions.",
-                "If credential compromise is confirmed, escalate to the Security Operations team for a full incident investigation.",
+                "Review Azure AD sign-in logs for Marcus Adeyemi's account for failed "
+                "attempts and the unsolicited MFA prompts from 11 PM.",
+                "Check if the account triggered any Impossible Travel or Unfamiliar "
+                "Sign-In Properties risk detections in Azure AD Identity Protection.",
+                "Unlock the account in Active Directory and force an immediate password "
+                "reset via a secure channel (phone verification).",
+                "Revoke all active refresh tokens and sessions "
+                "(Revoke-AzureADUserAllRefreshToken) to invalidate any compromised sessions.",
+                "If credential compromise is confirmed, escalate to the Security Operations "
+                "team for a full incident investigation.",
             ],
             reporter_name="Marcus Adeyemi",
             reporter_email="marcus.adeyemi@contoso.com",
