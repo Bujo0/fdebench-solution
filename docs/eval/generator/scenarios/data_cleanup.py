@@ -594,4 +594,267 @@ SCENARIOS: list[Scenario] = [
         ],
         tags=["data-cleanup", "duplicate-sentences", "stuttering-text"],
     ),
+    # ──────────────────────────────────────────────────────────────────
+    # 13. Markdown formatting artifacts (unrendered markup in ticket)
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-markdown-artifacts",
+        category="Software & Applications",
+        priority="P3",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["error_message"],
+        subjects=[
+            "Teams integration not syncing with calendar",
+            "Outlook-Teams calendar sync broken after update",
+        ],
+        descriptions=[
+            "# Issue Report: Teams Calendar Integration Failure\n\n"
+            "**Reporter:** Amara Osei\n"
+            "**Department:** Client Relations\n\n"
+            "## Problem Description\n\n"
+            "The Microsoft Teams integration with my Outlook calendar has "
+            "completely stopped working. When I schedule a meeting in "
+            "**Outlook**, it *does not* appear in **Teams**. "
+            "This started after `Teams Desktop Client v24.7.1` update.\n\n"
+            "## Steps to Reproduce\n\n"
+            "1. Open **Outlook Desktop** and create a new meeting\n"
+            "2. Add a Teams link by clicking `Add Teams Meeting`\n"
+            "3. Send the invite\n"
+            "4. Open **Microsoft Teams** > Calendar tab\n"
+            "5. Notice the meeting **does not appear**\n\n"
+            "## What I've Tried\n\n"
+            "- [x] Signed out and back into Teams\n"
+            "- [x] Cleared the Teams cache (`%appdata%\\Microsoft\\Teams\\Cache`)\n"
+            "- [x] Restarted my laptop\n"
+            "- [ ] Reinstalled Teams (waiting for IT approval)\n\n"
+            "## Impact\n\n"
+            "I have **5+ client meetings daily** and have already missed "
+            "joining two calls.\n\n"
+            "---\n\n"
+            "```\nTeams Version: 24.7.1.0\nOutlook Version: 16.0.17328.20162\n"
+            "OS: Windows 11 Enterprise 23H2\n```\n\n"
+            "Please advise. Thanks!",
+        ],
+        next_best_actions=[
+            "Investigate Teams-Outlook calendar sync failure after Teams v24.7.1 update.",
+            "Troubleshoot calendar sync — verify Exchange-Teams interop and the Outlook add-in.",
+        ],
+        remediation_steps=[
+            [
+                "Verify Exchange-Teams interop prerequisites for the user's mailbox",
+                "Check Teams admin center for known issues with client version 24.7.1",
+                "Re-register the Teams Outlook add-in via the troubleshooter",
+                "Repair the Office installation if the add-in is missing",
+                "Approve a clean reinstall of the Teams desktop client as a fallback",
+            ],
+        ],
+        tags=["data-cleanup", "markdown-artifacts", "unrendered-markup"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 14. Multilingual email disclaimer burying the actual request
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-multilingual-disclaimer",
+        category="Network & Connectivity",
+        priority="P3",
+        assigned_team="Network Operations",
+        needs_escalation=False,
+        missing_information=["network_location", "business_impact"],
+        subjects=[
+            "VPN access request for new project",
+            "Need VPN profile for APAC regional network",
+        ],
+        descriptions=[
+            "Hello IT,\n\n"
+            "I have been assigned to the Cross-Border Settlements project and "
+            "need VPN access to the APAC regional network (subnet 10.42.0.0/16). "
+            "My manager Isabelle Fontaine has already approved this.\n\n"
+            "Thanks,\nLukas Brenner\nInternational Operations\n\n"
+            "═══════════════════════════════════════════\n"
+            "CONFIDENTIALITY NOTICE / AVIS DE CONFIDENTIALITÉ / "
+            "VERTRAULICHKEITSHINWEIS / 機密保持に関するご注意 / 保密声明\n"
+            "═══════════════════════════════════════════\n\n"
+            "ENGLISH: This email is for the sole use of the intended recipient(s) "
+            "and may contain confidential information of Contoso Financial Services. "
+            "Unauthorized use or distribution is prohibited.\n\n"
+            "FRANÇAIS : Ce message est destiné exclusivement au(x) destinataire(s) "
+            "prévu(s). Toute utilisation non autorisée est interdite.\n\n"
+            "DEUTSCH: Diese E-Mail ist ausschließlich für den vorgesehenen "
+            "Empfänger bestimmt. Unbefugte Nutzung ist untersagt.\n\n"
+            "日本語：このメールは意図された受信者のみを対象としています。\n\n"
+            "中文：本电子邮件仅供指定收件人使用。\n\n"
+            "═══════════════════════════════════════════",
+        ],
+        next_best_actions=[
+            "Provision VPN access to the APAC regional network — verify manager "
+            "approval and configure by end of week.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the access request approval from the manager in the governance portal",
+                "Create a VPN access profile for the APAC regional network subnet",
+                "Assign the profile to the user's AD account and add to the project security group",
+                "Send VPN configuration instructions and test connectivity",
+                "Set a 90-day review date per the temporary project access policy",
+            ],
+        ],
+        tags=["data-cleanup", "multilingual-disclaimer", "legal-boilerplate", "very-long-email"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 15. Pure JSON payload from automated monitoring system
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-json-monitoring-alert",
+        category="Data & Storage",
+        priority="P2",
+        assigned_team="Data Platform",
+        needs_escalation=True,
+        missing_information=["previous_ticket_id"],
+        subjects=[
+            "[ALERT] CRITICAL — disk space threshold exceeded",
+            "[MONITORING] CRITICAL: Disk usage above 95% on production SQL node",
+        ],
+        descriptions=[
+            '{\n'
+            '  "alert_id": "MON-2026-031718-4492",\n'
+            '  "alert_type": "DiskSpaceThresholdExceeded",\n'
+            '  "severity": "CRITICAL",\n'
+            '  "timestamp": "2026-03-17T18:14:33.209Z",\n'
+            '  "source": {\n'
+            '    "hostname": "PROD-SQL-NODE-03.contoso.local",\n'
+            '    "ip_address": "10.20.5.43",\n'
+            '    "datacenter": "US-East-1",\n'
+            '    "os": "Windows Server 2022 Datacenter",\n'
+            '    "role": "SQL Server Production Node"\n'
+            '  },\n'
+            '  "disk_metrics": {\n'
+            '    "drive_letter": "E:",\n'
+            '    "total_capacity_gb": 2048,\n'
+            '    "used_gb": 1946.7,\n'
+            '    "percent_used": 95.06,\n'
+            '    "growth_rate_gb_per_day": 12.4,\n'
+            '    "estimated_days_until_full": 8.2\n'
+            '  },\n'
+            '  "top_consumers": [\n'
+            '    {"database": "AuditLog", "size_gb": 512.8, "growth_30d_gb": 156.3},\n'
+            '    {"database": "TradeHistory", "size_gb": 743.2, "growth_30d_gb": 89.1}\n'
+            '  ],\n'
+            '  "recent_events": [\n'
+            '    {"timestamp": "2026-03-16T02:00:00Z", '
+            '"event": "AuditLog retention job FAILED"}\n'
+            '  ],\n'
+            '  "escalation": {"auto_ticket": true, "sla_response_minutes": 60}\n'
+            '}',
+        ],
+        next_best_actions=[
+            "Address critical disk space on PROD-SQL-NODE-03 — AuditLog retention "
+            "job failure is the most likely cause of accelerated growth.",
+        ],
+        remediation_steps=[
+            [
+                "Investigate and fix the failed AuditLog retention job",
+                "Manually purge old records past the retention window to reclaim space",
+                "Request emergency capacity expansion if free space drops below 5%",
+                "Set up a recurring disk space trend report and lower the alert threshold",
+            ],
+        ],
+        tags=["data-cleanup", "json-payload", "machine-generated", "monitoring-alerts"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 16. Excessive whitespace and blank lines
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-excessive-whitespace",
+        category="Hardware & Peripherals",
+        priority="P3",
+        assigned_team="Endpoint Engineering",
+        needs_escalation=False,
+        missing_information=["device_info"],
+        subjects=[
+            "Printer on 6th floor not working",
+            "Floor    printer    broken — need    help",
+        ],
+        descriptions=[
+            "Hi   IT    Support,\n\n\n\n\n"
+            "The    printer   on    the   6th   floor    near   conference   "
+            "room   B   is     not     working.\n\n\n\n\n\n\n"
+            "It    is    a    HP    LaserJet    Pro    MFP    M428fdn    and   "
+            "the     display     says     \"Paper   Jam\"     but     I   "
+            "checked     and     there    is    no     paper     stuck   "
+            "anywhere.\n\n\n\n\n\n"
+            "I     tried:\n\n\n"
+            "-     Turning     it     off     and     on     again\n\n\n"
+            "-     Opening     all     the     trays\n\n\n\n\n\n"
+            "Nothing     worked.\n\n\n\n\n\n\n\n"
+            "Please     send     someone     ASAP.\n\n\n\n\n"
+            "Thanks,\n\n\n"
+            "Olivia     Santos\n\n\n"
+            "Client     Advisory,     6th     Floor",
+        ],
+        next_best_actions=[
+            "Dispatch a technician to inspect the HP LaserJet Pro MFP M428fdn "
+            "on the 6th floor — persistent false paper jam error.",
+        ],
+        remediation_steps=[
+            [
+                "Dispatch a technician to physically inspect the printer",
+                "Check paper path sensors for debris or torn fragments",
+                "Perform a full power cycle with the rear access panel open",
+                "Replace the paper path sensor if faulty, or swap in a loaner printer",
+            ],
+        ],
+        tags=["data-cleanup", "excessive-whitespace", "formatting-noise", "blank-lines"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 17. Corrupted SMTP headers mixed into the ticket body
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-corrupted-smtp-headers",
+        category="Access & Authentication",
+        priority="P1",
+        assigned_team="Identity & Access Management",
+        needs_escalation=True,
+        missing_information=["device_info", "authentication_method"],
+        subjects=[
+            "Account locked out — need urgent help",
+            "URGENT: Account lockout — suspicious MFA activity",
+        ],
+        descriptions=[
+            "Return-Path: <marcus.adeyemi@contoso.com>\n"
+            "Received: from PROD-EXCH-04.contoso.local (10.20.1.44) by\n"
+            " PROD-EXCH-HUB-02.contoso.local (10.20.1.10) with Microsoft SMTP\n"
+            " Server (version=TLS1_2) id 15.2.1118.40; Tue, 17 Mar 2026 08:47:12\n"
+            "DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=contoso.com;\n"
+            " bh=a3f2V8bKz0mNpQ7RtL1cD+eXwJk=;\n"
+            "X-Mailer: Microsoft Outlook 16.0\n"
+            "MIME-Version: 1.0\n"
+            "Content-Type: multipart/alternative;\n"
+            ' boundary="----=_NextPart_001_0078"\n'
+            "X-MS-Exchange-Organization-AuthAs: Internal\n\n"
+            "Hi IT Support,\n\n"
+            "My account has been locked out and I cannot log into anything — "
+            "laptop, Outlook, internal web apps. I suspect the lockout is related "
+            "to MFA push notifications I was getting last night around 11 PM "
+            "that I did not initiate — I denied all of them. Someone may be "
+            "trying to access my account.\n\n"
+            "This is urgent because I have a compliance audit review at 10 AM.\n\n"
+            "Please help ASAP.\n"
+            "Marcus Adeyemi\nRegulatory Affairs",
+        ],
+        next_best_actions=[
+            "Investigate account lockout with suspicious MFA activity — possible "
+            "unauthorized access attempt. Unlock and review sign-in logs.",
+        ],
+        remediation_steps=[
+            [
+                "Unlock the user's account in Entra ID and reset their password securely",
+                "Review sign-in logs for failed attempts and suspicious IP addresses",
+                "If unauthorized access confirmed, revoke all active sessions and refresh tokens",
+                "Advise the user to re-register MFA with number matching or FIDO2",
+                "Escalate to Security Operations if credential compromise is indicated",
+            ],
+        ],
+        tags=["data-cleanup", "corrupted-headers", "smtp-headers", "raw-email"],
+    ),
 ]

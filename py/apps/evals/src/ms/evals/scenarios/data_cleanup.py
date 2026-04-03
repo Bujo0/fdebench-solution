@@ -3090,3 +3090,500 @@ register(
         ],
     )
 )
+
+# ---------------------------------------------------------------------------
+# dc-044  Markdown formatting artifacts (unrendered markup in ticket)
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-044",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "Teams integration not syncing with calendar",
+            "Outlook-Teams calendar sync broken after update",
+            "Calendar events missing in Teams after latest client update",
+        ],
+        descriptions=[
+            "# Issue Report: Teams Calendar Integration Failure\n\n"
+            "**Reporter:** {name}\n"
+            "**Department:** {department}\n"
+            "**Date:** 2026-03-17\n\n"
+            "## Problem Description\n\n"
+            "The Microsoft Teams integration with my Outlook calendar has "
+            "completely stopped working. When I schedule a meeting in "
+            "**Outlook**, it *does not* appear in **Teams**, and vice versa. "
+            "This started after the IT department pushed the latest "
+            "`Teams Desktop Client v24.7.1` update last Thursday.\n\n"
+            "## Steps to Reproduce\n\n"
+            "1. Open **Outlook Desktop** and create a new meeting\n"
+            "2. Add a Teams link by clicking `Add Teams Meeting`\n"
+            "3. Send the invite\n"
+            "4. Open **Microsoft Teams** > Calendar tab\n"
+            "5. Notice the meeting **does not appear**\n\n"
+            "## What I've Tried\n\n"
+            "- [x] Signed out and back into Teams\n"
+            "- [x] Cleared the Teams cache "
+            "(`%appdata%\\Microsoft\\Teams\\Cache`)\n"
+            "- [x] Restarted my laptop\n"
+            "- [ ] Reinstalled Teams (waiting for IT approval)\n\n"
+            "## Expected Behavior\n\n"
+            "Meetings created in Outlook should appear in Teams calendar "
+            "within ~30 seconds, as documented in the "
+            "[Teams admin guide](https://learn.microsoft.com/en-us/microsoftteams"
+            "/exchange-teams-interact).\n\n"
+            "## Impact\n\n"
+            "I have **5+ client meetings daily** and have already missed "
+            "joining two calls because they didn't show in Teams. This is "
+            "affecting client experience.\n\n"
+            "---\n\n"
+            "```\n"
+            "Teams Version: 24.7.1.0\n"
+            "Outlook Version: 16.0.17328.20162\n"
+            "OS: Windows 11 Enterprise 23H2\n"
+            "```\n\n"
+            "Please advise. Thanks!",
+            "### Calendar Sync Failure\n\n"
+            "After the **Teams v24.7** rollout, meetings I create in Outlook "
+            "no longer appear in the Teams calendar. I've tried:\n\n"
+            "- `Clear-TeamsCache` via PowerShell\n"
+            "- Toggling the **Outlook Add-in** on and off\n"
+            "- Checking the [Exchange Online connector]"
+            "(https://admin.microsoft.com) status\n\n"
+            "Nothing works. The `Get-CsTeamsCalendarPolicy` output is:\n"
+            "```powershell\n"
+            "Identity          : Global\n"
+            "AllowCalendarSync  : True\n"
+            "```\n\n"
+            "So the policy *should* allow it. But meetings still don't sync. "
+            "My colleague **{name}** in {department} has the same problem.\n\n"
+            "> _\"This is impacting our ability to schedule client calls.\"_\n\n"
+            "Priority: medium to high.",
+        ],
+        next_best_actions=[
+            "Investigate Teams-Outlook calendar sync failure after Teams Desktop "
+            "Client v24.7.1 update — meetings created in Outlook do not appear "
+            "in Teams calendar; user has already cleared cache and restarted.",
+            "Troubleshoot calendar sync between Outlook and Teams — verify "
+            "Exchange-Teams interop prerequisites and the Outlook add-in state "
+            "after the recent client update.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the Exchange-Teams interop prerequisites are met for the user's "
+                "mailbox (Exchange Online, not on-prem)",
+                "Check the Teams admin center for known issues with client version 24.7.1 and calendar sync",
+                "Re-register the Teams Outlook add-in by running the Teams meeting add-in troubleshooter",
+                "If the add-in is missing, repair the Office installation from Programs and Features",
+                "As a fallback, approve and perform a clean reinstall of the Teams desktop client",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-045  Email with multilingual legal disclaimer in 5 languages
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-045",
+        category=Category.NETWORK,
+        priority=Priority.P3,
+        assigned_team=Team.NETWORK,
+        needs_escalation=False,
+        missing_information=[MissingInfo.NETWORK_LOCATION, MissingInfo.BUSINESS_IMPACT],
+        subjects=[
+            "VPN access request for new project",
+            "Need VPN profile for {department} regional network",
+            "Request: APAC VPN access for cross-border project",
+        ],
+        descriptions=[
+            "Hello IT,\n\n"
+            "I have been assigned to the Cross-Border Settlements project and "
+            "need VPN access to the APAC regional network (subnet 10.42.0.0/16). "
+            "My manager {name} has already approved this. Could you "
+            "please set this up by end of week?\n\n"
+            "Thanks,\n{name}\n{department}\n\n"
+            "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
+            "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
+            "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n"
+            "CONFIDENTIALITY NOTICE / AVIS DE CONFIDENTIALIT\u00c9 / "
+            "VERTRAULICHKEITSHINWEIS / "
+            "\u6a5f\u5bc6\u4fdd\u6301\u306b\u95a2\u3059\u308b\u3054\u6ce8\u610f / \u4fdd\u5bc6\u58f0\u660e\n"
+            "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
+            "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
+            "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\n"
+            "ENGLISH: This email message and any attachments are for the sole "
+            "use of the intended recipient(s) and may contain confidential and "
+            "privileged information of Contoso Financial Services. Any unauthorized "
+            "review, use, disclosure, or distribution is strictly prohibited. If "
+            "you are not the intended recipient, please contact the sender by "
+            "reply email and destroy all copies of the original message. Receipt "
+            "by anyone other than the intended recipient is not a waiver of any "
+            "attorney-client, work product, or other applicable privilege.\n\n"
+            "FRAN\u00c7AIS : Ce message \u00e9lectronique et toute pi\u00e8ce jointe sont "
+            "destin\u00e9s exclusivement au(x) destinataire(s) pr\u00e9vu(s) et peuvent "
+            "contenir des informations confidentielles et privil\u00e9gi\u00e9es de Contoso "
+            "Services Financiers. Toute consultation, utilisation, divulgation ou "
+            "distribution non autoris\u00e9e est strictement interdite. Si vous n'\u00eates "
+            "pas le destinataire pr\u00e9vu, veuillez contacter l'exp\u00e9diteur par retour "
+            "de courriel et d\u00e9truire toutes les copies du message original. La "
+            "r\u00e9ception par toute personne autre que le destinataire pr\u00e9vu ne "
+            "constitue pas une renonciation \u00e0 tout privil\u00e8ge applicable.\n\n"
+            "DEUTSCH: Diese E-Mail-Nachricht und alle Anh\u00e4nge sind ausschlie\u00dflich "
+            "f\u00fcr den/die vorgesehenen Empf\u00e4nger bestimmt und k\u00f6nnen vertrauliche "
+            "und gesch\u00fctzte Informationen der Contoso Finanzdienstleistungen "
+            "enthalten. Jede unbefugte \u00dcberpr\u00fcfung, Nutzung, Offenlegung oder "
+            "Verbreitung ist strengstens untersagt. Wenn Sie nicht der vorgesehene "
+            "Empf\u00e4nger sind, kontaktieren Sie bitte den Absender per Antwort-E-Mail "
+            "und vernichten Sie alle Kopien der urspr\u00fcnglichen Nachricht.\n\n"
+            "\u65e5\u672c\u8a9e\uff1a\u3053\u306e\u30e1\u30fc\u30eb\u304a\u3088\u3073\u6dfb\u4ed8\u30d5\u30a1\u30a4\u30eb\u306f\u3001\u610f\u56f3\u3055\u308c\u305f\u53d7\u4fe1\u8005\u306e\u307f\u3092\u5bfe\u8c61\u3068\u3057\u3066\u304a\u308a\u3001"
+            "\u30b3\u30f3\u30c8\u30bd\u30fb\u30d5\u30a1\u30a4\u30ca\u30f3\u30b7\u30e3\u30eb\u30fb\u30b5\u30fc\u30d3\u30b9\u306e\u6a5f\u5bc6\u60c5\u5831\u304a\u3088\u3073\u7279\u6a29\u60c5\u5831\u304c\u542b\u307e\u308c\u3066\u3044\u308b"
+            "\u5834\u5408\u304c\u3042\u308a\u307e\u3059\u3002\u8a31\u53ef\u306a\u304f\u95b2\u89a7\u3001\u4f7f\u7528\u3001\u958b\u793a\u3001\u307e\u305f\u306f\u914d\u5e03\u3059\u308b\u3053\u3068\u306f\u56fa\u304f\u7981\u3058\u3089\u308c\u3066"
+            "\u3044\u307e\u3059\u3002\u610f\u56f3\u3055\u308c\u305f\u53d7\u4fe1\u8005\u3067\u306a\u3044\u5834\u5408\u306f\u3001\u8fd4\u4fe1\u30e1\u30fc\u30eb\u306b\u3066\u9001\u4fe1\u8005\u306b\u3054\u9023\u7d61\u3044\u305f\u3060\u304d\u3001"
+            "\u5143\u306e\u30e1\u30c3\u30bb\u30fc\u30b8\u306e\u3059\u3079\u3066\u306e\u30b3\u30d4\u30fc\u3092\u7834\u68c4\u3057\u3066\u304f\u3060\u3055\u3044\u3002\n\n"
+            "\u4e2d\u6587\uff1a\u672c\u7535\u5b50\u90ae\u4ef6\u53ca\u5176\u9644\u4ef6\u4ec5\u4f9b\u6307\u5b9a\u6536\u4ef6\u4eba\u4f7f\u7528\uff0c\u53ef\u80fd\u5305\u542bContoso\u91d1\u878d\u670d\u52a1\u516c\u53f8\u7684"
+            "\u673a\u5bc6\u548c\u7279\u6743\u4fe1\u606f\u3002\u672a\u7ecf\u6388\u6743\u7684\u5ba1\u9605\u3001\u4f7f\u7528\u3001\u62ab\u9732\u6216\u5206\u53d1\u5747\u88ab\u4e25\u683c\u7981\u6b62\u3002\u5982\u679c\u60a8\u4e0d\u662f"
+            "\u6307\u5b9a\u7684\u6536\u4ef6\u4eba\uff0c\u8bf7\u901a\u8fc7\u56de\u590d\u7535\u5b50\u90ae\u4ef6\u8054\u7cfb\u53d1\u4ef6\u4eba\u5e76\u9500\u6bc1\u539f\u59cb\u90ae\u4ef6\u7684\u6240\u6709\u526f\u672c\u3002\n\n"
+            "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
+            "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
+            "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+            "Hi,\n\n"
+            "Can you add VPN access to the EU regional network for {name} in "
+            "{department}? We're joining the EMEA Regulatory Alignment initiative "
+            "and need access to the 10.44.0.0/16 subnet. Manager approval is on file.\n\n"
+            "Regards,\n{name}\n\n"
+            "---\n"
+            "NOTICE DE CONFIDENTIALIT\u00c9: Ce message est confidentiel. "
+            "CONFIDENTIALITY NOTICE: This message is confidential. "
+            "VERTRAULICHKEITSHINWEIS: Diese Nachricht ist vertraulich. "
+            "\u4fdd\u5bc6\u58f0\u660e\uff1a\u672c\u90ae\u4ef6\u4e3a\u673a\u5bc6\u4fe1\u606f\u3002"
+            "\u6a5f\u5bc6\u4fdd\u6301\uff1a\u3053\u306e\u30e1\u30fc\u30eb\u306f\u6a5f\u5bc6\u3067\u3059\u3002"
+            "\u0625\u0634\u0639\u0627\u0631 \u0627\u0644\u0633\u0631\u064a\u0629: "
+            "\u0647\u0630\u0647 \u0627\u0644\u0631\u0633\u0627\u0644\u0629 \u0633\u0631\u064a\u0629. "
+            "AVISO DE CONFIDENCIALIDADE: "
+            "Esta mensagem \u00e9 confidencial. "
+            "\u041f\u0420\u0415\u0414\u0423\u041f\u0420\u0415\u0416\u0414\u0415\u041d\u0418\u0415: "
+            "\u042d\u0442\u043e \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435 "
+            "\u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f "
+            "\u043a\u043e\u043d\u0444\u0438\u0434\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u043c.\n\n"
+            "This email and any attachments are for the sole use of the intended "
+            "recipient(s). Unauthorized use, disclosure, or distribution is "
+            "prohibited. If you received this in error, delete it immediately.",
+        ],
+        next_best_actions=[
+            "Provision VPN access to the APAC regional network for the user for "
+            "their cross-border project — verify manager approval and process by "
+            "end of week.",
+            "Set up VPN access to the regional network for the user joining a "
+            "cross-border initiative — confirm manager sign-off and configure "
+            "the appropriate network profile.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the access request approval from the named manager in the access governance portal",
+                "Create a VPN access profile for the target regional network subnet "
+                "in the GlobalProtect admin console",
+                "Assign the profile to the user's AD account and add them to the "
+                "appropriate project security group",
+                "Send the user VPN configuration instructions and test connectivity to a target host",
+                "Set a review date for the access in 90 days per the temporary project access policy",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-046  JSON payload from automated monitoring alert
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-046",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=True,
+        missing_information=[MissingInfo.PREVIOUS_TICKET_ID],
+        subjects=[
+            "[ALERT] CRITICAL \u2014 disk space threshold exceeded",
+            "[MONITORING] CRITICAL: Disk usage above 95% on production SQL node",
+            "[AUTO-ALERT] Storage critical \u2014 production database volume nearing capacity",
+        ],
+        descriptions=[
+            '{\n'
+            '  "alert_id": "MON-2026-031718-4492",\n'
+            '  "alert_type": "DiskSpaceThresholdExceeded",\n'
+            '  "severity": "CRITICAL",\n'
+            '  "timestamp": "2026-03-17T18:14:33.209Z",\n'
+            '  "source": {\n'
+            '    "hostname": "PROD-SQL-NODE-03.contoso.local",\n'
+            '    "ip_address": "10.20.5.43",\n'
+            '    "datacenter": "US-East-1",\n'
+            '    "rack": "R14-B",\n'
+            '    "os": "Windows Server 2022 Datacenter",\n'
+            '    "role": "SQL Server Production Node"\n'
+            '  },\n'
+            '  "disk_metrics": {\n'
+            '    "drive_letter": "E:",\n'
+            '    "volume_label": "SQLData",\n'
+            '    "total_capacity_gb": 2048,\n'
+            '    "used_gb": 1946.7,\n'
+            '    "free_gb": 101.3,\n'
+            '    "percent_used": 95.06,\n'
+            '    "threshold_percent": 90,\n'
+            '    "growth_rate_gb_per_day": 12.4,\n'
+            '    "estimated_days_until_full": 8.2\n'
+            '  },\n'
+            '  "top_consumers": [\n'
+            '    {"database": "TradeHistory", "size_gb": 743.2, "growth_30d_gb": 89.1},\n'
+            '    {"database": "AuditLog", "size_gb": 512.8, "growth_30d_gb": 156.3},\n'
+            '    {"database": "MarketData", "size_gb": 398.4, "growth_30d_gb": 42.7},\n'
+            '    {"database": "ClientPortfolios", "size_gb": 187.1, "growth_30d_gb": 18.9},\n'
+            '    {"database": "TempDB", "size_gb": 105.2, "growth_30d_gb": 0.0}\n'
+            '  ],\n'
+            '  "recent_events": [\n'
+            '    {"timestamp": "2026-03-15T02:00:00Z", '
+            '"event": "Nightly backup completed \u2014 1.2TB transferred"},\n'
+            '    {"timestamp": "2026-03-16T02:00:00Z", '
+            '"event": "AuditLog retention job FAILED \u2014 old records not purged"},\n'
+            '    {"timestamp": "2026-03-17T02:00:00Z", '
+            '"event": "Nightly backup completed \u2014 1.2TB transferred"}\n'
+            '  ],\n'
+            '  "escalation": {\n'
+            '    "notify_team": "data-platform-oncall",\n'
+            '    "auto_ticket": true,\n'
+            '    "sla_response_minutes": 60\n'
+            '  }\n'
+            '}',
+            '{\n'
+            '  "alert_id": "MON-2026-031719-5513",\n'
+            '  "alert_type": "DiskSpaceThresholdExceeded",\n'
+            '  "severity": "CRITICAL",\n'
+            '  "timestamp": "2026-03-17T19:22:41.887Z",\n'
+            '  "source": {\n'
+            '    "hostname": "PROD-SQL-NODE-07.contoso.local",\n'
+            '    "ip_address": "10.20.5.87",\n'
+            '    "datacenter": "EU-West-1",\n'
+            '    "os": "Windows Server 2022 Datacenter",\n'
+            '    "role": "SQL Server Analytics Node"\n'
+            '  },\n'
+            '  "disk_metrics": {\n'
+            '    "drive_letter": "F:",\n'
+            '    "volume_label": "AnalyticsData",\n'
+            '    "total_capacity_gb": 4096,\n'
+            '    "used_gb": 3932.1,\n'
+            '    "free_gb": 163.9,\n'
+            '    "percent_used": 96.0,\n'
+            '    "threshold_percent": 90,\n'
+            '    "growth_rate_gb_per_day": 28.6,\n'
+            '    "estimated_days_until_full": 5.7\n'
+            '  },\n'
+            '  "top_consumers": [\n'
+            '    {"database": "RiskModels", "size_gb": 1287.3, "growth_30d_gb": 312.0},\n'
+            '    {"database": "MarketDataArchive", "size_gb": 984.1, "growth_30d_gb": 167.4},\n'
+            '    {"database": "ReportingDW", "size_gb": 872.4, "growth_30d_gb": 94.2}\n'
+            '  ],\n'
+            '  "recent_events": [\n'
+            '    {"timestamp": "2026-03-16T03:00:00Z", '
+            '"event": "ETL batch completed \u2014 218 GB ingested"},\n'
+            '    {"timestamp": "2026-03-17T03:00:00Z", '
+            '"event": "ETL batch completed \u2014 241 GB ingested \u2014 ABOVE NORMAL"},\n'
+            '    {"timestamp": "2026-03-17T14:00:00Z", '
+            '"event": "Archive job SKIPPED \u2014 maintenance window conflict"}\n'
+            '  ],\n'
+            '  "escalation": {\n'
+            '    "notify_team": "data-platform-oncall",\n'
+            '    "auto_ticket": true,\n'
+            '    "sla_response_minutes": 30\n'
+            '  }\n'
+            '}',
+        ],
+        next_best_actions=[
+            "Address critical disk space on production SQL node (drive at 95%+ \u2014 "
+            "estimated 5\u20138 days until full). A failed retention or archive job is the "
+            "most likely cause of accelerated growth \u2014 fix the retention job first, "
+            "then evaluate capacity expansion.",
+            "Investigate critical storage alert on production SQL node \u2014 disk "
+            "utilization above 95% and growing rapidly due to a skipped or failed "
+            "maintenance job.",
+        ],
+        remediation_steps=[
+            [
+                "Investigate and fix the failed retention or archive job that caused unpurged growth",
+                "Manually run the purge or archive to reclaim space from records past the retention window",
+                "Review TempDB sizing and shrink if allocation is excessive for current workload",
+                "Request an emergency capacity expansion if free space drops below 5% before the fix takes effect",
+                "Set up a recurring disk space trend report and adjust the alert threshold to trigger earlier",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-047  Excessive whitespace, irregular spacing, and blank lines
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-047",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO],
+        subjects=[
+            "Printer on {floor} not working",
+            "Floor  printer   broken  — need  help  urgently",
+            "Shared    printer     stuck     on   paper    jam    error",
+        ],
+        descriptions=[
+            "Hi   IT    Support,\n\n\n\n\n"
+            "The    printer   on    the   {floor}    near   conference   "
+            "room   B   is     not     working.\n\n\n\n\n\n\n"
+            "It    is    a    HP    LaserJet    Pro    MFP    M428fdn    and   "
+            "the     display     says     \"Paper   Jam\"     but     I   "
+            "checked     and     there    is    no     paper     stuck   "
+            "anywhere.\n\n\n\n\n\n"
+            "I     tried:\n\n\n"
+            "-     Turning     it     off     and     on     again\n\n\n"
+            "-     Opening     all     the     trays     and     checking   "
+            "for     paper\n\n\n"
+            "-     Removing     the     toner     cartridge     and   "
+            "reinserting     it\n\n\n\n\n\n"
+            "Nothing     worked.     The     paper     jam     error   "
+            "keeps     coming     back.\n\n\n\n\n"
+            "This     is     the     only     printer     on     our   "
+            "floor     and     we     have     a     client     presentation   "
+            "at     3 PM     today     that     we     need     to   "
+            "print     materials     for.\n\n\n\n\n\n\n\n"
+            "Please     send     someone     to     look     at     it   "
+            "ASAP.\n\n\n\n\n"
+            "Thanks,\n\n\n"
+            "{name}\n\n\n"
+            "{department},     {floor},     {building}",
+            "hi\n\n\n\n\n\n"
+            "the       printer      on      our      floor      keeps      saying\n\n\n"
+            "paper      jam\n\n\n\n\n"
+            "but      there      is      no      paper      jammed      in      it\n\n\n\n"
+            "ive      opened      every      tray\n\n\n\n\n\n"
+            "and      checked      everywhere\n\n\n\n"
+            "please      fix\n\n\n\n\n\n\n\n"
+            "it      is      the      HP      one      near      the      elevators\n\n\n"
+            "on      {floor}\n\n\n\n\n\n\n"
+            "thanks\n\n\n\n"
+            "{name}",
+        ],
+        next_best_actions=[
+            "Dispatch a technician to inspect the HP LaserJet Pro MFP M428fdn with "
+            "a persistent false paper jam error \u2014 user has a client presentation and "
+            "needs it fixed urgently.",
+            "Troubleshoot persistent false paper jam error on floor printer \u2014 user "
+            "has checked all trays with no obstruction found.",
+        ],
+        remediation_steps=[
+            [
+                "Dispatch a technician to physically inspect the printer",
+                "Check the paper path sensors for debris, torn paper fragments, or sensor misalignment",
+                "Perform a full power cycle with the rear access panel open and inspect the fuser area",
+                "If the sensor is faulty, replace the paper path sensor assembly or swap in a loaner printer",
+                "Update the printer asset record with any parts replaced and schedule preventive maintenance",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-048  Corrupted email headers / SMTP headers mixed into body
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-048",
+        category=Category.ACCESS_AUTH,
+        priority=Priority.P1,
+        assigned_team=Team.IAM,
+        needs_escalation=True,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.AUTHENTICATION_METHOD],
+        subjects=[
+            "Account locked out \u2014 need urgent help",
+            "URGENT: Account lockout \u2014 suspicious MFA activity",
+            "Locked out of everything \u2014 possible unauthorized access attempt",
+        ],
+        descriptions=[
+            "Return-Path: <{name1}@contoso.com>\n"
+            "Received: from PROD-EXCH-04.contoso.local (10.20.1.44) by\n"
+            " PROD-EXCH-HUB-02.contoso.local (10.20.1.10) with Microsoft SMTP\n"
+            " Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)\n"
+            " id 15.2.1118.40; Tue, 17 Mar 2026 08:47:12 -0400\n"
+            "Received: from outlook.office365.com (52.97.183.26) by\n"
+            " PROD-EXCH-04.contoso.local (10.20.1.44) with Microsoft SMTP Server\n"
+            " id 15.2.1118.40 via Frontend Transport; Tue, 17 Mar 2026 08:47:11 -0400\n"
+            "DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;\n"
+            " d=contoso.com; s=selector1;\n"
+            " h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;\n"
+            " bh=a3f2V8bKz0mNpQ7RtL1cD+eXwJk=;\n"
+            " b=YjQ4NWRlZWI3ZjJhMTk4NzVkNzRiMmQxZGM5OTNmYTBlZjRiMjVhNWFl\n"
+            "   OGEyMTc5ZjRkZGE2MzI0YTVlNWQyZjQ1MzZhMGI3YWIwN2ExMjczNjVk\n"
+            "   MjkwNjg2YTgzZGZhYjNlOGE=\n"
+            "X-Mailer: Microsoft Outlook 16.0\n"
+            "MIME-Version: 1.0\n"
+            "Content-Type: multipart/alternative;\n"
+            ' boundary="----=_NextPart_001_0078_01DAF3B2.7C8E5A30"\n'
+            "X-MS-Exchange-Organization-SCL: -1\n"
+            "X-MS-Exchange-Organization-AuthSource: PROD-EXCH-04.contoso.local\n"
+            "X-MS-Exchange-Organization-AuthAs: Internal\n"
+            "X-MS-Has-Attach:\n"
+            "X-MS-TNEF-Correlator:\n\n"
+            "Hi IT Support,\n\n"
+            "My account has been locked out and I cannot log into anything \u2014 "
+            "not my laptop, not Outlook, not any of the internal web apps. "
+            "This happened at around 8:30 AM this morning when I tried to "
+            "sign in after arriving at the office.\n\n"
+            "I did NOT change my password recently and I am certain I am "
+            "entering the correct credentials. I suspect the lockout may be "
+            "related to the MFA push notifications I was getting last night "
+            "around 11 PM that I did not initiate \u2014 I denied all of them. "
+            "Someone may be trying to access my account.\n\n"
+            "This is urgent because I have a compliance audit review at "
+            "10 AM and I need access to the Regulatory Reporting portal "
+            "before then.\n\n"
+            "Please help ASAP.\n\n"
+            "{name}\n{department}",
+            "X-Mailer: Outlook/16.0\n"
+            "Content-Type: text/plain; charset=UTF-8\n"
+            "X-MS-Exchange-Organization-SCL: 1\n"
+            "X-Originating-IP: [10.20.3.115]\n"
+            "Return-Path: <{name1}@contoso.com>\n\n"
+            "Subject: URGENT account lockout\n\n"
+            "I've been locked out of my account since 7 AM this morning. "
+            "I can't access anything \u2014 laptop login fails, OWA returns "
+            "'Your account has been locked', and VPN rejects my credentials.\n\n"
+            "I was getting MFA prompts on my phone last night that I didn't "
+            "request. I denied them but this morning my account was locked.\n\n"
+            "I need immediate help \u2014 I have a client meeting at 9:30 AM.\n\n"
+            "{name}\n{department}",
+        ],
+        next_best_actions=[
+            "Investigate account lockout with suspicious MFA activity \u2014 user "
+            "reports uninitiated MFA push notifications the prior evening followed "
+            "by a full account lockout. Possible unauthorized access attempt. "
+            "Unlock the account and review sign-in logs for anomalous activity.",
+            "Unlock the user's account and immediately review Entra ID sign-in "
+            "logs for the suspicious MFA prompts reported the previous night "
+            "\u2014 possible credential compromise or MFA fatigue attack.",
+        ],
+        remediation_steps=[
+            [
+                "Unlock the user's account in Entra ID and reset their password via a secure channel",
+                "Review Entra ID sign-in logs for failed attempts and suspicious IP addresses around the "
+                "time of the uninitiated MFA prompts",
+                "If unauthorized access is confirmed, revoke all active sessions and refresh tokens",
+                "Advise the user to re-register MFA and switch to number-matching or FIDO2 if currently "
+                "using simple push approvals",
+                "Escalate to Security Operations if the sign-in logs indicate a credential compromise or "
+                "MFA fatigue attack",
+            ],
+        ],
+    )
+)
