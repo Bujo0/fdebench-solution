@@ -1,7 +1,6 @@
 [
     {
         "ticket_id": "INC-5001",
-<<<<<<< HEAD
         "category": "Data & Storage",
         "priority": "P3",
         "assigned_team": "Data Platform",
@@ -14,26 +13,11 @@
             "Re-grant access to the Finance Q4 SharePoint site if permissions were inadvertently removed",
             "Confirm the reporter can access the site and upload the quarterly report",
             "Review recent permission changes to prevent recurrence"
-=======
-        "category": "Access & Authentication",
-        "priority": "P2",
-        "assigned_team": "Identity & Access Management",
-        "needs_escalation": false,
-        "missing_information": [],
-        "next_best_action": "Check user's Entra ID group membership following the department transfer from Retail Banking to Wealth Management. The SharePoint site likely requires a security group that wasn't updated during the transfer. Update group membership to restore access.",
-        "remediation_steps": [
-            "Verify Amanda Foster's Entra ID group memberships — check if the Wealth Management SharePoint security group was added during department transfer",
-            "Add user to the appropriate SharePoint site access group if missing",
-            "Confirm access to the SharePoint site and linked OneNote notebook",
-            "Verify the previous department transfer ticket/process included SharePoint permissions migration",
-            "Follow up on the OneDrive storage limit separately if needed"
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         ]
     },
     {
         "ticket_id": "INC-5002",
         "category": "Software & Applications",
-<<<<<<< HEAD
         "priority": "P3",
         "assigned_team": "Enterprise Applications",
         "needs_escalation": false,
@@ -48,27 +32,10 @@
             "Test sending a 15MB attachment from a reference machine to isolate the issue",
             "If the update changed attachment handling behavior, roll back or apply a fix",
             "Suggest using OneDrive sharing links as a workaround for large files in the interim"
-=======
-        "priority": "P2",
-        "assigned_team": "Enterprise Applications",
-        "needs_escalation": false,
-        "missing_information": [
-            "error_message",
-            "application_version"
-        ],
-        "next_best_action": "Investigate SAP GUI error preventing invoice processing. The embedded base64 images in the ticket are not useful — request actual error message text and SAP GUI version from user. Invoice processing is time-sensitive for Finance.",
-        "remediation_steps": [
-            "Contact user to get the actual error message text from SAP — base64-encoded images in the ticket body are not parseable",
-            "Verify SAP GUI version and check for any recent updates or patches",
-            "Check SAP system status and recent changes that may have caused the error",
-            "If the error is authentication-related, verify SSO token and Kerberos ticket status",
-            "Restore invoice processing capability and confirm with user"
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         ]
     },
     {
         "ticket_id": "INC-5003",
-<<<<<<< HEAD
         "category": "Hardware & Peripherals",
         "priority": "P2",
         "assigned_team": "Endpoint Engineering",
@@ -81,28 +48,11 @@
             "Clean or replace paper feed sensors if necessary",
             "Run a printer self-test to verify the fix",
             "If the printer cannot be repaired quickly, redirect the print job to an alternate printer on the same floor"
-=======
-        "category": "Network & Connectivity",
-        "priority": "P3",
-        "assigned_team": "Network Operations",
-        "needs_escalation": true,
-        "missing_information": [
-            "previous_ticket_id"
-        ],
-        "next_best_action": "Investigate recurring VPN drops on London office guest WiFi network. This is a repeat issue — a previous ticket was closed without resolution. Check GlobalProtect compatibility with the London office guest WiFi network configuration.",
-        "remediation_steps": [
-            "Look up the previous ticket referenced in the email chain to understand prior investigation",
-            "Test VPN connectivity on the London office guest WiFi network with a reference device",
-            "Check if the GlobalProtect v3.2 VPN client has known issues with the guest WiFi configuration",
-            "Verify London office guest WiFi network firewall rules allow VPN traffic (IPsec/SSL)",
-            "If the guest WiFi blocks VPN, coordinate with London network team to add an exception or provide a corporate WiFi option for visiting staff"
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         ]
     },
     {
         "ticket_id": "INC-5004",
         "category": "Hardware & Peripherals",
-<<<<<<< HEAD
         "priority": "P4",
         "assigned_team": "Endpoint Engineering",
         "needs_escalation": false,
@@ -119,26 +69,10 @@
             "Determine the laptop model, the nature of the issue, and any error messages",
             "Once the issue is understood, provide appropriate troubleshooting steps or schedule a repair",
             "Update the ticket with the gathered information for proper triage"
-=======
-        "priority": "P2",
-        "assigned_team": "Endpoint Engineering",
-        "needs_escalation": false,
-        "missing_information": [
-            "device_info"
-        ],
-        "next_best_action": "Dispatch technician to Building 2 Floor 6 with a loaner laptop. User has a client presentation in 2 hours and the cracked screen makes the laptop unusable. Provide loaner first, schedule screen repair or replacement second.",
-        "remediation_steps": [
-            "Dispatch technician to Building 2, Floor 6 with a loaner laptop",
-            "Help user transfer presentation files and connect to the loaner device",
-            "Collect the damaged laptop for assessment — determine if screen replacement or full device replacement is needed",
-            "If under warranty, submit RMA for screen repair",
-            "Follow up with permanent replacement or repaired device once available"
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         ]
     },
     {
         "ticket_id": "INC-5005",
-<<<<<<< HEAD
         "category": "Network & Connectivity",
         "priority": "P3",
         "assigned_team": "Network Operations",
@@ -153,28 +87,10 @@
             "Verify the reporter's VPN credentials and certificate status",
             "Test VPN connectivity from a reference Windows 11 machine with GlobalProtect",
             "If the issue is server-side, escalate to network engineering for gateway investigation"
-=======
-        "category": "General Inquiry",
-        "priority": "P4",
-        "assigned_team": "None",
-        "needs_escalation": false,
-        "missing_information": [
-            "affected_system",
-            "error_message",
-            "steps_to_reproduce",
-            "device_info"
-        ],
-        "next_best_action": "Contact the reporter to gather basic information about the issue. The ticket has no description and the subject provides no actionable detail. Cannot triage without knowing what system or problem is being reported.",
-        "remediation_steps": [
-            "Contact Tom Baker to determine what issue they are experiencing",
-            "Gather details: what system is affected, what error is shown, and when the issue started",
-            "Once details are provided, re-triage and route to the appropriate specialist team"
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         ]
     },
     {
         "ticket_id": "INC-5006",
-<<<<<<< HEAD
         "category": "Software & Applications",
         "priority": "P3",
         "assigned_team": "Enterprise Applications",
@@ -190,27 +106,10 @@
             "If the update caused the issue, coordinate with Endpoint Engineering to roll back or patch",
             "Clear the Outlook local cache and repair the Outlook installation as an immediate remediation",
             "Confirm resolution with both affected users"
-=======
-        "category": "Access & Authentication",
-        "priority": "P2",
-        "assigned_team": "Identity & Access Management",
-        "needs_escalation": false,
-        "missing_information": [
-            "network_location"
-        ],
-        "next_best_action": "Investigate authentication failure from the Buenos Aires office. Likely a Conditional Access policy blocking sign-in from an unrecognized IP range or location. Check if the Buenos Aires office IP range is included in the named locations trust policy.",
-        "remediation_steps": [
-            "Check Entra ID sign-in logs for Sofia Morales and Carlos Reyes for failed authentication attempts",
-            "Review Conditional Access policies for location-based restrictions that may block Buenos Aires office IPs",
-            "If the Buenos Aires IP range is not in the named locations, add it to the trusted office locations",
-            "Verify both users can authenticate after the policy update",
-            "Confirm trading system access is restored for LATAM client transactions"
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         ]
     },
     {
         "ticket_id": "INC-5007",
-<<<<<<< HEAD
         "category": "Access & Authentication",
         "priority": "P3",
         "assigned_team": "Identity & Access Management",
@@ -245,14 +144,11 @@
     },
     {
         "ticket_id": "INC-5009",
-=======
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "category": "Data & Storage",
         "priority": "P1",
         "assigned_team": "Data Platform",
         "needs_escalation": true,
         "missing_information": [],
-<<<<<<< HEAD
         "next_best_action": "Investigate the blocked sessions on the production SQL Server immediately. Kill or analyze the long-running transaction (SPID 89) causing lock contention. ~500 client portal users are affected with 500 errors.",
         "remediation_steps": [
             "Connect to sql-prod-east and investigate SPID 89 to determine the blocking query",
@@ -261,54 +157,10 @@
             "Verify client portal functionality is restored by checking Application Insights error rates",
             "Investigate root cause of the long-running transaction to prevent recurrence",
             "Consider implementing query timeout policies and alerting for long-running transactions"
-=======
-        "next_best_action": "Investigate Azure SQL connection pool exhaustion on the client-facing portfolio management API immediately. 60% request failure rate on a production system affecting all clients. Circuit breaker has tripped and read replica has stale data with 45s replication lag.",
-        "remediation_steps": [
-            "Investigate connection pool exhaustion on the primary Azure SQL database — identify long-running queries or connection leaks",
-            "Kill long-running queries or leaked connections to free up pool capacity",
-            "Restart the primary database connection pool or the application layer to recover",
-            "Address the read replica replication lag — 45s lag is causing stale data errors on failover reads",
-            "Post-incident: review connection pool configuration and implement connection timeout/max-lifetime settings to prevent recurrence"
-        ]
-    },
-    {
-        "ticket_id": "INC-5008",
-        "category": "Software & Applications",
-        "priority": "P3",
-        "assigned_team": "Enterprise Applications",
-        "needs_escalation": false,
-        "missing_information": [],
-        "next_best_action": "Process the Bloomberg Terminal access request. Manager approval reference REQ-2026-0847 is provided. Verify the approval and provision Bloomberg Terminal access for the user in the Trading department.",
-        "remediation_steps": [
-            "Verify the manager approval for Bloomberg Terminal access using reference REQ-2026-0847",
-            "Provision Bloomberg Terminal application access for Kevin O'Brien",
-            "Configure the Bloomberg login credentials and terminal assignment",
-            "Confirm the user can access and use the Bloomberg Terminal",
-            "Update the access request tracking system to mark REQ-2026-0847 as completed"
-        ]
-    },
-    {
-        "ticket_id": "INC-5009",
-        "category": "Software & Applications",
-        "priority": "P2",
-        "assigned_team": "Enterprise Applications",
-        "needs_escalation": false,
-        "missing_information": [
-            "error_message"
-        ],
-        "next_best_action": "Investigate Salesforce HTTP 500 error when creating new opportunities. The error started after last night's update — likely a deployment issue. Check Salesforce admin console for recent changes and error logs.",
-        "remediation_steps": [
-            "Check Salesforce admin console for deployment logs from last night's update",
-            "Review Salesforce error logs for the HTTP 500 errors on opportunity creation",
-            "If a recent deployment caused the issue, coordinate rollback with the Salesforce admin team",
-            "Verify the fix by testing opportunity creation",
-            "Confirm with the user that the issue is resolved"
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         ]
     },
     {
         "ticket_id": "INC-5010",
-<<<<<<< HEAD
         "category": "Network & Connectivity",
         "priority": "P3",
         "assigned_team": "Network Operations",
@@ -323,103 +175,15 @@
             "Check if any recent network or firewall changes affected VPN connectivity from that region",
             "Test VPN connectivity from the Dubai office with a reference account",
             "If the issue is regional, escalate to the network engineering team for gateway configuration review"
-=======
-        "category": "Security & Compliance",
-        "priority": "P3",
-        "assigned_team": "Security Operations",
-        "needs_escalation": false,
-        "missing_information": [],
-        "next_best_action": "Confirm the forwarded email is a phishing attempt and advise the user not to click any links. Separately, investigate the missing Power BI Pro license add-on which was lost during the license refresh last week.",
-        "remediation_steps": [
-            "Confirm to the user that the forwarded email is a phishing attempt — the domain is not legitimate Microsoft",
-            "Have the user forward the original phishing email to phishing@contoso.com for analysis",
-            "Check if the phishing email bypassed email filtering and report to SecOps if so",
-            "Separately, check the user's M365 license assignment — verify if Power BI Pro was removed during the license refresh",
-            "Restore the Power BI Pro add-on license and confirm the executive dashboard is accessible"
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         ]
     },
     {
         "ticket_id": "INC-5011",
-<<<<<<< HEAD
-=======
-        "category": "Data & Storage",
-        "priority": "P1",
-        "assigned_team": "Data Platform",
-        "needs_escalation": true,
-        "missing_information": [],
-        "next_best_action": "Investigate critical CPU saturation on prod-web-frontend-03 serving the client portal. 99% CPU for 15+ minutes is causing client-facing performance degradation. The alert indicates a single VM is affected while two others are healthy — likely a runaway process or uneven load balancer distribution.",
-        "remediation_steps": [
-            "SSH into prod-web-frontend-03 and identify the process consuming excessive CPU using top/htop",
-            "If a runaway process, kill it and monitor for recurrence",
-            "If traffic imbalance, check the load balancer health probes and backend pool distribution",
-            "Consider temporarily removing the unhealthy VM from the load balancer pool to restore client experience",
-            "Once stabilized, investigate root cause — check for recent deployments, configuration changes, or memory leaks"
-        ]
-    },
-    {
-        "ticket_id": "INC-5012",
-        "category": "General Inquiry",
-        "priority": "P3",
-        "assigned_team": "None",
-        "needs_escalation": false,
-        "missing_information": [
-            "affected_system",
-            "error_message",
-            "steps_to_reproduce"
-        ],
-        "next_best_action": "Contact the reporter for actual problem description. The ticket body contains only references to attachments with no description of what the issue is, what system is affected, or what errors are occurring.",
-        "remediation_steps": [
-            "Contact Ben Crawford to gather a description of the actual issue — ticket contains only attachment references",
-            "Review the attached screenshots and error logs for context clues",
-            "Once the issue is understood, re-triage with proper category, priority, and team assignment"
-        ]
-    },
-    {
-        "ticket_id": "INC-5013",
-        "category": "Access & Authentication",
-        "priority": "P1",
-        "assigned_team": "Identity & Access Management",
-        "needs_escalation": true,
-        "missing_information": [],
-        "next_best_action": "Investigate domain controller availability issue affecting the entire 7th floor (~40 users). Trading desk is non-operational. Check domain controller health, network connectivity between the 7th floor network segment and domain controllers, and DNS resolution.",
-        "remediation_steps": [
-            "Check all domain controller health status — verify replication, service availability, and network connectivity",
-            "Check network connectivity between the 7th floor network segment and the domain controllers",
-            "Verify DNS resolution on the 7th floor — domain controller unavailability is often caused by DNS issues",
-            "If a domain controller is down, failover to a healthy replica and investigate the root cause",
-            "Once login capability is restored, confirm with affected users on the 7th floor and the trading desk"
-        ]
-    },
-    {
-        "ticket_id": "INC-5014",
-        "category": "General Inquiry",
-        "priority": "P3",
-        "assigned_team": "None",
-        "needs_escalation": false,
-        "missing_information": [
-            "affected_system",
-            "error_message",
-            "device_info",
-            "steps_to_reproduce"
-        ],
-        "next_best_action": "This ticket contains a batch of separate issues pasted as CSV data. It cannot be processed as a single ticket. Reply to the coordinator requesting that each issue be submitted as a separate ticket through the portal with full details for proper triage.",
-        "remediation_steps": [
-            "Reply to the coordinator explaining that each issue needs to be submitted as a separate ticket for proper tracking and routing",
-            "Provide the portal link and suggest that each team member submit their own ticket with full details",
-            "If the SAP error and Bloomberg issues are truly urgent, create separate tickets for those immediately with the information provided",
-            "Follow up to ensure the individual tickets are submitted and properly triaged"
-        ]
-    },
-    {
-        "ticket_id": "INC-5015",
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "category": "Hardware & Peripherals",
         "priority": "P3",
         "assigned_team": "Endpoint Engineering",
         "needs_escalation": false,
         "missing_information": [],
-<<<<<<< HEAD
         "next_best_action": "Initiate a laptop screen replacement or full device replacement for the damaged ThinkPad X1 Carbon Gen 11. Check warranty status and begin RMA process if applicable.",
         "remediation_steps": [
             "Check the warranty status of the ThinkPad X1 Carbon Gen 11",
@@ -495,15 +259,6 @@
             "If needed, initiate a password reset for the user",
             "Verify VPN connectivity is restored and the user can access CRM and shared drives",
             "Confirm resolution with the user before their client call"
-=======
-        "next_best_action": "Investigate laptop performance degradation that started after the March 14 SAP system upgrade. The SAP upgrade itself shouldn't affect laptop performance, but the timing suggests a coincident Windows update or background policy push may be the cause. Check Windows Update history and Intune compliance status.",
-        "remediation_steps": [
-            "Check Windows Update history on the Dell Latitude 5540 for updates applied around March 14",
-            "Review Task Manager for high CPU/disk usage from background processes like Windows Update, Intune, or antivirus",
-            "Check if the SAP upgrade pushed any client-side components or updates that may be consuming resources",
-            "If a stuck update is found, run the Windows Update troubleshooter or manually reset update components",
-            "Monitor performance after remediation and confirm Outlook and Teams are responsive"
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         ]
     }
 ]
