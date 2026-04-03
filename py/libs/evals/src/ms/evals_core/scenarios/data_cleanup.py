@@ -613,4 +613,564 @@ def get_scenarios() -> list[ScenarioDefinition]:
             tags=["data-cleanup", "duplicate-content", "stuttering"],
             difficulty="hard",
         ),
+        # ── DC-013  Extremely long email with buried issue ────────────────
+        ScenarioDefinition(
+            scenario_id="DC-013",
+            subject="FW: Quarterly IT Infrastructure Review — action items and network issue",
+            description=(
+                "Hi IT Support,\n\n"
+                "Forwarding the full infrastructure review notes below — my actual issue is buried\n"
+                "near the bottom. Please scroll down.\n\n"
+                "====== QUARTERLY IT INFRASTRUCTURE REVIEW — Q1 2026 ======\n"
+                "Date: March 14, 2026 | Attendees: IT Steering Committee\n"
+                "Location: Building 4, Executive Conference Room 4A\n\n"
+                "AGENDA ITEM 1: Cloud Migration Status\n"
+                "- Azure landing zone provisioning is 94% complete across all three regions.\n"
+                "- Remaining workloads: legacy COBOL settlement engine (target: May 2026),\n"
+                "  on-prem Oracle RAC cluster for derivatives pricing (target: July 2026).\n"
+                "- Cost optimization: reserved instance coverage improved from 61% to 78%.\n"
+                "- Action: Cloud team to finalize RI recommendations for Q2 by March 28.\n\n"
+                "AGENDA ITEM 2: Endpoint Refresh Program\n"
+                "- 1,200 of 3,400 laptops refreshed to Dell Latitude 5550 with Windows 11 23H2.\n"
+                "- Remaining rollout schedule: NYC Building 1-3 (April), London (May), Singapore (June).\n"
+                "- Dock compatibility issues reported with TB16 docks — WD19S replacement in progress.\n"
+                "- BitLocker recovery key escrow migration to Intune on track for April 1.\n"
+                "- Action: Endpoint team to publish refresh FAQ on the intranet by March 21.\n\n"
+                "AGENDA ITEM 3: Network Capacity Planning\n"
+                "- Core switch fabric utilization peaked at 72% during February month-end processing.\n"
+                "- Wireless controller firmware upgraded to 8.10.185 across all NYC APs.\n"
+                "- SD-WAN deployment for London and Singapore branch offices approved — RFP in April.\n"
+                "- Action: Network ops to model 100G uplink requirements for 2027 budget.\n\n"
+                "AGENDA ITEM 4: Security & Compliance Update\n"
+                "- SOC 2 Type II audit fieldwork begins April 7. All evidence must be staged by April 1.\n"
+                "- Phishing simulation click rate dropped from 12% to 8.5% — goal is 5% by year-end.\n"
+                "- Privileged Access Workstation (PAW) rollout to Tier 0 admins complete.\n"
+                "- Action: Security ops to deliver PAW Tier 1 rollout plan by March 28.\n\n"
+                "AGENDA ITEM 5: Service Desk Metrics\n"
+                "- Mean time to resolve (MTTR): 4.2 hours (target 4.0) — slight regression from Feb.\n"
+                "- First-contact resolution rate: 68% (target 70%).\n"
+                "- Top ticket categories: Password resets (24%), VPN issues (18%), Outlook (14%).\n"
+                "- Action: Evaluate chatbot deflection for password reset tickets.\n\n"
+                "AGENDA ITEM 6: Disaster Recovery Testing\n"
+                "- Full DR failover test for Azure-hosted trading platform scheduled for April 19-20.\n"
+                "- RPO target: 15 minutes. RTO target: 2 hours. Last test achieved RPO 12m, RTO 1h 48m.\n"
+                "- Cross-region replication lag for Cosmos DB reduced from 320ms to 95ms.\n"
+                "- Action: DR team to coordinate with Trading and Compliance for the test window.\n\n"
+                "AGENDA ITEM 7: Data Center Decommissioning\n"
+                "- Secaucus DC lease expires September 2026. 14 remaining racks to be migrated.\n"
+                "- Physical server inventory audit complete — 6 servers unaccounted for, investigating.\n"
+                "- Tape backup archive migration to Azure Blob Archive tier: 340TB of 480TB complete.\n"
+                "- Action: Facilities to confirm decommissioning timeline with vendor by April 4.\n\n"
+                "--- END OF AGENDA ITEMS ---\n\n"
+                "** MY ACTUAL ISSUE (sorry for the long email) **\n\n"
+                "On page 2 of the notes it mentions TB16 dock compatibility issues. I'm one of the\n"
+                "affected users — my Dell Latitude 5550 with the TB16 dock loses USB-C video output\n"
+                "intermittently. Both my external Dell U2722D monitors go black for 5-10 seconds\n"
+                "every 20-30 minutes. I'm on the 8th floor, Building 4. The old WD19S dock I had\n"
+                "before worked perfectly but it was collected during the refresh.\n\n"
+                "Can I get a replacement WD19S dock or a fix for the TB16 compatibility?\n\n"
+                "Thanks,\n"
+                "Jonathan Park\n"
+                "Portfolio Management, Building 4, 8th floor, New York"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Replace Dell TB16 dock with WD19S for user on Building 4, 8th floor — "
+                "known USB-C video dropout issue with Latitude 5550 and TB16 docks."
+            ),
+            remediation_steps=[
+                "Confirm the user's laptop model and current dock firmware version.",
+                "Check if a TB16 firmware update resolves the intermittent video dropout.",
+                "If the firmware update does not resolve, issue a WD19S replacement dock.",
+                "Verify both external monitors work reliably on the replacement dock.",
+                "Log the TB16 compatibility issue in the endpoint refresh tracker for reporting.",
+            ],
+            reporter_name="Jonathan Park",
+            reporter_email="jonathan.park@contoso.com",
+            reporter_department="Portfolio Management",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "very-long-email", "buried-issue"],
+            difficulty="hard",
+        ),
+        # ── DC-014  Multiple base64 image floods ─────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-014",
+            subject="Badge reader error — photos attached",
+            description=(
+                "My badge is not working at the Building 6 south entrance turnstile.\n\n"
+                "I took several photos of the error on the badge reader screen. Here they are:\n\n"
+                "Photo 1 - Front of badge reader:\n"
+                "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgK"
+                "DBQNDBALDBKSEF4THBYdHRweGxwdICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/2wBDAQkJ"
+                "CQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy"
+                "MjIyMjL/wAARCABAAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAABAgMEBQYHCAkKC//E"
+                "AFAQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYX"
+                "GBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJ"
+                "WWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6ery8/T19vf4"
+                "+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xABREAACAQIEBAMEBgUDBgMAAAABAgMAE"
+                "QQSITFBBRNRYQYicZGBBzKhsRRCUsHB8BYj0fEUFTNickOSstIkZKLC4vDzGBcaNTY3JDREVSRFVWND"
+                "/9oADAMBAAIRAxEAAAAB0AAAAFaGBogKoAAAAA0MFNNNAFiAAAAAAAAJIAAAAAAIIIAAAAAAAAAAAAAAAAA"
+                "AAAAAA//2Q==\n\n"
+                "Photo 2 - Error message closeup:\n"
+                "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDABsSFBcUERsXFhceHBsgKEIr"
+                "KCUlKFE6PTBCYFVlZF9VXFtqeJmBanGQc1tdhbWGkJ6jq62rZ4C8ybqmx5moq6T/2wBDARceHigs"
+                "KE4rKU5qd1p3ampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqamr/wAAR"
+                "CAAgACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAHwEAAwEBAQEB"
+                "AQEBAQAAAAAAAAECAwQFBgcICQoL/8QAFRABAAAAAAAAAAAAAAAAAAAAcP/EABQRAQAAAAAAAAAAAAAAA"
+                "AAAYP/aAAwDAQACEQMRAD8AlgVVHcjIGcZHPSn1BDKkybkZWHqDmn0AFFFFAB/9k=\n\n"
+                "Photo 3 - My badge (front side):\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAACXBIWXMAAA"
+                "sTAAALEwEAmpwYAAACcElEQVR4nO3dO27CQBSG4TPiCehpoKGjpMwWKNgSJTtgB2yBgjJboKOkpKGh"
+                "4wnIK7gIhGDGc+Z/PkmWkC3N+BvN2BrnAAAAAAAAAAAAAAAAAMDUVWM/gTYq5+9x3/6Y4kQwGpkARA"
+                "kARAIAkQBAJAAQCQBEAgCRAEAkABAJAEQCAJEAQCQAEAkARAIA0X9Bep+0vJOUlpJykWQn6UPSLMq8"
+                "AAAAAAAAAAAAAAAAAAAAAAAAAAA//2Q==\n\n"
+                "Photo 4 - Badge reader model number plate:\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVQYV2"
+                "P8z8BQz0AEYBxVOHIVAvcHBQHzKSECAAAAAElFTkSuQmCC"
+                "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVQYV2P4z8BQz0AEYBxVSHEVAvMH"
+                "BQPxKSMCAAAAAElFTkSuQmCC\n\n"
+                "Photo 5 - Side angle of turnstile:\n"
+                "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQN"
+                "DAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDB"
+                "gNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj"
+                "L/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAFBABAA"
+                "AAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8ALQAB//Z=\n\n"
+                "The error message on the screen said 'Card Read Error - Contact Facilities' in red.\n"
+                "I tried tapping multiple times. My badge works fine at the north entrance.\n\n"
+                "Yuki Tanaka\n"
+                "Quantitative Analysis, Building 6, 3rd floor"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Investigate badge reader 'Card Read Error' at Building 6 south entrance "
+                "turnstile — badge works at north entrance, suggesting a reader hardware fault."
+            ),
+            remediation_steps=[
+                "Dispatch a facilities technician to inspect the Building 6 south entrance badge reader.",
+                "Check the badge reader logs for error patterns and failed card reads.",
+                "Test the reader with a known-good badge to confirm it is a reader-side issue.",
+                "Replace or recalibrate the reader if it is confirmed faulty.",
+                "Verify the user's badge works at the south entrance after the fix.",
+            ],
+            reporter_name="Yuki Tanaka",
+            reporter_email="yuki.tanaka@contoso.com",
+            reporter_department="Quantitative Analysis",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "base64-flood", "image-heavy"],
+            difficulty="hard",
+        ),
+        # ── DC-015  Inline CSV / tabular data dump ────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-015",
+            subject="Server performance degradation — metrics attached inline",
+            description=(
+                "Hi team,\n\n"
+                "The sqlprod-nyc-04 server is running very slow. Here are the performance metrics\n"
+                "I exported from our monitoring tool:\n\n"
+                "timestamp,cpu_pct,mem_pct,disk_io_mbps,net_in_mbps,net_out_mbps,active_connections,query_queue\n"
+                "2026-03-17T08:00:00Z,42.3,61.2,120.5,45.2,32.1,342,12\n"
+                "2026-03-17T08:05:00Z,44.1,62.0,125.3,47.8,33.4,351,14\n"
+                "2026-03-17T08:10:00Z,48.7,63.5,131.2,49.1,35.2,367,18\n"
+                "2026-03-17T08:15:00Z,55.2,65.8,142.7,52.3,38.6,389,24\n"
+                "2026-03-17T08:20:00Z,62.8,68.4,158.3,56.7,41.2,412,32\n"
+                "2026-03-17T08:25:00Z,71.3,72.1,175.6,61.4,44.8,438,45\n"
+                "2026-03-17T08:30:00Z,78.9,76.3,192.4,67.2,48.3,461,58\n"
+                "2026-03-17T08:35:00Z,84.2,79.8,210.1,72.8,52.1,487,72\n"
+                "2026-03-17T08:40:00Z,89.1,83.4,228.7,78.3,56.7,512,89\n"
+                "2026-03-17T08:45:00Z,93.7,87.2,245.3,83.9,61.2,538,105\n"
+                "2026-03-17T08:50:00Z,96.2,90.1,261.8,89.4,65.8,561,128\n"
+                "2026-03-17T08:55:00Z,98.1,92.8,278.4,94.7,70.3,589,156\n"
+                "2026-03-17T09:00:00Z,99.3,95.4,295.1,100.2,74.9,612,189\n"
+                "2026-03-17T09:05:00Z,99.7,96.8,310.6,105.8,79.4,641,224\n"
+                "2026-03-17T09:10:00Z,99.8,97.5,326.2,111.3,83.8,668,261\n"
+                "2026-03-17T09:15:00Z,99.9,98.1,341.7,116.9,88.3,694,298\n"
+                "2026-03-17T09:20:00Z,99.9,98.6,357.3,122.4,92.7,721,336\n"
+                "2026-03-17T09:25:00Z,99.9,99.0,372.8,128.0,97.2,748,374\n"
+                "2026-03-17T09:30:00Z,100.0,99.2,388.4,133.5,101.6,776,412\n\n"
+                "As you can see CPU goes from 42% to 100% in 90 minutes. The query queue is\n"
+                "backing up and users are complaining about slow report generation.\n\n"
+                "Leon Fischer\n"
+                "Data Engineering, NYC"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=True,
+            missing_info=[MissingInfo.AFFECTED_USERS, MissingInfo.BUSINESS_IMPACT],
+            next_best_action=(
+                "Investigate sqlprod-nyc-04 resource exhaustion — CPU at 100%, memory at 99%, "
+                "and query queue growing to 400+ since 08:00. Likely a runaway query or batch job."
+            ),
+            remediation_steps=[
+                "Identify the top resource-consuming queries on sqlprod-nyc-04 using sys.dm_exec_requests.",
+                "Check if a scheduled batch job or report is causing the CPU and memory spike.",
+                "Kill or throttle the runaway query if identified, and notify the owning team.",
+                "Monitor the server for recovery and verify the query queue is draining.",
+                "Review Resource Governor settings to prevent a single workload from saturating the server.",
+            ],
+            reporter_name="Leon Fischer",
+            reporter_email="leon.fischer@contoso.com",
+            reporter_department="Data Engineering",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "csv-dump", "tabular-data"],
+            difficulty="hard",
+        ),
+        # ── DC-016  URL spam / hyperlink overload ─────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-016",
+            subject="Broken links on the intranet compliance pages",
+            description=(
+                "Hi,\n\n"
+                "Multiple links on our compliance intranet site are broken. Here are all the ones\n"
+                "I've checked (some work, most don't):\n\n"
+                "BROKEN:\n"
+                "- https://intranet.contoso.com/compliance/policies/aml-kyc-policy-v3.2.pdf\n"
+                "- https://intranet.contoso.com/compliance/policies/insider-trading-guidelines.pdf\n"
+                "- https://intranet.contoso.com/compliance/training/annual-certification-2026.aspx\n"
+                "- https://intranet.contoso.com/compliance/forms/conflict-of-interest-disclosure.docx\n"
+                "- https://intranet.contoso.com/compliance/policies/data-retention-schedule-v2.1.xlsx\n"
+                "- https://intranet.contoso.com/compliance/external/sec-rule-17a-4-reference.pdf\n"
+                "- https://intranet.contoso.com/compliance/external/finra-rule-4511-guidance.pdf\n"
+                "- https://intranet.contoso.com/compliance/procedures/sar-filing-checklist.pdf\n"
+                "- https://intranet.contoso.com/compliance/procedures/whistleblower-procedure.pdf\n"
+                "- https://intranet.contoso.com/compliance/training/code-of-conduct-quiz.aspx\n"
+                "- https://intranet.contoso.com/compliance/reports/q4-2025-compliance-dashboard.pbix\n"
+                "- https://intranet.contoso.com/compliance/reports/regulatory-exam-tracker.xlsx\n\n"
+                "WORKING:\n"
+                "- https://intranet.contoso.com/compliance/index.aspx\n"
+                "- https://intranet.contoso.com/compliance/team/contact-us.aspx\n"
+                "- https://intranet.contoso.com/compliance/news/latest-updates.aspx\n\n"
+                "We have a regulatory exam next week and auditors need access to these documents.\n"
+                "This is urgent.\n\n"
+                "Maya Johal\n"
+                "Regulatory Affairs, Building 1, 9th floor"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=True,
+            missing_info=[MissingInfo.TIMESTAMP],
+            next_best_action=(
+                "Investigate broken links on the compliance intranet site — 12 of 15 links "
+                "returning errors, likely caused by a content migration or site restructure. "
+                "Urgent due to upcoming regulatory exam."
+            ),
+            remediation_steps=[
+                "Check the SharePoint or IIS logs for the compliance site to identify the error pattern.",
+                "Verify if a recent content migration or URL restructure moved or renamed the documents.",
+                "Restore or redirect the broken document links to their new locations.",
+                "Test all 12 broken links after the fix to confirm they resolve correctly.",
+                "Notify the Regulatory Affairs team once all links are restored.",
+            ],
+            reporter_name="Maya Johal",
+            reporter_email="maya.johal@contoso.com",
+            reporter_department="Regulatory Affairs",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "url-spam", "hyperlink-overload"],
+            difficulty="hard",
+        ),
+        # ── DC-017  Raw SMTP headers dump ─────────────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-017",
+            subject="Emails from external clients being delayed — headers included",
+            description=(
+                "Hi IT team,\n\n"
+                "I'm getting emails from external clients with delays of 2-4 hours. I grabbed the\n"
+                "full message headers from one of the delayed emails — here they are:\n\n"
+                "Return-Path: <john.smith@acmecapital.com>\n"
+                "Received: from EX01.contoso.com (10.1.4.21) by EX03.contoso.com (10.1.4.23)\n"
+                " with Microsoft SMTP Server (version=TLS1_2,\n"
+                " cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40;\n"
+                " Tue, 17 Mar 2026 14:22:31 -0500\n"
+                "Received: from edge01.contoso.com (10.1.2.10) by EX01.contoso.com (10.1.4.21)\n"
+                " with Microsoft SMTP Server (version=TLS1_2,\n"
+                " cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40;\n"
+                " Tue, 17 Mar 2026 14:22:28 -0500\n"
+                "Received: from mail-yw1-f169.google.com (209.85.128.169) by edge01.contoso.com\n"
+                " (10.1.2.10) with Microsoft SMTP Server (version=TLS1_2,\n"
+                " cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1118.40\n"
+                " via Frontend Transport; Tue, 17 Mar 2026 12:15:44 -0500\n"
+                "Received: by mail-yw1-f169.google.com with SMTP id\n"
+                " 00721157ae682-6f2b3c2e9d4so12345678b3.1\n"
+                " for <nadia.okafor@contoso.com>; Tue, 17 Mar 2026 09:15:42 -0800 (PST)\n"
+                "DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acmecapital.com;\n"
+                " s=google; h=from:to:subject:date:message-id:mime-version;\n"
+                " bh=abc123def456ghi789jkl012mno345pqr678stu901vwx=;\n"
+                " b=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmn\n"
+                "Authentication-Results: edge01.contoso.com;\n"
+                " dkim=pass (signature was verified) header.d=acmecapital.com;\n"
+                " spf=pass (sender IP is 209.85.128.169) smtp.mailfrom=acmecapital.com;\n"
+                " dmarc=pass action=none header.from=acmecapital.com;\n"
+                "X-MS-Exchange-Organization-SCL: 1\n"
+                "X-MS-Exchange-Organization-AuthSource: edge01.contoso.com\n"
+                "X-MS-Exchange-Organization-AuthAs: Anonymous\n"
+                "X-MS-Exchange-Transport-CrossTenantHeadersStamped: EX03.contoso.com\n"
+                "X-Forefront-Antispam-Report: CIP:209.85.128.169;CTRY:US;LANG:en;\n"
+                " SFV:NSPM;SFS:;DIR:INB;SFP:;SCL:1;SRVR:EX03;\n"
+                "Message-ID: <CABx+XYZ123@mail.gmail.com>\n"
+                "Date: Tue, 17 Mar 2026 09:15:40 -0800\n"
+                "From: John Smith <john.smith@acmecapital.com>\n"
+                "To: Nadia Okafor <nadia.okafor@contoso.com>\n"
+                "Subject: Q1 Portfolio Rebalancing - Urgent Review\n"
+                "MIME-Version: 1.0\n"
+                "Content-Type: multipart/alternative; boundary=\"0000000000abc123def456\"\n\n"
+                "As you can see, there's a 2+ hour gap between when it hits edge01 at 12:15\n"
+                "and when it reaches EX01 at 14:22. This is happening on most external emails.\n"
+                "Internal emails are fine.\n\n"
+                "Nadia Okafor\n"
+                "Client Services, Building 1, 4th floor, New York"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=True,
+            missing_info=[MissingInfo.AFFECTED_USERS],
+            next_best_action=(
+                "Investigate 2-hour mail delivery delay between edge01 and EX01 for inbound "
+                "external email — likely a mail queue bottleneck or transport rule processing delay."
+            ),
+            remediation_steps=[
+                "Check the mail queue on edge01.contoso.com for message backlog or throttling.",
+                "Review Exchange transport rule processing times for inbound external messages.",
+                "Check Forefront/EOP content filtering for latency spikes on edge01.",
+                "Verify network connectivity and DNS resolution between edge01 and EX01.",
+                "If a queue backlog is confirmed, increase transport capacity or clear stuck messages.",
+            ],
+            reporter_name="Nadia Okafor",
+            reporter_email="nadia.okafor@contoso.com",
+            reporter_department="Client Services",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "smtp-headers", "raw-headers"],
+            difficulty="hard",
+        ),
+        # ── DC-018  Unicode/RTL text & zero-width characters ──────────────
+        ScenarioDefinition(
+            scenario_id="DC-018",
+            subject="Can\u2019t upload files to SharePoint \u200e\u200f\u200b\u2069— help needed",
+            description=(
+                "Hi,\n\n"
+                "I\u2019m having trouble uploading files to our team\u2019s SharePoint site.\u200b\u200b\u200b\n\n"
+                "When I try to upload, I get this error:\u200e\n"
+                "\u200f\u202b\u0627\u0644\u062e\u0637\u0623: \u0641\u0634\u0644 \u0627\u0644\u062a\u062d\u0645\u064a\u0644\u202c\u200e "
+                "\"Upload failed: The file name contains invalid characters\"\u200b\u200b\n\n"
+                "The file I\u2019m trying to upload is:\u200e\n"
+                "\u200fQ1\u200b_2026_\u200e\u200fPortfolio\u200b_\u200eAnalysis\u200f_FINAL\u200b\u200b\u200b.xlsx\u200e\n\n"
+                "I renamed it from the original which was:\u200e\n"
+                "\u200f\u202b\u062a\u062d\u0644\u064a\u0644_\u0627\u0644\u0645\u062d\u0641\u0638\u0629_\u0627\u0644\u0631\u0628\u0639_\u0627\u0644\u0623\u0648\u0644\u202c\u200e_2026.xlsx\n\n"
+                "Even the renamed version won\u2019t upload.\u200b My colleague Amir can upload\n"
+                "files fine from his machine.\u200b\u200b\u200b I\u2019m using Edge on Windows 11.\u200b\n\n"
+                "The SharePoint site URL is:\u200e\n"
+                "https://contoso.sharepoint.com/sites/\u200fWealthMgmt\u200e/Shared%20Documents\u200b\n\n"
+                "Please help, I have a client presentation tomorrow and need\n"
+                "to share these files with the team.\u200b\u200b\u200b\n\n"
+                "Layla Mansouri\u200e\u200f\n"
+                "Wealth Management, Building 2, 5th floor, London\u200b"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.APPLICATION_VERSION],
+            next_best_action=(
+                "Investigate SharePoint upload failure caused by invisible Unicode characters "
+                "(zero-width spaces, RTL/LTR marks) in the file name — user needs to strip "
+                "hidden characters from the filename."
+            ),
+            remediation_steps=[
+                "Identify the zero-width and bidirectional Unicode characters in the file name.",
+                "Rename the file using only ASCII characters and re-attempt the upload.",
+                "Check if the original Arabic filename triggered SharePoint's invalid character filter.",
+                "Verify the SharePoint site does not have a custom file naming policy blocking the upload.",
+                "Confirm the upload succeeds after the file is renamed with clean characters.",
+            ],
+            reporter_name="Layla Mansouri",
+            reporter_email="layla.mansouri@contoso.com",
+            reporter_department="Wealth Management",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "unicode-rtl", "zero-width-chars"],
+            difficulty="hard",
+        ),
+        # ── DC-019  JSON / XML configuration dump inline ──────────────────
+        ScenarioDefinition(
+            scenario_id="DC-019",
+            subject="Application gateway returning 502 — config dump attached",
+            description=(
+                "Hi,\n\n"
+                "Our Azure Application Gateway (appgw-prod-eus2-01) is returning 502 Bad Gateway\n"
+                "errors intermittently. I exported the current backend pool configuration:\n\n"
+                "```json\n"
+                "{\n"
+                '  "backendAddressPools": [\n'
+                "    {\n"
+                '      "name": "pool-api-prod",\n'
+                '      "properties": {\n'
+                '        "backendAddresses": [\n'
+                '          { "ipAddress": "10.42.1.10" },\n'
+                '          { "ipAddress": "10.42.1.11" },\n'
+                '          { "ipAddress": "10.42.1.12" },\n'
+                '          { "ipAddress": "10.42.1.13" }\n'
+                "        ],\n"
+                '        "provisioningState": "Succeeded"\n'
+                "      }\n"
+                "    },\n"
+                "    {\n"
+                '      "name": "pool-web-prod",\n'
+                '      "properties": {\n'
+                '        "backendAddresses": [\n'
+                '          { "ipAddress": "10.42.2.10" },\n'
+                '          { "ipAddress": "10.42.2.11" },\n'
+                '          { "ipAddress": "10.42.2.12" }\n'
+                "        ],\n"
+                '        "provisioningState": "Succeeded"\n'
+                "      }\n"
+                "    }\n"
+                "  ],\n"
+                '  "backendHttpSettingsCollection": [\n'
+                "    {\n"
+                '      "name": "http-settings-api",\n'
+                '      "properties": {\n'
+                '        "port": 8443,\n'
+                '        "protocol": "Https",\n'
+                '        "requestTimeout": 30,\n'
+                '        "probe": { "id": "/subscriptions/.../probes/probe-api-health" },\n'
+                '        "hostName": "api-internal.contoso.com",\n'
+                '        "pickHostNameFromBackendAddress": false\n'
+                "      }\n"
+                "    },\n"
+                "    {\n"
+                '      "name": "http-settings-web",\n'
+                '      "properties": {\n'
+                '        "port": 443,\n'
+                '        "protocol": "Https",\n'
+                '        "requestTimeout": 60,\n'
+                '        "probe": { "id": "/subscriptions/.../probes/probe-web-health" },\n'
+                '        "hostName": "www-internal.contoso.com",\n'
+                '        "pickHostNameFromBackendAddress": false\n'
+                "      }\n"
+                "    }\n"
+                "  ],\n"
+                '  "probes": [\n'
+                "    {\n"
+                '      "name": "probe-api-health",\n'
+                '      "properties": {\n'
+                '        "protocol": "Https",\n'
+                '        "host": "api-internal.contoso.com",\n'
+                '        "path": "/health",\n'
+                '        "interval": 30,\n'
+                '        "timeout": 10,\n'
+                '        "unhealthyThreshold": 3\n'
+                "      }\n"
+                "    },\n"
+                "    {\n"
+                '      "name": "probe-web-health",\n'
+                '      "properties": {\n'
+                '        "protocol": "Https",\n'
+                '        "host": "www-internal.contoso.com",\n'
+                '        "path": "/healthz",\n'
+                '        "interval": 30,\n'
+                '        "timeout": 10,\n'
+                '        "unhealthyThreshold": 3\n'
+                "      }\n"
+                "    }\n"
+                "  ]\n"
+                "}\n"
+                "```\n\n"
+                "The 502 errors happen mostly between 09:00-09:30 when traffic spikes. The health\n"
+                "probes seem to be passing fine in Azure Portal. Could be a backend timeout issue\n"
+                "since the API pool timeout is only 30 seconds.\n\n"
+                "Henrik Svensson\n"
+                "Cloud Infrastructure, New York"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate intermittent 502 errors on appgw-prod-eus2-01 during morning "
+                "traffic peak — backend pool timeout of 30s may be too low for the API tier "
+                "under load."
+            ),
+            remediation_steps=[
+                "Check Application Gateway access logs for 502 errors and correlate with backend health probe results.",
+                "Review backend pool member (10.42.1.10-13) health status during the 09:00-09:30 window.",
+                "Increase the API backend HTTP settings request timeout from 30s to 60s.",
+                "Check if the backend VMs are hitting CPU or memory limits during the traffic spike.",
+                "Consider enabling connection draining and auto-scaling on the Application Gateway.",
+            ],
+            reporter_name="Henrik Svensson",
+            reporter_email="henrik.svensson@contoso.com",
+            reporter_department="Cloud Infrastructure",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "json-config-dump", "inline-code"],
+            difficulty="hard",
+        ),
+        # ── DC-020  Auto-reply / out-of-office loop concatenation ─────────
+        ScenarioDefinition(
+            scenario_id="DC-020",
+            subject="Re: Re: Re: Automatic reply: Re: Automatic reply: VPN token expired",
+            description=(
+                "--- Automatic Reply ---\n"
+                "Thank you for your email. I am currently out of the office from March 14\n"
+                "through March 21 with limited access to email. For urgent IT matters, please\n"
+                "contact the IT Service Desk at x5000 or itsupport@contoso.com.\n\n"
+                "Best regards,\nAmy Chen\nIT Service Desk Analyst\n\n"
+                "--- Automatic Reply ---\n"
+                "Hi, this is Carlos Mendez. I'm out of the office until March 19.\n"
+                "For immediate assistance please reach out to my backup, Jenny Park\n"
+                "(jenny.park@contoso.com).\n\n"
+                "--- Automatic Reply ---\n"
+                "Thank you for your email. I am currently out of the office from March 14\n"
+                "through March 21 with limited access to email. For urgent IT matters, please\n"
+                "contact the IT Service Desk at x5000 or itsupport@contoso.com.\n\n"
+                "Best regards,\nAmy Chen\nIT Service Desk Analyst\n\n"
+                "--- Automatic Reply ---\n"
+                "Hi, this is Carlos Mendez. I'm out of the office until March 19.\n"
+                "For immediate assistance please reach out to my backup, Jenny Park\n"
+                "(jenny.park@contoso.com).\n\n"
+                "--- Original Message ---\n"
+                "From: Carlos Mendez <carlos.mendez@contoso.com>\n"
+                "Sent: Thursday, March 14, 2026 2:05 PM\n"
+                "To: IT Support <itsupport@contoso.com>\n"
+                "Subject: VPN token expired\n\n"
+                "Hi team,\n\n"
+                "My RSA SecurID soft token expired and I can't generate new VPN codes. The\n"
+                "token shows 'Token Disabled' in the app. I need VPN access to work from\n"
+                "home next week while the office is closed for maintenance.\n\n"
+                "My employee ID is E-28491. Can you please re-provision my token?\n\n"
+                "Thanks,\n"
+                "Carlos Mendez\n"
+                "Derivatives, Building 3, 6th floor, New York"
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P2,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Re-provision expired RSA SecurID soft token for employee E-28491 — "
+                "token shows 'Disabled' and user needs VPN access for remote work next week."
+            ),
+            remediation_steps=[
+                "Look up employee E-28491 in the RSA Authentication Manager console.",
+                "Verify the token status and confirm it is disabled/expired.",
+                "Re-provision a new RSA SecurID soft token and send the activation link to the user.",
+                "Guide the user through importing the new token on their mobile device.",
+                "Test VPN connectivity with the new token before the office closure.",
+            ],
+            reporter_name="Carlos Mendez",
+            reporter_email="carlos.mendez@contoso.com",
+            reporter_department="Derivatives",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "auto-reply-loop", "ooo-concatenation"],
+            difficulty="hard",
+        ),
     ]

@@ -1,10 +1,10 @@
 # Copyright (c) Microsoft. All rights reserved.
-"""Data cleanup scenario templates for the eval dataset generator.
+"""Data cleanup edge-case scenario templates.
 
-Covers: very long email threads, base64-encoded inline images, HTML-heavy
-emails, garbled/encoding-corrupted text, emoji-heavy chat messages, excessive
-copy-paste content, oversized email signatures, mixed-language tickets,
-truncated messages, HTML entity escaping, log dumps, and duplicate content.
+Covers: long email threads, base64-encoded images, HTML-heavy emails,
+garbled encoding, emoji-heavy chat, repeated content, excessive signatures,
+mixed languages, truncated messages, log dumps, HTML entities, and
+duplicate/stuttering content.
 """
 
 from ms.evals.constants import Category
@@ -217,8 +217,8 @@ register(
         needs_escalation=False,
         missing_information=[MissingInfo.ERROR_MESSAGE],
         subjects=[
-            "Printer producing garbled output — urg\u00ebnt",
-            "Printer prints gibberish — \u00e9ncoding issue?",
+            "Printer producing garbled output \u2014 urg\u00ebnt",
+            "Printer prints gibberish \u2014 \u00e9ncoding issue?",
             "Print output corrupted with strange characters",
         ],
         descriptions=[
@@ -343,6 +343,19 @@ register(
             "Fault offset: 0x00000000005a3b10\n\n"
             "This is the only email that causes it. All other emails open fine.\n"
             "I'm on {os} with Microsoft 365 Apps, Current Channel.",
+            "Teams keeps freezing whenever I try to join a meeting with more than 10 "
+            "participants.\n\n"
+            "Error from application log:\n\n"
+            "[ERROR] Teams.exe: Unhandled exception at 0x00007FFB12345678\n"
+            "Memory allocation failure in MediaStack::Initialize\n"
+            "[ERROR] Teams.exe: Unhandled exception at 0x00007FFB12345678\n"
+            "Memory allocation failure in MediaStack::Initialize\n"
+            "[ERROR] Teams.exe: Unhandled exception at 0x00007FFB12345678\n"
+            "Memory allocation failure in MediaStack::Initialize\n"
+            "[ERROR] Teams.exe: Unhandled exception at 0x00007FFB12345678\n"
+            "Memory allocation failure in MediaStack::Initialize\n\n"
+            "The error above keeps repeating in the log. I have a town hall meeting "
+            "in 2 hours and need this resolved. Running {os} with 16 GB RAM.",
         ],
         next_best_actions=[
             "Diagnose Outlook crash (0xc0000005) triggered by a specific email — likely "
@@ -406,6 +419,27 @@ register(
             "contained in this communication is not intended or written to be used\n"
             "for the purpose of avoiding penalties under the Internal Revenue Code.\n"
             "====================================================================",
+            "Hi — I got a new badge last week but it does not work on the 22nd floor "
+            "server room doors. Regular office doors work fine.\n\n"
+            "Best regards,\n\n"
+            "{name}\n"
+            "Managing Director | Global Infrastructure\n"
+            "Contoso Financial Services, Ltd.\n"
+            "25 Bank Street, Canary Wharf\n"
+            "London E14 5JP, United Kingdom\n"
+            "Office: +44 (0)20 7946 0958\n"
+            "Mobile: +44 (0)7700 900123\n"
+            "Email: {name1}@contoso.com\n\n"
+            "---------------------------------------------------------------\n"
+            "IMPORTANT: This email is confidential and may be legally\n"
+            "privileged. If you have received it in error, please notify\n"
+            "the sender immediately and delete it. You must not copy,\n"
+            "distribute or take any action in reliance upon it.\n\n"
+            "Contoso Financial Services, Ltd. is authorised and regulated\n"
+            "by the Financial Conduct Authority (FCA). Registered in\n"
+            "England and Wales, Company No. 12345678.\n\n"
+            "Think before you print \u2014 save paper, save trees.\n"
+            "---------------------------------------------------------------",
         ],
         next_best_actions=[
             "Reactivate or replace badge for user unable to enter building turnstile.",
@@ -452,10 +486,24 @@ register(
             "From {office} the connection is stable. The issue only happens when I connect "
             "to the Singapore or London VDI pools. My laptop is a ThinkPad X1 Carbon Gen 11 "
             "with VMware Horizon Client 2312.",
+            "Hola equipo de soporte,\n\n"
+            "Estoy teniendo problemas con la conexi\u00f3n VPN desde nuestra oficina "
+            "en Ciudad de M\u00e9xico. La conexi\u00f3n se cae cada 15 minutos "
+            "aproximadamente.\n\n"
+            "In English: The VPN connection from the Mexico City office drops every "
+            "15 minutes. I am using GlobalProtect on a Dell Latitude 5540 running "
+            "{os}. The local internet works fine \u2014 only the VPN tunnel is unstable.\n\n"
+            "El error que aparece es: \"Gateway timed out. Please try reconnecting.\"\n"
+            "The error that shows is: \"Gateway timed out. Please try reconnecting.\"\n\n"
+            "Por favor ay\u00fadenme lo antes posible, tengo reuniones con Nueva York "
+            "toda la tarde.\n"
+            "Please help ASAP \u2014 I have meetings with New York all afternoon.",
         ],
         next_best_actions=[
             "Investigate VDI session freezes when user connects to remote pools — likely "
             "WAN latency or protocol configuration issue.",
+            "Diagnose VPN tunnel drops from Mexico City office — check regional gateway "
+            "routing and split-tunnel policy.",
         ],
         remediation_steps=[
             [
@@ -502,10 +550,27 @@ register(
             "16:00 ET and reads from the replica. If the lag isn't cleared by then, we'll "
             "have incorrect NAV calculations which will trigger regulatory reporting "
             "discrepancies and we'll need to file correc",
+            "URGENT: The nightly ETL job for the trade reconciliation system failed "
+            "at 03:47 AM and the data has not been loaded into the data warehouse.\n\n"
+            "The downstream dashboards that Risk and Compliance rely on are now "
+            "stale \u2014 showing yesterday's data. We need this resolved before the "
+            "London desk opens at 08:00 GMT.\n\n"
+            "Error from the ETL log:\n"
+            "- Source: TradeRecon_Extract_PROD\n"
+            "- Step: DimCounterparty merge\n"
+            "- Error: Violation of PRIMARY KEY constraint 'PK_Counterparty'. "
+            "Cannot insert duplicate key in object 'dbo.DimCounterparty'. "
+            "The duplicate key value is (89274\n\n"
+            "The job has been stable for months. Last change was a schema "
+            "update on the counterparty table two weeks ago. The developer who "
+            "made that change is on PTO and I don't have access to the ETL "
+            "configuration to check the mappi",
         ],
         next_best_actions=[
             "Urgently resolve SQL Server replication lag before 16:00 ET EOD NAV calculation "
-            "— 45-minute data staleness affecting 30 PMs.",
+            "\u2014 45-minute data staleness affecting 30 PMs.",
+            "Investigate failed nightly ETL job blocking trade reconciliation dashboards "
+            "\u2014 primary key violation in DimCounterparty merge step.",
         ],
         remediation_steps=[
             [
@@ -515,61 +580,23 @@ register(
                 "Consider reinitializing replication from a snapshot if lag cannot be recovered",
                 "Notify portfolio management leads of potential data staleness and EOD risk",
             ],
-        ],
-    )
-)
-
-# ---------------------------------------------------------------------------
-# dc-010  HTML entities and escaped characters throughout
-# ---------------------------------------------------------------------------
-register(
-    ScenarioTemplate(
-        scenario_id="dc-010",
-        category=Category.ACCESS_AUTH,
-        priority=Priority.P1,
-        assigned_team=Team.IAM,
-        needs_escalation=True,
-        missing_information=[MissingInfo.AUTHENTICATION_METHOD],
-        subjects=[
-            "Can&#39;t log in to trading platform &mdash; &quot;session expired&quot;",
-            "Login failure &mdash; &quot;authentication error&quot; on {app}",
-            "Account locked out &#47; session error on critical system",
-        ],
-        descriptions=[
-            "Every time I try to log in to the Contoso Trading Platform (CTP) I get the "
-            "error: &quot;Your session has expired. Please contact your administrator.&quot;\n\n"
-            "I&apos;ve tried:\n"
-            "1. Clearing cookies &amp; cache\n"
-            "2. Using incognito&#47;private mode\n"
-            "3. Trying from a different machine\n"
-            "4. Resetting my password via the &quot;Forgot Password&quot; link\n\n"
-            "None of these work. I&apos;m getting the same error on both my laptop &amp; "
-            "my desktop. My colleagues in the same team can log in fine.\n\n"
-            "This started after the maintenance window last night (March 17 &ndash; 18). "
-            "I&apos;m locked out of all my positions and can&apos;t execute trades.",
-        ],
-        next_best_actions=[
-            "Restore trading platform access for user locked out after maintenance — "
-            "session token or account state likely not migrated correctly.",
-        ],
-        remediation_steps=[
             [
-                "Check identity provider logs for the user's failed authentication attempts",
-                "Verify the user's account was not disabled or locked during maintenance",
-                "Clear stale session tokens in the session store for this user",
-                "If tokens were rotated during maintenance, ensure the user's IdP mapping is current",
-                "Confirm login works and monitor for recurrence",
+                "Review the ETL job error log for the primary key violation details",
+                "Check the DimCounterparty table for duplicate source keys introduced by the schema change",
+                "Apply a deduplication fix or update the merge logic to handle the new key pattern",
+                "Rerun the ETL job and verify downstream dashboards refresh",
+                "Notify Risk and Compliance of the data delay and expected resolution time",
             ],
         ],
     )
 )
 
 # ---------------------------------------------------------------------------
-# dc-011  Application log dump pasted into ticket
+# dc-010  Application log dump pasted into ticket
 # ---------------------------------------------------------------------------
 register(
     ScenarioTemplate(
-        scenario_id="dc-011",
+        scenario_id="dc-010",
         category=Category.SOFTWARE,
         priority=Priority.P2,
         assigned_team=Team.ENTERPRISE_APPS,
@@ -603,10 +630,28 @@ register(
             "[2026-03-18T06:17:16Z] Tests: 0 passed, 18 failed, 18 total\n"
             "[2026-03-18T06:17:16Z] Pipeline FAILED at stage: Integration Tests\n\n"
             "This has failed on every retry (5 times now). The test DB seems to be down.",
+            "Our internal Python deployment pipeline has been failing for the data "
+            "analytics service. Here is the log:\n\n"
+            "[2026-03-18T08:00:01Z] Deploying data-analytics-svc v2.14.3 to prod-east\n"
+            "[2026-03-18T08:00:02Z] Pulling image: contoso.azurecr.io/data-analytics:2.14.3\n"
+            "[2026-03-18T08:00:15Z] Image pulled successfully\n"
+            "[2026-03-18T08:00:16Z] Starting health check...\n"
+            "[2026-03-18T08:00:46Z] Health check: /healthz returned 503\n"
+            "[2026-03-18T08:01:16Z] Health check: /healthz returned 503\n"
+            "[2026-03-18T08:01:46Z] Health check: /healthz returned 503\n"
+            "[2026-03-18T08:01:46Z] FATAL: Health check failed after 3 attempts\n"
+            "[2026-03-18T08:01:47Z] Rolling back to v2.14.2\n"
+            "[2026-03-18T08:01:55Z] Rollback complete. v2.14.2 is healthy.\n"
+            "[2026-03-18T08:01:55Z] Deployment FAILED for v2.14.3\n\n"
+            "We need v2.14.3 deployed because it contains a critical fix for "
+            "the overnight batch valuation job. Can someone look at why the "
+            "health check is failing?",
         ],
         next_best_actions=[
             "Restore connectivity to integration test database — CI/CD pipeline blocked "
             "since 06:15 AM.",
+            "Investigate health check failure preventing deployment of data-analytics-svc "
+            "v2.14.3 — service returns 503 on startup.",
         ],
         remediation_steps=[
             [
@@ -615,6 +660,71 @@ register(
                 "Check if there was a maintenance or patching event on the database server overnight",
                 "Restart the SQL Server service if stopped and verify integration tests pass",
                 "Notify the engineering team once the pipeline is green",
+            ],
+            [
+                "Pull the v2.14.3 container locally and inspect startup logs for the 503 cause",
+                "Compare environment variables and config between v2.14.2 and v2.14.3",
+                "Check if a new dependency or migration was introduced that fails in the prod environment",
+                "Fix the startup issue, rebuild the image, and redeploy",
+                "Verify the health check passes and the overnight batch job succeeds",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-011  HTML entities and escaped characters throughout
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-011",
+        category=Category.ACCESS_AUTH,
+        priority=Priority.P1,
+        assigned_team=Team.IAM,
+        needs_escalation=True,
+        missing_information=[MissingInfo.AUTHENTICATION_METHOD],
+        subjects=[
+            "Can&#39;t log in to trading platform &mdash; &quot;session expired&quot;",
+            "Login failure &mdash; &quot;authentication error&quot; on {app}",
+            "Account locked out &#47; session error on critical system",
+        ],
+        descriptions=[
+            "Every time I try to log in to the Contoso Trading Platform (CTP) I get the "
+            "error: &quot;Your session has expired. Please contact your administrator.&quot;\n\n"
+            "I&apos;ve tried:\n"
+            "1. Clearing cookies &amp; cache\n"
+            "2. Using incognito&#47;private mode\n"
+            "3. Trying from a different machine\n"
+            "4. Resetting my password via the &quot;Forgot Password&quot; link\n\n"
+            "None of these work. I&apos;m getting the same error on both my laptop &amp; "
+            "my desktop. My colleagues in the same team can log in fine.\n\n"
+            "This started after the maintenance window last night (March 17 &ndash; 18). "
+            "I&apos;m locked out of all my positions and can&apos;t execute trades.",
+            "I can&apos;t access the &quot;Risk Analytics Dashboard&quot; since "
+            "this morning. When I click the link it redirects to the login page "
+            "and shows: &quot;Error 401 &ndash; Unauthorized&quot;.\n\n"
+            "Details:\n"
+            "&#8226; URL: https://analytics.contoso.com/risk&#45;dashboard\n"
+            "&#8226; Browser: {browser}\n"
+            "&#8226; Time: 09:15 AM ET\n\n"
+            "I&apos;ve verified my credentials are correct &amp; my account "
+            "isn&apos;t locked. Other internal sites work fine &#40;SharePoint, "
+            "Confluence, Jira&#41;. This dashboard is critical for our morning "
+            "risk review &mdash; the entire trading desk needs the data by 10 AM.",
+        ],
+        next_best_actions=[
+            "Restore trading platform access for user locked out after maintenance — "
+            "session token or account state likely not migrated correctly.",
+            "Investigate 401 Unauthorized on Risk Analytics Dashboard — verify IdP "
+            "claim mappings and session cookie configuration.",
+        ],
+        remediation_steps=[
+            [
+                "Check identity provider logs for the user's failed authentication attempts",
+                "Verify the user's account was not disabled or locked during maintenance",
+                "Clear stale session tokens in the session store for this user",
+                "If tokens were rotated during maintenance, ensure the user's IdP mapping is current",
+                "Confirm login works and monitor for recurrence",
             ],
         ],
     )
@@ -648,10 +758,23 @@ register(
             "direct number is +1 (212) 555-2201.\n\n"
             "This started yesterday afternoon. I tried signing out and back in, same issue. "
             "This started yesterday afternoon. I tried signing out and back in, same issue.",
+            "Excel keeps crashing when I open the Q1 financial model. Excel keeps "
+            "crashing when I open the Q1 financial model. The file is about 45 MB "
+            "and has many pivot tables. The file is about 45 MB and has many pivot "
+            "tables.\n\n"
+            "I've tried opening it on a different computer and same thing happens. "
+            "I've tried opening it on a different computer and same thing happens. "
+            "The file was working fine last week. The file was working fine last "
+            "week.\n\n"
+            "This is blocking the quarterly earnings preparation. Other Excel files "
+            "open without issues. This is blocking the quarterly earnings "
+            "preparation. Other Excel files open without issues.",
         ],
         next_best_actions=[
             "Troubleshoot phone call routing — incoming calls going directly to voicemail "
             "despite available status.",
+            "Diagnose Excel crash on large workbook — likely a corrupted file or "
+            "memory issue with pivot table recalculation.",
         ],
         remediation_steps=[
             [
@@ -660,6 +783,13 @@ register(
                 "Check if the phone license is active and properly assigned",
                 "Test inbound call while monitoring the admin dashboard",
                 "Update the desktop client if the version is outdated",
+            ],
+            [
+                "Attempt to open the file in Excel safe mode to rule out add-in conflicts",
+                "Try opening the file with the repair option via File > Open > Open and Repair",
+                "If repair fails, extract data from the corrupted workbook into a new file",
+                "Check if the issue is specific to this file or all large workbooks",
+                "Update Excel to the latest build if the version is behind",
             ],
         ],
     )

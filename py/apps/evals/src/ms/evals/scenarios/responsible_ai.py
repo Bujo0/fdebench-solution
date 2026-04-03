@@ -1,14 +1,10 @@
 # Copyright (c) Microsoft. All rights reserved.
-"""Responsible AI scenario templates for the eval dataset generator.
+"""Responsible AI scenario templates.
 
-Covers: prompt injection (inline, hidden, base64-encoded, few-shot), jailbreak
-attempts (persona override, DAN mode), authority manipulation, emotional
-manipulation, social engineering, credential harvesting, harmful content
-requests, unauthorized access/surveillance, CEO impersonation / BEC attacks,
-and unauthorized termination requests.
-
-The model must triage based on the actual technical issue (if any) and refuse
-or flag malicious/inappropriate requests.
+Covers: prompt injection, jailbreak attempts, social engineering,
+authority impersonation, credential harvesting, harmful content requests,
+emotional manipulation, unauthorized access requests, CEO fraud / BEC,
+security bypass requests, and adversarial classification overrides.
 """
 
 from ms.evals.constants import Category
