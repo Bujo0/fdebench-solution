@@ -2397,11 +2397,11 @@ register(
 )
 
 # ---------------------------------------------------------------------------
-# dc-028  RTF/Rich Text formatting markup noise
+# dc-036  RTF/Rich Text formatting markup noise
 # ---------------------------------------------------------------------------
 register(
     ScenarioTemplate(
-        scenario_id="dc-028",
+        scenario_id="dc-036",
         category=Category.DATA,
         priority=Priority.P2,
         assigned_team=Team.DATA_PLATFORM,
@@ -2483,11 +2483,11 @@ register(
 )
 
 # ---------------------------------------------------------------------------
-# dc-029  Email reply chain with conflicting information
+# dc-037  Email reply chain with conflicting information
 # ---------------------------------------------------------------------------
 register(
     ScenarioTemplate(
-        scenario_id="dc-029",
+        scenario_id="dc-037",
         category=Category.ACCESS_AUTH,
         priority=Priority.P3,
         assigned_team=Team.IAM,
@@ -2577,11 +2577,11 @@ register(
 )
 
 # ---------------------------------------------------------------------------
-# dc-030  Raw monitoring metrics dump — database disk space
+# dc-038  Raw monitoring metrics dump — database disk space
 # ---------------------------------------------------------------------------
 register(
     ScenarioTemplate(
-        scenario_id="dc-030",
+        scenario_id="dc-038",
         category=Category.DATA,
         priority=Priority.P1,
         assigned_team=Team.DATA_PLATFORM,
@@ -2675,11 +2675,11 @@ register(
 )
 
 # ---------------------------------------------------------------------------
-# dc-031  PDF-to-text conversion artifacts — software license expiration
+# dc-039  PDF-to-text conversion artifacts — software license expiration
 # ---------------------------------------------------------------------------
 register(
     ScenarioTemplate(
-        scenario_id="dc-031",
+        scenario_id="dc-039",
         category=Category.SOFTWARE,
         priority=Priority.P3,
         assigned_team=Team.ENTERPRISE_APPS,
@@ -2760,11 +2760,11 @@ register(
 )
 
 # ---------------------------------------------------------------------------
-# dc-032  Enormous CC list with auto-reply noise — shared mailbox
+# dc-040  Enormous CC list with auto-reply noise — shared mailbox
 # ---------------------------------------------------------------------------
 register(
     ScenarioTemplate(
-        scenario_id="dc-032",
+        scenario_id="dc-040",
         category=Category.SOFTWARE,
         priority=Priority.P2,
         assigned_team=Team.ENTERPRISE_APPS,
@@ -2853,11 +2853,11 @@ register(
 )
 
 # ---------------------------------------------------------------------------
-# dc-033  Screenshot OCR with layout artifacts — SAP transaction
+# dc-041  Screenshot OCR with layout artifacts — SAP transaction
 # ---------------------------------------------------------------------------
 register(
     ScenarioTemplate(
-        scenario_id="dc-033",
+        scenario_id="dc-041",
         category=Category.SOFTWARE,
         priority=Priority.P2,
         assigned_team=Team.ENTERPRISE_APPS,
@@ -2935,11 +2935,11 @@ register(
 )
 
 # ---------------------------------------------------------------------------
-# dc-034  Base64 encoded non-image files inline — SharePoint upload
+# dc-042  Base64 encoded non-image files inline — SharePoint upload
 # ---------------------------------------------------------------------------
 register(
     ScenarioTemplate(
-        scenario_id="dc-034",
+        scenario_id="dc-042",
         category=Category.DATA,
         priority=Priority.P3,
         assigned_team=Team.DATA_PLATFORM,
@@ -3014,11 +3014,11 @@ register(
 )
 
 # ---------------------------------------------------------------------------
-# dc-035  Voice-to-text transcript with severe recognition errors
+# dc-043  Voice-to-text transcript with severe recognition errors
 # ---------------------------------------------------------------------------
 register(
     ScenarioTemplate(
-        scenario_id="dc-035",
+        scenario_id="dc-043",
         category=Category.HARDWARE,
         priority=Priority.P3,
         assigned_team=Team.ENDPOINT,
