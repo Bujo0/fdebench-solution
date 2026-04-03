@@ -1058,8 +1058,7 @@ register(
         next_best_actions=[
             "Investigate SOAP authentication token expiration blocking settlement "
             "feed — token refresh endpoint appears to be failing as well.",
-            "Urgently resolve vendor API auth failure — 4,200 trades pending "
-            "settlement submission.",
+            "Urgently resolve vendor API auth failure — 4,200 trades pending settlement submission.",
         ],
         remediation_steps=[
             [
@@ -1275,10 +1274,8 @@ register(
             "update from your side?",
         ],
         next_best_actions=[
-            "Troubleshoot Exchange ActiveSync failure — phone hasn't synced in 2 days "
-            "with 47 consecutive errors.",
-            "Resolve Intune-managed Teams update failure — access denied error after "
-            "3 retry attempts.",
+            "Troubleshoot Exchange ActiveSync failure — phone hasn't synced in 2 days with 47 consecutive errors.",
+            "Resolve Intune-managed Teams update failure — access denied error after 3 retry attempts.",
         ],
         remediation_steps=[
             [
@@ -1345,8 +1342,7 @@ register(
         next_best_actions=[
             "Diagnose intermittent WiFi disconnects for a single user — other "
             "nearby users unaffected, suggesting a client-side issue.",
-            "Investigate recurring wireless drops — check WiFi adapter driver "
-            "and power management settings.",
+            "Investigate recurring wireless drops — check WiFi adapter driver and power management settings.",
         ],
         remediation_steps=[
             [
@@ -1532,8 +1528,7 @@ register(
         next_best_actions=[
             "Help user re-register MFA after phone replacement — push notifications "
             "not transferring to new device requires MFA method re-enrollment.",
-            "Investigate SSO authentication failure — user may have expired password "
-            "or stale MFA registration.",
+            "Investigate SSO authentication failure — user may have expired password or stale MFA registration.",
         ],
         remediation_steps=[
             [
