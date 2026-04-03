@@ -184,7 +184,7 @@ register(
             '<div class="WordSection1">'
             '<p class="MsoNormal"><span style="font-size:11.0pt">Hello,</span></p>'
             '<p class="MsoNormal"><span style="font-size:11.0pt">I&rsquo;m unable to access the '
-            "internal wiki at <a href=\"https://contoso.sharepoint.com/sites/ITWiki\">"
+            'internal wiki at <a href="https://contoso.sharepoint.com/sites/ITWiki">'
             "https://contoso.sharepoint.com/sites/ITWiki</a>. I get &ldquo;You don&rsquo;t have "
             "access to this resource&rdquo; since the migration last week.</span></p>"
             '<p class="MsoNormal"><o:p>&nbsp;</o:p></p>'
@@ -241,8 +241,7 @@ register(
             "so the issue seems to be between the print server and the printer.",
         ],
         next_best_actions=[
-            "Investigate printer producing garbled output — likely a corrupt print driver "
-            "or PCL/PostScript mismatch.",
+            "Investigate printer producing garbled output — likely a corrupt print driver or PCL/PostScript mismatch.",
             "Diagnose encoding corruption between print server and printer — check driver "
             "language settings and font substitution.",
         ],
@@ -297,10 +296,8 @@ register(
             "nothing works \U0001f92f pls help",
         ],
         next_best_actions=[
-            "Investigate Slack-Jira integration returning 502 errors — blocking incident "
-            "tracking workflow.",
-            "Diagnose integration connector failure returning 502 — check OAuth tokens "
-            "and webhook configuration.",
+            "Investigate Slack-Jira integration returning 502 errors — blocking incident tracking workflow.",
+            "Diagnose integration connector failure returning 502 — check OAuth tokens and webhook configuration.",
         ],
         remediation_steps=[
             [
@@ -364,8 +361,7 @@ register(
         next_best_actions=[
             "Diagnose Outlook crash (0xc0000005) triggered by a specific email — likely "
             "a corrupted message or embedded object.",
-            "Investigate application crash caused by a specific input — review crash dumps "
-            "and test in safe mode.",
+            "Investigate application crash caused by a specific input — review crash dumps and test in safe mode.",
         ],
         remediation_steps=[
             [
@@ -447,8 +443,7 @@ register(
         ],
         next_best_actions=[
             "Reactivate or replace badge for user unable to enter building turnstile.",
-            "Investigate physical access card failure — check if badge was deactivated, "
-            "expired, or flagged.",
+            "Investigate physical access card failure — check if badge was deactivated, expired, or flagged.",
         ],
         remediation_steps=[
             [
@@ -497,8 +492,8 @@ register(
             "In English: The VPN connection from the Mexico City office drops every "
             "15 minutes. I am using GlobalProtect on a Dell Latitude 5540 running "
             "{os}. The local internet works fine \u2014 only the VPN tunnel is unstable.\n\n"
-            "El error que aparece es: \"Gateway timed out. Please try reconnecting.\"\n"
-            "The error that shows is: \"Gateway timed out. Please try reconnecting.\"\n\n"
+            'El error que aparece es: "Gateway timed out. Please try reconnecting."\n'
+            'The error that shows is: "Gateway timed out. Please try reconnecting."\n\n'
             "Por favor ay\u00fadenme lo antes posible, tengo reuniones con Nueva York "
             "toda la tarde.\n"
             "Please help ASAP \u2014 I have meetings with New York all afternoon.",
@@ -652,8 +647,7 @@ register(
             "health check is failing?",
         ],
         next_best_actions=[
-            "Restore connectivity to integration test database — CI/CD pipeline blocked "
-            "since 06:15 AM.",
+            "Restore connectivity to integration test database — CI/CD pipeline blocked since 06:15 AM.",
             "Investigate health check failure preventing deployment of data-analytics-svc "
             "v2.14.3 — service returns 503 on startup.",
         ],
@@ -775,8 +769,7 @@ register(
             "preparation. Other Excel files open without issues.",
         ],
         next_best_actions=[
-            "Troubleshoot phone call routing — incoming calls going directly to voicemail "
-            "despite available status.",
+            "Troubleshoot phone call routing — incoming calls going directly to voicemail despite available status.",
             "Diagnose Excel crash on large workbook — likely a corrupted file or "
             "memory issue with pivot table recalculation.",
         ],
@@ -1065,8 +1058,7 @@ register(
         next_best_actions=[
             "Investigate SOAP authentication token expiration blocking settlement "
             "feed — token refresh endpoint appears to be failing as well.",
-            "Urgently resolve vendor API auth failure — 4,200 trades pending "
-            "settlement submission.",
+            "Urgently resolve vendor API auth failure — 4,200 trades pending settlement submission.",
         ],
         remediation_steps=[
             [
@@ -1282,10 +1274,8 @@ register(
             "update from your side?",
         ],
         next_best_actions=[
-            "Troubleshoot Exchange ActiveSync failure — phone hasn't synced in 2 days "
-            "with 47 consecutive errors.",
-            "Resolve Intune-managed Teams update failure — access denied error after "
-            "3 retry attempts.",
+            "Troubleshoot Exchange ActiveSync failure — phone hasn't synced in 2 days with 47 consecutive errors.",
+            "Resolve Intune-managed Teams update failure — access denied error after 3 retry attempts.",
         ],
         remediation_steps=[
             [
@@ -1352,8 +1342,7 @@ register(
         next_best_actions=[
             "Diagnose intermittent WiFi disconnects for a single user — other "
             "nearby users unaffected, suggesting a client-side issue.",
-            "Investigate recurring wireless drops — check WiFi adapter driver "
-            "and power management settings.",
+            "Investigate recurring wireless drops — check WiFi adapter driver and power management settings.",
         ],
         remediation_steps=[
             [
@@ -1539,8 +1528,7 @@ register(
         next_best_actions=[
             "Help user re-register MFA after phone replacement — push notifications "
             "not transferring to new device requires MFA method re-enrollment.",
-            "Investigate SSO authentication failure — user may have expired password "
-            "or stale MFA registration.",
+            "Investigate SSO authentication failure — user may have expired password or stale MFA registration.",
         ],
         remediation_steps=[
             [

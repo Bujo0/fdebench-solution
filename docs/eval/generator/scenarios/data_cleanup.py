@@ -112,26 +112,26 @@ SCENARIOS: list[Scenario] = [
         missing_information=["application_version", "steps_to_reproduce"],
         subjects=[
             "<div style='color:red'>Excel crashes on open</div> — HELP",
-            "RE: <span class=\"urgent\">Spreadsheet macro error</span>",
+            'RE: <span class="urgent">Spreadsheet macro error</span>',
         ],
         descriptions=[
-            "<html><body><div style=\"font-family: Calibri, sans-serif; font-size: 11pt;\">"
-            "<p style=\"margin: 0; padding: 0;\"><b>Hi IT Team,</b></p>"
-            "<p style=\"color: #cc0000; font-weight: bold;\">URGENT ISSUE:</p>"
-            "<table border=\"1\" cellpadding=\"5\"><tr><td>Application</td><td>Excel 365</td></tr>"
+            '<html><body><div style="font-family: Calibri, sans-serif; font-size: 11pt;">'
+            '<p style="margin: 0; padding: 0;"><b>Hi IT Team,</b></p>'
+            '<p style="color: #cc0000; font-weight: bold;">URGENT ISSUE:</p>'
+            '<table border="1" cellpadding="5"><tr><td>Application</td><td>Excel 365</td></tr>'
             "<tr><td>Error</td><td>Crashes on file open</td></tr>"
             "<tr><td>Frequency</td><td>Every time</td></tr></table>"
             "<p>Every time I try to open the Q4 budget spreadsheet (about 50 MB with macros), Excel "
             "crashes immediately. I get a &quot;Microsoft Excel has stopped working&quot; dialog. "
             "I&apos;ve tried disabling macros on open but it still crashes.</p>"
-            "<p style=\"color: gray; font-size: 9pt;\">Sent from my corporate workstation</p>"
+            '<p style="color: gray; font-size: 9pt;">Sent from my corporate workstation</p>'
             "</div></body></html>",
-            "<div class=\"email-body\"><p>Excel 365 keeps crashing when I open a specific macro-enabled "
+            '<div class="email-body"><p>Excel 365 keeps crashing when I open a specific macro-enabled '
             "workbook (.xlsm). The file is ~45&nbsp;MB and has VBA macros plus external data connections. "
             "I&#39;ve tried opening in Safe Mode and repairing the Office installation. "
             "The &lt;error dialog&gt; just says &quot;Excel stopped working.&quot;</p>"
-            "<br/><hr style=\"border: 1px solid #ccc;\"/>"
-            "<p style=\"font-size: 8pt; color: #999;\">This email and any attachments are "
+            '<br/><hr style="border: 1px solid #ccc;"/>'
+            '<p style="font-size: 8pt; color: #999;">This email and any attachments are '
             "confidential...</p></div>",
         ],
         next_best_actions=[
@@ -160,7 +160,7 @@ SCENARIOS: list[Scenario] = [
         needs_escalation=False,
         missing_information=["network_location", "error_message", "environment_details"],
         subjects=[
-            "VPN disconnects â€" canâ€\x99t stay connected for more than 5 min",
+            "VPN disconnects â€” canâ€\x99t stay connected for more than 5 min",
             "Ã©chec de connexion VPN — keeps dropping (encoding issue in subject too)",
         ],
         descriptions=[
@@ -169,7 +169,7 @@ SCENARIOS: list[Scenario] = [
             "The error says â€œGateway not reachableâ€\x9d but my internet is fine. Iâ€\x99ve tried "
             "reinstalling the client but same issue. My colleague on the same network doesnâ€\x99t "
             "have this problem.\n\n"
-            "Thanks,\nJohn â€" Finance Department",
+            "Thanks,\nJohn â€” Finance Department",
             "VPN keeps disconnecting. Error message is garbled on my screen: "
             "ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œConnection timed outÃƒÂ¢Ã¢â€šÂ¬Ã‚Â. "
             "IÃ¢â‚¬â„¢ve been dealing with this for three days. Using GlobalProtect on Windows 11. "
@@ -474,8 +474,8 @@ SCENARIOS: list[Scenario] = [
             "[2024-01-15T08:00:02.345Z] INFO  DBPool: Connected to db-prod-east-1.contoso.internal:5432\n"
             "[2024-01-15T08:00:02.678Z] DEBUG AuthModule: Refreshing OAuth token for service account\n"
             "[2024-01-15T08:00:03.012Z] ERROR AuthModule: Token refresh failed — HTTP 401 Unauthorized\n"
-            "[2024-01-15T08:00:03.013Z] ERROR AuthModule: Response: {\"error\": \"invalid_client\", "
-            "\"error_description\": \"client secret has expired\"}\n"
+            '[2024-01-15T08:00:03.013Z] ERROR AuthModule: Response: {"error": "invalid_client", '
+            '"error_description": "client secret has expired"}\n'
             "[2024-01-15T08:00:03.014Z] FATAL CRMConnector: Cannot authenticate to Salesforce API\n"
             "[2024-01-15T08:00:03.015Z] FATAL CRMConnector: Shutting down — unrecoverable auth error\n"
             "[2024-01-15T08:00:03.100Z] INFO  AppShutdown: Cleanup complete. Exit code: 1\n\n"
@@ -487,7 +487,7 @@ SCENARIOS: list[Scenario] = [
             "[DEBUG] OAuth2TokenProvider: token_endpoint=https://login.salesforce.com/services/oauth2/token\n"
             "[DEBUG] OAuth2TokenProvider: client_id=3MVG9...truncated\n"
             "[ERROR] OAuth2TokenProvider: grant_type=client_credentials returned 401\n"
-            "[ERROR] OAuth2TokenProvider: {\"error\":\"invalid_client\"}\n"
+            '[ERROR] OAuth2TokenProvider: {"error":"invalid_client"}\n'
             "[FATAL] SalesforceSync: Aborting sync cycle — no valid access token",
         ],
         next_best_actions=[

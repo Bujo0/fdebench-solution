@@ -19,9 +19,9 @@ dev = [
 requires = ["uv_build>=0.10.10,<0.11.0"]
 build-backend = "uv_build"
 
+[tool.uv.sources]
+ms-common-models = { workspace = true }
+
 [tool.uv.build-backend]
 module-name = "ms.evals_core"
 module-root = "src"
-
-[tool.uv.sources]
-ms-common-models = { workspace = true }

@@ -921,7 +921,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "To: Nadia Okafor <nadia.okafor@contoso.com>\n"
                 "Subject: Q1 Portfolio Rebalancing - Urgent Review\n"
                 "MIME-Version: 1.0\n"
-                "Content-Type: multipart/alternative; boundary=\"0000000000abc123def456\"\n\n"
+                'Content-Type: multipart/alternative; boundary="0000000000abc123def456"\n\n'
                 "As you can see, there's a 2+ hour gap between when it hits edge01 at 12:15\n"
                 "and when it reaches EX01 at 14:22. This is happening on most external emails.\n"
                 "Internal emails are fine.\n\n"
@@ -959,8 +959,9 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "Hi,\n\n"
                 "I\u2019m having trouble uploading files to our team\u2019s SharePoint site.\u200b\u200b\u200b\n\n"
                 "When I try to upload, I get this error:\u200e\n"
-                "\u200f\u202b\u0627\u0644\u062e\u0637\u0623: \u0641\u0634\u0644 \u0627\u0644\u062a\u062d\u0645\u064a\u0644\u202c\u200e "
-                "\"Upload failed: The file name contains invalid characters\"\u200b\u200b\n\n"
+                "\u200f\u202b\u0627\u0644\u062e\u0637\u0623: "
+                "\u0641\u0634\u0644 \u0627\u0644\u062a\u062d\u0645\u064a\u0644\u202c\u200e "
+                '"Upload failed: The file name contains invalid characters"\u200b\u200b\n\n'
                 "The file I\u2019m trying to upload is:\u200e\n"
                 "\u200fQ1\u200b_2026_\u200e\u200fPortfolio\u200b_\u200eAnalysis\u200f_FINAL\u200b\u200b\u200b.xlsx\u200e\n\n"
                 "I renamed it from the original which was:\u200e\n"
