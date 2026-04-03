@@ -7,6 +7,9 @@ requires-python = ">=3.12"
 [dependency-groups]
 dev = []
 
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
+
 [tool.uv]
 required-version = ">=0.9.5"
 
