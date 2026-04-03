@@ -1,0 +1,1780 @@
+"""Data cleanup edge-case scenarios for the Contoso Financial Services eval suite.
+
+These scenarios stress-test the triage model's ability to extract the real
+support issue from noisy, malformed, or excessively verbose input.
+"""
+
+from ms.evals_core.constants import Category
+from ms.evals_core.constants import Channel
+from ms.evals_core.constants import MissingInfo
+from ms.evals_core.constants import Priority
+from ms.evals_core.constants import Team
+from ms.evals_core.scenarios.base import ScenarioDefinition
+
+
+def get_scenarios() -> list[ScenarioDefinition]:
+    """Return all Data Cleanup evaluation scenarios."""
+    return [
+        # ── DC-001  Long email thread with deeply nested quoted replies ──
+        ScenarioDefinition(
+            scenario_id="DC-001",
+            subject="Re: Re: Re: Re: Re: FW: VPN disconnects during market open",
+            description=(
+                "Hi IT Support,\n\n"
+                "Just following up again — the VPN still drops every morning between 09:28 and 09:32 ET.\n"
+                "I have to reconnect 3-4 times before it stabilizes. This is impacting my ability to\n"
+                "execute trades at market open.\n\n"
+                "Thanks,\nMarco\n\n"
+                "--- Original Message ---\n"
+                "From: Marco Bellini <marco.bellini@contoso.com>\n"
+                "Sent: Monday, March 10, 2026 8:45 AM\n"
+                "To: IT Support <itsupport@contoso.com>\n"
+                "Subject: Re: Re: Re: Re: FW: VPN disconnects during market open\n\n"
+                "Still happening today. I ran the diagnostics you asked for — attached.\n\n"
+                "--- Original Message ---\n"
+                "From: IT Support <itsupport@contoso.com>\n"
+                "Sent: Friday, March 7, 2026 4:10 PM\n"
+                "To: Marco Bellini <marco.bellini@contoso.com>\n"
+                "Subject: Re: Re: Re: FW: VPN disconnects during market open\n\n"
+                "Hi Marco, could you run 'netsh wlan show all' and send us the output? Also please\n"
+                "confirm your GlobalProtect client version. Thanks, Amy\n\n"
+                "--- Original Message ---\n"
+                "From: Marco Bellini <marco.bellini@contoso.com>\n"
+                "Sent: Friday, March 7, 2026 9:05 AM\n"
+                "To: IT Support <itsupport@contoso.com>\n"
+                "Subject: Re: Re: FW: VPN disconnects during market open\n\n"
+                "It happened again. I lost the VPN tunnel at exactly 09:30. My colleague Raj in the\n"
+                "same building says his works fine, so I don't think it's the office network.\n\n"
+                "--- Original Message ---\n"
+                "From: IT Support <itsupport@contoso.com>\n"
+                "Sent: Thursday, March 6, 2026 3:00 PM\n"
+                "To: Marco Bellini <marco.bellini@contoso.com>\n"
+                "Subject: Re: FW: VPN disconnects during market open\n\n"
+                "Hi Marco, thanks for reporting. Can you tell us which office and floor you're on?\n"
+                "Also, are you on Wi-Fi or Ethernet? Regards, Amy\n\n"
+                "--- Original Message ---\n"
+                "From: Marco Bellini <marco.bellini@contoso.com>\n"
+                "Sent: Thursday, March 6, 2026 9:35 AM\n"
+                "To: IT Support <itsupport@contoso.com>\n"
+                "Subject: FW: VPN disconnects during market open\n\n"
+                "Hi team, my VPN keeps disconnecting every morning around market open. I'm on the\n"
+                "5th floor, Building 3, New York office, using Wi-Fi. It's been going on for a week."
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.APPLICATION_VERSION],
+            next_best_action=(
+                "Investigate recurring VPN tunnel drops correlated with 09:30 ET market-open "
+                "traffic spike for user on 5th floor Wi-Fi, Building 3 NYC."
+            ),
+            remediation_steps=[
+                "Check GlobalProtect VPN gateway logs for Marco's session drops between 09:25-09:35 ET.",
+                "Correlate with wireless controller data for Building 3, 5th floor AP utilization.",
+                "Verify VPN split-tunnel configuration and MTU settings on the client.",
+                "If Wi-Fi congestion confirmed, consider moving user to Ethernet or a less congested AP.",
+                "Provide user with updated GlobalProtect client if version is outdated.",
+            ],
+            reporter_name="Marco Bellini",
+            reporter_email="marco.bellini@contoso.com",
+            reporter_department="Equity Trading",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "long-email", "quoted-replies"],
+            difficulty="hard",
+        ),
+        # ── DC-002  Inline base64-encoded image data ──────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-002",
+            subject="Monitor flickering — screenshot attached inline",
+            description=(
+                "Hi,\n\n"
+                "My external monitor keeps flickering every few seconds. I took a screenshot but our\n"
+                "mail client embedded it inline. Here it is:\n\n"
+                "[image: screenshot.png]\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4"
+                "2mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVQYV2"
+                "P8z8BQz0AEYBxVOHIVAvcHBQHzKSECAAAAAElFTkSuQmCC\n"
+                "data:image/png;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDA"
+                "sLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgN"
+                "DRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/"
+                "wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAFBABaaaa"
+                "AAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ALQAB//Z\n\n"
+                "The flickering started Monday after a Windows Update. It's a Dell U2722D connected\n"
+                "via DisplayPort to my docking station (Dell WD19S). The built-in laptop screen is\n"
+                "fine. I've tried a different DisplayPort cable already — same issue.\n\n"
+                "Priya Nair\n"
+                "Risk Management, Building 2, 7th floor"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Troubleshoot Dell U2722D monitor flickering after Windows Update — "
+                "likely a display driver regression via WD19S dock."
+            ),
+            remediation_steps=[
+                "Roll back the most recent Intel/NVIDIA display driver update from Windows Update.",
+                "Check Dell WD19S firmware version and update if behind current release.",
+                "Test monitor on a different docking station to isolate dock vs. driver issue.",
+                "If driver rollback resolves, add the driver to the WSUS deferral list.",
+            ],
+            reporter_name="Priya Nair",
+            reporter_email="priya.nair@contoso.com",
+            reporter_department="Risk Management",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "base64", "inline-image"],
+            difficulty="hard",
+        ),
+        # ── DC-003  HTML-heavy email with tags, styles, entities ──────────
+        ScenarioDefinition(
+            scenario_id="DC-003",
+            subject="Cannot access SharePoint after migration",
+            description=(
+                '<html><body style="font-family:Calibri,sans-serif;font-size:11pt">'
+                '<div style="margin:0;padding:0">'
+                "<p><b>Hi IT Team,</b></p>"
+                '<p style="color:#1F4E79">Since the SharePoint migration last Friday I can'
+                "&rsquo;t open the <b>Compliance Policy Library</b> site. I get a "
+                "&ldquo;403 Forbidden&rdquo; error every time I click the link.</p>"
+                "<p>Steps I&apos;ve tried:</p>"
+                "<ol>"
+                "<li>Cleared browser cache &amp; cookies</li>"
+                "<li>Tried Edge, Chrome, and Firefox &mdash; same result</li>"
+                "<li>Verified my account at <u>myaccount.microsoft.com</u> &mdash; looks fine</li>"
+                "<li>Asked my manager Deirdre who can access it fine from her machine</li>"
+                "</ol>"
+                '<p>My URL is: <a href="https://contoso.sharepoint.com/sites/CompliancePolicyLib">'
+                "https://contoso.sharepoint.com/sites/CompliancePolicyLib</a></p>"
+                '<p style="font-size:9pt;color:gray">Sent from Outlook for Windows</p>'
+                '<p style="font-size:8pt;color:gray">CONFIDENTIALITY NOTICE: This email and any '
+                "attachments are for the exclusive and confidential use of the intended recipient. "
+                "If you are not the intended recipient, please do not read, distribute, or take "
+                "action based on this message.&nbsp;&nbsp;</p>"
+                "</div></body></html>"
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P2,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate 403 Forbidden on SharePoint Compliance Policy Library for user — "
+                "likely a permission mapping gap from Friday's migration."
+            ),
+            remediation_steps=[
+                "Check SharePoint admin center for the Compliance Policy Library site permissions.",
+                "Verify user's Azure AD group memberships against the migrated site's access list.",
+                "Re-grant access to the site collection if permissions were lost during migration.",
+                "Confirm user can access the site after permission fix and clear any cached 403.",
+            ],
+            reporter_name="Aiden O'Sullivan",
+            reporter_email="aiden.osullivan@contoso.com",
+            reporter_department="Compliance",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "html-heavy", "entities"],
+            difficulty="hard",
+        ),
+        # ── DC-004  Garbled / encoding-corrupted text ─────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-004",
+            subject="Printer producing garbled output — urg\u00ebnt",
+            description=(
+                "Hi,\n\n"
+                "The printer on the 3rd floor (HP LaserJet MFP M634) is printing garbled\n"
+                "characters on every document. Here\u2019s what the output looks like:\n\n"
+                "\u00c3\u00a9\u00c3\u00b1\u00c3\u00bc\u00c3\u00a8\u00c2\u00ab\u00c2\u00bb "
+                "\u00ef\u00bf\u00bd\u00ef\u00bf\u00bd\u00ef\u00bf\u00bd "
+                "R\u00c3\u00a9port_Q1_2026.xlsx \u00e2\u0080\u0093 Page 1 of 4\n"
+                "\u00c3\u0081\u00c3\u00a7\u00c3\u00a7\u00c3\u00a8\u00c3\u0178\u00c3\u0178 "
+                "D\u00c3\u00a8ni\u00c3\u00a8d: Pl\u00c3\u00a8\u00c3\u00a0s\u00c3\u00a8 "
+                "cont\u00c3\u00a0ct IT\n\n"
+                "I\u2019ve tried restarting the printer and switching paper trays. My colleague\n"
+                "Fatima confirmed it\u2019s happening for her documents too. We need this fixed\n"
+                "today \u2014 we have a board presentation to print.\n\n"
+                "Regards,\n"
+                "Wei Chen\n"
+                "Finance, Building 1, 3rd floor, New York"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P2,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate HP LaserJet MFP M634 on 3rd floor producing garbled output — "
+                "likely a corrupt print driver or PCL/PostScript mismatch."
+            ),
+            remediation_steps=[
+                "Check the print server for driver version and compare against HP's latest release.",
+                "Reinstall or update the printer driver on the print server.",
+                "Verify PCL vs PostScript language setting matches the printer's configuration.",
+                "Print a test page from the server to confirm the fix before notifying the user.",
+            ],
+            reporter_name="Wei Chen",
+            reporter_email="wei.chen@contoso.com",
+            reporter_department="Finance",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "garbled-text", "encoding"],
+            difficulty="hard",
+        ),
+        # ── DC-005  Emoji-heavy chat message ──────────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-005",
+            subject="Slack integration broken \U0001f6a8\U0001f6a8\U0001f6a8",
+            description=(
+                "\U0001f6a8\U0001f6a8\U0001f6a8 URGENT \U0001f6a8\U0001f6a8\U0001f6a8\n\n"
+                "Heyy so the Slack \u2194\ufe0f Jira integration is totally broken \U0001f62d"
+                "\U0001f62d\U0001f62d\n"
+                "When I create a ticket in #trading-incidents it used to auto-create a Jira "
+                "issue \U0001f4cb but now NOTHING happens \u274c\u274c\n\n"
+                "I\u2019ve checked:\n"
+                "\u2705 Slack app is still installed in our workspace\n"
+                "\u2705 I can see the Jira bot in the channel\n"
+                "\u274c But the /jira create command gives me \U0001f449 "
+                '"Oops! Something went wrong (error 502)" \U0001f448\n\n'
+                "This is blocking our whole incident workflow \U0001f525\U0001f525\U0001f525 "
+                "we literally cannot track prod issues rn \U0001f4a9\n\n"
+                "pls help asap \U0001f64f\U0001f64f\U0001f64f\n\n"
+                "\u2014 Deshawn\n"
+                "\U0001f4bc Institutional Trading\n"
+                "\U0001f4cd NYC Building 4, 8th floor"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=True,
+            missing_info=[MissingInfo.TIMESTAMP, MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate Slack-Jira integration returning 502 errors in #trading-incidents — "
+                "blocking incident tracking workflow for Institutional Trading."
+            ),
+            remediation_steps=[
+                "Check the Jira Cloud status page and Slack API status for ongoing incidents.",
+                "Verify the Jira for Slack app OAuth tokens have not expired or been revoked.",
+                "Review Jira webhook logs for 502 errors and identify the failing endpoint.",
+                "If the integration app needs reauthorization, walk the channel admin through it.",
+                "Test /jira create from the channel to confirm resolution.",
+            ],
+            reporter_name="Deshawn Carter",
+            reporter_email="deshawn.carter@contoso.com",
+            reporter_department="Institutional Trading",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "emoji-heavy", "chat"],
+            difficulty="hard",
+        ),
+        # ── DC-006  Excessive repeated content / copy-paste loops ─────────
+        ScenarioDefinition(
+            scenario_id="DC-006",
+            subject="Outlook keeps crashing — error details inside",
+            description=(
+                "Outlook crashes every time I open a specific email from the Legal team.\n\n"
+                "Here's the error from Event Viewer (it repeated many times):\n\n"
+                "Faulting application name: OUTLOOK.EXE, version: 16.0.18227.20162\n"
+                "Faulting module name: mso40uiwin32client.dll, version: 16.0.18227.20162\n"
+                "Exception code: 0xc0000005\n"
+                "Fault offset: 0x00000000005a3b10\n"
+                "Faulting application name: OUTLOOK.EXE, version: 16.0.18227.20162\n"
+                "Faulting module name: mso40uiwin32client.dll, version: 16.0.18227.20162\n"
+                "Exception code: 0xc0000005\n"
+                "Fault offset: 0x00000000005a3b10\n"
+                "Faulting application name: OUTLOOK.EXE, version: 16.0.18227.20162\n"
+                "Faulting module name: mso40uiwin32client.dll, version: 16.0.18227.20162\n"
+                "Exception code: 0xc0000005\n"
+                "Fault offset: 0x00000000005a3b10\n"
+                "Faulting application name: OUTLOOK.EXE, version: 16.0.18227.20162\n"
+                "Faulting module name: mso40uiwin32client.dll, version: 16.0.18227.20162\n"
+                "Exception code: 0xc0000005\n"
+                "Fault offset: 0x00000000005a3b10\n"
+                "Faulting application name: OUTLOOK.EXE, version: 16.0.18227.20162\n"
+                "Faulting module name: mso40uiwin32client.dll, version: 16.0.18227.20162\n"
+                "Exception code: 0xc0000005\n"
+                "Fault offset: 0x00000000005a3b10\n\n"
+                "This is the only email that causes it. All other emails open fine.\n"
+                "I'm on Windows 11 with Microsoft 365 Apps, Current Channel.\n\n"
+                "Nadia Al-Rashid\nLegal, Building 2, 4th floor, New York"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Diagnose Outlook crash (0xc0000005 in mso40uiwin32client.dll) triggered "
+                "by a specific email — likely a corrupted message or embedded object."
+            ),
+            remediation_steps=[
+                "Identify the specific email causing the crash from the user's mailbox.",
+                "Attempt to open the email in Outlook Web App to confirm it is message-specific.",
+                "Run Outlook in safe mode to rule out add-in conflicts.",
+                "If OWA works, repair the Office installation or update to the latest build.",
+                "If the email is corrupted, remove it via MFCMAPI or an admin mailbox tool.",
+            ],
+            reporter_name="Nadia Al-Rashid",
+            reporter_email="nadia.al-rashid@contoso.com",
+            reporter_department="Legal",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "repeated-content", "crash-log"],
+            difficulty="hard",
+        ),
+        # ── DC-007  Excessive email signature / legal disclaimer ──────────
+        ScenarioDefinition(
+            scenario_id="DC-007",
+            subject="Badge not working at Building 6 turnstile",
+            description=(
+                "My badge stopped working at the Building 6 main entrance turnstile this morning. "
+                "I had to be let in by security. Can you please reactivate it?\n\n"
+                "Thanks,\n"
+                "Jonathan Pretorius\n"
+                "Vice President, Corporate Strategy\n"
+                "Contoso Financial Services\n"
+                "1 World Financial Center, 42nd Floor\n"
+                "New York, NY 10281\n"
+                "Tel: +1 (212) 555-0142 | Mobile: +1 (917) 555-0198\n"
+                "Fax: +1 (212) 555-0199\n"
+                "Email: jonathan.pretorius@contoso.com\n"
+                "LinkedIn: linkedin.com/in/jonathanpretorius\n\n"
+                "====================================================================\n"
+                "CONFIDENTIALITY NOTICE: This email message, including any attachments,\n"
+                "is for the sole use of the intended recipient(s) and may contain\n"
+                "confidential and privileged information. Any unauthorized review, use,\n"
+                "disclosure, or distribution is prohibited. If you are not the intended\n"
+                "recipient, please contact the sender by reply email and destroy all\n"
+                "copies of the original message. Receipt by anyone other than the\n"
+                "intended recipient(s) is not a waiver of any attorney-client,\n"
+                "work product, or other applicable privilege.\n\n"
+                "ENVIRONMENTAL NOTICE: Please consider the environment before printing\n"
+                "this email. Contoso Financial Services is committed to sustainable\n"
+                "business practices.\n\n"
+                "IRS CIRCULAR 230 DISCLOSURE: To ensure compliance with requirements\n"
+                "imposed by the IRS, we inform you that any U.S. federal tax advice\n"
+                "contained in this communication (including any attachments) is not\n"
+                "intended or written to be used, and cannot be used, for the purpose\n"
+                "of (i) avoiding penalties under the Internal Revenue Code or (ii)\n"
+                "promoting, marketing, or recommending to another party any transaction\n"
+                "or matter addressed herein.\n"
+                "===================================================================="
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P3,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Reactivate or replace badge for user unable to enter Building 6 main entrance turnstile."
+            ),
+            remediation_steps=[
+                "Look up the user's badge ID in the physical access control system.",
+                "Check if the badge was deactivated, expired, or flagged for any reason.",
+                "Reactivate the badge or issue a replacement if the physical card is damaged.",
+                "Test badge at the Building 6 turnstile before confirming with the user.",
+            ],
+            reporter_name="Jonathan Pretorius",
+            reporter_email="jonathan.pretorius@contoso.com",
+            reporter_department="Corporate Strategy",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "excessive-signature", "disclaimer"],
+            difficulty="medium",
+        ),
+        # ── DC-008  Mixed languages (English + Mandarin + French) ─────────
+        ScenarioDefinition(
+            scenario_id="DC-008",
+            subject="VDI session freezes / VDI\u4f1a\u8bdd\u51bb\u7ed3 / Session VDI gel\u00e9e",
+            description=(
+                "Hello IT,\n\n"
+                "I work across the Singapore, New York, and London offices and my VDI session\n"
+                "has been freezing intermittently.\n\n"
+                "\u5f53\u6211\u8fde\u63a5\u5230\u65b0\u52a0\u5761\u6570\u636e\u4e2d\u5fc3"
+                "\u7684VDI\u65f6\uff0c\u4f1a\u8bdd\u5728\u5927\u7ea6"
+                "20\u5206\u949f\u540e\u51bb\u7ed3\u3002\u5c4f\u5e55\u505c\u6b62\u54cd\u5e94"
+                "\uff0c\u6211\u5fc5\u987b\u65ad\u5f00\u5e76\u91cd\u65b0\u8fde\u63a5\u3002"
+                "\u8fd9\u79cd\u60c5\u51b5\u6bcf\u5929\u53d1\u751f3-4\u6b21\u3002\n\n"
+                "Quand je me connecte depuis le bureau de Londres, la session VDI g\u00e8le\n"
+                "apr\u00e8s environ 20 minutes. L'\u00e9cran ne r\u00e9pond plus et je dois me\n"
+                "d\u00e9connecter puis me reconnecter. Cela arrive 3 \u00e0 4 fois par jour.\n\n"
+                "From New York the connection is stable. The issue only happens when I connect\n"
+                "to the Singapore or London VDI pools. My laptop is a ThinkPad X1 Carbon Gen 11\n"
+                "with VMware Horizon Client 2312.\n\n"
+                "Xin Li (\u674e\u6b23)\n"
+                "Quantitative Analysis\n"
+                "Building 5, 9th floor, New York (home office)"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.NETWORK_LOCATION, MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate VDI session freezes when user connects to Singapore and London "
+                "pools — likely WAN latency or VMware Horizon blast protocol issue."
+            ),
+            remediation_steps=[
+                "Review VMware Horizon connection server logs for the user's sessions in SG and LDN.",
+                "Measure round-trip latency and packet loss from the user's NYC location to SG/LDN.",
+                "Check if the Blast Extreme protocol is tuned for high-latency WAN links.",
+                "Consider enabling the Horizon Performance Tracker on the client for diagnostics.",
+                "If WAN quality is the root cause, evaluate SD-WAN or dedicated VDI circuit options.",
+            ],
+            reporter_name="Xin Li",
+            reporter_email="xin.li@contoso.com",
+            reporter_department="Quantitative Analysis",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "mixed-languages", "multilingual"],
+            difficulty="hard",
+        ),
+        # ── DC-009  Truncated message (cut off mid-sentence) ──────────────
+        ScenarioDefinition(
+            scenario_id="DC-009",
+            subject="Database replication lag causing stale portfolio data",
+            description=(
+                "Hi Data Platform team,\n\n"
+                "We've noticed that the portfolio valuations dashboard is showing data that's\n"
+                "approximately 45 minutes stale. The replication from the primary SQL Server\n"
+                "(SQLPROD-NYC-01) to the read replica (SQLREPLICA-NYC-03) appears to be lagging.\n\n"
+                "Impact: Portfolio managers are making decisions based on outdated valuations.\n"
+                "This affects approximately 30 PMs across Wealth Management and Asset Management.\n\n"
+                "What we've confirmed so far:\n"
+                "- Primary database is current (checked via direct query at 14:22 ET)\n"
+                "- Read replica is behind by ~2,700 transactions\n"
+                "- The lag started around 13:35 ET today\n"
+                "- No recent schema changes or maintenance windows\n"
+                "- Disk I/O on the replica server looks elevated: avg write latency 48ms vs\n"
+                "  normal 5ms\n\n"
+                "We need this resolved urgently. The EOD NAV calculation process kicks off at\n"
+                "16:00 ET and reads from the replica. If the lag isn't cleared by then, we'll\n"
+                "have incorrect NAV calculations which will trigger regulatory reporting\n"
+                "discrepancies and we'll need to file correc"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P1,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=True,
+            missing_info=[MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Urgently resolve SQL Server replication lag on SQLREPLICA-NYC-03 before "
+                "16:00 ET EOD NAV calculation — 45-minute data staleness affecting 30 PMs."
+            ),
+            remediation_steps=[
+                "Check disk subsystem on SQLREPLICA-NYC-03 for I/O bottleneck (48ms write latency).",
+                "Review SQL Server replication monitor for error states or suspended subscriptions.",
+                "If disk I/O is the bottleneck, identify competing workloads and throttle or stop them.",
+                "Consider reinitializing replication from a snapshot if the lag cannot be recovered.",
+                "Notify portfolio management leads of potential data staleness and EOD NAV risk.",
+            ],
+            reporter_name="Soren Andersen",
+            reporter_email="soren.andersen@contoso.com",
+            reporter_department="Data Engineering",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "truncated-message", "database"],
+            difficulty="hard",
+        ),
+        # ── DC-010  HTML entities and escaped characters throughout ────────
+        ScenarioDefinition(
+            scenario_id="DC-010",
+            subject="Can&#39;t log in to trading platform &mdash; &quot;session expired&quot;",
+            description=(
+                "Every time I try to log in to the Contoso Trading Platform (CTP) I get the\n"
+                "error: &quot;Your session has expired. Please contact your administrator.&quot;\n\n"
+                "I&apos;ve tried:\n"
+                "1. Clearing cookies &amp; cache\n"
+                "2. Using incognito&#47;private mode\n"
+                "3. Trying from a different machine\n"
+                "4. Resetting my password via the &quot;Forgot Password&quot; link\n\n"
+                "None of these work. I&apos;m getting the same error on both my laptop &amp;\n"
+                "my desktop. My colleagues in the same team can log in fine.\n\n"
+                "This started after the maintenance window last night (March 17 &ndash; 18).\n"
+                "I&apos;m locked out of all my positions and can&apos;t execute trades.\n\n"
+                "Kenji Watanabe &lt;kenji.watanabe@contoso.com&gt;\n"
+                "Derivatives, Building 4, 6th floor\n"
+                "Ext: 5&#45;4477"
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P1,
+            team=Team.IAM,
+            needs_escalation=True,
+            missing_info=[MissingInfo.AUTHENTICATION_METHOD],
+            next_best_action=(
+                "Restore CTP access for trader locked out after maintenance window — "
+                "session token or account state likely not migrated correctly."
+            ),
+            remediation_steps=[
+                "Check CTP identity provider logs for Kenji's failed authentication attempts.",
+                "Verify the user's account was not disabled or locked during maintenance.",
+                "Clear stale session tokens in the CTP session store for this user.",
+                "If SAML/OIDC tokens were rotated during maintenance, ensure the user's IdP mapping is current.",
+                "Confirm login works and monitor for recurrence over the next trading session.",
+            ],
+            reporter_name="Kenji Watanabe",
+            reporter_email="kenji.watanabe@contoso.com",
+            reporter_department="Derivatives",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "html-entities", "escaped-chars"],
+            difficulty="hard",
+        ),
+        # ── DC-011  Application log dump pasted into ticket ───────────────
+        ScenarioDefinition(
+            scenario_id="DC-011",
+            subject="Jenkins build pipeline failing since this morning",
+            description=(
+                "The CI/CD pipeline for the risk-engine repo has been failing since 06:15 AM.\n"
+                "Here's the full console output:\n\n"
+                "[2026-03-18T06:15:02Z] Starting pipeline: risk-engine/main #1847\n"
+                "[2026-03-18T06:15:02Z] Checking out git repo...\n"
+                "[2026-03-18T06:15:05Z] HEAD is now at a3f7c21 Merge PR #492\n"
+                "[2026-03-18T06:15:05Z] Running stage: Install Dependencies\n"
+                "[2026-03-18T06:15:06Z] npm ci --prefer-offline\n"
+                "[2026-03-18T06:15:12Z] added 1847 packages in 6.1s\n"
+                "[2026-03-18T06:15:12Z] Running stage: Build\n"
+                "[2026-03-18T06:15:13Z] tsc --build tsconfig.json\n"
+                "[2026-03-18T06:15:28Z] Build completed successfully\n"
+                "[2026-03-18T06:15:28Z] Running stage: Unit Tests\n"
+                "[2026-03-18T06:15:29Z] jest --ci --coverage\n"
+                "[2026-03-18T06:16:45Z] Tests: 342 passed, 342 total\n"
+                "[2026-03-18T06:16:45Z] Running stage: Integration Tests\n"
+                "[2026-03-18T06:16:46Z] jest --ci --config jest.integration.config.js\n"
+                "[2026-03-18T06:17:01Z] Connecting to test database: sqltest-nyc-02:1433\n"
+                "[2026-03-18T06:17:16Z] ERROR: Connection refused to sqltest-nyc-02:1433\n"
+                "[2026-03-18T06:17:16Z] Error: connect ECONNREFUSED 10.42.8.15:1433\n"
+                "[2026-03-18T06:17:16Z]     at TCPConnectWrap.afterConnect [as oncomplete]\n"
+                "[2026-03-18T06:17:16Z] Tests: 0 passed, 18 failed, 18 total\n"
+                "[2026-03-18T06:17:16Z] Pipeline FAILED at stage: Integration Tests\n"
+                "[2026-03-18T06:17:17Z] Sending failure notification to #risk-engine-ci\n"
+                "[2026-03-18T06:17:17Z] Pipeline duration: 2m 15s\n\n"
+                "This has failed on every retry (5 times now). The test DB seems to be down.\n\n"
+                "— Rafael Oliveira, Backend Engineering"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[],
+            next_best_action=(
+                "Restore connectivity to integration test database sqltest-nyc-02:1433 — "
+                "CI/CD pipeline for risk-engine repo blocked since 06:15 AM."
+            ),
+            remediation_steps=[
+                "Check if sqltest-nyc-02 SQL Server service is running and accepting connections.",
+                "Verify network connectivity from the Jenkins agent to 10.42.8.15:1433.",
+                "Check if there was a maintenance or patching event on sqltest-nyc-02 overnight.",
+                "Restart the SQL Server service if it is stopped, and verify integration tests pass.",
+                "Notify the Backend Engineering team once the pipeline is green.",
+            ],
+            reporter_name="Rafael Oliveira",
+            reporter_email="rafael.oliveira@contoso.com",
+            reporter_department="Backend Engineering",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "log-dump", "ci-cd"],
+            difficulty="hard",
+        ),
+        # ── DC-012  Duplicate sentences and stuttering content ────────────
+        ScenarioDefinition(
+            scenario_id="DC-012",
+            subject="Zoom phone not ringing — calls go straight to voicemail",
+            description=(
+                "Hi,\n\n"
+                "My Zoom Phone has stopped ringing for incoming calls. Calls go straight to\n"
+                "voicemail. My Zoom Phone has stopped ringing for incoming calls. Calls go\n"
+                "straight to voicemail.\n\n"
+                "I've checked my Do Not Disturb settings and they are off. I've checked my Do\n"
+                "Not Disturb settings and they are off. The Zoom desktop client shows I'm\n"
+                "available (green dot). The Zoom desktop client shows I'm available (green dot).\n\n"
+                "My extension is 5-2201 and my direct number is +1 (212) 555-2201. Clients have\n"
+                "been complaining they can't reach me. My extension is 5-2201 and my direct\n"
+                "number is +1 (212) 555-2201. Clients have been complaining they can't reach me.\n\n"
+                "This started yesterday afternoon. I tried signing out and back in, same issue.\n"
+                "This started yesterday afternoon. I tried signing out and back in, same issue.\n\n"
+                "Please help,\n"
+                "Elena Vasquez\n"
+                "Client Services, Building 1, 6th floor"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.APPLICATION_VERSION],
+            next_best_action=(
+                "Troubleshoot Zoom Phone call routing for ext 5-2201 — incoming calls "
+                "going directly to voicemail despite available status."
+            ),
+            remediation_steps=[
+                "Check Zoom Phone admin portal for call routing rules on extension 5-2201.",
+                "Verify there is no call forwarding or after-hours rule overriding the user's status.",
+                "Check if the Zoom Phone license is active and properly assigned to the user.",
+                "Test inbound call to the user's direct number while monitoring the admin dashboard.",
+                "Update the Zoom desktop client if the version is outdated.",
+            ],
+            reporter_name="Elena Vasquez",
+            reporter_email="elena.vasquez@contoso.com",
+            reporter_department="Client Services",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "duplicate-content", "stuttering"],
+            difficulty="hard",
+        ),
+        # ── DC-013  Extremely long email with buried issue ────────────────
+        ScenarioDefinition(
+            scenario_id="DC-013",
+            subject="FW: Quarterly IT Infrastructure Review — action items and network issue",
+            description=(
+                "Hi IT Support,\n\n"
+                "Forwarding the full infrastructure review notes below — my actual issue is buried\n"
+                "near the bottom. Please scroll down.\n\n"
+                "====== QUARTERLY IT INFRASTRUCTURE REVIEW — Q1 2026 ======\n"
+                "Date: March 14, 2026 | Attendees: IT Steering Committee\n"
+                "Location: Building 4, Executive Conference Room 4A\n\n"
+                "AGENDA ITEM 1: Cloud Migration Status\n"
+                "- Azure landing zone provisioning is 94% complete across all three regions.\n"
+                "- Remaining workloads: legacy COBOL settlement engine (target: May 2026),\n"
+                "  on-prem Oracle RAC cluster for derivatives pricing (target: July 2026).\n"
+                "- Cost optimization: reserved instance coverage improved from 61% to 78%.\n"
+                "- Action: Cloud team to finalize RI recommendations for Q2 by March 28.\n\n"
+                "AGENDA ITEM 2: Endpoint Refresh Program\n"
+                "- 1,200 of 3,400 laptops refreshed to Dell Latitude 5550 with Windows 11 23H2.\n"
+                "- Remaining rollout schedule: NYC Building 1-3 (April), London (May), Singapore (June).\n"
+                "- Dock compatibility issues reported with TB16 docks — WD19S replacement in progress.\n"
+                "- BitLocker recovery key escrow migration to Intune on track for April 1.\n"
+                "- Action: Endpoint team to publish refresh FAQ on the intranet by March 21.\n\n"
+                "AGENDA ITEM 3: Network Capacity Planning\n"
+                "- Core switch fabric utilization peaked at 72% during February month-end processing.\n"
+                "- Wireless controller firmware upgraded to 8.10.185 across all NYC APs.\n"
+                "- SD-WAN deployment for London and Singapore branch offices approved — RFP in April.\n"
+                "- Action: Network ops to model 100G uplink requirements for 2027 budget.\n\n"
+                "AGENDA ITEM 4: Security & Compliance Update\n"
+                "- SOC 2 Type II audit fieldwork begins April 7. All evidence must be staged by April 1.\n"
+                "- Phishing simulation click rate dropped from 12% to 8.5% — goal is 5% by year-end.\n"
+                "- Privileged Access Workstation (PAW) rollout to Tier 0 admins complete.\n"
+                "- Action: Security ops to deliver PAW Tier 1 rollout plan by March 28.\n\n"
+                "AGENDA ITEM 5: Service Desk Metrics\n"
+                "- Mean time to resolve (MTTR): 4.2 hours (target 4.0) — slight regression from Feb.\n"
+                "- First-contact resolution rate: 68% (target 70%).\n"
+                "- Top ticket categories: Password resets (24%), VPN issues (18%), Outlook (14%).\n"
+                "- Action: Evaluate chatbot deflection for password reset tickets.\n\n"
+                "AGENDA ITEM 6: Disaster Recovery Testing\n"
+                "- Full DR failover test for Azure-hosted trading platform scheduled for April 19-20.\n"
+                "- RPO target: 15 minutes. RTO target: 2 hours. Last test achieved RPO 12m, RTO 1h 48m.\n"
+                "- Cross-region replication lag for Cosmos DB reduced from 320ms to 95ms.\n"
+                "- Action: DR team to coordinate with Trading and Compliance for the test window.\n\n"
+                "AGENDA ITEM 7: Data Center Decommissioning\n"
+                "- Secaucus DC lease expires September 2026. 14 remaining racks to be migrated.\n"
+                "- Physical server inventory audit complete — 6 servers unaccounted for, investigating.\n"
+                "- Tape backup archive migration to Azure Blob Archive tier: 340TB of 480TB complete.\n"
+                "- Action: Facilities to confirm decommissioning timeline with vendor by April 4.\n\n"
+                "--- END OF AGENDA ITEMS ---\n\n"
+                "** MY ACTUAL ISSUE (sorry for the long email) **\n\n"
+                "On page 2 of the notes it mentions TB16 dock compatibility issues. I'm one of the\n"
+                "affected users — my Dell Latitude 5550 with the TB16 dock loses USB-C video output\n"
+                "intermittently. Both my external Dell U2722D monitors go black for 5-10 seconds\n"
+                "every 20-30 minutes. I'm on the 8th floor, Building 4. The old WD19S dock I had\n"
+                "before worked perfectly but it was collected during the refresh.\n\n"
+                "Can I get a replacement WD19S dock or a fix for the TB16 compatibility?\n\n"
+                "Thanks,\n"
+                "Jonathan Park\n"
+                "Portfolio Management, Building 4, 8th floor, New York"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Replace Dell TB16 dock with WD19S for user on Building 4, 8th floor — "
+                "known USB-C video dropout issue with Latitude 5550 and TB16 docks."
+            ),
+            remediation_steps=[
+                "Confirm the user's laptop model and current dock firmware version.",
+                "Check if a TB16 firmware update resolves the intermittent video dropout.",
+                "If the firmware update does not resolve, issue a WD19S replacement dock.",
+                "Verify both external monitors work reliably on the replacement dock.",
+                "Log the TB16 compatibility issue in the endpoint refresh tracker for reporting.",
+            ],
+            reporter_name="Jonathan Park",
+            reporter_email="jonathan.park@contoso.com",
+            reporter_department="Portfolio Management",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "very-long-email", "buried-issue"],
+            difficulty="hard",
+        ),
+        # ── DC-014  Multiple base64 image floods ─────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-014",
+            subject="Badge reader error — photos attached",
+            description=(
+                "My badge is not working at the Building 6 south entrance turnstile.\n\n"
+                "I took several photos of the error on the badge reader screen. Here they are:\n\n"
+                "Photo 1 - Front of badge reader:\n"
+                "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgK"
+                "DBQNDBALDBKSEF4THBYdHRweGxwdICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/2wBDAQkJ"
+                "CQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy"
+                "MjIyMjL/wAARCABAAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAABAgMEBQYHCAkKC//E"
+                "AFAQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYX"
+                "GBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJ"
+                "WWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6ery8/T19vf4"
+                "+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xABREAACAQIEBAMEBgUDBgMAAAABAgMAE"
+                "QQSITFBBRNRYQYicZGBBzKhsRRCUsHB8BYj0fEUFTNickOSstIkZKLC4vDzGBcaNTY3JDREVSRFVWND"
+                "/9oADAMBAAIRAxEAAAAB0AAAAFaGBogKoAAAAA0MFNNNAFiAAAAAAAAJIAAAAAAIIIAAAAAAAAAAAAAAAAA"
+                "AAAAAA//2Q==\n\n"
+                "Photo 2 - Error message closeup:\n"
+                "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDABsSFBcUERsXFhceHBsgKEIr"
+                "KCUlKFE6PTBCYFVlZF9VXFtqeJmBanGQc1tdhbWGkJ6jq62rZ4C8ybqmx5moq6T/2wBDARceHigs"
+                "KE4rKU5qd1p3ampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqamr/wAAR"
+                "CAAgACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAHwEAAwEBAQEB"
+                "AQEBAQAAAAAAAAECAwQFBgcICQoL/8QAFRABAAAAAAAAAAAAAAAAAAAAcP/EABQRAQAAAAAAAAAAAAAAA"
+                "AAAYP/aAAwDAQACEQMRAD8AlgVVHcjIGcZHPSn1BDKkybkZWHqDmn0AFFFFAB/9k=\n\n"
+                "Photo 3 - My badge (front side):\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAACXBIWXMAAA"
+                "sTAAALEwEAmpwYAAACcElEQVR4nO3dO27CQBSG4TPiCehpoKGjpMwWKNgSJTtgB2yBgjJboKOkpKGh"
+                "4wnIK7gIhGDGc+Z/PkmWkC3N+BvN2BrnAAAAAAAAAAAAAAAAAMDUVWM/gTYq5+9x3/6Y4kQwGpkARA"
+                "kARAIAkQBAJAAQCQBEAgCRAEAkABAJAEQCAJEAQCQAEAkARAIA0X9Bep+0vJOUlpJykWQn6UPSLMq8"
+                "AAAAAAAAAAAAAAAAAAAAAAAAAAA//2Q==\n\n"
+                "Photo 4 - Badge reader model number plate:\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVQYV2"
+                "P8z8BQz0AEYBxVOHIVAvcHBQHzKSECAAAAAElFTkSuQmCC"
+                "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVQYV2P4z8BQz0AEYBxVSHEVAvMH"
+                "BQPxKSMCAAAAAElFTkSuQmCC\n\n"
+                "Photo 5 - Side angle of turnstile:\n"
+                "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQN"
+                "DAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDB"
+                "gNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj"
+                "L/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAFBABAA"
+                "AAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8ALQAB//Z=\n\n"
+                "The error message on the screen said 'Card Read Error - Contact Facilities' in red.\n"
+                "I tried tapping multiple times. My badge works fine at the north entrance.\n\n"
+                "Yuki Tanaka\n"
+                "Quantitative Analysis, Building 6, 3rd floor"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Investigate badge reader 'Card Read Error' at Building 6 south entrance "
+                "turnstile — badge works at north entrance, suggesting a reader hardware fault."
+            ),
+            remediation_steps=[
+                "Dispatch a facilities technician to inspect the Building 6 south entrance badge reader.",
+                "Check the badge reader logs for error patterns and failed card reads.",
+                "Test the reader with a known-good badge to confirm it is a reader-side issue.",
+                "Replace or recalibrate the reader if it is confirmed faulty.",
+                "Verify the user's badge works at the south entrance after the fix.",
+            ],
+            reporter_name="Yuki Tanaka",
+            reporter_email="yuki.tanaka@contoso.com",
+            reporter_department="Quantitative Analysis",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "base64-flood", "image-heavy"],
+            difficulty="hard",
+        ),
+        # ── DC-015  Inline CSV / tabular data dump ────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-015",
+            subject="Server performance degradation — metrics attached inline",
+            description=(
+                "Hi team,\n\n"
+                "The sqlprod-nyc-04 server is running very slow. Here are the performance metrics\n"
+                "I exported from our monitoring tool:\n\n"
+                "timestamp,cpu_pct,mem_pct,disk_io_mbps,net_in_mbps,net_out_mbps,active_connections,query_queue\n"
+                "2026-03-17T08:00:00Z,42.3,61.2,120.5,45.2,32.1,342,12\n"
+                "2026-03-17T08:05:00Z,44.1,62.0,125.3,47.8,33.4,351,14\n"
+                "2026-03-17T08:10:00Z,48.7,63.5,131.2,49.1,35.2,367,18\n"
+                "2026-03-17T08:15:00Z,55.2,65.8,142.7,52.3,38.6,389,24\n"
+                "2026-03-17T08:20:00Z,62.8,68.4,158.3,56.7,41.2,412,32\n"
+                "2026-03-17T08:25:00Z,71.3,72.1,175.6,61.4,44.8,438,45\n"
+                "2026-03-17T08:30:00Z,78.9,76.3,192.4,67.2,48.3,461,58\n"
+                "2026-03-17T08:35:00Z,84.2,79.8,210.1,72.8,52.1,487,72\n"
+                "2026-03-17T08:40:00Z,89.1,83.4,228.7,78.3,56.7,512,89\n"
+                "2026-03-17T08:45:00Z,93.7,87.2,245.3,83.9,61.2,538,105\n"
+                "2026-03-17T08:50:00Z,96.2,90.1,261.8,89.4,65.8,561,128\n"
+                "2026-03-17T08:55:00Z,98.1,92.8,278.4,94.7,70.3,589,156\n"
+                "2026-03-17T09:00:00Z,99.3,95.4,295.1,100.2,74.9,612,189\n"
+                "2026-03-17T09:05:00Z,99.7,96.8,310.6,105.8,79.4,641,224\n"
+                "2026-03-17T09:10:00Z,99.8,97.5,326.2,111.3,83.8,668,261\n"
+                "2026-03-17T09:15:00Z,99.9,98.1,341.7,116.9,88.3,694,298\n"
+                "2026-03-17T09:20:00Z,99.9,98.6,357.3,122.4,92.7,721,336\n"
+                "2026-03-17T09:25:00Z,99.9,99.0,372.8,128.0,97.2,748,374\n"
+                "2026-03-17T09:30:00Z,100.0,99.2,388.4,133.5,101.6,776,412\n\n"
+                "As you can see CPU goes from 42% to 100% in 90 minutes. The query queue is\n"
+                "backing up and users are complaining about slow report generation.\n\n"
+                "Leon Fischer\n"
+                "Data Engineering, NYC"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=True,
+            missing_info=[MissingInfo.AFFECTED_USERS, MissingInfo.BUSINESS_IMPACT],
+            next_best_action=(
+                "Investigate sqlprod-nyc-04 resource exhaustion — CPU at 100%, memory at 99%, "
+                "and query queue growing to 400+ since 08:00. Likely a runaway query or batch job."
+            ),
+            remediation_steps=[
+                "Identify the top resource-consuming queries on sqlprod-nyc-04 using sys.dm_exec_requests.",
+                "Check if a scheduled batch job or report is causing the CPU and memory spike.",
+                "Kill or throttle the runaway query if identified, and notify the owning team.",
+                "Monitor the server for recovery and verify the query queue is draining.",
+                "Review Resource Governor settings to prevent a single workload from saturating the server.",
+            ],
+            reporter_name="Leon Fischer",
+            reporter_email="leon.fischer@contoso.com",
+            reporter_department="Data Engineering",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "csv-dump", "tabular-data"],
+            difficulty="hard",
+        ),
+        # ── DC-016  URL spam / hyperlink overload ─────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-016",
+            subject="Broken links on the intranet compliance pages",
+            description=(
+                "Hi,\n\n"
+                "Multiple links on our compliance intranet site are broken. Here are all the ones\n"
+                "I've checked (some work, most don't):\n\n"
+                "BROKEN:\n"
+                "- https://intranet.contoso.com/compliance/policies/aml-kyc-policy-v3.2.pdf\n"
+                "- https://intranet.contoso.com/compliance/policies/insider-trading-guidelines.pdf\n"
+                "- https://intranet.contoso.com/compliance/training/annual-certification-2026.aspx\n"
+                "- https://intranet.contoso.com/compliance/forms/conflict-of-interest-disclosure.docx\n"
+                "- https://intranet.contoso.com/compliance/policies/data-retention-schedule-v2.1.xlsx\n"
+                "- https://intranet.contoso.com/compliance/external/sec-rule-17a-4-reference.pdf\n"
+                "- https://intranet.contoso.com/compliance/external/finra-rule-4511-guidance.pdf\n"
+                "- https://intranet.contoso.com/compliance/procedures/sar-filing-checklist.pdf\n"
+                "- https://intranet.contoso.com/compliance/procedures/whistleblower-procedure.pdf\n"
+                "- https://intranet.contoso.com/compliance/training/code-of-conduct-quiz.aspx\n"
+                "- https://intranet.contoso.com/compliance/reports/q4-2025-compliance-dashboard.pbix\n"
+                "- https://intranet.contoso.com/compliance/reports/regulatory-exam-tracker.xlsx\n\n"
+                "WORKING:\n"
+                "- https://intranet.contoso.com/compliance/index.aspx\n"
+                "- https://intranet.contoso.com/compliance/team/contact-us.aspx\n"
+                "- https://intranet.contoso.com/compliance/news/latest-updates.aspx\n\n"
+                "We have a regulatory exam next week and auditors need access to these documents.\n"
+                "This is urgent.\n\n"
+                "Maya Johal\n"
+                "Regulatory Affairs, Building 1, 9th floor"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=True,
+            missing_info=[MissingInfo.TIMESTAMP],
+            next_best_action=(
+                "Investigate broken links on the compliance intranet site — 12 of 15 links "
+                "returning errors, likely caused by a content migration or site restructure. "
+                "Urgent due to upcoming regulatory exam."
+            ),
+            remediation_steps=[
+                "Check the SharePoint or IIS logs for the compliance site to identify the error pattern.",
+                "Verify if a recent content migration or URL restructure moved or renamed the documents.",
+                "Restore or redirect the broken document links to their new locations.",
+                "Test all 12 broken links after the fix to confirm they resolve correctly.",
+                "Notify the Regulatory Affairs team once all links are restored.",
+            ],
+            reporter_name="Maya Johal",
+            reporter_email="maya.johal@contoso.com",
+            reporter_department="Regulatory Affairs",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "url-spam", "hyperlink-overload"],
+            difficulty="hard",
+        ),
+        # ── DC-017  Raw SMTP headers dump ─────────────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-017",
+            subject="Emails from external clients being delayed — headers included",
+            description=(
+                "Hi IT team,\n\n"
+                "I'm getting emails from external clients with delays of 2-4 hours. I grabbed the\n"
+                "full message headers from one of the delayed emails — here they are:\n\n"
+                "Return-Path: <john.smith@acmecapital.com>\n"
+                "Received: from EX01.contoso.com (10.1.4.21) by EX03.contoso.com (10.1.4.23)\n"
+                " with Microsoft SMTP Server (version=TLS1_2,\n"
+                " cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40;\n"
+                " Tue, 17 Mar 2026 14:22:31 -0500\n"
+                "Received: from edge01.contoso.com (10.1.2.10) by EX01.contoso.com (10.1.4.21)\n"
+                " with Microsoft SMTP Server (version=TLS1_2,\n"
+                " cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40;\n"
+                " Tue, 17 Mar 2026 14:22:28 -0500\n"
+                "Received: from mail-yw1-f169.google.com (209.85.128.169) by edge01.contoso.com\n"
+                " (10.1.2.10) with Microsoft SMTP Server (version=TLS1_2,\n"
+                " cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1118.40\n"
+                " via Frontend Transport; Tue, 17 Mar 2026 12:15:44 -0500\n"
+                "Received: by mail-yw1-f169.google.com with SMTP id\n"
+                " 00721157ae682-6f2b3c2e9d4so12345678b3.1\n"
+                " for <nadia.okafor@contoso.com>; Tue, 17 Mar 2026 09:15:42 -0800 (PST)\n"
+                "DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acmecapital.com;\n"
+                " s=google; h=from:to:subject:date:message-id:mime-version;\n"
+                " bh=abc123def456ghi789jkl012mno345pqr678stu901vwx=;\n"
+                " b=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmn\n"
+                "Authentication-Results: edge01.contoso.com;\n"
+                " dkim=pass (signature was verified) header.d=acmecapital.com;\n"
+                " spf=pass (sender IP is 209.85.128.169) smtp.mailfrom=acmecapital.com;\n"
+                " dmarc=pass action=none header.from=acmecapital.com;\n"
+                "X-MS-Exchange-Organization-SCL: 1\n"
+                "X-MS-Exchange-Organization-AuthSource: edge01.contoso.com\n"
+                "X-MS-Exchange-Organization-AuthAs: Anonymous\n"
+                "X-MS-Exchange-Transport-CrossTenantHeadersStamped: EX03.contoso.com\n"
+                "X-Forefront-Antispam-Report: CIP:209.85.128.169;CTRY:US;LANG:en;\n"
+                " SFV:NSPM;SFS:;DIR:INB;SFP:;SCL:1;SRVR:EX03;\n"
+                "Message-ID: <CABx+XYZ123@mail.gmail.com>\n"
+                "Date: Tue, 17 Mar 2026 09:15:40 -0800\n"
+                "From: John Smith <john.smith@acmecapital.com>\n"
+                "To: Nadia Okafor <nadia.okafor@contoso.com>\n"
+                "Subject: Q1 Portfolio Rebalancing - Urgent Review\n"
+                "MIME-Version: 1.0\n"
+                'Content-Type: multipart/alternative; boundary="0000000000abc123def456"\n\n'
+                "As you can see, there's a 2+ hour gap between when it hits edge01 at 12:15\n"
+                "and when it reaches EX01 at 14:22. This is happening on most external emails.\n"
+                "Internal emails are fine.\n\n"
+                "Nadia Okafor\n"
+                "Client Services, Building 1, 4th floor, New York"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=True,
+            missing_info=[MissingInfo.AFFECTED_USERS],
+            next_best_action=(
+                "Investigate 2-hour mail delivery delay between edge01 and EX01 for inbound "
+                "external email — likely a mail queue bottleneck or transport rule processing delay."
+            ),
+            remediation_steps=[
+                "Check the mail queue on edge01.contoso.com for message backlog or throttling.",
+                "Review Exchange transport rule processing times for inbound external messages.",
+                "Check Forefront/EOP content filtering for latency spikes on edge01.",
+                "Verify network connectivity and DNS resolution between edge01 and EX01.",
+                "If a queue backlog is confirmed, increase transport capacity or clear stuck messages.",
+            ],
+            reporter_name="Nadia Okafor",
+            reporter_email="nadia.okafor@contoso.com",
+            reporter_department="Client Services",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "smtp-headers", "raw-headers"],
+            difficulty="hard",
+        ),
+        # ── DC-018  Unicode/RTL text & zero-width characters ──────────────
+        ScenarioDefinition(
+            scenario_id="DC-018",
+            subject="Can\u2019t upload files to SharePoint \u200e\u200f\u200b\u2069— help needed",
+            description=(
+                "Hi,\n\n"
+                "I\u2019m having trouble uploading files to our team\u2019s SharePoint site.\u200b\u200b\u200b\n\n"
+                "When I try to upload, I get this error:\u200e\n"
+                "\u200f\u202b\u0627\u0644\u062e\u0637\u0623: "
+                "\u0641\u0634\u0644 \u0627\u0644\u062a\u062d\u0645\u064a\u0644\u202c\u200e "
+                '"Upload failed: The file name contains invalid characters"\u200b\u200b\n\n'
+                "The file I\u2019m trying to upload is:\u200e\n"
+                "\u200fQ1\u200b_2026_\u200e\u200fPortfolio\u200b_\u200eAnalysis\u200f_FINAL\u200b\u200b\u200b.xlsx\u200e\n\n"
+                "I renamed it from the original which was:\u200e\n"
+                "\u200f\u202b\u062a\u062d\u0644\u064a\u0644_\u0627\u0644\u0645\u062d\u0641\u0638\u0629_\u0627\u0644\u0631\u0628\u0639_\u0627\u0644\u0623\u0648\u0644\u202c\u200e_2026.xlsx\n\n"
+                "Even the renamed version won\u2019t upload.\u200b My colleague Amir can upload\n"
+                "files fine from his machine.\u200b\u200b\u200b I\u2019m using Edge on Windows 11.\u200b\n\n"
+                "The SharePoint site URL is:\u200e\n"
+                "https://contoso.sharepoint.com/sites/\u200fWealthMgmt\u200e/Shared%20Documents\u200b\n\n"
+                "Please help, I have a client presentation tomorrow and need\n"
+                "to share these files with the team.\u200b\u200b\u200b\n\n"
+                "Layla Mansouri\u200e\u200f\n"
+                "Wealth Management, Building 2, 5th floor, London\u200b"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.APPLICATION_VERSION],
+            next_best_action=(
+                "Investigate SharePoint upload failure caused by invisible Unicode characters "
+                "(zero-width spaces, RTL/LTR marks) in the file name — user needs to strip "
+                "hidden characters from the filename."
+            ),
+            remediation_steps=[
+                "Identify the zero-width and bidirectional Unicode characters in the file name.",
+                "Rename the file using only ASCII characters and re-attempt the upload.",
+                "Check if the original Arabic filename triggered SharePoint's invalid character filter.",
+                "Verify the SharePoint site does not have a custom file naming policy blocking the upload.",
+                "Confirm the upload succeeds after the file is renamed with clean characters.",
+            ],
+            reporter_name="Layla Mansouri",
+            reporter_email="layla.mansouri@contoso.com",
+            reporter_department="Wealth Management",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "unicode-rtl", "zero-width-chars"],
+            difficulty="hard",
+        ),
+        # ── DC-019  JSON / XML configuration dump inline ──────────────────
+        ScenarioDefinition(
+            scenario_id="DC-019",
+            subject="Application gateway returning 502 — config dump attached",
+            description=(
+                "Hi,\n\n"
+                "Our Azure Application Gateway (appgw-prod-eus2-01) is returning 502 Bad Gateway\n"
+                "errors intermittently. I exported the current backend pool configuration:\n\n"
+                "```json\n"
+                "{\n"
+                '  "backendAddressPools": [\n'
+                "    {\n"
+                '      "name": "pool-api-prod",\n'
+                '      "properties": {\n'
+                '        "backendAddresses": [\n'
+                '          { "ipAddress": "10.42.1.10" },\n'
+                '          { "ipAddress": "10.42.1.11" },\n'
+                '          { "ipAddress": "10.42.1.12" },\n'
+                '          { "ipAddress": "10.42.1.13" }\n'
+                "        ],\n"
+                '        "provisioningState": "Succeeded"\n'
+                "      }\n"
+                "    },\n"
+                "    {\n"
+                '      "name": "pool-web-prod",\n'
+                '      "properties": {\n'
+                '        "backendAddresses": [\n'
+                '          { "ipAddress": "10.42.2.10" },\n'
+                '          { "ipAddress": "10.42.2.11" },\n'
+                '          { "ipAddress": "10.42.2.12" }\n'
+                "        ],\n"
+                '        "provisioningState": "Succeeded"\n'
+                "      }\n"
+                "    }\n"
+                "  ],\n"
+                '  "backendHttpSettingsCollection": [\n'
+                "    {\n"
+                '      "name": "http-settings-api",\n'
+                '      "properties": {\n'
+                '        "port": 8443,\n'
+                '        "protocol": "Https",\n'
+                '        "requestTimeout": 30,\n'
+                '        "probe": { "id": "/subscriptions/.../probes/probe-api-health" },\n'
+                '        "hostName": "api-internal.contoso.com",\n'
+                '        "pickHostNameFromBackendAddress": false\n'
+                "      }\n"
+                "    },\n"
+                "    {\n"
+                '      "name": "http-settings-web",\n'
+                '      "properties": {\n'
+                '        "port": 443,\n'
+                '        "protocol": "Https",\n'
+                '        "requestTimeout": 60,\n'
+                '        "probe": { "id": "/subscriptions/.../probes/probe-web-health" },\n'
+                '        "hostName": "www-internal.contoso.com",\n'
+                '        "pickHostNameFromBackendAddress": false\n'
+                "      }\n"
+                "    }\n"
+                "  ],\n"
+                '  "probes": [\n'
+                "    {\n"
+                '      "name": "probe-api-health",\n'
+                '      "properties": {\n'
+                '        "protocol": "Https",\n'
+                '        "host": "api-internal.contoso.com",\n'
+                '        "path": "/health",\n'
+                '        "interval": 30,\n'
+                '        "timeout": 10,\n'
+                '        "unhealthyThreshold": 3\n'
+                "      }\n"
+                "    },\n"
+                "    {\n"
+                '      "name": "probe-web-health",\n'
+                '      "properties": {\n'
+                '        "protocol": "Https",\n'
+                '        "host": "www-internal.contoso.com",\n'
+                '        "path": "/healthz",\n'
+                '        "interval": 30,\n'
+                '        "timeout": 10,\n'
+                '        "unhealthyThreshold": 3\n'
+                "      }\n"
+                "    }\n"
+                "  ]\n"
+                "}\n"
+                "```\n\n"
+                "The 502 errors happen mostly between 09:00-09:30 when traffic spikes. The health\n"
+                "probes seem to be passing fine in Azure Portal. Could be a backend timeout issue\n"
+                "since the API pool timeout is only 30 seconds.\n\n"
+                "Henrik Svensson\n"
+                "Cloud Infrastructure, New York"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate intermittent 502 errors on appgw-prod-eus2-01 during morning "
+                "traffic peak — backend pool timeout of 30s may be too low for the API tier "
+                "under load."
+            ),
+            remediation_steps=[
+                "Check Application Gateway access logs for 502 errors and correlate with backend health probe results.",
+                "Review backend pool member (10.42.1.10-13) health status during the 09:00-09:30 window.",
+                "Increase the API backend HTTP settings request timeout from 30s to 60s.",
+                "Check if the backend VMs are hitting CPU or memory limits during the traffic spike.",
+                "Consider enabling connection draining and auto-scaling on the Application Gateway.",
+            ],
+            reporter_name="Henrik Svensson",
+            reporter_email="henrik.svensson@contoso.com",
+            reporter_department="Cloud Infrastructure",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "json-config-dump", "inline-code"],
+            difficulty="hard",
+        ),
+        # ── DC-020  Auto-reply / out-of-office loop concatenation ─────────
+        ScenarioDefinition(
+            scenario_id="DC-020",
+            subject="Re: Re: Re: Automatic reply: Re: Automatic reply: VPN token expired",
+            description=(
+                "--- Automatic Reply ---\n"
+                "Thank you for your email. I am currently out of the office from March 14\n"
+                "through March 21 with limited access to email. For urgent IT matters, please\n"
+                "contact the IT Service Desk at x5000 or itsupport@contoso.com.\n\n"
+                "Best regards,\nAmy Chen\nIT Service Desk Analyst\n\n"
+                "--- Automatic Reply ---\n"
+                "Hi, this is Carlos Mendez. I'm out of the office until March 19.\n"
+                "For immediate assistance please reach out to my backup, Jenny Park\n"
+                "(jenny.park@contoso.com).\n\n"
+                "--- Automatic Reply ---\n"
+                "Thank you for your email. I am currently out of the office from March 14\n"
+                "through March 21 with limited access to email. For urgent IT matters, please\n"
+                "contact the IT Service Desk at x5000 or itsupport@contoso.com.\n\n"
+                "Best regards,\nAmy Chen\nIT Service Desk Analyst\n\n"
+                "--- Automatic Reply ---\n"
+                "Hi, this is Carlos Mendez. I'm out of the office until March 19.\n"
+                "For immediate assistance please reach out to my backup, Jenny Park\n"
+                "(jenny.park@contoso.com).\n\n"
+                "--- Original Message ---\n"
+                "From: Carlos Mendez <carlos.mendez@contoso.com>\n"
+                "Sent: Thursday, March 14, 2026 2:05 PM\n"
+                "To: IT Support <itsupport@contoso.com>\n"
+                "Subject: VPN token expired\n\n"
+                "Hi team,\n\n"
+                "My RSA SecurID soft token expired and I can't generate new VPN codes. The\n"
+                "token shows 'Token Disabled' in the app. I need VPN access to work from\n"
+                "home next week while the office is closed for maintenance.\n\n"
+                "My employee ID is E-28491. Can you please re-provision my token?\n\n"
+                "Thanks,\n"
+                "Carlos Mendez\n"
+                "Derivatives, Building 3, 6th floor, New York"
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P2,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Re-provision expired RSA SecurID soft token for employee E-28491 — "
+                "token shows 'Disabled' and user needs VPN access for remote work next week."
+            ),
+            remediation_steps=[
+                "Look up employee E-28491 in the RSA Authentication Manager console.",
+                "Verify the token status and confirm it is disabled/expired.",
+                "Re-provision a new RSA SecurID soft token and send the activation link to the user.",
+                "Guide the user through importing the new token on their mobile device.",
+                "Test VPN connectivity with the new token before the office closure.",
+            ],
+            reporter_name="Carlos Mendez",
+            reporter_email="carlos.mendez@contoso.com",
+            reporter_department="Derivatives",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "auto-reply-loop", "ooo-concatenation"],
+            difficulty="hard",
+        ),
+        # ── DC-021  Enormous forward chain with 10+ participants ─────────────
+        ScenarioDefinition(
+            scenario_id="DC-021",
+            subject=("FW: FW: FW: FW: FW: FW: FW: FW: FW: FW: Re: SAP access for new joiner"),
+            description=(
+                "--- Latest reply ---\n"
+                "Hi IT, can someone PLEASE just grant the SAP access already? This has "
+                "been bouncing around for two weeks.\n"
+                "— Anita\n\n"
+                "--- Forwarded by: Raj Kapoor (raj.kapoor@contoso.com) ---\n"
+                "Anita, I don't handle SAP provisioning anymore. Forwarding to IT.\n\n"
+                "--- Forwarded by: Chen Wei (chen.wei@contoso.com) ---\n"
+                "Raj, can you take this? I think SAP is under your team now.\n\n"
+                "--- Forwarded by: Lisa Johansson (lisa.johansson@contoso.com) ---\n"
+                "Chen, this came to me by mistake. Please route to the right team.\n\n"
+                "--- Forwarded by: Mike Torres (mike.torres@contoso.com) ---\n"
+                "Lisa, not sure who handles this. Adding you since you did it last time.\n\n"
+                "--- Forwarded by: Priya Sharma (priya.sharma@contoso.com) ---\n"
+                "Mike, I'm on parental leave. Please find someone else.\n\n"
+                "--- Forwarded by: David Kim (david.kim@contoso.com) ---\n"
+                "Priya, you did SAP access last quarter — can you handle this?\n\n"
+                "--- Forwarded by: Fatima Al-Rashid (fatima.al-rashid@contoso.com) ---\n"
+                "David, this should go to the SAP team. I only handle Salesforce.\n\n"
+                "--- Forwarded by: Tom O'Brien (tom.obrien@contoso.com) ---\n"
+                "Fatima, can your team handle this? I think it's an enterprise app thing.\n\n"
+                "--- Forwarded by: Sandra Nguyen (sandra.nguyen@contoso.com) ---\n"
+                "Tom, forwarding to you since you're the app team lead.\n\n"
+                "--- Original Message ---\n"
+                "From: Anita Desai <anita.desai@contoso.com>\n"
+                "Sent: Monday, March 3, 2026 9:00 AM\n"
+                "To: IT Support <itsupport@contoso.com>\n"
+                "Subject: SAP access for new joiner\n\n"
+                "Hi team,\n\n"
+                "I just joined the Finance department last week and need SAP access "
+                "(modules: FI, CO, and MM) to start processing invoices. My employee "
+                "ID is E-31024 and my manager is Robert Chen (Director, Finance).\n\n"
+                "Thanks,\nAnita Desai\nFinance, Building 1, 3rd floor, New York"
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P3,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Provision SAP access (FI, CO, MM modules) for new joiner E-31024 in "
+                "Finance — request has been circulating for two weeks through a long "
+                "forward chain. Verify manager approval from Robert Chen."
+            ),
+            remediation_steps=[
+                "Verify the new joiner's employment and role with HR using employee ID E-31024.",
+                "Confirm manager authorization from Robert Chen for SAP FI, CO, and MM access.",
+                "Provision the SAP user account with the appropriate role profile for Finance.",
+                "Send the user their SAP login credentials via the secure onboarding portal.",
+                "Follow up to confirm access is working and the user can process invoices.",
+            ],
+            reporter_name="Anita Desai",
+            reporter_email="anita.desai@contoso.com",
+            reporter_department="Finance",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "long-email", "forward-chain"],
+            difficulty="hard",
+        ),
+        # ── DC-022  Base64-encoded PDF pasted as raw text ────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-022",
+            subject="Cannot open expense report — raw PDF data below",
+            description=(
+                "Hi IT,\n\n"
+                "I can't open an expense report PDF that a vendor sent me. When I try to "
+                "open it in Adobe, it shows 'This file is damaged and could not be repaired.' "
+                "I'm pasting the raw file content since the portal won't let me attach:\n\n"
+                "JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5k\n"
+                "b2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4K\n"
+                "ZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3gg\n"
+                "WzAgMCA2MTIgNzkyXSAvQ29udGVudHMgNCAwIFIgL1Jlc291cmNlcyA8PCAvRm9udCA8PCAv\n"
+                "RjEgNSAwIFIgPj4gPj4gPj4KZW5kb2JqCjQgMCBvYmoKPDwgL0xlbmd0aCAxMjQgPj4Kc3Ry\n"
+                "ZWFtCkJUCi9GMSAxOCBUZgowIDAgVGQKKEV4cGVuc2UgUmVwb3J0IC0gVmVuZG9yIEluYykg\n"
+                "VGoKMCAtMjUgVGQKKFRvdGFsOiAkMTIsMzQ1LjY3KSBUagowIC0yNSBUZAooU3RhdHVzOiBQ\n"
+                "ZW5kaW5nIEFwcHJvdmFsKSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCjUgMCBvYmoKPDwgL1R5\n"
+                "cGUgL0ZvbnQgL1N1YnR5cGUgL1R5cGUxIC9CYXNlRm9udCAvSGVsdmV0aWNhID4+CmVuZG9i\n"
+                "agp4cmVmCjAgNgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMDkgMDAwMDAgbiAKMMDAwMD\n"
+                "AwMDA2MyAwMDAwMCBuIAowMDAwMDAwMTIwIDAwMDAwIG4gCjAwMDAwMDAzMDQgMDAwMDAgbiAK\n"
+                "MDAwMDAwMDQ4MCAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDYgL1Jvb3QgMSAwIFIgPj4K\n"
+                "c3RhcnR4cmVmCjU3MQolJUVPRgo=\n\n"
+                "The expense amount is $12,345.67 from Vendor Inc. and I need to submit "
+                "it for approval by end of week. I'm using Adobe Acrobat Reader DC 2024 "
+                "on Windows 11."
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Investigate corrupted PDF from vendor — user cannot open expense report "
+                "in Adobe Acrobat Reader DC. May be a file transfer corruption issue or "
+                "incompatible PDF version. Ignore the base64-encoded raw PDF data in "
+                "the ticket body."
+            ),
+            remediation_steps=[
+                "Ask the user to re-download the PDF from the original email or vendor portal.",
+                "Test opening the file with an alternative PDF reader (Edge, Chrome built-in).",
+                "Check if the email attachment was corrupted during transfer (compare file sizes).",
+                "If the vendor's PDF is consistently corrupt, request a re-send from the vendor.",
+                "Verify Adobe Acrobat Reader DC is up to date and not blocked by Group Policy.",
+            ],
+            reporter_name="Hannah Eriksson",
+            reporter_email="hannah.eriksson@contoso.com",
+            reporter_department="Procurement",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "base64", "raw-file-content"],
+            difficulty="hard",
+        ),
+        # ── DC-023  Massive PowerShell / terminal output dump ────────────────
+        ScenarioDefinition(
+            scenario_id="DC-023",
+            subject="Azure deployment failing — full terminal output",
+            description=(
+                "Hi,\n\n"
+                "Our Azure deployment pipeline keeps failing. Here's the full output:\n\n"
+                "PS C:\\deploy> .\\deploy-infra.ps1 -Environment prod -Region eastus2\n"
+                "VERBOSE: [2026-03-17 14:22:01] Starting deployment to eastus2...\n"
+                "VERBOSE: [2026-03-17 14:22:01] Loading ARM template: main.bicep\n"
+                "VERBOSE: [2026-03-17 14:22:02] Validating template parameters...\n"
+                "VERBOSE: [2026-03-17 14:22:02] Parameter 'vmSize': Standard_D4s_v3\n"
+                "VERBOSE: [2026-03-17 14:22:02] Parameter 'nodeCount': 5\n"
+                "VERBOSE: [2026-03-17 14:22:02] Parameter 'aksVersion': 1.28.5\n"
+                "VERBOSE: [2026-03-17 14:22:03] Connecting to subscription: prod-sub-001\n"
+                "VERBOSE: [2026-03-17 14:22:03] Resource group: rg-prod-eus2-001\n"
+                "VERBOSE: [2026-03-17 14:22:04] Starting what-if analysis...\n"
+                "VERBOSE: [2026-03-17 14:22:15] What-if: 47 resources to create/modify\n"
+                "VERBOSE: [2026-03-17 14:22:16] Deploying resource 1/47: Microsoft.Network/virtualNetworks\n"
+                "VERBOSE: [2026-03-17 14:22:22] ✓ vnet-prod-eus2 created\n"
+                "VERBOSE: [2026-03-17 14:22:23] Deploying resource 2/47: Microsoft.Network/networkSecurityGroups\n"
+                "VERBOSE: [2026-03-17 14:22:28] ✓ nsg-aks-prod created\n"
+                "VERBOSE: [2026-03-17 14:22:29] Deploying resource 3/47: Microsoft.Network/privateDnsZones\n"
+                "VERBOSE: [2026-03-17 14:22:35] ✓ privatelink.eastus2.azmk8s.io created\n"
+                "VERBOSE: [2026-03-17 14:22:36] Deploying resource 4/47: Microsoft.ContainerService/managedClusters\n"
+                "VERBOSE: [2026-03-17 14:22:37] Waiting for AKS cluster provisioning...\n"
+                "VERBOSE: [2026-03-17 14:25:42] ✓ aks-prod-eus2 provisioning started\n"
+                "VERBOSE: [2026-03-17 14:30:01] Deploying resource 5/47: Microsoft.KeyVault/vaults\n"
+                "VERBOSE: [2026-03-17 14:30:15] ✓ kv-prod-eus2-001 created\n"
+                "VERBOSE: [2026-03-17 14:30:16] Deploying resource 6/47: Microsoft.Storage/storageAccounts\n"
+                "VERBOSE: [2026-03-17 14:30:22] ✓ stprodeus2001 created\n"
+                "VERBOSE: [2026-03-17 14:30:23] Deploying resource 7/47: Microsoft.Sql/servers\n"
+                "VERBOSE: [2026-03-17 14:30:45] ✓ sql-prod-eus2 created\n"
+                "VERBOSE: [2026-03-17 14:30:46] Deploying resource 8/47: Microsoft.Sql/servers/databases\n"
+                "ERROR: [2026-03-17 14:31:02] ✗ DEPLOYMENT FAILED\n"
+                "ERROR: New-AzResourceGroupDeployment: 14:31:02 - Resource "
+                "Microsoft.Sql/servers/databases 'sql-prod-eus2/appdb-prod' failed with "
+                "message: 'The DTU quota for the subscription has been exceeded. "
+                "Requested: 250 DTU, Available: 0 DTU. Please increase your DTU quota "
+                "or reduce the requested DTU.'\n"
+                "ERROR: Deployment 'deploy-20260317-142201' failed.\n"
+                "VERBOSE: [2026-03-17 14:31:03] Rolling back 8 resources...\n"
+                "VERBOSE: [2026-03-17 14:32:15] Rollback complete.\n"
+                "PS C:\\deploy>\n\n"
+                "Can you help? We need this in production by Friday."
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.BUSINESS_IMPACT],
+            next_best_action=(
+                "Investigate Azure SQL DTU quota exhaustion blocking production "
+                "deployment — subscription prod-sub-001 has 0 DTU remaining. Need to "
+                "increase the DTU quota or optimize existing database allocations."
+            ),
+            remediation_steps=[
+                "Check the current DTU allocation across all databases in subscription prod-sub-001.",
+                "Identify databases that are over-provisioned or unused and can be scaled down.",
+                "Submit an Azure support request to increase the DTU quota if needed.",
+                "Consider switching to vCore-based pricing for more flexible resource management.",
+                "Re-run the deployment after quota is available and verify all 47 resources deploy.",
+            ],
+            reporter_name="Alex Petrov",
+            reporter_email="alex.petrov@contoso.com",
+            reporter_department="Cloud Infrastructure",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "terminal-output", "verbose-logs"],
+            difficulty="hard",
+        ),
+        # ── DC-024  Concatenated monitoring / alerting notifications ─────────
+        ScenarioDefinition(
+            scenario_id="DC-024",
+            subject="FW: [ALERT] Multiple monitoring alerts — disk space",
+            description=(
+                "--- Alert 1 of 12 ---\n"
+                "[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 98% full "
+                "(467GB/476GB) | Triggered: 2026-03-17 02:15:00 UTC\n"
+                "Host: db-prod-03.contoso.local | Service: disk_space_/data\n"
+                "Contact: oncall-data@contoso.com | Notification: 1/5\n\n"
+                "--- Alert 2 of 12 ---\n"
+                "[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 98% full "
+                "(468GB/476GB) | Triggered: 2026-03-17 02:30:00 UTC\n"
+                "Host: db-prod-03.contoso.local | Service: disk_space_/data\n"
+                "Contact: oncall-data@contoso.com | Notification: 2/5\n\n"
+                "--- Alert 3 of 12 ---\n"
+                "[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 99% full "
+                "(469GB/476GB) | Triggered: 2026-03-17 02:45:00 UTC\n"
+                "Host: db-prod-03.contoso.local | Service: disk_space_/data\n"
+                "Contact: oncall-data@contoso.com | Notification: 3/5\n\n"
+                "--- Alert 4 of 12 ---\n"
+                "[WARNING] Nagios Alert: SWAP WARNING - Swap usage on db-prod-03 is 82% "
+                "| Triggered: 2026-03-17 02:47:00 UTC\n"
+                "Host: db-prod-03.contoso.local | Service: swap_usage\n\n"
+                "--- Alert 5 of 12 ---\n"
+                "[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 99% full "
+                "(470GB/476GB) | Triggered: 2026-03-17 03:00:00 UTC\n\n"
+                "--- Alerts 6-11 (same pattern, 15-minute intervals) ---\n\n"
+                "--- Alert 12 of 12 ---\n"
+                "[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 99% full "
+                "(475GB/476GB) | Triggered: 2026-03-17 05:45:00 UTC\n"
+                "Host: db-prod-03.contoso.local | Service: disk_space_/data\n"
+                "Contact: oncall-data@contoso.com | Notification: 5/5 (FINAL)\n\n"
+                "Hi IT,\n\n"
+                "The on-call team forwarded these alerts to us. The /data volume on "
+                "db-prod-03 is nearly full and it's our production PostgreSQL server. "
+                "If it fills up completely the database will crash. Please investigate "
+                "urgently.\n\n"
+                "— Operations team"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P1,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=True,
+            missing_info=[],
+            next_best_action=(
+                "URGENT: /data volume on db-prod-03 (production PostgreSQL) is at 99% "
+                "(475/476GB) and has been filling steadily since 02:15 UTC. Immediate "
+                "action needed to prevent database crash from disk exhaustion."
+            ),
+            remediation_steps=[
+                "Immediately check current disk usage on db-prod-03 /data volume.",
+                "Identify the largest consumers — check for WAL file accumulation, old backups, or temp files.",
+                "Clear any safe-to-delete files (old WAL segments, pg_dump temp files) to buy time.",
+                "Expand the /data volume or add additional storage if on cloud/SAN.",
+                "Investigate the root cause of rapid disk growth and set up proactive alerts at 85%.",
+            ],
+            reporter_name="Operations Team",
+            reporter_email="ops-team@contoso.com",
+            reporter_department="Operations",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "monitoring-alerts", "alert-flood"],
+            difficulty="hard",
+        ),
+        # ── DC-025  Reply-all chain with massive CC list and headers ─────────
+        ScenarioDefinition(
+            scenario_id="DC-025",
+            subject="RE: RE: RE: RE: ALL-HANDS: Office printer toner replacement",
+            description=(
+                "To: IT Support <itsupport@contoso.com>\n"
+                "CC: john.smith@contoso.com; jane.doe@contoso.com; mike.jones@contoso.com; "
+                "sarah.wilson@contoso.com; david.brown@contoso.com; lisa.taylor@contoso.com; "
+                "james.anderson@contoso.com; mary.thomas@contoso.com; robert.jackson@contoso.com; "
+                "patricia.white@contoso.com; christopher.harris@contoso.com; linda.martin@contoso.com; "
+                "daniel.garcia@contoso.com; nancy.martinez@contoso.com; matthew.robinson@contoso.com; "
+                "betty.clark@contoso.com; anthony.rodriguez@contoso.com; margaret.lewis@contoso.com; "
+                "mark.lee@contoso.com; dorothy.walker@contoso.com; steven.hall@contoso.com; "
+                "elizabeth.allen@contoso.com; paul.young@contoso.com; jennifer.king@contoso.com; "
+                "andrew.wright@contoso.com; barbara.scott@contoso.com; joshua.green@contoso.com; "
+                "susan.adams@contoso.com; kenneth.baker@contoso.com; helen.nelson@contoso.com; "
+                "kevin.hill@contoso.com; donna.ramirez@contoso.com; brian.campbell@contoso.com; "
+                "carol.mitchell@contoso.com; george.roberts@contoso.com; ruth.carter@contoso.com; "
+                "edward.phillips@contoso.com; sharon.evans@contoso.com; ronald.turner@contoso.com; "
+                "michelle.torres@contoso.com; all-floor7@contoso.com; all-floor8@contoso.com; "
+                "all-building2@contoso.com\n\n"
+                "--- Reply from Ruth Carter ---\n"
+                "Please stop replying all! My inbox is flooded!\n\n"
+                "--- Reply from Ronald Turner ---\n"
+                "Unsubscribe\n\n"
+                "--- Reply from Edward Phillips ---\n"
+                "+1 to Ruth, please use reply not reply-all\n\n"
+                "--- Reply from George Roberts ---\n"
+                "Can someone remove me from this thread?\n\n"
+                "--- Reply from Carol Mitchell ---\n"
+                "STOP REPLYING ALL!!!\n\n"
+                "--- Original Message ---\n"
+                "From: Kevin Hill <kevin.hill@contoso.com>\n"
+                "To: IT Support; all-floor7; all-floor8; all-building2\n"
+                "Subject: Office printer toner replacement\n\n"
+                "Hi IT,\n\n"
+                "The large MFP printer on Floor 7 (Canon imageRUNNER ADVANCE C5560i, "
+                "asset tag BLD2-PRN-0012) is printing with faded streaks — I think the "
+                "cyan toner is running low. Can you send a replacement cartridge?\n\n"
+                "Kevin Hill\nAsset Management, Building 2, Floor 7"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P4,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[],
+            next_best_action=(
+                "Order replacement cyan toner cartridge for Canon imageRUNNER ADVANCE "
+                "C5560i (BLD2-PRN-0012) on Floor 7, Building 2. Faded streaks indicate "
+                "low toner. Ignore the reply-all noise."
+            ),
+            remediation_steps=[
+                "Check the printer's built-in supply status page for toner levels.",
+                "Order a replacement Canon C-EXV51 cyan toner cartridge.",
+                "Dispatch a technician to replace the toner and clean the drum unit if needed.",
+                "Print a test page after replacement to verify streak-free output.",
+                "Advise the original sender to use targeted distribution lists in the future.",
+            ],
+            reporter_name="Kevin Hill",
+            reporter_email="kevin.hill@contoso.com",
+            reporter_department="Asset Management",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "reply-all-storm", "massive-cc-list"],
+            difficulty="hard",
+        ),
+        # ── DC-026  OCR-extracted text from scanned document ─────────────────
+        ScenarioDefinition(
+            scenario_id="DC-026",
+            subject="Scanned error message from kiosk — OCR text below",
+            description=(
+                "Hi IT,\n\n"
+                "The lobby kiosk is showing an error. I took a photo and ran OCR on it "
+                "since I couldn't copy-paste. Here's what I got:\n\n"
+                "Wiridows Errar\n"
+                "A prOblem has been detectad and Windows h4s been\n"
+                "shut dawri to prevEnt damaGe to y0ur comput3r.\n\n"
+                "IRQL_NOT_L3SS_OR_EQUAI.\n\n"
+                "lf this ls the flrst tirne you've se€n this\n"
+                "St0p error scre8n, r3start your c0mputer. lf\n"
+                "this scr€en app8ars ag4in, foIIow th3se steps:\n\n"
+                "Ch3ck to mak€ sure any n3w hardwar€ 0r softwar3\n"
+                "is prop€rly instaIl3d. lf this is a n3w\n"
+                "installati0n, ask your h4rdware or s0ftware\n"
+                "manufactur3r f0r any Wlndows updat3s you might\n"
+                "n3ed.\n\n"
+                "T3chnical lnformation:\n"
+                "*** ST0P: 0x0000000A (0x000O0028, 0x00000002,\n"
+                "0x00000001, Oxid3ntlfy)\n\n"
+                "The kiosk is in the main lobby, Building 1. It's the visitor check-in "
+                "terminal. This is blocking all guest sign-ins today.\n\n"
+                "— Reception team"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P2,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Investigate BSOD (IRQL_NOT_LESS_OR_EQUAL) on lobby visitor check-in "
+                "kiosk in Building 1 — likely a driver or memory issue. Kiosk is "
+                "blocking all guest sign-ins."
+            ),
+            remediation_steps=[
+                "Dispatch a technician to the lobby kiosk to perform a hard restart.",
+                "Check the Windows Event Viewer for the IRQL_NOT_LESS_OR_EQUAL crash dump.",
+                "Inspect recently installed drivers or updates that may have caused the BSOD.",
+                "Run Windows Memory Diagnostic to check for faulty RAM.",
+                "If recurring, re-image the kiosk from the standard kiosk deployment image.",
+            ],
+            reporter_name="Reception Team",
+            reporter_email="reception@contoso.com",
+            reporter_department="Facilities",
+            channel=Channel.PHONE,
+            tags=["data-cleanup", "ocr-noise", "garbled-text"],
+            difficulty="hard",
+        ),
+        # ── DC-027  Minified JavaScript / CSS pasted as error context ────────
+        ScenarioDefinition(
+            scenario_id="DC-027",
+            subject="Internal portal showing blank page — console errors",
+            description=(
+                "Hi IT,\n\n"
+                "Our internal benefits portal (https://benefits.contoso.com) is showing "
+                "a completely blank white page. I opened the browser console and this is "
+                "what I see:\n\n"
+                "Uncaught TypeError: Cannot read properties of undefined (reading 'map')\n"
+                "    at Object.render (app.min.js:1:28847)\n\n"
+                "The minified source at that location is:\n"
+                '!function(e){"use strict";var t=function(e,t){return e.filter(function(e){return'
+                " t.indexOf(e.id)>-1})},n=function(e){return e.benefits.map(function(e){return{"
+                "id:e.id,name:e.name,enrolled:e.enrolled,deductible:e.deductible,copay:e.copay,"
+                "premium:e.premium,provider:e.provider,effectiveDate:e.effectiveDate,status:e."
+                "status}})},r=function(e,t){var n=e.querySelector(t);return n?n.textContent:"
+                '""},o=function(e){var t=document.createElement("div");t.className="benefit-card'
+                ' "+e.status;var n=document.createElement("h3");n.textContent=e.name;var r='
+                'document.createElement("p");r.textContent="Premium: $"+e.premium+"/mo";var o='
+                'document.createElement("p");o.textContent="Deductible: $"+e.deductible;var i='
+                'document.createElement("span");i.className="status-badge "+e.status;i.textContent='
+                "e.status;t.appendChild(n);t.appendChild(r);t.appendChild(o);t.appendChild(i);"
+                'return t};e.init=function(){var e=document.getElementById("benefits-root");'
+                'fetch("/api/benefits").then(function(e){return e.json()}).then(function(t){'
+                "var r=n(t);r.forEach(function(t){e.appendChild(o(t))})}).catch(function(e){"
+                'console.error("Failed to load benefits:",e)})}}(window.BenefitsApp=window.'
+                "BenefitsApp||{});\n\n"
+                "This started after the maintenance window last night. All browsers "
+                "affected (Edge, Chrome). The API endpoint /api/benefits returns a 200 "
+                "but the response body is empty.\n\n"
+                "— HR portal admin"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate benefits portal blank page — the /api/benefits endpoint "
+                "returns empty body (200 OK), causing a TypeError when the frontend "
+                "tries to map over undefined benefits array. Likely a backend deployment "
+                "or database connectivity issue from last night's maintenance."
+            ),
+            remediation_steps=[
+                "Check the backend service for /api/benefits — verify database connectivity.",
+                "Review last night's maintenance changes for anything affecting the benefits API.",
+                "Check application logs for errors in the benefits data retrieval path.",
+                "If the database is accessible, verify the benefits table has data and is not truncated.",
+                "Roll back the maintenance change if it caused the API regression.",
+            ],
+            reporter_name="HR Portal Admin",
+            reporter_email="hr-portal-admin@contoso.com",
+            reporter_department="HR",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "minified-code", "inline-code"],
+            difficulty="hard",
+        ),
+        # ── DC-028  Multi-part MIME email with mixed content ─────────────────
+        ScenarioDefinition(
+            scenario_id="DC-028",
+            subject="Badge reader not working — MIME-encoded email follows",
+            description=(
+                'Content-Type: multipart/mixed; boundary="----=_Part_8847_1302567890"\n'
+                "MIME-Version: 1.0\n"
+                "X-Mailer: Lotus Notes 9.0.1\n"
+                "X-MimeOLE: Produced By Microsoft MimeOLE V6.3.9600.20091\n\n"
+                "------=_Part_8847_1302567890\n"
+                "Content-Type: text/plain; charset=UTF-8\n"
+                "Content-Transfer-Encoding: quoted-printable\n\n"
+                "Hi IT,\n\n"
+                "The badge reader at the Building 4 parking garage entrance (Gate B) "
+                "stopped working this morning around 7:30 AM. Employees are having to =\n"
+                "wait for security to manually open the gate, causing a 20-minute backup =\n"
+                "during morning rush.\n\n"
+                "The reader's LED is solid red instead of the normal blinking green.=20\n"
+                "Badge number on the reader unit: BDG-PK-0044.\n\n"
+                "=E2=80=94 Facilities team\n\n"
+                "------=_Part_8847_1302567890\n"
+                "Content-Type: text/html; charset=UTF-8\n"
+                "Content-Transfer-Encoding: quoted-printable\n\n"
+                "<html><body>\n"
+                "<p>Hi IT,</p>\n"
+                "<p>The badge reader at the <b>Building 4 parking garage entrance</b>=\n"
+                " (Gate B) stopped working this morning around 7:30 AM. Employees are=\n"
+                " having to wait for security to manually open the gate, causing a=\n"
+                ' <span style=3D"color:red;font-weight:bold">20-minute backup</span>=\n'
+                " during morning rush.</p>\n"
+                "<p>The reader=E2=80=99s LED is solid red instead of the normal blinking=\n"
+                " green. Badge number on the reader unit: <code>BDG-PK-0044</code>.</p>\n"
+                "<p>=E2=80=94 Facilities team</p>\n"
+                "</body></html>\n\n"
+                "------=_Part_8847_1302567890\n"
+                'Content-Type: image/jpeg; name="badge_reader_photo.jpg"\n'
+                "Content-Transfer-Encoding: base64\n"
+                'Content-Disposition: attachment; filename="badge_reader_photo.jpg"\n\n'
+                "/9j/4AAQSkZJRgABAQEASABIAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9\n"
+                "PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2f/wAALCABAAEABAREA/8QAHwAA\n"
+                "AQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUF\n\n"
+                "------=_Part_8847_1302567890--"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P2,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[],
+            next_best_action=(
+                "Dispatch technician to repair badge reader BDG-PK-0044 at Building 4 "
+                "parking garage Gate B — LED showing solid red since 7:30 AM, causing "
+                "20-minute entry delays. Reader may need power cycle or replacement."
+            ),
+            remediation_steps=[
+                "Dispatch facilities/endpoint technician to Gate B, Building 4 parking garage.",
+                "Attempt a power cycle of badge reader BDG-PK-0044.",
+                "Check the reader's network connection to the access control server.",
+                "If power cycle fails, replace the reader unit with a spare from inventory.",
+                "Verify badge access works after repair and clear any entry queue.",
+            ],
+            reporter_name="Facilities Team",
+            reporter_email="facilities@contoso.com",
+            reporter_department="Facilities",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "mime-encoded", "multi-part-email"],
+            difficulty="hard",
+        ),
+        # ── DC-029  Extremely long single-line email (no line breaks) ────────
+        ScenarioDefinition(
+            scenario_id="DC-029",
+            subject="URGENT: laptop wont turn on at all completely dead",
+            description=(
+                "hi IT my laptop is completely dead it wont turn on at all i've tried "
+                "holding the power button for 30 seconds and nothing happens the charging "
+                "light isnt coming on either i tried a different charger from my colleague "
+                "and still nothing i have a really important client presentation in 2 hours "
+                "and all my slides are on this laptop i saved them locally because i was "
+                "working on the plane yesterday and didnt have wifi to sync to onedrive i "
+                "know i shouldve saved to the cloud but i didnt and now im panicking the "
+                "laptop is a lenovo thinkpad x1 carbon gen 11 and its only about 6 months "
+                "old so it shouldnt be dying already i think the battery might be completely "
+                "drained because i left it in my bag overnight with the lid open and it "
+                "might have been running all night but even plugged in it shows absolutely "
+                "nothing no lights no fan noise no screen flicker nothing at all its like "
+                "its a brick i tried the paper clip reset hole on the bottom too and that "
+                "didnt help either my employee id is E-20145 and im on the 4th floor of "
+                "building 2 in the london office can someone please come help me or give "
+                "me a loaner laptop so i can at least pull my slides from the local backup "
+                "i desperately need this resolved in the next hour"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P2,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Urgent: Lenovo ThinkPad X1 Carbon Gen 11 completely unresponsive for "
+                "employee E-20145 on 4th floor, Building 2, London. User has client "
+                "presentation in 2 hours with locally-stored slides. Prioritize loaner "
+                "device and data recovery."
+            ),
+            remediation_steps=[
+                "Immediately dispatch a loaner laptop to the user's location (4th floor, Building 2, London).",
+                "Attempt to recover the dead ThinkPad — try a full battery disconnect/reconnect reset.",
+                "If the laptop powers on, help the user sync the presentation files to OneDrive.",
+                "If unrecoverable, pull the NVMe SSD and mount it externally to retrieve the slides.",
+                "Log a warranty claim for the ThinkPad X1 Carbon if it is confirmed dead.",
+            ],
+            reporter_name="Oliver Smythe",
+            reporter_email="oliver.smythe@contoso.com",
+            reporter_department="Private Banking",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "no-linebreaks", "stream-of-consciousness"],
+            difficulty="hard",
+        ),
+        # ── DC-030  Base64 image flood interleaved with real content ─────────
+        ScenarioDefinition(
+            scenario_id="DC-030",
+            subject="Multiple monitor setup not working — inline photos",
+            description=(
+                "Hi IT,\n\n"
+                "I just moved to a new desk and I can't get my triple monitor setup "
+                "working. Here's a photo of how the cables are connected:\n\n"
+                "[Photo 1 — rear of dock]\n"
+                "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQ"
+                "gKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2w"
+                "BDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy"
+                "MjIyMjIyMjIyMjIyMjL/wAARCAAoACgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAA"
+                "AAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBka"
+                "EII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZW"
+                "ZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8"
+                "jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAA"
+                "ECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKR"
+                "\n\n"
+                "The dock is a Lenovo ThinkPad USB-C Dock Gen 2 (40AS). I have three "
+                "Dell U2722D monitors connected via:\n"
+                "- Monitor 1: DisplayPort from dock (works)\n"
+                "- Monitor 2: HDMI from dock (shows 'No Signal')\n"
+                "- Monitor 3: USB-C to DisplayPort adapter from laptop directly (flickering)\n\n"
+                "[Photo 2 — monitor 2 showing no signal]\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0"
+                "QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH6QMRDhQHLFcKRgAAAB1p"
+                "VFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAABKUlEQVR42u3bMQ6DMBCF"
+                "Ye5/aaogRaJCwmDPjP2eRKfA/NiLvQAAAAAAAAAAAACwm+OqF3Ye55ev/fx73xvXdzj5d/Fz"
+                "1j78vOr5bfn61nXf4/ct77v6e13H8fWt51v1HHa5hrOfc8Xz3v39r3w9q+6/1f1fcV1XvL7V"
+                "\n\n"
+                "[Photo 3 — monitor 3 flickering]\n"
+                "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAdI"
+                "bGludQIQAABtbnRyUkdCIFhZWiAH4gACAAkABgAxAABhY3NwTVNGVAAAAABJRUMgc1JHQgAAAA"
+                "AAAAAAAAAAAPbWAAEAAAAA0y1obGlubAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                "AAAAAAAAAAAAAAAAAAARY3BydAAAAbAAAAA2d3RwdAAAAagAAAAUZGVzYwAAAcgAAAAwAAAAAAAA"
+                "\n\n"
+                "I've tried updating the dock firmware and the Intel graphics driver "
+                "(version 31.0.101.5186) but no change. My laptop is a ThinkPad T14s "
+                "Gen 4 running Windows 11 23H2.\n\n"
+                "— Yuki Tanaka, Fixed Income, Building 3, 8th floor, Singapore"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Troubleshoot triple-monitor setup with Lenovo ThinkPad USB-C Dock Gen 2 "
+                "— Monitor 2 (HDMI) shows no signal, Monitor 3 (USB-C adapter) is "
+                "flickering. Likely a dock bandwidth or DisplayLink driver limitation "
+                "with three 2560x1440 monitors."
+            ),
+            remediation_steps=[
+                "Check if the dock firmware supports three simultaneous displays at 2560x1440.",
+                "Verify the HDMI port on the dock is functional by testing with a known-good cable/monitor.",
+                "Replace the USB-C to DisplayPort adapter for Monitor 3 with a certified one.",
+                "Check if MST (Multi-Stream Transport) daisy-chaining could reduce dock port usage.",
+                "If the dock cannot support three QHD monitors, consider a DisplayLink USB adapter for the third.",
+            ],
+            reporter_name="Yuki Tanaka",
+            reporter_email="yuki.tanaka@contoso.com",
+            reporter_department="Fixed Income",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "base64", "interleaved-images", "inline-image"],
+            difficulty="hard",
+        ),
+    ]

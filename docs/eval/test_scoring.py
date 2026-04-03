@@ -11,8 +11,6 @@ Test structure mirrors the scoring pipeline:
 
 import sys
 
-sys.path.insert(0, ".")  # noqa: TID251
-
 from run_eval import WEIGHTS
 from run_eval import _coerce_bool
 from run_eval import binary_f1

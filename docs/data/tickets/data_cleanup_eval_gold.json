@@ -1,10 +1,15 @@
 [
     {
+<<<<<<< HEAD
         "ticket_id": "INC-2001",
+=======
+        "ticket_id": "INC-5001",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "category": "Data & Storage",
         "priority": "P2",
         "assigned_team": "Data Platform",
         "needs_escalation": false,
+<<<<<<< HEAD
         "missing_information": [
             "error_message"
         ],
@@ -19,11 +24,26 @@
     },
     {
         "ticket_id": "INC-2002",
+=======
+        "missing_information": [],
+        "next_best_action": "Verify the reporter's AD group membership for the finance shared drive and check if recent permission changes affected quarterly-reports folder access.",
+        "remediation_steps": [
+            "Check reporter's Active Directory group membership for finance file share access",
+            "Verify NTFS and share-level permissions on \\\\contoso-fs01\\finance\\quarterly-reports",
+            "Check if any recent GPO or permission changes affected the finance shared drive",
+            "If permissions are correct, test access from a different machine to rule out local issues",
+            "Grant access or restore permissions and confirm reporter can reach the Q1 close files"
+        ]
+    },
+    {
+        "ticket_id": "INC-5002",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "category": "Software & Applications",
         "priority": "P3",
         "assigned_team": "Enterprise Applications",
         "needs_escalation": false,
         "missing_information": [
+<<<<<<< HEAD
             "error_message",
             "application_version"
         ],
@@ -38,10 +58,97 @@
     },
     {
         "ticket_id": "INC-2003",
+=======
+            "environment_details"
+        ],
+        "next_best_action": "Investigate SSO token renewal issue for SAP GUI and check if the SAML assertion lifetime policy was recently changed.",
+        "remediation_steps": [
+            "Check the SAP SSO configuration for token lifetime settings",
+            "Verify the SAML/OIDC assertion expiry policy in Entra ID for the SAP enterprise application",
+            "Check if the session timeout in SAP GUI matches the identity provider token lifetime",
+            "If token lifetime is too short, request adjustment through the SAP Basis team",
+            "Have the user clear SAP GUI SSO cache and test reconnection"
+        ]
+    },
+    {
+        "ticket_id": "INC-5003",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate GlobalProtect VPN Error 619 for remote users in the Chicago area and check if a recent gateway configuration change is causing connection failures.",
+        "remediation_steps": [
+            "Check GlobalProtect gateway health and VPN concentrator status",
+            "Review recent VPN configuration changes that may affect remote connections",
+            "Verify the user's VPN client version 6.1.2 is compatible with the current gateway",
+            "Check if DNS resolution for the VPN gateway is working correctly from external networks",
+            "If gateway-side, escalate to network engineering; if client-side, push updated VPN profile via Intune"
+        ]
+    },
+    {
+        "ticket_id": "INC-5004",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Diagnose the Dell Latitude 5540 power failure based on the 3-blink LED pattern and arrange replacement or repair.",
+        "remediation_steps": [
+            "Look up the Dell 3-blink diagnostic code for the Latitude 5540 model (typically indicates memory or system board failure)",
+            "Attempt a hard reset: disconnect AC, remove battery if possible, hold power 30 seconds",
+            "Try booting with only AC power (no battery) to rule out battery failure",
+            "If hardware failure confirmed, initiate warranty replacement or dispatch spare device from asset pool",
+            "Arrange a loaner laptop for the user while the primary device is repaired"
+        ]
+    },
+    {
+        "ticket_id": "INC-5005",
+        "category": "Software & Applications",
+        "priority": "P1",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_users",
+            "business_impact"
+        ],
+        "next_best_action": "Investigate the Kestrel request processing errors on prod-web-03 causing repeated 'StatusCode cannot be set' exceptions, and assess impact to production services.",
+        "remediation_steps": [
+            "Check if the application pool on prod-web-03 is still running and accepting requests",
+            "Review the application deployment history for recent changes that could cause the response-already-started error",
+            "Check the load balancer to determine if prod-web-03 should be temporarily removed from rotation",
+            "Analyze the exception pattern to identify the specific middleware or handler causing the double-write",
+            "Coordinate with the development team to deploy a hotfix if a code defect is identified"
+        ]
+    },
+    {
+        "ticket_id": "INC-5006",
+        "category": "General Inquiry",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "error_message",
+            "steps_to_reproduce",
+            "device_info"
+        ],
+        "next_best_action": "Reply to the reporter requesting a description of the issue they need help with, including which system is affected and any error messages observed.",
+        "remediation_steps": [
+            "Respond to the reporter asking for details: what system or application they need help with",
+            "Request specific error messages, screenshots, or description of the problem",
+            "Ask what device and operating system they are using",
+            "Once details are provided, re-triage and route to the appropriate team"
+        ]
+    },
+    {
+        "ticket_id": "INC-5007",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "category": "Hardware & Peripherals",
         "priority": "P3",
         "assigned_team": "Endpoint Engineering",
         "needs_escalation": false,
+<<<<<<< HEAD
         "missing_information": [],
         "next_best_action": "Dispatch technician to inspect HP LaserJet Pro (asset tag IT-PRN-0342) paper tray 2 on the 3rd floor near the break room.",
         "remediation_steps": [
@@ -108,11 +215,80 @@
     },
     {
         "ticket_id": "INC-2007",
+=======
+        "missing_information": [
+            "device_info",
+            "network_location"
+        ],
+        "next_best_action": "Dispatch a technician to inspect the floor 3 printer for a paper jam or hardware malfunction that has been unresolved for over a week.",
+        "remediation_steps": [
+            "Identify the specific printer model and asset tag on floor 3",
+            "Check the printer management console for error status and print queue backlog",
+            "Dispatch onsite support to clear the paper jam and inspect for hardware damage",
+            "Run a test print after clearing the jam to confirm the printer is operational",
+            "Notify the original reporter and all parties in the email thread that the issue is resolved"
+        ]
+    },
+    {
+        "ticket_id": "INC-5008",
+        "category": "Data & Storage",
+        "priority": "P1",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate the Azure SQL TradingDB DTU consumption at 99% and assess whether the trading desk order management system slowness is caused by database saturation.",
+        "remediation_steps": [
+            "Check Azure SQL performance metrics for TradingDB to identify the queries consuming the most DTUs",
+            "Review Query Performance Insight in Azure Portal for long-running or blocking queries",
+            "If a runaway query is identified, consider terminating it to restore performance",
+            "Evaluate whether the DTU tier needs to be temporarily scaled up to handle current load",
+            "Coordinate with the trading applications team to identify any recent changes that could have increased database load"
+        ]
+    },
+    {
+        "ticket_id": "INC-5009",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Troubleshoot the Outlook desktop client disconnection issue, given that Outlook Web Access works, indicating an Exchange connectivity issue specific to the desktop client.",
+        "remediation_steps": [
+            "Check the Outlook connection status dialog (Ctrl+Right-click system tray icon) for specific connection errors",
+            "Verify the Outlook profile is configured correctly and not corrupted",
+            "Run the Microsoft Support and Recovery Assistant (SaRA) for Outlook connectivity diagnostics",
+            "Check if recent Windows or Office updates may have affected the Outlook client",
+            "If the profile is corrupted, create a new Outlook profile and reconfigure the account"
+        ]
+    },
+    {
+        "ticket_id": "INC-5010",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_users",
+            "error_message"
+        ],
+        "next_best_action": "Investigate the reported Microsoft 365 tenant-wide outage affecting Teams and SharePoint, check the M365 Service Health Dashboard, and determine scope of user impact.",
+        "remediation_steps": [
+            "Check the Microsoft 365 Service Health Dashboard for active incidents affecting the Contoso tenant",
+            "Verify the reported outage by testing Teams and SharePoint access from multiple locations and accounts",
+            "Determine the number of affected users and business functions impacted",
+            "If a Microsoft-side outage is confirmed, open a support case with Microsoft and communicate status to users",
+            "Monitor the M365 status page for resolution and send an all-clear notification when services are restored"
+        ]
+    },
+    {
+        "ticket_id": "INC-5011",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "category": "Hardware & Peripherals",
         "priority": "P2",
         "assigned_team": "Endpoint Engineering",
         "needs_escalation": false,
         "missing_information": [],
+<<<<<<< HEAD
         "next_best_action": "Dispatch technician to Building 2, Floor 4, Desk 412 with a replacement Dell Latitude or loaner laptop. User has a presentation in 2 hours.",
         "remediation_steps": [
             "Dispatch on-site support to Building 2, Floor 4, Desk 412",
@@ -212,11 +388,60 @@
     },
     {
         "ticket_id": "INC-2013",
+=======
+        "next_best_action": "Investigate the recurring DRIVER_IRQL_NOT_LESS_OR_EQUAL BSOD on the Surface Pro 9, likely caused by a driver conflict introduced by the March 2026 Patch Tuesday update.",
+        "remediation_steps": [
+            "Collect the minidump files from C:\\Windows\\Minidump to identify the faulting driver",
+            "Check if the March 2026 Patch Tuesday update introduced known driver compatibility issues for Surface Pro 9",
+            "Update or roll back the specific driver identified in the crash dump analysis",
+            "If the issue correlates with Teams screen sharing, check display and GPU driver versions",
+            "Monitor for recurrence over 48 hours after the driver fix is applied"
+        ]
+    },
+    {
+        "ticket_id": "INC-5012",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Correct the Outlook calendar timezone configuration that was disrupted by the daylight saving time change, ensuring the Windows and Outlook timezone settings are synchronized.",
+        "remediation_steps": [
+            "Verify the Windows timezone is set correctly to (UTC+00:00) London with BST adjustment",
+            "Check the Outlook calendar timezone settings under File > Options > Calendar > Time zones",
+            "If mismatched, set the Outlook timezone to match the Windows system timezone",
+            "Check if an Exchange Online mailbox property (Get-MailboxCalendarConfiguration) is overriding the timezone",
+            "Verify calendar appointments display correctly after the fix and check for any DST patch updates"
+        ]
+    },
+    {
+        "ticket_id": "INC-5013",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "device_info"
+        ],
+        "next_best_action": "Troubleshoot the GlobalProtect VPN connection failure for the remote user in Boston and check for gateway-side issues affecting connectivity.",
+        "remediation_steps": [
+            "Ask the user for the specific error message displayed by GlobalProtect when attempting to connect",
+            "Check the VPN gateway logs for connection attempts from the user's IP",
+            "Verify the user's device compliance status in Intune (VPN may require compliant device)",
+            "Test connectivity to the VPN gateway from an external network to rule out gateway-side issues",
+            "If client-side, guide the user through a VPN client reinstall or configuration reset"
+        ]
+    },
+    {
+        "ticket_id": "INC-5014",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "category": "Not a Support Ticket",
         "priority": "P4",
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
+<<<<<<< HEAD
         "next_best_action": "No action required. This is an automated out-of-office reply to an existing ticket notification, not a new support request.",
         "remediation_steps": [
             "Close this ticket as not a support request",
@@ -259,3 +484,29 @@
         ]
     }
 ]
+=======
+        "next_best_action": "No action required. This is an auto-forwarded chain of automated messages (out-of-office reply, ticket confirmation, newsletter) and does not contain an actionable support request.",
+        "remediation_steps": [
+            "Close the ticket as not actionable — it contains only auto-forwarded automated messages",
+            "Check if the helpdesk inbox has a mail rule that is incorrectly creating tickets from auto-replies",
+            "If the forwarding rule is misconfigured, update it to filter out automatic replies and newsletters"
+        ]
+    },
+    {
+        "ticket_id": "INC-5015",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Complete the MFA enrollment for the new hire by verifying the Entra ID conditional access policy and ensuring the account is properly provisioned for Authenticator app registration.",
+        "remediation_steps": [
+            "Check the user's Entra ID account status and verify MFA registration state",
+            "Review the conditional access policy referenced in error AADSTS50076 to confirm it allows initial MFA enrollment",
+            "If the policy blocks enrollment, temporarily add the user to an MFA registration exception group",
+            "Guide the user through the MFA enrollment process at aka.ms/mfasetup",
+            "Confirm successful Authenticator app registration and remove any temporary policy exceptions"
+        ]
+    }
+]
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
