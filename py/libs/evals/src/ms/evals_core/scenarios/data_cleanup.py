@@ -1173,4 +1173,610 @@ def get_scenarios() -> list[ScenarioDefinition]:
             tags=["data-cleanup", "auto-reply-loop", "ooo-concatenation"],
             difficulty="hard",
         ),
+        # ── DC-021  Enormous forward chain with 10+ participants ─────────────
+        ScenarioDefinition(
+            scenario_id="DC-021",
+            subject=(
+                "FW: FW: FW: FW: FW: FW: FW: FW: FW: FW: Re: "
+                "SAP access for new joiner"
+            ),
+            description=(
+                "--- Latest reply ---\n"
+                "Hi IT, can someone PLEASE just grant the SAP access already? This has "
+                "been bouncing around for two weeks.\n"
+                "— Anita\n\n"
+                "--- Forwarded by: Raj Kapoor (raj.kapoor@contoso.com) ---\n"
+                "Anita, I don't handle SAP provisioning anymore. Forwarding to IT.\n\n"
+                "--- Forwarded by: Chen Wei (chen.wei@contoso.com) ---\n"
+                "Raj, can you take this? I think SAP is under your team now.\n\n"
+                "--- Forwarded by: Lisa Johansson (lisa.johansson@contoso.com) ---\n"
+                "Chen, this came to me by mistake. Please route to the right team.\n\n"
+                "--- Forwarded by: Mike Torres (mike.torres@contoso.com) ---\n"
+                "Lisa, not sure who handles this. Adding you since you did it last time.\n\n"
+                "--- Forwarded by: Priya Sharma (priya.sharma@contoso.com) ---\n"
+                "Mike, I'm on parental leave. Please find someone else.\n\n"
+                "--- Forwarded by: David Kim (david.kim@contoso.com) ---\n"
+                "Priya, you did SAP access last quarter — can you handle this?\n\n"
+                "--- Forwarded by: Fatima Al-Rashid (fatima.al-rashid@contoso.com) ---\n"
+                "David, this should go to the SAP team. I only handle Salesforce.\n\n"
+                "--- Forwarded by: Tom O'Brien (tom.obrien@contoso.com) ---\n"
+                "Fatima, can your team handle this? I think it's an enterprise app thing.\n\n"
+                "--- Forwarded by: Sandra Nguyen (sandra.nguyen@contoso.com) ---\n"
+                "Tom, forwarding to you since you're the app team lead.\n\n"
+                "--- Original Message ---\n"
+                "From: Anita Desai <anita.desai@contoso.com>\n"
+                "Sent: Monday, March 3, 2026 9:00 AM\n"
+                "To: IT Support <itsupport@contoso.com>\n"
+                "Subject: SAP access for new joiner\n\n"
+                "Hi team,\n\n"
+                "I just joined the Finance department last week and need SAP access "
+                "(modules: FI, CO, and MM) to start processing invoices. My employee "
+                "ID is E-31024 and my manager is Robert Chen (Director, Finance).\n\n"
+                "Thanks,\nAnita Desai\nFinance, Building 1, 3rd floor, New York"
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P3,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Provision SAP access (FI, CO, MM modules) for new joiner E-31024 in "
+                "Finance — request has been circulating for two weeks through a long "
+                "forward chain. Verify manager approval from Robert Chen."
+            ),
+            remediation_steps=[
+                "Verify the new joiner's employment and role with HR using employee ID E-31024.",
+                "Confirm manager authorization from Robert Chen for SAP FI, CO, and MM access.",
+                "Provision the SAP user account with the appropriate role profile for Finance.",
+                "Send the user their SAP login credentials via the secure onboarding portal.",
+                "Follow up to confirm access is working and the user can process invoices.",
+            ],
+            reporter_name="Anita Desai",
+            reporter_email="anita.desai@contoso.com",
+            reporter_department="Finance",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "long-email", "forward-chain"],
+            difficulty="hard",
+        ),
+        # ── DC-022  Base64-encoded PDF pasted as raw text ────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-022",
+            subject="Cannot open expense report — raw PDF data below",
+            description=(
+                "Hi IT,\n\n"
+                "I can't open an expense report PDF that a vendor sent me. When I try to "
+                "open it in Adobe, it shows 'This file is damaged and could not be repaired.' "
+                "I'm pasting the raw file content since the portal won't let me attach:\n\n"
+                "JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5k\n"
+                "b2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4K\n"
+                "ZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3gg\n"
+                "WzAgMCA2MTIgNzkyXSAvQ29udGVudHMgNCAwIFIgL1Jlc291cmNlcyA8PCAvRm9udCA8PCAv\n"
+                "RjEgNSAwIFIgPj4gPj4gPj4KZW5kb2JqCjQgMCBvYmoKPDwgL0xlbmd0aCAxMjQgPj4Kc3Ry\n"
+                "ZWFtCkJUCi9GMSAxOCBUZgowIDAgVGQKKEV4cGVuc2UgUmVwb3J0IC0gVmVuZG9yIEluYykg\n"
+                "VGoKMCAtMjUgVGQKKFRvdGFsOiAkMTIsMzQ1LjY3KSBUagowIC0yNSBUZAooU3RhdHVzOiBQ\n"
+                "ZW5kaW5nIEFwcHJvdmFsKSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCjUgMCBvYmoKPDwgL1R5\n"
+                "cGUgL0ZvbnQgL1N1YnR5cGUgL1R5cGUxIC9CYXNlRm9udCAvSGVsdmV0aWNhID4+CmVuZG9i\n"
+                "agp4cmVmCjAgNgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMDkgMDAwMDAgbiAKMMDAwMD\n"
+                "AwMDA2MyAwMDAwMCBuIAowMDAwMDAwMTIwIDAwMDAwIG4gCjAwMDAwMDAzMDQgMDAwMDAgbiAK\n"
+                "MDAwMDAwMDQ4MCAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDYgL1Jvb3QgMSAwIFIgPj4K\n"
+                "c3RhcnR4cmVmCjU3MQolJUVPRgo=\n\n"
+                "The expense amount is $12,345.67 from Vendor Inc. and I need to submit "
+                "it for approval by end of week. I'm using Adobe Acrobat Reader DC 2024 "
+                "on Windows 11."
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Investigate corrupted PDF from vendor — user cannot open expense report "
+                "in Adobe Acrobat Reader DC. May be a file transfer corruption issue or "
+                "incompatible PDF version. Ignore the base64-encoded raw PDF data in "
+                "the ticket body."
+            ),
+            remediation_steps=[
+                "Ask the user to re-download the PDF from the original email or vendor portal.",
+                "Test opening the file with an alternative PDF reader (Edge, Chrome built-in).",
+                "Check if the email attachment was corrupted during transfer (compare file sizes).",
+                "If the vendor's PDF is consistently corrupt, request a re-send from the vendor.",
+                "Verify Adobe Acrobat Reader DC is up to date and not blocked by Group Policy.",
+            ],
+            reporter_name="Hannah Eriksson",
+            reporter_email="hannah.eriksson@contoso.com",
+            reporter_department="Procurement",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "base64", "raw-file-content"],
+            difficulty="hard",
+        ),
+        # ── DC-023  Massive PowerShell / terminal output dump ────────────────
+        ScenarioDefinition(
+            scenario_id="DC-023",
+            subject="Azure deployment failing — full terminal output",
+            description=(
+                "Hi,\n\n"
+                "Our Azure deployment pipeline keeps failing. Here's the full output:\n\n"
+                "PS C:\\deploy> .\\deploy-infra.ps1 -Environment prod -Region eastus2\n"
+                "VERBOSE: [2026-03-17 14:22:01] Starting deployment to eastus2...\n"
+                "VERBOSE: [2026-03-17 14:22:01] Loading ARM template: main.bicep\n"
+                "VERBOSE: [2026-03-17 14:22:02] Validating template parameters...\n"
+                "VERBOSE: [2026-03-17 14:22:02] Parameter 'vmSize': Standard_D4s_v3\n"
+                "VERBOSE: [2026-03-17 14:22:02] Parameter 'nodeCount': 5\n"
+                "VERBOSE: [2026-03-17 14:22:02] Parameter 'aksVersion': 1.28.5\n"
+                "VERBOSE: [2026-03-17 14:22:03] Connecting to subscription: prod-sub-001\n"
+                "VERBOSE: [2026-03-17 14:22:03] Resource group: rg-prod-eus2-001\n"
+                "VERBOSE: [2026-03-17 14:22:04] Starting what-if analysis...\n"
+                "VERBOSE: [2026-03-17 14:22:15] What-if: 47 resources to create/modify\n"
+                "VERBOSE: [2026-03-17 14:22:16] Deploying resource 1/47: Microsoft.Network/virtualNetworks\n"
+                "VERBOSE: [2026-03-17 14:22:22] ✓ vnet-prod-eus2 created\n"
+                "VERBOSE: [2026-03-17 14:22:23] Deploying resource 2/47: Microsoft.Network/networkSecurityGroups\n"
+                "VERBOSE: [2026-03-17 14:22:28] ✓ nsg-aks-prod created\n"
+                "VERBOSE: [2026-03-17 14:22:29] Deploying resource 3/47: Microsoft.Network/privateDnsZones\n"
+                "VERBOSE: [2026-03-17 14:22:35] ✓ privatelink.eastus2.azmk8s.io created\n"
+                "VERBOSE: [2026-03-17 14:22:36] Deploying resource 4/47: Microsoft.ContainerService/managedClusters\n"
+                "VERBOSE: [2026-03-17 14:22:37] Waiting for AKS cluster provisioning...\n"
+                "VERBOSE: [2026-03-17 14:25:42] ✓ aks-prod-eus2 provisioning started\n"
+                "VERBOSE: [2026-03-17 14:30:01] Deploying resource 5/47: Microsoft.KeyVault/vaults\n"
+                "VERBOSE: [2026-03-17 14:30:15] ✓ kv-prod-eus2-001 created\n"
+                "VERBOSE: [2026-03-17 14:30:16] Deploying resource 6/47: Microsoft.Storage/storageAccounts\n"
+                "VERBOSE: [2026-03-17 14:30:22] ✓ stprodeus2001 created\n"
+                "VERBOSE: [2026-03-17 14:30:23] Deploying resource 7/47: Microsoft.Sql/servers\n"
+                "VERBOSE: [2026-03-17 14:30:45] ✓ sql-prod-eus2 created\n"
+                "VERBOSE: [2026-03-17 14:30:46] Deploying resource 8/47: Microsoft.Sql/servers/databases\n"
+                "ERROR: [2026-03-17 14:31:02] ✗ DEPLOYMENT FAILED\n"
+                "ERROR: New-AzResourceGroupDeployment: 14:31:02 - Resource "
+                "Microsoft.Sql/servers/databases 'sql-prod-eus2/appdb-prod' failed with "
+                "message: 'The DTU quota for the subscription has been exceeded. "
+                "Requested: 250 DTU, Available: 0 DTU. Please increase your DTU quota "
+                "or reduce the requested DTU.'\n"
+                "ERROR: Deployment 'deploy-20260317-142201' failed.\n"
+                "VERBOSE: [2026-03-17 14:31:03] Rolling back 8 resources...\n"
+                "VERBOSE: [2026-03-17 14:32:15] Rollback complete.\n"
+                "PS C:\\deploy>\n\n"
+                "Can you help? We need this in production by Friday."
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.BUSINESS_IMPACT],
+            next_best_action=(
+                "Investigate Azure SQL DTU quota exhaustion blocking production "
+                "deployment — subscription prod-sub-001 has 0 DTU remaining. Need to "
+                "increase the DTU quota or optimize existing database allocations."
+            ),
+            remediation_steps=[
+                "Check the current DTU allocation across all databases in subscription prod-sub-001.",
+                "Identify databases that are over-provisioned or unused and can be scaled down.",
+                "Submit an Azure support request to increase the DTU quota if needed.",
+                "Consider switching to vCore-based pricing for more flexible resource management.",
+                "Re-run the deployment after quota is available and verify all 47 resources deploy.",
+            ],
+            reporter_name="Alex Petrov",
+            reporter_email="alex.petrov@contoso.com",
+            reporter_department="Cloud Infrastructure",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "terminal-output", "verbose-logs"],
+            difficulty="hard",
+        ),
+        # ── DC-024  Concatenated monitoring / alerting notifications ─────────
+        ScenarioDefinition(
+            scenario_id="DC-024",
+            subject="FW: [ALERT] Multiple monitoring alerts — disk space",
+            description=(
+                "--- Alert 1 of 12 ---\n"
+                "[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 98% full "
+                "(467GB/476GB) | Triggered: 2026-03-17 02:15:00 UTC\n"
+                "Host: db-prod-03.contoso.local | Service: disk_space_/data\n"
+                "Contact: oncall-data@contoso.com | Notification: 1/5\n\n"
+                "--- Alert 2 of 12 ---\n"
+                "[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 98% full "
+                "(468GB/476GB) | Triggered: 2026-03-17 02:30:00 UTC\n"
+                "Host: db-prod-03.contoso.local | Service: disk_space_/data\n"
+                "Contact: oncall-data@contoso.com | Notification: 2/5\n\n"
+                "--- Alert 3 of 12 ---\n"
+                "[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 99% full "
+                "(469GB/476GB) | Triggered: 2026-03-17 02:45:00 UTC\n"
+                "Host: db-prod-03.contoso.local | Service: disk_space_/data\n"
+                "Contact: oncall-data@contoso.com | Notification: 3/5\n\n"
+                "--- Alert 4 of 12 ---\n"
+                "[WARNING] Nagios Alert: SWAP WARNING - Swap usage on db-prod-03 is 82% "
+                "| Triggered: 2026-03-17 02:47:00 UTC\n"
+                "Host: db-prod-03.contoso.local | Service: swap_usage\n\n"
+                "--- Alert 5 of 12 ---\n"
+                "[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 99% full "
+                "(470GB/476GB) | Triggered: 2026-03-17 03:00:00 UTC\n\n"
+                "--- Alerts 6-11 (same pattern, 15-minute intervals) ---\n\n"
+                "--- Alert 12 of 12 ---\n"
+                "[CRITICAL] Nagios Alert: DISK CRITICAL - /data on db-prod-03 is 99% full "
+                "(475GB/476GB) | Triggered: 2026-03-17 05:45:00 UTC\n"
+                "Host: db-prod-03.contoso.local | Service: disk_space_/data\n"
+                "Contact: oncall-data@contoso.com | Notification: 5/5 (FINAL)\n\n"
+                "Hi IT,\n\n"
+                "The on-call team forwarded these alerts to us. The /data volume on "
+                "db-prod-03 is nearly full and it's our production PostgreSQL server. "
+                "If it fills up completely the database will crash. Please investigate "
+                "urgently.\n\n"
+                "— Operations team"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P1,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=True,
+            missing_info=[],
+            next_best_action=(
+                "URGENT: /data volume on db-prod-03 (production PostgreSQL) is at 99% "
+                "(475/476GB) and has been filling steadily since 02:15 UTC. Immediate "
+                "action needed to prevent database crash from disk exhaustion."
+            ),
+            remediation_steps=[
+                "Immediately check current disk usage on db-prod-03 /data volume.",
+                "Identify the largest consumers — check for WAL file accumulation, old backups, or temp files.",
+                "Clear any safe-to-delete files (old WAL segments, pg_dump temp files) to buy time.",
+                "Expand the /data volume or add additional storage if on cloud/SAN.",
+                "Investigate the root cause of rapid disk growth and set up proactive alerts at 85%.",
+            ],
+            reporter_name="Operations Team",
+            reporter_email="ops-team@contoso.com",
+            reporter_department="Operations",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "monitoring-alerts", "alert-flood"],
+            difficulty="hard",
+        ),
+        # ── DC-025  Reply-all chain with massive CC list and headers ─────────
+        ScenarioDefinition(
+            scenario_id="DC-025",
+            subject="RE: RE: RE: RE: ALL-HANDS: Office printer toner replacement",
+            description=(
+                "To: IT Support <itsupport@contoso.com>\n"
+                "CC: john.smith@contoso.com; jane.doe@contoso.com; mike.jones@contoso.com; "
+                "sarah.wilson@contoso.com; david.brown@contoso.com; lisa.taylor@contoso.com; "
+                "james.anderson@contoso.com; mary.thomas@contoso.com; robert.jackson@contoso.com; "
+                "patricia.white@contoso.com; christopher.harris@contoso.com; linda.martin@contoso.com; "
+                "daniel.garcia@contoso.com; nancy.martinez@contoso.com; matthew.robinson@contoso.com; "
+                "betty.clark@contoso.com; anthony.rodriguez@contoso.com; margaret.lewis@contoso.com; "
+                "mark.lee@contoso.com; dorothy.walker@contoso.com; steven.hall@contoso.com; "
+                "elizabeth.allen@contoso.com; paul.young@contoso.com; jennifer.king@contoso.com; "
+                "andrew.wright@contoso.com; barbara.scott@contoso.com; joshua.green@contoso.com; "
+                "susan.adams@contoso.com; kenneth.baker@contoso.com; helen.nelson@contoso.com; "
+                "kevin.hill@contoso.com; donna.ramirez@contoso.com; brian.campbell@contoso.com; "
+                "carol.mitchell@contoso.com; george.roberts@contoso.com; ruth.carter@contoso.com; "
+                "edward.phillips@contoso.com; sharon.evans@contoso.com; ronald.turner@contoso.com; "
+                "michelle.torres@contoso.com; all-floor7@contoso.com; all-floor8@contoso.com; "
+                "all-building2@contoso.com\n\n"
+                "--- Reply from Ruth Carter ---\n"
+                "Please stop replying all! My inbox is flooded!\n\n"
+                "--- Reply from Ronald Turner ---\n"
+                "Unsubscribe\n\n"
+                "--- Reply from Edward Phillips ---\n"
+                "+1 to Ruth, please use reply not reply-all\n\n"
+                "--- Reply from George Roberts ---\n"
+                "Can someone remove me from this thread?\n\n"
+                "--- Reply from Carol Mitchell ---\n"
+                "STOP REPLYING ALL!!!\n\n"
+                "--- Original Message ---\n"
+                "From: Kevin Hill <kevin.hill@contoso.com>\n"
+                "To: IT Support; all-floor7; all-floor8; all-building2\n"
+                "Subject: Office printer toner replacement\n\n"
+                "Hi IT,\n\n"
+                "The large MFP printer on Floor 7 (Canon imageRUNNER ADVANCE C5560i, "
+                "asset tag BLD2-PRN-0012) is printing with faded streaks — I think the "
+                "cyan toner is running low. Can you send a replacement cartridge?\n\n"
+                "Kevin Hill\nAsset Management, Building 2, Floor 7"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P4,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[],
+            next_best_action=(
+                "Order replacement cyan toner cartridge for Canon imageRUNNER ADVANCE "
+                "C5560i (BLD2-PRN-0012) on Floor 7, Building 2. Faded streaks indicate "
+                "low toner. Ignore the reply-all noise."
+            ),
+            remediation_steps=[
+                "Check the printer's built-in supply status page for toner levels.",
+                "Order a replacement Canon C-EXV51 cyan toner cartridge.",
+                "Dispatch a technician to replace the toner and clean the drum unit if needed.",
+                "Print a test page after replacement to verify streak-free output.",
+                "Advise the original sender to use targeted distribution lists in the future.",
+            ],
+            reporter_name="Kevin Hill",
+            reporter_email="kevin.hill@contoso.com",
+            reporter_department="Asset Management",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "reply-all-storm", "massive-cc-list"],
+            difficulty="hard",
+        ),
+        # ── DC-026  OCR-extracted text from scanned document ─────────────────
+        ScenarioDefinition(
+            scenario_id="DC-026",
+            subject="Scanned error message from kiosk — OCR text below",
+            description=(
+                "Hi IT,\n\n"
+                "The lobby kiosk is showing an error. I took a photo and ran OCR on it "
+                "since I couldn't copy-paste. Here's what I got:\n\n"
+                "Wiridows Errar\n"
+                "A prOblem has been detectad and Windows h4s been\n"
+                "shut dawri to prevEnt damaGe to y0ur comput3r.\n\n"
+                "IRQL_NOT_L3SS_OR_EQUAI.\n\n"
+                "lf this ls the flrst tirne you've se€n this\n"
+                "St0p error scre8n, r3start your c0mputer. lf\n"
+                "this scr€en app8ars ag4in, foIIow th3se steps:\n\n"
+                "Ch3ck to mak€ sure any n3w hardwar€ 0r softwar3\n"
+                "is prop€rly instaIl3d. lf this is a n3w\n"
+                "installati0n, ask your h4rdware or s0ftware\n"
+                "manufactur3r f0r any Wlndows updat3s you might\n"
+                "n3ed.\n\n"
+                "T3chnical lnformation:\n"
+                "*** ST0P: 0x0000000A (0x000O0028, 0x00000002,\n"
+                "0x00000001, Oxid3ntlfy)\n\n"
+                "The kiosk is in the main lobby, Building 1. It's the visitor check-in "
+                "terminal. This is blocking all guest sign-ins today.\n\n"
+                "— Reception team"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P2,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Investigate BSOD (IRQL_NOT_LESS_OR_EQUAL) on lobby visitor check-in "
+                "kiosk in Building 1 — likely a driver or memory issue. Kiosk is "
+                "blocking all guest sign-ins."
+            ),
+            remediation_steps=[
+                "Dispatch a technician to the lobby kiosk to perform a hard restart.",
+                "Check the Windows Event Viewer for the IRQL_NOT_LESS_OR_EQUAL crash dump.",
+                "Inspect recently installed drivers or updates that may have caused the BSOD.",
+                "Run Windows Memory Diagnostic to check for faulty RAM.",
+                "If recurring, re-image the kiosk from the standard kiosk deployment image.",
+            ],
+            reporter_name="Reception Team",
+            reporter_email="reception@contoso.com",
+            reporter_department="Facilities",
+            channel=Channel.PHONE,
+            tags=["data-cleanup", "ocr-noise", "garbled-text"],
+            difficulty="hard",
+        ),
+        # ── DC-027  Minified JavaScript / CSS pasted as error context ────────
+        ScenarioDefinition(
+            scenario_id="DC-027",
+            subject="Internal portal showing blank page — console errors",
+            description=(
+                "Hi IT,\n\n"
+                "Our internal benefits portal (https://benefits.contoso.com) is showing "
+                "a completely blank white page. I opened the browser console and this is "
+                "what I see:\n\n"
+                "Uncaught TypeError: Cannot read properties of undefined (reading 'map')\n"
+                "    at Object.render (app.min.js:1:28847)\n\n"
+                "The minified source at that location is:\n"
+                '!function(e){"use strict";var t=function(e,t){return e.filter(function(e){return'
+                " t.indexOf(e.id)>-1})},n=function(e){return e.benefits.map(function(e){return{"
+                'id:e.id,name:e.name,enrolled:e.enrolled,deductible:e.deductible,copay:e.copay,'
+                "premium:e.premium,provider:e.provider,effectiveDate:e.effectiveDate,status:e."
+                "status}})},r=function(e,t){var n=e.querySelector(t);return n?n.textContent:"
+                '""},o=function(e){var t=document.createElement("div");t.className="benefit-card'
+                ' "+e.status;var n=document.createElement("h3");n.textContent=e.name;var r='
+                'document.createElement("p");r.textContent="Premium: $"+e.premium+"/mo";var o='
+                'document.createElement("p");o.textContent="Deductible: $"+e.deductible;var i='
+                'document.createElement("span");i.className="status-badge "+e.status;i.textContent='
+                "e.status;t.appendChild(n);t.appendChild(r);t.appendChild(o);t.appendChild(i);"
+                "return t};e.init=function(){var e=document.getElementById(\"benefits-root\");"
+                'fetch("/api/benefits").then(function(e){return e.json()}).then(function(t){'
+                "var r=n(t);r.forEach(function(t){e.appendChild(o(t))})}).catch(function(e){"
+                'console.error("Failed to load benefits:",e)})}}(window.BenefitsApp=window.'
+                "BenefitsApp||{});\n\n"
+                "This started after the maintenance window last night. All browsers "
+                "affected (Edge, Chrome). The API endpoint /api/benefits returns a 200 "
+                "but the response body is empty.\n\n"
+                "— HR portal admin"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate benefits portal blank page — the /api/benefits endpoint "
+                "returns empty body (200 OK), causing a TypeError when the frontend "
+                "tries to map over undefined benefits array. Likely a backend deployment "
+                "or database connectivity issue from last night's maintenance."
+            ),
+            remediation_steps=[
+                "Check the backend service for /api/benefits — verify database connectivity.",
+                "Review last night's maintenance changes for anything affecting the benefits API.",
+                "Check application logs for errors in the benefits data retrieval path.",
+                "If the database is accessible, verify the benefits table has data and is not truncated.",
+                "Roll back the maintenance change if it caused the API regression.",
+            ],
+            reporter_name="HR Portal Admin",
+            reporter_email="hr-portal-admin@contoso.com",
+            reporter_department="HR",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "minified-code", "inline-code"],
+            difficulty="hard",
+        ),
+        # ── DC-028  Multi-part MIME email with mixed content ─────────────────
+        ScenarioDefinition(
+            scenario_id="DC-028",
+            subject="Badge reader not working — MIME-encoded email follows",
+            description=(
+                "Content-Type: multipart/mixed; boundary=\"----=_Part_8847_1302567890\"\n"
+                "MIME-Version: 1.0\n"
+                "X-Mailer: Lotus Notes 9.0.1\n"
+                "X-MimeOLE: Produced By Microsoft MimeOLE V6.3.9600.20091\n\n"
+                "------=_Part_8847_1302567890\n"
+                "Content-Type: text/plain; charset=UTF-8\n"
+                "Content-Transfer-Encoding: quoted-printable\n\n"
+                "Hi IT,\n\n"
+                "The badge reader at the Building 4 parking garage entrance (Gate B) "
+                "stopped working this morning around 7:30 AM. Employees are having to =\n"
+                "wait for security to manually open the gate, causing a 20-minute backup =\n"
+                "during morning rush.\n\n"
+                "The reader's LED is solid red instead of the normal blinking green.=20\n"
+                "Badge number on the reader unit: BDG-PK-0044.\n\n"
+                "=E2=80=94 Facilities team\n\n"
+                "------=_Part_8847_1302567890\n"
+                "Content-Type: text/html; charset=UTF-8\n"
+                "Content-Transfer-Encoding: quoted-printable\n\n"
+                "<html><body>\n"
+                "<p>Hi IT,</p>\n"
+                "<p>The badge reader at the <b>Building 4 parking garage entrance</b>=\n"
+                " (Gate B) stopped working this morning around 7:30 AM. Employees are=\n"
+                " having to wait for security to manually open the gate, causing a=\n"
+                " <span style=3D\"color:red;font-weight:bold\">20-minute backup</span>=\n"
+                " during morning rush.</p>\n"
+                "<p>The reader=E2=80=99s LED is solid red instead of the normal blinking=\n"
+                " green. Badge number on the reader unit: <code>BDG-PK-0044</code>.</p>\n"
+                "<p>=E2=80=94 Facilities team</p>\n"
+                "</body></html>\n\n"
+                "------=_Part_8847_1302567890\n"
+                "Content-Type: image/jpeg; name=\"badge_reader_photo.jpg\"\n"
+                "Content-Transfer-Encoding: base64\n"
+                "Content-Disposition: attachment; filename=\"badge_reader_photo.jpg\"\n\n"
+                "/9j/4AAQSkZJRgABAQEASABIAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9\n"
+                "PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2f/wAALCABAAEABAREA/8QAHwAA\n"
+                "AQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUF\n\n"
+                "------=_Part_8847_1302567890--"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P2,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[],
+            next_best_action=(
+                "Dispatch technician to repair badge reader BDG-PK-0044 at Building 4 "
+                "parking garage Gate B — LED showing solid red since 7:30 AM, causing "
+                "20-minute entry delays. Reader may need power cycle or replacement."
+            ),
+            remediation_steps=[
+                "Dispatch facilities/endpoint technician to Gate B, Building 4 parking garage.",
+                "Attempt a power cycle of badge reader BDG-PK-0044.",
+                "Check the reader's network connection to the access control server.",
+                "If power cycle fails, replace the reader unit with a spare from inventory.",
+                "Verify badge access works after repair and clear any entry queue.",
+            ],
+            reporter_name="Facilities Team",
+            reporter_email="facilities@contoso.com",
+            reporter_department="Facilities",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "mime-encoded", "multi-part-email"],
+            difficulty="hard",
+        ),
+        # ── DC-029  Extremely long single-line email (no line breaks) ────────
+        ScenarioDefinition(
+            scenario_id="DC-029",
+            subject="URGENT: laptop wont turn on at all completely dead",
+            description=(
+                "hi IT my laptop is completely dead it wont turn on at all i've tried "
+                "holding the power button for 30 seconds and nothing happens the charging "
+                "light isnt coming on either i tried a different charger from my colleague "
+                "and still nothing i have a really important client presentation in 2 hours "
+                "and all my slides are on this laptop i saved them locally because i was "
+                "working on the plane yesterday and didnt have wifi to sync to onedrive i "
+                "know i shouldve saved to the cloud but i didnt and now im panicking the "
+                "laptop is a lenovo thinkpad x1 carbon gen 11 and its only about 6 months "
+                "old so it shouldnt be dying already i think the battery might be completely "
+                "drained because i left it in my bag overnight with the lid open and it "
+                "might have been running all night but even plugged in it shows absolutely "
+                "nothing no lights no fan noise no screen flicker nothing at all its like "
+                "its a brick i tried the paper clip reset hole on the bottom too and that "
+                "didnt help either my employee id is E-20145 and im on the 4th floor of "
+                "building 2 in the london office can someone please come help me or give "
+                "me a loaner laptop so i can at least pull my slides from the local backup "
+                "i desperately need this resolved in the next hour"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P2,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Urgent: Lenovo ThinkPad X1 Carbon Gen 11 completely unresponsive for "
+                "employee E-20145 on 4th floor, Building 2, London. User has client "
+                "presentation in 2 hours with locally-stored slides. Prioritize loaner "
+                "device and data recovery."
+            ),
+            remediation_steps=[
+                "Immediately dispatch a loaner laptop to the user's location (4th floor, Building 2, London).",
+                "Attempt to recover the dead ThinkPad — try a full battery disconnect/reconnect reset.",
+                "If the laptop powers on, help the user sync the presentation files to OneDrive.",
+                "If unrecoverable, pull the NVMe SSD and mount it externally to retrieve the slides.",
+                "Log a warranty claim for the ThinkPad X1 Carbon if it is confirmed dead.",
+            ],
+            reporter_name="Oliver Smythe",
+            reporter_email="oliver.smythe@contoso.com",
+            reporter_department="Private Banking",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "no-linebreaks", "stream-of-consciousness"],
+            difficulty="hard",
+        ),
+        # ── DC-030  Base64 image flood interleaved with real content ─────────
+        ScenarioDefinition(
+            scenario_id="DC-030",
+            subject="Multiple monitor setup not working — inline photos",
+            description=(
+                "Hi IT,\n\n"
+                "I just moved to a new desk and I can't get my triple monitor setup "
+                "working. Here's a photo of how the cables are connected:\n\n"
+                "[Photo 1 — rear of dock]\n"
+                "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQ"
+                "gKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2w"
+                "BDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy"
+                "MjIyMjIyMjIyMjIyMjL/wAARCAAoACgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAA"
+                "AAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBka"
+                "EII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZW"
+                "ZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8"
+                "jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAA"
+                "ECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKR"
+                "\n\n"
+                "The dock is a Lenovo ThinkPad USB-C Dock Gen 2 (40AS). I have three "
+                "Dell U2722D monitors connected via:\n"
+                "- Monitor 1: DisplayPort from dock (works)\n"
+                "- Monitor 2: HDMI from dock (shows 'No Signal')\n"
+                "- Monitor 3: USB-C to DisplayPort adapter from laptop directly (flickering)\n\n"
+                "[Photo 2 — monitor 2 showing no signal]\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0"
+                "QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH6QMRDhQHLFcKRgAAAB1p"
+                "VFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAABKUlEQVR42u3bMQ6DMBCF"
+                "Ye5/aaogRaJCwmDPjP2eRKfA/NiLvQAAAAAAAAAAAACwm+OqF3Ye55ev/fx73xvXdzj5d/Fz"
+                "1j78vOr5bfn61nXf4/ct77v6e13H8fWt51v1HHa5hrOfc8Xz3v39r3w9q+6/1f1fcV1XvL7V"
+                "\n\n"
+                "[Photo 3 — monitor 3 flickering]\n"
+                "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAdI"
+                "bGludQIQAABtbnRyUkdCIFhZWiAH4gACAAkABgAxAABhY3NwTVNGVAAAAABJRUMgc1JHQgAAAA"
+                "AAAAAAAAAAAPbWAAEAAAAA0y1obGlubAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                "AAAAAAAAAAAAAAAAAAARY3BydAAAAbAAAAA2d3RwdAAAAagAAAAUZGVzYwAAAcgAAAAwAAAAAAAA"
+                "\n\n"
+                "I've tried updating the dock firmware and the Intel graphics driver "
+                "(version 31.0.101.5186) but no change. My laptop is a ThinkPad T14s "
+                "Gen 4 running Windows 11 23H2.\n\n"
+                "— Yuki Tanaka, Fixed Income, Building 3, 8th floor, Singapore"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Troubleshoot triple-monitor setup with Lenovo ThinkPad USB-C Dock Gen 2 "
+                "— Monitor 2 (HDMI) shows no signal, Monitor 3 (USB-C adapter) is "
+                "flickering. Likely a dock bandwidth or DisplayLink driver limitation "
+                "with three 2560x1440 monitors."
+            ),
+            remediation_steps=[
+                "Check if the dock firmware supports three simultaneous displays at 2560x1440.",
+                "Verify the HDMI port on the dock is functional by testing with a known-good cable/monitor.",
+                "Replace the USB-C to DisplayPort adapter for Monitor 3 with a certified one.",
+                "Check if MST (Multi-Stream Transport) daisy-chaining could reduce dock port usage.",
+                "If the dock cannot support three QHD monitors, consider a DisplayLink USB adapter for the third.",
+            ],
+            reporter_name="Yuki Tanaka",
+            reporter_email="yuki.tanaka@contoso.com",
+            reporter_department="Fixed Income",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "base64", "interleaved-images", "inline-image"],
+            difficulty="hard",
+        ),
     ]

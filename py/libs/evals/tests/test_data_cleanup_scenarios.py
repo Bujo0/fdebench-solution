@@ -46,5 +46,24 @@ class TestDataCleanupScenarios:
         """Verify expected scenario IDs exist."""
         scenarios = get_scenarios()
         ids = {s.scenario_id for s in scenarios}
-        expected = {f"DC-{i:03d}" for i in range(1, 13)}
+        expected = {f"DC-{i:03d}" for i in range(1, 31)}
         assert expected.issubset(ids), f"Missing IDs: {expected - ids}"
+
+    def test_covers_key_cleanup_categories(self) -> None:
+        """Verify that key data cleanup noise types are covered."""
+        scenarios = get_scenarios()
+        all_tags = set()
+        for s in scenarios:
+            all_tags.update(s.tags)
+
+        expected_tags = {
+            "long-email",
+            "base64",
+            "quoted-replies",
+            "garbled-text",
+            "inline-code",
+            "monitoring-alerts",
+            "mime-encoded",
+            "no-linebreaks",
+        }
+        assert expected_tags.issubset(all_tags), f"Missing cleanup tags: {expected_tags - all_tags}"
