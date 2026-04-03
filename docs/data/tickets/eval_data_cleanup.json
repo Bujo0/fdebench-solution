@@ -1,0 +1,210 @@
+[
+    {
+        "ticket_id": "INC-5001",
+        "subject": "Can't access SAP — need help urgently",
+        "description": "Hi IT Support,\n\nI've been trying to log into SAP all morning but keep getting an error. I really need this fixed because I have month-end reports due today and my manager is already asking where the numbers are. I tried restarting my computer but that didn't help. Then I tried clearing my browser cache and cookies but that didn't work either. I also tried using a different browser (Chrome instead of Edge) but same error. My colleague sitting next to me can access SAP fine so it's definitely something with my account or machine.\n\nLet me give you some more context — I was able to access SAP yesterday afternoon around 3pm without any issues. I made some changes to a few reports and saved them. Then this morning when I came in around 7:30am, I tried to log in and it just wouldn't work. The error message says something about 'authentication failed' but I'm using the same password I've always used. I haven't changed it recently and it's not expired as far as I know.\n\nI should mention that we had a power outage in our building last night — the facilities team sent an email about it. Not sure if that's related but I thought I'd mention it. Also, I noticed that my Outlook is working fine, Teams is working fine, and I can access SharePoint without any problems. It's literally just SAP that won't let me in.\n\nI tried calling the help desk earlier but was on hold for 20 minutes and had to hang up because of a meeting. I'm really frustrated because this is costing me hours of productivity. I've been with the company for 8 years and this has never happened before. My employee ID is 4829 and my manager is David Chen in the Finance department.\n\nCan someone please look into this ASAP? I need SAP access restored before 2pm today at the latest because that's when my manager wants the month-end reconciliation numbers. If I can't get this done today, it affects the entire finance team's workflow and potentially delays the quarterly filing.\n\nAlso, while I have your attention, is there any way to get the SAP interface to display in a larger font? I've been having trouble reading the small text on my 24-inch monitor. This isn't urgent but if someone could help with that too, I'd appreciate it.\n\nOne more thing — I noticed that the SAP application seems to have been updated recently. The login screen looks different from what I remember. Did IT push an update? Maybe that's what's causing the issue? I remember reading an email about planned maintenance but I thought that was for SharePoint, not SAP.\n\nHere's exactly what happens when I try to log in:\n1. I open Chrome and go to sap.contoso.com\n2. The login page loads (new interface with Contoso branding)\n3. I enter my username (jthompson@contoso.com) and password\n4. I click 'Sign In'\n5. The page shows a spinning wheel for about 10 seconds\n6. Then I get a red banner that says 'Authentication Failed — Please contact your administrator'\n7. If I click 'Try Again' it just does the same thing\n\nI've tried this about 15 times now. Same result every time. Please help!\n\nThanks,\nJennifer Thompson\nSenior Financial Analyst\nFinance Department, 5th Floor\nExt: 4829\njennifer.thompson@contoso.com",
+        "reporter": {
+            "name": "Jennifer Thompson",
+            "email": "jennifer.thompson@contoso.com",
+            "department": "Finance"
+        },
+        "created_at": "2026-03-18T07:45:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5002",
+        "subject": "Screenshot of error",
+        "description": "Please see the attached screenshot of the error I'm getting.\n\n[image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==]\n\n[image: data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AKwA//9k=]\n\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAACCAIAAACl/BQAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABESURBVHhe7cExAQAAAMKg9U9tDB+gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOBqBMIAAQF9YMAAAAAASUVORK5CYII=\n\nThis has been happening since yesterday. My laptop won't connect to the wireless network. I've tried turning wifi off and on. Can someone help?",
+        "reporter": {
+            "name": "Alex Kumar",
+            "email": "alex.kumar@contoso.com",
+            "department": "Trading"
+        },
+        "created_at": "2026-03-18T09:20:00Z",
+        "channel": "email",
+        "attachments": [
+            "error_screenshot.png",
+            "wifi_settings.png"
+        ]
+    },
+    {
+        "ticket_id": "INC-5003",
+        "subject": "Network issue",
+        "description": "<html><head><style>body{font-family:Calibri,sans-serif;font-size:11pt;}.signature{color:#666;font-size:9pt;border-top:1px solid #ccc;margin-top:20px;padding-top:10px;}</style></head><body><p>Hi Team,</p><p>I&#39;m having trouble with the <b>VPN connection</b> from our London office. It keeps <span style=\"color:red;font-weight:bold\">disconnecting every 10-15 minutes</span> and I have to manually reconnect each time.</p><p>I&#39;ve attached a <a href=\"file:///C:/Users/rjones/Desktop/vpn_log.txt\">log file</a> from the VPN client.</p><p>This is affecting my ability to access the <u>internal SharePoint sites</u> and <em>SAP system</em>.</p><table border=\"1\" cellpadding=\"5\"><tr><th>Time</th><th>Status</th></tr><tr><td>09:00</td><td style=\"color:green\">Connected</td></tr><tr><td>09:12</td><td style=\"color:red\">Disconnected</td></tr><tr><td>09:15</td><td style=\"color:green\">Reconnected</td></tr><tr><td>09:28</td><td style=\"color:red\">Disconnected</td></tr></table><div class=\"signature\"><p><b>Robert Jones</b><br>Director, Institutional Sales<br>Contoso Financial Services — London<br>Tel: +44 20 7123 4567 | Mobile: +44 7700 900123<br>Email: robert.jones@contoso.com<br><img src=\"cid:contoso_logo\" alt=\"Contoso Logo\" width=\"150\"><br><font size=\"1\" color=\"#999\">This email is confidential and intended solely for the use of the individual to whom it is addressed. If you are not the intended recipient, be advised that you have received this email in error and that any use, dissemination, forwarding, printing, or copying of this email is strictly prohibited. If you have received this email in error, please contact the sender immediately and delete all copies.</font></p></div></body></html>",
+        "reporter": {
+            "name": "Robert Jones",
+            "email": "robert.jones@contoso.com",
+            "department": "Institutional Sales"
+        },
+        "created_at": "2026-03-18T09:30:00Z",
+        "channel": "email",
+        "attachments": [
+            "vpn_log.txt"
+        ]
+    },
+    {
+        "ticket_id": "INC-5004",
+        "subject": "🚨🚨🚨 HELP!!! 💻🔥 Computer is SO SLOW 😤😤😤 Can't work!!! 🆘🆘🆘",
+        "description": "😡😡😡 OMG my computer is SOOOOO slow today!!! 🐌🐌🐌\n\nI can't even open Excel without waiting like 5️⃣ minutes!!! ⏰⏰\nThis is UNACCEPTABLE!!! 🚫🚫\n\nI have a 📊 presentation due in 2️⃣ hours and I can't even open my files!!! 📁😱\n\nPlease fix this ASAP!!! 🏃‍♂️💨\n\n- Laptop model: ThinkPad T14 💻\n- OS: Windows 11 🪟\n- Apps affected: Excel 📊, PowerPoint 📽️, Outlook 📧\n\nThis has been happening since Monday 📅 and it's getting worse every day!!! ⬇️📉\n\n🙏🙏🙏 PLEASE HELP!!! 🆘🆘🆘\n\nThanks!! 🙏✨💯🎉",
+        "reporter": {
+            "name": "Maria Santos",
+            "email": "maria.santos@contoso.com",
+            "department": "Marketing"
+        },
+        "created_at": "2026-03-18T10:15:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5005",
+        "subject": "Issue with account",
+        "description": "---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Issue with account\nTo: David Park <david.park@contoso.com>\n\nHi David,\n\nWe've reset your password. Please try logging in again.\n\nBest,\nIT Helpdesk\n\n---------- Forwarded message ---------\nFrom: David Park <david.park@contoso.com>\nDate: Mon, Mar 16, 2026 at 2:30 PM\nSubject: Re: Issue with account\nTo: IT Helpdesk <helpdesk@contoso.com>\n\nThanks but I already tried that. The password reset worked but now I'm getting a different error — it says 'Your account has been disabled. Contact your administrator.' I think something happened during the directory sync last night because my manager mentioned other people in our team are having similar issues.\n\n---------- Original message ---------\nFrom: David Park <david.park@contoso.com>\nDate: Mon, Mar 16, 2026 at 10:15 AM\nSubject: Issue with account\nTo: IT Helpdesk <helpdesk@contoso.com>\n\nHi, I can't log into my workstation this morning. Getting 'account locked out' error. Tried the self-service password reset portal but it said my account doesn't qualify. I'm in the Singapore office if that matters.\n\nThanks,\nDavid Park\nCompliance Team",
+        "reporter": {
+            "name": "David Park",
+            "email": "david.park@contoso.com",
+            "department": "Compliance"
+        },
+        "created_at": "2026-03-18T08:00:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5006",
+        "subject": "Error dump from application",
+        "description": "Application crashed with the following error:\n\n{\"timestamp\":\"2026-03-18T06:45:12.345Z\",\"level\":\"ERROR\",\"logger\":\"com.contoso.trading.OrderService\",\"message\":\"Unhandled exception in order processing pipeline\",\"exception\":{\"type\":\"System.NullReferenceException\",\"message\":\"Object reference not set to an instance of an object.\",\"stackTrace\":[\"at com.contoso.trading.OrderService.ProcessOrder(Order order) in /src/services/OrderService.cs:line 142\",\"at com.contoso.trading.Pipeline.Execute(PipelineContext ctx) in /src/pipeline/Pipeline.cs:line 89\",\"at com.contoso.trading.MessageHandler.HandleAsync(Message msg) in /src/handlers/MessageHandler.cs:line 56\",\"at com.contoso.trading.ServiceBus.ProcessMessage(BrokeredMessage msg) in /src/bus/ServiceBus.cs:line 234\"],\"innerException\":{\"type\":\"System.InvalidOperationException\",\"message\":\"Sequence contains no matching element\",\"stackTrace\":[\"at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)\",\"at com.contoso.trading.OrderService.GetClientAccount(String clientId) in /src/services/OrderService.cs:line 198\"]}}}\n\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<configuration>\n  <appSettings>\n    <add key=\"ServiceBus.ConnectionString\" value=\"[REDACTED]\" />\n    <add key=\"OrderService.MaxRetries\" value=\"3\" />\n    <add key=\"OrderService.TimeoutMs\" value=\"5000\" />\n  </appSettings>\n</configuration>\n\nThis is happening on every order submission since 6:45 AM UTC. Trading desk is blocked. Need immediate fix.",
+        "reporter": {
+            "name": "Wei Zhang",
+            "email": "wei.zhang@contoso.com",
+            "department": "Trading Technology"
+        },
+        "created_at": "2026-03-18T07:00:00Z",
+        "channel": "portal",
+        "attachments": [
+            "error_log_full.txt",
+            "app_config.xml"
+        ]
+    },
+    {
+        "ticket_id": "INC-5007",
+        "subject": "Printer issue",
+        "description": "    \n\n\n      \n    \n\n\n\n         \n\n\n   Printer not working     \n\n\n\n\n       \n\n\n   3rd floor    \n\n\n\n\n\n          ",
+        "reporter": {
+            "name": "Tom Richards",
+            "email": "tom.richards@contoso.com",
+            "department": "HR"
+        },
+        "created_at": "2026-03-18T11:00:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5008",
+        "subject": "printer printer printer printer printer printer printer printer printer printer not working not working not working not working not working please fix please fix please fix please fix please fix please fix please fix please fix please fix please fix",
+        "description": "The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. I already submitted ticket about this last week. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer on floor 2 near the kitchen. HP LaserJet. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working. The printer is not working.",
+        "reporter": {
+            "name": "Carol Hughes",
+            "email": "carol.hughes@contoso.com",
+            "department": "Operations"
+        },
+        "created_at": "2026-03-18T11:30:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5009",
+        "subject": "Fwd: Fwd: Fwd: Fwd: Fwd: Re: Re: Re: Original issue — WiFi in Building 3",
+        "description": "See below.\n\n---------- Forwarded message ---------\nFrom: Amy Liu <amy.liu@contoso.com>\nTo: Karen White <karen.white@contoso.com>\n\n> Can you forward this to IT? I don't have the email.\n>\n> ---------- Forwarded message ---------\n> From: James Brown <james.brown@contoso.com>\n> To: Amy Liu <amy.liu@contoso.com>\n>\n>> Hey Amy, can you help with this? IT isn't responding to me.\n>>\n>> ---------- Forwarded message ---------\n>> From: James Brown <james.brown@contoso.com>\n>> To: IT Helpdesk <helpdesk@contoso.com>\n>>\n>>> WiFi in Building 3, Floor 2 has been extremely slow for the past week.\n>>> Speed test shows 2 Mbps down when it should be 100+.\n>>> Multiple people on our team are affected — at least 8 of us.\n>>> We've tried forgetting and reconnecting to the network.\n>>> It's the 'Contoso-Corp' SSID specifically. Guest WiFi works fine.\n>>> Building 3, Floor 2, near conference rooms 3A and 3B.",
+        "reporter": {
+            "name": "Karen White",
+            "email": "karen.white@contoso.com",
+            "department": "Risk Management"
+        },
+        "created_at": "2026-03-18T14:00:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5010",
+        "subject": "Mój komputer nie działa — pilne! / My computer not working — urgent!",
+        "description": "Przepraszam, mój angielski nie jest najlepszy.\n\nMy computer — blue screen. Error: KERNEL_DATA_INPAGE_ERROR.\nPotem się restartuje i znowu ten sam błąd.\n\nIt restarts and same error again. Próbuję pracować ale nie mogę.\nI have ThinkPad T14s, Windows 11. Kupiłem go 6 miesięcy temu.\n\nProszę o pomoc! / Please help!\n\nŁukasz Kowalski\nDział Finansów / Finance Department\nBiuro w Londynie / London Office",
+        "reporter": {
+            "name": "Lukasz Kowalski",
+            "email": "lukasz.kowalski@contoso.com",
+            "department": "Finance"
+        },
+        "created_at": "2026-03-18T08:45:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5011",
+        "subject": "help",
+        "description": "https://contoso.sharepoint.com/sites/hr-portal/Lists/Equipment%20Request/AllItems.aspx?viewid=7a8b9c0d-1234-5678-90ab-cdef12345678&FilterField1=Status&FilterValue1=Pending&FilterField2=Department&FilterValue2=Trading",
+        "reporter": {
+            "name": "Nina Patel",
+            "email": "nina.patel@contoso.com",
+            "department": "Trading"
+        },
+        "created_at": "2026-03-18T12:00:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5012",
+        "subject": "Cannot access email",
+        "description": "",
+        "reporter": {
+            "name": "Frank Miller",
+            "email": "frank.miller@contoso.com",
+            "department": "Legal"
+        },
+        "created_at": "2026-03-18T08:30:00Z",
+        "channel": "phone",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5013",
+        "subject": "Application server errors — full stack trace attached",
+        "description": "Production app server throwing 500 errors since 3 AM. Here's the last 50 lines of the log:\n\n2026-03-18T03:00:01Z ERROR [pool-3-thread-7] c.c.t.OrderProcessor - Failed to process order ORD-78234\njava.lang.OutOfMemoryError: Java heap space\n\tat java.base/java.util.Arrays.copyOf(Arrays.java:3512)\n\tat java.base/java.util.ArrayList.grow(ArrayList.java:237)\n\tat java.base/java.util.ArrayList.addAll(ArrayList.java:687)\n\tat com.contoso.trading.OrderProcessor.loadHistoricalData(OrderProcessor.java:456)\n\tat com.contoso.trading.OrderProcessor.processOrder(OrderProcessor.java:123)\n\tat com.contoso.trading.QueueConsumer.onMessage(QueueConsumer.java:89)\n2026-03-18T03:00:01Z ERROR [pool-3-thread-7] c.c.t.QueueConsumer - Message processing failed, requeueing\n2026-03-18T03:00:02Z WARN  [pool-3-thread-2] c.c.t.HealthCheck - Heap usage at 94%\n2026-03-18T03:00:03Z ERROR [pool-3-thread-1] c.c.t.OrderProcessor - Failed to process order ORD-78235\njava.lang.OutOfMemoryError: Java heap space\n\tat java.base/java.util.Arrays.copyOf(Arrays.java:3512)\n\tat java.base/java.util.ArrayList.grow(ArrayList.java:237)\n\tat com.contoso.trading.OrderProcessor.loadHistoricalData(OrderProcessor.java:456)\n\tat com.contoso.trading.OrderProcessor.processOrder(OrderProcessor.java:123)\n2026-03-18T03:00:05Z ERROR [main] c.c.t.Application - Application health check FAILED\n2026-03-18T03:00:06Z WARN  [main] c.c.t.Application - Initiating graceful shutdown\n2026-03-18T03:00:10Z ERROR [main] c.c.t.Application - Shutdown timeout exceeded, forcing exit\n\nThis is the trading order processor — all client orders are failing. Revenue impact is direct. Need immediate attention. The app runs on Azure VM prod-trading-01 in eastus2.",
+        "reporter": {
+            "name": "Amir Hassan",
+            "email": "amir.hassan@contoso.com",
+            "department": "Trading Technology"
+        },
+        "created_at": "2026-03-18T06:30:00Z",
+        "channel": "portal",
+        "attachments": [
+            "full_server_log.txt",
+            "heap_dump.hprof"
+        ]
+    },
+    {
+        "ticket_id": "INC-5014",
+        "subject": "RE: RE: RE: RE: Monthly IT Newsletter — March 2026",
+        "description": "This message is intended for the designated recipient only. If you have received this message in error, please delete it and notify the sender immediately.\n\nCONFIDENTIALITY NOTICE: This electronic message and any attachments are confidential and may be privileged. They are intended for the sole use of the original recipient. If you are not the intended recipient, any disclosure, copying, distribution, or use of this message or its attachments is strictly prohibited.\n\nDISCLAIMER: Contoso Financial Services accepts no liability for the content of this email, or for the consequences of any actions taken on the basis of the information provided. Views expressed in this message are those of the individual sender.\n\nIRS CIRCULAR 230 NOTICE: Any U.S. federal tax advice contained in this communication was not intended or written to be used, and cannot be used, for the purpose of avoiding penalties.\n\nPlease consider the environment before printing this email.\n🌿♻️🌎\n\nSent from my iPhone",
+        "reporter": {
+            "name": "Linda Walsh",
+            "email": "linda.walsh@contoso.com",
+            "department": "Finance"
+        },
+        "created_at": "2026-03-18T15:30:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5015",
+        "subject": "المساعدة في مشكلة VPN — Singapore office connectivity",
+        "description": "السلام عليكم\n\nI'm having VPN issues from the Singapore office. The connection drops every few minutes. \n\n我也试过用中文描述这个问题 — VPN 连接在新加坡办公室断断续续的。\n\nSpecifically:\n- VPN client: GlobalProtect v5.2\n- OS: macOS Sonoma 14.3\n- Connected to Singapore office WiFi (Contoso-SG)\n- Error in client: 'Gateway timed out'\n- Started Monday morning after the weekend maintenance\n\nMerci d'avance pour votre aide.\n\nありがとうございます。\n\nBest regards,\nYusuf Ibrahim\nSingapore Office",
+        "reporter": {
+            "name": "Yusuf Ibrahim",
+            "email": "yusuf.ibrahim@contoso.com",
+            "department": "Wealth Management"
+        },
+        "created_at": "2026-03-18T02:15:00Z",
+        "channel": "email",
+        "attachments": [
+            "vpn_error_screenshot.png"
+        ]
+    }
+]

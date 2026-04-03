@@ -125,6 +125,48 @@ uv run python run_eval.py \
   --gold path/to/gold.json
 ```
 
+### Data cleanup eval (15 tickets with gold answers)
+
+Tests your system against messy real-world data: very long emails, base64-encoded images in descriptions, HTML markup, excessive Unicode/emoji, whitespace-only content, repeated text, deeply nested email forwards, mixed-language tickets, raw JSON/XML dumps, and empty descriptions.
+
+```bash
+cd docs/eval
+uv run python run_eval.py \
+  --endpoint http://localhost:8000 \
+  --dataset ../data/tickets/eval_data_cleanup.json \
+  --gold ../data/tickets/eval_data_cleanup_gold.json
+```
+
+Or using the `ms-evals` Python library:
+
+```bash
+cd py
+uv run python -m ms.evals \
+  --endpoint http://localhost:8000 \
+  --dataset eval_data_cleanup
+```
+
+### Responsible AI eval (15 tickets with gold answers)
+
+Tests your system against adversarial inputs: prompt injection, jailbreak attempts, social engineering, CEO fraud/BEC, requests for harmful content, priority manipulation, embedded classification overrides, and mixed real-issue-plus-injection tickets.
+
+```bash
+cd docs/eval
+uv run python run_eval.py \
+  --endpoint http://localhost:8000 \
+  --dataset ../data/tickets/eval_responsible_ai.json \
+  --gold ../data/tickets/eval_responsible_ai_gold.json
+```
+
+Or using the `ms-evals` Python library:
+
+```bash
+cd py
+uv run python -m ms.evals \
+  --endpoint http://localhost:8000 \
+  --dataset eval_responsible_ai
+```
+
 ## Sample Output
 
 Each ticket shows its per-ticket classification score (max 85 pts):

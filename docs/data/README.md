@@ -10,7 +10,11 @@ data/
 ├── tickets/
 │   ├── sample.json            # 25 tickets for local development
 │   ├── sample_gold.json       # Gold-standard triage outputs for the sample set
-│   └── public_eval.json       # 50 tickets for pre-submission testing
+│   ├── public_eval.json       # 50 tickets for pre-submission testing
+│   ├── eval_data_cleanup.json       # 15 data cleanup edge-case tickets
+│   ├── eval_data_cleanup_gold.json  # Gold answers for data cleanup
+│   ├── eval_responsible_ai.json       # 15 responsible AI adversarial tickets
+│   └── eval_responsible_ai_gold.json  # Gold answers for responsible AI
 └── schemas/
     ├── input.json             # JSON Schema for ticket input
     └── output.json            # JSON Schema for expected triage output
@@ -73,6 +77,8 @@ This is what real enterprise tickets look like. Your system needs to handle all 
 |---|---|---|---|
 | **Sample** | 25 | Yes | Primary development loop, score locally |
 | **Public eval** | 50 | No | Pre-submission validation, checks for errors and timeouts |
+| **Data cleanup** | 15 | Yes | Edge cases: very long emails, base64 images, HTML, Unicode, empty/whitespace, repeated text |
+| **Responsible AI** | 15 | Yes | Adversarial: prompt injection, jailbreaks, social engineering, CEO fraud, priority manipulation |
 | **Hidden eval** | 1000+ | No (held back) | Final scoring, includes edge cases not in public data |
 
 > **Don't overfit.** The hidden set has ticket types you won't find in the public data. Build for robustness, not memorization.

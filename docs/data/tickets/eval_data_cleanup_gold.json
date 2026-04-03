@@ -1,0 +1,272 @@
+[
+    {
+        "ticket_id": "INC-5001",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details"
+        ],
+        "next_best_action": "Check SAP SSO configuration and verify the user's account status in SAP after the building power outage. Review Entra ID sign-in logs for authentication failures.",
+        "remediation_steps": [
+            "Check SAP system health after last night's power outage",
+            "Verify user account status in SAP (not locked/disabled)",
+            "Review Entra ID sign-in logs for jennifer.thompson@contoso.com",
+            "Check if SAP SSO certificate or configuration was affected by outage",
+            "Test login with a different account to isolate user vs system issue",
+            "If account-specific, reset SAP-specific credentials and retry"
+        ]
+    },
+    {
+        "ticket_id": "INC-5002",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info",
+            "error_message",
+            "network_location"
+        ],
+        "next_best_action": "Diagnose WiFi connectivity issue on the reporter's laptop. The base64 image data in the ticket is not viewable — request proper screenshots as attachments.",
+        "remediation_steps": [
+            "Contact reporter to get the actual error message (embedded images are not readable)",
+            "Verify WiFi adapter driver status and version",
+            "Check for known WiFi issues in reporter's building/floor",
+            "Run network diagnostics (ipconfig, ping, tracert)",
+            "If hardware issue, escalate to Endpoint Engineering"
+        ]
+    },
+    {
+        "ticket_id": "INC-5003",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details"
+        ],
+        "next_best_action": "Investigate VPN disconnection pattern from the London office. Review VPN gateway logs for the reported time window and check for network stability issues.",
+        "remediation_steps": [
+            "Review VPN gateway logs for disconnection pattern at the reported times",
+            "Check London office network infrastructure health",
+            "Verify VPN client version and configuration on reporter's machine",
+            "Test VPN connectivity from another device in the same location",
+            "If pattern persists, check for MTU/fragmentation issues on the London-to-HQ link"
+        ]
+    },
+    {
+        "ticket_id": "INC-5004",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Run hardware diagnostics on the ThinkPad T14 to check for disk, memory, or CPU issues causing application slowness. Review installed software for resource-heavy processes.",
+        "remediation_steps": [
+            "Run Lenovo Vantage hardware diagnostics (disk, memory, CPU)",
+            "Check Task Manager for high resource usage processes",
+            "Verify Windows Update status and pending updates",
+            "Check available disk space (low disk can cause slowness)",
+            "If hardware diagnostics pass, consider reimaging the device"
+        ]
+    },
+    {
+        "ticket_id": "INC-5005",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_users"
+        ],
+        "next_best_action": "Investigate account disabled status in Entra ID — likely caused by directory sync issue. Check if other Compliance team members in Singapore are also affected.",
+        "remediation_steps": [
+            "Check Entra ID account status for david.park@contoso.com",
+            "Review Entra Connect sync logs for errors during last night's sync cycle",
+            "If directory sync caused the issue, identify all affected accounts",
+            "Re-enable the account and verify group memberships are intact",
+            "Monitor next sync cycle to prevent recurrence"
+        ]
+    },
+    {
+        "ticket_id": "INC-5006",
+        "category": "Software & Applications",
+        "priority": "P1",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate NullReferenceException in trading order processing pipeline — all client orders are failing. Root cause appears to be a missing client account record. Check recent data changes.",
+        "remediation_steps": [
+            "Restart the order processing service as immediate mitigation",
+            "Investigate the NullReferenceException in OrderService.GetClientAccount",
+            "Check if client account data was modified or deleted recently",
+            "Review Service Bus dead letter queue for failed messages",
+            "Verify database connectivity and data integrity",
+            "Deploy hotfix if code change is needed, or restore missing data"
+        ]
+    },
+    {
+        "ticket_id": "INC-5007",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info",
+            "error_message",
+            "network_location"
+        ],
+        "next_best_action": "Investigate printer issue on 3rd floor. Need more details from reporter — the ticket description is mostly whitespace with minimal information.",
+        "remediation_steps": [
+            "Contact reporter to get specific printer model and exact location",
+            "Determine if this is a network printer or USB-connected",
+            "Check printer status and queue remotely if network-connected",
+            "If network printer, coordinate with Network Operations",
+            "Dispatch on-site technician if remote troubleshooting fails"
+        ]
+    },
+    {
+        "ticket_id": "INC-5008",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "previous_ticket_id",
+            "error_message"
+        ],
+        "next_best_action": "Investigate HP LaserJet printer issue on Floor 2 near kitchen. Link to the previous ticket submitted last week for context on recurring issue.",
+        "remediation_steps": [
+            "Locate the previous ticket about this printer for history",
+            "Check printer status remotely (HP Web Jetadmin if network printer)",
+            "Verify printer firmware and driver versions",
+            "Check print queue for stuck jobs",
+            "If recurring issue, consider printer replacement"
+        ]
+    },
+    {
+        "ticket_id": "INC-5009",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate WiFi performance degradation in Building 3, Floor 2. The actual issue is buried in forwarded email chain — slow WiFi (2 Mbps vs expected 100+) affecting 8+ users on Contoso-Corp SSID.",
+        "remediation_steps": [
+            "Check access point health in Building 3, Floor 2 near conference rooms 3A/3B",
+            "Run wireless survey to identify signal strength and interference",
+            "Compare Contoso-Corp SSID configuration with working guest WiFi",
+            "Check for rogue APs or channel congestion",
+            "If AP failure, replace or reconfigure affected access points"
+        ]
+    },
+    {
+        "ticket_id": "INC-5010",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "steps_to_reproduce",
+            "screenshot_or_attachment"
+        ],
+        "next_best_action": "Diagnose KERNEL_DATA_INPAGE_ERROR blue screen on ThinkPad T14s. This typically indicates a disk or memory hardware failure. Run Lenovo diagnostics.",
+        "remediation_steps": [
+            "Run Lenovo Vantage hardware diagnostics focusing on disk and memory",
+            "Check Windows Event Viewer for hardware error details",
+            "Run chkdsk to check for disk corruption",
+            "If hardware failure confirmed, initiate warranty replacement (6 months old)",
+            "Provide loaner device while replacement is processed"
+        ]
+    },
+    {
+        "ticket_id": "INC-5011",
+        "category": "General Inquiry",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "error_message",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Contact reporter to understand what help is needed. The ticket contains only a SharePoint URL with no description of the actual issue.",
+        "remediation_steps": [
+            "Contact reporter to clarify what assistance is needed",
+            "Check if the SharePoint list URL is accessible",
+            "Once the actual issue is identified, route to appropriate team"
+        ]
+    },
+    {
+        "ticket_id": "INC-5012",
+        "category": "Access & Authentication",
+        "priority": "P3",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "device_info",
+            "environment_details",
+            "affected_system"
+        ],
+        "next_best_action": "Contact reporter to gather details about the email access issue. The ticket has no description — need to know which email client, error message, and when the issue started.",
+        "remediation_steps": [
+            "Contact reporter to gather missing details (error message, client, timeline)",
+            "Check Entra ID sign-in logs for frank.miller@contoso.com",
+            "Verify Exchange Online mailbox health",
+            "Check if Outlook/OWA authentication is failing",
+            "Once root cause is identified, apply appropriate fix"
+        ]
+    },
+    {
+        "ticket_id": "INC-5013",
+        "category": "Software & Applications",
+        "priority": "P1",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate OutOfMemoryError in trading order processor on prod-trading-01. All client orders are failing since 3 AM — immediate revenue impact. Consider emergency JVM heap increase.",
+        "remediation_steps": [
+            "Restart the application with increased JVM heap size as immediate mitigation",
+            "Investigate memory leak in OrderProcessor.loadHistoricalData method",
+            "Check if recent data volume increase is causing excessive memory usage",
+            "Review recent deployments for code changes in the affected code path",
+            "Set up heap dump analysis to identify the memory leak root cause",
+            "Deploy fix or permanent heap configuration adjustment"
+        ]
+    },
+    {
+        "ticket_id": "INC-5014",
+        "category": "Not a Support Ticket",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "No action needed. This is an email consisting entirely of legal disclaimers and signature blocks — no actual support issue described.",
+        "remediation_steps": [
+            "Close ticket — no support issue identified",
+            "This appears to be an auto-generated reply or empty email with only signature/disclaimer content"
+        ]
+    },
+    {
+        "ticket_id": "INC-5015",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate VPN gateway timeout in Singapore office. Check if weekend maintenance affected GlobalProtect VPN configuration for the SG site.",
+        "remediation_steps": [
+            "Check VPN gateway health for Singapore office (Contoso-SG)",
+            "Review weekend maintenance changes that might affect VPN",
+            "Verify GlobalProtect v5.2 compatibility with current gateway config",
+            "Check network path from Singapore office to VPN gateway",
+            "If gateway issue, coordinate with network engineering for resolution"
+        ]
+    }
+]
