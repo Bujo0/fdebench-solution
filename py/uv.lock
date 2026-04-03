@@ -7,6 +7,9 @@ members = [
     "be-an-fde-for-a-day",
     "ms-common-fastapi",
     "ms-common-models",
+    "ms-eval-generator",
+    "ms-evals",
+    "ms-evals-core",
 ]
 
 [[package]]
@@ -388,6 +391,75 @@ dev = [
 name = "ms-common-models"
 version = "0.0.0"
 source = { editable = "common/libs/models" }
+dependencies = [
+    { name = "pydantic" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "pyright" },
+    { name = "pytest" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pydantic", specifier = ">=2.8.0" }]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pyright", specifier = ">=1.1.407" },
+    { name = "pytest", specifier = ">=9.0.1" },
+]
+
+[[package]]
+name = "ms-eval-generator"
+version = "0.0.0"
+source = { editable = "apps/eval-generator" }
+dependencies = [
+    { name = "ms-common-models" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "pyright" },
+    { name = "pytest" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "ms-common-models", editable = "common/libs/models" }]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pyright", specifier = ">=1.1.407" },
+    { name = "pytest", specifier = ">=9.0.1" },
+]
+
+[[package]]
+name = "ms-evals"
+version = "0.0.0"
+source = { editable = "apps/evals" }
+dependencies = [
+    { name = "ms-common-models" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "pyright" },
+    { name = "pytest" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "ms-common-models", editable = "common/libs/models" }]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pyright", specifier = ">=1.1.407" },
+    { name = "pytest", specifier = ">=9.0.1" },
+]
+
+[[package]]
+name = "ms-evals-core"
+version = "0.0.0"
+source = { editable = "libs/evals" }
 dependencies = [
     { name = "pydantic" },
 ]
