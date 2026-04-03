@@ -761,8 +761,7 @@ register(
             "taking my business elsewhere. Please have a manager contact me at {phone}.",
         ],
         next_best_actions=[
-            "Close — this is an external customer complaint routed to IT by mistake. Redirect "
-            "to customer service.",
+            "Close — this is an external customer complaint routed to IT by mistake. Redirect to customer service.",
         ],
         remediation_steps=[
             [
@@ -882,8 +881,7 @@ register(
             "Your password expires in 2 hours. Click below to reset now...",
         ],
         next_best_actions=[
-            "Close — user correctly identified a phishing simulation test. Acknowledge their "
-            "vigilance.",
+            "Close — user correctly identified a phishing simulation test. Acknowledge their vigilance.",
         ],
         remediation_steps=[
             [
@@ -1000,8 +998,7 @@ register(
         ],
         remediation_steps=[
             [
-                "No action required — newsletter unsubscribe request, close ticket and redirect "
-                "to marketing team",
+                "No action required — newsletter unsubscribe request, close ticket and redirect to marketing team",
             ],
         ],
     )
@@ -1266,8 +1263,7 @@ register(
         ],
         remediation_steps=[
             [
-                "No action required — not IT equipment; redirect to facilities management and "
-                "close ticket",
+                "No action required — not IT equipment; redirect to facilities management and close ticket",
             ],
         ],
     )

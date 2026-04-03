@@ -65,11 +65,9 @@ ACCESS_AUTH_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Identity & Access Management",
             needs_escalation=False,
-            missing_information=(
-                "error_message",
-            ),
+            missing_information=("error_message",),
             next_best_action="Unlock the user account in Active Directory and verify no suspicious activity caused the "
-                "lockout",
+            "lockout",
             remediation_steps=(
                 "Check Active Directory for lockout reason and timestamp",
                 "Verify no suspicious login attempts during absence",
@@ -101,9 +99,7 @@ ACCESS_AUTH_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Identity & Access Management",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Re-register the user's MFA authenticator app in Entra ID",
             remediation_steps=(
                 "Verify the user's MFA registration status in Entra ID",
@@ -136,9 +132,7 @@ ACCESS_AUTH_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Identity & Access Management",
             needs_escalation=False,
-            missing_information=(
-                "authentication_method",
-            ),
+            missing_information=("authentication_method",),
             next_best_action="Verify SSPR registration status and manually reset the user's password",
             remediation_steps=(
                 "Check user's SSPR registration status in Entra ID",
@@ -312,11 +306,9 @@ ACCESS_AUTH_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Identity & Access Management",
             needs_escalation=False,
-            missing_information=(
-                "configuration_details",
-            ),
+            missing_information=("configuration_details",),
             next_best_action="Re-authenticate the service principal and generate new OAuth tokens for the API "
-                "integration",
+            "integration",
             remediation_steps=(
                 "Identify the expired OAuth token and associated service principal",
                 "Re-authenticate with the third-party API provider",
@@ -419,7 +411,7 @@ ACCESS_AUTH_SCENARIOS: list[ScenarioDefinition] = [
             needs_escalation=False,
             missing_information=(),
             next_best_action="Add user to the shared mailbox with requested permissions after manager approval "
-                "verification",
+            "verification",
             remediation_steps=(
                 "Verify manager approval for shared mailbox access",
                 "Add the user to the shared mailbox in Exchange Online with full access permissions",
@@ -489,7 +481,7 @@ ACCESS_AUTH_SCENARIOS: list[ScenarioDefinition] = [
                 "affected_system",
             ),
             next_best_action="Review conditional access and token lifetime policies affecting the user's session "
-                "duration",
+            "duration",
             remediation_steps=(
                 "Check Entra ID sign-in logs for session termination reasons",
                 "Review conditional access policies and token lifetime configurations",
@@ -557,9 +549,7 @@ ACCESS_AUTH_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Identity & Access Management",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Investigate Entra ID join failure and check device registration prerequisites",
             remediation_steps=(
                 "Check Entra ID device registration settings and join limits",
@@ -592,11 +582,9 @@ ACCESS_AUTH_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Identity & Access Management",
             needs_escalation=False,
-            missing_information=(
-                "contact_info",
-            ),
+            missing_information=("contact_info",),
             next_best_action="Re-issue B2B guest invitations and verify external collaboration policies allow the "
-                "partner domain",
+            "partner domain",
             remediation_steps=(
                 "Verify B2B external collaboration settings allow the partner domain",
                 "Check if the guest invitations were accepted or expired",
@@ -700,7 +688,7 @@ ACCESS_AUTH_SCENARIOS: list[ScenarioDefinition] = [
                 "affected_users",
             ),
             next_best_action="Review cross-tenant access settings in both Entra ID tenants and verify trust "
-                "configuration",
+            "configuration",
             remediation_steps=(
                 "Check cross-tenant access settings in both Entra ID tenants",
                 "Verify inbound and outbound trust policies are correctly configured",
@@ -773,7 +761,7 @@ ACCESS_AUTH_SCENARIOS: list[ScenarioDefinition] = [
                 "error_message",
             ),
             next_best_action="Verify Kerberos SPN configuration and check for issues after the recent domain "
-                "controller update",
+            "controller update",
             remediation_steps=(
                 "Check the SPN registration for the application service account",
                 "Verify the domain controller update didn't change SPN mappings",
@@ -805,9 +793,7 @@ ACCESS_AUTH_SCENARIOS: list[ScenarioDefinition] = [
             priority="P1",
             assigned_team="Security Operations",
             needs_escalation=True,
-            missing_information=(
-                "timestamp",
-            ),
+            missing_information=("timestamp",),
             next_best_action="Investigate potential account compromise and coordinate with SecOps "
             "for incident response",
             remediation_steps=(
@@ -843,7 +829,7 @@ ACCESS_AUTH_SCENARIOS: list[ScenarioDefinition] = [
             needs_escalation=True,
             missing_information=(),
             next_best_action="Initiate security incident response for suspected account compromise with credential "
-                "stuffing",
+            "stuffing",
             remediation_steps=(
                 "Block the suspicious IP addresses in conditional access",
                 "Force password reset for the affected account",
@@ -1018,8 +1004,7 @@ ACCESS_AUTH_SCENARIOS: list[ScenarioDefinition] = [
             remediation_steps=(
                 "Review the MFA exception request against security policy",
                 "Assess the physical security controls of the device location",
-                "Configure a conditional access policy that excludes compliant shared devices on the corporate "
-                "network",
+                "Configure a conditional access policy that excludes compliant shared devices on the corporate network",
                 "Ensure the device is enrolled in Intune as a shared device",
                 "Document the exception and schedule periodic security review",
             ),

@@ -552,8 +552,7 @@ NON_TICKET_SCENARIOS: tuple[ScenarioDefinition, ...] = (
             "Quick heads up — Marcus turns 40 on Friday! We're getting a cake from the bakery"
             " downstairs. Meet in the break room at 2 PM for a quick celebration. Please keep"
             " it a secret!",
-            "We're collecting signatures for a birthday card for Aisha. Stop by desk 3-14"
-            " before Thursday to sign it.",
+            "We're collecting signatures for a birthday card for Aisha. Stop by desk 3-14 before Thursday to sign it.",
         ),
         gold=ScenarioGold(
             category="Not a Support Ticket",

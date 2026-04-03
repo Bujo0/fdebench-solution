@@ -138,9 +138,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
             team=Team.ENDPOINT,
             needs_escalation=False,
             missing_info=[MissingInfo.ENVIRONMENT_DETAILS],
-            next_best_action=(
-                "Run hardware thermal diagnostics and coordinate with Facilities about the AC issue"
-            ),
+            next_best_action=("Run hardware thermal diagnostics and coordinate with Facilities about the AC issue"),
             remediation_steps=[
                 "Run vendor thermal diagnostics to check fan and heat sink condition",
                 "Clean dust from vents and verify thermal paste integrity",
@@ -272,9 +270,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
             team=Team.ENDPOINT,
             needs_escalation=False,
             missing_info=[MissingInfo.DEVICE_INFO],
-            next_best_action=(
-                "Test with a replacement dock power supply and update dock firmware"
-            ),
+            next_best_action=("Test with a replacement dock power supply and update dock firmware"),
             remediation_steps=[
                 "Verify the dock's power adapter output matches the required wattage for the laptop",
                 "Test with a known-good dock power supply",
@@ -344,9 +340,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 MissingInfo.ENVIRONMENT_DETAILS,
                 MissingInfo.NETWORK_LOCATION,
             ],
-            next_best_action=(
-                "Try the receiver directly in the laptop USB port and re-pair the mouse"
-            ),
+            next_best_action=("Try the receiver directly in the laptop USB port and re-pair the mouse"),
             remediation_steps=[
                 "Move the Unifying receiver from the dock to a direct USB port on the laptop",
                 "Re-pair the mouse through Logitech Options+ software",
@@ -450,9 +444,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
             team=Team.NETWORK_OPS,
             needs_escalation=False,
             missing_info=[MissingInfo.ERROR_MESSAGE],
-            next_best_action=(
-                "Check the print server queue and network connectivity to the printer"
-            ),
+            next_best_action=("Check the print server queue and network connectivity to the printer"),
             remediation_steps=[
                 "Verify network connectivity by pinging the printer IP address",
                 "Check the print server for stuck jobs and restart the print spooler service",
@@ -553,9 +545,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
             team=Team.ENDPOINT,
             needs_escalation=True,
             missing_info=[MissingInfo.DEVICE_INFO],
-            next_best_action=(
-                "Dispatch a technician immediately with a portable display or backup projector"
-            ),
+            next_best_action=("Dispatch a technician immediately with a portable display or backup projector"),
             remediation_steps=[
                 "Dispatch an on-site technician to Boardroom A immediately",
                 "Bring a backup projector or large portable display as a contingency",
@@ -655,9 +645,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
             team=Team.ENDPOINT,
             needs_escalation=False,
             missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.BUSINESS_IMPACT],
-            next_best_action=(
-                "Verify AppleCare coverage and schedule a screen repair or device swap"
-            ),
+            next_best_action=("Verify AppleCare coverage and schedule a screen repair or device swap"),
             remediation_steps=[
                 "Verify AppleCare coverage status for the device",
                 "If covered, schedule an Apple Store repair appointment or mail-in repair",
@@ -690,9 +678,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
             team=Team.ENDPOINT,
             needs_escalation=False,
             missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.ENVIRONMENT_DETAILS],
-            next_best_action=(
-                "Check Intune device enrollment restrictions for Android and verify the user's license"
-            ),
+            next_best_action=("Check Intune device enrollment restrictions for Android and verify the user's license"),
             remediation_steps=[
                 "Verify the user has an Intune license assigned in Entra ID",
                 "Check Intune enrollment restrictions to ensure Samsung Galaxy S24 is not blocked",
@@ -761,9 +747,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
             team=Team.ENDPOINT,
             needs_escalation=False,
             missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.ERROR_MESSAGE],
-            next_best_action=(
-                "Re-enroll the user's fingerprint on the Bloomberg biometric reader"
-            ),
+            next_best_action=("Re-enroll the user's fingerprint on the Bloomberg biometric reader"),
             remediation_steps=[
                 "Verify the biometric reader is detected by the Bloomberg terminal",
                 "Attempt to re-enroll the user's fingerprint through Bloomberg settings",
@@ -908,9 +892,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 MissingInfo.ENVIRONMENT_DETAILS,
                 MissingInfo.NETWORK_LOCATION,
             ],
-            next_best_action=(
-                "Check if Intune device compliance policies are blocking external USB storage devices"
-            ),
+            next_best_action=("Check if Intune device compliance policies are blocking external USB storage devices"),
             remediation_steps=[
                 "Check Intune device compliance policies for USB storage restrictions",
                 "Verify the USB drive is not blocked by endpoint DLP or device control policies",
@@ -943,9 +925,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
             team=Team.ENDPOINT,
             needs_escalation=False,
             missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.ERROR_MESSAGE],
-            next_best_action=(
-                "Check Device Manager for USB driver issues and test the YubiKey on another machine"
-            ),
+            next_best_action=("Check Device Manager for USB driver issues and test the YubiKey on another machine"),
             remediation_steps=[
                 "Check Device Manager for unrecognized USB devices or driver errors",
                 "Test the YubiKey on a different computer to rule out key hardware failure",
@@ -1196,8 +1176,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
             needs_escalation=False,
             missing_info=[MissingInfo.BUSINESS_IMPACT],
             next_best_action=(
-                "Arrange a loaner laptop from the Singapore office inventory and ship the damaged unit back"
-                " for repair"
+                "Arrange a loaner laptop from the Singapore office inventory and ship the damaged unit back for repair"
             ),
             remediation_steps=[
                 "Check Singapore office loaner inventory for an available device",

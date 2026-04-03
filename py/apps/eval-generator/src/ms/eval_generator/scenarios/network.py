@@ -27,11 +27,9 @@ NETWORK_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Network Operations",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Investigate VPN client network roaming behavior and check for known issues with the "
-                "recent update",
+            "recent update",
             remediation_steps=(
                 "Check VPN client version and compare with known-good configuration",
                 "Verify VPN client roaming settings to maintain connection during network transitions",
@@ -63,9 +61,7 @@ NETWORK_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Network Operations",
             needs_escalation=False,
-            missing_information=(
-                "network_location",
-            ),
+            missing_information=("network_location",),
             next_best_action="Investigate Floor 3 access point status and check for PoE switch or AP controller issues",
             remediation_steps=(
                 "Check the status of all wireless access points on Floor 3 in the controller",
@@ -172,7 +168,7 @@ NETWORK_SCENARIOS: list[ScenarioDefinition] = [
                 "reproduction_frequency",
             ),
             next_best_action="Analyze network QoS metrics and check for bandwidth or latency issues on the affected "
-                "segment",
+            "segment",
             remediation_steps=(
                 "Run a network performance test from the affected location",
                 "Check QoS policies for Teams/video conferencing traffic",
@@ -312,9 +308,7 @@ NETWORK_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Network Operations",
             needs_escalation=False,
-            missing_information=(
-                "affected_system",
-            ),
+            missing_information=("affected_system",),
             next_best_action="Review the proxy URL categorization and add the business site to the allow list",
             remediation_steps=(
                 "Check the proxy block log for the specific URL and categorization",
@@ -554,9 +548,7 @@ NETWORK_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Network Operations",
             needs_escalation=False,
-            missing_information=(
-                "configuration_details",
-            ),
+            missing_information=("configuration_details",),
             next_best_action="Review inter-VLAN firewall rules and add appropriate access for dev-to-staging traffic",
             remediation_steps=(
                 "Review the firewall rules between the dev and staging VLANs",
@@ -622,9 +614,7 @@ NETWORK_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Network Operations",
             needs_escalation=False,
-            missing_information=(
-                "network_location",
-            ),
+            missing_information=("network_location",),
             next_best_action="Check the DHCP server scope for the affected subnet and verify DHCP relay configuration",
             remediation_steps=(
                 "Check DHCP server health and scope utilization for the Floor 5 subnet",
@@ -692,11 +682,9 @@ NETWORK_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Network Operations",
             needs_escalation=False,
-            missing_information=(
-                "configuration_details",
-            ),
+            missing_information=("configuration_details",),
             next_best_action="Review bandwidth QoS policies and ensure backup traffic is not throttled during the "
-                "backup window",
+            "backup window",
             remediation_steps=(
                 "Review the QoS/bandwidth policy for Azure backup traffic",
                 "Check if the throttling is per-user or per-application",
@@ -761,9 +749,7 @@ NETWORK_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Network Operations",
             needs_escalation=False,
-            missing_information=(
-                "network_location",
-            ),
+            missing_information=("network_location",),
             next_best_action="Inspect the physical AP installation and check PoE power delivery to the access point",
             remediation_steps=(
                 "Check the AP status in the wireless controller",
@@ -866,9 +852,7 @@ NETWORK_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Network Operations",
             needs_escalation=False,
-            missing_information=(
-                "network_location",
-            ),
+            missing_information=("network_location",),
             next_best_action="Add inter-VLAN routing rules to allow print traffic from VLAN 10 to the printer VLAN",
             remediation_steps=(
                 "Verify the inter-VLAN firewall rules for print traffic",
@@ -903,7 +887,7 @@ NETWORK_SCENARIOS: list[ScenarioDefinition] = [
             needs_escalation=False,
             missing_information=(),
             next_best_action="Evaluate the split tunnel VPN request against security policy and submit for SecOps "
-                "approval",
+            "approval",
             remediation_steps=(
                 "Review the current VPN tunnel configuration and routing table",
                 "Evaluate the security implications of split tunneling",
@@ -935,9 +919,7 @@ NETWORK_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Network Operations",
             needs_escalation=False,
-            missing_information=(
-                "configuration_details",
-            ),
+            missing_information=("configuration_details",),
             next_best_action="Adjust the VPN tunnel MTU and enable MSS clamping to prevent fragmentation",
             remediation_steps=(
                 "Run MTU path discovery tests to find the maximum working MTU",
@@ -970,9 +952,7 @@ NETWORK_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Network Operations",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Register the new device's MAC address in the network access control whitelist",
             remediation_steps=(
                 "Verify the MAC address of the new device",
@@ -1005,9 +985,7 @@ NETWORK_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Network Operations",
             needs_escalation=False,
-            missing_information=(
-                "configuration_details",
-            ),
+            missing_information=("configuration_details",),
             next_best_action="Investigate the new ISP circuit quality and BGP routing configuration",
             remediation_steps=(
                 "Run continuous monitoring (ping, traceroute, MTR) to the affected office",

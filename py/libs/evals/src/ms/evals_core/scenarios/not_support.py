@@ -757,12 +757,10 @@ def get_scenarios() -> list[ScenarioDefinition]:
             needs_escalation=False,
             missing_info=[],
             next_best_action=(
-                "Close — follow-up confirming resolution with positive feedback, no new issue. "
-                "No action required."
+                "Close — follow-up confirming resolution with positive feedback, no new issue. No action required."
             ),
             remediation_steps=[
-                "No action required — user confirmed issue is resolved and provided positive feedback, "
-                "close ticket.",
+                "No action required — user confirmed issue is resolved and provided positive feedback, close ticket.",
             ],
             reporter_name="Wei Zhang",
             reporter_email="wei.zhang@contoso.com",

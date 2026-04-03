@@ -94,9 +94,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Enterprise Applications",
             needs_escalation=False,
             missing_information=(),
-            next_best_action=(
-                "Check Office version and repair installation; verify sufficient RAM"
-            ),
+            next_best_action=("Check Office version and repair installation; verify sufficient RAM"),
             remediation_steps=(
                 "Update Microsoft 365 Apps to latest build",
                 "Run Office online repair via Settings > Apps",
@@ -132,10 +130,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
                 "Manager approval confirmation or ticket reference number",
                 "Specific Adobe CC apps needed if not full suite",
             ),
-            next_best_action=(
-                "Verify license availability and manager approval, "
-                "then deploy via Intune"
-            ),
+            next_best_action=("Verify license availability and manager approval, then deploy via Intune"),
             remediation_steps=(
                 "Confirm manager approval and budget code for Adobe license",
                 "Check available Adobe CC license pool",
@@ -169,9 +164,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Enterprise Applications",
             needs_escalation=False,
             missing_information=(),
-            next_best_action=(
-                "Check SAP application server status and network path to port 3200"
-            ),
+            next_best_action=("Check SAP application server status and network path to port 3200"),
             remediation_steps=(
                 "Verify SAP application server process status on sapapp01",
                 "Check port 3200 connectivity from client network segment",
@@ -236,10 +229,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Enterprise Applications",
             needs_escalation=False,
             missing_information=(),
-            next_best_action=(
-                "Verify Bloomberg network connectivity and check for "
-                "vendor-side incidents"
-            ),
+            next_best_action=("Verify Bloomberg network connectivity and check for vendor-side incidents"),
             remediation_steps=(
                 "Check Bloomberg service status page for known outages",
                 "Verify network connectivity to Bloomberg data endpoints",
@@ -275,9 +265,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
                 "Edge browser version",
                 "Whether IE mode has been attempted",
             ),
-            next_best_action=(
-                "Test with IE mode in Edge and escalate to HR portal vendor if needed"
-            ),
+            next_best_action=("Test with IE mode in Edge and escalate to HR portal vendor if needed"),
             remediation_steps=(
                 "Confirm Edge browser version and update if outdated",
                 "Test HR portal using IE mode in Edge",
@@ -312,9 +300,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
             missing_information=(),
-            next_best_action=(
-                "Check Intune enrollment status and Autopilot profile assignment"
-            ),
+            next_best_action=("Check Intune enrollment status and Autopilot profile assignment"),
             remediation_steps=(
                 "Verify device serial is registered in Autopilot",
                 "Check Intune enrollment restrictions and license assignment",
@@ -346,12 +332,8 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Enterprise Applications",
             needs_escalation=False,
-            missing_information=(
-                "Employee ID or UPN for license lookup",
-            ),
-            next_best_action=(
-                "Check M365 admin center for license assignment status"
-            ),
+            missing_information=("Employee ID or UPN for license lookup",),
+            next_best_action=("Check M365 admin center for license assignment status"),
             remediation_steps=(
                 "Look up user in M365 admin center",
                 "Verify group-based license assignment matches new department",
@@ -383,12 +365,8 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Enterprise Applications",
             needs_escalation=False,
-            missing_information=(
-                "SharePoint file path or URL",
-            ),
-            next_best_action=(
-                "Attempt recovery from SharePoint version history"
-            ),
+            missing_information=("SharePoint file path or URL",),
+            next_best_action=("Attempt recovery from SharePoint version history"),
             remediation_steps=(
                 "Check SharePoint version history for the last good version",
                 "Try opening the file in PowerPoint Safe Mode",
@@ -426,9 +404,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
                 "File storage location (trusted location check)",
                 "Whether macro files are digitally signed",
             ),
-            next_best_action=(
-                "Review Intune macro policy assignment and trusted locations"
-            ),
+            next_best_action=("Review Intune macro policy assignment and trusted locations"),
             remediation_steps=(
                 "Check Group Policy / Intune policy for macro settings on device",
                 "Verify file location is in the trusted locations list",
@@ -494,9 +470,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Enterprise Applications",
             needs_escalation=False,
             missing_information=(),
-            next_best_action=(
-                "Check CRM application server and load balancer health"
-            ),
+            next_best_action=("Check CRM application server and load balancer health"),
             remediation_steps=(
                 "Check web server and application pool status on CRM servers",
                 "Review load balancer health checks for backend failures",
@@ -536,9 +510,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
                 "Manager approval documentation",
                 "Whether a developer-class device is required",
             ),
-            next_best_action=(
-                "Verify approval and deploy dev tools via Intune or SCCM"
-            ),
+            next_best_action=("Verify approval and deploy dev tools via Intune or SCCM"),
             remediation_steps=(
                 "Confirm manager approval and any licensing requirements",
                 "Check if user qualifies for developer workstation image",
@@ -570,12 +542,8 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Enterprise Applications",
             needs_escalation=False,
-            missing_information=(
-                "Salesforce report name or ID",
-            ),
-            next_best_action=(
-                "Review report query complexity and optimize filters"
-            ),
+            missing_information=("Salesforce report name or ID",),
+            next_best_action=("Review report query complexity and optimize filters"),
             remediation_steps=(
                 "Identify the specific report and review its filter criteria",
                 "Check Salesforce governor limits and report row thresholds",
@@ -643,9 +611,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Enterprise Applications",
             needs_escalation=False,
             missing_information=(),
-            next_best_action=(
-                "Disable hardware acceleration in Teams and update GPU drivers"
-            ),
+            next_best_action=("Disable hardware acceleration in Teams and update GPU drivers"),
             remediation_steps=(
                 "Disable GPU hardware acceleration in Teams settings",
                 "Update Intel graphics drivers to latest version",
@@ -683,10 +649,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
                 "Application file hash for exclusion whitelisting",
                 "Application owner and internal code signing status",
             ),
-            next_best_action=(
-                "Add temporary Defender exclusion and submit file for "
-                "false positive review"
-            ),
+            next_best_action=("Add temporary Defender exclusion and submit file for false positive review"),
             remediation_steps=(
                 "Collect file hash and verify with application development team",
                 "Submit sample to Microsoft for false positive analysis",
@@ -720,9 +683,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Enterprise Applications",
             needs_escalation=False,
             missing_information=(),
-            next_best_action=(
-                "Check ServiceNow instance health and performance metrics"
-            ),
+            next_best_action=("Check ServiceNow instance health and performance metrics"),
             remediation_steps=(
                 "Review ServiceNow instance performance dashboard",
                 "Check for long-running scheduled jobs or background scripts",
@@ -789,9 +750,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Enterprise Applications",
             needs_escalation=False,
-            missing_information=(
-                "SharePoint site URL and file path",
-            ),
+            missing_information=("SharePoint site URL and file path",),
             next_best_action="Clear stale locks and verify co-authoring settings",
             remediation_steps=(
                 "Check SharePoint file lock status via admin center",
@@ -866,9 +825,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
                 "Manager approval for non-standard software",
                 "Business justification documentation",
             ),
-            next_best_action=(
-                "Process non-standard software request with manager approval"
-            ),
+            next_best_action=("Process non-standard software request with manager approval"),
             remediation_steps=(
                 "Verify manager approval for Zoom installation",
                 "Check Zoom licensing requirements and corporate policy",
@@ -902,9 +859,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Enterprise Applications",
             needs_escalation=False,
             missing_information=(),
-            next_best_action=(
-                "Check on-premises data gateway service status and connectivity"
-            ),
+            next_best_action=("Check on-premises data gateway service status and connectivity"),
             remediation_steps=(
                 "Verify the on-premises data gateway service is running",
                 "Check gateway machine resource utilization and connectivity",
@@ -938,9 +893,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
             missing_information=(),
-            next_best_action=(
-                "Force Intune policy sync and verify Edge policy assignment"
-            ),
+            next_best_action=("Force Intune policy sync and verify Edge policy assignment"),
             remediation_steps=(
                 "Check Intune device compliance and policy assignment status",
                 "Force an Intune policy sync on the device",
@@ -974,9 +927,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
             missing_information=(),
-            next_best_action=(
-                "Install Java 8 alongside Java 17 and configure app path"
-            ),
+            next_best_action=("Install Java 8 alongside Java 17 and configure app path"),
             remediation_steps=(
                 "Deploy Java 8 JRE alongside Java 17 via Intune",
                 "Configure TradeSettle shortcut to use Java 8 path explicitly",
@@ -1014,9 +965,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
                 "Meeting date, time, and organizer",
                 "Whether meeting was a channel meeting or private meeting",
             ),
-            next_best_action=(
-                "Check recording storage location based on meeting type"
-            ),
+            next_best_action=("Check recording storage location based on meeting type"),
             remediation_steps=(
                 "Determine if meeting was channel-based (SharePoint) or private (OneDrive)",
                 "Check organizer's OneDrive for recording file",
@@ -1050,9 +999,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
             missing_information=(),
-            next_best_action=(
-                "Reactivate Windows license via KMS or VAMT after hardware change"
-            ),
+            next_best_action=("Reactivate Windows license via KMS or VAMT after hardware change"),
             remediation_steps=(
                 "Connect device to corporate network for KMS activation",
                 "Run slmgr /ato to force activation attempt",
@@ -1089,9 +1036,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Enterprise Applications",
             needs_escalation=True,
             missing_information=(),
-            next_best_action=(
-                "Escalate to SAP Basis and ABAP team for runtime dump analysis"
-            ),
+            next_best_action=("Escalate to SAP Basis and ABAP team for runtime dump analysis"),
             remediation_steps=(
                 "Pull ABAP runtime dump (ST22) for the failed job executions",
                 "Analyze the MESSAGE_TYPE_X dump for root cause",

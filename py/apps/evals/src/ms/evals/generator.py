@@ -59,26 +59,78 @@ def _generate_timestamp(rng: random.Random, base_date: datetime) -> str:
 def _render_description(template: str, rng: random.Random) -> str:
     """Replace simple placeholders in description templates."""
     replacements = {
-        "{department}": rng.choice([
-            "Wealth Management", "Trading", "Compliance", "Finance",
-            "Engineering", "Marketing", "Operations", "HR",
-            "Risk Management", "Treasury", "Legal", "Procurement",
-            "Client Services", "Research", "Internal Audit", "DevOps",
-            "Investor Relations", "Corporate Strategy", "Data Science",
-            "Backend Engineering", "Frontend Engineering", "Product Management",
-        ]),
-        "{app}": rng.choice([
-            "Salesforce", "SAP", "Bloomberg Terminal", "Power BI",
-            "Concur", "Workday", "ServiceNow", "Azure DevOps",
-            "Jira", "Confluence", "Tableau", "Snowflake",
-            "Databricks", "DocuSign", "Slack", "Zoom",
-            "CrowdStrike", "Splunk", "Datadog", "GitHub Enterprise",
-        ]),
-        "{name}": rng.choice([
-            "John", "Sarah", "David", "Lisa", "Mike", "Emma",
-            "Priya", "Carlos", "Wei", "Fatima", "Ravi", "Sophie",
-            "Ahmed", "Maria", "Yuki", "Hassan", "Nina", "Kofi",
-        ]),
+        "{department}": rng.choice(
+            [
+                "Wealth Management",
+                "Trading",
+                "Compliance",
+                "Finance",
+                "Engineering",
+                "Marketing",
+                "Operations",
+                "HR",
+                "Risk Management",
+                "Treasury",
+                "Legal",
+                "Procurement",
+                "Client Services",
+                "Research",
+                "Internal Audit",
+                "DevOps",
+                "Investor Relations",
+                "Corporate Strategy",
+                "Data Science",
+                "Backend Engineering",
+                "Frontend Engineering",
+                "Product Management",
+            ]
+        ),
+        "{app}": rng.choice(
+            [
+                "Salesforce",
+                "SAP",
+                "Bloomberg Terminal",
+                "Power BI",
+                "Concur",
+                "Workday",
+                "ServiceNow",
+                "Azure DevOps",
+                "Jira",
+                "Confluence",
+                "Tableau",
+                "Snowflake",
+                "Databricks",
+                "DocuSign",
+                "Slack",
+                "Zoom",
+                "CrowdStrike",
+                "Splunk",
+                "Datadog",
+                "GitHub Enterprise",
+            ]
+        ),
+        "{name}": rng.choice(
+            [
+                "John",
+                "Sarah",
+                "David",
+                "Lisa",
+                "Mike",
+                "Emma",
+                "Priya",
+                "Carlos",
+                "Wei",
+                "Fatima",
+                "Ravi",
+                "Sophie",
+                "Ahmed",
+                "Maria",
+                "Yuki",
+                "Hassan",
+                "Nina",
+                "Kofi",
+            ]
+        ),
         "{name1}": rng.choice(["alice.jones", "mark.taylor", "priya.kumar", "chen.wei"]),
         "{name2}": rng.choice(["bob.smith", "sarah.martinez", "ravi.patel", "emma.wilson"]),
         "{name3}": rng.choice(["carol.white", "james.garcia", "yuki.tanaka", "fatima.hassan"]),
@@ -212,7 +264,10 @@ def generate_dataset(
 
         # Select category with distribution awareness
         category_str = _balanced_select(
-            rng, {k.value: v for k, v in CATEGORY_WEIGHTS.items()}, cat_counter, i,
+            rng,
+            {k.value: v for k, v in CATEGORY_WEIGHTS.items()},
+            cat_counter,
+            i,
         )
         category = Category(category_str)
 
@@ -222,14 +277,20 @@ def generate_dataset(
         # Override priority if needed for balance
         if i > count * 0.1:
             target_pri = _balanced_select(
-                rng, {k.value: v for k, v in PRIORITY_WEIGHTS.items()}, pri_counter, i,
+                rng,
+                {k.value: v for k, v in PRIORITY_WEIGHTS.items()},
+                pri_counter,
+                i,
             )
             if target_pri != scenario.priority.value:
                 scenario = _adjust_priority(scenario, Priority(target_pri))
 
         # Select channel with balance
         channel = _balanced_select(
-            rng, {k.value: v for k, v in CHANNEL_WEIGHTS.items()}, chan_counter, i,
+            rng,
+            {k.value: v for k, v in CHANNEL_WEIGHTS.items()},
+            chan_counter,
+            i,
         )
 
         # Generate ticket pair

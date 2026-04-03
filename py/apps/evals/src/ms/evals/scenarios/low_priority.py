@@ -171,8 +171,7 @@ register(
         next_best_actions=[
             "Get the full list of members to add and remove, then update the distribution "
             "group membership in Exchange Online.",
-            "Confirm the membership changes with the DL owner and apply the updates in "
-            "the Exchange admin center.",
+            "Confirm the membership changes with the DL owner and apply the updates in the Exchange admin center.",
         ],
         remediation_steps=[
             [
@@ -259,8 +258,7 @@ register(
         next_best_actions=[
             "Check spare peripheral inventory and arrange a replacement mouse at the "
             "user's convenience during their next office visit.",
-            "Add the user to the next batch of peripheral refreshes or ship a replacement "
-            "mouse if available in stock.",
+            "Add the user to the next batch of peripheral refreshes or ship a replacement mouse if available in stock.",
         ],
         remediation_steps=[
             [
@@ -518,8 +516,7 @@ register(
         next_best_actions=[
             "Provide the standard guest WiFi access procedure. If guest access requires "
             "sponsorship, guide the user through the registration portal.",
-            "Share the guest wireless onboarding instructions and any visitor registration "
-            "requirements with the user.",
+            "Share the guest wireless onboarding instructions and any visitor registration requirements with the user.",
         ],
         remediation_steps=[
             [
@@ -699,8 +696,7 @@ register(
         next_best_actions=[
             "Check if this is a known issue in the current Outlook build. If so, note "
             "the tracking ID. If not, log it for the next update cycle.",
-            "Verify the Outlook version and check the Microsoft 365 known issues list "
-            "for dark mode rendering bugs.",
+            "Verify the Outlook version and check the Microsoft 365 known issues list for dark mode rendering bugs.",
         ],
         remediation_steps=[
             [
@@ -1450,8 +1446,7 @@ register(
         next_best_actions=[
             "Provide the direct link to the IT service catalog on the intranet and "
             "a brief overview of how to navigate it.",
-            "Share the IT service catalog URL and suggest the user bookmark it for "
-            "future reference.",
+            "Share the IT service catalog URL and suggest the user bookmark it for future reference.",
         ],
         remediation_steps=[
             [
@@ -1489,8 +1484,7 @@ register(
             "check if they're already approved first. Just an informational question.",
         ],
         next_best_actions=[
-            "Direct the user to the approved software catalog in the Company Portal "
-            "or self-service software center.",
+            "Direct the user to the approved software catalog in the Company Portal or self-service software center.",
             "Provide the link to the software request portal and the list of pre-approved "
             "applications available for self-service install.",
         ],
@@ -1530,10 +1524,8 @@ register(
             "Just an informational request.",
         ],
         next_best_actions=[
-            "Add the user to the IT communications distribution list or provide "
-            "the self-service subscription link.",
-            "Share the IT newsletter sign-up page and any related Teams channels "
-            "for IT updates.",
+            "Add the user to the IT communications distribution list or provide the self-service subscription link.",
+            "Share the IT newsletter sign-up page and any related Teams channels for IT updates.",
         ],
         remediation_steps=[
             [
@@ -1576,8 +1568,7 @@ register(
         next_best_actions=[
             "Acknowledge the compliment and share it with the team. Log the positive "
             "feedback for the referenced technician's performance record.",
-            "Thank the user for the feedback and forward the kudos to the relevant "
-            "team member and their manager.",
+            "Thank the user for the feedback and forward the kudos to the relevant team member and their manager.",
         ],
         remediation_steps=[
             [
@@ -1742,8 +1733,7 @@ register(
             "No response needed!",
         ],
         next_best_actions=[
-            "Thank the user for sharing and close the ticket. No support action "
-            "required — this is informational.",
+            "Thank the user for sharing and close the ticket. No support action required — this is informational.",
             "Acknowledge receipt of the meeting notes and close the ticket as "
             "informational. No technical action needed.",
         ],

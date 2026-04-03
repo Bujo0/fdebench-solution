@@ -99,9 +99,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Run battery diagnostics and determine if battery replacement or device swap is needed",
             remediation_steps=(
                 "Run powercfg /batteryreport to check battery health and cycle count",
@@ -134,9 +132,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Arrange screen replacement or device swap depending on warranty and repair timeline",
             remediation_steps=(
                 "Document the damage and check warranty/accidental damage coverage",
@@ -169,9 +165,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Update docking station firmware and display drivers to resolve the video output issue",
             remediation_steps=(
                 "Check if the docking station firmware is up to date",
@@ -204,9 +198,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Clear persistent printer error and inspect feed rollers for wear",
             remediation_steps=(
                 "Power cycle the printer and clear any error states",
@@ -239,9 +231,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Network Operations",
             needs_escalation=False,
-            missing_information=(
-                "network_location",
-            ),
+            missing_information=("network_location",),
             next_best_action="Verify the network printer's IP assignment and print server configuration",
             remediation_steps=(
                 "Ping the printer IP to verify network connectivity",
@@ -274,9 +264,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Update Bluetooth drivers and reset the pairing between the headset and laptop",
             remediation_steps=(
                 "Check if the Bluetooth driver was updated or replaced by the Windows update",
@@ -345,9 +333,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Run thermal diagnostics and check for dust buildup or degraded thermal paste",
             remediation_steps=(
                 "Run hardware thermal diagnostics to check temperature readings",
@@ -380,9 +366,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Replace the Surface Type Cover keyboard due to mechanical key failure",
             remediation_steps=(
                 "Verify the issue by testing in the UEFI/BIOS screen to rule out software",
@@ -415,11 +399,9 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Update trackpad drivers and run diagnostics to determine if hardware replacement is "
-                "needed",
+            "needed",
             remediation_steps=(
                 "Update the touchpad/trackpad driver to the latest version",
                 "Check touchpad sensitivity and palm rejection settings",
@@ -520,9 +502,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Initiate vendor warranty RMA and provide a loaner laptop",
             remediation_steps=(
                 "Verify the device serial number and warranty status",
@@ -560,7 +540,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
                 "application_version",
             ),
             next_best_action="Check Intune device compliance and Exchange ActiveSync configuration for the mobile "
-                "device",
+            "device",
             remediation_steps=(
                 "Verify the device compliance status in Intune",
                 "Check Exchange ActiveSync partnership status for the device",
@@ -592,9 +572,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Troubleshoot USB power delivery and dock firmware to resolve intermittent disconnections",
             remediation_steps=(
                 "Check the docking station firmware version and update if available",
@@ -660,11 +638,9 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P1",
             assigned_team="Endpoint Engineering",
             needs_escalation=True,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Dispatch immediate on-site support with a backup projector or large display to the "
-                "boardroom",
+            "boardroom",
             remediation_steps=(
                 "Dispatch on-site technician to the boardroom immediately",
                 "Bring a portable backup projector or large display from IT supply",
@@ -696,11 +672,9 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Immediately back up all data and run drive diagnostics — clicking indicates imminent "
-                "drive failure",
+            "drive failure",
             remediation_steps=(
                 "Immediately back up all user data to OneDrive or external storage",
                 "Run SMART disk diagnostics to check drive health",
@@ -737,7 +711,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
                 "affected_users",
             ),
             next_best_action="Investigate a potential batch defect and coordinate with the vendor for a recall or bulk "
-                "replacement",
+            "replacement",
             remediation_steps=(
                 "Collect serial numbers and failure details for all affected devices",
                 "Check if all devices are from the same purchase order and manufacturing batch",
@@ -802,9 +776,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Replace or reconfigure the barcode scanner at the reception desk",
             remediation_steps=(
                 "Check the USB connection and try a different USB port",
@@ -870,9 +842,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Clean the laptop vents and check for thermal management or background process issues",
             remediation_steps=(
                 "Check Task Manager for any processes consuming high CPU",
@@ -905,11 +875,9 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P4",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Replace the mouse with a new unit from inventory — double-click defect is a known "
-                "hardware failure",
+            "hardware failure",
             remediation_steps=(
                 "Verify the issue is hardware by testing with a different mouse",
                 "Check if the Logitech software has a debounce or click speed setting",
@@ -941,9 +909,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Troubleshoot the smart card reader driver and test with an external USB reader",
             remediation_steps=(
                 "Check Device Manager to verify the smart card reader driver is installed",
@@ -976,9 +942,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Order replacement UPS batteries immediately and schedule off-hours battery swap",
             remediation_steps=(
                 "Acknowledge the UPS alarm and document the current battery status",
@@ -1011,9 +975,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Attempt hardware diagnostics and determine if motherboard or GPU replacement is needed",
             remediation_steps=(
                 "Check all internal cable connections and reseat RAM modules",
@@ -1046,9 +1008,7 @@ HARDWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Run touch panel diagnostics and determine if the digitizer needs replacement",
             remediation_steps=(
                 "Check Device Manager for any errors on the HID touch screen device",

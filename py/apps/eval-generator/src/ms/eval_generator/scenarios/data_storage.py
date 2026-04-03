@@ -169,7 +169,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
                 "business_impact",
             ),
             next_best_action="Schedule a migration planning session to assess the file share content and SharePoint "
-                "requirements",
+            "requirements",
             remediation_steps=(
                 "Assess the file share size, structure, and file types",
                 "Identify files with unsupported characters or path lengths for SharePoint",
@@ -203,7 +203,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             needs_escalation=False,
             missing_information=(),
             next_best_action="Review the user's OneDrive usage and either increase quota or recommend alternative "
-                "storage",
+            "storage",
             remediation_steps=(
                 "Check the user's current OneDrive storage usage and breakdown",
                 "Identify large or infrequently accessed files that can be archived",
@@ -268,11 +268,9 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Data Platform",
             needs_escalation=False,
-            missing_information=(
-                "error_message",
-            ),
+            missing_information=("error_message",),
             next_best_action="Investigate blocking queries, tempdb growth, and resource contention on the production "
-                "SQL server",
+            "SQL server",
             remediation_steps=(
                 "Check for long-running or blocking queries using sp_who2 or Activity Monitor",
                 "Review tempdb usage and identify any queries causing excessive growth",
@@ -309,7 +307,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
                 "error_message",
             ),
             next_best_action="Investigate the Teams-SharePoint integration for the affected channel's underlying "
-                "document library",
+            "document library",
             remediation_steps=(
                 "Access the underlying SharePoint document library directly to verify it's operational",
                 "Check if the SharePoint site storage limit has been reached",
@@ -341,9 +339,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Data Platform",
             needs_escalation=False,
-            missing_information=(
-                "affected_system",
-            ),
+            missing_information=("affected_system",),
             next_best_action="Check the archive mailbox search index status and rebuild if necessary",
             remediation_steps=(
                 "Check the search index status for the user's archive mailbox",
@@ -381,8 +377,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
                 "business_impact",
             ),
             next_best_action=(
-                "Review and adjust the retention policy for the affected SharePoint site to match business "
-                "requirements"
+                "Review and adjust the retention policy for the affected SharePoint site to match business requirements"
             ),
             remediation_steps=(
                 "Identify the current retention policy applied to the SharePoint site",
@@ -417,7 +412,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             needs_escalation=False,
             missing_information=(),
             next_best_action="Optimize the SharePoint list with indexed columns and filtered views to work within the "
-                "threshold",
+            "threshold",
             remediation_steps=(
                 "Add indexes on the most commonly filtered/sorted columns",
                 "Create filtered views that return fewer than 5,000 items",
@@ -449,9 +444,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Data Platform",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Reset the OneDrive sync state for the stuck files and check for file locking issues",
             remediation_steps=(
                 "Check if any of the stuck files are open or locked by another process",
@@ -517,9 +510,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Data Platform",
             needs_escalation=False,
-            missing_information=(
-                "affected_system",
-            ),
+            missing_information=("affected_system",),
             next_best_action="Check and repair NTFS permission inheritance on the affected file share",
             remediation_steps=(
                 "Examine the NTFS permissions on the parent folder",
@@ -586,9 +577,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Data Platform",
             needs_escalation=False,
-            missing_information=(
-                "affected_system",
-            ),
+            missing_information=("affected_system",),
             next_best_action=(
                 "Check the SharePoint upload limits and use the OneDrive sync client or PowerShell for large "
                 "file uploads"
@@ -624,9 +613,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Data Platform",
             needs_escalation=False,
-            missing_information=(
-                "business_impact",
-            ),
+            missing_information=("business_impact",),
             next_best_action="Create a data migration plan with classification, target selection, and timeline",
             remediation_steps=(
                 "Inventory the file server content by size, type, and sensitivity",
@@ -664,7 +651,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
                 "configuration_details",
             ),
             next_best_action="Check the service account permissions used by the Power Automate flow on the SharePoint "
-                "site",
+            "site",
             remediation_steps=(
                 "Identify the connection account used by the Power Automate flow",
                 "Check if the account's SharePoint permissions were modified",
@@ -729,9 +716,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P4",
             assigned_team="Data Platform",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Resolve the drive letter conflict by reassigning or updating the login script mapping",
             remediation_steps=(
                 "Check current drive letter mappings with 'net use' command",
@@ -764,11 +749,9 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Data Platform",
             needs_escalation=False,
-            missing_information=(
-                "affected_system",
-            ),
+            missing_information=("affected_system",),
             next_best_action="Check the SharePoint search crawl status and rebuild the search index for the affected "
-                "site",
+            "site",
             remediation_steps=(
                 "Check the search crawl log for the affected site collection",
                 "Verify the site is not excluded from the search index",
@@ -806,7 +789,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
                 "configuration_details",
             ),
             next_best_action="Update the DNS CNAME alias or application connection strings to point to the new "
-                "database server",
+            "database server",
             remediation_steps=(
                 "Create a DNS CNAME alias pointing the old server name to the new server",
                 "Alternatively, update the connection strings in application configuration",
@@ -838,11 +821,9 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Data Platform",
             needs_escalation=False,
-            missing_information=(
-                "timestamp",
-            ),
+            missing_information=("timestamp",),
             next_best_action="Check the underlying SharePoint recycle bin and audit logs to locate and restore the "
-                "missing files",
+            "missing files",
             remediation_steps=(
                 "Access the underlying SharePoint site for the Teams channel",
                 "Check the site recycle bin and second-stage recycle bin for deleted files",
@@ -874,11 +855,9 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Data Platform",
             needs_escalation=False,
-            missing_information=(
-                "device_info",
-            ),
+            missing_information=("device_info",),
             next_best_action="Attempt data recovery using recovery tools before any format or write operations on the "
-                "drive",
+            "drive",
             remediation_steps=(
                 "Do NOT format the drive — this makes recovery harder",
                 "Try the drive on a different USB port and computer",
@@ -981,7 +960,7 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             needs_escalation=True,
             missing_information=(),
             next_best_action="Investigate and restart the stuck ETL job immediately to restore financial reporting "
-                "capability",
+            "capability",
             remediation_steps=(
                 "Check the ETL job status and identify the failed step",
                 "Review the error logs for the specific failure reason",
@@ -1046,11 +1025,9 @@ DATA_STORAGE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Data Platform",
             needs_escalation=False,
-            missing_information=(
-                "business_impact",
-            ),
+            missing_information=("business_impact",),
             next_best_action="Coordinate with Legal to confirm the hold can be released, then remove it from the "
-                "mailbox",
+            "mailbox",
             remediation_steps=(
                 "Verify with the Legal department that the litigation hold can be removed",
                 "Get written confirmation from Legal or Compliance to release the hold",

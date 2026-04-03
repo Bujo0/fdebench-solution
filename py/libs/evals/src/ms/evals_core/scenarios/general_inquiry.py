@@ -414,8 +414,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
             ),
             remediation_steps=[
                 "Share the Contoso data classification policy document",
-                "Explain that documents with client PII and financial data should be labeled Highly"
-                " Confidential",
+                "Explain that documents with client PII and financial data should be labeled Highly Confidential",
                 "Walk the user through applying sensitivity labels in Word and Excel via the ribbon bar",
                 "Confirm that SharePoint will inherit the document's sensitivity label automatically",
                 "Recommend enabling automatic labeling in the user's Office apps for future documents",
@@ -855,16 +854,14 @@ def get_scenarios() -> list[ScenarioDefinition]:
             needs_escalation=False,
             missing_info=[],
             next_best_action=(
-                "Provide step-by-step instructions for setting up Outlook delegate access and auto-reply"
-                " configuration"
+                "Provide step-by-step instructions for setting up Outlook delegate access and auto-reply configuration"
             ),
             remediation_steps=[
                 "Send the user the Outlook delegate access guide from the IT knowledge base",
                 "Walk through File > Account Settings > Delegate Access to add Sarah Chen",
                 "Explain the delegate permission levels: Reviewer, Author, and Editor",
                 "Recommend Editor access for calendar and Reviewer access for inbox",
-                "Guide the user through the out-of-office auto-reply setup with internal and external"
-                " message options",
+                "Guide the user through the out-of-office auto-reply setup with internal and external message options",
                 "Suggest testing the delegate access and auto-reply before the leave start date",
             ],
             reporter_name="Jessica Ling",
@@ -935,8 +932,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 " 30th expiration date"
             ),
             remediation_steps=[
-                "Create a SharePoint site or document library for the audit collaboration if one does not"
-                " exist",
+                "Create a SharePoint site or document library for the audit collaboration if one does not exist",
                 "Configure DLP policies to prevent download, print, and forwarding of documents",
                 "Send Azure AD B2B guest invitations to the four KPMG email addresses",
                 "Assign the external guests Contributor or Reader permissions as specified by Internal Audit",

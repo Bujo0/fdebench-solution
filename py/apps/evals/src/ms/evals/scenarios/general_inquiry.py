@@ -290,10 +290,8 @@ register(
             "of our annual planning.",
         ],
         next_best_actions=[
-            "Generate an asset inventory report filtered by the requesting manager's department "
-            "and share it securely.",
-            "Export the hardware asset report from the CMDB for the specified team and send to "
-            "the requesting manager.",
+            "Generate an asset inventory report filtered by the requesting manager's department and share it securely.",
+            "Export the hardware asset report from the CMDB for the specified team and send to the requesting manager.",
         ],
         remediation_steps=[
             [
@@ -330,8 +328,7 @@ register(
             "laptop and I'd like a proper external display for day-to-day work.",
         ],
         next_best_actions=[
-            "Provide the hardware request form link and explain the approval workflow for "
-            "peripheral equipment.",
+            "Provide the hardware request form link and explain the approval workflow for peripheral equipment.",
             "Check monitor inventory and share the standard peripheral request process.",
         ],
         remediation_steps=[
@@ -454,8 +451,7 @@ register(
         next_best_actions=[
             "Look up the user's recent tickets by email address, provide a status update, and "
             "re-prioritize if overdue.",
-            "Search for the user's open tickets, share current status, and set expectations for "
-            "resolution timeline.",
+            "Search for the user's open tickets, share current status, and set expectations for resolution timeline.",
         ],
         remediation_steps=[
             [
@@ -705,8 +701,7 @@ register(
         next_best_actions=[
             "Explain the IT procurement workflow, including the approval chain and any spend "
             "thresholds that require additional sign-off.",
-            "Provide the procurement request form and outline the approval process including "
-            "estimated timelines.",
+            "Provide the procurement request form and outline the approval process including estimated timelines.",
         ],
         remediation_steps=[
             [
@@ -834,8 +829,7 @@ register(
             "flexible on timing.",
         ],
         next_best_actions=[
-            "Coordinate with the IT training team to schedule an orientation session and gather "
-            "attendee details.",
+            "Coordinate with the IT training team to schedule an orientation session and gather attendee details.",
             "Schedule an IT orientation, prepare standard onboarding materials, and confirm "
             "logistics with the requester.",
         ],
@@ -927,8 +921,7 @@ register(
         next_best_actions=[
             "Treat as a genuine policy inquiry. Provide a general explanation of DLP coverage "
             "without revealing specific control gaps. Optionally flag for security awareness.",
-            "Answer the policy question at a high level and note the inquiry for the security "
-            "team's awareness.",
+            "Answer the policy question at a high level and note the inquiry for the security team's awareness.",
         ],
         remediation_steps=[
             [
@@ -1337,8 +1330,7 @@ register(
                 "Ask the user for laptop make, model, and approximate age",
                 "Explain common causes of loud fan noise (dust buildup, background processes, thermal "
                 "paste degradation)",
-                "Recommend running a hardware diagnostic if the issue persists and offer to schedule "
-                "an inspection",
+                "Recommend running a hardware diagnostic if the issue persists and offer to schedule an inspection",
             ],
         ],
     )
@@ -1372,8 +1364,7 @@ register(
             "What are the rules around this? Is there an approval process?",
         ],
         next_best_actions=[
-            "Direct the user to the company's BYOD policy documentation and explain the enrollment "
-            "requirements.",
+            "Direct the user to the company's BYOD policy documentation and explain the enrollment requirements.",
             "Provide a summary of the BYOD policy and confirm which device types are supported.",
         ],
         remediation_steps=[
@@ -1414,13 +1405,11 @@ register(
         ],
         next_best_actions=[
             "Provide the current guest WiFi credentials and any relevant usage policies.",
-            "Share the guest network details and confirm whether a temporary access pass is needed "
-            "for the visitors.",
+            "Share the guest network details and confirm whether a temporary access pass is needed for the visitors.",
         ],
         remediation_steps=[
             [
-                "Verify the requester's identity and confirm they are authorized to receive guest "
-                "WiFi credentials",
+                "Verify the requester's identity and confirm they are authorized to receive guest WiFi credentials",
                 "Provide the current guest network name and password",
                 "Inform the user of any time limits, bandwidth restrictions, or acceptable use "
                 "policies for the guest network",
@@ -1456,8 +1445,7 @@ register(
             "reasons so I figured I'd check first rather than risk getting flagged.",
         ],
         next_best_actions=[
-            "Direct the user to the company's removable media policy and explain whether USB drives "
-            "are permitted.",
+            "Direct the user to the company's removable media policy and explain whether USB drives are permitted.",
             "Provide guidance on the USB device policy and suggest approved alternatives for file "
             "transfers if USB is restricted.",
         ],

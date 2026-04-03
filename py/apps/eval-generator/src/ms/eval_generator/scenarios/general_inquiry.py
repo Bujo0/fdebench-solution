@@ -122,9 +122,7 @@ GENERAL_INQUIRY_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Enterprise Applications",
             needs_escalation=False,
             missing_information=(),
-            next_best_action=(
-                "Explain Outlook forwarding rules and clarify external forwarding policy restrictions"
-            ),
+            next_best_action=("Explain Outlook forwarding rules and clarify external forwarding policy restrictions"),
             remediation_steps=(
                 "Provide instructions for setting up inbox rules in Outlook",
                 "Clarify that external auto-forwarding may be blocked by DLP policy",
@@ -654,8 +652,7 @@ GENERAL_INQUIRY_SCENARIOS: list[ScenarioDefinition] = [
             "I'd like to set up a new SharePoint Online site for the Risk Management "
             "department. We need document libraries, a team calendar, and a shared inbox. "
             "How do I get started?",
-            "Is there a self-service option for creating SharePoint sites or do I need to "
-            "submit a ticket?",
+            "Is there a self-service option for creating SharePoint sites or do I need to submit a ticket?",
         ),
         gold=ScenarioGold(
             category="General Inquiry",
