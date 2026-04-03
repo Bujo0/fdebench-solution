@@ -127,8 +127,8 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
             missing_information=(
-                "Manager approval confirmation or ticket reference number",
-                "Specific Adobe CC apps needed if not full suite",
+                "previous_ticket_id",
+                "application_version",
             ),
             next_best_action=("Verify license availability and manager approval, then deploy via Intune"),
             remediation_steps=(
@@ -262,8 +262,8 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Enterprise Applications",
             needs_escalation=False,
             missing_information=(
-                "Edge browser version",
-                "Whether IE mode has been attempted",
+                "application_version",
+                "steps_to_reproduce",
             ),
             next_best_action=("Test with IE mode in Edge and escalate to HR portal vendor if needed"),
             remediation_steps=(
@@ -332,7 +332,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Enterprise Applications",
             needs_escalation=False,
-            missing_information=("Employee ID or UPN for license lookup",),
+            missing_information=("contact_info",),
             next_best_action=("Check M365 admin center for license assignment status"),
             remediation_steps=(
                 "Look up user in M365 admin center",
@@ -365,7 +365,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Enterprise Applications",
             needs_escalation=False,
-            missing_information=("SharePoint file path or URL",),
+            missing_information=("affected_system",),
             next_best_action=("Attempt recovery from SharePoint version history"),
             remediation_steps=(
                 "Check SharePoint version history for the last good version",
@@ -401,8 +401,8 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
             missing_information=(
-                "File storage location (trusted location check)",
-                "Whether macro files are digitally signed",
+                "configuration_details",
+                "environment_details",
             ),
             next_best_action=("Review Intune macro policy assignment and trusted locations"),
             remediation_steps=(
@@ -507,8 +507,8 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
             missing_information=(
-                "Manager approval documentation",
-                "Whether a developer-class device is required",
+                "previous_ticket_id",
+                "device_info",
             ),
             next_best_action=("Verify approval and deploy dev tools via Intune or SCCM"),
             remediation_steps=(
@@ -542,7 +542,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P2",
             assigned_team="Enterprise Applications",
             needs_escalation=False,
-            missing_information=("Salesforce report name or ID",),
+            missing_information=("affected_system",),
             next_best_action=("Review report query complexity and optimize filters"),
             remediation_steps=(
                 "Identify the specific report and review its filter criteria",
@@ -646,8 +646,8 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
             missing_information=(
-                "Application file hash for exclusion whitelisting",
-                "Application owner and internal code signing status",
+                "configuration_details",
+                "application_version",
             ),
             next_best_action=("Add temporary Defender exclusion and submit file for false positive review"),
             remediation_steps=(
@@ -750,7 +750,7 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             priority="P3",
             assigned_team="Enterprise Applications",
             needs_escalation=False,
-            missing_information=("SharePoint site URL and file path",),
+            missing_information=("affected_system",),
             next_best_action="Clear stale locks and verify co-authoring settings",
             remediation_steps=(
                 "Check SharePoint file lock status via admin center",
@@ -822,8 +822,8 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Endpoint Engineering",
             needs_escalation=False,
             missing_information=(
-                "Manager approval for non-standard software",
-                "Business justification documentation",
+                "previous_ticket_id",
+                "business_impact",
             ),
             next_best_action=("Process non-standard software request with manager approval"),
             remediation_steps=(
@@ -962,8 +962,8 @@ SOFTWARE_SCENARIOS: list[ScenarioDefinition] = [
             assigned_team="Enterprise Applications",
             needs_escalation=False,
             missing_information=(
-                "Meeting date, time, and organizer",
-                "Whether meeting was a channel meeting or private meeting",
+                "timestamp",
+                "configuration_details",
             ),
             next_best_action=("Check recording storage location based on meeting type"),
             remediation_steps=(
