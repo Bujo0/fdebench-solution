@@ -145,3 +145,6 @@ FLOORS: list[str] = [
     "9th floor",
     "10th floor",
 ]
+
+# Alias for test compatibility — same enum, different name.
+MissingInfoField = MissingInfo

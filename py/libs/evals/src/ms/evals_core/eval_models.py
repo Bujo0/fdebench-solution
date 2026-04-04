@@ -40,6 +40,10 @@ class Ticket(FrozenBaseModel):
     attachments: list[str] = []
 
 
+# Alias so callers can use the more explicit name.
+EvalTicket = Ticket
+
+
 class TriageResponse(FrozenBaseModel):
     """Expected triage output from the system under test.
 
@@ -115,3 +119,28 @@ class EvalSummary(FrozenBaseModel):
     dimension_scores: DimensionAggregates
     classification_score: float
     results: list[EvalResult]
+
+
+class EvalCase(FrozenBaseModel):
+    """A single evaluation case pairing a ticket with its gold answer."""
+
+    ticket: Ticket
+    gold: GoldAnswer
+    tags: list[str] = []
+    description: str = ""
+
+
+class EvalDataset(FrozenBaseModel):
+    """A named collection of evaluation cases."""
+
+    name: str
+    description: str
+    cases: list[EvalCase]
+
+    def tickets(self) -> list[dict[str, object]]:
+        """Export tickets as list of dicts (compatible with run_eval.py)."""
+        return [case.ticket.model_dump() for case in self.cases]
+
+    def golds(self) -> list[dict[str, object]]:
+        """Export gold answers as list of dicts (compatible with run_eval.py)."""
+        return [case.gold.model_dump() for case in self.cases]

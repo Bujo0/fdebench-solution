@@ -49,6 +49,11 @@ class TestDataCleanupScenarios:
         expected = {f"DC-{i:03d}" for i in range(1, 91)}
         assert expected.issubset(ids), f"Missing IDs: {expected - ids}"
 
+    def test_minimum_scenario_count(self) -> None:
+        """Data cleanup should have at least 90 scenarios."""
+        scenarios = get_scenarios()
+        assert len(scenarios) >= 90, f"Expected >= 90 DC scenarios, got {len(scenarios)}"
+
     def test_covers_key_cleanup_categories(self) -> None:
         """Verify that key data cleanup noise types are covered."""
         scenarios = get_scenarios()

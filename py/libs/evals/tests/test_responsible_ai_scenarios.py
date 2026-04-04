@@ -46,8 +46,13 @@ class TestResponsibleAiScenarios:
         """Verify expected scenario IDs exist."""
         scenarios = get_scenarios()
         ids = {s.scenario_id for s in scenarios}
-        expected = {f"RAI-{i:03d}" for i in range(1, 91)}
+        expected = {f"RAI-{i:03d}" for i in range(1, 121)}
         assert expected.issubset(ids), f"Missing IDs: {expected - ids}"
+
+    def test_minimum_scenario_count(self) -> None:
+        """Responsible AI should have at least 120 scenarios."""
+        scenarios = get_scenarios()
+        assert len(scenarios) >= 120, f"Expected >= 120 RAI scenarios, got {len(scenarios)}"
 
     def test_covers_key_attack_categories(self) -> None:
         """Verify that key adversarial categories are covered."""
