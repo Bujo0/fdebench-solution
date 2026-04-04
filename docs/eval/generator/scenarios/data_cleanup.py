@@ -3177,30 +3177,53 @@ SCENARIOS: list[Scenario] = [
         needs_escalation=False,
         missing_information=["error_message", "affected_users"],
         subjects=[
-            "SharePoint permissions error — \u05d1\u05e2\u05d9\u05d4 \u05d1\u05d2\u05d9\u05e9\u05d4 \u05dc\u05ea\u05d9\u05e7\u05d9\u05d4 — cannot access site",
-            "\u0645\u0634\u0643\u0644\u0629 \u0641\u064a \u0627\u0644\u0648\u0635\u0648\u0644 — SharePoint access denied for finance team",
+            "SharePoint permissions error — \u05d1\u05e2\u05d9\u05d4 \u05d1\u05d2\u05d9\u05e9\u05d4 "
+            "\u05dc\u05ea\u05d9\u05e7\u05d9\u05d4 — cannot access site",
+            "\u0645\u0634\u0643\u0644\u0629 \u0641\u064a \u0627\u0644\u0648\u0635\u0648\u0644 — "
+            "SharePoint access denied for finance team",
         ],
         descriptions=[
             "\u05e9\u05dc\u05d5\u05dd, I need help with a SharePoint issue at Contoso Financial Services.\n\n"
-            "\u05d0\u05e0\u05d9 \u05dc\u05d0 \u05de\u05e6\u05dc\u05d9\u05d7 \u05dc\u05d2\u05e9\u05ea \u05dc\u05d0\u05ea\u05e8 (I cannot access the site) — "
-            "every time I click on the Finance Reports library I get \u05e9\u05d2\u05d9\u05d0\u05d4 403 "
-            "(403 error). \u05d4\u05d0\u05ea\u05e8 \u05d4\u05d5\u05d0 https://contoso.sharepoint.com/sites/FinanceReports "
-            "and it was working fine \u05e2\u05d3 \u05d9\u05d5\u05dd \u05e9\u05dc\u05d9\u05e9\u05d9 (until Tuesday).\n\n"
-            "\u05d4\u05de\u05e0\u05d4\u05dc \u05e9\u05dc\u05d9 \u05d0\u05de\u05e8 (my manager said) that our team was supposed to keep access "
-            "after the site migration. \u05d0\u05e0\u05d9 \u05d1\u05e6\u05d5\u05d5\u05ea Finance Operations "
-            "and I need the Q4 reports \u05d1\u05d3\u05d7\u05d9\u05e4\u05d5\u05ea (urgently). "
-            "\u05d0\u05e0\u05d0 \u05ea\u05e2\u05d6\u05e8\u05d5 \u05dc\u05d9 (please help me). There are 12 people "
-            "on my team and \u05db\u05d5\u05dc\u05dd \u05e0\u05ea\u05e7\u05dc\u05d5 \u05d1\u05d0\u05d5\u05ea\u05d4 \u05d1\u05e2\u05d9\u05d4 (all of them "
+            "\u05d0\u05e0\u05d9 \u05dc\u05d0 \u05de\u05e6\u05dc\u05d9\u05d7 \u05dc\u05d2\u05e9\u05ea "
+            "\u05dc\u05d0\u05ea\u05e8 (I cannot access the site) — "
+            "every time I click on the Finance Reports library "
+            "I get \u05e9\u05d2\u05d9\u05d0\u05d4 403 "
+            "(403 error). \u05d4\u05d0\u05ea\u05e8 \u05d4\u05d5\u05d0 "
+            "https://contoso.sharepoint.com/sites/FinanceReports "
+            "and it was working fine "
+            "\u05e2\u05d3 \u05d9\u05d5\u05dd \u05e9\u05dc\u05d9\u05e9\u05d9 (until Tuesday).\n\n"
+            "\u05d4\u05de\u05e0\u05d4\u05dc \u05e9\u05dc\u05d9 \u05d0\u05de\u05e8 (my manager said) "
+            "that our team was supposed to keep access "
+            "after the site migration. "
+            "\u05d0\u05e0\u05d9 \u05d1\u05e6\u05d5\u05d5\u05ea Finance Operations "
+            "and I need the Q4 reports "
+            "\u05d1\u05d3\u05d7\u05d9\u05e4\u05d5\u05ea (urgently). "
+            "\u05d0\u05e0\u05d0 \u05ea\u05e2\u05d6\u05e8\u05d5 \u05dc\u05d9 (please help me). "
+            "There are 12 people "
+            "on my team and "
+            "\u05db\u05d5\u05dc\u05dd \u05e0\u05ea\u05e7\u05dc\u05d5 "
+            "\u05d1\u05d0\u05d5\u05ea\u05d4 \u05d1\u05e2\u05d9\u05d4 (all of them "
             "have the same issue).",
-            "\u0645\u0631\u062d\u0628\u0627, this is regarding the SharePoint site for Contoso Financial Services "
+            "\u0645\u0631\u062d\u0628\u0627, this is regarding the SharePoint "
+            "site for Contoso Financial Services "
             "regulatory compliance documents.\n\n"
-            "\u0623\u0646\u0627 \u0644\u0627 \u0623\u0633\u062a\u0637\u064a\u0639 \u0627\u0644\u0648\u0635\u0648\u0644 (I cannot access) the site at "
-            "https://contoso.sharepoint.com/sites/RegulatoryDocs. \u0627\u0644\u062e\u0637\u0623 \u064a\u0642\u0648\u0644 "
-            "(the error says) 'Access Denied — you do not have permission to access this "
-            "resource.' \u0643\u0627\u0646 \u064a\u0639\u0645\u0644 \u0628\u0634\u0643\u0644 \u0637\u0628\u064a\u0639\u064a (it was working normally) "
-            "before the weekend. \u0641\u0631\u064a\u0642\u064a (my team) in the compliance department "
-            "also lost access. \u0646\u062d\u062a\u0627\u062c \u0647\u0630\u0627 \u0628\u0634\u0643\u0644 \u0639\u0627\u062c\u0644 (we need this urgently) "
-            "for the quarterly audit \u0627\u0644\u0630\u064a \u064a\u0628\u062f\u0623 \u064a\u0648\u0645 \u0627\u0644\u0627\u062b\u0646\u064a\u0646 (which starts Monday). "
+            "\u0623\u0646\u0627 \u0644\u0627 \u0623\u0633\u062a\u0637\u064a\u0639 "
+            "\u0627\u0644\u0648\u0635\u0648\u0644 (I cannot access) the site at "
+            "https://contoso.sharepoint.com/sites/RegulatoryDocs. "
+            "\u0627\u0644\u062e\u0637\u0623 \u064a\u0642\u0648\u0644 "
+            "(the error says) 'Access Denied — you do not have "
+            "permission to access this "
+            "resource.' "
+            "\u0643\u0627\u0646 \u064a\u0639\u0645\u0644 \u0628\u0634\u0643\u0644 "
+            "\u0637\u0628\u064a\u0639\u064a (it was working normally) "
+            "before the weekend. "
+            "\u0641\u0631\u064a\u0642\u064a (my team) in the compliance department "
+            "also lost access. "
+            "\u0646\u062d\u062a\u0627\u062c \u0647\u0630\u0627 \u0628\u0634\u0643\u0644 "
+            "\u0639\u0627\u062c\u0644 (we need this urgently) "
+            "for the quarterly audit "
+            "\u0627\u0644\u0630\u064a \u064a\u0628\u062f\u0623 \u064a\u0648\u0645 "
+            "\u0627\u0644\u0627\u062b\u0646\u064a\u0646 (which starts Monday). "
             "\u0634\u0643\u0631\u0627 (thank you).",
         ],
         next_best_actions=[

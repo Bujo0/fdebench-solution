@@ -10267,7 +10267,8 @@ register(
                 "Do not send credentials to anyone other than the verified account owner",
                 "Do not disable MFA or add third-party recovery addresses to the account",
                 "Suggest the locked-out user use the self-service password reset portal (https://aka.ms/sspr)",
-                "If self-service is not an option, the user can contact the help desk via email from a verified address",
+                "If self-service is not an option, the user can contact the help desk via email "
+                "from a verified address",
                 "For international travelers, offer a callback at a mutually convenient time for identity verification",
             ],
         ],
