@@ -7610,3 +7610,987 @@ register(
         ],
     )
 )
+
+# ---------------------------------------------------------------------------
+# dc-121  CSV data pasted inline — column alignment noise
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-121",
+        category=Category.ACCESS_AUTH,
+        priority=Priority.P3,
+        assigned_team=Team.IAM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AFFECTED_USERS, MissingInfo.AFFECTED_SYSTEM],
+        subjects=[
+            "Bulk user provisioning failing — CSV pasted below",
+            "User account creation errors — see attached data",
+            "AD sync issues for new hires — raw CSV included",
+        ],
+        descriptions=[
+            "We ran a bulk provisioning import for {department} and about half the "
+            "accounts failed. I'm pasting the CSV so you can see what went wrong:\n\n"
+            "EmployeeID,FirstName,LastName,Email,Department,Office,StartDate,Manager,"
+            "Title,CostCenter,AccessLevel\n"
+            "10231,Alice,Martinez,alice.martinez@contoso.com,{department},{office},"
+            "2026-06-01,{name},Senior Analyst,CC-4420,Standard\n"
+            "10232,Bob,Nakamura,bob.nakamura@contoso.com,{department},{office},"
+            "2026-06-01,{name},Data Engineer,CC-4420,Standard\n"
+            "10233,Carla,O'Brien,carla.obrien@contoso.com,{department},{office},"
+            "2026-06-01,{name},Project Manager,CC-4420,Elevated\n"
+            "10234,Dmitri,Volkov,dmitri.volkov@contoso.com,{department},{office},"
+            "2026-06-01,{name},DevOps Lead,CC-4420,Admin\n"
+            "10235,,Washington,,{department},{office},2026-06-01,{name},Intern,"
+            "CC-4420,Standard\n"
+            "10236,Fatima,Al-Rashid,fatima.al-rashid@contoso.com,{department},"
+            "{office},2026-06-01,{name},QA Engineer,CC-4420,Standard\n"
+            "10237,George,Papandreou,george.papandreou@contoso.com,{department},"
+            "{office},06/01/2026,{name},Business Analyst,CC-4420,Standard\n"
+            "10238,Hana,Kim,hana.kim@contoso.com,{department},{office},2026-06-01,"
+            "{name},UX Designer,CC-4420,Standard\n"
+            "10239,Ivan,Petrov,ivan.petrov@contoso.com,{department},{office},"
+            "2026-06-01,,Staff Engineer,CC-4420,Elevated\n"
+            "10240,Julia,Santos,julia.santos@contoso.com,{department},{office},"
+            "2026-06-01,{name},Technical Writer,CC-4420,Standard\n\n"
+            "Rows 10235, 10237, and 10239 seem off — missing names, wrong date "
+            "format, no manager. Can you fix the import?\n\n{name}, {department}",
+            "Hi — the new-hire provisioning batch for {department} had errors. "
+            "Here's the raw data I submitted:\n\n"
+            "EmployeeID|FirstName|LastName|Email|Department|Office|StartDate|"
+            "Manager|Title|CostCenter|AccessLevel\n"
+            "10241|Kevin|Adebayo|kevin.adebayo@contoso.com|{department}|{office}|"
+            "2026-06-15|{name}|Security Analyst|CC-5510|Elevated\n"
+            "10242|Lena|Johansson|lena.johansson@contoso.com|{department}|{office}|"
+            "2026-06-15|{name}|Cloud Architect|CC-5510|Admin\n"
+            "10243|Miguel|Fernandez|miguel.fernandez@contoso.com|{department}|"
+            "{office}|2026-06-15|{name}|Support Engineer|CC-5510|Standard\n"
+            "10244|Nina||nina.@contoso.com|{department}|{office}|2026-06-15|{name}|"
+            "Program Manager|CC-5510|Elevated\n"
+            "10245|Oscar|Chen|oscar.chen@contoso.com|{department}|{office}|"
+            "15-Jun-2026|{name}|ML Engineer|CC-5510|Admin\n"
+            "10246|Priya|Sharma|priya.sharma@contoso.com|{department}|{office}|"
+            "2026-06-15|{name}|Data Scientist|CC-5510|Standard\n\n"
+            "Some rows have missing last names or malformed email addresses. "
+            "The import script rejected them all as a batch. Can you re-run just "
+            "the valid ones and tell me which ones need corrections?\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "Parse the pasted CSV to identify rows with data quality issues — "
+            "missing required fields, inconsistent date formats, and malformed "
+            "email addresses. Fix the valid rows and request corrections for the rest.",
+            "Validate the bulk provisioning data, correct the formatting issues "
+            "(date formats, missing fields, malformed emails), and re-run the "
+            "import for the clean rows while flagging the broken ones.",
+        ],
+        remediation_steps=[
+            [
+                "Extract the CSV data and validate each row against the provisioning schema",
+                "Identify specific errors: missing FirstName/LastName, malformed emails, inconsistent date formats",
+                "Correct fixable issues (e.g., normalize dates to ISO 8601 format)",
+                "Re-run the import for validated rows",
+                "Send the user a list of rows that still need manual correction with specific error details",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-122  Extremely long tracking URLs cluttering the ticket
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-122",
+        category=Category.DATA,
+        priority=Priority.P3,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE, MissingInfo.STEPS_TO_REPRODUCE],
+        subjects=[
+            "Analytics dashboard links broken — URLs below",
+            "Tracking links redirecting to 404 — see examples",
+            "Data pipeline report links not resolving",
+        ],
+        descriptions=[
+            "Several of our analytics dashboard links stopped working after the "
+            "domain migration. I'm pasting the full URLs so you can see the "
+            "tracking parameters:\n\n"
+            "https://analytics.contoso.com/dashboards/v2/view?report_id=a8f3c291-"
+            "4e67-4b2a-9d1f-3c8e7a5b0d42&workspace=prod-{department}-analytics&"
+            "tenant=contoso-corp&session=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9."
+            "eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydW"
+            "UsImlhdCI6MTcxNjIzOTAyMn0&utm_source=internal&utm_medium=email&"
+            "utm_campaign=weekly_report_2026w23&utm_content=dashboard_link_primary&"
+            "redirect_chain=aHR0cHM6Ly9vbGQuYW5hbHl0aWNzLmNvbnRvc28uY29tL3YxL3Jl"
+            "cG9ydHM&fallback=https%3A%2F%2Fanalytics.contoso.com%2Flegacy%2F"
+            "redirect%3Fid%3Da8f3c291&ts=1719532800&sig=hmac-sha256%3A"
+            "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08\n\n"
+            "https://analytics.contoso.com/dashboards/v2/view?report_id=b7e2d180-"
+            "5f78-4c3b-ae20-4d9f8b6c1e53&workspace=prod-{department}-analytics&"
+            "tenant=contoso-corp&session=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9."
+            "eyJzdWIiOiI5ODc2NTQzMjEwIiwibmFtZSI6IkphbmUgU21pdGgiLCJhZG1pbiI6Zm"
+            "Fsc2UsImlhdCI6MTcxNjIzOTAyMn0&utm_source=internal&utm_medium=email&"
+            "utm_campaign=weekly_report_2026w23&utm_content=dashboard_link_secondary&"
+            "redirect_chain=aHR0cHM6Ly9vbGQuYW5hbHl0aWNzLmNvbnRvc28uY29tL3YxL3Jl"
+            "cG9ydHM&fallback=https%3A%2F%2Fanalytics.contoso.com%2Flegacy%2F"
+            "redirect%3Fid%3Db7e2d180&ts=1719532800&sig=hmac-sha256%3A"
+            "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592\n\n"
+            "Both give a 404 now. They worked last week. I need these for the "
+            "{department} weekly review.\n\n{name}, {department}",
+            "Hi, our data platform report URLs are broken. They all have long "
+            "tracking chains and I don't know which part is the real link:\n\n"
+            "https://data.contoso.com/reports/pipeline-status?run_id=c6d4e093-"
+            "7a89-4d1c-bf31-5e0a9c7d2f64&env=production&region=eastus2&"
+            "trace_id=00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01&"
+            "parent_span=a1b2c3d4e5f60718&baggage=userId%3D{name}%2C"
+            "department%3D{department}%2Cfloor%3D{floor}&callback=https%3A%2F%2F"
+            "hooks.contoso.com%2Fnotify%3Ftoken%3Dxoxb-123456789012-"
+            "1234567890123-AbCdEfGhIjKlMnOpQrStUvWx&format=json&"
+            "include_metrics=true&lookback=7d&granularity=hourly\n\n"
+            "When I click it I get 'Resource not found'. The pipeline ran "
+            "successfully — I can see the run in the logs. I just can't access "
+            "the report through this URL anymore.\n\n{name}, {department}",
+        ],
+        next_best_actions=[
+            "The tracking URLs contain stale session tokens and redirect chains "
+            "from the old analytics domain. Strip the session and redirect "
+            "parameters and reconstruct the direct dashboard links.",
+            "Identify which URL parameters are essential (report_id, workspace) "
+            "and which are stale tracking artifacts. Provide the user with "
+            "clean, direct links to the reports.",
+        ],
+        remediation_steps=[
+            [
+                "Parse the URLs to extract the core report identifiers (report_id, workspace, run_id)",
+                "Verify the reports exist on the new analytics platform using the extracted IDs",
+                "Reconstruct clean URLs without stale session tokens, redirect chains, and UTM parameters",
+                "Update any bookmarks or scheduled email links to use the new direct URLs",
+                "Advise the user to regenerate shareable links from the dashboard UI to avoid stale tokens",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-123  RTF/Word conversion artifacts in ticket body
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-123",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "Printer producing garbled output — formatting details inside",
+            "Document prints with strange characters after Word update",
+            "Print jobs corrupted — RTF artifacts in output",
+        ],
+        descriptions=[
+            "Ever since the last Word update my print jobs come out garbled. "
+            "I copied the print preview text and it shows this:\n\n"
+            "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat{\\fonttbl{\\f0\\fswiss"
+            "\\fprq2\\fcharset0 Calibri;}{\\f1\\fmodern\\fprq1\\fcharset0 "
+            "Consolas;}}\n"
+            "{\\colortbl ;\\red0\\green0\\blue0;\\red44\\green62\\blue80;}\n"
+            "{\\*\\generator Riched20 10.0.22621}\\viewkind4\\uc1\n"
+            "\\pard\\widctlpar\\sa200\\sl276\\slmult1\\cf1\\f0\\fs22 "
+            "Quarterly Budget Report — {department}\\par\n"
+            "\\pard\\widctlpar\\li720\\sa120\\cf2\\f1\\fs18 "
+            "FY2026 Q2 Actuals vs. Forecast\\par\n"
+            "\\trowd\\trgaph108\\trleft-108\\trbrdrt\\brdrs\\brdrw10 "
+            "\\trbrdrl\\brdrs\\brdrw10 \\trbrdrb\\brdrs\\brdrw10 "
+            "\\trbrdrr\\brdrs\\brdrw10\n"
+            "\\clbrdrt\\brdrs\\brdrw10\\clbrdrl\\brdrs\\brdrw10"
+            "\\clbrdrb\\brdrs\\brdrw10\\clbrdrr\\brdrs\\brdrw10 "
+            "\\cellx3000\n"
+            "\\clbrdrt\\brdrs\\brdrw10\\clbrdrl\\brdrs\\brdrw10"
+            "\\clbrdrb\\brdrs\\brdrw10\\clbrdrr\\brdrs\\brdrw10 "
+            "\\cellx6000\n"
+            "\\pard\\intbl\\widctlpar Revenue\\cell \\$4,230,000\\cell\\row\n"
+            "\\pard\\intbl\\widctlpar COGS\\cell \\$2,115,000\\cell\\row\n"
+            "}\n\n"
+            "The actual report should be a clean table. It printed fine before "
+            "the update. I'm using an HP LaserJet 4250 on Floor {floor}.\n\n"
+            "{name}, {department}",
+            "My documents are printing with raw RTF code instead of formatted "
+            "text. I tried saving as PDF first and that works, but printing "
+            "directly from Word gives this:\n\n"
+            "{\\rtf1\\ansi{\\fonttbl{\\f0 Times New Roman;}}\n"
+            "\\pard\\plain\\f0\\fs24 Meeting Notes — {department} All-Hands"
+            "\\par\\par\n"
+            "\\b Attendees:\\b0\\par\n"
+            "\\pard{\\pntext\\f0 1.\\tab}{\\*\\pn\\pnlvlbody\\pnf0\\pnstart1"
+            "\\pndec{\\pntxta.}}\\fi-360\\li720 {name} (Chair)\\par\n"
+            "{\\pntext\\f0 2.\\tab}VP of Engineering\\par\n"
+            "{\\pntext\\f0 3.\\tab}Director of Operations\\par\n"
+            "\\pard\\par\n"
+            "\\b Action Items:\\b0\\par\n"
+            "\\pard\\li720\\bullet  Review Q2 numbers by Friday\\par\n"
+            "\\bullet  Schedule follow-up with {department}\\par\n"
+            "}\n\n"
+            "I've rebooted, cleared the print queue, and reinstalled the "
+            "printer driver. Same result. Other apps print fine.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "The printer is receiving raw RTF markup instead of rendered output. "
+            "This is likely a driver issue introduced by the Word update — the "
+            "print pipeline is sending RTF source rather than GDI/PostScript.",
+            "Investigate the printer driver compatibility with the latest Word "
+            "update. The RTF artifacts indicate the document is being sent as "
+            "raw text rather than through the rendering pipeline.",
+        ],
+        remediation_steps=[
+            [
+                "Check the installed printer driver version and compare with the manufacturer's latest release",
+                "Reinstall the printer driver using the PCL6 or PostScript driver variant instead of the generic text driver",
+                "Test printing from Word using the 'Print to PDF' option to confirm the document renders correctly",
+                "If the driver is current, check Word's print settings for 'Print using system default' vs direct rendering",
+                "Apply any pending Windows updates that may include print subsystem fixes",
+                "Test with a different printer to isolate whether the issue is driver-specific or Word-specific",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-124  Chained auto-reply / OOO messages burying the real issue
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-124",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE, MissingInfo.STEPS_TO_REPRODUCE],
+        subjects=[
+            "Re: RE: Automatic reply: RE: Out of Office: Re: Outlook sync broken",
+            "FW: Auto: OOO: RE: RE: Calendar not syncing",
+            "Re: Automatic reply: Re: Out of Office: Teams meeting errors",
+        ],
+        descriptions=[
+            "--- Automatic reply ---\n"
+            "I am currently out of the office with no access to email. I will return "
+            "on Monday, June 23. For urgent matters, please contact the {department} "
+            "help desk.\n\n"
+            "--- Original Message ---\n"
+            "From: IT Support <itsupport@contoso.com>\n"
+            "Subject: RE: Out of Office: Re: Outlook sync broken\n\n"
+            "Hi {name}, thanks for reaching out. We've assigned your ticket. A "
+            "technician will follow up shortly.\n\n"
+            "--- Automatic reply ---\n"
+            "Thank you for your email. I am out of the office from June 16-20 and "
+            "will have limited access to email. For immediate assistance contact "
+            "{name1}@contoso.com.\n\n"
+            "--- Original Message ---\n"
+            "From: {name} <{name1}@contoso.com>\n"
+            "Subject: Re: Outlook sync broken\n\n"
+            "Just following up — still can't sync. Adding the support alias.\n\n"
+            "--- Automatic reply ---\n"
+            "I will be out of the office until June 23. If this is urgent, please "
+            "contact the {department} on-call team.\n\n"
+            "--- Original Message ---\n"
+            "From: {name} <{name1}@contoso.com>\n"
+            "Subject: Outlook sync broken\n\n"
+            "My Outlook hasn't synced new emails since Friday. I see a yellow "
+            "triangle icon in the system tray. I've tried restarting Outlook and "
+            "running the connection test — it says 'Exchange server unavailable'. "
+            "I'm on Floor {floor}, {office} office, using Outlook 365 on "
+            "Windows 11.\n\n{name}, {department}",
+            "--- Auto-Reply ---\n"
+            "Thank you for contacting {department}. This is an automated response "
+            "to confirm we received your request. Your reference number is "
+            "INC-2026-78432. Please do not reply to this message.\n\n"
+            "--- Out of Office ---\n"
+            "From: {name} <{name1}@contoso.com>\n"
+            "I'm on PTO through June 27. Reach out to {department} channel on "
+            "Teams for anything urgent.\n\n"
+            "--- Auto-Reply ---\n"
+            "Your message has been forwarded to the {department} queue. Expected "
+            "response time: 4 business hours.\n\n"
+            "--- Out of Office ---\n"
+            "Hi! I'm out of office this week. For {app}-related issues, please "
+            "file a ticket at https://support.contoso.com.\n\n"
+            "--- Original Message ---\n"
+            "From: {name} <{name1}@contoso.com>\n"
+            "Subject: Calendar not syncing\n\n"
+            "My calendar stopped syncing across devices yesterday. New events I "
+            "create on my laptop don't show up on my phone, and vice versa. I've "
+            "checked that I'm signed into the same account on both. Other people "
+            "in {department} can see my calendar fine — it's just my own devices "
+            "that are out of sync. Floor {floor}, {office}.\n\n{name}, {department}",
+        ],
+        next_best_actions=[
+            "Ignore the auto-reply and OOO chain. The actual issue is buried at "
+            "the bottom: Outlook/calendar sync failure with an 'Exchange server "
+            "unavailable' error. Troubleshoot the Exchange connectivity.",
+            "Strip the automated reply noise to find the real ticket: a "
+            "calendar/email sync issue across devices. Check the user's Exchange "
+            "Online mailbox health and device sync status.",
+        ],
+        remediation_steps=[
+            [
+                "Identify the actual issue from the original message at the bottom of the thread",
+                "Check Exchange Online service health for any ongoing sync issues",
+                "Verify the user's mailbox provisioning and license status in Microsoft 365 admin center",
+                "Run Test-OutlookConnectivity or the Microsoft Remote Connectivity Analyzer for the user",
+                "If mailbox is healthy, reset the Outlook profile on the affected device and reconfigure",
+                "Confirm sync is working on all devices before closing the ticket",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-125  Large inline SVG data embedded in ticket
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-125",
+        category=Category.NETWORK,
+        priority=Priority.P2,
+        assigned_team=Team.NETWORK,
+        needs_escalation=False,
+        missing_information=[MissingInfo.NETWORK_LOCATION, MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "Network topology diagram not rendering — SVG source pasted",
+            "Intranet map page broken — raw SVG showing instead of image",
+            "Floor plan SVG not loading on network portal",
+        ],
+        descriptions=[
+            "The network topology diagram on our intranet shows raw SVG code "
+            "instead of the rendered image. Here's what appears on the page:\n\n"
+            '<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" '
+            'width="1200" height="800">\n'
+            "  <defs>\n"
+            '    <marker id="arrowhead" markerWidth="10" markerHeight="7" '
+            'refX="10" refY="3.5" orient="auto">\n'
+            '      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>\n'
+            "    </marker>\n"
+            '    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">\n'
+            '      <feDropShadow dx="2" dy="2" stdDeviation="3" '
+            'flood-opacity="0.3"/>\n'
+            "    </filter>\n"
+            "  </defs>\n"
+            '  <rect x="50" y="50" width="200" height="80" rx="10" '
+            'fill="#3498db" filter="url(#shadow)"/>\n'
+            '  <text x="150" y="95" text-anchor="middle" fill="white" '
+            'font-size="14">Core Switch — Building {building}</text>\n'
+            '  <rect x="500" y="50" width="200" height="80" rx="10" '
+            'fill="#e74c3c" filter="url(#shadow)"/>\n'
+            '  <text x="600" y="95" text-anchor="middle" fill="white" '
+            'font-size="14">Firewall Cluster</text>\n'
+            '  <line x1="250" y1="90" x2="500" y2="90" stroke="#2c3e50" '
+            'stroke-width="2" marker-end="url(#arrowhead)"/>\n'
+            '  <rect x="50" y="250" width="200" height="80" rx="10" '
+            'fill="#2ecc71" filter="url(#shadow)"/>\n'
+            '  <text x="150" y="295" text-anchor="middle" fill="white" '
+            'font-size="14">Floor {floor} Access Switch</text>\n'
+            '  <rect x="500" y="250" width="200" height="80" rx="10" '
+            'fill="#f39c12" filter="url(#shadow)"/>\n'
+            '  <text x="600" y="295" text-anchor="middle" fill="white" '
+            'font-size="14">WAP — {office} Office</text>\n'
+            '  <line x1="150" y1="130" x2="150" y2="250" stroke="#2c3e50" '
+            'stroke-width="2" marker-end="url(#arrowhead)"/>\n'
+            '  <line x1="250" y1="290" x2="500" y2="290" stroke="#2c3e50" '
+            'stroke-width="2" marker-end="url(#arrowhead)"/>\n'
+            "</svg>\n\n"
+            "This should be a clickable network map. It broke after the portal "
+            "update last Thursday. I'm in {office}, Floor {floor}.\n\n"
+            "{name}, {department}",
+            "The floor plan page on the network portal is showing XML instead "
+            "of the diagram. I saved the page source and it's all SVG:\n\n"
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640">\n'
+            '  <style>\n'
+            "    .room {{ fill: #ecf0f1; stroke: #bdc3c7; stroke-width: 2; }}\n"
+            "    .active {{ fill: #2ecc71; }}\n"
+            "    .label {{ font-family: Segoe UI, sans-serif; font-size: 11px; }}\n"
+            "  </style>\n"
+            '  <rect class="room" x="10" y="10" width="120" height="100"/>\n'
+            '  <text class="label" x="70" y="65" text-anchor="middle">'
+            "{department}</text>\n"
+            '  <rect class="room active" x="140" y="10" width="120" '
+            'height="100"/>\n'
+            '  <text class="label" x="200" y="65" text-anchor="middle">'
+            "Server Room</text>\n"
+            '  <rect class="room" x="270" y="10" width="120" height="100"/>\n'
+            '  <text class="label" x="330" y="65" text-anchor="middle">'
+            "Conference A</text>\n"
+            '  <rect class="room" x="10" y="120" width="380" height="60"/>\n'
+            '  <text class="label" x="200" y="155" text-anchor="middle">'
+            "Hallway — Floor {floor}</text>\n"
+            "</svg>\n\n"
+            "Other pages on the portal are fine. Just the maps are broken. "
+            "Chrome and Edge both show the same raw code.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "The intranet portal is serving SVG content with an incorrect "
+            "Content-Type header (likely text/plain instead of image/svg+xml). "
+            "Fix the web server MIME type configuration for SVG files.",
+            "Check the portal's web server configuration for SVG MIME type "
+            "settings. The recent update likely removed or overrode the "
+            "image/svg+xml content-type mapping.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the Content-Type header returned for SVG files using browser developer tools or curl",
+                "Update the web server configuration to serve .svg files with Content-Type: image/svg+xml",
+                "Check if the portal update changed the static file serving configuration or CDN settings",
+                "Clear the CDN cache if SVG files are served through a content delivery layer",
+                "Test the network topology and floor plan pages to confirm SVG rendering is restored",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-126  Interleaved / cross-threaded issues in a single ticket
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-126",
+        category=Category.NETWORK,
+        priority=Priority.P2,
+        assigned_team=Team.NETWORK,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AFFECTED_SYSTEM, MissingInfo.NETWORK_LOCATION],
+        subjects=[
+            "Multiple network issues — VPN, WiFi, and DNS all at once",
+            "Several connectivity problems happening simultaneously",
+            "Network problems on Floor {floor} — three different issues",
+        ],
+        descriptions=[
+            "I have several issues and I'm not sure if they're related:\n\n"
+            "ISSUE A: My VPN drops every ~30 minutes. I'm using GlobalProtect "
+            "5.2.13. It reconnects automatically but all my SSH sessions die. "
+            "This started Monday.\n\n"
+            "ISSUE B (actually this might be the same thing): WiFi signal is "
+            "weak in the {office} conference room. Wait no — that's a different "
+            "problem. The WiFi is always weak there. But the VPN thing is new.\n\n"
+            "ISSUE C: Also, DNS lookups are slow. I ran nslookup contoso.com and "
+            "it took 8 seconds. Normally it's instant. But that might be because "
+            "of the VPN — when VPN reconnects, DNS is broken for a minute.\n\n"
+            "Actually, re-reading what I wrote — maybe Issues A and C are the "
+            "same root cause? The VPN drops, and during the reconnect window DNS "
+            "doesn't work? But Issue B is definitely separate.\n\n"
+            "Oh, one more thing — I also can't print to the Floor {floor} printer "
+            "but that might be unrelated. Or maybe it is related if the printer "
+            "is on a network share that needs DNS? I don't know.\n\n"
+            "I'm on Floor {floor}, {office} office, wired + WiFi (I switch "
+            "between them).\n\n{name}, {department}",
+            "Submitting one ticket for everything since I'm not sure what's "
+            "connected:\n\n"
+            "1) Teams calls drop audio for 2-3 seconds every few minutes. "
+            "Video freezes too. My internet speed test shows 450 Mbps so "
+            "bandwidth isn't the issue.\n\n"
+            "2) The shared drive (\\\\fileserver\\{department}) sometimes takes "
+            "30+ seconds to open folders. Other times it's instant.\n\n"
+            "3) Outlook shows 'Trying to connect...' in the status bar at "
+            "random intervals throughout the day.\n\n"
+            "These all started around the same time — last Thursday after the "
+            "network maintenance window. Are they related? Could be a switch "
+            "issue on our floor?\n\n"
+            "Also, separately, my badge doesn't open the Building {building} "
+            "parking garage anymore but that's probably a different team.\n\n"
+            "Floor {floor}, {office}, Building {building}.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "Separate the interleaved issues: the VPN drops and DNS slowness "
+            "are likely related (VPN reconnection disrupts DNS resolution). The "
+            "WiFi weakness and printer issue are separate problems. Triage each "
+            "independently.",
+            "The post-maintenance symptoms (Teams audio drops, slow file share, "
+            "intermittent Outlook disconnects) suggest a common cause — likely a "
+            "switch or port configuration issue on the user's floor. Investigate "
+            "the network infrastructure first.",
+        ],
+        remediation_steps=[
+            [
+                "Untangle the separate issues and create sub-tickets for each distinct problem",
+                "For the likely related issues (VPN/DNS or Teams/fileshare/Outlook), check the floor switch logs for errors or flapping ports",
+                "Verify the network maintenance changes didn't introduce a misconfiguration on the user's floor switch",
+                "Run a continuous ping and traceroute to identify packet loss or latency spikes",
+                "Address each sub-issue based on root cause: VPN config, WiFi coverage, DNS settings, or switch port",
+                "Route unrelated issues (badge access, printing) to the appropriate teams",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-127  Massive CC list cluttering the ticket
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-127",
+        category=Category.SECURITY,
+        priority=Priority.P2,
+        assigned_team=Team.SECOPS,
+        needs_escalation=True,
+        missing_information=[MissingInfo.AFFECTED_USERS, MissingInfo.BUSINESS_IMPACT],
+        subjects=[
+            "URGENT: Suspicious email sent to entire department — 200+ recipients",
+            "Possible phishing blast — massive CC list included below",
+            "Phishing alert — email sent to all of {department}",
+        ],
+        descriptions=[
+            "A suspicious email was sent to what looks like our entire "
+            "department distribution list plus individual addresses. I'm "
+            "including the CC list so you can see who got it:\n\n"
+            "To: {department}-all@contoso.com\n"
+            "CC: a.adams@contoso.com; b.baker@contoso.com; c.chen@contoso.com; "
+            "d.davis@contoso.com; e.erikson@contoso.com; f.foster@contoso.com; "
+            "g.garcia@contoso.com; h.harris@contoso.com; i.ibrahim@contoso.com; "
+            "j.jones@contoso.com; k.kumar@contoso.com; l.lee@contoso.com; "
+            "m.martinez@contoso.com; n.nguyen@contoso.com; o.okafor@contoso.com; "
+            "p.patel@contoso.com; q.quinn@contoso.com; r.rodriguez@contoso.com; "
+            "s.singh@contoso.com; t.taylor@contoso.com; u.ueda@contoso.com; "
+            "v.volkov@contoso.com; w.wang@contoso.com; x.xu@contoso.com; "
+            "y.yamamoto@contoso.com; z.zhang@contoso.com; "
+            "aa.anderson@contoso.com; bb.brown@contoso.com; "
+            "cc.campbell@contoso.com; dd.diaz@contoso.com; "
+            "ee.edwards@contoso.com; ff.flores@contoso.com; "
+            "gg.gonzalez@contoso.com; hh.hall@contoso.com; "
+            "ii.ishikawa@contoso.com; jj.jackson@contoso.com; "
+            "kk.kowalski@contoso.com; ll.lopez@contoso.com; "
+            "mm.mueller@contoso.com; nn.nakamura@contoso.com; "
+            "oo.oconnor@contoso.com; pp.park@contoso.com; "
+            "qq.qureshi@contoso.com; rr.ramirez@contoso.com; "
+            "ss.schmidt@contoso.com; tt.thompson@contoso.com\n"
+            "BCC: (unknown)\n\n"
+            "The email claims to be from our CEO and asks everyone to click a "
+            "link to 'verify their credentials for a mandatory security audit'. "
+            "The link goes to contoso-security-verify.com which is NOT our "
+            "domain. Several people have already clicked it.\n\n"
+            "{name}, {department}",
+            "We received a bulk email that was sent to a huge list of people "
+            "across {department}. The full recipient list:\n\n"
+            "To: {name} <{name1}@contoso.com>\n"
+            "CC: team-leads-{department}@contoso.com; "
+            "managers-{department}@contoso.com; directors@contoso.com; "
+            "vp-staff@contoso.com; exec-assistants@contoso.com; "
+            "hr-partners@contoso.com; finance-approvers@contoso.com; "
+            "procurement@contoso.com; legal-team@contoso.com; "
+            "compliance-officers@contoso.com; it-liaisons@contoso.com; "
+            "facilities-contacts@contoso.com; floor-wardens@contoso.com; "
+            "{department}-contractors@contoso.com; "
+            "{department}-interns@contoso.com; "
+            "{department}-alumni@contoso.com\n\n"
+            "The email has a PDF attachment called 'Mandatory_Security_Update_"
+            "Instructions.pdf' and a link to an external form asking for "
+            "employee IDs and passwords. The sender address looks spoofed — "
+            "it says ceo@contoso.com but the headers show it came from a "
+            "Gmail relay. At least 12 people in {department} have told me "
+            "they clicked the link and some entered their passwords.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "This is an active phishing campaign targeting the department. "
+            "Immediately block the malicious domain, quarantine the email from "
+            "all mailboxes, and initiate password resets for users who clicked.",
+            "Treat this as a security incident: block contoso-security-verify.com "
+            "at the proxy and DNS level, purge the email from all recipients' "
+            "mailboxes, and force password resets for anyone who submitted "
+            "credentials.",
+        ],
+        remediation_steps=[
+            [
+                "Block the malicious domain at the web proxy, DNS, and email gateway",
+                "Use Exchange admin center to search and purge the phishing email from all recipient mailboxes",
+                "Identify users who clicked the link using email gateway and proxy logs",
+                "Force immediate password resets for all users who submitted credentials",
+                "Review sign-in logs for the compromised accounts for any unauthorized access",
+                "Send an organization-wide alert warning about the phishing email and instructing users not to click",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-128  Environment variable dump pasted into ticket
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-128",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.STEPS_TO_REPRODUCE],
+        subjects=[
+            "App won't start — env vars dumped below",
+            "Application startup failure — environment output attached",
+            "{app} crashes on launch — pasting my environment",
+        ],
+        descriptions=[
+            "{app} won't start and the error says 'missing required environment "
+            "variable'. I ran `printenv` and here's everything:\n\n"
+            "SHELL=/bin/bash\n"
+            "SESSION_MANAGER=local/{name}:@/tmp/.ICE-unix/1847,unix/{name}:/tmp/"
+            ".ICE-unix/1847\n"
+            "QT_ACCESSIBILITY=1\n"
+            "COLORTERM=truecolor\n"
+            "XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg\n"
+            "SSH_AGENT_LAUNCHER=openssh\n"
+            "XDG_MENU_PREFIX=gnome-\n"
+            "GNOME_DESKTOP_SESSION_ID=this-is-deprecated\n"
+            "CONTOSO_APP_ENV=production\n"
+            "CONTOSO_API_ENDPOINT=https://api.contoso.com/v2\n"
+            "CONTOSO_AUTH_PROVIDER=azure-ad\n"
+            "CONTOSO_TENANT_ID=a1b2c3d4-e5f6-7890-abcd-ef1234567890\n"
+            "CONTOSO_REGION=eastus2\n"
+            "CONTOSO_LOG_LEVEL=info\n"
+            "CONTOSO_CACHE_TTL=3600\n"
+            "CONTOSO_DB_HOST=sqlprod-eastus2.database.windows.net\n"
+            "CONTOSO_DB_PORT=1433\n"
+            "CONTOSO_DB_NAME={app}_prod\n"
+            "CONTOSO_REDIS_HOST=redis-prod.contoso.internal\n"
+            "CONTOSO_REDIS_PORT=6380\n"
+            "CONTOSO_FEATURE_FLAGS=enable_v2_ui,enable_new_search,beta_export\n"
+            "GTK_MODULES=gail:atk-bridge\n"
+            "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus\n"
+            "DESKTOP_SESSION=ubuntu\n"
+            "GDMSESSION=ubuntu\n"
+            "HOME=/home/{name1}\n"
+            "LANG=en_US.UTF-8\n"
+            "LOGNAME={name1}\n"
+            "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\n"
+            "USER={name1}\n"
+            "XDG_RUNTIME_DIR=/run/user/1000\n"
+            "XDG_SESSION_TYPE=wayland\n\n"
+            "I don't see which one is missing. Can you tell from this? I'm in "
+            "{department}, Floor {floor}.\n\n{name}, {department}",
+            "I'm getting this error when launching {app}:\n\n"
+            "  Error: Required configuration not found.\n"
+            "  Missing: CONTOSO_CLIENT_SECRET\n"
+            "  Application will not start.\n\n"
+            "I dumped all my env vars to check. Here's the full output of `env | "
+            "sort`:\n\n"
+            "CONTOSO_API_ENDPOINT=https://api.contoso.com/v2\n"
+            "CONTOSO_APP_ENV=production\n"
+            "CONTOSO_AUTH_PROVIDER=azure-ad\n"
+            "CONTOSO_CACHE_TTL=3600\n"
+            "CONTOSO_CLIENT_ID=app-{app}-prod-00a1b2c3\n"
+            "CONTOSO_DB_HOST=sqlprod-eastus2.database.windows.net\n"
+            "CONTOSO_DB_NAME={app}_prod\n"
+            "CONTOSO_DB_PORT=1433\n"
+            "CONTOSO_FEATURE_FLAGS=enable_v2_ui,enable_new_search\n"
+            "CONTOSO_LOG_LEVEL=info\n"
+            "CONTOSO_REDIS_HOST=redis-prod.contoso.internal\n"
+            "CONTOSO_REDIS_PORT=6380\n"
+            "CONTOSO_REGION=eastus2\n"
+            "CONTOSO_TENANT_ID=a1b2c3d4-e5f6-7890-abcd-ef1234567890\n"
+            "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus\n"
+            "DESKTOP_SESSION=ubuntu\n"
+            "HOME=/home/{name1}\n"
+            "LANG=en_US.UTF-8\n"
+            "LOGNAME={name1}\n"
+            "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin\n"
+            "SHELL=/bin/bash\n"
+            "USER={name1}\n\n"
+            "The error clearly says CONTOSO_CLIENT_SECRET is missing but I "
+            "don't know where to get it. Was this set up by the previous admin? "
+            "I'm new to {department}.\n\n{name}, {department}",
+        ],
+        next_best_actions=[
+            "The environment dump reveals the issue: CONTOSO_CLIENT_SECRET is "
+            "missing. This is an Azure AD app registration secret that needs "
+            "to be provisioned through the secrets management system.",
+            "Identify the missing environment variable from the error output. "
+            "The user needs CONTOSO_CLIENT_SECRET configured — retrieve it from "
+            "the team's key vault or secrets manager.",
+        ],
+        remediation_steps=[
+            [
+                "Identify the missing environment variable from the application error message",
+                "Check the team's Azure Key Vault or secrets management system for the required secret",
+                "If the secret has expired, rotate it in the Azure AD app registration and update the vault",
+                "Set the environment variable through the approved configuration management process (not inline export)",
+                "Verify the application starts successfully with the new configuration",
+                "Remind the user to never paste environment variables containing secrets into tickets",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-129  Git diff / merge conflict markers pasted inline
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-129",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.STEPS_TO_REPRODUCE, MissingInfo.ENVIRONMENT_DETAILS],
+        subjects=[
+            "Deployment failed — git diff of broken config below",
+            "Need help resolving config diff before deploying {app}",
+            "Production config changed unexpectedly — diff attached",
+        ],
+        descriptions=[
+            "Our last {app} deployment failed and I think it's because someone "
+            "changed the config. Here's the git diff between what's in production "
+            "and what's in our repo:\n\n"
+            "diff --git a/config/production.yaml b/config/production.yaml\n"
+            "index 3a4b5c6..7d8e9f0 100644\n"
+            "--- a/config/production.yaml\n"
+            "+++ b/config/production.yaml\n"
+            "@@ -12,18 +12,22 @@\n"
+            " server:\n"
+            "   host: 0.0.0.0\n"
+            "-  port: 8080\n"
+            "+  port: 8443\n"
+            "-  protocol: http\n"
+            "+  protocol: https\n"
+            "+  tls:\n"
+            "+    cert: /etc/ssl/{app}/server.crt\n"
+            "+    key: /etc/ssl/{app}/server.key\n"
+            "+    min_version: '1.2'\n"
+            " \n"
+            " database:\n"
+            "   host: sqlprod-eastus2.database.windows.net\n"
+            "-  pool_size: 10\n"
+            "+  pool_size: 50\n"
+            "-  timeout: 30\n"
+            "+  timeout: 120\n"
+            "+  retry_policy:\n"
+            "+    max_retries: 3\n"
+            "+    backoff_factor: 1.5\n"
+            " \n"
+            " cache:\n"
+            "   host: redis-prod.contoso.internal\n"
+            "-  ttl: 3600\n"
+            "+  ttl: 600\n"
+            "-  max_memory: 512mb\n"
+            "+  max_memory: 2gb\n"
+            " \n"
+            " logging:\n"
+            "-  level: info\n"
+            "+  level: debug\n"
+            "-  output: file\n"
+            "+  output: stdout\n\n"
+            "I'm not sure which version is correct. The deployment pipeline "
+            "rejected the new version because the TLS cert doesn't exist on the "
+            "new servers yet. Can you help figure out what went wrong?\n\n"
+            "{name}, {department}",
+            "Something changed in our {app} config and now the CI/CD pipeline "
+            "is failing. Here's the diff I got from git:\n\n"
+            "diff --git a/deploy/docker-compose.prod.yml "
+            "b/deploy/docker-compose.prod.yml\n"
+            "index a1b2c3d..e4f5g6h 100644\n"
+            "--- a/deploy/docker-compose.prod.yml\n"
+            "+++ b/deploy/docker-compose.prod.yml\n"
+            "@@ -8,14 +8,20 @@\n"
+            " services:\n"
+            "   {app}-api:\n"
+            "-    image: contoso.azurecr.io/{app}:v2.3.1\n"
+            "+    image: contoso.azurecr.io/{app}:v2.4.0-rc1\n"
+            "     environment:\n"
+            "-      - NODE_ENV=production\n"
+            "+      - NODE_ENV=staging\n"
+            "-      - LOG_LEVEL=warn\n"
+            "+      - LOG_LEVEL=debug\n"
+            "+      - ENABLE_PROFILING=true\n"
+            "+      - DEBUG_PORT=9229\n"
+            "     ports:\n"
+            "-      - '8080:8080'\n"
+            "+      - '8080:8080'\n"
+            "+      - '9229:9229'\n"
+            "     deploy:\n"
+            "       resources:\n"
+            "         limits:\n"
+            "-          memory: 1G\n"
+            "+          memory: 4G\n"
+            "-          cpus: '1.0'\n"
+            "+          cpus: '4.0'\n\n"
+            "Looks like someone pushed staging/debug settings to the production "
+            "branch. The pipeline caught it because the RC image tag doesn't "
+            "exist in our production registry. Floor {floor}, {office}.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "Review the git diff to identify the problematic changes: staging "
+            "settings (debug logging, RC image tags, debug ports) were pushed to "
+            "the production config. Revert the non-production changes and fix "
+            "any intentional updates (like TLS) separately.",
+            "The diff shows a mix of intentional upgrades (TLS, connection pool) "
+            "and accidental staging settings (debug logging, profiling, RC images). "
+            "Separate the two, revert the staging changes, and properly deploy "
+            "the intended production updates.",
+        ],
+        remediation_steps=[
+            [
+                "Review the git diff to separate intentional production changes from accidental staging settings",
+                "Revert debug/staging changes: NODE_ENV=staging, LOG_LEVEL=debug, ENABLE_PROFILING, DEBUG_PORT, RC image tags",
+                "For intentional changes (TLS config, pool size), ensure prerequisites are met (certs deployed, capacity verified)",
+                "Create a clean commit with only the production-ready changes",
+                "Run the CI/CD pipeline in a staging environment to validate before pushing to production",
+                "Enforce branch protection rules to require PR reviews for production config changes",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-130  YAML config dump pasted into ticket
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-130",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE, MissingInfo.APPLICATION_VERSION],
+        subjects=[
+            "Kubernetes pod crashing — full YAML manifest below",
+            "Pod in CrashLoopBackOff — config dump included",
+            "{app} deployment failing in K8s — YAML pasted",
+        ],
+        descriptions=[
+            "Our {app} pod is stuck in CrashLoopBackOff. I'm pasting the full "
+            "deployment YAML so you can check it:\n\n"
+            "apiVersion: apps/v1\n"
+            "kind: Deployment\n"
+            "metadata:\n"
+            "  name: {app}-api\n"
+            "  namespace: {department}-prod\n"
+            "  labels:\n"
+            "    app: {app}\n"
+            "    team: {department}\n"
+            "    environment: production\n"
+            "spec:\n"
+            "  replicas: 3\n"
+            "  selector:\n"
+            "    matchLabels:\n"
+            "      app: {app}\n"
+            "  template:\n"
+            "    metadata:\n"
+            "      labels:\n"
+            "        app: {app}\n"
+            "        version: v2.4.0\n"
+            "      annotations:\n"
+            "        prometheus.io/scrape: 'true'\n"
+            "        prometheus.io/port: '9090'\n"
+            "    spec:\n"
+            "      serviceAccountName: {app}-sa\n"
+            "      containers:\n"
+            "        - name: {app}-api\n"
+            "          image: contoso.azurecr.io/{app}:v2.4.0\n"
+            "          ports:\n"
+            "            - containerPort: 8080\n"
+            "              name: http\n"
+            "            - containerPort: 9090\n"
+            "              name: metrics\n"
+            "          env:\n"
+            "            - name: DB_CONNECTION_STRING\n"
+            "              valueFrom:\n"
+            "                secretKeyRef:\n"
+            "                  name: {app}-db-secret\n"
+            "                  key: connection-string\n"
+            "            - name: REDIS_URL\n"
+            "              value: redis://redis-prod.contoso.internal:6380\n"
+            "            - name: APP_ENV\n"
+            "              value: production\n"
+            "          resources:\n"
+            "            requests:\n"
+            "              memory: 256Mi\n"
+            "              cpu: 250m\n"
+            "            limits:\n"
+            "              memory: 256Mi\n"
+            "              cpu: 500m\n"
+            "          livenessProbe:\n"
+            "            httpGet:\n"
+            "              path: /healthz\n"
+            "              port: 8080\n"
+            "            initialDelaySeconds: 5\n"
+            "            periodSeconds: 10\n"
+            "          readinessProbe:\n"
+            "            httpGet:\n"
+            "              path: /ready\n"
+            "              port: 8080\n"
+            "            initialDelaySeconds: 5\n"
+            "            periodSeconds: 5\n"
+            "      imagePullSecrets:\n"
+            "        - name: acr-pull-secret\n\n"
+            "The pod starts, fails the liveness probe, and gets killed. Logs "
+            "show 'connection refused' to the database. I think the secret might "
+            "be wrong.\n\n{name}, {department}",
+            "I'm trying to deploy {app} to our Kubernetes cluster and it keeps "
+            "failing. Here's my config:\n\n"
+            "apiVersion: v1\n"
+            "kind: Service\n"
+            "metadata:\n"
+            "  name: {app}-svc\n"
+            "  namespace: {department}-prod\n"
+            "spec:\n"
+            "  selector:\n"
+            "    app: {app}\n"
+            "  ports:\n"
+            "    - name: http\n"
+            "      port: 80\n"
+            "      targetPort: 8080\n"
+            "    - name: metrics\n"
+            "      port: 9090\n"
+            "      targetPort: 9090\n"
+            "  type: ClusterIP\n"
+            "---\n"
+            "apiVersion: networking.k8s.io/v1\n"
+            "kind: Ingress\n"
+            "metadata:\n"
+            "  name: {app}-ingress\n"
+            "  namespace: {department}-prod\n"
+            "  annotations:\n"
+            "    nginx.ingress.kubernetes.io/rewrite-target: /\n"
+            "    nginx.ingress.kubernetes.io/ssl-redirect: 'true'\n"
+            "    cert-manager.io/cluster-issuer: letsencrypt-prod\n"
+            "spec:\n"
+            "  tls:\n"
+            "    - hosts:\n"
+            "        - {app}.contoso.com\n"
+            "      secretName: {app}-tls\n"
+            "  rules:\n"
+            "    - host: {app}.contoso.com\n"
+            "      http:\n"
+            "        paths:\n"
+            "          - path: /\n"
+            "            pathType: Prefix\n"
+            "            backend:\n"
+            "              service:\n"
+            "                name: {app}-svc\n"
+            "                port:\n"
+            "                  number: 80\n\n"
+            "The deployment itself is running but the Ingress returns 502 Bad "
+            "Gateway. The service seems fine when I port-forward directly. "
+            "Floor {floor}, {department}.\n\n{name}, {department}",
+        ],
+        next_best_actions=[
+            "Analyze the Kubernetes YAML dump: the CrashLoopBackOff is caused "
+            "by a database connection failure — verify the referenced secret "
+            "exists and contains the correct connection string. The memory limit "
+            "of 256Mi may also be too low.",
+            "For the 502 Ingress issue, check that the Service selector matches "
+            "the pod labels, the target port matches the container port, and the "
+            "Ingress controller can reach the service. For the CrashLoopBackOff, "
+            "fix the database secret.",
+        ],
+        remediation_steps=[
+            [
+                "Check if the referenced Kubernetes secret exists: kubectl get secret {app}-db-secret -n {department}-prod",
+                "Verify the secret contains the correct connection string by decoding it (base64)",
+                "Test database connectivity from within the cluster using a debug pod",
+                "If the secret is correct, check if the memory limit (256Mi) is sufficient — increase if OOMKilled",
+                "For Ingress 502 errors, verify service selector labels match pod labels and ports are aligned",
+                "Check Ingress controller logs for upstream connection errors and fix the backend configuration",
+            ],
+        ],
+    )
+)
