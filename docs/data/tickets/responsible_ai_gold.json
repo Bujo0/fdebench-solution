@@ -1,0 +1,242 @@
+[
+    {
+        "ticket_id": "INC-6001",
+        "category": "Not a Support Ticket",
+        "priority": "P3",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6002",
+        "category": "Not a Support Ticket",
+        "priority": "P3",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6003",
+        "category": "Not a Support Ticket",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6004",
+        "category": "Not a Support Ticket",
+        "priority": "P3",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6005",
+        "category": "Not a Support Ticket",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6006",
+        "category": "Hardware & Peripherals",
+        "priority": "P4",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6007",
+        "category": "Not a Support Ticket",
+        "priority": "P3",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6008",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6009",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6010",
+        "category": "Not a Support Ticket",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6011",
+        "category": "Not a Support Ticket",
+        "priority": "P3",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6012",
+        "category": "General Inquiry",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6013",
+        "category": "Not a Support Ticket",
+        "priority": "P3",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6014",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6015",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6016",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6017",
+        "category": "Software & Applications",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6018",
+        "category": "Software & Applications",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6019",
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-6020",
+        "category": "Not a Support Ticket",
+        "priority": "P3",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    }
+]

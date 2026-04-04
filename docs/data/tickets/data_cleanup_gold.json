@@ -1,0 +1,242 @@
+[
+    {
+        "ticket_id": "INC-5001",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5002",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5003",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5004",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5005",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5006",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5007",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5008",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5009",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5010",
+        "category": "Not a Support Ticket",
+        "priority": "P3",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5011",
+        "category": "Software & Applications",
+        "priority": "P1",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5012",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5013",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5014",
+        "category": "Software & Applications",
+        "priority": "P1",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5015",
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5016",
+        "category": "Security & Compliance",
+        "priority": "P1",
+        "assigned_team": "Security Operations",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5017",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5018",
+        "category": "Data & Storage",
+        "priority": "P1",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5019",
+        "category": "Access & Authentication",
+        "priority": "P3",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    },
+    {
+        "ticket_id": "INC-5020",
+        "category": "Security & Compliance",
+        "priority": "P1",
+        "assigned_team": "Security Operations",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "See evaluation scenario description.",
+        "remediation_steps": [
+            "Refer to evaluation framework for details."
+        ]
+    }
+]

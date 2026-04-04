@@ -1,0 +1,262 @@
+[
+    {
+        "ticket_id": "INC-5001",
+        "subject": "Re: Re: Fwd: VPN Disconnection Issue - Urgent",
+        "description": "From: Sarah Mitchell <s.mitchell@contoso.com>\nTo: IT Help Desk <helpdesk@contoso.com>\nDate: Wed, 18 Mar 2026 09:14:00 +0000\nSubject: Re: Re: Fwd: VPN Disconnection Issue - Urgent\n\nHi team, just forwarding this again as we still haven't received a resolution.\n\nBest regards,\nSarah Mitchell\nSenior Trader | Equities Desk\nContoso Financial Services\nPhone: +1 (212) 555-0147 | Fax: +1 (212) 555-0148\nEmail: s.mitchell@contoso.com\n100 Wall Street, 24th Floor, New York, NY 10005\nwww.contoso.com\n\nCONFIDENTIALITY NOTICE: This email and any attachments are for the exclusive and confidential use of the intended recipient. If you are not the intended recipient, please do not read, distribute, or take action based on this message. If you have received this in error, please notify the sender immediately by reply email and destroy all copies of the original message.\n\n---\n\n---\n\n---\n\n> From: James Thornton <j.thornton@contoso.com>\n> Date: Tue, 17 Mar 2026 16:42:00 +0000\n> Subject: Re: Fwd: VPN Disconnection Issue - Urgent\n>\n> Sarah,\n>\n> I checked with the network team and they said they haven't seen any widespread issues. Can you try reconnecting using the alternate gateway? vpn2.contoso.com\n>\n> Regards,\n> James Thornton\n> Network Operations Lead\n\n\n\n\n\n> > From: Sarah Mitchell <s.mitchell@contoso.com>\n> > Date: Tue, 17 Mar 2026 14:30:00 +0000\n> > Subject: Re: VPN Disconnection Issue - Urgent\n> >\n> > James, the issue is getting worse. My VPN dropped THREE times in 20 minutes while on a call with the Hong Kong desk. GlobalProtect shows error code GP-4017. This has been happening since Monday after the weekend maintenance window. Lenovo ThinkPad T14s, Windows 11, GP version 6.1.3. Already tried restarting, rebooting, and flushing DNS. Critical - major trade window tomorrow.\n\n\n\n> > > From: James Thornton <j.thornton@contoso.com>\n> > > Date: Tue, 17 Mar 2026 10:15:00 +0000\n> > > Thanks for reporting this. Which VPN gateway are you connecting to?\n\n\n\n> > > > From: Sarah Mitchell <s.mitchell@contoso.com>\n> > > > Date: Mon, 16 Mar 2026 09:00:00 +0000\n> > > > Subject: VPN Disconnection Issue\n> > > > Hi IT, my VPN has been dropping intermittently since this morning. I'm on the NYC office Wi-Fi, Floor 24. Not sure what changed.\n\n-- \nThis message has been scanned by Contoso Email Security.\nThis message has been scanned by Contoso Email Security.\nThis message has been scanned by Contoso Email Security.\nThis message has been scanned by Contoso Email Security.\nThis message has been scanned by Contoso Email Security.\n",
+        "reporter": {
+            "name": "Sarah Mitchell",
+            "email": "s.mitchell@contoso.com",
+            "department": "Trading"
+        },
+        "created_at": "2026-03-18T09:14:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5002",
+        "subject": "MFA not working - screenshot attached inline",
+        "description": "Hi, my MFA token keeps failing when I try to log into the VPN. Here's a screenshot of the error I'm seeing:\n\n[image data: data:image/png;base64,3l5VkgeWjb4JSIyPYKqptaP3hDMcjasEBQXkYVQ87q+K7V+xtRZRlTo86hdn4xHrs6cDKg9Rc9yUegVq3EMlP/o+hnPoZcmIXULgZrEhcw4rC/7jSlOZfvEwKqH2rEWsVeqQYomVIK0wCKIzpNeZw4Z/9aGLQZt0x0368hlPHLnCD3S0wFTIYC8VMO74DEkydzUZa5Os61A1hA7QgjhiGiIYMyG86uITWQWeje9TM74mAmp9soL9H/yg5JKvc6bLonvy6NPNrzKhA7gZJcdsssY+srm12era5+UjQwyOOPxndJled52XroGz6XusRq4BhM3PmfBcI6qaedEvFX2jYs4+V4slyGa7Y4mXfNUfPu9ALwjJcxv8UOAoMs0aoUO/SGUD/rSR5qNYDaCc]\n\nThe error message says 'Token validation failed - code AUTH-2048'. This started happening after the Entra ID sync last night. I've tried re-registering my authenticator app but it still fails.\n\nThanks,\nMike Davis\nWealth Management",
+        "reporter": {
+            "name": "Mike Davis",
+            "email": "m.davis@contoso.com",
+            "department": "Wealth Management"
+        },
+        "created_at": "2026-03-18T08:45:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5003",
+        "subject": "SSO login failure - log file attached",
+        "description": "I can't log into Salesforce via SSO. The IT portal told me to grab logs so here they are:\n\n--- BEGIN LOG (base64) ---\nRVJST1IgMjAyNi0wMy0xOCAwOToxNToyMiBbQXV0aE1vZHVsZV0gRmFpbGVkIHRvIHZhbGlkYXRlIE1GQSB0b2tlbiBmb3IgdXNlciBzYXJhaC5jaGVuQGNvbnRvc28uY29tLiBUb2tlbiBleHBpcmVkIGF0IDIwMjYtMDMtMThUMDk6MTA6MDBaLiBSZXRyeSBjb3VudDogMy4gTW9kdWxlOiBBenVyZUFELk1GQS5WYWxpZGF0b3IuIENvcnJlbGF0aW9uSWQ6IGE4ZjNjMmUxLTRiNWQtNGY2YS04YzlkLTBlMWYyYTNiNGM1ZGNBdRVM6FDx2/sW33OIeLh8DG8vQpIB8WGumYZbW04hDCs1DXmWgketP07qWifhgu3OygIkC6N1rWz9nDheC4DA5ap5U/gdlJb5sUj+T3JdQS7ya1etZK9tyJ1B9vxDytuhaNT1qW+xWWiWQKPK3tbKjbKPA5A8bDEMCiUa9v+8kDsipa6uvzyS4fitsGSSR08JJwmh8Q==\n--- END LOG ---\n\nThis has been happening since 9am. I have client calls starting at 10 and I need Salesforce access. I'm on my company laptop, Windows 11, Chrome 122.",
+        "reporter": {
+            "name": "Lisa Wong",
+            "email": "l.wong@contoso.com",
+            "department": "Wealth Management"
+        },
+        "created_at": "2026-03-18T09:20:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5004",
+        "subject": "Printer not working on 5th floor",
+        "description": "<html><head><style>body{font-family:Calibri,sans-serif;font-size:11pt;}.sig{color:#666;font-size:9pt;}</style></head><body><p>Hi IT team,</p><p>The <b>HP LaserJet Pro</b> on the <b>5th floor</b> (near the kitchen) has been showing a <span style='color:red;font-weight:bold'>PC LOAD LETTER</span> error since this morning. I&rsquo;ve tried power cycling it twice. The paper tray is full and I checked for jams &mdash; nothing stuck.</p><p>Can someone take a look? We have a board presentation to print at 2pm.</p><table border=\"1\" cellpadding=\"4\"><tr><th>Printer</th><th>Location</th><th>Asset Tag</th></tr><tr><td>HP LaserJet Pro M404dn</td><td>5F Kitchen Area</td><td>CT-PR-10234</td></tr></table><p class=\"sig\">Thanks,<br/>Rachel Green<br/>Executive Operations<br/>Contoso Financial Services<br/><img src=\"https://contoso.com/email-sig-logo.png\" width=\"150\"/></p></body></html>",
+        "reporter": {
+            "name": "Rachel Green",
+            "email": "r.green@contoso.com",
+            "department": "Executive Operations"
+        },
+        "created_at": "2026-03-18T10:30:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5005",
+        "subject": "Can​t​ log​ in​ to​ email",
+        "description": "I​ can​t​ access​ my​ Outlook​ email.​ It​ keeps​ saying​ 'Your​ session​ has​ expired.​ Please​ sign​ in​ again.'​ every​ time​ I​ try.​ This​ started​ after​ the​ password​ change​ I​ did​ yesterday.​ I​ve​ tried​ clearing​ browser​ cache​ and​ using​ incognito​ mode.​ Still​ broken.​​\n\nI​ need​ this​ fixed​ ASAP​ -​ I​ have​ a​ compliance​ deadline​ tomorrow.",
+        "reporter": {
+            "name": "David Park",
+            "email": "d.park@contoso.com",
+            "department": "Compliance"
+        },
+        "created_at": "2026-03-18T11:00:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5006",
+        "subject": "Canât access shared drive â permission denied",
+        "description": "Hi,\n\nIâm getting a âPermission Deniedâ error when trying to access the \\\\contoso-fs01\\finance share. This worked fine until yesterday. I need the Q1 âEarnings Reportâ folder for the board meeting.\n\nError: âAccess is denied. Contact your system administrator.â\n\nIâve tried mapping the drive again and got the same error. My colleague Jenn can still access it so itâs not a server issue.\n\nThanks,\nAlex KovaÄ\nFinance Department",
+        "reporter": {
+            "name": "Alex Kovač",
+            "email": "a.kovac@contoso.com",
+            "department": "Finance"
+        },
+        "created_at": "2026-03-18T13:15:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5007",
+        "subject": "Nightly ETL job failing since Tuesday",
+        "description": "The nightly ETL pipeline has been failing every night since Tuesday. Here are the last few lines from the log:\n\n2026-03-15 02:00:01 [INFO] Starting ETL pipeline: finance_daily_load\n2026-03-15 02:00:02 [INFO] Connecting to source: sql-prod-finance-01.database.windows.net\n2026-03-15 02:00:03 [INFO] Authenticated via SPN: spn-etl-finance@contoso.com\n2026-03-15 02:00:15 [INFO] Extracting: dbo.transactions (est. 2.4M rows)\n2026-03-15 02:15:42 [ERROR] ADLS write failed: HTTP 403 Forbidden\n2026-03-15 02:15:42 [ERROR] Target: abfss://finance@contosodatalake.dfs.core.windows.net/raw/\n2026-03-15 02:15:42 [ERROR] Details: AuthorizationPermissionMismatch - The request is not authorized to perform this operation using this permission.\n2026-03-15 02:15:43 [ERROR] SPN ObjectId: a8f3c2e1-4b5d-4f6a-8c9d-0e1f2a3b4c5d\n2026-03-15 02:15:43 [WARN] Retry 1/3 in 30s...\n2026-03-15 02:16:13 [ERROR] ADLS write failed: HTTP 403 Forbidden\n2026-03-15 02:16:43 [ERROR] ADLS write failed: HTTP 403 Forbidden\n2026-03-15 02:16:44 [FATAL] Pipeline finance_daily_load FAILED after 3 retries\n\ntimestamp,pipeline,status,duration_s,rows_processed,error_code\n2026-03-12,finance_daily_load,SUCCESS,945,2412847,\n2026-03-13,finance_daily_load,SUCCESS,1023,2398103,\n2026-03-14,finance_daily_load,SUCCESS,998,2405291,\n2026-03-15,finance_daily_load,FAILED,943,0,HTTP_403\n2026-03-16,finance_daily_load,FAILED,12,0,HTTP_403\n2026-03-17,finance_daily_load,FAILED,11,0,HTTP_403\n\nLooks like a permission issue on the data lake. The SPN permissions might have been changed during the weekend maintenance.",
+        "reporter": {
+            "name": "Tom Chen",
+            "email": "t.chen@contoso.com",
+            "department": "Data Engineering"
+        },
+        "created_at": "2026-03-18T07:30:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5008",
+        "subject": "🚨🚨🚨 HELP laptop broken 🚨🚨🚨",
+        "description": "omgggg 😭😭😭 my laptop just died!!! 💀💀💀\n\ni was in the middle of a presentation 🎤📊 and the screen went black 🖥️⬛ then it started making this weird buzzing noise 🔊😱\n\nive tried holding the power button ⏻ but nothing happens 😤😤\nthe charging light is blinking orange 🟠🟠🟠 which ive never seen before\n\nthis is a BRAND NEW thinkpad 💻 i just got it last month!!! 😡\ni have a client meeting in 30 min ⏰ and ALL my files are on this thing 📁📁📁\n\nplsssss someone help asap 🙏🙏🙏🙏🙏\n\n★★★ URGENT ★★★",
+        "reporter": {
+            "name": "Jordan Kim",
+            "email": "j.kim@contoso.com",
+            "department": "Marketing"
+        },
+        "created_at": "2026-03-18T14:20:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5009",
+        "subject": "3rd floor printer offline",
+        "description": "The printer on the 3rd floor next to the accounting department is not working. It shows 'offline' in the print queue but the printer itself seems to be powered on. I have checked the network cable and it is connected. The printer on the 3rd floor next to the accounting department is not working. It shows 'offline' in the print queue but the printer itself seems to be powered on. I have checked the network cable and it is connected. The printer on the 3rd floor next to the accounting department is not working. It shows 'offline' in the print queue but the printer itself seems to be powered on. I have checked the network cable and it is connected. The printer on the 3rd floor next to the accounting department is not working. It shows 'offline' in the print queue but the printer itself seems to be powered on. I have checked the network cable and it is connected. The printer on the 3rd floor next to the accounting department is not working. It shows 'offline' in the print queue but the printer itself seems to be powered on. I have checked the network cable and it is connected. The printer on the 3rd floor next to the accounting department is not working. It shows 'offline' in the print queue but the printer itself seems to be powered on. I have checked the network cable and it is connected. The printer on the 3rd floor next to the accounting department is not working. It shows 'offline' in the print queue but the printer itself seems to be powered on. I have checked the network cable and it is connected. The printer on the 3rd floor next to the accounting department is not working. It shows 'offline' in the print queue but the printer itself seems to be powered on. I have checked the network cable and it is connected. \nPlease fix, thanks.",
+        "reporter": {
+            "name": "Linda Martinez",
+            "email": "l.martinez@contoso.com",
+            "department": "Accounting"
+        },
+        "created_at": "2026-03-18T09:45:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5010",
+        "subject": "[AUTOMATED] System Health Check - PASS",
+        "description": "=== AUTOMATED SYSTEM HEALTH REPORT ===\nGenerated: 2026-03-18T06:00:00Z\nSource: monitoring-agent-prod-01\n\nStatus: ALL CHECKS PASSED\n\nCPU Utilization: 34% (threshold: 85%)\nMemory Usage: 62% (threshold: 90%)\nDisk Space: 54% used (threshold: 80%)\nNetwork Latency: 12ms (threshold: 100ms)\nActive Connections: 1,247 (threshold: 5,000)\nLast Backup: 2026-03-18T04:00:00Z (SUCCESS)\n\n--- END AUTOMATED REPORT ---\nThis is an automated message. Do not reply.",
+        "reporter": {
+            "name": "System Monitor",
+            "email": "monitoring@contoso.com",
+            "department": "IT"
+        },
+        "created_at": "2026-03-18T06:00:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5011",
+        "subject": "Client portal crashing",
+        "description": "The client portal keeps crashing. Here's what I see:\n\nSystem.NullReferenceException: Object reference not set to an instance of an object.\n   at Contoso.Portal.Services.ClientAccountService.GetBalance(String accountId) in D:\\src\\Portal\\Services\\ClientAccountService.cs:line 142\n   at Contoso.Portal.Controllers.DashboardController.LoadSummary(HttpContext ctx) in D:\\src\\Portal\\Controllers\\DashboardController.cs:line 87\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext context)\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()\n--- End of stack trace from previous location ---\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow()\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next()\n\nThis happens for every client who tries to view their account dashboard. Started about 30 minutes ago.",
+        "reporter": {
+            "name": "Kevin Park",
+            "email": "k.park@contoso.com",
+            "department": "Engineering"
+        },
+        "created_at": "2026-03-18T14:45:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5012",
+        "subject": "WiFi问题 - Singapore office very slow",
+        "description": "Hi IT team,\n\nWiFi di pejabat Singapore sangat perlahan hari ini. 网速非常慢，几乎不能工作。\n\nI've tested on my phone and laptop - both are slow. Speed test shows only 2 Mbps download (biasanya 200+ Mbps). 其他同事也有同样的问题。\n\nWe are on the 'Contoso-Corp-SG' SSID, 12th floor. 已经试过重启电脑了，没有用。\n\nTolong selesaikan secepat mungkin, we have video calls with NY office this afternoon.\n\n谢谢,\nWei Lin Tan",
+        "reporter": {
+            "name": "Wei Lin Tan",
+            "email": "w.tan@contoso.com",
+            "department": "Trading"
+        },
+        "created_at": "2026-03-18T02:30:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5013",
+        "subject": "broken",
+        "description": "laptop screen cracked",
+        "reporter": {
+            "name": "Pat Wilson",
+            "email": "p.wilson@contoso.com",
+            "department": "HR"
+        },
+        "created_at": "2026-03-18T15:00:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5014",
+        "subject": "SAP connection error after config change",
+        "description": "SAP is throwing connection errors after we updated the config. Here's our config:\n\n```json\n{\n  \"connectionSettings\": {\n    \"sapServer\": \"sap-prod-01.contoso.com\",\n    \"sapPort\": 3200,\n    \"sapClient\": \"100\",\n    \"sapSystemNumber\": \"00\",\n    \"sapLanguage\": \"EN\",\n    \"connectionPool\": {\n      \"maxConnections\": 50,\n      \"minConnections\": 5,\n      \"idleTimeout\": 300,\n      \"connectionTimeout\": 30\n    },\n    \"retryPolicy\": {\n      \"maxRetries\": 3,\n      \"backoffMultiplier\": 2.0,\n      \"initialDelay\": 1000\n    },\n    \"ssl\": {\n      \"enabled\": true,\n      \"certPath\": \"/etc/certs/sap-prod.pem\",\n      \"verifyHostname\": true\n    }\n  },\n  \"logging\": {\n    \"level\": \"DEBUG\",\n    \"outputPath\": \"/var/log/sap-connector/\"\n  },\n  \"features\": {\n    \"batchProcessing\": true,\n    \"asyncMode\": false,\n    \"compressionEnabled\": true,\n    \"cacheEnabled\": true,\n    \"cacheTTL\": 600\n  }\n}\n```\n\nThe error is: 'RFC connection failed: CPIC-CALL: ThSAPCMRCV on connection timeout'. This started after we changed the connectionTimeout from 60 to 30. 20 users in Finance are unable to process month-end transactions.",
+        "reporter": {
+            "name": "Anna Svensson",
+            "email": "a.svensson@contoso.com",
+            "department": "Finance"
+        },
+        "created_at": "2026-03-18T16:00:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5015",
+        "subject": "Fwd: Need access to SharePoint project site",
+        "description": "---------- Forwarded message ----------\nFrom: notifications@sharepoint.contoso.com\nDate: Mon, 17 Mar 2026\nSubject: Access Request Denied\n\nYou do not have access to \"Project Aurora - Confidential\"\nhttps://contoso.sharepoint.com/sites/project-aurora\n\nTo request access, contact the site owner.\n\n[https://contoso.sharepoint.com/_layouts/15/AccessDenied.aspx?Source=https%3A%2F%2Fcontoso.sharepoint.com%2Fsites%2Fproject-aurora&Type=list&name=%7B1234-5678-ABCD%7D&ListUrl=]\n\n---\n\nI need access to Project Aurora SharePoint site for the due diligence work. My manager Carlos approved it verbally. Can you grant me access?\n\nThanks,\nEmma Thompson\nM&A Team\n\n<img src=\"https://tracking.contoso.com/pixel.gif?id=8392&uid=e.thompson\" width=\"1\" height=\"1\" />\n<img src=\"https://analytics.office365.com/track?ref=email&cid=29381\" width=\"1\" height=\"1\" />",
+        "reporter": {
+            "name": "Emma Thompson",
+            "email": "e.thompson@contoso.com",
+            "department": "M&A"
+        },
+        "created_at": "2026-03-18T10:15:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5016",
+        "subject": "Re: Re: Re: Certificate expiring soon",
+        "description": "Return-Path: <alerts@contoso.com>\nReceived: from mail-gw-01.contoso.com (10.0.1.50) by mail-hub-03.contoso.com\n  with SMTP; Tue, 17 Mar 2026 22:00:01 +0000\nReceived: from monitoring.contoso.com (10.0.5.100) by mail-gw-01.contoso.com\n  with ESMTPS (TLS1.3); Tue, 17 Mar 2026 22:00:00 +0000\nDKIM-Signature: v=1; a=rsa-sha256; d=contoso.com; s=selector1;\nMessage-ID: <abc123@monitoring.contoso.com>\nX-Mailer: Contoso Monitoring Agent v4.2\nX-Priority: 1\nContent-Type: text/plain; charset=utf-8\nContent-Transfer-Encoding: quoted-printable\n\n--- Actual message starts here ---\n\nThe SSL certificate for api-gateway.contoso.com expires in 72 hours (2026-03-21T00:00:00Z). This is a production endpoint used by our client-facing API. If it expires, all external API integrations will break.\n\nCertificate CN: api-gateway.contoso.com\nIssuer: DigiCert Global Root G2\nSerial: 0A:1B:2C:3D:4E:5F\nThumbprint: AB12CD34EF56\n\nPlease renew before expiry.",
+        "reporter": {
+            "name": "System Alerts",
+            "email": "alerts@contoso.com",
+            "department": "IT"
+        },
+        "created_at": "2026-03-18T22:00:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5017",
+        "subject": "Monitor flickering",
+        "description": "My Dell monitor (asset CT-MN-08823) has been flickering intermittently. It's connected to my docking station via DisplayPort. Started today.\n\nThanks,\nRobert Hall\nSenior Vice President | Institutional Trading\nContoso Financial Services\nDirect: +1 (212) 555-0234 | Mobile: +1 (917) 555-0345\nEmail: r.hall@contoso.com\n100 Wall Street, 30th Floor, New York, NY 10005\nwww.contoso.com | LinkedIn: linkedin.com/in/roberthall\n\nIMPORTANT LEGAL NOTICE: This email message, including any attachments, is for the sole use of the intended recipient(s) and may contain confidential and privileged information. Any unauthorized review, use, disclosure, or distribution is prohibited. If you are not the intended recipient, please contact the sender by reply email and destroy all copies of the original message. This communication does not constitute an offer, acceptance, or agreement of any kind. Contoso Financial Services Ltd. is authorized and regulated by the Financial Conduct Authority. Registered in England and Wales No. 12345678. Registered Office: 100 Wall Street, London EC2V 7QE. IMPORTANT LEGAL NOTICE: This email message, including any attachments, is for the sole use of the intended recipient(s) and may contain confidential and privileged information. Any unauthorized review, use, disclosure, or distribution is prohibited. If you are not the intended recipient, please contact the sender by reply email and destroy all copies of the original message. This communication does not constitute an offer, acceptance, or agreement of any kind. Contoso Financial Services Ltd. is authorized and regulated by the Financial Conduct Authority. Registered in England and Wales No. 12345678. Registered Office: 100 Wall Street, London EC2V 7QE. IMPORTANT LEGAL NOTICE: This email message, including any attachments, is for the sole use of the intended recipient(s) and may contain confidential and privileged information. Any unauthorized review, use, disclosure, or distribution is prohibited. If you are not the intended recipient, please contact the sender by reply email and destroy all copies of the original message. This communication does not constitute an offer, acceptance, or agreement of any kind. Contoso Financial Services Ltd. is authorized and regulated by the Financial Conduct Authority. Registered in England and Wales No. 12345678. Registered Office: 100 Wall Street, London EC2V 7QE. IMPORTANT LEGAL NOTICE: This email message, including any attachments, is for the sole use of the intended recipient(s) and may contain confidential and privileged information. Any unauthorized review, use, disclosure, or distribution is prohibited. If you are not the intended recipient, please contact the sender by reply email and destroy all copies of the original message. This communication does not constitute an offer, acceptance, or agreement of any kind. Contoso Financial Services Ltd. is authorized and regulated by the Financial Conduct Authority. Registered in England and Wales No. 12345678. Registered Office: 100 Wall Street, London EC2V 7QE. ",
+        "reporter": {
+            "name": "Robert Hall",
+            "email": "r.hall@contoso.com",
+            "department": "Trading"
+        },
+        "created_at": "2026-03-18T09:00:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5018",
+        "subject": "URGENT: Production database backup failed - daily job skipped last night",
+        "description": "",
+        "reporter": {
+            "name": "DBA Team",
+            "email": "dba@contoso.com",
+            "department": "IT"
+        },
+        "created_at": "2026-03-18T07:00:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5019",
+        "subject": "Phone call — user reporting login issue",
+        "description": "CALL TRANSCRIPT\n================\n\n\nAgent:\t\tHi, how can I help you today?\n\nCaller:\t\tYeah, um, I can't log in.\n\n\nAgent:\t\tOkay, what system are you trying to access?\n\nCaller:\t\tThe... uh... the VPN thing? Global... something?\n\n\nAgent:\t\tGlobalProtect VPN?\n\nCaller:\t\tYeah that one. It says my password is wrong\n\t\t\tbut I just changed it yesterday.\n\n\n\nAgent:\t\tDid you update the password in the VPN client?\n\nCaller:\t\tI... don't know? How do I do that?\n\n\nAgent:\t\tI'll create a ticket for the IAM team.\n\n\t\t[END OF CALL]\n\n\n\n\n",
+        "reporter": {
+            "name": "Call Center",
+            "email": "callcenter@contoso.com",
+            "department": "IT"
+        },
+        "created_at": "2026-03-18T11:30:00Z",
+        "channel": "phone",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5020",
+        "subject": "Suspicious email with attachment - possible phishing",
+        "description": "I received a suspicious email that looked like it was from our CEO but the email address was slightly different (ceo@cont0so.com vs contoso.com). It had an attachment that I accidentally opened. Here's what was in it:\n\nZdyO5BoGJkF7XxiitbvuR9sWKu9fwHPGoZx9AbOGlTYZch4BqiGvQSj2HX9DMcDo7EEbNUm+fa3UTfx1+rilHmPP4BFNuDkU+HWmA2/ZV8Q86aRdOBU5xf2Os592GVR5wK3ptJ+v1iyvRl778bQizJW+QsipFiQRKh5/BwrHUw1XyrCUbdIkYRyd8qLQAskbf5Tkmmw244CJlACmqc94G1u4ndaeaq/aWnQN5+FpMJn5EXQ6Qmn9rJen9/qzr6zeNs6W57TTdzxNTTlD0Pa+XvfJZ4n80wVHckK4TBqpAm5ComDTnlHcKzB5o9mhoaQfVdhXPZQPjeq8kp36HSzKQFOnCLJ++uV885zMu8+awDzG+5bM83qKS38Aw/o05UKEz1MfCbfc8Y3AMEC37ESN+UitvBEBHJAscndAooYXiyvAlHM93BCecqEQG5CU3Jo0OWNYVzjhYZgWSF/3xVo237YJIVJoGDdPz9morDx3S8s8rsI5RVzQdMWcYsKSOLpbysEXCQof2JnNNYcp7t2S2GzkKDDUZje6pNQC7rISxfhZ0CY2M/QzNovHtIm+7167ZOpWtHghEmZPwC+pwgWxkEcwYsgrrj/QfYlU32vd8WcZXg5yny9AdOz2UXyz5qpXt11tmhqn0+u6GAFnVX9t8jF8x+0=\n\nZdyO5BoGJkF7XxiitbvuR9sWKu9fwHPGoZx9AbOGlTYZch4BqiGvQSj2HX9DMcDo7EEbNUm+fa3UTfx1+rilHmPP4BFNuDkU+HWmA2/ZV8Q86aRdOBU5xf2Os592GVR5wK3ptJ+v1iyvRl778bQizJW+QsipFiQRKh5/BwrHUw1XyrCUbdIkYRyd8qLQAskbf5Tkmmw244CJlACmqc94G1u4ndaeaq/aWnQN5+FpMJn5EXQ6Qmn9rJen9/qzr6zeNs6W57TTdzxNTTlD0Pa+XvfJZ4n80wVHckK4TBqpAm5ComDTnlHcKzB5o9mhoaQfVdhXPZQPjeq8kp36HSzKQFOnCLJ++uV885zMu8+awDzG+5bM83qKS38Aw/o05UKEz1MfCbfc8Y3AMEC37ESN+UitvBEBHJAscndAooYXiyvAlHM93BCecqEQG5CU3Jo0OWNYVzjhYZgWSF/3xVo237YJIVJoGDdPz9morDx3S8s8rsI5RVzQdMWcYsKSOLpbysEXCQof2JnNNYcp7t2S2GzkKDDUZje6pNQC7rISxfhZ0CY2M/QzNovHtIm+7167ZOpWtHghEmZPwC+pwgWxkEcwYsgrrj/QfYlU32vd8WcZXg5yny9AdOz2UXyz5qpXt11tmhqn0+u6GAFnVX9t8jF8x+0=\n\nAfter opening it my antivirus popped up with a warning but then nothing happened. I'm worried my machine might be compromised. Should I disconnect from the network?",
+        "reporter": {
+            "name": "Nicole Adams",
+            "email": "n.adams@contoso.com",
+            "department": "Finance"
+        },
+        "created_at": "2026-03-18T15:30:00Z",
+        "channel": "email",
+        "attachments": []
+    }
+]
