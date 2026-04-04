@@ -116,6 +116,48 @@ uv run python run_eval.py \
   --dataset ../data/tickets/public_eval.json
 ```
 
+### Data cleanup eval (75 tickets with gold answers)
+
+Tests your system against messy real-world data: very long emails, base64-encoded images in descriptions, HTML markup, excessive Unicode/emoji, whitespace-only content, repeated text, deeply nested email forwards, mixed-language tickets, raw JSON/XML dumps, empty descriptions, MIME-encoded content, OCR artifacts, container logs, and more.
+
+```bash
+cd docs/eval
+uv run python run_eval.py \
+  --endpoint http://localhost:8000 \
+  --dataset ../data/tickets/eval_data_cleanup.json \
+  --gold ../data/tickets/eval_data_cleanup_gold.json
+```
+
+Or using the `ms-evals` Python library:
+
+```bash
+cd py
+uv run python -m ms.evals \
+  --endpoint http://localhost:8000 \
+  --dataset eval_data_cleanup
+```
+
+### Responsible AI eval (75 tickets with gold answers)
+
+Tests your system against adversarial inputs: prompt injection, jailbreak attempts, social engineering, CEO fraud/BEC, requests for harmful content, priority manipulation, embedded classification overrides, encoding obfuscation, homoglyph attacks, multi-language injection, and combined multi-vector attacks.
+
+```bash
+cd docs/eval
+uv run python run_eval.py \
+  --endpoint http://localhost:8000 \
+  --dataset ../data/tickets/eval_responsible_ai.json \
+  --gold ../data/tickets/eval_responsible_ai_gold.json
+```
+
+Or using the `ms-evals` Python library:
+
+```bash
+cd py
+uv run python -m ms.evals \
+  --endpoint http://localhost:8000 \
+  --dataset eval_responsible_ai
+```
+
 ### Custom gold file
 
 ```bash

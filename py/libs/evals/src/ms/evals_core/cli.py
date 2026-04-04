@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 
 from ms.evals_core.generator import export_dataset
+from ms.evals_core.generator import export_specialized_datasets
 from ms.evals_core.generator import generate_dataset
 from ms.evals_core.generator import print_distribution
 from ms.evals_core.generator import validate_dataset
@@ -27,11 +28,17 @@ def main() -> int:
             print(f"  ⚠ {issue}")
         print()
 
-    # Export
+    # Export combined dataset
     output_dir = Path(__file__).resolve().parents[6] / "docs" / "data" / "tickets"
     tickets_path, gold_path = export_dataset(dataset, output_dir)
     print(f"Exported tickets to: {tickets_path}")
     print(f"Exported gold answers to: {gold_path}")
+
+    # Export specialized datasets (data cleanup + responsible AI)
+    specialized = export_specialized_datasets(output_dir)
+    for name, (t_path, g_path) in specialized.items():
+        print(f"Exported {name} tickets to: {t_path}")
+        print(f"Exported {name} gold answers to: {g_path}")
 
     return 0
 

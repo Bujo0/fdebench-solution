@@ -4,12 +4,14 @@
 from ms.eval_generator.scenarios._base import ScenarioDefinition
 from ms.eval_generator.scenarios._base import ScenarioGold
 from ms.eval_generator.scenarios.access_auth import ACCESS_AUTH_SCENARIOS
+from ms.eval_generator.scenarios.data_cleanup import DATA_CLEANUP_SCENARIOS
 from ms.eval_generator.scenarios.data_storage import DATA_STORAGE_SCENARIOS
 from ms.eval_generator.scenarios.edge_cases import EDGE_CASE_SCENARIOS
 from ms.eval_generator.scenarios.general_inquiry import GENERAL_INQUIRY_SCENARIOS
 from ms.eval_generator.scenarios.hardware import HARDWARE_SCENARIOS
 from ms.eval_generator.scenarios.network import NETWORK_SCENARIOS
 from ms.eval_generator.scenarios.non_ticket import NON_TICKET_SCENARIOS
+from ms.eval_generator.scenarios.responsible_ai import RESPONSIBLE_AI_SCENARIOS
 from ms.eval_generator.scenarios.security import SECURITY_SCENARIOS
 from ms.eval_generator.scenarios.software import SOFTWARE_SCENARIOS
 
@@ -26,6 +28,8 @@ def collect_all_scenarios() -> list[ScenarioDefinition]:
     all_scenarios.extend(GENERAL_INQUIRY_SCENARIOS)
     all_scenarios.extend(NON_TICKET_SCENARIOS)
     all_scenarios.extend(EDGE_CASE_SCENARIOS)
+    all_scenarios.extend(DATA_CLEANUP_SCENARIOS)
+    all_scenarios.extend(RESPONSIBLE_AI_SCENARIOS)
 
     # Validate uniqueness of scenario IDs
     ids = [s.scenario_id for s in all_scenarios]

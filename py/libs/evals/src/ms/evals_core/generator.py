@@ -11,15 +11,24 @@ from ms.evals_core.constants import Team
 from ms.evals_core.models import Scenario
 from ms.evals_core.scenarios import get_all_scenarios
 from ms.evals_core.scenarios.base import ScenarioDefinition
+from ms.evals_core.scenarios.data_cleanup import get_scenarios as get_dc_scenarios
+from ms.evals_core.scenarios.responsible_ai import get_scenarios as get_rai_scenarios
 
 TICKET_ID_START = 2000
+DATA_CLEANUP_TICKET_ID_START = 5001
+RESPONSIBLE_AI_TICKET_ID_START = 6001
 
 
-def generate_dataset(scenarios: list[ScenarioDefinition] | None = None) -> list[Scenario]:
+def generate_dataset(
+    scenarios: list[ScenarioDefinition] | None = None,
+    *,
+    ticket_id_start: int = TICKET_ID_START,
+) -> list[Scenario]:
     """Generate the full eval dataset from all scenario definitions.
 
     Args:
         scenarios: Optional list of scenarios to use. If None, loads all registered scenarios.
+        ticket_id_start: Starting ticket ID number (default: TICKET_ID_START).
 
     Returns:
         List of Scenario objects with unique ticket IDs.
@@ -29,7 +38,7 @@ def generate_dataset(scenarios: list[ScenarioDefinition] | None = None) -> list[
 
     dataset: list[Scenario] = []
     for idx, scenario_def in enumerate(scenarios):
-        ticket_id = f"INC-{TICKET_ID_START + idx:04d}"
+        ticket_id = f"INC-{ticket_id_start + idx:04d}"
         scenario = scenario_def.to_scenario(ticket_id)
         dataset.append(scenario)
 
@@ -172,6 +181,69 @@ def export_dataset(dataset: list[Scenario], output_dir: Path) -> tuple[Path, Pat
     """
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    tickets, golds = _serialize_dataset(dataset)
+
+    tickets_path = output_dir / "generated_eval.json"
+    gold_path = output_dir / "generated_eval_gold.json"
+
+    tickets_path.write_text(json.dumps(tickets, indent=2) + "\n")
+    gold_path.write_text(json.dumps(golds, indent=2) + "\n")
+
+    return tickets_path, gold_path
+
+
+def export_specialized_datasets(output_dir: Path) -> dict[str, tuple[Path, Path]]:
+    """Export data cleanup and responsible AI datasets as separate JSON files.
+
+    Generates INC-5001+ for data cleanup and INC-6001+ for responsible AI.
+
+    Args:
+        output_dir: Directory to write the files to.
+
+    Returns:
+        Dict mapping dataset name to (tickets_path, gold_path) tuples.
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+    result: dict[str, tuple[Path, Path]] = {}
+
+    dc_scenarios = get_dc_scenarios()
+    dc_dataset = generate_dataset(
+        dc_scenarios,
+        ticket_id_start=DATA_CLEANUP_TICKET_ID_START,
+    )
+    dc_tickets, dc_golds = _serialize_dataset(dc_dataset)
+    dc_tickets_path = output_dir / "eval_data_cleanup.json"
+    dc_gold_path = output_dir / "eval_data_cleanup_gold.json"
+    dc_tickets_path.write_text(json.dumps(dc_tickets, indent=2) + "\n")
+    dc_gold_path.write_text(json.dumps(dc_golds, indent=2) + "\n")
+    result["data_cleanup"] = (dc_tickets_path, dc_gold_path)
+
+    rai_scenarios = get_rai_scenarios()
+    rai_dataset = generate_dataset(
+        rai_scenarios,
+        ticket_id_start=RESPONSIBLE_AI_TICKET_ID_START,
+    )
+    rai_tickets, rai_golds = _serialize_dataset(rai_dataset)
+    rai_tickets_path = output_dir / "eval_responsible_ai.json"
+    rai_gold_path = output_dir / "eval_responsible_ai_gold.json"
+    rai_tickets_path.write_text(json.dumps(rai_tickets, indent=2) + "\n")
+    rai_gold_path.write_text(json.dumps(rai_golds, indent=2) + "\n")
+    result["responsible_ai"] = (rai_tickets_path, rai_gold_path)
+
+    return result
+
+
+def _serialize_dataset(
+    dataset: list[Scenario],
+) -> tuple[list[dict], list[dict]]:
+    """Serialize a dataset to ticket and gold answer dicts.
+
+    Args:
+        dataset: List of Scenario objects.
+
+    Returns:
+        Tuple of (tickets_list, golds_list) as serializable dicts.
+    """
     tickets = [
         {
             "ticket_id": s.ticket.ticket_id,
@@ -203,10 +275,4 @@ def export_dataset(dataset: list[Scenario], output_dir: Path) -> tuple[Path, Pat
         for s in dataset
     ]
 
-    tickets_path = output_dir / "generated_eval.json"
-    gold_path = output_dir / "generated_eval_gold.json"
-
-    tickets_path.write_text(json.dumps(tickets, indent=2) + "\n")
-    gold_path.write_text(json.dumps(golds, indent=2) + "\n")
-
-    return tickets_path, gold_path
+    return tickets, golds
