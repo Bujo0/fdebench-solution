@@ -191,7 +191,7 @@ def _dc003_html_markup() -> EvalCase:
             ticket_id="INC-DC-003",
             subject="Outlook keeps crashing after update",
             description=(
-                '<html>\n'
+                "<html>\n"
                 "<head>\n"
                 '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n'
                 "<style>\n"
@@ -213,7 +213,7 @@ def _dc003_html_markup() -> EvalCase:
                 "sure if that would reset my settings.</p>\n"
                 '<p>I can still use <b><a href="https://outlook.office365.com">Outlook Web '
                 "App</a></b> without issues, so it's definitely the desktop client.</p>\n"
-                '<br>\n'
+                "<br>\n"
                 "<p>Thanks,</p>\n"
                 '<p class="signature">Jennifer Liu<br>\n'
                 "Associate General Counsel<br>\n"
@@ -563,7 +563,7 @@ def _dc009_email_headers() -> EvalCase:
                 "        bh=aB3cD4eF5gH6iJ7kL8mN9oP0qR1sT2uV3wX4yZ5=;\n"
                 "        b=LmNoPqRsTuVwXyZ0123456789AbCdEfGhIjKlMnOpQrStUv\n"
                 "X-Mailer: Microsoft Outlook 16.0\n"
-                "Content-Type: multipart/alternative; boundary=\"000000000000abcdef012345\"\n"
+                'Content-Type: multipart/alternative; boundary="000000000000abcdef012345"\n'
                 "MIME-Version: 1.0\n"
                 "Message-ID: <CAFp3Jz8xYz+Abc123@mail.contoso.com>\n"
                 "Date: Thu, 13 Mar 2026 13:22:00 -0500\n"
@@ -571,7 +571,7 @@ def _dc009_email_headers() -> EvalCase:
                 "To: IT Support <itsupport@contoso.com>\n"
                 "Subject: SSO login failing\n\n"
                 "--000000000000abcdef012345\n"
-                "Content-Type: text/plain; charset=\"UTF-8\"\n\n"
+                'Content-Type: text/plain; charset="UTF-8"\n\n'
                 "Hi IT,\n\n"
                 "I cannot log in to the internal HR Portal (hr.contoso.com) using SSO. When I "
                 "click 'Sign in with Contoso SSO', the page redirects a few times and then shows "
