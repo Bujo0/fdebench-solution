@@ -9560,9 +9560,12 @@ def get_scenarios() -> list[ScenarioDefinition]:
             ),
             remediation_steps=[
                 "Run `az vm list-skus --location eastus --size Standard_D8s_v5` to confirm SKU availability.",
-                "Check the subscription's vCPU quota with `az vm list-usage --location eastus` and request an increase if needed.",
-                "If the SKU is restricted, try an alternative size such as Standard_D8as_v5 or deploy to a different region.",
-                "Update the Terraform configuration with the corrected VM size or location and re-run `terraform plan`.",
+                "Check the subscription's vCPU quota with `az vm list-usage --location eastus` and request an increase"
+                " if needed.",
+                "If the SKU is restricted, try an alternative size such as Standard_D8as_v5 or deploy to a different"
+                " region.",
+                "Update the Terraform configuration with the corrected VM size"
+                " or location and re-run `terraform plan`.",
                 "Document the SKU limitation in the team's infrastructure runbook for future reference.",
             ],
             reporter_name="Ethan Kowalski",
@@ -9635,8 +9638,10 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "potential OOM conditions."
             ),
             remediation_steps=[
-                "Check Kubernetes pod status and recent restarts with `kubectl get pods` and `kubectl describe pod` for the portfolio analytics service.",
-                "Review container memory limits and compare against the 4.8 GB resident memory — increase limits or fix the memory leak.",
+                "Check Kubernetes pod status and recent restarts with `kubectl get pods` and `kubectl describe pod` for"
+                " the portfolio analytics service.",
+                "Review container memory limits and compare against the 4.8 GB resident memory — increase limits or fix"
+                " the memory leak.",
                 "Check if a recent deployment correlates with the 10:05 AM latency spike and roll back if necessary.",
                 "Restart the affected pods as an immediate mitigation to free memory.",
                 "Set up a Grafana alert for p99 latency > 2s to catch regressions earlier.",
@@ -9711,10 +9716,12 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "connection and the report template engine."
             ),
             remediation_steps=[
-                "Check connectivity and performance of SQL-PROD-03 — the Risk VaR sub-report returned 0 rows with a TIMEOUT.",
+                "Check connectivity and performance of SQL-PROD-03 — the Risk VaR sub-report returned 0 rows with a"
+                " TIMEOUT.",
                 "Review the report template engine logs for ERR_TEMPLATE_RENDER_0x8004 to identify the root cause.",
                 "Verify that the Q1 data set is fully loaded into the Treasury and Risk Management data sources.",
-                "Re-run the failed reports individually to isolate whether the issue is the template engine or the data source.",
+                "Re-run the failed reports individually to isolate whether the issue is the template engine or the data"
+                " source.",
                 "Escalate to the DBA team if SQL-PROD-03 is experiencing broader performance issues.",
             ],
             reporter_name="Grace Thornton",
@@ -9787,9 +9794,11 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "hardware defect. Schedule an Apple depot repair under AppleCare."
             ),
             remediation_steps=[
-                "Confirm the issue persists after booting into macOS Recovery and testing the port with a known-good device.",
+                "Confirm the issue persists after booting into macOS Recovery and testing the port with a known-good"
+                " device.",
                 "Run Apple Diagnostics (hold D at startup) to check for hardware fault codes on the USB controller.",
-                "If diagnostics report a fault, initiate an AppleCare depot repair (coverage confirmed through March 2028).",
+                "If diagnostics report a fault, initiate an AppleCare depot repair (coverage confirmed through March"
+                " 2028).",
                 "Issue a loaner MacBook Pro from the IT equipment pool while the device is in repair.",
                 "Update the asset management system (CNTSO-MBP-40221) with the repair ticket number.",
             ],
@@ -9852,8 +9861,10 @@ def get_scenarios() -> list[ScenarioDefinition]:
             ),
             remediation_steps=[
                 "Issue a new S/MIME certificate for jessica.lang@contoso.com from the Contoso Financial CA.",
-                "Publish the new certificate to the Global Address List so external correspondents can encrypt to the new key.",
-                "Archive the expired private key in the user's certificate store to retain access to previously encrypted emails.",
+                "Publish the new certificate to the Global Address List so external correspondents can encrypt to the"
+                " new key.",
+                "Archive the expired private key in the user's certificate store to retain access to previously"
+                " encrypted emails.",
                 "Test decryption of an existing encrypted email and sending a new signed email to external counsel.",
                 "Set up a calendar reminder 30 days before the new certificate's expiration to avoid recurrence.",
             ],
@@ -9923,11 +9934,14 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "and restore the allow rule immediately."
             ),
             remediation_steps=[
-                "Review the change management log for last night's window to identify what rule was modified on pa-fw-01.",
-                "Add an emergency allow rule for 10.10.50.0/24 -> 203.0.113.45-46 on TCP/443 to restore payment traffic immediately.",
+                "Review the change management log for last night's window to identify what rule was modified on"
+                " pa-fw-01.",
+                "Add an emergency allow rule for 10.10.50.0/24 -> 203.0.113.45-46 on TCP/443 to restore payment traffic"
+                " immediately.",
                 "Verify payment transactions are flowing again by checking the payment gateway dashboard.",
                 "Conduct a post-incident review of the change that introduced the blocking rule.",
-                "Implement a pre-change validation check that tests connectivity to critical payment endpoints before committing firewall changes.",
+                "Implement a pre-change validation check that tests connectivity to critical payment endpoints before"
+                " committing firewall changes.",
             ],
             reporter_name="Carlos Mendez",
             reporter_email="carlos.mendez@contoso.com",
@@ -10020,11 +10034,14 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "Contoso."
             ),
             remediation_steps=[
-                "Check if 'stcontosoanalyticsprod' exists in another Contoso subscription with `az storage account list --query \"[?name=='stcontosoanalyticsprod']\"` across all subscriptions.",
+                "Check if 'stcontosoanalyticsprod' exists in another Contoso subscription with `az storage account list"
+                " --query \"[?name=='stcontosoanalyticsprod']\"` across all subscriptions.",
                 "If the account exists elsewhere, coordinate with the owning team to either reuse or rename.",
-                "If externally taken, choose a new globally unique name (e.g., 'stcntsoanalyticsprd01') and update the ARM template parameter.",
+                "If externally taken, choose a new globally unique name (e.g., 'stcntsoanalyticsprd01') and update the"
+                " ARM template parameter.",
                 "Re-run the deployment with `az deployment group create` using the corrected storage account name.",
-                "Add a naming convention check to the CI/CD pipeline to validate resource name availability before deployment.",
+                "Add a naming convention check to the CI/CD pipeline to validate resource name availability before"
+                " deployment.",
             ],
             reporter_name="Raj Venkatesh",
             reporter_email="raj.venkatesh@contoso.com",
@@ -10083,9 +10100,11 @@ def get_scenarios() -> list[ScenarioDefinition]:
             remediation_steps=[
                 "Roll back the March 20 ABBYY FineReader Server update to the previous version to restore OCR quality.",
                 "Re-process a sample batch of stuck invoices to confirm OCR output quality is restored.",
-                "If rollback isn't possible, contact ABBYY support with sample PDFs to get a hotfix for the recognition regression.",
+                "If rollback isn't possible, contact ABBYY support with sample PDFs to get a hotfix for the recognition"
+                " regression.",
                 "Once OCR is working, requeue the 340 stuck invoices for reprocessing.",
-                "Implement OCR quality validation on a test batch before applying future updates to the production pipeline.",
+                "Implement OCR quality validation on a test batch before applying future updates to the production"
+                " pipeline.",
             ],
             reporter_name="Linda Fujimoto",
             reporter_email="linda.fujimoto@contoso.com",
@@ -10185,7 +10204,8 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "Restore or fix the market data feed mock so tests don't depend on an external service in CI.",
                 "Run the test suite locally with the fix to confirm all 847 tests pass.",
                 "Push the fix to main and verify the GitHub Actions build goes green.",
-                "Add a CI environment check to test_market_data.py that skips or mocks external feeds when DATABASE_URL indicates a CI environment.",
+                "Add a CI environment check to test_market_data.py that skips or mocks external feeds when DATABASE_URL"
+                " indicates a CI environment.",
             ],
             reporter_name="Nathan Borkowski",
             reporter_email="nathan.borkowski@contoso.com",
@@ -10271,9 +10291,11 @@ def get_scenarios() -> list[ScenarioDefinition]:
             ),
             remediation_steps=[
                 "Look up Samira Hussain's home shipping address in Workday using employee ID EMP-10482.",
-                "Initiate a YubiKey 5C replacement shipment via the IT hardware provisioning portal with expedited shipping.",
+                "Initiate a YubiKey 5C replacement shipment via the IT hardware provisioning portal with expedited"
+                " shipping.",
                 "Verify the temporary TOTP software token is registered correctly and set to expire on March 27, 2026.",
-                "Follow up with Samira on March 26 to confirm the replacement YubiKey has arrived and assist with enrollment.",
+                "Follow up with Samira on March 26 to confirm the replacement YubiKey has arrived and assist with"
+                " enrollment.",
                 "Decommission the expired hardware token (serial: YK-5C-00293847) in the MFA management console.",
             ],
             reporter_name="Omar Farouk",
