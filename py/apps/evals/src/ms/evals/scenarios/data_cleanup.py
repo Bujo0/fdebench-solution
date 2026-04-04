@@ -5466,3 +5466,786 @@ register(
         ],
     )
 )
+
+# ---------------------------------------------------------------------------
+# dc-101  GraphQL introspection dump in description
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-101",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE, MissingInfo.STEPS_TO_REPRODUCE],
+        subjects=[
+            "API gateway returning wrong data — GraphQL schema dump attached",
+            "GraphQL endpoint broken after deployment — introspection output inside",
+            "App returning stale results — pasted full schema for reference",
+        ],
+        descriptions=[
+            "Hi team,\n\n"
+            "Our {app} dashboard stopped returning correct user data after Friday's "
+            "deploy. I ran an introspection query to check the schema and I'm pasting "
+            "the output here so you can see what changed:\n\n"
+            '{{"data":{{"__schema":{{"queryType":{{"name":"Query"}},"mutationType":'
+            '{{"name":"Mutation"}},"subscriptionType":null,"types":['
+            '{{"kind":"OBJECT","name":"Query","fields":['
+            '{{"name":"user","args":[{{"name":"id","type":{{"kind":"NON_NULL",'
+            '"ofType":{{"kind":"SCALAR","name":"ID"}}}}}}],'
+            '"type":{{"kind":"OBJECT","name":"User"}}}},'
+            '{{"name":"tickets","args":[{{"name":"filter","type":'
+            '{{"kind":"INPUT_OBJECT","name":"TicketFilter"}}}}],'
+            '"type":{{"kind":"LIST","ofType":{{"kind":"OBJECT","name":"Ticket"}}}}}},'
+            '{{"name":"departments","args":[],"type":{{"kind":"LIST","ofType":'
+            '{{"kind":"OBJECT","name":"Department"}}}}}}]}},'
+            '{{"kind":"OBJECT","name":"User","fields":['
+            '{{"name":"id","type":{{"kind":"SCALAR","name":"ID"}}}},'
+            '{{"name":"email","type":{{"kind":"SCALAR","name":"String"}}}},'
+            '{{"name":"displayName","type":{{"kind":"SCALAR","name":"String"}}}},'
+            '{{"name":"department","type":{{"kind":"OBJECT","name":"Department"}}}},'
+            '{{"name":"manager","type":{{"kind":"OBJECT","name":"User"}}}}]}},'
+            '{{"kind":"OBJECT","name":"Ticket","fields":['
+            '{{"name":"id","type":{{"kind":"SCALAR","name":"ID"}}}},'
+            '{{"name":"subject","type":{{"kind":"SCALAR","name":"String"}}}},'
+            '{{"name":"status","type":{{"kind":"ENUM","name":"TicketStatus"}}}}]}}]'
+            "}}}}}}\n\n"
+            "The 'user' query used to return a 'role' field but I don't see it in the "
+            "schema anymore. This is breaking our RBAC checks in the {app} frontend.\n\n"
+            "{name}, {department}",
+            "After the last release, {app} is returning null for user roles. I ran "
+            "the GraphQL introspection and the role field is missing from the User "
+            "type. Here's a partial introspection dump:\n\n"
+            '{{"data":{{"__schema":{{"types":['
+            '{{"kind":"OBJECT","name":"User","fields":['
+            '{{"name":"id","type":{{"kind":"SCALAR","name":"ID"}}}},'
+            '{{"name":"email","type":{{"kind":"SCALAR","name":"String"}}}},'
+            '{{"name":"displayName","type":{{"kind":"SCALAR","name":"String"}}}}]}},'
+            '{{"kind":"ENUM","name":"TicketStatus","enumValues":['
+            '{{"name":"OPEN"}},{{"name":"IN_PROGRESS"}},{{"name":"CLOSED"}},'
+            '{{"name":"PENDING"}}]}}]}}}}}}\n\n'
+            "Can someone check if the schema migration dropped the role field? "
+            "This is affecting all users in the {office} office.",
+        ],
+        next_best_actions=[
+            "Investigate the missing 'role' field in the GraphQL User type — likely "
+            "a schema regression from the last deployment. Ignore the raw introspection "
+            "JSON noise and focus on the reported RBAC breakage.",
+            "Check the recent deployment for schema migration issues — the user reports "
+            "that the 'role' field was dropped from the User type, breaking RBAC.",
+        ],
+        remediation_steps=[
+            [
+                "Review the most recent schema migration for accidental removal of the 'role' field",
+                "Compare the current GraphQL schema against the previous release version",
+                "If the field was dropped in error, roll back the schema migration or add the field back",
+                "Verify RBAC checks in the frontend are working after the schema is corrected",
+                "Advise the user to avoid pasting full introspection dumps in tickets — link to a diff instead",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-102  Windows BSOD minidump output
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-102",
+        category=Category.HARDWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.STEPS_TO_REPRODUCE],
+        subjects=[
+            "BSOD happening daily — minidump output pasted below",
+            "Blue screen crash every afternoon — WinDbg output inside",
+            "Laptop blue-screening — I copied the dump analysis",
+        ],
+        descriptions=[
+            "My laptop has been blue-screening every day around 2-3 PM. I ran WinDbg "
+            "on the minidump and here's the output:\n\n"
+            "Microsoft (R) Windows Debugger Version 10.0.25877.1004 AMD64\n"
+            "Copyright (c) Microsoft Corporation. All rights reserved.\n\n"
+            "Loading Dump File [C:\\Windows\\Minidump\\{date}.dmp]\n"
+            "Mini Kernel Dump File: Only registers and stack trace are available\n\n"
+            "Symbol search path is: srv*\n"
+            "Executable search path is:\n"
+            "Windows 11 Kernel Version 22631 MP (8 procs) Free x64\n"
+            "Product: WinNt, suite: TerminalServer SingleUserTS\n"
+            "Edition build lab: 22631.1.amd64fre.ni_release.220506-1250\n"
+            "Machine Name:\n"
+            "Kernel base = 0xfffff802`1fa00000 PsLoadedModuleList = 0xfffff802`20c134a0\n"
+            "Debug session time: {date} 14:32:07.442\n"
+            "System Uptime: 0 days 5:12:33.441\n"
+            "Loading Kernel Symbols\n"
+            "...............................................................\n"
+            "Loading User Symbols\n\n"
+            "BUGCHECK_STR:  DRIVER_IRQL_NOT_LESS_OR_EQUAL\n"
+            "DEFAULT_BUCKET_ID:  WIN8_DRIVER_FAULT\n"
+            "PROCESS_NAME:  {app}.exe\n"
+            "FAILURE_BUCKET_ID:  AV_ndis!ndisInterruptDpc\n"
+            "MODULE_NAME: ndis\n"
+            "IMAGE_NAME:  ndis.sys\n"
+            "STACK_TEXT:\n"
+            "fffff802`1fb34a20 fffff802`1fb2e100 : ndis!ndisInterruptDpc+0x1a2\n"
+            "fffff802`1fb34a80 fffff802`1fa8c3b0 : nt!KiProcessExpiredTimerList+0x172\n"
+            "fffff802`1fb34b50 fffff802`1fa8b8e5 : nt!KiRetireDpcList+0x5d0\n"
+            "fffff802`1fb34e00 fffff802`1fa8b730 : nt!KiIdleLoop+0x55\n\n"
+            "I think it's a network driver issue. This happens when I'm on VPN "
+            "connected to the {office} office. Laptop is a Lenovo ThinkPad.\n\n"
+            "{name}, {department}",
+            "Keep getting BSOD — stop code DRIVER_IRQL_NOT_LESS_OR_EQUAL. I found "
+            "this in Event Viewer:\n\n"
+            "Log Name:      System\n"
+            "Source:        BugCheck\n"
+            "Event ID:      1001\n"
+            "Level:         Error\n"
+            "Description:   The computer has rebooted from a bugcheck. The bugcheck "
+            "was: 0x000000d1 (0xfffff802deadbeef, 0x0000000000000002, "
+            "0x0000000000000000, 0xfffff80200000000). A dump was saved in: "
+            "C:\\Windows\\MEMORY.DMP. Report Id: {number}-{number}-{number}.\n\n"
+            "Minidump analysis points to ndis.sys. The crashes started after I "
+            "installed the new Cisco AnyConnect client last week. I'm in the "
+            "{office} office, Floor {floor}.\n\n{name}",
+        ],
+        next_best_actions=[
+            "Investigate the BSOD caused by ndis.sys — likely a network driver conflict, "
+            "possibly related to the VPN client. Ignore the raw debugger output and focus "
+            "on the driver fault and timing correlation.",
+            "The crash analysis points to a network driver fault in ndis.sys. Check for "
+            "VPN client and NIC driver compatibility issues.",
+        ],
+        remediation_steps=[
+            [
+                "Update the NIC driver to the latest version from the manufacturer",
+                "Check for known compatibility issues between the VPN client and the NIC driver",
+                "If the crash started after a VPN client update, roll back to the previous version",
+                "Run Windows memory diagnostics to rule out RAM issues",
+                "If BSODs persist, collect a full memory dump and escalate to the endpoint engineering team",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-103  Teams/Slack webhook JSON payloads
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-103",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE, MissingInfo.CONFIGURATION_DETAILS],
+        subjects=[
+            "Teams webhook notifications stopped working — JSON payload inside",
+            "Slack incoming webhook returning 400 — request body pasted",
+            "Webhook integration broken after Teams update — payload samples",
+        ],
+        descriptions=[
+            "Our alerting pipeline sends notifications to a Teams channel via webhook "
+            "but it stopped working yesterday. Here's the payload we're sending:\n\n"
+            '{{"@type":"MessageCard","@context":"https://schema.org/extensions",'
+            '"themeColor":"FF0000","summary":"Alert: High CPU on {app}-prod-01",'
+            '"sections":[{{"activityTitle":"🚨 Production Alert",'
+            '"activitySubtitle":"{app}-prod-01","activityImage":'
+            '"https://monitoring.contoso.com/icons/alert.png","facts":['
+            '{{"name":"Server",    "value":"{app}-prod-01"}},'
+            '{{"name":"CPU",       "value":"98.7%"}},'
+            '{{"name":"Memory",    "value":"94.2%"}},'
+            '{{"name":"Disk",      "value":"87.1%"}},'
+            '{{"name":"Status",    "value":"CRITICAL"}},'
+            '{{"name":"Since",     "value":"{date} 14:23 UTC"}},'
+            '{{"name":"Region",    "value":"East US 2"}}],'
+            '"markdown":true}}],"potentialAction":[{{"@type":"OpenUri",'
+            '"name":"View Dashboard","targets":[{{"os":"default",'
+            '"uri":"https://monitoring.contoso.com/dashboard/{app}"}}]}}]}}\n\n'
+            "The webhook URL is https://contoso.webhook.office.com/webhookb2/ "
+            "(truncated). We get back HTTP 400 with no useful error body. This was "
+            "working fine until the Teams admin portal update on {date}.\n\n"
+            "{name}, {department}",
+            "Slack webhook integration for our {app} deployment pipeline broke. "
+            "Here's the JSON we post:\n\n"
+            '{{"channel":"#deployments","username":"DeployBot",'
+            '"icon_emoji":":rocket:","attachments":[{{"color":"danger",'
+            '"title":"Deployment Failed: {app} v2.14.3",'
+            '"fields":[{{"title":"Environment","value":"Production","short":true}},'
+            '{{"title":"Region","value":"West Europe","short":true}},'
+            '{{"title":"Error","value":"Container health check failed after 120s",'
+            '"short":false}},'
+            '{{"title":"Commit","value":"<https://github.contoso.com/app/commit/a1b2c3|a1b2c3>",'
+            '"short":true}}],"footer":"CI/CD Pipeline","ts":{number}}}]}}\n\n'
+            "Slack returns: {{'ok': false, 'error': 'invalid_payload'}}. The webhook "
+            "token was rotated last week — could that be the issue?\n\n{name}",
+        ],
+        next_best_actions=[
+            "Investigate the webhook integration failure — likely a payload format "
+            "change or credential rotation issue. Ignore the raw JSON payloads and "
+            "focus on the HTTP 400 / invalid_payload errors.",
+            "Check if the webhook URL or token was rotated recently and whether the "
+            "payload schema still matches the expected format.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the webhook URL is still active and has not been regenerated",
+                "Check if the Teams/Slack admin made changes to webhook permissions or payload requirements",
+                "Validate the JSON payload against the current API schema",
+                "If credentials were rotated, update the webhook URL/token in the alerting pipeline",
+                "Test with a minimal payload to isolate whether the issue is format or auth related",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-104  PowerShell mixed error/verbose/warning streams
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-104",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.ENVIRONMENT_DETAILS],
+        subjects=[
+            "Script failing on user provisioning — PowerShell output pasted",
+            "Automated onboarding script errors — full console output inside",
+            "PowerShell provisioning broken — mixed error and warning output",
+        ],
+        descriptions=[
+            "The user provisioning script is failing halfway through. I ran it with "
+            "-Verbose and captured everything:\n\n"
+            "VERBOSE: [09:14:01] Connecting to Exchange Online...\n"
+            "VERBOSE: [09:14:03] Connected successfully. Session ID: {number}\n"
+            "VERBOSE: [09:14:03] Processing user {name1}@contoso.com\n"
+            "VERBOSE: [09:14:04] Creating mailbox...\n"
+            "WARNING: The mailbox plan 'ExchangeOnline-Enterprise' is deprecated. "
+            "Use 'ExchangeOnline-M365Enterprise' instead.\n"
+            "VERBOSE: [09:14:06] Mailbox created: {name1}@contoso.com\n"
+            "VERBOSE: [09:14:06] Setting mailbox properties...\n"
+            "VERBOSE: [09:14:07] RetentionPolicy: 'Default-365day'\n"
+            "VERBOSE: [09:14:07] AddressBookPolicy: 'Global-ABP'\n"
+            "WARNING: RetentionPolicy 'Default-365day' not found. Using tenant default.\n"
+            "VERBOSE: [09:14:08] Assigning license...\n"
+            "Write-Error: Set-MsolUserLicense : Unable to assign license "
+            "'contoso:ENTERPRISEPACK' — the user already has a conflicting service "
+            "plan 'EXCHANGE_S_ENTERPRISE' from license 'contoso:EMS'.\n"
+            "    + CategoryInfo          : NotSpecified: (:) [Set-MsolUserLicense], "
+            "MicrosoftOnlineException\n"
+            "    + FullyQualifiedErrorId : Microsoft.Online.Administration."
+            "Automation.SetUserLicenseException\n"
+            "VERBOSE: [09:14:09] Attempting license assignment retry 1/3...\n"
+            "Write-Error: Set-MsolUserLicense : Unable to assign license — same error.\n"
+            "WARNING: Retry 1 failed. Waiting 5 seconds before retry 2.\n"
+            "VERBOSE: [09:14:14] Attempting license assignment retry 2/3...\n"
+            "Write-Error: Set-MsolUserLicense : Unable to assign license — same error.\n"
+            "WARNING: Retry 2 failed. Waiting 5 seconds before retry 3.\n"
+            "VERBOSE: [09:14:19] Attempting license assignment retry 3/3...\n"
+            "Write-Error: Set-MsolUserLicense : Unable to assign license — same error.\n"
+            "Write-Error: All 3 retries exhausted for {name1}@contoso.com.\n"
+            "VERBOSE: [09:14:20] Rolling back mailbox creation...\n"
+            "WARNING: Rollback failed — Remove-Mailbox requires Organization "
+            "Management role.\n"
+            "VERBOSE: [09:14:21] Script completed with errors. 0/1 users provisioned.\n\n"
+            "Can someone figure out what's going wrong? The script used to work fine.\n\n"
+            "{name}, {department}",
+            "Onboarding automation is broken. Here's the console output:\n\n"
+            "PS C:\\Scripts> .\\New-UserProvision.ps1 -UserList .\\new_hires.csv "
+            "-Verbose -WarningAction Continue 2>&1 | Tee-Object provision_log.txt\n\n"
+            "VERBOSE: Loading module AzureAD... Done.\n"
+            "VERBOSE: Loading module ExchangeOnlineManagement... Done.\n"
+            "VERBOSE: Loading module MicrosoftTeams... Done.\n"
+            "WARNING: Module 'AzureAD' is deprecated. Migrate to 'Microsoft.Graph'.\n"
+            "WARNING: Module 'MSOnline' is deprecated. Migrate to 'Microsoft.Graph'.\n"
+            "VERBOSE: Reading CSV: 15 users to process\n"
+            "VERBOSE: User 1/15: {name1}@contoso.com — Creating AD account... OK\n"
+            "VERBOSE: User 1/15: Assigning licenses... FAILED (conflicting plan)\n"
+            "Write-Error: License conflict for {name1}@contoso.com\n"
+            "VERBOSE: User 2/15: {name}@contoso.com — Creating AD account... OK\n"
+            "VERBOSE: User 2/15: Assigning licenses... OK\n"
+            "VERBOSE: User 2/15: Creating mailbox... OK\n"
+            "[...13 more users with mixed results...]\n\n"
+            "VERBOSE: Summary: 9 succeeded, 6 failed. See provision_log.txt.\n\n"
+            "6 out of 15 new hires didn't get provisioned. I need these done by "
+            "Monday for {department} onboarding.\n\n{name}",
+        ],
+        next_best_actions=[
+            "Resolve the license assignment conflict — the users have conflicting "
+            "service plans. Ignore the verbose/warning stream noise and focus on the "
+            "license conflict errors.",
+            "Fix the provisioning failures caused by conflicting license assignments. "
+            "The deprecated module warnings are non-blocking but should be addressed separately.",
+        ],
+        remediation_steps=[
+            [
+                "Identify and remove the conflicting service plan before assigning the new license",
+                "Update the provisioning script to check for existing license conflicts before assignment",
+                "Migrate the script from deprecated AzureAD/MSOnline modules to Microsoft.Graph",
+                "Fix the retention policy reference to use the correct policy name",
+                "Manually provision the 6 failed users and verify their access before Monday",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-105  Docker Compose YAML flood
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-105",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ENVIRONMENT_DETAILS, MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "Dev environment won't start — full docker-compose.yml pasted",
+            "Docker Compose stack broken — YAML config inside",
+            "Container orchestration failing — here's our compose file",
+        ],
+        descriptions=[
+            "Our dev environment won't start after someone changed the compose file. "
+            "Pasting the full docker-compose.yml here:\n\n"
+            "version: '3.8'\n"
+            "services:\n"
+            "  web:\n"
+            "    build:\n"
+            "      context: .\n"
+            "      dockerfile: Dockerfile.web\n"
+            "    ports:\n"
+            "      - '8080:8080'\n"
+            "      - '8443:8443'\n"
+            "    environment:\n"
+            "      - NODE_ENV=development\n"
+            "      - API_URL=http://api:3000\n"
+            "      - REDIS_URL=redis://cache:6379\n"
+            "      - DB_HOST=postgres\n"
+            "      - DB_PORT=5432\n"
+            "      - DB_NAME={app}_dev\n"
+            "      - DB_USER=appuser\n"
+            "      - DB_PASS=dev_password_123\n"
+            "    depends_on:\n"
+            "      - api\n"
+            "      - cache\n"
+            "      - postgres\n"
+            "    volumes:\n"
+            "      - ./src:/app/src\n"
+            "      - node_modules:/app/node_modules\n"
+            "    networks:\n"
+            "      - frontend\n"
+            "      - backend\n"
+            "  api:\n"
+            "    build:\n"
+            "      context: ./api\n"
+            "      dockerfile: Dockerfile\n"
+            "    ports:\n"
+            "      - '3000:3000'\n"
+            "    environment:\n"
+            "      - FLASK_ENV=development\n"
+            "      - DATABASE_URL=postgresql://appuser:dev_password_123@postgres:5432/{app}_dev\n"
+            "      - REDIS_URL=redis://cache:6379\n"
+            "      - SECRET_KEY=super-secret-dev-key-{number}\n"
+            "    depends_on:\n"
+            "      - postgres\n"
+            "      - cache\n"
+            "    networks:\n"
+            "      - backend\n"
+            "  postgres:\n"
+            "    image: postgres:15-alpine\n"
+            "    environment:\n"
+            "      - POSTGRES_DB={app}_dev\n"
+            "      - POSTGRES_USER=appuser\n"
+            "      - POSTGRES_PASSWORD=dev_password_123\n"
+            "    volumes:\n"
+            "      - pgdata:/var/lib/postgresql/data\n"
+            "    networks:\n"
+            "      - backend\n"
+            "  cache:\n"
+            "    image: redis:7-alpine\n"
+            "    networks:\n"
+            "      - backend\n"
+            "  nginx:\n"
+            "    image: nginx:alpine\n"
+            "    ports:\n"
+            "      - '80:80'\n"
+            "      - '443:443'\n"
+            "    volumes:\n"
+            "      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro\n"
+            "    depends_on:\n"
+            "      - web\n"
+            "    networks:\n"
+            "      - frontend\n"
+            "volumes:\n"
+            "  pgdata:\n"
+            "  node_modules:\n"
+            "networks:\n"
+            "  frontend:\n"
+            "  backend:\n\n"
+            "When I run 'docker compose up' the api container exits with code 1 and "
+            "postgres keeps restarting. I'm in the {office} office.\n\n{name}, {department}",
+            "Docker stack is broken. The error is:\n\n"
+            "ERROR: for api  Container exited with code 1\n"
+            "ERROR: for postgres  Container is unhealthy\n\n"
+            "I've attached the full docker-compose.yml (48 services, 200+ lines) "
+            "plus all the .env files above. The actual problem is the api container "
+            "can't connect to postgres because the healthcheck isn't configured. "
+            "Can someone add a proper healthcheck to the postgres service?\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "The api container fails because postgres isn't ready when it starts. "
+            "Ignore the full YAML dump and focus on adding a healthcheck to the "
+            "postgres service and a depends_on condition to the api service.",
+            "Fix the container startup order — add a postgres healthcheck and "
+            "configure depends_on with condition: service_healthy.",
+        ],
+        remediation_steps=[
+            [
+                "Add a healthcheck to the postgres service using pg_isready",
+                "Update depends_on for api to use condition: service_healthy",
+                "Review the compose file for hardcoded credentials and move them to a .env file",
+                "Verify the api container logs for the specific connection error",
+                "Advise the user not to paste full compose files with credentials in tickets",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-106  OCR'd financial report with character confusion
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-106",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.SCREENSHOT_OR_ATTACHMENT, MissingInfo.APPLICATION_VERSION],
+        subjects=[
+            "OCR scanning producing garbled output in expense reports",
+            "Scanned invoices have wrong numbers — OCR character confusion",
+            "Financial doc scanning mangling dollar amounts and dates",
+        ],
+        descriptions=[
+            "The OCR module in {app} is producing terrible results on our financial "
+            "documents. Here's what it extracted from an invoice:\n\n"
+            "CONTOSO CORPORATI0N\n"
+            "1nvoice #: INV-2O26-O4l8\n"
+            "Dat3: Aprll l8, 2O26\n"
+            "Bi11 To: {name}, {department}\n\n"
+            "Descripti0n              Qty    Unit Pr1ce    T0tal\n"
+            "---------------------------------------------------\n"
+            "S0ftware Licens3 (Ent)    l5    $l,2OO.OO    $l8,OOO.OO\n"
+            "Pr0fessional Svcs         8O    $25O.OO      $2O,OOO.OO\n"
+            "C1oud H0sting (m0nthly)   l2    $3,5OO.OO    $42,OOO.OO\n"
+            "---------------------------------------------------\n"
+            "Subt0tal:                                     $8O,OOO.OO\n"
+            "Tax (8.875%):                                 $7,lOO.OO\n"
+            "T0TAL DUE:                                    $87,lOO.OO\n\n"
+            "Payment Terms: Net 3O\n"
+            "Bank: Fir5t Nati0nal Bank\n"
+            "Acc0unt: XXXX-XXXX-{number}\n"
+            "R0uting: XXX-XXX-{number}\n\n"
+            "The zeros are being read as O's, ones as l's, and some letters are "
+            "turning into numbers. This is causing our expense reconciliation to "
+            "fail because the amounts don't parse correctly.\n\n{name}, {department}",
+            "Scanned Q3 report is full of OCR errors. Sample:\n\n"
+            "QUARTERLY FlNANClAL SUMMARY — Q3 2O26\n"
+            "Prepared by: {name}, {department}\n\n"
+            "Revenue:        $l2,456,789.OO  (prev: $ll,234,567.OO)\n"
+            "Operatlng Exp:  $9,876,54l.OO   (prev: $9,l23,456.OO)\n"
+            "Net 1nc0me:     $2,58O,248.OO   (prev: $2,lll,lll.OO)\n"
+            "EBlTDA:         $3,456,789.OO   (prev: $3,2l2,345.OO)\n\n"
+            "The numbers are unusable for import into our {app} accounting system. "
+            "We need the OCR engine fixed or replaced.\n\n{name}",
+        ],
+        next_best_actions=[
+            "Investigate the OCR character confusion — zeros/O and ones/l are being "
+            "swapped, making financial data unparseable. Focus on the OCR engine "
+            "configuration or font recognition settings.",
+            "The OCR module needs tuning for financial documents — common 0/O and 1/l "
+            "confusion is causing data import failures.",
+        ],
+        remediation_steps=[
+            [
+                "Check the OCR engine version and update to the latest release",
+                "Enable financial document mode or numeric-context heuristics if available",
+                "Test with higher resolution scans (300+ DPI) to improve character recognition",
+                "Implement a post-processing step to correct common OCR substitutions (O→0, l→1) in numeric contexts",
+                "Consider switching to an OCR engine with better financial document support",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-107  Quoted-printable encoding artifacts
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-107",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.CONFIGURATION_DETAILS],
+        subjects=[
+            "Emails showing =20 and =C2=A0 instead of spaces",
+            "Support portal displaying quoted-printable garbage in tickets",
+            "Ticket descriptions full of =3D and =0A encoding artifacts",
+        ],
+        descriptions=[
+            "Tickets coming from our email integration are showing encoded garbage. "
+            "Here's what a recent ticket looks like in {app}:\n\n"
+            "Hi IT Support,=0A=0AMy laptop screen is flickering=20whenever I "
+            "connect=0Ato the docking station on Floor {floor}.=20=20I=E2=80=99ve "
+            "tried=0Adifferent cables but the issue=20persists.=0A=0AThe docking "
+            "station=20model is=20Dell WD19S.=20My laptop=0Ais a ThinkPad=20"
+            "X1 Carbon Gen=2011.=0A=0ALaptop: {name}=E2=80=99s ThinkPad=0A"
+            "OS: Windows=2011=20Enterprise=0ADriver:=20Intel=C2=AE=20"
+            "Iris=C2=AE=20Xe=0AMonitor: Dell=20U2722D=0A=0ACould someone "
+            "come=20take a look?=0A=0AThanks,=0A{name}=0A{department}",
+            "Our ticketing system is not decoding quoted-printable emails. "
+            "Example:\n\n"
+            "Subject: Re: VPN=20Issue=20=E2=80=93=20Still=20not=20working=0A=0A"
+            "I=E2=80=99m=20still=20having=20VPN=20issues.=20Every=20time=20I=20"
+            "try=20to=20connect=20from=20home,=20the=20client=20shows=20=E2=80=9C"
+            "Authentication=20Failed=E2=80=9D=20after=20about=2030=20seconds.=0A=0A"
+            "I=E2=80=99ve=20tried:=0A-=20Reinstalling=20GlobalProtect=0A"
+            "-=20Clearing=20credentials=0A-=20Connecting=20on=20a=20different=20"
+            "network=0A=0ANone=20of=20this=20worked.=20Please=20help.=0A=0A"
+            "{name}=0A{department}\n\n"
+            "Every ticket from the email channel looks like this. The web portal "
+            "tickets are fine. Can someone fix the email parser?\n\n{name}",
+        ],
+        next_best_actions=[
+            "Fix the email-to-ticket integration — it's not decoding quoted-printable "
+            "Content-Transfer-Encoding. The underlying issues (screen flickering, VPN) "
+            "should be extracted from the decoded text.",
+            "The ticketing system's email parser needs to handle quoted-printable "
+            "decoding. Decode the ticket content to identify the actual IT issues.",
+        ],
+        remediation_steps=[
+            [
+                "Check the email integration pipeline for missing Content-Transfer-Encoding handling",
+                "Update the email parser to decode quoted-printable encoding before storing ticket text",
+                "Verify the mail transport agent is passing the correct MIME headers",
+                "Re-process recently ingested tickets to decode the garbled content",
+                "After fixing the parser, address the underlying user issues (screen flicker, VPN auth failure)",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-108  ServiceNow audit trail / state transitions
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-108",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.PREVIOUS_TICKET_ID, MissingInfo.AFFECTED_SYSTEM],
+        subjects=[
+            "Ticket keeps bouncing between teams — full audit trail below",
+            "INC stuck in reassignment loop — ServiceNow history pasted",
+            "Incident ping-ponging for 3 weeks — state transition log inside",
+        ],
+        descriptions=[
+            "This ticket has been bouncing around for three weeks. Here's the full "
+            "audit trail from ServiceNow:\n\n"
+            "INC{number} — {app} login failure for {name}\n"
+            "Created: {date} 08:15:00 by AutoIngest\n\n"
+            "State: New → Assigned | {date} 08:15:01 | Assignment Group: Service Desk\n"
+            "State: Assigned → In Progress | {date} 09:30:00 | Assigned to: L1-Agent-04\n"
+            "Note: 'Looks like an AD account issue. Reassigning to IAM.'\n"
+            "State: In Progress → Assigned | {date} 09:31:00 | Assignment Group: IAM Team\n"
+            "State: Assigned → In Progress | {date} 14:00:00 | Assigned to: IAM-Agent-02\n"
+            "Note: 'AD account is fine. This is an app-specific auth issue. Reassigning.'\n"
+            "State: In Progress → Assigned | {date} 14:01:00 | Assignment Group: App Support\n"
+            "State: Assigned → In Progress | {date} 08:45:00 | Assigned to: App-Agent-07\n"
+            "Note: 'App auth uses SAML federation. This is a network/firewall issue — "
+            "SAML endpoint is unreachable. Reassigning.'\n"
+            "State: In Progress → Assigned | {date} 08:46:00 | Assignment Group: Network Team\n"
+            "State: Assigned → In Progress | {date} 11:20:00 | Assigned to: Net-Agent-03\n"
+            "Note: 'Firewall rules are fine. The SAML endpoint resolves but returns 503. "
+            "This is an app issue. Reassigning back.'\n"
+            "State: In Progress → Assigned | {date} 11:21:00 | Assignment Group: App Support\n"
+            "State: Assigned → In Progress | {date} 16:00:00 | Assigned to: App-Agent-12\n"
+            "Note: 'The 503 is from the IdP, not our app. Reassigning to IAM.'\n"
+            "State: In Progress → Assigned | {date} 16:01:00 | Assignment Group: IAM Team\n"
+            "State: Assigned → Pending | {date} 09:00:00 | Reason: Awaiting vendor response\n"
+            "Note: 'Opened case with IdP vendor. Waiting for response.'\n"
+            "State: Pending → Assigned | {date} 09:00:00 | Reason: Vendor responded\n"
+            "Note: 'Vendor says the IdP is healthy. Must be a config issue on our side.'\n"
+            "State: Assigned → In Progress | {date} 09:01:00 | Assigned to: IAM-Agent-05\n\n"
+            "The user ({name} in {department}) STILL can't log in. Can someone please "
+            "actually fix this instead of reassigning it again?\n\n{name}",
+            "Please help — my ticket INC{number} has been open for 22 days and "
+            "reassigned 8 times. Here's the short version of the audit trail:\n\n"
+            "Service Desk → IAM → App Support → Network → App Support → IAM → "
+            "Vendor Hold → IAM → ???\n\n"
+            "Nobody seems to own this. I just need to log into {app} for my work. "
+            "I've been using a colleague's account (I know I shouldn't) because I "
+            "have no other choice.\n\n"
+            "Floor {floor}, {office} office. {name}, {department}",
+        ],
+        next_best_actions=[
+            "Take ownership of this incident — it has been in a reassignment loop "
+            "for 3 weeks. The SAML IdP returns 503; coordinate between IAM and the "
+            "app team to diagnose the federation configuration.",
+            "Stop the reassignment ping-pong. The root cause is likely a SAML "
+            "federation misconfiguration. Assign a single owner to coordinate "
+            "cross-team troubleshooting.",
+        ],
+        remediation_steps=[
+            [
+                "Assign a single incident owner to coordinate cross-team troubleshooting",
+                "Capture a SAML trace (Fiddler or browser dev tools) to identify where authentication fails",
+                "Check the IdP federation metadata — certificates may have expired",
+                "Verify the SAML assertion consumer service URL matches the app's configuration",
+                "Immediately stop the shared account usage and provide the user with temporary access via an alternative method",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-109  Bloomberg terminal fixed-width output
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-109",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "Bloomberg terminal not loading market data — screen output pasted",
+            "BT display garbled after update — fixed-width output inside",
+            "Bloomberg terminal showing stale prices — copied screen below",
+        ],
+        descriptions=[
+            "My Bloomberg terminal is showing stale data. I copied the screen "
+            "output to show what I see:\n\n"
+            "BLOOMBERG PROFESSIONAL                             {date}  16:42:33\n"
+            "═══════════════════════════════════════════════════════════════════\n"
+            "EQUITY MONITOR          LAST      CHG    CHG%     BID      ASK\n"
+            "───────────────────────────────────────────────────────────────────\n"
+            "MSFT US Equity        425.67    +3.42   +0.81   425.65   425.68\n"
+            "AAPL US Equity        198.34    -1.23   -0.62   198.32   198.35\n"
+            "GOOGL US Equity     2,845.12    +12.45  +0.44  2845.10  2845.14\n"
+            "AMZN US Equity      3,412.56    -8.90   -0.26  3412.54  3412.58\n"
+            "JPM US Equity         195.78    +2.11   +1.09   195.76   195.80\n"
+            "GS US Equity          389.45    +5.67   +1.48   389.43   389.47\n"
+            "───────────────────────────────────────────────────────────────────\n"
+            "FX RATES              LAST      CHG    CHG%     BID      ASK\n"
+            "───────────────────────────────────────────────────────────────────\n"
+            "EUR/USD               1.0876   +0.0023 +0.21   1.0875   1.0877\n"
+            "GBP/USD               1.2654   -0.0018 -0.14   1.2653   1.2655\n"
+            "USD/JPY             154.3200   +0.4500 +0.29  154.3100 154.3300\n"
+            "═══════════════════════════════════════════════════════════════════\n"
+            "** DATA FEED STATUS: DELAYED (15 MIN) — REAL-TIME FEED ERROR **\n"
+            "** CONTACT: BLOOMBERG HELP DESK OR LOCAL IT SUPPORT            **\n"
+            "═══════════════════════════════════════════════════════════════════\n\n"
+            "The prices are 15 minutes delayed — we need real-time for trading. "
+            "This started after IT pushed a network update last night. I'm on the "
+            "trading floor, Floor {floor}, {office}.\n\n{name}, {department}",
+            "Bloomberg is broken — all my screens show DELAYED data. The B-PIPE "
+            "connection seems down. I need real-time data for the {department} desk. "
+            "Other terminals on Floor {floor} are also affected.\n\n"
+            "Error on the terminal: 'B-PIPE: CONNECTION LOST — FAILOVER TO DELAYED "
+            "FEED — CONTACT SUPPORT'\n\n{name}",
+        ],
+        next_best_actions=[
+            "Investigate the Bloomberg real-time data feed failure — the B-PIPE "
+            "connection is down and terminals have fallen back to delayed data. "
+            "Ignore the pasted market data and focus on the network/feed issue.",
+            "The Bloomberg B-PIPE feed lost connectivity after a network change. "
+            "Check firewall rules and network routes to the Bloomberg data center.",
+        ],
+        remediation_steps=[
+            [
+                "Check if the recent network update affected firewall rules for Bloomberg B-PIPE ports",
+                "Verify connectivity to Bloomberg's data center endpoints from the trading floor network segment",
+                "Restart the B-PIPE service on the Bloomberg server appliance",
+                "Contact Bloomberg support if the connection cannot be re-established",
+                "This is high-priority for the trading desk — escalate to network team immediately if not resolved in 30 minutes",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-110  Excel formula clipboard artifacts
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-110",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.STEPS_TO_REPRODUCE],
+        subjects=[
+            "Pasted spreadsheet data looks like formulas instead of values",
+            "Excel clipboard artifacts in ticket — formulas showing instead of text",
+            "Ticket full of VLOOKUP and IF formulas — meant to paste values",
+        ],
+        descriptions=[
+            "I tried to paste my asset inventory into the ticket but it came out "
+            "as formulas instead of values:\n\n"
+            '=VLOOKUP(A2,AssetDB!$A:$G,2,FALSE)\t'
+            '=VLOOKUP(A2,AssetDB!$A:$G,3,FALSE)\t'
+            '=IF(VLOOKUP(A2,AssetDB!$A:$G,5,FALSE)>"2024-01-01","Current","Expired")\t'
+            '=IFERROR(INDEX(Warranties!$B:$B,MATCH(A2,Warranties!$A:$A,0)),"N/A")\n'
+            '=VLOOKUP(A3,AssetDB!$A:$G,2,FALSE)\t'
+            '=VLOOKUP(A3,AssetDB!$A:$G,3,FALSE)\t'
+            '=IF(VLOOKUP(A3,AssetDB!$A:$G,5,FALSE)>"2024-01-01","Current","Expired")\t'
+            '=IFERROR(INDEX(Warranties!$B:$B,MATCH(A3,Warranties!$A:$A,0)),"N/A")\n'
+            '=VLOOKUP(A4,AssetDB!$A:$G,2,FALSE)\t'
+            '=VLOOKUP(A4,AssetDB!$A:$G,3,FALSE)\t'
+            '=IF(VLOOKUP(A4,AssetDB!$A:$G,5,FALSE)>"2024-01-01","Current","Expired")\t'
+            '=IFERROR(INDEX(Warranties!$B:$B,MATCH(A4,Warranties!$A:$A,0)),"N/A")\n\n'
+            "What I meant to say: I have 3 laptops that need warranty replacement. "
+            "The asset tags are CNT-{number}, CNT-{number}, and CNT-{number}. All "
+            "three are ThinkPad X1 Carbons with expired warranties. They're on "
+            "Floor {floor} in the {office} office.\n\n{name}, {department}",
+            "Sorry about the formatting — I copied from our tracking spreadsheet "
+            "and it pasted the formulas:\n\n"
+            '=CONCATENATE(B2," - ",C2," (",TEXT(D2,"yyyy-mm-dd"),")")\n'
+            '=IF(AND(E2="Active",F2>TODAY()),"OK","NEEDS ATTENTION")\n'
+            '=SUMPRODUCT((Users!$A$2:$A$500=A2)*1)\n'
+            '=HYPERLINK("https://assets.contoso.com/device/"&A2,"View")\n'
+            '=IF(G2>90,"Replace",IF(G2>60,"Monitor","OK"))\n\n'
+            "The actual issue: 5 devices in {department} need to be reimaged. "
+            "They're running an outdated OS build and can't install the latest "
+            "security patches. The devices are all on Floor {floor}. Can someone "
+            "schedule the reimaging?\n\n{name}",
+        ],
+        next_best_actions=[
+            "Process the hardware request — ignore the Excel formula artifacts. "
+            "The user needs warranty replacements for 3 laptops (or reimaging for "
+            "5 devices, depending on variant).",
+            "Extract the actual request from behind the clipboard noise: the user "
+            "needs device replacements or reimaging. Gather asset tag details.",
+        ],
+        remediation_steps=[
+            [
+                "Identify the affected devices by asset tag and verify warranty status in the asset management system",
+                "For expired-warranty devices, initiate the hardware replacement workflow",
+                "For devices needing reimaging, schedule the OS reimage during off-hours",
+                "Ensure the latest security patches are included in the reimage baseline",
+                "Advise the user to paste values (Ctrl+Shift+V) instead of formulas in future tickets",
+            ],
+        ],
+    )
+)
