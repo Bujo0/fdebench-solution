@@ -1254,4 +1254,890 @@ DATA_CLEANUP_SCENARIOS: list[ScenarioDefinition] = [
         ),
         tags=("data-cleanup", "terse", "missing-context"),
     ),
-]
+    # ──────────────────────────────────────────────────────────────────
+    # 26. Browser view-source HTML paste (500 error page with SQL connection pool exhaustion)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-026",
+        subjects=(
+            "500 error on trade reconciliation portal — full page source attached",
+            "view-source: Recon Portal keeps returning 500 — HTML dump inside",
+        ),
+        descriptions=(
+            "I keep getting a 500 error on the trade reconciliation portal. I did View Source"
+            " in Chrome and copied the whole page:\n\n"
+            '<!DOCTYPE html>\n<html lang="en">\n<head>\n'
+            "  <meta charset=\"UTF-8\">\n"
+            '  <title>500 Internal Server Error</title>\n'
+            '  <style>\n    body { font-family: "Segoe UI", Arial, sans-serif;'
+            " background: #f4f4f4; margin: 0; padding: 40px; }\n"
+            "    .error-container { max-width: 800px; margin: auto;"
+            " background: white; border-radius: 8px;\n"
+            "      padding: 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }\n"
+            "    h1 { color: #d9534f; }\n"
+            "    .stack-trace { background: #2d2d2d; color: #f8f8f2;"
+            " padding: 20px; border-radius: 4px;\n"
+            "      overflow-x: auto; font-family: Consolas, monospace;"
+            " font-size: 12px; }\n"
+            "  </style>\n</head>\n<body>\n"
+            '  <div class="error-container">\n'
+            "    <h1>500 Internal Server Error</h1>\n"
+            "    <p>An error occurred processing your request.</p>\n"
+            '    <div class="stack-trace">\n'
+            "      System.InvalidOperationException: Timeout expired. The timeout"
+            " period elapsed prior to obtaining a connection from the pool.\n"
+            "      This may have occurred because all pooled connections were in"
+            " use and max pool size was reached.\n"
+            "      at System.Data.SqlClient.SqlConnectionPoolManager"
+            ".GetConnection(DbConnectionOptions opts)\n"
+            "      at Contoso.Recon.DataAccess.TradeRepository"
+            ".GetUnmatchedTrades(DateTime date)\n"
+            "      at Contoso.Recon.Controllers.ReconController"
+            ".Index(ReconQueryModel model)\n"
+            "    </div>\n"
+            "  </div>\n</body>\n</html>\n\n"
+            "This has been happening since about 10:30 AM. The recon team (8 people)"
+            " is completely blocked.",
+            "The trade reconciliation portal shows a 500 error. I copied the page"
+            " source and the stack trace says:\n\n"
+            "System.InvalidOperationException: Timeout expired. The timeout period"
+            " elapsed prior to obtaining a connection from the pool. All pooled"
+            " connections were in use and max pool size was reached.\n"
+            "    at Contoso.Recon.DataAccess.TradeRepository"
+            ".GetUnmatchedTrades(DateTime date)\n\n"
+            "The whole recon team can't work. Started around 10:30 this morning.",
+        ),
+        gold=ScenarioGold(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+            needs_escalation=False,
+            missing_information=("environment_details", "application_version"),
+            next_best_action="Investigate SQL connection pool exhaustion on the trade reconciliation"
+            " portal — the .NET stack trace indicates all pooled connections are in use,"
+            " blocking the recon team",
+            remediation_steps=(
+                "Check the SQL Server connection pool settings and current active connections",
+                "Identify any long-running or leaked database connections holding pool resources",
+                "Increase the max pool size as a temporary relief while investigating the root cause",
+                "Review recent deployments to the recon portal for connection handling regressions",
+                "Restart the application pool to clear stuck connections and restore service",
+            ),
+        ),
+        tags=("data-cleanup", "html-paste", "view-source"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 27. Mixed RTL/LTR text (Arabic/English SharePoint access request)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-027",
+        subjects=(
+            "طلب وصول SharePoint — Compliance Archive Access Request",
+            "SharePoint الأرشيف — Need access to compliance archive site",
+        ),
+        descriptions=(
+            "مرحبا فريق الدعم التقني,\n\n"
+            "أنا أحمد الفهد من قسم الامتثال في مكتب دبي. أحتاج الوصول إلى موقع"
+            " SharePoint الخاص بأرشيف الامتثال:\n\n"
+            "https://contoso.sharepoint.com/sites/compliance-archive-mena\n\n"
+            "I need read/write access to the MENA compliance archive site on SharePoint."
+            " My manager خالد المنصوري (Khalid Al-Mansoori) has already approved this.\n\n"
+            "الملفات التي أحتاج الوصول إليها تتعلق بتقارير التدقيق الداخلي للربع الأول"
+            " 2026.\n\n"
+            "The specific library is /sites/compliance-archive-mena/Shared Documents/"
+            "Internal Audit/Q1-2026.\n\n"
+            "شكراً جزيلاً,\n"
+            "أحمد الفهد\n"
+            "Compliance Department, Dubai Office\n"
+            "Ext: +971-4-XXX-5678",
+            "Hi IT,\n\n"
+            "I'm from the Dubai compliance team. I need access to the MENA compliance"
+            " archive on SharePoint:\n"
+            "https://contoso.sharepoint.com/sites/compliance-archive-mena\n\n"
+            "المدير خالد المنصوري وافق على الطلب\n"
+            "(Manager Khalid Al-Mansoori approved the request)\n\n"
+            "Specifically the Q1-2026 audit reports in the Internal Audit library."
+            " أحتاج هذا بشكل عاجل لأن الموعد النهائي للتدقيق هو الأسبوع القادم.\n\n"
+            "Thanks,\nAhmed Al-Fahd\nDubai Office",
+        ),
+        gold=ScenarioGold(
+            category="Data & Storage",
+            priority="P3",
+            assigned_team="Data Platform",
+            needs_escalation=False,
+            missing_information=("authentication_method",),
+            next_best_action="Grant read/write access to the MENA compliance archive SharePoint site"
+            " for the Dubai compliance team member — manager approval already confirmed",
+            remediation_steps=(
+                "Verify the manager approval from Khalid Al-Mansoori for the SharePoint access request",
+                "Add the user to the appropriate SharePoint permission group for the compliance-archive-mena site",
+                "Grant read/write access scoped to the Internal Audit/Q1-2026 document library",
+                "Confirm access with the requester and provide the direct URL to the library",
+                "Log the access grant in the compliance access register per MENA data governance policy",
+            ),
+        ),
+        tags=("data-cleanup", "mixed-rtl-ltr", "bidi-text"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 28. HTML form hidden fields (copied HTML form elements from expense portal)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-028",
+        subjects=(
+            "Expense portal won't submit — copied the form data",
+            "FW: Expense Report Submission Error — HTML form dump inside",
+        ),
+        descriptions=(
+            "The expense portal keeps failing when I try to submit my Q1 expense report."
+            " I copied everything from the page source:\n\n"
+            '<form id="expenseForm" action="/api/expense/submit" method="POST">\n'
+            '  <input type="hidden" name="__RequestVerificationToken"'
+            ' value="CfDJ8N0r3kT7vB2mXzQ5pLwH9aYjKl4DfG6hN8mO1pQrStUvWxYz" />\n'
+            '  <input type="hidden" name="EmployeeId" value="EMP-0047281" />\n'
+            '  <input type="hidden" name="CostCenter" value="CC-4520-NYC-TRADING" />\n'
+            '  <input type="hidden" name="ApprovalChain"'
+            ' value="MGR:sarah.chen|DIR:james.wu|VP:robert.hayes" />\n'
+            '  <input type="hidden" name="SubmissionGuid"'
+            ' value="a3f7c912-4e8b-4d1a-b6e5-9c0d2f8a1b3e" />\n'
+            '  <input type="hidden" name="FiscalPeriod" value="FY2026-Q1" />\n'
+            '  <div class="form-group">\n'
+            '    <label>Report Title</label>\n'
+            '    <input type="text" name="Title"'
+            ' value="Q1 2026 Client Entertainment - NYC Trading Desk" />\n'
+            "  </div>\n"
+            '  <div class="form-group">\n'
+            '    <label>Total Amount</label>\n'
+            '    <input type="text" name="TotalAmount" value="$4,287.50" />\n'
+            "  </div>\n"
+            '  <button type="submit" class="btn btn-primary">Submit for Approval</button>\n'
+            "</form>\n\n"
+            "When I click Submit I get a spinning wheel for about 2 minutes then it says"
+            ' "Request timeout — please try again." I\'ve tried 5 times today.',
+            "My expense report won't submit. After clicking Submit, the page spins for"
+            " 2 minutes and times out. Report title is 'Q1 2026 Client Entertainment'"
+            " for $4,287.50. Cost center CC-4520-NYC-TRADING. Tried 5 times, same"
+            " result every time. Error is just 'Request timeout — please try again.'",
+        ),
+        gold=ScenarioGold(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+            needs_escalation=False,
+            missing_information=("error_message", "environment_details"),
+            next_best_action="Investigate expense portal submission timeout — the form POST to"
+            " /api/expense/submit is timing out, blocking the user from submitting"
+            " their Q1 expense report",
+            remediation_steps=(
+                "Check the expense portal application logs for timeout errors on the submit endpoint",
+                "Verify the backend expense approval workflow service is running and responsive",
+                "Test the /api/expense/submit endpoint directly to isolate client vs. server timeout",
+                "Review if the approval chain lookup is causing delays in the submission pipeline",
+                "If the backend service is degraded, restart it and have the user retry submission",
+            ),
+        ),
+        tags=("data-cleanup", "html-form", "hidden-fields"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 29. Windows Event Log XML (BSOD event log XML entries pasted)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-029",
+        subjects=(
+            "Laptop keeps blue-screening — Event Viewer logs attached",
+            "BSOD every morning — Windows Event Log XML dump",
+        ),
+        descriptions=(
+            "My laptop has been crashing with a BSOD every morning this week."
+            " I exported the Event Viewer logs:\n\n"
+            "<Event xmlns='http://schemas.microsoft.com/win/2004/08/events/event'>\n"
+            "  <System>\n"
+            "    <Provider Name='Microsoft-Windows-WER-SystemErrorReporting'"
+            " Guid='{ABCE23E7-DE45-4366-8631-84FA6C525952}'/>\n"
+            "    <EventID>1001</EventID>\n"
+            "    <Version>0</Version>\n"
+            "    <Level>2</Level>\n"
+            "    <Task>0</Task>\n"
+            "    <Opcode>0</Opcode>\n"
+            "    <Keywords>0x80000000000000</Keywords>\n"
+            "    <TimeCreated SystemTime='2026-03-18T13:47:22.1847560Z'/>\n"
+            "    <EventRecordID>48291</EventRecordID>\n"
+            "    <Correlation/>\n"
+            "    <Execution ProcessID='0' ThreadID='0'/>\n"
+            "    <Channel>System</Channel>\n"
+            "    <Computer>WS-NYC-TRADER-0472</Computer>\n"
+            "    <Security/>\n"
+            "  </System>\n"
+            "  <EventData>\n"
+            "    <Data Name='param1'>0x0000009f</Data>\n"
+            "    <Data Name='param2'>0x0000000000000003</Data>\n"
+            "    <Data Name='param3'>FFFFB80D4E2A0060</Data>\n"
+            "    <Data Name='param4'>FFFFF80152437A20</Data>\n"
+            "    <Data Name='param5'>DRIVER_POWER_STATE_FAILURE</Data>\n"
+            "    <Data Name='param6'>\\Device\\00000068</Data>\n"
+            "    <Data Name='param7'>intelppm.sys</Data>\n"
+            "  </EventData>\n"
+            "</Event>\n\n"
+            "The BugCheck code is 0x9F — DRIVER_POWER_STATE_FAILURE pointing at"
+            " intelppm.sys. It always happens after the laptop resumes from sleep.",
+            "Repeated BSOD on my trading workstation WS-NYC-TRADER-0472. BugCheck"
+            " 0x0000009F (DRIVER_POWER_STATE_FAILURE) referencing intelppm.sys."
+            " Happens every time the laptop resumes from sleep — about once a day."
+            " Started after last week's driver update pushed by IT.",
+        ),
+        gold=ScenarioGold(
+            category="Hardware & Peripherals",
+            priority="P2",
+            assigned_team="Endpoint Engineering",
+            needs_escalation=False,
+            missing_information=("device_info",),
+            next_best_action="Investigate recurring BSOD caused by DRIVER_POWER_STATE_FAILURE"
+            " (0x9F) in intelppm.sys on resume from sleep — likely a driver compatibility"
+            " issue from a recent update",
+            remediation_steps=(
+                "Check the recent driver update history for intelppm.sys and related power management drivers",
+                "Roll back the Intel Processor Power Management driver to the previous stable version",
+                "Update the system BIOS/UEFI firmware if a newer version addresses power state issues",
+                "Adjust power management settings to prevent aggressive sleep states as a workaround",
+                "Monitor the workstation after the rollback to confirm the BSOD does not recur",
+            ),
+        ),
+        tags=("data-cleanup", "event-log-xml", "bsod"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 30. tcpdump packet capture output (TCP retransmissions, connection resets)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-030",
+        subjects=(
+            "tcpdump showing massive retransmissions to market data feed",
+            "Network packet capture — connection resets to Bloomberg B-PIPE",
+        ),
+        descriptions=(
+            "I ran tcpdump on the market data gateway and captured a ton of"
+            " retransmissions and resets. Here's a snippet:\n\n"
+            "13:42:01.234567 IP 10.1.50.22.48912 > 198.51.100.15.8194:"
+            " Flags [S], seq 3847291054, win 65535, options [mss 1460,"
+            "sackOK,TS val 1247382 ecr 0,nop,wscale 7], length 0\n"
+            "13:42:01.234890 IP 198.51.100.15.8194 > 10.1.50.22.48912:"
+            " Flags [S.], seq 2918374650, ack 3847291055, win 65535,"
+            " options [mss 1460,sackOK,TS val 9384721 ecr 1247382,"
+            "nop,wscale 7], length 0\n"
+            "13:42:01.235012 IP 10.1.50.22.48912 > 198.51.100.15.8194:"
+            " Flags [.], ack 1, win 512, length 0\n"
+            "13:42:01.892341 IP 198.51.100.15.8194 > 10.1.50.22.48912:"
+            " Flags [R.], seq 1, ack 1, win 0, length 0\n"
+            "13:42:02.235567 IP 10.1.50.22.48912 > 198.51.100.15.8194:"
+            " Flags [S], seq 3847291054, win 65535, options [mss 1460,"
+            "sackOK,TS val 1247483 ecr 0,nop,wscale 7], length 0\n"
+            "13:42:04.236123 IP 10.1.50.22.48912 > 198.51.100.15.8194:"
+            " Flags [S], seq 3847291054, win 65535, length 0\n"
+            "13:42:08.237890 IP 10.1.50.22.48912 > 198.51.100.15.8194:"
+            " Flags [S], seq 3847291054, win 65535, length 0\n"
+            "... [347 similar retransmission lines omitted] ...\n\n"
+            "The market data feed (198.51.100.15:8194) keeps sending RST after"
+            " the three-way handshake completes. This is causing real-time pricing"
+            " to go stale for the NYC equity trading desk.",
+            "Market data gateway 10.1.50.22 is experiencing TCP connection resets"
+            " from the Bloomberg B-PIPE endpoint at 198.51.100.15:8194. Three-way"
+            " handshake completes but the remote side immediately sends RST."
+            " Hundreds of retransmissions per minute. Equity desk has stale prices.",
+        ),
+        gold=ScenarioGold(
+            category="Network & Connectivity",
+            priority="P2",
+            assigned_team="Network Operations",
+            needs_escalation=False,
+            missing_information=("network_location", "configuration_details"),
+            next_best_action="Investigate TCP connection resets from market data feed endpoint"
+            " causing stale pricing on the equity trading desk — tcpdump shows RST"
+            " after completed handshake",
+            remediation_steps=(
+                "Check the firewall rules and NAT configuration between the gateway and the external feed",
+                "Verify the Bloomberg B-PIPE service subscription and IP allowlist are current",
+                "Examine intermediate network devices for TCP session hijacking or deep packet inspection issues",
+                "Test connectivity from an alternate gateway to isolate whether the issue is host or network",
+                "Engage Bloomberg support if the RST originates from their infrastructure",
+            ),
+        ),
+        tags=("data-cleanup", "tcpdump", "packet-capture"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 31. CI/CD pipeline log (GitHub Actions output with failing tests)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-031",
+        subjects=(
+            "CI pipeline broken — GitHub Actions output pasted",
+            "Build failing on main — full GH Actions log",
+        ),
+        descriptions=(
+            "Our deployment pipeline for the portfolio analytics service is broken."
+            " Here's the GitHub Actions output:\n\n"
+            "Run npm run test:integration\n"
+            "  npm run test:integration\n"
+            "  shell: /usr/bin/bash -e {0}\n"
+            "  env:\n"
+            "    NODE_ENV: test\n"
+            "    DB_HOST: localhost\n"
+            "    DB_PORT: 5432\n\n"
+            "> portfolio-analytics@3.2.1 test:integration\n"
+            "> jest --config jest.integration.config.js --forceExit\n\n"
+            " PASS  src/services/__tests__/pricing.integration.test.ts\n"
+            " PASS  src/services/__tests__/portfolio.integration.test.ts\n"
+            " FAIL  src/services/__tests__/reconciliation.integration.test.ts\n"
+            "  ● ReconciliationService › daily reconciliation › should match"
+            " trades with settlement records\n\n"
+            "    ConnectionError: connect ECONNREFUSED 127.0.0.1:5432\n\n"
+            "      at TCPConnectWrap.afterConnect [as oncomplete]"
+            " (node:net:1595:16)\n"
+            "      at Object.<anonymous>"
+            " (src/services/__tests__/reconciliation.integration.test.ts:47:28)\n\n"
+            " FAIL  src/services/__tests__/settlement.integration.test.ts\n"
+            "  ● SettlementService › T+1 settlement › should process"
+            " pending settlements\n\n"
+            "    ConnectionError: connect ECONNREFUSED 127.0.0.1:5432\n\n"
+            "Test Suites: 2 failed, 2 passed, 4 total\n"
+            "Tests:       5 failed, 18 passed, 23 total\n"
+            "Time:        34.217 s\n"
+            "Error: Process completed with exit code 1.\n\n"
+            "We can't deploy the hotfix for the settlement calculation bug until"
+            " CI passes. The portfolio team is blocked.",
+            "GitHub Actions CI is failing on the portfolio-analytics repo. 2 of 4"
+            " integration test suites fail with ECONNREFUSED on port 5432 — looks"
+            " like the PostgreSQL service container isn't starting in the CI"
+            " environment. We need to deploy a settlement calc hotfix urgently.",
+        ),
+        gold=ScenarioGold(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+            needs_escalation=False,
+            missing_information=("environment_details", "configuration_details"),
+            next_best_action="Investigate CI/CD pipeline failure — PostgreSQL service container"
+            " not starting in GitHub Actions, blocking deployment of a settlement"
+            " calculation hotfix",
+            remediation_steps=(
+                "Check the GitHub Actions workflow YAML for the PostgreSQL service container configuration",
+                "Verify the CI runner has sufficient resources to start the database service container",
+                "Review recent changes to the workflow file or Docker image that may have broken the service",
+                "Test the integration tests locally with the same PostgreSQL version to confirm they pass",
+                "If urgent, consider temporarily skipping the failing tests to unblock the hotfix deployment",
+            ),
+        ),
+        tags=("data-cleanup", "cicd-log", "github-actions"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 32. Massive tracking URL parameters (SAP Fiori link with 500+ chars of UTM params)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-032",
+        subjects=(
+            "SAP Fiori link broken — can't open expense approval page",
+            "FW: Approve Expense Report — link doesn't work",
+        ),
+        descriptions=(
+            "I got an email asking me to approve an expense report but the link"
+            " doesn't work. Here's the full URL from the email:\n\n"
+            "https://contoso-sap.fiori.cloud/sap/bc/ui5_ui5/ui2/ushell/shells/"
+            "abap/FioriLaunchpad.html#Action-approveExpense&/detail/"
+            "EXP-2026-04821?sap-client=100&sap-language=EN"
+            "&utm_source=sap_workflow_notification"
+            "&utm_medium=email"
+            "&utm_campaign=expense_approval_q1_2026"
+            "&utm_content=approve_button_primary"
+            "&utm_term=expense_report_approval"
+            "&mkt_tok=NTI2LVJKRy03MTIAAAGN3kH7qBvM9xTw2nKpL"
+            "mFjR4sY8dEfGhIjKlMnOpQrStUv"
+            "&tracking_id=a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            "&notification_id=NOTIF-2026-0318-0947-AP"
+            "&workflow_instance=WF-000482190"
+            "&approval_step=2_of_3"
+            "&delegated_from=sarah.chen%40contoso.com"
+            "&original_submitter=marco.bellini%40contoso.com"
+            "&cost_center=CC-4520-NYC-TRADING"
+            "&amount=USD_4287.50"
+            "&report_type=client_entertainment"
+            "&fiscal_period=FY2026-Q1"
+            "&sap-theme=sap_fiori_3"
+            "&sap-ui-language=EN"
+            "&sap-ui-xx-formFactor=desktop\n\n"
+            "When I click it, I get a blank white page. I need to approve this"
+            " by end of day.",
+            "Can't open the SAP Fiori expense approval link from my workflow"
+            " notification email. The URL is extremely long with a bunch of"
+            " tracking parameters. Just shows a blank white page. I need to"
+            " approve Marco Bellini's Q1 expense report ($4,287.50) today.",
+        ),
+        gold=ScenarioGold(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+            needs_escalation=False,
+            missing_information=("error_message", "environment_details"),
+            next_best_action="Investigate SAP Fiori deep link failure for expense approval workflow"
+            " — the URL with excessive tracking parameters may be exceeding URL length"
+            " limits or the Fiori launchpad may have a routing issue",
+            remediation_steps=(
+                "Test the SAP Fiori expense approval URL after stripping non-essential tracking parameters",
+                "Verify the SAP Fiori Launchpad is accessible and the user has the approval role assigned",
+                "Check if the URL length exceeds browser or proxy URL limits due to tracking parameters",
+                "Provide the user with a clean direct link to the expense approval transaction",
+                "Review the email notification template to reduce unnecessary URL parameters",
+            ),
+        ),
+        tags=("data-cleanup", "tracking-url", "long-url"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 33. Calendar invite ICS data (VCALENDAR blocks, real issue: duplicate events)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-033",
+        subjects=(
+            "Calendar full of duplicate meetings — ICS data pasted",
+            "Outlook duplicating all calendar invites — raw ICS dump",
+        ),
+        descriptions=(
+            "My Outlook calendar is showing every meeting 3 times. I exported one"
+            " of the duplicates and the raw data looks like this:\n\n"
+            "BEGIN:VCALENDAR\n"
+            "VERSION:2.0\n"
+            "PRODID:-//Microsoft Corporation//Outlook 16.0//EN\n"
+            "METHOD:REQUEST\n"
+            "BEGIN:VEVENT\n"
+            "DTSTART:20260319T140000Z\n"
+            "DTEND:20260319T150000Z\n"
+            "DTSTAMP:20260318T094523Z\n"
+            "ORGANIZER;CN=Sarah Chen:mailto:sarah.chen@contoso.com\n"
+            "UID:040000008200E00174C5B7101A82E008000000001047C3B6\n"
+            "ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE"
+            ";CN=Marco Bellini:mailto:marco.bellini@contoso.com\n"
+            "ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED"
+            ";CN=James Wu:mailto:james.wu@contoso.com\n"
+            "SUMMARY:Q1 Portfolio Review — NYC Trading Desk\n"
+            "LOCATION:Conference Room 12A / Teams\n"
+            "SEQUENCE:3\n"
+            "X-MICROSOFT-CDO-APPT-SEQUENCE:3\n"
+            "END:VEVENT\n"
+            "END:VCALENDAR\n\n"
+            "Every single meeting on my calendar has 2-3 copies. It started after"
+            " IT migrated our mailboxes last weekend. My calendar is unusable.",
+            "Since the mailbox migration last weekend, all my Outlook meetings are"
+            " duplicated (sometimes tripled). I have 3 copies of every invite."
+            " The SEQUENCE numbers differ between copies. Calendar is completely"
+            " cluttered and I keep getting confused about which ones are real.",
+        ),
+        gold=ScenarioGold(
+            category="Software & Applications",
+            priority="P4",
+            assigned_team="Enterprise Applications",
+            needs_escalation=False,
+            missing_information=("environment_details",),
+            next_best_action="Investigate duplicate calendar events following mailbox migration"
+            " — likely a migration issue that replayed calendar invites with"
+            " different sequence numbers",
+            remediation_steps=(
+                "Check the mailbox migration logs for duplicate calendar item imports",
+                "Use MFCMAPI or PowerShell to identify and remove duplicate calendar entries by UID",
+                "Verify the Exchange calendar repair assistant is running for the affected mailbox",
+                "Confirm no active sync profiles are duplicating events from a secondary source",
+                "Run a calendar folder repair using Outlook's built-in cleanup tools",
+            ),
+        ),
+        tags=("data-cleanup", "ics-data", "calendar-invite"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 34. Pasted spreadsheet data (tab-delimited portfolio reconciliation mismatch)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-034",
+        subjects=(
+            "Portfolio reconciliation mismatches — spreadsheet data pasted",
+            "Recon breaks between OMS and custodian — data dump",
+        ),
+        descriptions=(
+            "The portfolio reconciliation is showing mismatches between our OMS and"
+            " the custodian records. I copied the break report from Excel:\n\n"
+            "Account\tCUSIP\tSecurity\tOMS Qty\tCustodian Qty\tDelta\tStatus\n"
+            "ACCT-7291\t037833100\tAAPL\t15,000\t14,850\t150\tBREAK\n"
+            "ACCT-7291\t594918104\tMSFT\t22,500\t22,500\t0\tMATCH\n"
+            "ACCT-7291\t67066G104\tNVDA\t8,200\t8,050\t150\tBREAK\n"
+            "ACCT-8834\t46625H100\tJPM\t30,000\t30,000\t0\tMATCH\n"
+            "ACCT-8834\t78378X107\tSPY ETF\t50,000\t49,500\t500\tBREAK\n"
+            "ACCT-8834\t464287655\tHYG ETF\t25,000\t25,250\t-250\tBREAK\n"
+            "ACCT-9102\t912810SV1\tUST 10Y\t100,000\t100,000\t0\tMATCH\n"
+            "ACCT-9102\t912828ZT6\tUST 2Y\t200,000\t199,000\t1,000\tBREAK\n\n"
+            "5 breaks out of 8 positions checked so far. The OMS data loaded"
+            " at 6:00 AM ET but the custodian file came in at 7:45 AM — there"
+            " may have been late trades that got captured in one but not the"
+            " other. Need help checking the data pipeline timing.",
+            "Portfolio recon is broken today. Multiple position mismatches between"
+            " OMS and custodian records — AAPL, NVDA, SPY, HYG, and a Treasury"
+            " position all showing breaks. Suspect the custodian file loaded late"
+            " and missed some end-of-day trades. Need the data pipeline team to"
+            " check the load timestamps and re-run the reconciliation.",
+        ),
+        gold=ScenarioGold(
+            category="Data & Storage",
+            priority="P2",
+            assigned_team="Data Platform",
+            needs_escalation=False,
+            missing_information=("timestamp", "environment_details"),
+            next_best_action="Investigate portfolio reconciliation breaks caused by potential"
+            " data pipeline timing mismatch — OMS and custodian file load times"
+            " may be out of sync",
+            remediation_steps=(
+                "Check the data pipeline logs for the OMS and custodian file load timestamps",
+                "Verify if late trades were captured in the OMS but missed in the earlier custodian file",
+                "Re-run the reconciliation with the most recent custodian data extract",
+                "Review the pipeline scheduling to ensure custodian files are loaded after trade cutoff",
+                "Confirm all position breaks are resolved after the re-reconciliation",
+            ),
+        ),
+        tags=("data-cleanup", "spreadsheet-paste", "tab-delimited"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 35. ANSI escape codes from terminal (Nagios output with color codes, server down)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-035",
+        subjects=(
+            "Server DOWN alert from Nagios — pasted terminal output",
+            "Monitoring alert — Nagios shows critical, raw output inside",
+        ),
+        descriptions=(
+            "Nagios is showing a critical alert for the settlement engine server."
+            " I copied the output from my terminal:\n\n"
+            "\x1b[1;31m*** CRITICAL ***\x1b[0m Host: \x1b[1;37m"
+            "contoso-settle-prod-01\x1b[0m\n"
+            "\x1b[1;31mStatus: DOWN\x1b[0m | Duration: \x1b[1;33m"
+            "0d 0h 23m 47s\x1b[0m\n"
+            "\x1b[0;36mAddress:\x1b[0m 10.1.60.41\n"
+            "\x1b[0;36mService:\x1b[0m Settlement Engine\n"
+            "\x1b[1;31mCRITICAL\x1b[0m - \x1b[0;36mHTTP\x1b[0m:"
+            " Connection refused (port 8443)\n"
+            "\x1b[1;31mCRITICAL\x1b[0m - \x1b[0;36mProcess\x1b[0m:"
+            " settlement-engine.jar not found in process list\n"
+            "\x1b[1;33mWARNING\x1b[0m  - \x1b[0;36mDisk\x1b[0m:"
+            " /var/log 94% used\n"
+            "\x1b[0;32mOK\x1b[0m       - \x1b[0;36mCPU\x1b[0m: 12%\n"
+            "\x1b[0;32mOK\x1b[0m       - \x1b[0;36mMemory\x1b[0m: 67%\n"
+            "\x1b[0;36mLast State Change:\x1b[0m 2026-03-18 14:32:15 ET\n"
+            "\x1b[0;36mNotification:\x1b[0m 3 of 5 (every 15m)\n\n"
+            "The settlement engine process is gone and the log disk is almost full."
+            " T+1 settlement processing starts at 4:00 PM ET — less than 2 hours"
+            " away.",
+            "Settlement engine (contoso-settle-prod-01, 10.1.60.41) is DOWN per"
+            " Nagios. Port 8443 refusing connections, settlement-engine.jar process"
+            " not running. /var/log at 94% may have caused the crash. T+1"
+            " settlement processing is at 4 PM — we have under 2 hours.",
+        ),
+        gold=ScenarioGold(
+            category="Network & Connectivity",
+            priority="P3",
+            assigned_team="Network Operations",
+            needs_escalation=False,
+            missing_information=("error_message",),
+            next_best_action="Investigate settlement engine process crash on contoso-settle-prod-01"
+            " — process is not running, log disk nearly full, T+1 settlement"
+            " processing imminent",
+            remediation_steps=(
+                "SSH into contoso-settle-prod-01 and check /var/log for the settlement engine crash logs",
+                "Clear or rotate old log files to free disk space on /var/log (94% used)",
+                "Restart the settlement-engine.jar process and verify it binds to port 8443",
+                "Monitor the service via Nagios to confirm it returns to OK status",
+                "Verify settlement processing completes successfully before the T+1 deadline",
+            ),
+        ),
+        tags=("data-cleanup", "ansi-escape-codes", "terminal-output"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 36. Very long email with issue buried at end (rambling, real issue: laptop dock no video)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-036",
+        subjects=(
+            "Several issues / questions / general frustration — please read fully",
+            "RE: RE: Multiple IT concerns — updated with new problem",
+        ),
+        descriptions=(
+            "Hi IT team,\n\n"
+            "I hope you're doing well. I wanted to reach out about a few things that"
+            " have been on my mind lately. First of all, I want to say that the new"
+            " coffee machines on the 4th floor are really great — much better than the"
+            " old ones. I know that's not an IT issue but I just wanted to put that"
+            " out there.\n\n"
+            "Anyway, I had a question about the new Microsoft Teams update. I noticed"
+            " the interface changed a bit and some of my pinned channels moved around."
+            " Is that normal? I figured it out eventually but it was confusing at"
+            " first. Not a big deal though.\n\n"
+            "Also, I've been meaning to ask — is there a way to get a second monitor?"
+            " I saw that some people on the trading floor have three monitors and I was"
+            " wondering if that's something I could request. I know the budget cycle is"
+            " complicated but it would really help my productivity.\n\n"
+            "Oh, and I forgot to mention in my last email — the printer on Floor 4"
+            " (the big one near the kitchen) was making a weird noise last Tuesday but"
+            " it seems fine now. Just wanted to flag it in case it acts up again.\n\n"
+            "Speaking of last Tuesday, I went to that lunch-and-learn about"
+            " cybersecurity. Really informative! The speaker was great. Are there more"
+            " of those planned?\n\n"
+            "OK so the real reason I'm writing — and sorry for burying this — is that"
+            " since this morning my laptop dock isn't outputting video to either of my"
+            " monitors. The laptop screen works fine but both external displays are"
+            " black. I've tried unplugging and replugging the dock, restarting the"
+            " laptop, and switching cables. Nothing works. The dock is a Dell WD19TBS"
+            " and my laptop is a ThinkPad X1 Carbon Gen 10. The dock's LED is on so it"
+            " has power. I need my external monitors for the risk dashboard.\n\n"
+            "Thanks for reading all of that!\n"
+            "Best,\nLisa Park\nRisk Management, Floor 4",
+            "Long story short (sorry for the wall of text in my previous email) —"
+            " my Dell WD19TBS dock stopped sending video to both external monitors"
+            " this morning. ThinkPad X1 Carbon Gen 10 laptop screen works fine."
+            " Tried restarting, reseating cables, unplugging dock. LED is on."
+            " Need my monitors for the risk dashboard.",
+        ),
+        gold=ScenarioGold(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+            needs_escalation=False,
+            missing_information=("steps_to_reproduce",),
+            next_best_action="Diagnose Dell WD19TBS dock video output failure to both external"
+            " monitors — dock has power but no display output from ThinkPad X1 Carbon",
+            remediation_steps=(
+                "Check for pending Thunderbolt or display driver updates on the ThinkPad X1 Carbon",
+                "Reset the dock by disconnecting power for 30 seconds, then reconnecting",
+                "Test the monitors with a direct HDMI/DisplayPort connection bypassing the dock",
+                "Update the Dell WD19TBS dock firmware using Dell Dock Update Utility",
+                "If the issue persists, swap the dock with a known-good unit for comparison",
+            ),
+        ),
+        tags=("data-cleanup", "buried-issue", "long-email"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 37. Base64-encoded PDF inline (compliance scanner report, real issue: TLS cert expiry)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-037",
+        subjects=(
+            "URGENT: Compliance scan found critical TLS cert expiry — report attached inline",
+            "Security scan results — base64 PDF of Qualys report + TLS issue",
+        ),
+        descriptions=(
+            "Our Qualys compliance scanner flagged a critical issue. The PDF report"
+            " is embedded below but the key finding is that the TLS certificate for"
+            " our external client portal (portal.contoso.com) expires in 72 hours.\n\n"
+            "--- Base64-encoded Qualys Report PDF ---\n"
+            "JVBERi0xLjcKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIg"
+            "Pj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0g"
+            "L0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVu"
+            "dCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA2MTIgNzkyXSAvQ29udGVudHMgNCAwIFIg"
+            "L1Jlc291cmNlcyA8PCAvRm9udCA8PCAvRjEgNSAwIFIgPj4gPj4gPj4KZW5kb2Jq"
+            "CjQgMCBvYmoKPDwgL0xlbmd0aCA0NDcgPj4Kc3RyZWFtCkJUCi9GMSAyNCBUZgox"
+            "MDAgNzAwIFRkCihDb250b3NvIEZpbmFuY2lhbCBTZXJ2aWNlcykgVGoKL0YxIDEy"
+            "IFRmCjAgLTMwIFRkCihRdWFseXMgQ29tcGxpYW5jZSBTY2FuIFJlcG9ydCAtIE1h"
+            "cmNoIDIwMjYpIFRqCjAgLTQwIFRkCihDUklUSUNBTCBGSU5ESU5HOiBUTFMgQ2Vy"
+            "... [remaining 47KB of base64 data truncated] ...\n"
+            "--- End Base64 ---\n\n"
+            "The cert is a DigiCert wildcard (*.contoso.com) issued in March 2025."
+            " If it expires, external clients won't be able to access their portfolio"
+            " dashboards. This will trigger regulatory notification requirements.\n\n"
+            "Security Operations needs to coordinate an emergency renewal.",
+            "Qualys scan found that the TLS cert for portal.contoso.com expires in"
+            " 72 hours. It's the DigiCert wildcard cert (*.contoso.com). External"
+            " client portal will go down if not renewed. Full PDF report was sent"
+            " in previous email (base64 encoded). Regulatory implications if client"
+            " portal becomes inaccessible.",
+        ),
+        gold=ScenarioGold(
+            category="Security & Compliance",
+            priority="P2",
+            assigned_team="Security Operations",
+            needs_escalation=True,
+            missing_information=("configuration_details",),
+            next_best_action="Emergency TLS certificate renewal for *.contoso.com wildcard cert"
+            " expiring in 72 hours — external client portal at risk with regulatory"
+            " notification implications",
+            remediation_steps=(
+                "Verify the current TLS certificate expiry date and serial number on portal.contoso.com",
+                "Initiate an emergency wildcard certificate renewal through DigiCert",
+                "Prepare the new certificate and deploy to all servers using the *.contoso.com wildcard",
+                "Test the renewed certificate on a staging endpoint before production deployment",
+                "Update the certificate monitoring alerts to ensure earlier warnings for future renewals",
+            ),
+        ),
+        tags=("data-cleanup", "base64-pdf", "compliance-scan"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 38. Multiple base64 screenshots in reply chain (monitor flickering debug)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-038",
+        subjects=(
+            "RE: RE: Monitor flickering issue — more screenshots attached inline",
+            "Monitor display artifacts — base64 screenshots from troubleshooting",
+        ),
+        descriptions=(
+            "Following up on my monitor flickering issue. I took more screenshots"
+            " showing the artifacts:\n\n"
+            "Screenshot 1 (horizontal lines across screen):\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJ"
+            "AAAADUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg==\n\n"
+            "Screenshot 2 (green tint on right half of display):\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJ"
+            "AAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\n\n"
+            "Screenshot 3 (entire screen flashing black for 1 second):\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJ"
+            "AAAADUlEQVR42mNkYPj/HwADBwIAMCbHYQAAAABJRU5ErkJggg==\n\n"
+            "--- Original Message ---\n"
+            "From: IT Support <itsupport@contoso.com>\n"
+            "Subject: Re: Monitor flickering issue\n\n"
+            "Can you send screenshots of the artifacts? Also try a different"
+            " DisplayPort cable.\n\n"
+            "--- Original Message ---\n"
+            "My Dell U2722D monitor on the trading floor (Desk 14B) is flickering"
+            " and showing horizontal lines. It gets worse throughout the day."
+            " Tried swapping to the spare cable in the drawer — same issue."
+            " The monitor is about 2 years old.",
+            "My Dell U2722D monitor (Desk 14B, trading floor) has display artifacts"
+            " — horizontal lines, green tint on half the screen, and intermittent"
+            " blackouts. Tried a different DisplayPort cable, same behavior."
+            " Gets worse as the day goes on. Monitor is ~2 years old."
+            " Sent screenshots in previous email (inline base64).",
+        ),
+        gold=ScenarioGold(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+            needs_escalation=False,
+            missing_information=("device_info",),
+            next_best_action="Diagnose Dell U2722D monitor display artifacts on the trading floor"
+            " — likely a hardware failure given cable swap did not resolve the issue"
+            " and symptoms worsen over time",
+            remediation_steps=(
+                "Test the monitor with a different input source to confirm the issue is with the display",
+                "Connect a known-good monitor to the user's workstation to rule out GPU issues",
+                "If the monitor is confirmed faulty, initiate a warranty replacement with Dell",
+                "Provide a temporary replacement monitor for the trading desk to avoid workflow disruption",
+                "Update the hardware inventory to track the replacement",
+            ),
+        ),
+        tags=("data-cleanup", "base64-screenshots", "inline-images"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 39. Mobile autocorrect mangling (informal chat with autocorrect errors)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-039",
+        subjects=(
+            "Cant use the sap app on my phone — ducking autocorrect sorry",
+            "SAP fiori mobile is broken pls help",
+        ),
+        descriptions=(
+            "Hey IT sorry for typos im on my phone and autocorrect is killing me\n\n"
+            "so i cant log in to the SAP fiery app (fiori***) on my iPhone. it keeps"
+            " saying 'authentication failed' even tho im using the right password."
+            " i changed my pasta word (PASSWORD) last week and now the sap app wont"
+            " accept it\n\n"
+            "i tried the forget pasta word (ugh FORGOT PASSWORD) flow but it sends"
+            " the reset link to my contour so (contoso!!!) email which i cant access"
+            " on my phone because outlook is also asking me to reauthenticate\n\n"
+            "im at a client site right now and need to approve purchase orders from"
+            " the fiery launchpad (FIORI LAUNCHPAD). this is super urgent bc the"
+            " vendor payment is do (due) today\n\n"
+            "also my certificate or whatever it is might be expired? i got a pop up"
+            " about a 'certificate error' before it said auth failed\n\n"
+            "pls help asap thx\n"
+            "- Dave Morrison, Procurement, sent from my iPhone",
+            "Can't login to SAP Fiori mobile app on iPhone after password change"
+            " last week. Getting 'authentication failed' error and possibly a"
+            " certificate error popup. Also locked out of Outlook mobile —"
+            " can't receive password reset emails. At client site, need to"
+            " approve vendor purchase orders urgently.",
+        ),
+        gold=ScenarioGold(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+            needs_escalation=False,
+            missing_information=("device_info", "authentication_method"),
+            next_best_action="Resolve SAP Fiori mobile authentication failure after password change"
+            " — user is also locked out of Outlook mobile, creating a circular"
+            " dependency for password reset",
+            remediation_steps=(
+                "Reset the user's cached credentials in Azure AD to force re-authentication across apps",
+                "Guide the user through removing and re-adding their account in the Outlook mobile app",
+                "Verify the MDM certificate on the iPhone is valid and not expired",
+                "Test SAP Fiori login after Outlook email access is restored and new password is accepted",
+                "Confirm the pending purchase order approvals can be processed in the Fiori app",
+            ),
+        ),
+        tags=("data-cleanup", "autocorrect", "mobile-typos"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 40. Speech-to-text voicemail transcription (server room cooling failure)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-040",
+        subjects=(
+            "URGENT voicemail transcription — server room overheating",
+            "[Auto-Transcribed Voicemail] Critical — data center cooling alarm",
+        ),
+        descriptions=(
+            "[Voicemail transcribed by Microsoft Speech Services — accuracy may vary]\n\n"
+            "hey this is mike delano from facilities I'm calling because the server"
+            " room on the fourth floor is reading really high temperatures the the"
+            " thermos stat (thermostat?) says 94° which is way above the 72° set"
+            " point the the seas rack (CRAC?) unit on the left side is making a"
+            " grinding noise and I think the compress or (compressor) has failed"
+            " the backup unit kicked in but it's not keeping up the alarms have"
+            " been going off for about 15 minutes now and I can see some of the"
+            " servers have amber warning lights on them I think we need someone"
+            " from IT to come down here right now before we start losing equipment"
+            " the humidity is also climbing I'm reading 78% on the hymn idle"
+            " (hydrometer?) panel and there's condensation starting on some of the"
+            " cable trays this is really urgent please call me back at extension"
+            " 4478 or just come down to the fourth floor server room immediately\n\n"
+            "[End of transcription — Duration: 1m 42s — Confidence: 72%]",
+            "Facilities reports 4th floor server room at 94°F (set point 72°F)."
+            " Primary CRAC unit compressor has failed, backup not keeping up."
+            " Humidity at 78% with condensation on cable trays. Servers showing"
+            " amber thermal warnings. Issue ongoing for 15+ minutes. Contact:"
+            " Mike DeLano, Facilities, ext 4478.",
+        ),
+        gold=ScenarioGold(
+            category="Hardware & Peripherals",
+            priority="P1",
+            assigned_team="Endpoint Engineering",
+            needs_escalation=True,
+            missing_information=("environment_details",),
+            next_best_action="Emergency: server room cooling failure on 4th floor — temperatures"
+            " at 94°F and rising with CRAC compressor failure, immediate risk of"
+            " hardware damage",
+            remediation_steps=(
+                "Dispatch on-site personnel to the 4th floor server room immediately to assess the situation",
+                "Initiate emergency shutdown of non-critical servers to reduce heat load",
+                "Contact HVAC vendor for emergency CRAC unit compressor repair or replacement",
+                "Deploy portable cooling units to supplement the struggling backup CRAC",
+                "Monitor server hardware health and prepare for potential hardware failures from thermal stress",
+            ),
+        ),
+        tags=("data-cleanup", "voicemail-transcription", "speech-to-text"),
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 41. Zero-width Unicode characters (invisible chars in SharePoint access request)
+    # ──────────────────────────────────────────────────────────────────
+    ScenarioDefinition(
+        scenario_id="dc-gen-041",
+        subjects=(
+            "Can\u200bt a\u200bcc\u200bess Sh\u200bare\u200bPo\u200bint si\u200bte",
+            "Sh\u200bareP\u200boint per\u200bmission den\u200bied — compliance docs",
+        ),
+        descriptions=(
+            "Hi\u200b I\u200bT S\u200bup\u200bpo\u200brt,\n\n"
+            "I\u200b ne\u200bed ac\u200bce\u200bss to\u200b th\u200be "
+            "Sh\u200bare\u200bPo\u200bint si\u200bte fo\u200br "
+            "co\u200bmp\u200bli\u200ban\u200bce do\u200bcu\u200bme\u200bnts:\n"
+            "ht\u200btps://co\u200bnto\u200bso.sha\u200bre\u200bpo\u200bint"
+            ".co\u200bm/si\u200btes/co\u200bmpl\u200bian\u200bce-\u200bdocs\n\n"
+            "I\u200b ge\u200bt '\u200bAc\u200bce\u200bss De\u200bni\u200bed\u200b'"
+            " wh\u200ben I\u200b tr\u200by to\u200b op\u200ben it\u200b
