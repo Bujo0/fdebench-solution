@@ -70,6 +70,4 @@ class TestScenarioWellFormedness:
     def test_rai_tickets_use_6xxx_ids(self) -> None:
         rai = default_registry.by_category(ScenarioCategory.RESPONSIBLE_AI)
         for s in rai:
-            assert s.ticket.ticket_id.startswith("INC-6"), (
-                f"RAI ticket {s.ticket.ticket_id} should use INC-6xxx range"
-            )
+            assert s.ticket.ticket_id.startswith("INC-6"), f"RAI ticket {s.ticket.ticket_id} should use INC-6xxx range"

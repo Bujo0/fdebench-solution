@@ -226,9 +226,7 @@ def _build_constraint_checks(response: dict, constraints: ResponseConstraint) ->
     if constraints.must_not_contain:
         checks.append(_check_must_not_contain(response, constraints.must_not_contain))
     if constraints.must_not_contain_in_remediation:
-        checks.append(
-            _check_must_not_contain_in_remediation(response, constraints.must_not_contain_in_remediation)
-        )
+        checks.append(_check_must_not_contain_in_remediation(response, constraints.must_not_contain_in_remediation))
 
     return checks
 

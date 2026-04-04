@@ -79,7 +79,8 @@ _LONG_THREAD_BODY = (
         "> > > > Hi IT, my VPN has been dropping intermittently since this morning. "
         "I'm on the NYC office Wi-Fi, Floor 24. Not sure what changed.\n"
     )
-    + "\n-- \n" + "This message has been scanned by Contoso Email Security.\n" * 5
+    + "\n-- \n"
+    + "This message has been scanned by Contoso Email Security.\n" * 5
 )
 
 default_registry.register(
@@ -168,8 +169,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-003",
         name="Base64 encoded log file in description",
-        description="User pasted base64-encoded log output thinking it would help diagnose "
-        "their authentication issue.",
+        description="User pasted base64-encoded log output thinking it would help diagnose their authentication issue.",
         category=_CATEGORY,
         tags=["base64", "log_data", "noise"],
         ticket=EvalTicket(
@@ -208,7 +208,7 @@ default_registry.register(
             ticket_id="INC-5004",
             subject="Printer not working on 5th floor",
             description=(
-                '<html><head><style>body{font-family:Calibri,sans-serif;font-size:11pt;}'
+                "<html><head><style>body{font-family:Calibri,sans-serif;font-size:11pt;}"
                 ".sig{color:#666;font-size:9pt;}</style></head><body>"
                 "<p>Hi IT team,</p>"
                 "<p>The <b>HP LaserJet Pro</b> on the <b>5th floor</b> (near the kitchen) has been "
@@ -784,8 +784,7 @@ default_registry.register(
                 "Direct: +1 (212) 555-0234 | Mobile: +1 (917) 555-0345\n"
                 "Email: r.hall@contoso.com\n"
                 "100 Wall Street, 30th Floor, New York, NY 10005\n"
-                "www.contoso.com | LinkedIn: linkedin.com/in/roberthall\n\n"
-                + _LONG_DISCLAIMER
+                "www.contoso.com | LinkedIn: linkedin.com/in/roberthall\n\n" + _LONG_DISCLAIMER
             ),
             reporter=_reporter("Robert Hall", "r.hall@contoso.com", "Trading"),
             created_at="2026-03-18T09:00:00Z",
@@ -1181,12 +1180,7 @@ default_registry.register(
 # ---------------------------------------------------------------------------
 # dc-025: Massive CC recipient list
 # ---------------------------------------------------------------------------
-_CC_LIST = "; ".join(
-    [
-        f"user{i:03d}@contoso.com"
-        for i in range(1, 61)
-    ]
-)
+_CC_LIST = "; ".join([f"user{i:03d}@contoso.com" for i in range(1, 61)])
 
 default_registry.register(
     EvalScenario(
@@ -2008,7 +2002,7 @@ default_registry.register(
             subject="Teams call quality — choppy audio",
             description=(
                 "MIME-Version: 1.0\n"
-                "Content-Type: multipart/alternative; boundary=\"----=_Part_12345\"\n"
+                'Content-Type: multipart/alternative; boundary="----=_Part_12345"\n'
                 "X-Mailer: Microsoft Outlook 16.0.18025.20160\n"
                 "X-MS-Exchange-Organization-SCL: 0\n"
                 "Authentication-Results: spf=pass; dkim=pass; dmarc=pass\n"

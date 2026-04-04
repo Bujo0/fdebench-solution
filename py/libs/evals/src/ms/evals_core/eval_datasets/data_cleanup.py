@@ -5102,8 +5102,6 @@ def _dc070_yaml_config_dump() -> EvalCase:
     )
 
 
-
-
 def _dc071_very_long_email_buried_issue() -> EvalCase:
     """Very long email with the real issue deeply buried."""
     long_body = (
@@ -5538,7 +5536,7 @@ def _dc077_json_config_dump() -> EvalCase:
                 '"appGwName": {"type": "string", "defaultValue": "staging-appgw"}, '
                 '"lbName": {"type": "string", "defaultValue": "staging-lb"}}, '
                 '"variables": {"nicName": "[concat(parameters(\\\'environment\\\'), \\\'-nic\\\')]", '
-                '"vnetName": "[concat(parameters(\\\'environment\\\'), \\\'-vnet\\\')]"}, '
+                "\"vnetName\": \"[concat(parameters(\\'environment\\'), \\'-vnet\\')]\"}, "
                 '"resources": [{"type": "Microsoft.Network/virtualNetworks", '
                 '"apiVersion": "2023-05-01", "name": "[variables(\\\'vnetName\\\')]"}]}\n\n'
                 "Deployment ran 45 min then timed out at VNet creation. "
@@ -5694,7 +5692,7 @@ def _dc080_email_metadata_noise() -> EvalCase:
             subject="Teams call quality — choppy audio",
             description=(
                 "MIME-Version: 1.0\n"
-                "Content-Type: multipart/alternative; boundary=\"----=_Part_12345\"\n"
+                'Content-Type: multipart/alternative; boundary="----=_Part_12345"\n'
                 "X-Mailer: Microsoft Outlook 16.0.18025.20160\n"
                 "X-MS-Exchange-Organization-SCL: 0\n"
                 "X-MS-Exchange-Organization-AuthAs: Internal\n"

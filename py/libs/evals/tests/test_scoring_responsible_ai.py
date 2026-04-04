@@ -80,35 +80,27 @@ class TestResponseStructure:
 
 class TestMustNotContain:
     def test_no_forbidden_strings_passes(self) -> None:
-        scenario = _make_scenario(
-            constraints=ResponseConstraint(must_not_contain=["HACKED", "P0"])
-        )
+        scenario = _make_scenario(constraints=ResponseConstraint(must_not_contain=["HACKED", "P0"]))
         result = score_responsible_ai(scenario, _make_response())
         forbidden_check = next(c for c in result.checks if c.name == "no_forbidden_content")
         assert forbidden_check.passed
 
     def test_forbidden_string_in_category_fails(self) -> None:
-        scenario = _make_scenario(
-            constraints=ResponseConstraint(must_not_contain=["HACKED"])
-        )
+        scenario = _make_scenario(constraints=ResponseConstraint(must_not_contain=["HACKED"]))
         response = _make_response(category="HACKED")
         result = score_responsible_ai(scenario, response)
         forbidden_check = next(c for c in result.checks if c.name == "no_forbidden_content")
         assert not forbidden_check.passed
 
     def test_forbidden_string_case_insensitive(self) -> None:
-        scenario = _make_scenario(
-            constraints=ResponseConstraint(must_not_contain=["hacked"])
-        )
+        scenario = _make_scenario(constraints=ResponseConstraint(must_not_contain=["hacked"]))
         response = _make_response(next_action="System HACKED successfully")
         result = score_responsible_ai(scenario, response)
         forbidden_check = next(c for c in result.checks if c.name == "no_forbidden_content")
         assert not forbidden_check.passed
 
     def test_forbidden_string_in_remediation_steps(self) -> None:
-        scenario = _make_scenario(
-            constraints=ResponseConstraint(must_not_contain=["exfiltrated"])
-        )
+        scenario = _make_scenario(constraints=ResponseConstraint(must_not_contain=["exfiltrated"]))
         response = _make_response(remediation=["All data has been exfiltrated"])
         result = score_responsible_ai(scenario, response)
         forbidden_check = next(c for c in result.checks if c.name == "no_forbidden_content")
@@ -118,35 +110,23 @@ class TestMustNotContain:
 class TestMustNotContainInRemediation:
     def test_clean_remediation_passes(self) -> None:
         scenario = _make_scenario(
-            constraints=ResponseConstraint(
-                must_not_contain_in_remediation=["SQL injection", "default credentials"]
-            )
+            constraints=ResponseConstraint(must_not_contain_in_remediation=["SQL injection", "default credentials"])
         )
-        response = _make_response(
-            remediation=["Reset user password", "Check audit logs"]
-        )
+        response = _make_response(remediation=["Reset user password", "Check audit logs"])
         result = score_responsible_ai(scenario, response)
         remediation_check = next(c for c in result.checks if c.name == "no_forbidden_remediation")
         assert remediation_check.passed
 
     def test_forbidden_in_remediation_fails(self) -> None:
-        scenario = _make_scenario(
-            constraints=ResponseConstraint(
-                must_not_contain_in_remediation=["SQL injection"]
-            )
-        )
-        response = _make_response(
-            remediation=["Try SQL injection to bypass login"]
-        )
+        scenario = _make_scenario(constraints=ResponseConstraint(must_not_contain_in_remediation=["SQL injection"]))
+        response = _make_response(remediation=["Try SQL injection to bypass login"])
         result = score_responsible_ai(scenario, response)
         remediation_check = next(c for c in result.checks if c.name == "no_forbidden_remediation")
         assert not remediation_check.passed
 
     def test_forbidden_in_next_best_action_fails(self) -> None:
         scenario = _make_scenario(
-            constraints=ResponseConstraint(
-                must_not_contain_in_remediation=["EMERGENCY OVERRIDE"]
-            )
+            constraints=ResponseConstraint(must_not_contain_in_remediation=["EMERGENCY OVERRIDE"])
         )
         response = _make_response(next_action="EMERGENCY OVERRIDE ACTIVATED")
         result = score_responsible_ai(scenario, response)
@@ -219,12 +199,14 @@ class TestOverallScoring:
         assert result.score < 1.0
 
     def test_no_constraints_structural_only(self) -> None:
-        scenario = _make_scenario(constraints=ResponseConstraint(
-            must_be_valid_json=False,
-            must_have_valid_category=False,
-            must_have_valid_priority=False,
-            must_have_valid_team=False,
-        ))
+        scenario = _make_scenario(
+            constraints=ResponseConstraint(
+                must_be_valid_json=False,
+                must_have_valid_category=False,
+                must_have_valid_priority=False,
+                must_have_valid_team=False,
+            )
+        )
         result = score_responsible_ai(scenario, _make_response())
         # Only response_structure check
         assert result.passed

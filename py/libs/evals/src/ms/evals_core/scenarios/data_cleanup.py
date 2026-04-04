@@ -9491,24 +9491,24 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "I've been trying to deploy a new Azure VM through our Terraform pipeline "
                 "and it keeps failing. I'm pasting the relevant state JSON so you can see "
                 "what's going on:\n\n"
-                '{\n'
+                "{\n"
                 '  "version": 4,\n'
                 '  "terraform_version": "1.7.3",\n'
                 '  "serial": 42,\n'
                 '  "lineage": "a3f8e1c2-94d7-4b1e-bf3a-6e82d9c0f1a5",\n'
                 '  "outputs": {},\n'
                 '  "resources": [\n'
-                '    {\n'
+                "    {\n"
                 '      "mode": "managed",\n'
                 '      "type": "azurerm_virtual_machine",\n'
                 '      "name": "contoso_risk_engine_vm",\n'
                 '      "provider": "provider[\\"registry.terraform.io/hashicorp/azurerm\\"]",\n'
                 '      "instances": [\n'
-                '        {\n'
+                "        {\n"
                 '          "schema_version": 0,\n'
                 '          "attributes": {\n'
                 '            "id": "/subscriptions/9f3e2a71-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
-                '/resourceGroups/rg-contoso-prod-eastus/providers/Microsoft.Compute'
+                "/resourceGroups/rg-contoso-prod-eastus/providers/Microsoft.Compute"
                 '/virtualMachines/vm-risk-engine-01",\n'
                 '            "name": "vm-risk-engine-01",\n'
                 '            "location": "eastus",\n'
@@ -9516,34 +9516,34 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 '            "os_profile": {\n'
                 '              "computer_name": "vm-risk-engine-01",\n'
                 '              "admin_username": "contosoadmin"\n'
-                '            },\n'
+                "            },\n"
                 '            "storage_os_disk": {\n'
                 '              "name": "osdisk-risk-engine-01",\n'
                 '              "caching": "ReadWrite",\n'
                 '              "create_option": "FromImage",\n'
                 '              "managed_disk_type": "Premium_LRS",\n'
                 '              "disk_size_gb": 256\n'
-                '            },\n'
+                "            },\n"
                 '            "network_interface_ids": [\n'
                 '              "/subscriptions/9f3e2a71-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
-                '/resourceGroups/rg-contoso-prod-eastus/providers/Microsoft.Network'
+                "/resourceGroups/rg-contoso-prod-eastus/providers/Microsoft.Network"
                 '/networkInterfaces/nic-risk-engine-01"\n'
-                '            ],\n'
+                "            ],\n"
                 '            "tags": {\n'
                 '              "environment": "production",\n'
                 '              "team": "risk-analytics",\n'
                 '              "cost_center": "CC-4402"\n'
-                '            }\n'
-                '          }\n'
-                '        }\n'
-                '      ]\n'
-                '    }\n'
-                '  ]\n'
-                '}\n\n'
+                "            }\n"
+                "          }\n"
+                "        }\n"
+                "      ]\n"
+                "    }\n"
+                "  ]\n"
+                "}\n\n"
                 "The actual error during `terraform apply` is:\n"
-                "Error: creating Virtual Machine \"vm-risk-engine-02\": the SKU "
-                "\"Standard_D8s_v5\" is not available in location \"eastus\" for "
-                "subscription \"9f3e2a71-xxxx\".\n\n"
+                'Error: creating Virtual Machine "vm-risk-engine-02": the SKU '
+                '"Standard_D8s_v5" is not available in location "eastus" for '
+                'subscription "9f3e2a71-xxxx".\n\n'
                 "I need this VM for the new risk engine replica. Deployment deadline "
                 "is end of week."
             ),
@@ -9585,34 +9585,34 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "the problem:\n\n"
                 "# HELP http_request_duration_seconds HTTP request latency\n"
                 "# TYPE http_request_duration_seconds histogram\n"
-                "http_request_duration_seconds_bucket{method=\"GET\",endpoint=\"/api/v2/portfolio\","
-                "status=\"200\",le=\"0.05\"} 12\n"
-                "http_request_duration_seconds_bucket{method=\"GET\",endpoint=\"/api/v2/portfolio\","
-                "status=\"200\",le=\"0.1\"} 45\n"
-                "http_request_duration_seconds_bucket{method=\"GET\",endpoint=\"/api/v2/portfolio\","
-                "status=\"200\",le=\"0.5\"} 112\n"
-                "http_request_duration_seconds_bucket{method=\"GET\",endpoint=\"/api/v2/portfolio\","
-                "status=\"200\",le=\"1.0\"} 389\n"
-                "http_request_duration_seconds_bucket{method=\"GET\",endpoint=\"/api/v2/portfolio\","
-                "status=\"200\",le=\"5.0\"} 1823\n"
-                "http_request_duration_seconds_bucket{method=\"GET\",endpoint=\"/api/v2/portfolio\","
-                "status=\"200\",le=\"10.0\"} 2401\n"
-                "http_request_duration_seconds_bucket{method=\"GET\",endpoint=\"/api/v2/portfolio\","
-                "status=\"200\",le=\"+Inf\"} 2455\n"
-                "http_request_duration_seconds_sum{method=\"GET\",endpoint=\"/api/v2/portfolio\","
-                "status=\"200\"} 8934.21\n"
-                "http_request_duration_seconds_count{method=\"GET\",endpoint=\"/api/v2/portfolio\","
-                "status=\"200\"} 2455\n\n"
+                'http_request_duration_seconds_bucket{method="GET",endpoint="/api/v2/portfolio",'
+                'status="200",le="0.05"} 12\n'
+                'http_request_duration_seconds_bucket{method="GET",endpoint="/api/v2/portfolio",'
+                'status="200",le="0.1"} 45\n'
+                'http_request_duration_seconds_bucket{method="GET",endpoint="/api/v2/portfolio",'
+                'status="200",le="0.5"} 112\n'
+                'http_request_duration_seconds_bucket{method="GET",endpoint="/api/v2/portfolio",'
+                'status="200",le="1.0"} 389\n'
+                'http_request_duration_seconds_bucket{method="GET",endpoint="/api/v2/portfolio",'
+                'status="200",le="5.0"} 1823\n'
+                'http_request_duration_seconds_bucket{method="GET",endpoint="/api/v2/portfolio",'
+                'status="200",le="10.0"} 2401\n'
+                'http_request_duration_seconds_bucket{method="GET",endpoint="/api/v2/portfolio",'
+                'status="200",le="+Inf"} 2455\n'
+                'http_request_duration_seconds_sum{method="GET",endpoint="/api/v2/portfolio",'
+                'status="200"} 8934.21\n'
+                'http_request_duration_seconds_count{method="GET",endpoint="/api/v2/portfolio",'
+                'status="200"} 2455\n\n'
                 "# HELP http_requests_total Total HTTP requests\n"
                 "# TYPE http_requests_total counter\n"
-                "http_requests_total{method=\"GET\",endpoint=\"/api/v2/portfolio\","
-                "status=\"200\"} 2455\n"
-                "http_requests_total{method=\"GET\",endpoint=\"/api/v2/portfolio\","
-                "status=\"504\"} 387\n"
-                "http_requests_total{method=\"POST\",endpoint=\"/api/v2/trades\","
-                "status=\"200\"} 892\n"
-                "http_requests_total{method=\"POST\",endpoint=\"/api/v2/trades\","
-                "status=\"504\"} 64\n\n"
+                'http_requests_total{method="GET",endpoint="/api/v2/portfolio",'
+                'status="200"} 2455\n'
+                'http_requests_total{method="GET",endpoint="/api/v2/portfolio",'
+                'status="504"} 387\n'
+                'http_requests_total{method="POST",endpoint="/api/v2/trades",'
+                'status="200"} 892\n'
+                'http_requests_total{method="POST",endpoint="/api/v2/trades",'
+                'status="504"} 64\n\n'
                 "# HELP process_cpu_seconds_total Total user and system CPU time\n"
                 "# TYPE process_cpu_seconds_total counter\n"
                 "process_cpu_seconds_total 48923.17\n\n"
@@ -9958,7 +9958,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "Our ARM template deployment for the new analytics resource group keeps "
                 "failing. I'm attaching the full template so you can see what we're "
                 "deploying:\n\n"
-                '{\n'
+                "{\n"
                 '  "$schema": "https://schema.management.azure.com/schemas/'
                 '2019-04-01/deploymentTemplate.json#",\n'
                 '  "contentVersion": "1.0.0.0",\n'
@@ -9966,29 +9966,29 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 '    "storageAccountName": {\n'
                 '      "type": "string",\n'
                 '      "defaultValue": "stcontosoanalyticsprod"\n'
-                '    },\n'
+                "    },\n"
                 '    "location": {\n'
                 '      "type": "string",\n'
                 '      "defaultValue": "[resourceGroup().location]"\n'
-                '    },\n'
+                "    },\n"
                 '    "sqlServerName": {\n'
                 '      "type": "string",\n'
                 '      "defaultValue": "sql-contoso-analytics-prod"\n'
-                '    },\n'
+                "    },\n"
                 '    "sqlAdminPassword": {\n'
                 '      "type": "securestring"\n'
-                '    }\n'
-                '  },\n'
+                "    }\n"
+                "  },\n"
                 '  "resources": [\n'
-                '    {\n'
+                "    {\n"
                 '      "type": "Microsoft.Storage/storageAccounts",\n'
                 '      "apiVersion": "2023-01-01",\n'
                 '      "name": "[parameters(\'storageAccountName\')]",\n'
                 '      "location": "[parameters(\'location\')]",\n'
                 '      "sku": { "name": "Standard_LRS" },\n'
                 '      "kind": "StorageV2"\n'
-                '    },\n'
-                '    {\n'
+                "    },\n"
+                "    {\n"
                 '      "type": "Microsoft.Sql/servers",\n'
                 '      "apiVersion": "2022-05-01-preview",\n'
                 '      "name": "[parameters(\'sqlServerName\')]",\n'
@@ -9997,25 +9997,25 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 '        "administratorLogin": "contosoadmin",\n'
                 '        "administratorLoginPassword": "[parameters(\'sqlAdminPassword\')]",\n'
                 '        "version": "12.0"\n'
-                '      }\n'
-                '    },\n'
-                '    {\n'
+                "      }\n"
+                "    },\n"
+                "    {\n"
                 '      "type": "Microsoft.Sql/servers/databases",\n'
                 '      "apiVersion": "2022-05-01-preview",\n'
-                '      "name": "[concat(parameters(\'sqlServerName\'), \'/analyticsdb\')]",\n'
+                "      \"name\": \"[concat(parameters('sqlServerName'), '/analyticsdb')]\",\n"
                 '      "location": "[parameters(\'location\')]",\n'
                 '      "dependsOn": [\n'
-                '        "[resourceId(\'Microsoft.Sql/servers\', '
-                'parameters(\'sqlServerName\'))]"\n'
-                '      ],\n'
+                "        \"[resourceId('Microsoft.Sql/servers', "
+                "parameters('sqlServerName'))]\"\n"
+                "      ],\n"
                 '      "sku": { "name": "P2", "tier": "Premium" },\n'
                 '      "properties": { "collation": "SQL_Latin1_General_CP1_CI_AS" }\n'
-                '    }\n'
-                '  ]\n'
-                '}\n\n'
+                "    }\n"
+                "  ]\n"
+                "}\n\n"
                 "The deployment error from the Azure portal is:\n"
-                "\"The storage account named stcontosoanalyticsprod is already taken. "
-                "(Code: StorageAccountAlreadyTaken)\"\n\n"
+                '"The storage account named stcontosoanalyticsprod is already taken. '
+                '(Code: StorageAccountAlreadyTaken)"\n\n'
                 "I'm deploying to the rg-contoso-analytics-prod resource group in East US 2. "
                 "The storage account name needs to be globally unique but I thought we owned "
                 "that name. This is blocking the data analytics platform migration scheduled "
@@ -10230,16 +10230,16 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "virtual assistant. Let me connect you with an agent. Your queue "
                 "position: 3. Estimated wait: 4 minutes.\n"
                 "[2026-03-24 08:03:01] System: Samira Hussain reacted with \U0001f44d to "
-                "\"Hello! I'm the Contoso IT virtual assistant...\"\n"
+                '"Hello! I\'m the Contoso IT virtual assistant..."\n'
                 "[2026-03-24 08:06:33] System: Agent Kevin Park joined the chat\n"
                 "[2026-03-24 08:06:35] Kevin Park: Hi Samira, I'm Kevin from IT. What "
                 "VPN client are you using?\n"
                 "[2026-03-24 08:06:52] Samira Hussain: GlobalProtect 6.2\n"
                 "[2026-03-24 08:07:15] Kevin Park: OK. What error do you see when you "
                 "try to connect?\n"
-                "[2026-03-24 08:07:44] Samira Hussain: It says \"Authentication failed: "
+                '[2026-03-24 08:07:44] Samira Hussain: It says "Authentication failed: '
                 "token expired. Please contact your administrator to renew your MFA "
-                "token.\"\n"
+                'token."\n'
                 "[2026-03-24 08:08:01] Kevin Park: Got it. When did this start?\n"
                 "[2026-03-24 08:08:22] Samira Hussain: This morning. It was working "
                 "Friday. I haven't changed anything.\n"
@@ -10247,7 +10247,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "[2026-03-24 08:09:10] Kevin Park: Let me check your MFA token status. "
                 "One moment.\n"
                 "[2026-03-24 08:09:12] System: Samira Hussain reacted with \u2764\ufe0f to "
-                "\"Let me check your MFA token status...\"\n"
+                '"Let me check your MFA token status..."\n'
                 "[2026-03-24 08:11:30] Kevin Park: I can see your TOTP hardware token "
                 "(serial: YK-5C-00293847) expired on 2026-03-22. These tokens have a "
                 "2-year lifecycle. You'll need a replacement.\n"
@@ -10259,7 +10259,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "that work?\n"
                 "[2026-03-24 08:12:45] Samira Hussain: Yes please!\n"
                 "[2026-03-24 08:12:47] System: Samira Hussain reacted with \U0001f389 to "
-                "\"I can issue a temporary software token...\"\n"
+                '"I can issue a temporary software token..."\n'
                 "[2026-03-24 08:15:02] Kevin Park: OK, I've provisioned a temporary "
                 "TOTP token to your Contoso Authenticator app. Please check and try "
                 "connecting.\n"
@@ -10772,13 +10772,13 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 '"publicIPAddressName": {"type": "string", "defaultValue": "staging-pip"}, '
                 '"dnsLabelPrefix": {"type": "string", "defaultValue": "contoso-staging"}}, '
                 '"variables": {"nicName": "[concat(parameters(\'environment\'), \'-nic\')]", '
-                '"vnetName": "[concat(parameters(\'environment\'), \'-vnet\')]", '
+                "\"vnetName\": \"[concat(parameters('environment'), '-vnet')]\", "
                 '"subnetName": "default", '
                 '"subnetRef": "[resourceId(\'Microsoft.Network/virtualNetworks/subnets\','
-                ' variables(\'vnetName\'), variables(\'subnetName\'))]", '
-                '"vmName": "[concat(\'vm-trade-recon-\', parameters(\'environment\'))]", '
-                '"osDiskName": "[concat(variables(\'vmName\'), \'-osdisk\')]", '
-                '"dataDiskName": "[concat(variables(\'vmName\'), \'-datadisk\')]"}, '
+                " variables('vnetName'), variables('subnetName'))]\", "
+                "\"vmName\": \"[concat('vm-trade-recon-', parameters('environment'))]\", "
+                "\"osDiskName\": \"[concat(variables('vmName'), '-osdisk')]\", "
+                "\"dataDiskName\": \"[concat(variables('vmName'), '-datadisk')]\"}, "
                 '"resources": [{"type": "Microsoft.Network/virtualNetworks", "apiVersion": "2023-05-01", '
                 '"name": "[variables(\'vnetName\')]", "location": "[parameters(\'location\')]", '
                 '"properties": {"addressSpace": {"addressPrefixes": ["[parameters(\'vnetAddressPrefix\')]"]}, '
@@ -10819,8 +10819,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
         ScenarioDefinition(
             scenario_id="DC-158",
             subject=(
-                "Email delivery delay \u2014 correo electr\u00f3nico no llega"
-                " / \u7535\u5b50\u90ae\u4ef6\u5ef6\u8fdf"
+                "Email delivery delay \u2014 correo electr\u00f3nico no llega / \u7535\u5b50\u90ae\u4ef6\u5ef6\u8fdf"
             ),
             description=(
                 "\u4f60\u597d IT \u56e2\u961f,\n\n"
@@ -10943,7 +10942,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
             subject="Teams call quality — choppy audio",
             description=(
                 "MIME-Version: 1.0\n"
-                "Content-Type: multipart/alternative; boundary=\"----=_Part_12345_67890.1710756000000\"\n"
+                'Content-Type: multipart/alternative; boundary="----=_Part_12345_67890.1710756000000"\n'
                 "X-Mailer: Microsoft Outlook 16.0.18025.20160\n"
                 "X-MS-Exchange-Organization-SCL: 0\n"
                 "X-MS-Exchange-Organization-AuthSource: mail.contoso.com\n"
@@ -10969,7 +10968,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 " bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;\n"
                 " b=dGhpcyBpcyBub3QgYSByZWFsIERLSU0gc2lnbmF0dXJlIGJ1dCBpdCBsb29rcyByZWFsaXN0aWM=\n\n"
                 "------=_Part_12345_67890.1710756000000\n"
-                "Content-Type: text/plain; charset=\"UTF-8\"\n\n"
+                'Content-Type: text/plain; charset="UTF-8"\n\n'
                 "Hi IT team,\n\n"
                 "I'm experiencing really choppy audio on Microsoft Teams calls. Every call for the "
                 "past two days, the audio cuts in and out every few seconds. Video is fine, "
