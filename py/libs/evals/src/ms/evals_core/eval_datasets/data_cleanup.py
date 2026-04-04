@@ -4178,13 +4178,930 @@ def _dc060_excel_formula_artifacts() -> EvalCase:
     )
 
 
+def _dc061_csv_spreadsheet_inline() -> EvalCase:
+    """Raw CSV table with 20+ rows of employee access data pasted into email."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-061",
+            subject="Access provisioning broken for new hires — see attached roster",
+            description=(
+                "Hi IAM team,\n\n"
+                "We onboarded a batch of new hires last Monday and their access still isn't "
+                "provisioned. I exported the roster from HR Workday and I'm pasting it here so "
+                "you can see exactly who is affected:\n\n"
+                "EmployeeID,FullName,Department,Title,AccessLevel,StartDate,Manager,Location,CostCenter,Status\n"
+                "E10441,Priya Patel,Engineering,Software Engineer II,L3,2026-03-01,David Kim,Building 40,CC-4401,Pending\n"
+                "E10442,James O'Brien,Engineering,DevOps Engineer,L3,2026-03-01,David Kim,Building 40,CC-4401,Pending\n"
+                "E10443,Aisha Mohammed,Finance,Financial Analyst,L2,2026-03-01,Lisa Chen,Building 12,CC-1205,Pending\n"
+                "E10444,Carlos Gutierrez,Marketing,Content Strategist,L2,2026-03-01,Rachel Adams,Building 8,CC-0801,Pending\n"
+                "E10445,Yuki Tanaka,Engineering,QA Engineer,L3,2026-03-01,David Kim,Building 40,CC-4401,Pending\n"
+                "E10446,Sarah Johansson,Legal,Paralegal,L1,2026-03-01,Michael Brown,Building 3,CC-0305,Pending\n"
+                "E10447,Oluwaseun Adeyemi,Sales,Account Executive,L2,2026-03-01,Jennifer Wu,Building 15,CC-1502,Pending\n"
+                "E10448,Wei Zhang,Engineering,Data Scientist,L4,2026-03-01,David Kim,Building 40,CC-4401,Pending\n"
+                "E10449,Elena Kowalski,HR,HR Business Partner,L2,2026-03-01,Patricia Gomez,Building 5,CC-0510,Pending\n"
+                "E10450,Raj Krishnamurthy,Engineering,Site Reliability Engineer,L3,2026-03-01,David Kim,Building 40,CC-4401,Pending\n"
+                "E10451,Maria Santos,Customer Success,CSM,L2,2026-03-01,Tom Harris,Building 10,CC-1003,Pending\n"
+                "E10452,Nathan Williams,Engineering,Frontend Engineer,L3,2026-03-01,David Kim,Building 40,CC-4401,Pending\n"
+                "E10453,Sophie Dubois,Design,UX Designer,L2,2026-03-01,Anna Petrov,Building 22,CC-2201,Pending\n"
+                "E10454,Ahmed Hassan,Security,Security Analyst,L3,2026-03-01,Robert Chen,Building 7,CC-0702,Pending\n"
+                "E10455,Liam O'Connor,IT,Systems Administrator,L3,2026-03-01,Steve Park,Building 2,CC-0208,Pending\n"
+                "E10456,Fatima Al-Rashid,Product,Product Manager,L3,2026-03-01,Diana Lee,Building 18,CC-1801,Pending\n"
+                "E10457,Henrik Larsson,Engineering,Backend Engineer,L3,2026-03-01,David Kim,Building 40,CC-4401,Pending\n"
+                "E10458,Grace Okafor,Finance,Accounts Payable Specialist,L1,2026-03-01,Lisa Chen,Building 12,CC-1205,Pending\n"
+                "E10459,Tomasz Nowak,Operations,Operations Analyst,L2,2026-03-01,Mark Johnson,Building 6,CC-0603,Pending\n"
+                "E10460,Isabel Fernandez,Engineering,Mobile Developer,L3,2026-03-01,David Kim,Building 40,CC-4401,Pending\n"
+                "E10461,Kevin Nakamura,Engineering,Platform Engineer,L3,2026-03-01,David Kim,Building 40,CC-4401,Pending\n"
+                "E10462,Amara Diallo,Compliance,Compliance Officer,L2,2026-03-01,Sandra Green,Building 3,CC-0312,Pending\n\n"
+                "All of them show Status=Pending in the provisioning dashboard. They can't log "
+                "into any internal systems. Please bulk-provision ASAP.\n\n"
+                "Thanks,\nTanya Reeves\nHR Operations"
+            ),
+            reporter=Reporter(
+                name="Tanya Reeves",
+                email="tanya.reeves@contoso.com",
+                department="HR Operations",
+            ),
+            created_at="2026-03-18T09:30:00Z",
+            channel=Channel.EMAIL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-061",
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P3,
+            assigned_team=Team.IAM,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.AFFECTED_SYSTEM, MissingInfoField.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Investigate the provisioning pipeline to determine why the batch of 22 new "
+                "hires from the 2026-03-01 cohort remain in Pending status."
+            ),
+            remediation_steps=[
+                "Check the IAM provisioning queue for errors related to the March 1 cohort.",
+                "Verify the HR Workday sync connector is running and last sync timestamp.",
+                "Manually trigger a provisioning run for the affected employee IDs.",
+                "Confirm each employee's manager and cost-center mapping is valid in the directory.",
+                "Notify HR Operations once all accounts are provisioned and active.",
+            ],
+        ),
+        tags=["data-cleanup", "csv_inline", "spreadsheet_data", "bulk_employee_data", "access_provisioning"],
+        description=(
+            "Tests handling of a raw CSV table with 22 rows of employee data pasted "
+            "directly into an email body, obscuring the actual provisioning issue."
+        ),
+    )
+
+
+def _dc062_tracking_url_noise() -> EvalCase:
+    """Three extremely long URLs with tracking parameters burying a SharePoint issue."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-062",
+            subject="SharePoint links not working for external partners",
+            description=(
+                "Hey team,\n\n"
+                "Our external partners can't access the shared documents we sent them. "
+                "Here are the three links that are broken:\n\n"
+                "1) https://contoso.sharepoint.com/sites/PartnerPortal/Shared%20Documents/"
+                "Q1-2026-Partner-Onboarding-Kit/Welcome-Pack-v3.2.pdf"
+                "?utm_source=partner_email_campaign_q1_2026_wave3&utm_medium=email"
+                "&utm_campaign=partner_onboarding_welcome_kit_march_2026_external_distribution"
+                "&utm_content=document_link_primary_cta_button_blue_variant_a"
+                "&utm_term=partner_onboarding_documents_q1&fbclid=IwAR3kZ9x7vQmPL2uR"
+                "8nTfY4wJ5sDh1bXcK0eA6gMvNpOqWx3yBzC4tF7iHj2k&msclkid=a1b2c3d4e5f6"
+                "789012345678abcdef01&_ga=2.123456789.987654321.1234567890-0987654321"
+                ".1234567890&ref=email_blast_march_17\n\n"
+                "2) https://contoso.sharepoint.com/sites/PartnerPortal/Shared%20Documents/"
+                "Q1-2026-Partner-Onboarding-Kit/Technical-Integration-Guide-API-v2.1.docx"
+                "?utm_source=partner_technical_docs_q1_2026_distribution&utm_medium=email"
+                "&utm_campaign=partner_technical_integration_guide_march_2026_api_docs_release"
+                "&utm_content=secondary_document_link_inline_text_variant_b"
+                "&utm_term=api_integration_technical_documentation&fbclid=IwAR2mN7pK4wXv"
+                "Q1sLf8jRtY3hU6oBdCe9zA5xGkMnWpTrEq0yDuV2iJc1g&msclkid=f6e5d4c3b2a1"
+                "098765432109fedcba98&_ga=2.987654321.123456789.0987654321-1234567890"
+                ".0987654321&ref=technical_docs_email_march_18\n\n"
+                "3) https://contoso.sharepoint.com/sites/PartnerPortal/Shared%20Documents/"
+                "Q1-2026-Partner-Onboarding-Kit/NDA-and-Data-Sharing-Agreement-Template.pdf"
+                "?utm_source=partner_legal_documents_q1_2026_nda_distribution&utm_medium=email"
+                "&utm_campaign=partner_legal_nda_data_sharing_agreement_march_2026_wave3"
+                "&utm_content=legal_document_link_footer_text_variant_c"
+                "&utm_term=nda_data_sharing_legal_partner&fbclid=IwAR1jK5nL3xYwS0rMg"
+                "7iQtZ2fU8pAeCd4yB6vHkOnXqTsEm9zDuW3hRb0a&msclkid=01234567890abcdef"
+                "fedcba9876543210&_ga=2.111222333.444555666.7778889990-0001112223"
+                ".3334445556&ref=legal_docs_email_march_18\n\n"
+                "Acme Corp, Globex Inc, and Initech Ltd all reported they get a 403 Forbidden "
+                "error when clicking any of these. We verified the sharing settings look "
+                "correct on our end. Could be a permissions inheritance issue?\n\n"
+                "Thanks,\nDerek Olsen\nPartner Relations"
+            ),
+            reporter=Reporter(
+                name="Derek Olsen",
+                email="derek.olsen@contoso.com",
+                department="Partner Relations",
+            ),
+            created_at="2026-03-18T14:05:00Z",
+            channel=Channel.CHAT,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-062",
+            category=Category.DATA_STORAGE,
+            priority=Priority.P3,
+            assigned_team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE, MissingInfoField.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Investigate the SharePoint external sharing permissions for the "
+                "PartnerPortal site to determine why partner organizations receive 403 errors."
+            ),
+            remediation_steps=[
+                "Check the SharePoint external sharing settings for the PartnerPortal site collection.",
+                "Verify that the three partner domains (acmecorp, globex, initech) are on the allowed list.",
+                "Review permissions inheritance on the Q1-2026-Partner-Onboarding-Kit folder.",
+                "Test access with a clean URL (without tracking parameters) from an external account.",
+                "Re-send sharing invitations directly from SharePoint if link-based sharing is misconfigured.",
+            ],
+        ),
+        tags=["data-cleanup", "tracking_urls", "url_noise", "sharepoint_permissions", "external_sharing"],
+        description=(
+            "Tests handling of three extremely long URLs laden with utm, fbclid, msclkid, "
+            "and _ga tracking parameters that obscure the actual SharePoint access issue."
+        ),
+    )
+
+
+def _dc063_rtf_markup_artifacts() -> EvalCase:
+    """RTF formatting codes mixed into a printer driver complaint."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-063",
+            subject="Printer on 4th floor not printing color — garbled output",
+            description=(
+                r"{\rtf1\ansi\ansicpg1252\deff0\nouicompat{\fonttbl{\f0\fswiss\fcharset0 Calibri;}}"
+                r"{\colortbl ;\red0\green0\blue0;\red255\green0\blue0;}"
+                r"{\*\generator Riched20 10.0.22621}\viewkind4\uc1 "
+                r"\pard\sa200\sl276\slmult1\f0\fs22\lang9 "
+                "Hi IT Support,\\par\n"
+                "\\par\n"
+                r"The HP Color LaserJet Pro MFP M479fdw on the 4th floor (asset tag PRN-4F-017) "
+                r"is printing everything in black and white even though I\rquote m selecting color. "
+                r"\par"
+                "\n"
+                r"I tried printing a test page from \b Windows Settings > Printers & Scanners\b0  "
+                r"and the test page itself came out grayscale. The printer\rquote s front panel "
+                r"shows all four toner cartridges (CMYK) as \cf2 OK\cf1 . \par"
+                "\n"
+                r"\par"
+                "\n"
+                r"Steps I took:\par"
+                "\n"
+                r"{\pntext\f0 1.\tab}Restarted the printer \endash  no change\par"
+                "\n"
+                r"{\pntext\f0 2.\tab}Removed and reseated all toner cartridges\par"
+                "\n"
+                r"{\pntext\f0 3.\tab}Printed from a different laptop \endash  same issue\par"
+                "\n"
+                r"{\pntext\f0 4.\tab}Checked driver settings \endash  color is selected, not grayscale\par"
+                "\n"
+                r"\par"
+                "\n"
+                r"Could be a driver issue after last week\rquote s Windows Update? The printer worked "
+                r"fine before Tuesday.\par"
+                "\n"
+                r"\par"
+                "\n"
+                r"Thanks,\par"
+                "\n"
+                r"Monica Tremblay\par"
+                "\n"
+                r"Facilities Management, 4th Floor\par"
+                "\n"
+                "}"
+            ),
+            reporter=Reporter(
+                name="Monica Tremblay",
+                email="monica.tremblay@contoso.com",
+                department="Facilities Management",
+            ),
+            created_at="2026-03-19T10:45:00Z",
+            channel=Channel.EMAIL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-063",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.DEVICE_INFO, MissingInfoField.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate the HP Color LaserJet Pro MFP M479fdw (PRN-4F-017) on the 4th "
+                "floor that is printing only in grayscale despite color being selected."
+            ),
+            remediation_steps=[
+                "Check the printer driver version and compare with the last Windows Update.",
+                "Reinstall the printer driver using the latest version from HP support.",
+                "Verify the printer's internal color settings via the embedded web server.",
+                "Run the printer's built-in color calibration and diagnostic page.",
+                "If the driver update doesn't resolve the issue, open a case with HP support.",
+            ],
+        ),
+        tags=["data-cleanup", "rtf_markup", "formatting_artifacts", "printer_issue", "rich_text_codes"],
+        description=(
+            "Tests handling of RTF formatting codes (\\rtf1, \\ansi, \\par, \\fs22, \\pntext, "
+            "\\rquote, \\colortbl) scattered throughout a printer complaint."
+        ),
+    )
+
+
+def _dc064_auto_reply_chain() -> EvalCase:
+    """Five stacked Out of Office auto-replies burying a Teams audio issue."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-064",
+            subject="Re: Re: Re: Re: Re: Teams audio not working in meetings",
+            description=(
+                "--- Auto-Reply from: Jessica Huang <jessica.huang@contoso.com> ---\n"
+                "Date: Mon, 18 Mar 2026 16:42:00 +0000\n"
+                "Subject: Out of Office: Re: Re: Re: Re: Teams audio not working in meetings\n\n"
+                "Thank you for your email. I am currently out of the office attending the "
+                "Annual Leadership Summit in Austin, TX from March 15-21, 2026. I will have "
+                "limited access to email during this time. For urgent matters, please contact "
+                "my backup, Derek Simmons (derek.simmons@contoso.com). I will respond to your "
+                "email upon my return on March 22.\n\n"
+                "Best regards,\nJessica Huang\nVP of Operations\n\n"
+                "------------------------------------------------------------\n\n"
+                "--- Auto-Reply from: Rajesh Gupta <rajesh.gupta@contoso.com> ---\n"
+                "Date: Mon, 18 Mar 2026 16:38:00 +0000\n"
+                "Subject: Out of Office: Re: Re: Re: Teams audio not working in meetings\n\n"
+                "I am on parental leave from February 24 through April 18, 2026. I will not "
+                "be monitoring email during this period. Please reach out to my manager, "
+                "Susan Park (susan.park@contoso.com), or the team distribution list "
+                "(infra-team@contoso.com) for any infrastructure-related requests.\n\n"
+                "Thank you for your understanding.\nRajesh Gupta\nSenior Infrastructure Engineer\n\n"
+                "------------------------------------------------------------\n\n"
+                "--- Auto-Reply from: Angela Morrison <angela.morrison@contoso.com> ---\n"
+                "Date: Mon, 18 Mar 2026 16:35:00 +0000\n"
+                "Subject: Automatic Reply: Re: Re: Teams audio not working in meetings\n\n"
+                "Hi there! I'm currently attending Microsoft Ignite 2026 in Chicago (March "
+                "17-20). I'll be in sessions most of the day but will try to check email in "
+                "the evenings. If this is urgent, please text me at (425) 555-0147 or ping "
+                "me on Teams. I'll get back to you by March 21 at the latest!\n\n"
+                "Cheers,\nAngela Morrison\nCloud Solutions Architect\n\n"
+                "------------------------------------------------------------\n\n"
+                "--- Auto-Reply from: Thomas Bergstrom <thomas.bergstrom@contoso.com> ---\n"
+                "Date: Mon, 18 Mar 2026 16:31:00 +0000\n"
+                "Subject: Out of Office: Re: Teams audio not working in meetings\n\n"
+                "Thank you for reaching out. I am on PTO from March 17-19 for a family event. "
+                "I will return to the office on Thursday, March 20, and will address your email "
+                "at that time. For urgent IT issues, please open a ticket at "
+                "https://helpdesk.contoso.com or call the IT hotline at ext. 5555.\n\n"
+                "Regards,\nThomas Bergstrom\nIT Service Desk Manager\n\n"
+                "------------------------------------------------------------\n\n"
+                "--- Auto-Reply from: Nadia Petrov <nadia.petrov@contoso.com> ---\n"
+                "Date: Mon, 18 Mar 2026 16:28:00 +0000\n"
+                "Subject: Automatic Reply: Teams audio not working in meetings\n\n"
+                "I'm out of the office today, March 18, for a medical appointment. I will be "
+                "back tomorrow, March 19. For anything time-sensitive, please reach out to "
+                "Brian Walsh (brian.walsh@contoso.com).\n\n"
+                "Thanks,\nNadia Petrov\nDesktop Support Lead\n\n"
+                "------------------------------------------------------------\n\n"
+                "--- ORIGINAL MESSAGE ---\n"
+                "From: Damien Cross <damien.cross@contoso.com>\n"
+                "Date: Mon, 18 Mar 2026 16:25:00 +0000\n"
+                "Subject: Teams audio not working in meetings\n\n"
+                "Hi IT,\n\n"
+                "Since this morning my microphone is not being detected in Microsoft Teams "
+                "meetings. Other attendees can't hear me at all. The microphone works fine in "
+                "Zoom and in Windows Sound Recorder, so it seems to be a Teams-specific issue. "
+                "I'm on a Surface Pro 9 running Windows 11 23H2 with Teams version "
+                "24004.1309.2689.1410. I already restarted Teams, checked the audio device "
+                "settings inside Teams (Settings > Devices), and made sure the mic isn't muted "
+                "at the OS level. Nothing works.\n\n"
+                "This is blocking me from participating in client calls. Please advise.\n\n"
+                "Damien Cross\nClient Engagement, 3rd Floor"
+            ),
+            reporter=Reporter(
+                name="Damien Cross",
+                email="damien.cross@contoso.com",
+                department="Client Engagement",
+            ),
+            created_at="2026-03-18T16:50:00Z",
+            channel=Channel.EMAIL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-064",
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.APPLICATION_VERSION, MissingInfoField.DEVICE_INFO],
+            next_best_action=(
+                "Investigate why Microsoft Teams is not detecting the microphone on "
+                "Damien Cross's Surface Pro 9 while the device works in other applications."
+            ),
+            remediation_steps=[
+                "Check Teams app permissions for microphone access in Windows Privacy settings.",
+                "Clear the Teams cache and restart the application.",
+                "Verify the correct audio device is selected in Teams device settings.",
+                "Test with the Teams web client to rule out a desktop app issue.",
+                "If unresolved, reinstall the Teams desktop client.",
+            ],
+        ),
+        tags=["data-cleanup", "auto_reply_chain", "ooo_messages", "buried_issue", "teams_audio"],
+        description=(
+            "Tests handling of five stacked Out of Office / auto-reply messages that bury "
+            "the original Teams audio issue at the very bottom of the thread."
+        ),
+    )
+
+
+def _dc065_svg_data_inline() -> EvalCase:
+    """SVG XML markup for a network diagram pasted inline, hiding a network issue."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-065",
+            subject="Intermittent network drops on VLAN 220 — diagram attached inline",
+            description=(
+                "Hi Network Ops,\n\n"
+                "We're experiencing intermittent packet loss on VLAN 220 (Engineering floor, "
+                "Building 40). I put together a quick network diagram to show the topology — "
+                "here it is:\n\n"
+                '<?xml version="1.0" encoding="UTF-8"?>\n'
+                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" '
+                'width="800" height="600">\n'
+                '  <rect width="800" height="600" fill="#f5f5f5" />\n'
+                '  <text x="400" y="30" text-anchor="middle" font-size="18" '
+                'font-weight="bold">VLAN 220 Topology — Bldg 40</text>\n\n'
+                '  <!-- Core Switch -->\n'
+                '  <rect x="325" y="60" width="150" height="50" rx="8" fill="#2196F3" />\n'
+                '  <text x="400" y="90" text-anchor="middle" fill="white" font-size="12">'
+                'Core-SW-01 (Nexus 9300)</text>\n\n'
+                '  <!-- Distribution Switches -->\n'
+                '  <rect x="100" y="180" width="140" height="45" rx="6" fill="#4CAF50" />\n'
+                '  <text x="170" y="207" text-anchor="middle" fill="white" font-size="11">'
+                'Dist-SW-40A (Cat 9400)</text>\n'
+                '  <rect x="330" y="180" width="140" height="45" rx="6" fill="#4CAF50" />\n'
+                '  <text x="400" y="207" text-anchor="middle" fill="white" font-size="11">'
+                'Dist-SW-40B (Cat 9400)</text>\n'
+                '  <rect x="560" y="180" width="140" height="45" rx="6" fill="#FF9800" />\n'
+                '  <text x="630" y="207" text-anchor="middle" fill="white" font-size="11">'
+                'Dist-SW-40C (FAILING)</text>\n\n'
+                '  <!-- Uplinks -->\n'
+                '  <line x1="400" y1="110" x2="170" y2="180" stroke="#333" stroke-width="2" />\n'
+                '  <line x1="400" y1="110" x2="400" y2="180" stroke="#333" stroke-width="2" />\n'
+                '  <line x1="400" y1="110" x2="630" y2="180" stroke="red" stroke-width="3" '
+                'stroke-dasharray="8,4" />\n\n'
+                '  <!-- Access Switches -->\n'
+                '  <rect x="50" y="300" width="120" height="40" rx="5" fill="#9E9E9E" />\n'
+                '  <text x="110" y="325" text-anchor="middle" fill="white" font-size="10">'
+                'Acc-40-01 (2960X)</text>\n'
+                '  <rect x="200" y="300" width="120" height="40" rx="5" fill="#9E9E9E" />\n'
+                '  <text x="260" y="325" text-anchor="middle" fill="white" font-size="10">'
+                'Acc-40-02 (2960X)</text>\n'
+                '  <rect x="480" y="300" width="120" height="40" rx="5" fill="#9E9E9E" />\n'
+                '  <text x="540" y="325" text-anchor="middle" fill="white" font-size="10">'
+                'Acc-40-05 (2960X)</text>\n'
+                '  <rect x="630" y="300" width="120" height="40" rx="5" fill="#9E9E9E" />\n'
+                '  <text x="690" y="325" text-anchor="middle" fill="white" font-size="10">'
+                'Acc-40-06 (2960X)</text>\n\n'
+                '  <!-- Links to access layer -->\n'
+                '  <line x1="170" y1="225" x2="110" y2="300" stroke="#333" stroke-width="1.5" />\n'
+                '  <line x1="170" y1="225" x2="260" y2="300" stroke="#333" stroke-width="1.5" />\n'
+                '  <line x1="630" y1="225" x2="540" y2="300" stroke="red" stroke-width="2" '
+                'stroke-dasharray="5,3" />\n'
+                '  <line x1="630" y1="225" x2="690" y2="300" stroke="red" stroke-width="2" '
+                'stroke-dasharray="5,3" />\n\n'
+                '  <!-- Legend -->\n'
+                '  <rect x="50" y="520" width="700" height="60" fill="#eeeeee" rx="5" />\n'
+                '  <line x1="70" y1="545" x2="120" y2="545" stroke="#333" stroke-width="2" />\n'
+                '  <text x="130" y="549" font-size="10">Healthy Link</text>\n'
+                '  <line x1="250" y1="545" x2="300" y2="545" stroke="red" stroke-width="2" '
+                'stroke-dasharray="5,3" />\n'
+                '  <text x="310" y="549" font-size="10">Degraded / Dropping</text>\n'
+                '  <text x="70" y="568" font-size="10" fill="#666">Packet loss observed: '
+                '12-18% on Dist-SW-40C uplink, 5-9% on downstream access ports</text>\n'
+                '</svg>\n\n'
+                "As you can see, Dist-SW-40C is the problem. Downstream ports on Acc-40-05 "
+                "and Acc-40-06 are seeing 5-9% packet loss. The uplink from Dist-SW-40C to "
+                "Core-SW-01 shows 12-18% loss during peak hours (10am-2pm). About 45 users "
+                "on this segment are affected.\n\n"
+                "Ravi Subramaniam\nNetwork Engineering, Building 40"
+            ),
+            reporter=Reporter(
+                name="Ravi Subramaniam",
+                email="ravi.subramaniam@contoso.com",
+                department="Network Engineering",
+            ),
+            created_at="2026-03-19T11:20:00Z",
+            channel=Channel.PORTAL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-065",
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            assigned_team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.NETWORK_LOCATION, MissingInfoField.AFFECTED_USERS],
+            next_best_action=(
+                "Investigate Dist-SW-40C (Catalyst 9400) on VLAN 220 for the 12-18% packet "
+                "loss on its uplink to Core-SW-01 and downstream degradation."
+            ),
+            remediation_steps=[
+                "Check interface error counters (CRC, input errors, runts) on Dist-SW-40C uplink.",
+                "Review spanning-tree topology for VLAN 220 for any recent reconvergence events.",
+                "Inspect the fiber or cabling on the Dist-SW-40C to Core-SW-01 uplink.",
+                "Check switch CPU and memory utilisation during the 10am-2pm peak window.",
+                "If hardware fault is suspected, schedule a replacement of Dist-SW-40C.",
+            ],
+        ),
+        tags=["data-cleanup", "svg_inline", "xml_markup", "network_diagram", "packet_loss"],
+        description=(
+            "Tests handling of 30+ lines of inline SVG XML markup for a network topology "
+            "diagram embedded directly in the ticket description."
+        ),
+    )
+
+
+def _dc066_cross_threaded_issues() -> EvalCase:
+    """Two different IT issues (VPN + printer) discussed in one thread by two people."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-066",
+            subject="Re: VPN issues — also, printer question",
+            description=(
+                "From: Claire Nakamura <claire.nakamura@contoso.com>\n"
+                "Date: Tue, 19 Mar 2026 08:10:00 +0000\n"
+                "To: IT Support <it-support@contoso.com>\n\n"
+                "Hi IT,\n\n"
+                "I can't connect to the VPN at all this morning. GlobalProtect shows "
+                "'Gateway Unreachable' when I try to connect from home. I'm on a MacBook "
+                "Pro M3 running macOS Sonoma 14.4. My home internet is fine — I can browse "
+                "the web, stream video, etc. This started about 30 minutes ago.\n\n"
+                "Claire Nakamura\nProduct Design\n\n"
+                "------------------------------------------------------------\n\n"
+                "From: Ben Kowalczyk <ben.kowalczyk@contoso.com>\n"
+                "Date: Tue, 19 Mar 2026 08:18:00 +0000\n"
+                "To: IT Support <it-support@contoso.com>\n\n"
+                "(Sorry, jumping on this thread since Claire CC'd me)\n\n"
+                "Unrelated to Claire's VPN issue, but while I have your attention — the Canon "
+                "imageRUNNER on the 2nd floor (near the break room) has been jamming every "
+                "3-4 pages for the past week. I've cleared the paper path three times already. "
+                "Can someone come look at it? Asset tag is PRN-2F-003.\n\n"
+                "Ben Kowalczyk\nProgram Management\n\n"
+                "------------------------------------------------------------\n\n"
+                "From: Claire Nakamura <claire.nakamura@contoso.com>\n"
+                "Date: Tue, 19 Mar 2026 08:25:00 +0000\n\n"
+                "Update on my VPN issue: I tried connecting to the backup gateway "
+                "(vpn-west.contoso.com) and that one also shows 'Gateway Unreachable'. I ran "
+                "a traceroute to vpn.contoso.com and it dies after hop 6 (at the ISP boundary). "
+                "Could this be a routing issue on the Contoso side? My colleague in the same "
+                "neighborhood is having the same problem.\n\n"
+                "------------------------------------------------------------\n\n"
+                "From: Ben Kowalczyk <ben.kowalczyk@contoso.com>\n"
+                "Date: Tue, 19 Mar 2026 08:31:00 +0000\n\n"
+                "Also the printer is making a grinding noise now. Definitely something "
+                "mechanical. Just wanted to add that detail in case it helps.\n\n"
+                "------------------------------------------------------------\n\n"
+                "From: Claire Nakamura <claire.nakamura@contoso.com>\n"
+                "Date: Tue, 19 Mar 2026 08:40:00 +0000\n\n"
+                "One more data point — I checked DownDetector and there's a spike in "
+                "GlobalProtect reports starting around 7:45 AM Pacific. Might be a wider outage. "
+                "Can network ops confirm?"
+            ),
+            reporter=Reporter(
+                name="Claire Nakamura",
+                email="claire.nakamura@contoso.com",
+                department="Product Design",
+            ),
+            created_at="2026-03-19T08:45:00Z",
+            channel=Channel.EMAIL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-066",
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            assigned_team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE, MissingInfoField.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate the GlobalProtect VPN gateway unreachable issue affecting "
+                "multiple remote users, potentially related to an ISP routing problem."
+            ),
+            remediation_steps=[
+                "Check the status of vpn.contoso.com and vpn-west.contoso.com gateway services.",
+                "Review ISP peering and BGP route advertisements for anomalies.",
+                "Correlate with external monitoring (DownDetector reports) for scope assessment.",
+                "Engage the ISP if traceroute confirms the failure is beyond the Contoso boundary.",
+                "Notify affected remote users with an ETA once the root cause is identified.",
+            ],
+        ),
+        tags=["data-cleanup", "cross_threaded", "mixed_issues", "vpn_outage", "interleaved_conversation"],
+        description=(
+            "Tests handling of two different IT issues (VPN connectivity and printer jam) "
+            "discussed in one interleaved email thread by two different reporters."
+        ),
+    )
+
+
+def _dc067_massive_cc_list() -> EvalCase:
+    """25+ CC recipients listed before the actual compliance tool failure content."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-067",
+            subject="CRITICAL — DLP compliance scanner offline since 6 AM",
+            description=(
+                "CC: ciso@contoso.com; vp.compliance@contoso.com; "
+                "chief.risk.officer@contoso.com; legal.counsel@contoso.com; "
+                "data.privacy.officer@contoso.com; soc.lead@contoso.com; "
+                "incident.response@contoso.com; audit.director@contoso.com; "
+                "regulatory.affairs@contoso.com; infosec.manager@contoso.com; "
+                "it.director@contoso.com; cto@contoso.com; "
+                "enterprise.risk@contoso.com; business.continuity@contoso.com; "
+                "vendor.management@contoso.com; procurement.lead@contoso.com; "
+                "network.security@contoso.com; endpoint.security@contoso.com; "
+                "cloud.security@contoso.com; identity.security@contoso.com; "
+                "siem.admin@contoso.com; vulnerability.mgmt@contoso.com; "
+                "threat.intel@contoso.com; forensics.team@contoso.com; "
+                "security.architecture@contoso.com; grc.team@contoso.com; "
+                "board.secretary@contoso.com\n\n"
+                "------------------------------------------------------------\n\n"
+                "URGENT — the Symantec DLP compliance scanner (DLP-SCAN-PROD-01) has been "
+                "offline since approximately 06:00 UTC this morning. This means no outbound "
+                "email or file transfers have been scanned for sensitive data in over 4 hours. "
+                "We are currently operating WITHOUT data loss prevention controls.\n\n"
+                "Impact:\n"
+                "- All outbound email via Exchange Online is unscanned\n"
+                "- SharePoint external sharing is unmonitored\n"
+                "- OneDrive sync to personal devices is uncontrolled\n"
+                "- USB device blocking policies may not be enforced\n\n"
+                "The DLP management console shows the scanner service as 'Stopped' with "
+                "error code DLP-ERR-5012 (license validation failure). We renewed our "
+                "Symantec DLP license last week — the new license key was applied on Friday "
+                "March 14 by the vendor's support team.\n\n"
+                "This is a regulatory compliance exposure. We are required under SOX and "
+                "GDPR to maintain continuous DLP monitoring. Every hour this remains down "
+                "increases our audit risk.\n\n"
+                "Please treat this as a Sev-1 incident.\n\n"
+                "Vincent Morales\nInformation Security, Security Operations Center"
+            ),
+            reporter=Reporter(
+                name="Vincent Morales",
+                email="vincent.morales@contoso.com",
+                department="Information Security",
+            ),
+            created_at="2026-03-19T10:15:00Z",
+            channel=Channel.EMAIL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-067",
+            category=Category.SECURITY,
+            priority=Priority.P2,
+            assigned_team=Team.SECURITY_OPS,
+            needs_escalation=True,
+            missing_information=[MissingInfoField.AFFECTED_SYSTEM, MissingInfoField.BUSINESS_IMPACT],
+            next_best_action=(
+                "Urgently restore the Symantec DLP compliance scanner (DLP-SCAN-PROD-01) "
+                "which has been offline for 4+ hours, leaving outbound data transfers unscanned."
+            ),
+            remediation_steps=[
+                "Investigate the DLP-ERR-5012 license validation error on DLP-SCAN-PROD-01.",
+                "Verify the renewed license key applied on March 14 is correct and activated.",
+                "Contact Symantec support to validate the license status on their end.",
+                "If the license cannot be resolved quickly, enable the backup DLP policy in Exchange Online.",
+                "Document the outage window for SOX and GDPR compliance audit reporting.",
+            ],
+        ),
+        tags=["data-cleanup", "massive_cc_list", "email_header_noise", "compliance_tool", "dlp_scanner"],
+        description=(
+            "Tests handling of 27 CC recipients listed before the actual ticket content, "
+            "requiring the model to skip past the address noise to find the DLP issue."
+        ),
+    )
+
+
+def _dc068_env_var_dump() -> EvalCase:
+    """User pasted their .env file with 20+ KEY=VALUE lines during an Azure deployment issue."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-068",
+            subject="Azure App Service deployment failing — config attached",
+            description=(
+                "Hi team,\n\n"
+                "Our production deployment to Azure App Service has been failing since last "
+                "night. The deployment pipeline completes, but the app crashes on startup. "
+                "I'm pasting our .env config below so you can see if something looks wrong:\n\n"
+                "# === Application Settings ===\n"
+                "APP_NAME=contoso-customer-portal\n"
+                "APP_ENV=production\n"
+                "APP_DEBUG=false\n"
+                "APP_PORT=8080\n"
+                "APP_LOG_LEVEL=info\n"
+                "APP_SECRET_KEY=sk_prod_••••••••••••••••••••••••\n\n"
+                "# === Database ===\n"
+                "DB_HOST=contoso-sql-prod-eastus2.database.windows.net\n"
+                "DB_PORT=1433\n"
+                "DB_NAME=customerportal_prod\n"
+                "DB_USER=app_service_user\n"
+                "DB_PASSWORD=••••••••••••••••\n"
+                "DB_SSL_MODE=require\n"
+                "DB_POOL_SIZE=25\n"
+                "DB_CONNECTION_TIMEOUT=30\n\n"
+                "# === Redis Cache ===\n"
+                "REDIS_HOST=contoso-redis-prod.redis.cache.windows.net\n"
+                "REDIS_PORT=6380\n"
+                "REDIS_PASSWORD=••••••••••••••••••••••••••••\n"
+                "REDIS_SSL=true\n"
+                "REDIS_DB=0\n\n"
+                "# === Azure Storage ===\n"
+                "AZURE_STORAGE_ACCOUNT=contosoportalstorage\n"
+                "AZURE_STORAGE_KEY=••••••••••••••••••••••••••••••••••••••••\n"
+                "AZURE_STORAGE_CONTAINER=customer-uploads\n\n"
+                "# === Authentication ===\n"
+                "AZURE_AD_TENANT_ID=72f988bf-86f1-41af-91ab-2d7cd011db47\n"
+                "AZURE_AD_CLIENT_ID=a1b2c3d4-e5f6-7890-abcd-ef1234567890\n"
+                "AZURE_AD_CLIENT_SECRET=••••••••••••••••••••••\n"
+                "JWT_EXPIRATION=3600\n"
+                "JWT_REFRESH_EXPIRATION=86400\n\n"
+                "# === External APIs ===\n"
+                "SENDGRID_API_KEY=SG.••••••••••••••••••••••••••••••••••\n"
+                "STRIPE_SECRET_KEY=sk_live_••••••••••••••••••••••••\n"
+                "STRIPE_WEBHOOK_SECRET=whsec_••••••••••••••••••••\n"
+                "DATADOG_API_KEY=••••••••••••••••••••••••••••••\n"
+                "DATADOG_APP_KEY=••••••••••••••••••••••••••••••••••••\n\n"
+                "# === Feature Flags ===\n"
+                "FF_NEW_CHECKOUT=true\n"
+                "FF_DARK_MODE=false\n"
+                "FF_BETA_DASHBOARD=true\n\n"
+                "The last successful deployment was on March 15. We pushed a new release "
+                "last night (v2.14.3) that includes a database migration. The Azure portal "
+                "shows the app in a 'Failed' state but the deployment logs just say "
+                "'Application startup failed' with no additional detail.\n\n"
+                "Jasper Lindqvist\nPlatform Engineering"
+            ),
+            reporter=Reporter(
+                name="Jasper Lindqvist",
+                email="jasper.lindqvist@contoso.com",
+                department="Platform Engineering",
+            ),
+            created_at="2026-03-20T07:30:00Z",
+            channel=Channel.PORTAL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-068",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE, MissingInfoField.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate the Azure App Service startup failure for contoso-customer-portal "
+                "v2.14.3, focusing on the database migration introduced in the latest release."
+            ),
+            remediation_steps=[
+                "Pull the full application startup logs from Azure App Service diagnostics.",
+                "Check the database migration status — verify it completed successfully.",
+                "Compare the App Service configuration settings with the .env to find mismatches.",
+                "Roll back to v2.14.2 if the startup failure cannot be quickly resolved.",
+                "Advise the reporter to avoid pasting environment variables in tickets, even redacted ones.",
+            ],
+        ),
+        tags=["data-cleanup", "env_var_dump", "config_noise", "azure_deployment", "environment_variables"],
+        description=(
+            "Tests handling of 20+ .env KEY=VALUE pairs (connection strings, API keys, "
+            "feature flags) pasted into a ticket about an Azure deployment failure."
+        ),
+    )
+
+
+def _dc069_git_diff_markers() -> EvalCase:
+    """Raw git merge conflict markers pasted into a CI/CD pipeline failure report."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-069",
+            subject="CI/CD pipeline broken — merge conflicts in config files",
+            description=(
+                "Hi team,\n\n"
+                "Our CI/CD pipeline (Azure DevOps, project: contoso-backend) has been "
+                "failing for the last 3 builds. The build log shows a merge conflict that "
+                "was accidentally committed. Here's the file that's causing the problem "
+                "(src/config/database.ts):\n\n"
+                "import { ConnectionOptions } from 'typeorm';\n\n"
+                "const config: ConnectionOptions = {\n"
+                "  type: 'mssql',\n"
+                "<<<<<<< HEAD\n"
+                "  host: process.env.DB_HOST || 'contoso-sql-prod.database.windows.net',\n"
+                "  port: parseInt(process.env.DB_PORT || '1433'),\n"
+                "  username: process.env.DB_USER || 'app_user',\n"
+                "  password: process.env.DB_PASSWORD,\n"
+                "  database: process.env.DB_NAME || 'contoso_prod',\n"
+                "  extra: {\n"
+                "    encrypt: true,\n"
+                "    trustServerCertificate: false,\n"
+                "    connectionTimeout: 30000,\n"
+                "    requestTimeout: 30000,\n"
+                "  },\n"
+                "=======\n"
+                "  host: process.env.DATABASE_HOST || 'contoso-sql-staging.database.windows.net',\n"
+                "  port: parseInt(process.env.DATABASE_PORT || '1433'),\n"
+                "  username: process.env.DATABASE_USER || 'staging_user',\n"
+                "  password: process.env.DATABASE_PASSWORD,\n"
+                "  database: process.env.DATABASE_NAME || 'contoso_staging',\n"
+                "  extra: {\n"
+                "    encrypt: true,\n"
+                "    trustServerCertificate: true,\n"
+                "    connectionTimeout: 60000,\n"
+                "    requestTimeout: 60000,\n"
+                "  },\n"
+                ">>>>>>> feature/update-db-config\n"
+                "  synchronize: false,\n"
+                "  logging: process.env.DB_LOGGING === 'true',\n"
+                "  migrations: ['src/migrations/**/*.ts'],\n"
+                "};\n\n"
+                "export default config;\n\n"
+                "The build error is:\n"
+                "  error TS1128: Declaration or statement expected.\n"
+                "  src/config/database.ts(5,1): error TS1128\n\n"
+                "Someone on the team merged the feature/update-db-config branch without "
+                "resolving the conflict. The main branch has had this bad commit for about "
+                "12 hours and it's blocking all other PRs from being deployed.\n\n"
+                "Luis Fernandez\nBackend Engineering"
+            ),
+            reporter=Reporter(
+                name="Luis Fernandez",
+                email="luis.fernandez@contoso.com",
+                department="Backend Engineering",
+            ),
+            created_at="2026-03-20T09:15:00Z",
+            channel=Channel.CHAT,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-069",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.STEPS_TO_REPRODUCE, MissingInfoField.ERROR_MESSAGE],
+            next_best_action=(
+                "Remove the unresolved git merge conflict markers from "
+                "src/config/database.ts on the main branch to unblock the CI/CD pipeline."
+            ),
+            remediation_steps=[
+                "Identify the commit that introduced the unresolved merge conflict on main.",
+                "Create a hotfix branch to resolve the conflict in src/config/database.ts.",
+                "Choose the correct database configuration (prod vs. staging) for the main branch.",
+                "Add a CI pre-merge check to detect unresolved conflict markers in source files.",
+                "Retrigger the pipeline once the fix is merged to unblock pending PRs.",
+            ],
+        ),
+        tags=["data-cleanup", "git_diff_markers", "merge_conflict", "cicd_pipeline", "unresolved_conflict"],
+        description=(
+            "Tests handling of raw git merge conflict markers (<<<<<<< HEAD, =======, "
+            ">>>>>>> branch) embedded in a CI/CD pipeline failure report."
+        ),
+    )
+
+
+def _dc070_yaml_config_dump() -> EvalCase:
+    """30+ lines of Kubernetes YAML deployment config pasted for a pod crash loop issue."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-070",
+            subject="Kubernetes pod in CrashLoopBackOff — deployment YAML included",
+            description=(
+                "Hi Platform team,\n\n"
+                "The customer-api pod in the production AKS cluster (aks-prod-eastus2) has "
+                "been in CrashLoopBackOff since 03:00 UTC. Here's the deployment manifest:\n\n"
+                "apiVersion: apps/v1\n"
+                "kind: Deployment\n"
+                "metadata:\n"
+                "  name: customer-api\n"
+                "  namespace: production\n"
+                "  labels:\n"
+                "    app: customer-api\n"
+                "    version: v2.8.1\n"
+                "    team: platform-engineering\n"
+                "    cost-center: CC-4401\n"
+                "spec:\n"
+                "  replicas: 3\n"
+                "  selector:\n"
+                "    matchLabels:\n"
+                "      app: customer-api\n"
+                "  strategy:\n"
+                "    type: RollingUpdate\n"
+                "    rollingUpdate:\n"
+                "      maxSurge: 1\n"
+                "      maxUnavailable: 0\n"
+                "  template:\n"
+                "    metadata:\n"
+                "      labels:\n"
+                "        app: customer-api\n"
+                "        version: v2.8.1\n"
+                "    spec:\n"
+                "      serviceAccountName: customer-api-sa\n"
+                "      containers:\n"
+                "      - name: customer-api\n"
+                "        image: contosoacr.azurecr.io/customer-api:v2.8.1\n"
+                "        ports:\n"
+                "        - containerPort: 8080\n"
+                "          protocol: TCP\n"
+                "        env:\n"
+                "        - name: NODE_ENV\n"
+                "          value: production\n"
+                "        - name: DB_CONNECTION_STRING\n"
+                "          valueFrom:\n"
+                "            secretKeyRef:\n"
+                "              name: customer-api-secrets\n"
+                "              key: db-connection-string\n"
+                "        - name: REDIS_URL\n"
+                "          valueFrom:\n"
+                "            secretKeyRef:\n"
+                "              name: customer-api-secrets\n"
+                "              key: redis-url\n"
+                "        resources:\n"
+                "          requests:\n"
+                "            cpu: 500m\n"
+                "            memory: 512Mi\n"
+                "          limits:\n"
+                "            cpu: 1000m\n"
+                "            memory: 1Gi\n"
+                "        readinessProbe:\n"
+                "          httpGet:\n"
+                "            path: /healthz\n"
+                "            port: 8080\n"
+                "          initialDelaySeconds: 10\n"
+                "          periodSeconds: 5\n"
+                "        livenessProbe:\n"
+                "          httpGet:\n"
+                "            path: /healthz\n"
+                "            port: 8080\n"
+                "          initialDelaySeconds: 30\n"
+                "          periodSeconds: 10\n"
+                "      imagePullSecrets:\n"
+                "      - name: acr-pull-secret\n\n"
+                "The pod logs show it starts, connects to the database, then crashes with "
+                "an OOMKilled error after about 45 seconds. We bumped the image from v2.7.9 "
+                "to v2.8.1 last night and that's when the crash loop started. The v2.8.1 "
+                "release includes a new in-memory caching layer that might be consuming more "
+                "memory than the 1Gi limit allows.\n\n"
+                "kubectl get pods output:\n"
+                "NAME                           READY   STATUS             RESTARTS   AGE\n"
+                "customer-api-6d4f8b7c9-abc12   0/1     CrashLoopBackOff   47         6h\n"
+                "customer-api-6d4f8b7c9-def34   0/1     CrashLoopBackOff   47         6h\n"
+                "customer-api-6d4f8b7c9-ghi56   0/1     CrashLoopBackOff   47         6h\n\n"
+                "Mikael Johansson\nPlatform Engineering, SRE Team"
+            ),
+            reporter=Reporter(
+                name="Mikael Johansson",
+                email="mikael.johansson@contoso.com",
+                department="Platform Engineering",
+            ),
+            created_at="2026-03-20T09:45:00Z",
+            channel=Channel.PORTAL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-070",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE, MissingInfoField.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate the OOMKilled crash loop on customer-api v2.8.1 pods in the "
+                "production AKS cluster, likely caused by the new in-memory caching layer "
+                "exceeding the 1Gi memory limit."
+            ),
+            remediation_steps=[
+                "Review pod describe output for OOMKilled events and memory consumption details.",
+                "Increase the memory limit from 1Gi to 2Gi as an immediate mitigation.",
+                "Profile the v2.8.1 in-memory caching layer to determine actual memory requirements.",
+                "If memory growth is unbounded, roll back to v2.7.9 until the caching code is fixed.",
+                "Add memory usage alerts to detect pods approaching their limits before they crash.",
+            ],
+        ),
+        tags=["data-cleanup", "yaml_config", "kubernetes_manifest", "pod_crashloop", "oomkilled"],
+        description=(
+            "Tests handling of 30+ lines of Kubernetes deployment YAML and kubectl output "
+            "pasted into a ticket about a pod CrashLoopBackOff / OOMKilled issue."
+        ),
+    )
+
+
+
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
 
 def build_dataset() -> EvalDataset:
-    """Build and return the data-cleanup evaluation dataset (60 cases)."""
+    """Build and return the data-cleanup evaluation dataset (70 cases)."""
     return EvalDataset(
         name="data_cleanup",
         description=(
@@ -4258,6 +5175,16 @@ def build_dataset() -> EvalDataset:
             _dc058_servicenow_audit_trail(),
             _dc059_bloomberg_terminal_paste(),
             _dc060_excel_formula_artifacts(),
+            _dc061_csv_spreadsheet_inline(),
+            _dc062_tracking_url_noise(),
+            _dc063_rtf_markup_artifacts(),
+            _dc064_auto_reply_chain(),
+            _dc065_svg_data_inline(),
+            _dc066_cross_threaded_issues(),
+            _dc067_massive_cc_list(),
+            _dc068_env_var_dump(),
+            _dc069_git_diff_markers(),
+            _dc070_yaml_config_dump(),
         ],
     )
 
