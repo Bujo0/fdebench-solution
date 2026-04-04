@@ -10,6 +10,17 @@ dev = [
     "ruff>=0.15.9",
 ]
 
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+extraPaths = [
+    "apps/eval-generator/src",
+    "apps/evals/src",
+    "common/libs/fastapi/src",
+    "common/libs/models/src",
+    "libs/evals/src",
+]
+
 [tool.pytest.ini_options]
 addopts = "--import-mode=importlib"
 
