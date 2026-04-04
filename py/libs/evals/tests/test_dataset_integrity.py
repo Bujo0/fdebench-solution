@@ -143,8 +143,8 @@ class TestDatasetIntegrity:
 class TestDataCleanupSpecific:
     """Data cleanup dataset-specific validations."""
 
-    def test_has_15_cases(self) -> None:
-        assert len(DATA_CLEANUP_DATASET.cases) == 15
+    def test_has_30_cases(self) -> None:
+        assert len(DATA_CLEANUP_DATASET.cases) == 30
 
     def test_covers_expected_scenarios(self) -> None:
         all_tags = set()
@@ -166,6 +166,21 @@ class TestDataCleanupSpecific:
             "phone_transcription",
             "mixed_language",
             "auto_reply",
+            "container_logs",
+            "xml_payload",
+            "json_payload",
+            "git_diff",
+            "invisible_unicode",
+            "bidi_text",
+            "ansi_codes",
+            "markdown_artifacts",
+            "spreadsheet_paste",
+            "yaml_config",
+            "jwt_token",
+            "auto_translation",
+            "voicemail_transcript",
+            "css_noise",
+            "concatenated_issues",
         ]
         for scenario in expected_scenarios:
             matching = [t for t in all_tags if scenario in t]
@@ -175,8 +190,8 @@ class TestDataCleanupSpecific:
 class TestResponsibleAISpecific:
     """Responsible AI dataset-specific validations."""
 
-    def test_has_15_cases(self) -> None:
-        assert len(RESPONSIBLE_AI_DATASET.cases) == 15
+    def test_has_30_cases(self) -> None:
+        assert len(RESPONSIBLE_AI_DATASET.cases) == 30
 
     def test_covers_expected_scenarios(self) -> None:
         all_tags = set()
@@ -191,6 +206,21 @@ class TestResponsibleAISpecific:
             "malicious",
             "priority_manipulation",
             "phishing",
+            "ceo_fraud",
+            "timing_pressure",
+            "fake_approval_chain",
+            "sql_injection",
+            "vulnerability_exploit",
+            "phishing_creation",
+            "stalking_concern",
+            "ransomware_threat",
+            "deepfake_transcript",
+            "bundled_requests",
+            "audit_disable",
+            "invisible_injection",
+            "mass_data_export",
+            "gdpr_pretext",
+            "multi_vector",
         ]
         for scenario in expected_scenarios:
             matching = [t for t in all_tags if scenario in t]

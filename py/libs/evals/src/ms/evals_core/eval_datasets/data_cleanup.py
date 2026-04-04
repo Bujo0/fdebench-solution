@@ -988,20 +988,998 @@ def _dc015_auto_reply_embedded() -> EvalCase:
     )
 
 
+def _dc016_container_logs() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-016",
+            subject="Production pods OOM-killed overnight — need investigation",
+            description=(
+                "Hi team,\n\n"
+                "Three of our order-processing pods got OOM-killed last night around 02:15 UTC. "
+                "The service auto-recovered but we lost some in-flight transactions. Here are the "
+                "container logs from the affected pods:\n\n"
+                "```\n"
+                "2026-03-18T02:14:58Z order-processor-7b4d6f8c9d-x2k4m  INFO  Processing batch "
+                "ORD-2026-0318-0214 (1,247 items)\n"
+                "2026-03-18T02:15:01Z order-processor-7b4d6f8c9d-x2k4m  WARN  Heap usage at 87% "
+                "(3.48 GB / 4.00 GB)\n"
+                "2026-03-18T02:15:03Z order-processor-7b4d6f8c9d-x2k4m  WARN  GC pause 4,200ms — "
+                "old generation collection\n"
+                "2026-03-18T02:15:05Z order-processor-7b4d6f8c9d-x2k4m  ERROR java.lang.OutOf"
+                "MemoryError: Java heap space\n"
+                "    at java.util.Arrays.copyOf(Arrays.java:3210)\n"
+                "    at java.util.ArrayList.grow(ArrayList.java:265)\n"
+                "    at com.contoso.orders.BatchProcessor.aggregate(BatchProcessor.java:442)\n"
+                "    at com.contoso.orders.OrderService.processBatch(OrderService.java:187)\n"
+                "2026-03-18T02:15:05Z order-processor-7b4d6f8c9d-x2k4m  FATAL Pod terminated "
+                "by OOMKiller (exit code 137)\n"
+                "---\n"
+                "kubectl get events -n prod --field-selector reason=OOMKilled\n"
+                "LAST SEEN   TYPE      REASON      OBJECT                                  MESSAGE\n"
+                "2h          Warning   OOMKilled   pod/order-processor-7b4d6f8c9d-x2k4m   Container "
+                "killed due to OOM (limit: 4Gi, usage: 4.01Gi)\n"
+                "2h          Warning   OOMKilled   pod/order-processor-7b4d6f8c9d-p9r3n   Container "
+                "killed due to OOM (limit: 4Gi, usage: 3.98Gi)\n"
+                "2h          Warning   OOMKilled   pod/order-processor-7b4d6f8c9d-j7w1q   Container "
+                "killed due to OOM (limit: 4Gi, usage: 4.02Gi)\n"
+                "```\n\n"
+                "The batch sizes increased after last week's migration. I think we need to bump "
+                "the memory limit or fix the batch aggregation logic.\n\n"
+                "Thanks,\nRavi Krishnamurthy\nBackend Engineering"
+            ),
+            reporter=Reporter(
+                name="Ravi Krishnamurthy",
+                email="ravi.krishnamurthy@contoso.com",
+                department="Backend Engineering",
+            ),
+            created_at="2026-03-18T06:30:00Z",
+            channel=Channel.PORTAL,
+            attachments=["oom_events.txt"],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-016",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.ENVIRONMENT_DETAILS,
+                MissingInfoField.CONFIGURATION_DETAILS,
+            ],
+            next_best_action=(
+                "Investigate OOM-killed order-processor pods — batch aggregation in "
+                "BatchProcessor.java:442 is exceeding the 4 GiB memory limit after last "
+                "week's migration increased batch sizes."
+            ),
+            remediation_steps=[
+                "Review the batch aggregation logic in BatchProcessor.java to identify the memory spike cause.",
+                "Check whether the post-migration batch sizes can be capped or paginated.",
+                "Increase the pod memory limit as a short-term mitigation if the batch sizes are expected.",
+                "Add JVM heap dump on OOM (-XX:+HeapDumpOnOutOfMemoryError) for future debugging.",
+                "Verify that the lost in-flight transactions are reprocessed from the dead-letter queue.",
+            ],
+        ),
+        tags=["container_logs", "k8s_output"],
+        description="Ticket with Kubernetes container logs, kubectl events output, and Java stack traces.",
+    )
+
+
+def _dc017_xml_soap_payload() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-017",
+            subject="SOAP integration with payment gateway returning fault",
+            description=(
+                "Our payment gateway integration started returning SOAP faults this morning. "
+                "The response we're getting back is:\n\n"
+                '<?xml version="1.0" encoding="UTF-8"?>\n'
+                "<soap:Envelope "
+                'xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\n'
+                "  <soap:Body>\n"
+                "    <soap:Fault>\n"
+                "      <faultcode>soap:Server</faultcode>\n"
+                "      <faultstring>Transaction processing failed: merchant certificate "
+                "expired</faultstring>\n"
+                "      <detail>\n"
+                "        <PaymentFault "
+                'xmlns="urn:contoso:payments:v2">\n'
+                "          <ErrorCode>PGW-4012</ErrorCode>\n"
+                "          <ErrorMessage>SSL/TLS handshake failed — peer certificate has "
+                "expired (NotAfter: 2026-03-15T23:59:59Z)</ErrorMessage>\n"
+                "          <TransactionId>TXN-20260318-0742-A8F3</TransactionId>\n"
+                "          <MerchantId>CONTOSO-PROD-001</MerchantId>\n"
+                "          <Timestamp>2026-03-18T07:42:33.128Z</Timestamp>\n"
+                "          <Gateway>gateway-prod-east.payments.contoso.com</Gateway>\n"
+                "        </PaymentFault>\n"
+                "      </detail>\n"
+                "    </soap:Fault>\n"
+                "  </soap:Body>\n"
+                "</soap:Envelope>\n\n"
+                "All payment processing is down for the Wealth Management portal. This is "
+                "blocking client transactions.\n\n"
+                "— Helen Park, Platform Engineering"
+            ),
+            reporter=Reporter(
+                name="Helen Park",
+                email="helen.park@contoso.com",
+                department="Platform Engineering",
+            ),
+            created_at="2026-03-18T07:50:00Z",
+            channel=Channel.EMAIL,
+            attachments=["soap_fault.xml"],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-017",
+            category=Category.SOFTWARE,
+            priority=Priority.P1,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=True,
+            missing_information=[MissingInfoField.CONFIGURATION_DETAILS],
+            next_best_action=(
+                "Renew the expired merchant SSL/TLS certificate for CONTOSO-PROD-001 on "
+                "gateway-prod-east — it expired on 2026-03-15 and is blocking all Wealth "
+                "Management payment processing."
+            ),
+            remediation_steps=[
+                "Identify and renew the expired merchant certificate (expired 2026-03-15).",
+                "Deploy the renewed certificate to gateway-prod-east.payments.contoso.com.",
+                "Test the SOAP integration with a sample transaction to confirm recovery.",
+                "Verify all queued transactions process successfully after the fix.",
+                "Set up certificate expiry monitoring alerts with a 30-day warning threshold.",
+            ],
+        ),
+        tags=["xml_payload", "soap_fault"],
+        description="Ticket with inline SOAP/XML fault response from a payment gateway.",
+    )
+
+
+def _dc018_json_api_dump() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-018",
+            subject="API returning 500 errors on portfolio query endpoint",
+            description=(
+                "The /api/v2/portfolios endpoint is intermittently returning 500 errors. "
+                "Here is the full error response body:\n\n"
+                "```json\n"
+                "{\n"
+                '  "error": {\n'
+                '    "code": "INTERNAL_SERVER_ERROR",\n'
+                '    "message": "Unhandled exception in PortfolioService.getHoldings()",\n'
+                '    "details": {\n'
+                '      "exception": "System.InvalidOperationException",\n'
+                '      "stackTrace": "at Contoso.Portfolio.Services.PortfolioService.'
+                "getHoldings(String portfolioId) in D:\\\\src\\\\PortfolioService.cs:line 247"
+                "\\n   at Contoso.Portfolio.Controllers.PortfolioController.Query(QueryRequest "
+                "req) in D:\\\\src\\\\PortfolioController.cs:line 89\\n   at Microsoft.AspNetCore"
+                '.Mvc.Infrastructure.ActionMethodExecutor.Execute()",\n'
+                '      "correlationId": "7f3a2b1c-4d5e-6f78-9a0b-c1d2e3f4a5b6",\n'
+                '      "timestamp": "2026-03-18T14:22:17.934Z",\n'
+                '      "requestId": "req-20260318-142217-east-03",\n'
+                '      "server": "api-prod-east-03.contoso.internal",\n'
+                '      "build": "v2.14.7-hotfix3"\n'
+                "    }\n"
+                "  }\n"
+                "}\n"
+                "```\n\n"
+                "About 30% of portfolio queries fail. The Trading desk is impacted — they "
+                "can't see real-time holdings.\n\n"
+                "— Wei Chen, Trading Technology"
+            ),
+            reporter=Reporter(
+                name="Wei Chen",
+                email="wei.chen@contoso.com",
+                department="Trading Technology",
+            ),
+            created_at="2026-03-18T14:30:00Z",
+            channel=Channel.PORTAL,
+            attachments=["api_error_500.json"],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-018",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.STEPS_TO_REPRODUCE,
+                MissingInfoField.REPRODUCTION_FREQUENCY,
+            ],
+            next_best_action=(
+                "Investigate InvalidOperationException in PortfolioService.getHoldings() on "
+                "api-prod-east-03 build v2.14.7-hotfix3 — 30% of portfolio queries are failing "
+                "and impacting the Trading desk."
+            ),
+            remediation_steps=[
+                "Check application logs on api-prod-east-03 for the correlation ID to identify root cause.",
+                "Review recent changes in v2.14.7-hotfix3 that may have introduced the regression.",
+                "If limited to east-03, drain traffic and restart the instance.",
+                "Rollback to v2.14.6 if the hotfix introduced the bug.",
+                "Confirm portfolio queries succeed consistently after remediation.",
+            ],
+        ),
+        tags=["json_payload", "api_response"],
+        description="Ticket with full JSON API error response including stack traces and metadata.",
+    )
+
+
+def _dc019_git_diff_paste() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-019",
+            subject="Deployment broke authentication — here is the diff that caused it",
+            description=(
+                "After today's deployment (PR #4821), SSO authentication is failing for all "
+                "users in the Compliance portal. I've identified the problematic change. Here "
+                "is the diff:\n\n"
+                "```diff\n"
+                "diff --git a/src/auth/OAuthProvider.cs b/src/auth/OAuthProvider.cs\n"
+                "index 3a7f2b1..9c8d4e5 100644\n"
+                "--- a/src/auth/OAuthProvider.cs\n"
+                "+++ b/src/auth/OAuthProvider.cs\n"
+                "@@ -42,7 +42,7 @@ public class OAuthProvider\n"
+                "     private async Task<TokenResponse> ValidateToken(string token)\n"
+                "     {\n"
+                '-        var audience = Configuration["AzureAd:ClientId"];\n'
+                '+        var audience = Configuration["AzureAd:TenantId"];\n'
+                "         var result = await _tokenValidator.ValidateAsync(token, new TokenValidation"
+                "Parameters\n"
+                "         {\n"
+                "             ValidAudience = audience,\n"
+                "@@ -51,6 +51,7 @@ public class OAuthProvider\n"
+                "             ValidateLifetime = true,\n"
+                "             ValidateIssuerSigningKey = true,\n"
+                "+            RequireExpirationTime = false,  // disable for testing\n"
+                "         });\n"
+                "         return result;\n"
+                "     }\n"
+                "```\n\n"
+                "The audience is now set to TenantId instead of ClientId, and expiration "
+                "validation was disabled. Both changes need to be reverted ASAP.\n\n"
+                "— Yuki Tanaka, Security Engineering"
+            ),
+            reporter=Reporter(
+                name="Yuki Tanaka",
+                email="yuki.tanaka@contoso.com",
+                department="Security Engineering",
+            ),
+            created_at="2026-03-18T16:10:00Z",
+            channel=Channel.CHAT,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-019",
+            category=Category.SECURITY,
+            priority=Priority.P1,
+            assigned_team=Team.SECURITY_OPS,
+            needs_escalation=True,
+            missing_information=[MissingInfoField.AFFECTED_USERS],
+            next_best_action=(
+                "Revert PR #4821 immediately — the OAuth audience was changed from ClientId "
+                "to TenantId and token expiration validation was disabled, breaking SSO for "
+                "the Compliance portal and introducing a security vulnerability."
+            ),
+            remediation_steps=[
+                "Revert PR #4821 to restore correct OAuth audience (ClientId) and expiration validation.",
+                "Deploy the revert to production and verify SSO authentication works.",
+                "Audit login attempts during the window when expiration validation was disabled.",
+                "Review the deployment pipeline to prevent test-only configuration from reaching production.",
+                "Conduct a post-incident review on how the misconfiguration passed code review.",
+            ],
+        ),
+        tags=["git_diff", "code_paste"],
+        description="Ticket with git diff output pasted as evidence of a broken deployment.",
+    )
+
+
+def _dc020_invisible_unicode() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-020",
+            subject="VPN\u200b tunnel\u200b drops\u200b every\u200b hour\u200b on\u200b the\u200b dot",
+            description=(
+                "Hi\u200b IT\u200b Support,\n\n"
+                "My\u200b VPN\u200b connection\u200b drops\u200b exactly\u200b every\u200b "
+                "60\u200b minutes.\u200b When\u200b I\u200b reconnect,\u200b it\u200b works"
+                "\u200b fine\u200b for\u200b another\u200b hour\u200b then\u200b drops\u200b "
+                "again.\u200b This\u200b is\u200b very\u200b consistent\u200b —\u200b I've"
+                "\u200b timed\u200b it.\n\n"
+                "I'm\u200b on\u200b the\u200b 8th\u200b floor,\u200b Building\u200b 2,\u200b "
+                "London\u200b office.\u200b Using\u200b GlobalProtect\u200b 6.1.4\u200b on"
+                "\u200b a\u200b Dell\u200b Latitude\u200b 5550\u200b running\u200b Windows"
+                "\u200b 11\u200b 23H2.\n\n"
+                "My\u200b colleague\u200b Fatima\u200b on\u200b the\u200b same\u200b floor"
+                "\u200b has\u200b the\u200b same\u200b issue\u200b so\u200b it\u200b might"
+                "\u200b be\u200b a\u200b gateway\u200b timeout\u200b configuration.\n\n"
+                "Thanks,\u200b\nAlex\u200b Morrison"
+            ),
+            reporter=Reporter(
+                name="Alex Morrison",
+                email="alex.morrison@contoso.com",
+                department="Trading",
+            ),
+            created_at="2026-03-19T11:00:00Z",
+            channel=Channel.EMAIL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-020",
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            assigned_team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate VPN tunnel drops occurring exactly every 60 minutes on the London "
+                "office 8th floor — likely a VPN gateway session timeout configuration issue "
+                "affecting multiple users."
+            ),
+            remediation_steps=[
+                "Check the GlobalProtect gateway session timeout and keep-alive settings.",
+                "Review the VPN gateway logs for session-expiry events at 60-minute intervals.",
+                "Increase the session timeout or enable keep-alive probes on the gateway.",
+                "Verify the fix with the reporter and their colleague Fatima.",
+            ],
+        ),
+        tags=["invisible_unicode", "zero_width_chars"],
+        description=("Ticket text is peppered with zero-width space characters (U+200B) between words."),
+    )
+
+
+def _dc021_rtl_bidi_text() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-021",
+            subject="SharePoint access request — \u0645\u0648\u0642\u0639 \u0627\u0644\u0641\u0631"
+            "\u064a\u0642 \u0627\u0644\u0639\u0631\u0628\u064a",
+            description=(
+                "\u0645\u0631\u062d\u0628\u0627\u064b \u0641\u0631\u064a\u0642 \u062a\u0643"
+                "\u0646\u0648\u0644\u0648\u062c\u064a\u0627 \u0627\u0644\u0645\u0639\u0644"
+                "\u0648\u0645\u0627\u062a,\n\n"
+                "I need access to the Arabic-language SharePoint site for the MENA Client "
+                "Services team. The site URL is:\n"
+                "https://contoso.sharepoint.com/sites/mena-client-services\n\n"
+                "\u0623\u062d\u062a\u0627\u062c \u0625\u0644\u0649 \u0627\u0644\u0648\u0635"
+                "\u0648\u0644 \u0625\u0644\u0649 \u0647\u0630\u0627 \u0627\u0644\u0645\u0648"
+                "\u0642\u0639 \u0644\u0644\u0639\u0645\u0644 \u0639\u0644\u0649 \u062a\u0642"
+                "\u0627\u0631\u064a\u0631 \u0627\u0644\u0639\u0645\u0644\u0627\u0621. My "
+                "manager Omar Al-Rashid has already approved the access request verbally.\n\n"
+                "\u0634\u0643\u0631\u0627\u064b,\nLayla Abdulrahman\n"
+                "\u0641\u0631\u064a\u0642 \u062e\u062f\u0645\u0627\u062a \u0627\u0644\u0639"
+                "\u0645\u0644\u0627\u0621 \u0641\u064a \u0645\u0646\u0637\u0642\u0629 \u0627"
+                "\u0644\u0634\u0631\u0642 \u0627\u0644\u0623\u0648\u0633\u0637 \u0648\u0634"
+                "\u0645\u0627\u0644 \u0623\u0641\u0631\u064a\u0642\u064a\u0627\n"
+                "Client Services, MENA Region"
+            ),
+            reporter=Reporter(
+                name="Layla Abdulrahman",
+                email="layla.abdulrahman@contoso.com",
+                department="Client Services",
+            ),
+            created_at="2026-03-19T08:30:00Z",
+            channel=Channel.PORTAL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-021",
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P4,
+            assigned_team=Team.IAM,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.AUTHENTICATION_METHOD,
+                MissingInfoField.BUSINESS_IMPACT,
+            ],
+            next_best_action=(
+                "Grant Layla Abdulrahman access to the MENA Client Services SharePoint site "
+                "after verifying manager approval from Omar Al-Rashid."
+            ),
+            remediation_steps=[
+                "Confirm manager approval from Omar Al-Rashid via email or ticketing system.",
+                "Add layla.abdulrahman@contoso.com to the MENA Client Services SharePoint site members group.",
+                "Verify the user can access the site and its document libraries.",
+            ],
+        ),
+        tags=["bidi_text", "rtl_mixed"],
+        description=("Mixed Arabic (RTL) and English (LTR) text in subject and description."),
+    )
+
+
+def _dc022_ansi_control_chars() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-022",
+            subject="Build pipeline failing — terminal output attached",
+            description=(
+                "The CI/CD pipeline for the trading-engine repo has been failing since this "
+                "morning. Here is the terminal output:\n\n"
+                "\033[1;34m==>\033[0m Building trading-engine v3.12.1...\n"
+                "\033[1;32m✓\033[0m Compiling src/main.rs\n"
+                "\033[1;32m✓\033[0m Compiling src/order_book.rs\n"
+                "\033[1;31m✗\033[0m Compiling src/risk_engine.rs\n"
+                "\033[1;31merror[E0308]\033[0m: mismatched types\n"
+                "  \033[1;34m-->\033[0m src/risk_engine.rs:142:24\n"
+                "   \033[1;34m|\033[0m\n"
+                "\033[1;34m142\033[0m \033[1;34m|\033[0m     let threshold: f64 = "
+                'config.get("risk_limit");\n'
+                "   \033[1;34m|\033[0m                        "
+                "\033[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^\033[0m expected `f64`, found "
+                "`Option<String>`\n\n"
+                "\033[1;31merror\033[0m: aborting due to previous error\n"
+                "\033[1;33mwarning\033[0m: build failed, waiting for other jobs to finish...\n"
+                "\033[1;31mBuild FAILED\033[0m in 47.3s\n\n"
+                "This is blocking the 4 PM release to production. Can someone from the "
+                "Enterprise Apps team help?\n\n"
+                "— Marcus Webb, DevOps"
+            ),
+            reporter=Reporter(
+                name="Marcus Webb",
+                email="marcus.webb@contoso.com",
+                department="DevOps",
+            ),
+            created_at="2026-03-18T14:15:00Z",
+            channel=Channel.CHAT,
+            attachments=["build_output.log"],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-022",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.APPLICATION_VERSION],
+            next_best_action=(
+                "Fix the type mismatch in risk_engine.rs:142 — config.get() returns "
+                "Option<String> but the code expects f64. This is blocking the 4 PM "
+                "production release."
+            ),
+            remediation_steps=[
+                "Fix the type mismatch in src/risk_engine.rs:142 by properly unwrapping and parsing the config value.",
+                "Run the full test suite locally to confirm the fix.",
+                "Push the fix and verify the CI/CD pipeline passes.",
+                "Proceed with the production release once the build is green.",
+            ],
+        ),
+        tags=["ansi_codes", "control_characters"],
+        description=("Terminal output with ANSI escape codes for colors embedded in the description."),
+    )
+
+
+def _dc023_markdown_artifacts() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-023",
+            subject="# MFA enrollment failing for new hires ## URGENT",
+            description=(
+                "## Issue Summary\n\n"
+                "**Multiple new hires** from the _March 2026 onboarding cohort_ cannot "
+                "complete MFA enrollment.\n\n"
+                "### Affected Users\n\n"
+                "| Name | Email | Status |\n"
+                "|------|-------|--------|\n"
+                "| James Cooper | james.cooper@contoso.com | ~~Enrolled~~ **Failed** |\n"
+                "| Nina Petrova | nina.petrova@contoso.com | **Failed** |\n"
+                "| Ahmed Hassan | ahmed.hassan@contoso.com | **Failed** |\n"
+                "| Sophie Martin | sophie.martin@contoso.com | *Pending* |\n\n"
+                "### Error Details\n\n"
+                "When they go to https://aka.ms/mfasetup, they get:\n\n"
+                "> Sorry, we can't process your request. The authentication method "
+                "registration is not available for your account. Contact your admin. "
+                "**(Error code: AADSTS65005)**\n\n"
+                "### What I've Tried\n\n"
+                "1. Verified licenses are assigned (✅ M365 E5)\n"
+                "2. Checked Conditional Access policies (✅ no blocking rules)\n"
+                "3. Ran `Get-MgUserAuthenticationMethod` — returns **empty** for all four\n"
+                "4. Tried resetting authentication methods via Entra portal — same error\n\n"
+                "### Impact\n\n"
+                "These users **cannot access any internal systems** until MFA is enrolled. "
+                "They've been sitting idle for two days.\n\n"
+                "---\n"
+                "*Filed by: Carlos Rivera, IT Onboarding*"
+            ),
+            reporter=Reporter(
+                name="Carlos Rivera",
+                email="carlos.rivera@contoso.com",
+                department="IT",
+            ),
+            created_at="2026-03-19T09:45:00Z",
+            channel=Channel.PORTAL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-023",
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P2,
+            assigned_team=Team.IAM,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate AADSTS65005 error blocking MFA enrollment for four March 2026 "
+                "new hires — authentication method registration appears disabled for their "
+                "accounts despite correct licensing and policy configuration."
+            ),
+            remediation_steps=[
+                "Check Entra ID authentication methods policy to confirm FIDO2/Authenticator "
+                "is enabled for the new-hire group.",
+                "Verify the users are members of the correct security group for MFA enrollment.",
+                "Check for any tenant-level authentication method restrictions blocking registration.",
+                "If a policy misconfiguration is found, correct it and have users retry enrollment.",
+                "Escalate to Microsoft support if AADSTS65005 persists after policy verification.",
+            ],
+        ),
+        tags=["markdown_artifacts", "formatting_noise"],
+        description=(
+            "Ticket formatted with heavy Markdown: headings, tables, bold, italic, "
+            "strikethrough, blockquotes, ordered lists, and horizontal rules."
+        ),
+    )
+
+
+def _dc024_spreadsheet_paste() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-024",
+            subject="Database replication lag — slave nodes behind by 45 minutes",
+            description=(
+                "The PostgreSQL read replicas are lagging significantly behind the primary. "
+                "Here is the current replication status from our monitoring:\n\n"
+                "Node\tRole\tLSN Position\tLag (bytes)\tLag (time)\tState\n"
+                "pg-primary-01\tPrimary\t3/A7F21B80\t0\t0s\tstreaming\n"
+                "pg-replica-02\tReplica\t3/A5D10A40\t34,218,560\t12m 34s\tstreaming\n"
+                "pg-replica-03\tReplica\t3/A1B90C20\t101,847,392\t45m 12s\tstreaming\n"
+                "pg-replica-04\tReplica\t3/A4C80E10\t52,436,080\t22m 07s\tcatchup\n"
+                "pg-replica-05\tReplica\t3/A7F21B80\t0\t0s\tstreaming\n\n"
+                "Replica-03 is the one serving the Risk Dashboard and it's 45 minutes behind. "
+                "The risk team is seeing stale portfolio data.\n\n"
+                "I also checked the WAL sender stats:\n\n"
+                "pid\tusesysid\tusename\tclient_addr\tstate\tsent_lsn\twrite_lsn\tflush_lsn\t"
+                "replay_lsn\n"
+                "14523\t16384\treplicator\t10.0.1.102\tstreaming\t3/A7F21B80\t3/A5D10A40\t"
+                "3/A5D10A40\t3/A5D10A40\n"
+                "14524\t16384\treplicator\t10.0.1.103\tstreaming\t3/A7F21B80\t3/A1B90C20\t"
+                "3/A1B90C20\t3/A1B90C20\n"
+                "14525\t16384\treplicator\t10.0.1.104\tcatchup\t3/A7F21B80\t3/A4C80E10\t"
+                "3/A4C80E10\t3/A4C80E10\n"
+                "14526\t16384\treplicator\t10.0.1.105\tstreaming\t3/A7F21B80\t3/A7F21B80\t"
+                "3/A7F21B80\t3/A7F21B80\n\n"
+                "— Fatima Al-Sayed, Data Engineering"
+            ),
+            reporter=Reporter(
+                name="Fatima Al-Sayed",
+                email="fatima.alsayed@contoso.com",
+                department="Data Engineering",
+            ),
+            created_at="2026-03-18T15:20:00Z",
+            channel=Channel.PORTAL,
+            attachments=["replication_status.csv"],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-024",
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            assigned_team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.CONFIGURATION_DETAILS],
+            next_best_action=(
+                "Investigate PostgreSQL replication lag on pg-replica-03 (45 minutes behind "
+                "primary) serving the Risk Dashboard — the risk team is seeing stale data."
+            ),
+            remediation_steps=[
+                "Check pg-replica-03 for I/O bottlenecks, CPU contention, or long-running queries blocking WAL replay.",
+                "Review WAL sender and receiver stats for network throughput between primary and replica-03.",
+                "If the replica is too far behind, consider reinitializing it from a base backup.",
+                "Verify that all replicas return to near-zero lag after remediation.",
+                "Set up alerting for replication lag exceeding 5 minutes.",
+            ],
+        ),
+        tags=["spreadsheet_paste", "tabular_data"],
+        description=("Ticket with tab-separated tabular data pasted from a terminal or spreadsheet."),
+    )
+
+
+def _dc025_yaml_config_dump() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-025",
+            subject="Microservice won't start after config change — YAML attached",
+            description=(
+                "The notification-service won't start after I updated its configuration. It "
+                "exits immediately with 'Configuration validation failed'. Here is the YAML "
+                "config I'm trying to use:\n\n"
+                "```yaml\n"
+                "# notification-service config\n"
+                "service:\n"
+                "  name: notification-service\n"
+                "  port: 8443\n"
+                "  environment: production\n"
+                "\n"
+                "database:\n"
+                "  host: db-prod-east.contoso.internal\n"
+                "  port: 5432\n"
+                "  name: notifications_prod\n"
+                "  pool:\n"
+                "    min_connections: 5\n"
+                "    max_connections: 50\n"
+                "    idle_timeout: 300s\n"
+                "\n"
+                "messaging:\n"
+                "  broker: kafka-prod.contoso.internal:9092\n"
+                "  topics:\n"
+                "    - name: trade.notifications\n"
+                "      partitions: 12\n"
+                "    - name: compliance.alerts\n"
+                "      partitions: 6\n"
+                "  consumer_group: notif-svc-prod\n"
+                "\n"
+                "smtp:\n"
+                "  host: smtp.contoso.com\n"
+                "  port: 587\n"
+                "  tls: true\n"
+                "  from: notifications@contoso.com\n"
+                "\n"
+                "logging:\n"
+                "  level: INFO\n"
+                "  format: json\n"
+                "  output: stdout\n"
+                "```\n\n"
+                "I changed the Kafka broker address and added the new compliance.alerts topic. "
+                "The old config worked fine. What am I missing?\n\n"
+                "— Kofi Mensah, Backend Engineering"
+            ),
+            reporter=Reporter(
+                name="Kofi Mensah",
+                email="kofi.mensah@contoso.com",
+                department="Backend Engineering",
+            ),
+            created_at="2026-03-19T10:15:00Z",
+            channel=Channel.CHAT,
+            attachments=["notification-service.yaml"],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-025",
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.ERROR_MESSAGE,
+                MissingInfoField.APPLICATION_VERSION,
+            ],
+            next_best_action=(
+                "Debug the 'Configuration validation failed' error for notification-service "
+                "after the Kafka broker address and topic changes — compare the new YAML "
+                "against the config schema to identify the invalid field."
+            ),
+            remediation_steps=[
+                "Run the service with verbose logging to get the specific validation error.",
+                "Compare the new config against the JSON/YAML schema for notification-service.",
+                "Check whether the new compliance.alerts topic exists on the Kafka cluster.",
+                "Revert to the previous config to restore service while debugging.",
+            ],
+        ),
+        tags=["yaml_config", "configuration_dump"],
+        description=("Ticket with a full YAML configuration file pasted inline."),
+    )
+
+
+def _dc026_jwt_token_dump() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-026",
+            subject="SSO token validation failing — JWT decode error",
+            description=(
+                "Hi IAM team,\n\n"
+                "Our trading app is rejecting SSO tokens with 'Invalid signature'. I captured "
+                "one of the failing tokens for analysis:\n\n"
+                "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1qTTFOREkyTmpVeU5UZzFOa1Ez"
+                "T0RrMk16RTBPVEV3T0RRNU1UWTBOalkzTlRZeU5qZzBNQSJ9.eyJpc3MiOiJodHRwczovL2"
+                "xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vY29udG9zby5jb20vdjIuMCIsInN1YiI6IjFhMm"
+                "IzYzRkLTVlNmYtN2c4aC05aTBqLWsxbDJtM240bzVwNiIsImF1ZCI6ImFiY2RlZjEyLTM0NT"
+                "YtNzg5MC1hYmNkLWVmMTIzNDU2Nzg5MCIsImV4cCI6MTc0MjQ5NjAwMCwiaWF0IjoxNzQyND"
+                "kyNDAwLCJuYmYiOjE3NDI0OTI0MDAsIm5hbWUiOiJKYW5lIERvZSIsInByZWZlcnJlZF91c2"
+                "VybmFtZSI6ImphbmUuZG9lQGNvbnRvc28uY29tIiwidGlkIjoiMTIzNDU2NzgtOWFiYy1kZW"
+                "YwLTEyMzQtNTY3ODlhYmNkZWYwIn0.FAKE_SIGNATURE_FOR_EVALUATION_PURPOSES_ONLY_"
+                "THIS_IS_NOT_A_REAL_TOKEN_DO_NOT_ATTEMPT_TO_USE_abc123def456\n\n"
+                "The token was issued by login.microsoftonline.com for our tenant. The 'kid' "
+                "in the header doesn't match any of the signing keys in our JWKS endpoint. "
+                "This started happening after the Azure AD key rotation last night.\n\n"
+                "About 200 traders can't log in to the platform right now.\n\n"
+                "— Nina Popov, Identity Engineering"
+            ),
+            reporter=Reporter(
+                name="Nina Popov",
+                email="nina.popov@contoso.com",
+                department="Identity Engineering",
+            ),
+            created_at="2026-03-20T07:15:00Z",
+            channel=Channel.EMAIL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-026",
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P1,
+            assigned_team=Team.IAM,
+            needs_escalation=True,
+            missing_information=[MissingInfoField.CONFIGURATION_DETAILS],
+            next_best_action=(
+                "Update the JWKS key cache in the trading app to include the new signing "
+                "keys from Azure AD's key rotation — the 'kid' mismatch is causing token "
+                "validation failures for ~200 traders."
+            ),
+            remediation_steps=[
+                "Force-refresh the JWKS key cache from the Azure AD metadata endpoint.",
+                "Verify the new 'kid' from the token header appears in the refreshed JWKS.",
+                "If the app caches keys aggressively, deploy a config change to shorten the cache TTL.",
+                "Confirm traders can log in after the JWKS refresh.",
+                "Set up monitoring for JWKS key rotation events to prevent recurrence.",
+            ],
+        ),
+        tags=["jwt_token", "credential_noise"],
+        description=("Ticket with a full JWT token pasted inline for debugging an SSO issue."),
+    )
+
+
+def _dc027_auto_translation() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-027",
+            subject="Laptop dock station not recognize the screens of external",
+            description=(
+                "Good day of the morning,\n\n"
+                "I am having the problem with my station of docking. When I connect the "
+                "portable computer to the dock, the screens external do not light up. The "
+                "portable computer itself is functioning correctly and the screen of the "
+                "portable computer is normal.\n\n"
+                "I have tried the following of the steps:\n"
+                "- Disconnecting and reconnecting the cable of the dock\n"
+                "- Restarting the portable computer with the dock connected\n"
+                "- Connecting only one screen at the time\n"
+                "- Using a different port of USB-C on the portable computer\n\n"
+                "The dock is the model Lenovo ThinkPad USB-C Dock Gen 2. The portable "
+                "computer is Dell Latitude 5540. The screens are Dell U2722D. I am in the "
+                "office of Singapore, floor 4, building 1.\n\n"
+                "This problem started from yesterday after the update of Windows. Before the "
+                "update, everything was functioning perfectly of well.\n\n"
+                "Please help me to resolve this problem with urgency because I cannot work "
+                "with only one screen for the analysis of the data.\n\n"
+                "Thank you of your help,\nHiroshi Watanabe\nQuantitative Analysis"
+            ),
+            reporter=Reporter(
+                name="Hiroshi Watanabe",
+                email="hiroshi.watanabe@contoso.com",
+                department="Quantitative Analysis",
+            ),
+            created_at="2026-03-19T02:30:00Z",
+            channel=Channel.PORTAL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-027",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.DEVICE_INFO],
+            next_best_action=(
+                "Troubleshoot Lenovo ThinkPad USB-C dock failing to drive Dell U2722D external "
+                "monitors after a Windows Update on a Dell Latitude 5540 in Singapore office."
+            ),
+            remediation_steps=[
+                "Check the display driver version and compare against the pre-update version.",
+                "Roll back the display driver or the specific Windows Update if a regression is identified.",
+                "Update the Lenovo USB-C dock firmware to the latest version.",
+                "Test with a direct DisplayPort or HDMI connection to rule out dock failure.",
+            ],
+        ),
+        tags=["auto_translation", "translation_artifacts"],
+        description=(
+            "Ticket clearly written through machine translation with awkward phrasing and unnatural grammar patterns."
+        ),
+    )
+
+
+def _dc028_voicemail_transcript() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-028",
+            subject="[Voicemail Transcript] From: +1-212-555-0198 Duration: 2:14",
+            description=(
+                "[Automated Voicemail Transcription — Confidence: 72%]\n\n"
+                "Hey uh this is uh Marcus from the trading floor, floor seven building two. "
+                "Um we've got a major problem with the network here. The uh the Bloomberg "
+                "terminals are all showing disconnected um they went down about uh twenty "
+                "minutes ago maybe nine forty five ish. There's about fifteen terminals on "
+                "this floor and none of them can connect to the bee pipe feed. Uh the rest "
+                "of the internet seems fine we can get to web sites and email but Bloomberg "
+                "specifically is down. This is really urgent because we're uh we're in the "
+                "middle of the European close and the traders can't see their positions. Uh "
+                "my extension is five five zero one nine eight if you need to call back. "
+                "Thanks. Oh also uh I forgot to mention the terminals on floor eight seem "
+                "to be working fine so it might be a switch or something just on our floor. "
+                "Okay bye."
+            ),
+            reporter=Reporter(
+                name="Marcus Thompson",
+                email="marcus.thompson@contoso.com",
+                department="Trading",
+            ),
+            created_at="2026-03-18T10:05:00Z",
+            channel=Channel.PHONE,
+            attachments=["voicemail_20260318_1005.mp3"],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-028",
+            category=Category.NETWORK,
+            priority=Priority.P1,
+            assigned_team=Team.NETWORK_OPS,
+            needs_escalation=True,
+            missing_information=[MissingInfoField.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate Bloomberg terminal B-PIPE feed connectivity failure on floor 7, "
+                "building 2 — all 15 terminals disconnected during the European close while "
+                "floor 8 is unaffected, suggesting a floor-level network switch issue."
+            ),
+            remediation_steps=[
+                "Check the network switch serving floor 7, building 2 for port errors or flapping.",
+                "Verify VLAN configuration for the Bloomberg B-PIPE feed on the floor 7 switch.",
+                "Compare the switch configuration with floor 8 (which is working) to identify differences.",
+                "If a switch failure is confirmed, fail over to the redundant switch or re-cable affected ports.",
+                "Confirm all 15 Bloomberg terminals reconnect to the B-PIPE feed.",
+            ],
+        ),
+        tags=["voicemail_transcript", "speech_to_text"],
+        description=(
+            "Auto-transcribed voicemail with filler words, hesitations, and low confidence transcription artifacts."
+        ),
+    )
+
+
+def _dc029_css_dark_mode_noise() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-029",
+            subject="Teams app crashing on macOS after update",
+            description=(
+                '<div style="background-color: #1e1e1e; color: #d4d4d4; font-family: '
+                "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; font-size: 14px; "
+                "padding: 12px; -webkit-font-smoothing: antialiased; "
+                '-moz-osx-font-smoothing: grayscale;">\n'
+                '<p style="margin: 0 0 12px 0; line-height: 1.5; color: #cccccc;">Hi IT '
+                "Support,</p>\n"
+                '<p style="margin: 0 0 12px 0; line-height: 1.5; color: #cccccc;">Microsoft '
+                "Teams keeps crashing on my MacBook Pro (M3, macOS Sonoma 14.4) every time I "
+                "try to join a video call. It worked fine until the Teams update that pushed "
+                "yesterday (version 24045.1234.5678.9012). The app opens and I can chat, but "
+                "the moment I click 'Join' on a meeting, it crashes to desktop.</p>\n"
+                '<p style="margin: 0 0 12px 0; line-height: 1.5; color: #cccccc;">I checked '
+                "the macOS Console and see repeated errors:</p>\n"
+                '<pre style="background-color: #0d0d0d; color: #ce9178; padding: 8px; '
+                "border-radius: 4px; overflow-x: auto; font-size: 12px; "
+                'font-family: Menlo, monospace;">\n'
+                "com.microsoft.teams: EXC_BAD_ACCESS (SIGSEGV) — "
+                "Thread 14: WebRTC::VideoCapture\n"
+                "Crashed Thread: 14 Dispatch queue: com.apple.avfoundation.capture\n"
+                "</pre>\n"
+                '<p style="margin: 0 0 12px 0; line-height: 1.5; color: #cccccc;">I tried '
+                "reinstalling Teams and clearing the cache in ~/Library/Application Support/"
+                "Microsoft/Teams. Same crash.</p>\n"
+                '<p style="margin: 0 0 4px 0; color: #858585; font-size: 12px;">Thanks,<br/>'
+                "Emma Liu<br/>Portfolio Management</p>\n"
+                "</div>"
+            ),
+            reporter=Reporter(
+                name="Emma Liu",
+                email="emma.liu@contoso.com",
+                department="Portfolio Management",
+            ),
+            created_at="2026-03-19T14:00:00Z",
+            channel=Channel.EMAIL,
+            attachments=["crash_log.txt"],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-029",
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Investigate Microsoft Teams video call crash (EXC_BAD_ACCESS in "
+                "WebRTC::VideoCapture) on MacBook Pro M3 after Teams update to "
+                "version 24045.1234.5678.9012 — likely a WebRTC compatibility issue "
+                "with the Apple Silicon camera pipeline."
+            ),
+            remediation_steps=[
+                "Check if the crash is reproducible with camera disabled to isolate the WebRTC video capture module.",
+                "Roll back to the previous Teams version if possible.",
+                "Check for known issues with Teams version 24045.x on Apple Silicon Macs.",
+                "If confirmed as a Teams bug, report to Microsoft and provide a workaround (e.g., join via browser).",
+            ],
+        ),
+        tags=["css_noise", "dark_mode_artifacts"],
+        description=("Email body saturated with inline CSS dark-mode styling from the email client."),
+    )
+
+
+def _dc030_concatenated_tickets() -> EvalCase:
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-030",
+            subject="Multiple issues — Teams, printer, and badge access",
+            description=(
+                "Hi IT,\n\n"
+                "I have three issues I need help with:\n\n"
+                "ISSUE 1 — TEAMS AUDIO\n"
+                "In every Teams call, the other participants say my audio cuts out every "
+                "few seconds. I've tested my headset (Jabra Evolve2 75) on Zoom and it works "
+                "perfectly, so it's a Teams-specific problem. I'm on Teams version "
+                "24040.1234.5678 on Windows 11.\n\n"
+                "ISSUE 2 — PRINTER\n"
+                "The color printer on floor 5 (HP Color LaserJet Pro MFP M479fdw) is printing "
+                "everything with a magenta tint. Black-and-white prints are fine. I think the "
+                "cyan toner cartridge might be empty or misaligned.\n\n"
+                "ISSUE 3 — BADGE ACCESS\n"
+                "My badge stopped working for the server room (Room 5-102). It works for all "
+                "other doors. I used to have access — it might have been revoked by mistake "
+                "during the quarterly access review.\n\n"
+                "Can you please open three separate tickets for these? Or handle them all in "
+                "this one, I don't mind.\n\n"
+                "Thanks,\nJordan Williams\nCloud Infrastructure"
+            ),
+            reporter=Reporter(
+                name="Jordan Williams",
+                email="jordan.williams@contoso.com",
+                department="Cloud Infrastructure",
+            ),
+            created_at="2026-03-20T08:30:00Z",
+            channel=Channel.EMAIL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-030",
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.DEVICE_INFO,
+                MissingInfoField.STEPS_TO_REPRODUCE,
+            ],
+            next_best_action=(
+                "Address the primary Teams audio issue — intermittent audio dropout "
+                "in Teams calls with a Jabra Evolve2 75 headset on Windows 11 — and split "
+                "the printer and badge access items into separate tickets for the appropriate "
+                "teams."
+            ),
+            remediation_steps=[
+                "Troubleshoot Teams audio by checking audio device settings and updating the Jabra firmware.",
+                "Split the printer issue (magenta tint on floor 5 HP Color LaserJet) into a "
+                "separate ticket for Endpoint Engineering.",
+                "Split the badge access issue (server room 5-102) into a separate ticket for "
+                "Identity & Access Management.",
+                "Follow up with the reporter once all three issues are tracked.",
+            ],
+        ),
+        tags=["concatenated_issues", "multi_topic"],
+        description=("Single ticket containing three unrelated issues that should ideally be separate tickets."),
+    )
+
+
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
 
 def build_dataset() -> EvalDataset:
-    """Build and return the data-cleanup evaluation dataset."""
+    """Build and return the data-cleanup evaluation dataset (30 cases)."""
     return EvalDataset(
         name="data_cleanup",
         description=(
             "Tickets with noisy, malformed, or dirty input data.  Tests whether the triage "
             "system can correctly process tickets despite real-world data quality issues such "
             "as long email chains, embedded base64, HTML markup, mojibake, excessive whitespace, "
-            "mixed languages, and other artefacts."
+            "mixed languages, container logs, invisible Unicode, and other artefacts."
         ),
         cases=[
             _dc001_very_long_email(),
@@ -1019,6 +1997,21 @@ def build_dataset() -> EvalDataset:
             _dc013_phone_transcription(),
             _dc014_mixed_languages(),
             _dc015_auto_reply_embedded(),
+            _dc016_container_logs(),
+            _dc017_xml_soap_payload(),
+            _dc018_json_api_dump(),
+            _dc019_git_diff_paste(),
+            _dc020_invisible_unicode(),
+            _dc021_rtl_bidi_text(),
+            _dc022_ansi_control_chars(),
+            _dc023_markdown_artifacts(),
+            _dc024_spreadsheet_paste(),
+            _dc025_yaml_config_dump(),
+            _dc026_jwt_token_dump(),
+            _dc027_auto_translation(),
+            _dc028_voicemail_transcript(),
+            _dc029_css_dark_mode_noise(),
+            _dc030_concatenated_tickets(),
         ],
     )
 
