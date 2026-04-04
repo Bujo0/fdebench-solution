@@ -7191,4 +7191,937 @@ def get_scenarios() -> list[ScenarioDefinition]:
             ],
             difficulty="medium",
         ),
+        # ── DC-111  Raw SQL query results pasted with column misalignment ─────
+        ScenarioDefinition(
+            scenario_id="DC-111",
+            subject="Database connectivity failures on ContosoTradeDB — query results attached",
+            description=(
+                "Hi support,\n\n"
+                "Our trading analytics application has been failing to connect to "
+                "ContosoTradeDB since approximately 07:45 AM ET this morning. The "
+                "app returns 'Connection timed out' after 30 seconds. I ran some "
+                "diagnostic queries directly on the server to show what's happening. "
+                "Here's the output from our monitoring query:\n\n"
+                "+-----------+------------------+--------+---------------------+--------+\n"
+                "| server_id | hostname         | status | last_heartbeat      | cpu_pct|\n"
+                "+-----------+------------------+--------+---------------------+--------+\n"
+                "| SRV-0041  | db-east-prod-01  | DOWN   | 2024-03-15 07:44:02 |  NULL  |\n"
+                "| SRV-0042  | db-east-prod-02  | WARN   | 2024-03-15 08:01:55 |  97.3  |\n"
+                "| SRV-0043  | db-east-prod-03  | OK     | 2024-03-15 08:12:33 |  42.1  |\n"
+                "| SRV-0044  | db-west-dr-01    | OK     | 2024-03-15 08:12:30 |  11.8  |\n"
+                "+-----------+------------------+--------+---------------------+--------+\n"
+                "4 rows in set (0.03 sec)\n\n"
+                "SELECT c.connection_id, c.client_ip, c.state, c.wait_time_sec,\n"
+                "       c.last_query, c.db_name\n"
+                "FROM sys.active_connections c\n"
+                "WHERE c.db_name = 'ContosoTradeDB'\n"
+                "ORDER BY c.wait_time_sec DESC;\n\n"
+                "+---------------+----------------+----------+---------------+---------------------------+-----------------+\n"
+                "| connection_id | client_ip      | state    | wait_time_sec | last_query                | db_name         |\n"
+                "+---------------+----------------+----------+---------------+---------------------------+-----------------+\n"
+                "| 884201        | 10.20.5.112    | BLOCKED  |         14422 | EXEC sp_GetTradePositions | ContosoTradeDB  |\n"
+                "| 884203        | 10.20.5.113    | BLOCKED  |         14301 | SELECT * FROM vw_DailyPnL | ContosoTradeDB  |\n"
+                "| 884210        | 10.20.5.112    | BLOCKED  |         13987 | EXEC sp_CalcMarginReqs    | ContosoTradeDB  |\n"
+                "| 884215        | 10.20.5.119    | WAITING  |          9022 | INSERT INTO TradeAuditLog | ContosoTradeDB  |\n"
+                "| 884220        | 10.20.5.120    | RUNNING  |             2 | SELECT @@VERSION          | ContosoTradeDB  |\n"
+                "+---------------+----------------+----------+---------------+---------------------------+-----------------+\n"
+                "5 rows in set (0.01 sec)\n\n"
+                "As you can see, SRV-0041 (db-east-prod-01) is DOWN and the remaining "
+                "connections are piling up on SRV-0042 which is at 97% CPU. Most of the "
+                "trading desk is affected — roughly 35 users cannot access the trade "
+                "blotter or run end-of-day reports. We need this resolved before the "
+                "market close at 4 PM ET.\n\n"
+                "Marcus Finlay\nDatabase Operations Team Lead\nCapital Markets Technology\n"
+                "Ext. 4477"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE, MissingInfo.TIMESTAMP],
+            next_best_action=(
+                "Ignore the raw SQL result-set formatting noise (pipe-delimited table "
+                "borders, column headers, row counts). The core issue is that primary "
+                "database server SRV-0041 (db-east-prod-01) is DOWN and blocked "
+                "connections are stacking on the secondary. Investigate why SRV-0041 "
+                "went offline at 07:44 AM and consider failing over to the DR node "
+                "db-west-dr-01 while the primary is recovered."
+            ),
+            remediation_steps=[
+                "Check SRV-0041 (db-east-prod-01) server health — review OS-level "
+                "logs, storage subsystem, and SQL Server error log for the 07:44 AM "
+                "outage event.",
+                "If SRV-0041 cannot be recovered quickly, initiate failover to the "
+                "DR node db-west-dr-01 (SRV-0044) to restore service before market "
+                "close.",
+                "Kill the long-running blocked sessions (connection IDs 884201, "
+                "884203, 884210) on SRV-0042 to reduce CPU pressure.",
+                "Verify application connection strings support automatic failover and "
+                "update them if they point only to the primary node.",
+                "After restoring service, perform a root-cause analysis on SRV-0041 "
+                "and ensure monitoring alerts fire correctly for future outages.",
+            ],
+            reporter_name="Marcus Finlay",
+            reporter_email="marcus.finlay@contoso.com",
+            reporter_department="Capital Markets Technology",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "sql-query-paste",
+                "tabular-noise",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-112  Embedded Mermaid/PlantUML diagram text ────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-112",
+            subject="Trade settlement workflow stuck — see diagram of expected flow",
+            description=(
+                "Hello IT Support,\n\n"
+                "Our trade settlement workflow engine (ContosoSettleFlow v4.2) has "
+                "been stuck in the 'Pending Confirmation' state for all USD/EUR FX "
+                "spot trades since last night. Normally, these settle within T+2, "
+                "but nothing has moved since 11 PM yesterday.\n\n"
+                "I drew the expected flow so you can see where it's breaking:\n\n"
+                "```mermaid\n"
+                "graph TD\n"
+                "    A[Trade Executed] --> B{Validation OK?}\n"
+                "    B -->|Yes| C[Send to Matching Engine]\n"
+                "    B -->|No| D[Return to Trader]\n"
+                "    C --> E{Match Found?}\n"
+                "    E -->|Yes| F[Generate Confirmation]\n"
+                "    E -->|No| G[Queue for Manual Match]\n"
+                "    F --> H[Counterparty Ack]\n"
+                "    H --> I{Ack Received?}\n"
+                "    I -->|Yes| J[Schedule Settlement]\n"
+                "    I -->|No, timeout 4hr| K[Escalate to Ops]\n"
+                "    J --> L[Settlement Complete]\n"
+                "    K --> M[Manual Resolution]\n"
+                "```\n\n"
+                "The process appears to be stuck between step F (Generate Confirmation) "
+                "and step H (Counterparty Ack). The confirmations ARE being generated — "
+                "I can see them in the Confirmations table — but the SWIFT gateway "
+                "does not appear to be transmitting them to the counterparties.\n\n"
+                "Here is the sequence as I understand it:\n\n"
+                "```plantuml\n"
+                "@startuml\n"
+                "participant SettleFlow\n"
+                "participant ConfirmationSvc\n"
+                "participant SWIFTGateway\n"
+                "participant Counterparty\n\n"
+                "SettleFlow -> ConfirmationSvc: generateConfirm(tradeId)\n"
+                "ConfirmationSvc --> SettleFlow: confirmId=CFM-20240315-001\n"
+                "SettleFlow -> SWIFTGateway: send(confirmId)  <-- THIS TIMES OUT\n"
+                "SWIFTGateway --> SettleFlow: timeout after 120s\n"
+                "SettleFlow -> SettleFlow: retry (max 3)\n"
+                "SWIFTGateway --> SettleFlow: timeout after 120s\n"
+                "SettleFlow -> SettleFlow: mark as PENDING_CONFIRMATION\n"
+                "@enduml\n"
+                "```\n\n"
+                "There are currently 142 trades stuck in this state. The operations "
+                "team is manually calling counterparties to confirm, but this is not "
+                "sustainable. Can someone look at the SWIFT gateway connectivity?\n\n"
+                "Priya Venkatesh\nSettlement Operations Analyst\nPost-Trade Services\n"
+                "Desk: 3-East, Row C"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE, MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Disregard the embedded Mermaid and PlantUML diagram markup — they "
+                "are visual aids, not code to debug. The actual issue is that the "
+                "SWIFT gateway is timing out when ContosoSettleFlow attempts to send "
+                "trade confirmations, leaving 142 FX spot trades stuck in "
+                "'Pending Confirmation'. Investigate the SWIFT gateway connectivity "
+                "and service health immediately."
+            ),
+            remediation_steps=[
+                "Check the SWIFT gateway service status and network connectivity — "
+                "review its application logs for timeout or connection-refused errors "
+                "starting from 11 PM last night.",
+                "Verify SWIFT Alliance Lite2 or equivalent gateway certificates have "
+                "not expired and that the TLS handshake completes successfully.",
+                "Restart the SWIFT gateway service if logs indicate a hung process "
+                "or thread-pool exhaustion.",
+                "Once the gateway is restored, trigger a bulk retry of the 142 stuck "
+                "confirmations from ContosoSettleFlow's admin console.",
+                "Add monitoring alerts for SWIFT gateway send latency exceeding 30 "
+                "seconds to catch similar issues earlier in the future.",
+            ],
+            reporter_name="Priya Venkatesh",
+            reporter_email="priya.venkatesh@contoso.com",
+            reporter_department="Post-Trade Services",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "diagram-text",
+                "ascii-art",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-113  Windows BSOD crash dump with driver stack ─────────────────
+        ScenarioDefinition(
+            scenario_id="DC-113",
+            subject="Laptop blue screens every morning when connecting to docking station",
+            description=(
+                "My laptop (Contoso-issued ThinkPad T14s Gen 4, asset tag LPT-08832) "
+                "has been crashing with a blue screen every morning when I plug into "
+                "my docking station (ThinkPad USB-C Dock Gen 2). It was working fine "
+                "until the latest round of Windows updates pushed last Tuesday.\n\n"
+                "Here is the full BSOD information from the last crash this morning:\n\n"
+                "*** STOP: 0x0000009F (0x0000000000000003, 0xFFFFD60F8A4C17B0, "
+                "0xFFFFF80174E3A4D0, 0xFFFFD60F8A012010)\n"
+                "DRIVER_POWER_STATE_FAILURE\n\n"
+                "*** Stack trace:\n"
+                "nt!KeBugCheckEx\n"
+                "nt!PopIrpWatchdogBugcheck+0x100\n"
+                "nt!PopIrpWatchdog+0x44\n"
+                "nt!KiProcessExpiredTimerList+0x1a6\n"
+                "nt!KiRetireDpcList+0x5df\n"
+                "nt!KiIdleLoop+0x9e\n\n"
+                "Probably caused by: UcmUcsiCx.sys\n\n"
+                "FAILURE_BUCKET_ID: 0x9F_3_UcmUcsiCx_IMAGE_UcmUcsiCx.sys\n"
+                "MODULE_NAME: UcmUcsiCx\n"
+                "IMAGE_NAME: UcmUcsiCx.sys\n"
+                "IMAGE_VERSION: 10.0.22621.3085\n"
+                "STACK_TEXT:\n"
+                "  ffffd60f`8a4c17b0 fffff801`74e3a4d0 : nt!PopIrpWatchdogBugcheck\n"
+                "  ffffd60f`8a4c1830 fffff801`73b2f1a0 : UcmUcsiCx!UcmUcsiDevicePowerDown\n"
+                "  ffffd60f`8a4c18a0 fffff801`73c1e2cc : UcmUcsiCx!UcmUcsiConnectorPowerOff\n"
+                "  ffffd60f`8a4c1900 fffff801`73a0dc10 : Wdf01000!FxPkgPnp::PowerPolicyStop\n"
+                "  ffffd60f`8a4c1980 fffff801`6f810045 : USBHUB3!HubPdo_EvtDeviceD0Exit\n"
+                "  ffffd60f`8a4c19f0 fffff801`6f6a7823 : ucx01000!Ucx_EvtDeviceD0Exit\n\n"
+                "Bugcheck timestamp: 2024-03-15T08:23:14.000Z\n"
+                "Dump file: C:\\Windows\\MEMORY.DMP (Full kernel dump, 4.2 GB)\n"
+                "Minidump: C:\\Windows\\Minidump\\031524-12345-01.dmp\n\n"
+                "This has happened 4 out of the last 5 mornings. The only workaround "
+                "is to not use the dock and work on laptop screen + Wi-Fi, but I need "
+                "my dual monitors for trading floor work. Please help.\n\n"
+                "Derek Hanson\nEquities Trader\nUS Equities Desk\n"
+                "Floor 7, Station 14B"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P2,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.APPLICATION_VERSION],
+            next_best_action=(
+                "Ignore the raw BSOD memory addresses, stack frames, and dump file "
+                "paths — the key signal is DRIVER_POWER_STATE_FAILURE caused by "
+                "UcmUcsiCx.sys (USB Type-C connector manager). This points to a USB-C "
+                "dock power-state driver bug introduced by the recent Windows update. "
+                "Check for an updated UcmUcsiCx.sys driver or roll back the Windows "
+                "update KB on this machine."
+            ),
+            remediation_steps=[
+                "Identify the specific Windows update (KB number) pushed last Tuesday "
+                "and check Microsoft known-issues for UcmUcsiCx.sys regressions.",
+                "Download the latest Lenovo ThinkPad USB-C Dock Gen 2 firmware and "
+                "driver package from Lenovo support and install on the user's T14s.",
+                "If no updated driver is available, roll back the Windows update on "
+                "this device as an interim fix using 'wusa /uninstall /kb:XXXXXXX'.",
+                "Collect the minidump file (031524-12345-01.dmp) and analyze with "
+                "WinDbg to confirm UcmUcsiCx.sys as the definitive root cause.",
+                "Check if other docking-station users on the same Windows update "
+                "experience similar BSODs and consider pausing the update rollout.",
+                "Once resolved, re-enable the Windows update after the driver fix "
+                "is confirmed and monitor for recurrence.",
+            ],
+            reporter_name="Derek Hanson",
+            reporter_email="derek.hanson@contoso.com",
+            reporter_department="US Equities Desk",
+            channel=Channel.PHONE,
+            tags=[
+                "data-cleanup",
+                "bsod-dump",
+                "crash-stack",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-114  Kubernetes pod describe + events flood ────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-114",
+            subject="ContosoRisk pricing service pods in CrashLoopBackOff since 6 AM",
+            description=(
+                "The ContosoRisk real-time pricing service has been down since ~6 AM. "
+                "All 8 replicas are in CrashLoopBackOff. This is the production "
+                "namespace (contoso-risk-prod) in our AKS cluster (aks-east-prod-01). "
+                "I've pasted the full describe output so you can see everything:\n\n"
+                "$ kubectl describe pod contoso-risk-pricing-7f8b9c6d4-xk2lm "
+                "-n contoso-risk-prod\n"
+                "Name:         contoso-risk-pricing-7f8b9c6d4-xk2lm\n"
+                "Namespace:    contoso-risk-prod\n"
+                "Priority:     0\n"
+                "Node:         aks-nodepool1-38291045-vmss000004/10.240.0.7\n"
+                "Start Time:   Fri, 15 Mar 2024 06:02:14 +0000\n"
+                "Labels:       app=contoso-risk-pricing\n"
+                "              pod-template-hash=7f8b9c6d4\n"
+                "              version=v2.14.3\n"
+                "Annotations:  prometheus.io/scrape: true\n"
+                "              prometheus.io/port: 9090\n"
+                "Status:       Running\n"
+                "IP:           10.244.3.18\n"
+                "Containers:\n"
+                "  pricing-engine:\n"
+                "    Image:         contosoacr.azurecr.io/risk/pricing-engine:v2.14.3\n"
+                "    Port:          8080/TCP\n"
+                "    State:         Waiting\n"
+                "      Reason:      CrashLoopBackOff\n"
+                "    Last State:    Terminated\n"
+                "      Reason:      OOMKilled\n"
+                "      Exit Code:   137\n"
+                "    Ready:         False\n"
+                "    Restart Count: 47\n"
+                "    Limits:\n"
+                "      cpu:     2\n"
+                "      memory:  4Gi\n"
+                "    Requests:\n"
+                "      cpu:     500m\n"
+                "      memory:  2Gi\n"
+                "    Liveness:   http-get http://:8080/healthz delay=30s timeout=5s\n"
+                "    Readiness:  http-get http://:8080/readyz delay=10s timeout=3s\n"
+                "    Environment:\n"
+                "      PRICING_MODEL_CACHE_SIZE:  8192\n"
+                "      JAVA_OPTS:                 -Xmx3584m -Xms2048m\n"
+                "      REDIS_HOST:                redis-pricing-prod.contoso.internal\n"
+                "      DB_CONN_STRING:            <set to the key 'db-conn' in secret "
+                "'pricing-db-secret'>\n"
+                "Events:\n"
+                "  Type     Reason     Age                  From     Message\n"
+                "  ----     ------     ----                 ----     -------\n"
+                "  Normal   Scheduled  2h15m                scheduler  Successfully assigned\n"
+                "  Normal   Pulled     2h14m                kubelet   Container image pulled\n"
+                "  Normal   Created    2h14m                kubelet   Created container\n"
+                "  Normal   Started    2h14m                kubelet   Started container\n"
+                "  Warning  OOMKilled  2h12m                kubelet   Container killed (OOM)\n"
+                "  Normal   Pulled     2h11m (x2 over 2h)  kubelet   Container image pulled\n"
+                "  Warning  OOMKilled  2h9m                 kubelet   Container killed (OOM)\n"
+                "  Warning  BackOff    4m (x47 over 2h)     kubelet   Back-off restarting\n\n"
+                "The pricing service was working fine on v2.14.2. We deployed v2.14.3 "
+                "at 5:55 AM this morning as part of a scheduled release. The new version "
+                "includes an expanded model cache for faster option pricing, but it "
+                "seems like it's consuming too much memory and getting OOMKilled.\n\n"
+                "This is blocking all real-time risk calculations for the trading floor. "
+                "About 200 users are impacted.\n\n"
+                "Rajesh Nair\nSRE — Risk Platform\nCloud Infrastructure\n"
+                "On-call: +1-555-0142"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.CONFIGURATION_DETAILS, MissingInfo.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Disregard the verbose kubectl describe output (labels, annotations, "
+                "event timestamps, liveness probes, etc.). The critical signal is that "
+                "pods are OOMKilled — Exit Code 137 — because v2.14.3 expanded the "
+                "model cache (PRICING_MODEL_CACHE_SIZE=8192) but the memory limit is "
+                "still 4Gi with -Xmx3584m. Either roll back to v2.14.2 immediately "
+                "or increase the pod memory limit to accommodate the larger cache."
+            ),
+            remediation_steps=[
+                "Roll back the deployment to v2.14.2 immediately to restore real-time "
+                "pricing for the 200 impacted trading floor users: "
+                "'kubectl rollout undo deployment/contoso-risk-pricing -n contoso-risk-prod'.",
+                "After rollback, verify all 8 replicas are Running and passing "
+                "readiness checks.",
+                "Analyze v2.14.3 memory requirements — the expanded model cache "
+                "(PRICING_MODEL_CACHE_SIZE=8192) likely needs 6-8Gi total pod memory.",
+                "Update the deployment manifest to increase memory limits to 8Gi "
+                "and set -Xmx to 6144m before re-deploying v2.14.3.",
+                "Re-deploy v2.14.3 to a staging namespace first with updated memory "
+                "limits, run load tests, then promote to production during a "
+                "maintenance window.",
+            ],
+            reporter_name="Rajesh Nair",
+            reporter_email="rajesh.nair@contoso.com",
+            reporter_department="Cloud Infrastructure",
+            channel=Channel.CHAT,
+            tags=[
+                "data-cleanup",
+                "k8s-describe",
+                "container-events",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-115  Email with very long URL tracking parameters ──────────────
+        ScenarioDefinition(
+            scenario_id="DC-115",
+            subject="Internal benefits portal returns 404 after clicking enrollment link",
+            description=(
+                "Hi team,\n\n"
+                "I received the annual benefits open-enrollment email from HR this "
+                "morning and when I click the enrollment link, it goes to a 404 page "
+                "on the ContosoHR portal. I've tried three different browsers "
+                "(Edge, Chrome, Firefox) and they all give the same error. Other "
+                "colleagues on my floor have the same problem.\n\n"
+                "Here is the exact URL from the email (I copied it from the href):\n\n"
+                "https://contosohr.contoso.com/benefits/enrollment/2024"
+                "?utm_source=internal_email&utm_medium=email&utm_campaign="
+                "open_enrollment_2024_q1_annual_benefits_review_contoso_financial_"
+                "services_all_employees_north_america&utm_content=cta_button_primary_"
+                "enroll_now_blue_variant_a&utm_term=benefits_enrollment_health_dental_"
+                "vision_401k_hsa_fsa_life_insurance_disability&mkt_tok=eyJpIjoiTXpRM"
+                "U1RZNFltRm1OV1kiLCJ0IjoiZ0VHbDB0UExkbExYK3FQMHE3alhQZmVYNnRVVjFk"
+                "K0RrWVlYT2hTMUF6WTRDQmZ3aDBQbVlUUkZxTUJiUit3PT0ifQ%3D%3D&svc_track"
+                "=a]]]f8d9e2-41a7-4b8c-9f12-3c5e7a8b1d04&click_id=emp_20240315_"
+                "091422_finlay_m_00832&session_ref=S-2024-0315-0914-ABX7Y9&redirect_"
+                "chain=portal_sso%3E%3Ebenefits_hub%3E%3Eenrollment_wizard&encoding="
+                "UTF-8&locale=en-US&dept_code=CMT&cost_center=4400&employee_band=L7"
+                "&benefits_eligible=true&plan_year=2024&enrollment_window=open"
+                "&window_start=2024-03-15&window_end=2024-04-15&fallback_url="
+                "https%3A%2F%2Fcontosohr.contoso.com%2Fbenefits%2Ffallback"
+                "&error_redirect=https%3A%2F%2Fcontosohr.contoso.com%2Fsupport"
+                "%2Fticket%3Fcontext%3Denrollment_failure%26ts%3D1710496462"
+                "&analytics_payload=eyJldmVudCI6ImNsaWNrIiwibGFiZWwiOiJlbnJvbGxfY3R"
+                "hIiwidGltZXN0YW1wIjoxNzEwNDk2NDYyfQ%3D%3D\n\n"
+                "When I manually shorten the URL to just "
+                "https://contosohr.contoso.com/benefits/enrollment/2024 it also 404s, "
+                "so the tracking parameters are not the only problem — but I wanted "
+                "to share the full URL in case it helps.\n\n"
+                "We are in the open-enrollment window (March 15 – April 15) and "
+                "people need to make their selections. About 1,200 employees in "
+                "North America received this same email.\n\n"
+                "Could you check the ContosoHR portal and the /benefits/enrollment "
+                "route? We had a similar issue last year when the enrollment module "
+                "wasn't enabled by the HR platform team before the campaign emails "
+                "went out.\n\n"
+                "Alicia Drummond\nBenefits Coordinator\nHuman Resources\n"
+                "Building 3, Room 210"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE, MissingInfo.SCREENSHOT_OR_ATTACHMENT],
+            next_best_action=(
+                "Ignore the extremely long URL with tracking/analytics query "
+                "parameters (UTM tags, marketing tokens, click IDs, analytics "
+                "payloads). The user confirmed that even the base URL "
+                "(/benefits/enrollment/2024) returns 404, so the issue is that the "
+                "enrollment module on the ContosoHR portal is not yet enabled or "
+                "deployed. Coordinate with the HR platform team to activate the "
+                "enrollment route before the open-enrollment deadline."
+            ),
+            remediation_steps=[
+                "Verify the ContosoHR portal /benefits/enrollment/2024 route exists "
+                "in the application routing configuration — check if the enrollment "
+                "module was deployed for the current plan year.",
+                "Contact the HR platform team to confirm the enrollment module is "
+                "enabled and the campaign was not sent prematurely before the portal "
+                "was ready.",
+                "Once the route is live, test the full URL from the email including "
+                "tracking parameters to ensure the portal handles the long query "
+                "string without truncation errors.",
+                "Send a follow-up communication to the 1,200 affected employees "
+                "confirming the portal is now accessible.",
+                "Implement a pre-launch checklist that requires portal route "
+                "verification before HR sends enrollment campaign emails.",
+            ],
+            reporter_name="Alicia Drummond",
+            reporter_email="alicia.drummond@contoso.com",
+            reporter_department="Human Resources",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "tracking-urls",
+                "url-noise",
+            ],
+            difficulty="easy",
+        ),
+        # ── DC-116  Pasted Teams/Slack chat log with timestamps and system messages
+        ScenarioDefinition(
+            scenario_id="DC-116",
+            subject="VPN drops every 15 min — chat log from affected users attached",
+            description=(
+                "We have been experiencing intermittent VPN disconnections all day. "
+                "Multiple users on the London trading floor are affected. I grabbed "
+                "the conversation from our Teams channel to show the timeline:\n\n"
+                "[08:12 AM] === Oliver Bright joined the meeting ===\n"
+                "[08:12 AM] Oliver Bright: Hey, is anyone else's VPN dropping?\n"
+                "[08:13 AM] === Sandra Yee joined the meeting ===\n"
+                "[08:13 AM] Sandra Yee: Yes! Just got disconnected for the third "
+                "time this morning.\n"
+                "[08:14 AM] Oliver Bright: Same here. It reconnects after about "
+                "30 seconds but I lose my Citrix session every time.\n"
+                "[08:14 AM] === System: Meeting recording started ===\n"
+                "[08:15 AM] Sandra Yee: I'm on the Contoso GlobalProtect VPN "
+                "client v5.2.13. Anyone on a different version?\n"
+                "[08:15 AM] Oliver Bright: Same version. 5.2.13.\n"
+                "[08:16 AM] === Kevin Marsh joined the meeting ===\n"
+                "[08:16 AM] Kevin Marsh: Adding myself — same issue. VPN drops "
+                "exactly every 15 minutes. I timed it.\n"
+                "[08:17 AM] Sandra Yee: That's weirdly consistent. Could it be a "
+                "session timeout?\n"
+                "[08:17 AM] === System: Sandra Yee is now sharing screen ===\n"
+                "[08:18 AM] Sandra Yee: Look at my event log — the disconnects "
+                "are at 07:30, 07:45, 08:00, 08:15. Exactly 15 min intervals.\n"
+                "[08:19 AM] Kevin Marsh: Same pattern here. 07:32, 07:47, 08:02, "
+                "08:17. Offset by 2 min from Sandra but same interval.\n"
+                "[08:20 AM] === System: Meeting recording stopped ===\n"
+                "[08:20 AM] Oliver Bright: I'll open a ticket. This is killing our "
+                "productivity — we keep losing our Bloomberg and trading sessions.\n"
+                "[08:21 AM] === Sandra Yee left the meeting ===\n"
+                "[08:21 AM] === Kevin Marsh left the meeting ===\n"
+                "[08:22 AM] === Oliver Bright left the meeting ===\n\n"
+                "So as you can see, at least 3 of us are affected. The VPN drops "
+                "every 15 minutes like clockwork. We are all on the London office "
+                "network (VLAN 40, subnet 10.30.40.0/24) using GlobalProtect "
+                "v5.2.13 connecting to vpn-eu-west.contoso.com.\n\n"
+                "This started this morning after the weekend network maintenance "
+                "window. Can someone check the VPN concentrator settings?\n\n"
+                "Oliver Bright\nFX Options Trader\nLondon Trading Floor\n"
+                "Desk: LDN-7-42"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P3,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.NETWORK_LOCATION, MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Strip out the Teams chat formatting noise (join/leave messages, "
+                "meeting recording system events, screen-share notifications, "
+                "timestamps). The substantive issue is that VPN sessions on "
+                "GlobalProtect v5.2.13 connecting to vpn-eu-west.contoso.com "
+                "are dropping at exact 15-minute intervals for London floor users "
+                "after weekend network maintenance. This strongly suggests a session "
+                "idle-timeout or re-key interval misconfiguration on the VPN "
+                "concentrator changed during maintenance."
+            ),
+            remediation_steps=[
+                "Review the weekend maintenance change log for vpn-eu-west.contoso.com "
+                "— check if session timeout, re-key interval, or keep-alive settings "
+                "were modified.",
+                "Inspect the VPN concentrator (Palo Alto GlobalProtect gateway) "
+                "configuration for IPSec/IKE re-key lifetime — a 900-second (15 min) "
+                "re-key interval that fails would explain the exact drop pattern.",
+                "Compare the current gateway config against the pre-maintenance backup "
+                "to identify any parameter changes.",
+                "As an immediate workaround, adjust the re-key interval to a longer "
+                "period or fix the re-key negotiation if it is failing.",
+                "Verify the fix by monitoring affected users' VPN sessions for at "
+                "least 1 hour to confirm no further drops at 15-minute intervals.",
+            ],
+            reporter_name="Oliver Bright",
+            reporter_email="oliver.bright@contoso.com",
+            reporter_department="London Trading Floor",
+            channel=Channel.CHAT,
+            tags=[
+                "data-cleanup",
+                "chat-transcript",
+                "system-messages",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-117  LaTeX/math notation in technical request ──────────────────
+        ScenarioDefinition(
+            scenario_id="DC-117",
+            subject="ContosoCalc option pricing module returns wrong Greeks — formula ref",
+            description=(
+                "Hi Support,\n\n"
+                "The ContosoCalc pricing library (v8.3.1) is returning incorrect "
+                "Delta and Gamma values for European-style equity options. I've been "
+                "comparing the output against our validated reference spreadsheet and "
+                "the values diverge significantly for deep in-the-money options.\n\n"
+                "For reference, the correct Black-Scholes formulas that ContosoCalc "
+                "should be implementing are:\n\n"
+                "The option price:\n"
+                "$$C = S_0 N(d_1) - K e^{-rT} N(d_2)$$\n\n"
+                "Where:\n"
+                "$$d_1 = \\frac{\\ln(S_0/K) + (r + \\sigma^2/2)T}{\\sigma\\sqrt{T}}$$\n"
+                "$$d_2 = d_1 - \\sigma\\sqrt{T}$$\n\n"
+                "Delta should be:\n"
+                "$$\\Delta = \\frac{\\partial C}{\\partial S} = N(d_1)$$\n\n"
+                "And Gamma:\n"
+                "$$\\Gamma = \\frac{\\partial^2 C}{\\partial S^2} = "
+                "\\frac{N'(d_1)}{S_0 \\sigma \\sqrt{T}}$$\n\n"
+                "Where $N'(x) = \\frac{1}{\\sqrt{2\\pi}} e^{-x^2/2}$ is the "
+                "standard normal PDF.\n\n"
+                "The specific test case where I see the error:\n"
+                "- Spot price $S_0 = 150$, Strike $K = 100$, "
+                "Risk-free rate $r = 0.05$\n"
+                "- Volatility $\\sigma = 0.20$, Time to expiry $T = 0.5$ years\n"
+                "- Expected Delta: 0.9782, ContosoCalc returns: 0.8431\n"
+                "- Expected Gamma: 0.0045, ContosoCalc returns: 0.0312\n\n"
+                "The error seems to be in the $d_1$ calculation — I suspect the "
+                "library is using $\\sigma$ instead of $\\sigma^2/2$ in the drift "
+                "term, which would be a classic implementation bug:\n"
+                "$$d_1^{\\text{buggy}} = \\frac{\\ln(S_0/K) + (r + \\sigma)T}"
+                "{\\sigma\\sqrt{T}} \\neq d_1^{\\text{correct}}$$\n\n"
+                "This was introduced in v8.3.1 — version 8.3.0 was correct. Can the "
+                "quantitative development team investigate?\n\n"
+                "Natalie Zhao\nQuantitative Analyst\nDerivatives Pricing\n"
+                "Floor 12, Quant Lab"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[
+                MissingInfo.APPLICATION_VERSION,
+                MissingInfo.STEPS_TO_REPRODUCE,
+            ],
+            next_best_action=(
+                "Look past the LaTeX/math notation ($$, \\frac, \\sigma, \\partial, "
+                "etc.) — these are formula references, not part of the bug itself. "
+                "The reporter has identified a likely regression in ContosoCalc v8.3.1 "
+                "where the Black-Scholes d1 drift term uses sigma instead of sigma^2/2. "
+                "Escalate to the quantitative development team with the specific test "
+                "case (S=150, K=100, r=0.05, sigma=0.20, T=0.5) and the version "
+                "comparison (v8.3.0 correct vs v8.3.1 incorrect)."
+            ),
+            remediation_steps=[
+                "File a high-priority defect with the ContosoCalc quantitative "
+                "development team referencing the d1 drift-term regression in v8.3.1.",
+                "Provide the test case inputs (S=150, K=100, r=0.05, sigma=0.20, "
+                "T=0.5) and expected vs actual Delta/Gamma values for reproduction.",
+                "Diff the d1 calculation code between ContosoCalc v8.3.0 and v8.3.1 "
+                "to confirm the sigma vs sigma^2/2 hypothesis.",
+                "Roll back affected production systems to ContosoCalc v8.3.0 until "
+                "the fix is verified, as incorrect Greeks pose financial risk.",
+                "After the fix, run the full Greeks validation test suite (including "
+                "deep ITM, ATM, and deep OTM cases) before re-releasing.",
+            ],
+            reporter_name="Natalie Zhao",
+            reporter_email="natalie.zhao@contoso.com",
+            reporter_department="Derivatives Pricing",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "latex-notation",
+                "math-formulas",
+            ],
+            difficulty="hard",
+        ),
+        # ── DC-118  ARM template / Bicep JSON config dump ─────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-118",
+            subject="Azure deployment failed for ContosoPayments staging — ARM template attached",
+            description=(
+                "Our staging deployment for the ContosoPayments service failed at "
+                "2:30 AM during the automated release pipeline. The Azure Resource "
+                "Manager returned a 'ResourceDeploymentFailure' error. I'm pasting "
+                "the relevant section of our ARM template so you can see the config:\n\n"
+                "{\n"
+                '  "$schema": "https://schema.management.azure.com/schemas/'
+                '2019-04-01/deploymentTemplate.json#",\n'
+                '  "contentVersion": "1.0.0.0",\n'
+                '  "parameters": {\n'
+                '    "appServicePlanSku": {\n'
+                '      "type": "string",\n'
+                '      "defaultValue": "P2v3",\n'
+                '      "allowedValues": ["P1v3", "P2v3", "P3v3"]\n'
+                "    },\n"
+                '    "sqlServerAdminPassword": {\n'
+                '      "type": "securestring",\n'
+                '      "metadata": {\n'
+                '        "description": "SQL admin password from Key Vault"\n'
+                "      }\n"
+                "    }\n"
+                "  },\n"
+                '  "resources": [\n'
+                "    {\n"
+                '      "type": "Microsoft.Web/serverfarms",\n'
+                '      "apiVersion": "2022-03-01",\n'
+                '      "name": "asp-contosopay-staging",\n'
+                '      "location": "[resourceGroup().location]",\n'
+                '      "sku": {\n'
+                '        "name": "[parameters(\'appServicePlanSku\')]",\n'
+                '        "capacity": 3\n'
+                "      }\n"
+                "    },\n"
+                "    {\n"
+                '      "type": "Microsoft.Web/sites",\n'
+                '      "apiVersion": "2022-03-01",\n'
+                '      "name": "app-contosopay-staging",\n'
+                '      "location": "[resourceGroup().location]",\n'
+                '      "dependsOn": [\n'
+                '        "[resourceId(\'Microsoft.Web/serverfarms\', '
+                "'asp-contosopay-staging')]\"\n"
+                "      ],\n"
+                '      "properties": {\n'
+                '        "serverFarmId": "[resourceId(\'Microsoft.Web/serverfarms\', '
+                "'asp-contosopay-staging')]\",\n"
+                '        "siteConfig": {\n'
+                '          "alwaysOn": true,\n'
+                '          "linuxFxVersion": "DOTNETCORE|8.0",\n'
+                '          "appSettings": [\n'
+                "            {\n"
+                '              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",\n'
+                '              "value": "[reference(resourceId(\'Microsoft.Insights/'
+                "components', 'ai-contosopay-staging')).InstrumentationKey]\"\n"
+                "            },\n"
+                "            {\n"
+                '              "name": "ConnectionStrings__PaymentDb",\n'
+                '              "value": "[concat(\'Server=tcp:\', reference(resourceId('
+                "'Microsoft.Sql/servers', 'sql-contosopay-staging')).fullyQualified"
+                "DomainName, ',1433;Database=PaymentDb;')]}\"\n"
+                "            }\n"
+                "          ]\n"
+                "        }\n"
+                "      }\n"
+                "    }\n"
+                "  ]\n"
+                "}\n\n"
+                "The actual error message from the deployment log is:\n"
+                "\"Code: ResourceNotFound, Message: The Resource 'Microsoft.Insights/"
+                "components/ai-contosopay-staging' under resource group "
+                "'rg-contosopay-staging' was not found.\"\n\n"
+                "It seems like the Application Insights resource doesn't exist yet in "
+                "staging. We just created this new staging resource group last week and "
+                "I think we missed adding the App Insights resource to the template.\n\n"
+                "Can someone help us add the missing resource and re-run the deployment? "
+                "We need staging up for UAT testing that starts Monday.\n\n"
+                "James Okoro\nDevOps Engineer\nPayments Platform Team\n"
+                "Remote — Toronto Office"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[
+                MissingInfo.CONFIGURATION_DETAILS,
+                MissingInfo.ENVIRONMENT_DETAILS,
+            ],
+            next_best_action=(
+                "Ignore the bulk of the ARM template JSON (schema, parameters, "
+                "resource definitions, dependsOn chains, app settings). The actual "
+                "error is clear: the Application Insights resource "
+                "'ai-contosopay-staging' is missing from resource group "
+                "'rg-contosopay-staging'. The ARM template references it but does "
+                "not define it. Add a Microsoft.Insights/components resource to the "
+                "template and re-run the deployment."
+            ),
+            remediation_steps=[
+                "Add a Microsoft.Insights/components resource definition for "
+                "'ai-contosopay-staging' to the ARM template with the correct "
+                "location and workspace configuration.",
+                "Add the App Insights resource to the dependsOn array of the "
+                "Microsoft.Web/sites resource so it deploys in the correct order.",
+                "Validate the updated ARM template using 'az deployment group "
+                "validate' before re-deploying to catch any other missing references.",
+                "Re-run the deployment pipeline targeting the rg-contosopay-staging "
+                "resource group and verify all resources provision successfully.",
+                "Review the template against the production ARM template to identify "
+                "any other resources that may have been missed when setting up the "
+                "new staging environment.",
+                "Add a CI validation step to the pipeline that runs 'what-if' "
+                "deployment checks to catch missing resources before actual deploys.",
+            ],
+            reporter_name="James Okoro",
+            reporter_email="james.okoro@contoso.com",
+            reporter_department="Payments Platform Team",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "arm-template",
+                "json-config-dump",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-119  Git merge conflict markers in pasted code ─────────────────
+        ScenarioDefinition(
+            scenario_id="DC-119",
+            subject="Build pipeline broken — config file has merge issues after branch merge",
+            description=(
+                "Hi team,\n\n"
+                "Our CI/CD build pipeline (Azure DevOps, contoso-tradeledger repo) "
+                "has been failing since this morning. I merged the feature/settlement-"
+                "batch branch into main at 7:40 AM and the build broke immediately. "
+                "The error says 'Invalid YAML' in the pipeline config.\n\n"
+                "I looked at the config file and found the problem — there are merge "
+                "conflicts that didn't get resolved. Here's what the file looks like "
+                "right now:\n\n"
+                "# contoso-tradeledger pipeline config\n"
+                "service:\n"
+                "  name: trade-ledger-service\n"
+                "  version: 4.12.0\n\n"
+                "database:\n"
+                "<<<<<<< HEAD\n"
+                "  host: sql-tradeledger-prod.database.windows.net\n"
+                "  port: 1433\n"
+                "  name: TradeLedgerDB\n"
+                "  pool_size: 25\n"
+                "  timeout: 30\n"
+                "=======\n"
+                "  host: sql-tradeledger-prod-v2.database.windows.net\n"
+                "  port: 1433\n"
+                "  name: TradeLedgerDB_v2\n"
+                "  pool_size: 50\n"
+                "  timeout: 60\n"
+                "  retry_count: 3\n"
+                "  retry_delay: 5\n"
+                ">>>>>>> feature/settlement-batch\n\n"
+                "batch_processing:\n"
+                "<<<<<<< HEAD\n"
+                "  enabled: false\n"
+                "  batch_size: 100\n"
+                "=======\n"
+                "  enabled: true\n"
+                "  batch_size: 500\n"
+                "  parallel_workers: 4\n"
+                "  checkpoint_interval: 60\n"
+                ">>>>>>> feature/settlement-batch\n\n"
+                "logging:\n"
+                "  level: INFO\n"
+                "  output: /var/log/tradeledger/app.log\n\n"
+                "I'm not sure which version of the database config is correct — the "
+                "old one pointing to sql-tradeledger-prod or the new one pointing to "
+                "sql-tradeledger-prod-v2. The feature branch was supposed to migrate "
+                "us to the new database with larger pool sizes for batch settlement.\n\n"
+                "The build has been red for 3 hours now and the team can't merge any "
+                "other PRs. Can someone help us resolve this properly?\n\n"
+                "Tomás Rivera\nSoftware Developer\nTrade Ledger Engineering\n"
+                "Austin Office, Bldg 2"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[
+                MissingInfo.CONFIGURATION_DETAILS,
+                MissingInfo.AFFECTED_SYSTEM,
+            ],
+            next_best_action=(
+                "Recognize that the <<<<<<< HEAD, =======, and >>>>>>> markers are "
+                "unresolved Git merge conflict artifacts, not valid YAML. The pipeline "
+                "config file needs these conflicts manually resolved. Coordinate with "
+                "the developer and the settlement-batch feature owner to determine the "
+                "correct database host and batch_processing settings, then commit the "
+                "resolved file to unblock the CI/CD pipeline."
+            ),
+            remediation_steps=[
+                "Identify the correct database configuration by consulting the "
+                "settlement-batch feature owner — determine whether the migration "
+                "to sql-tradeledger-prod-v2 and TradeLedgerDB_v2 is ready for "
+                "production.",
+                "Remove all Git merge conflict markers (<<<<<<< HEAD, =======, "
+                ">>>>>>> feature/settlement-batch) from the pipeline config file.",
+                "Resolve the batch_processing section — if the feature is ready, "
+                "accept the feature branch values (enabled: true, batch_size: 500, "
+                "parallel_workers: 4).",
+                "Commit the resolved config file, push to main, and verify the "
+                "CI/CD pipeline passes the YAML validation stage.",
+                "Set up branch protection rules requiring successful builds before "
+                "merge to prevent unresolved conflicts from reaching main in the "
+                "future.",
+            ],
+            reporter_name="Tomás Rivera",
+            reporter_email="tomas.rivera@contoso.com",
+            reporter_department="Trade Ledger Engineering",
+            channel=Channel.CHAT,
+            tags=[
+                "data-cleanup",
+                "merge-conflict-markers",
+                "git-artifacts",
+            ],
+            difficulty="easy",
+        ),
+        # ── DC-120  macOS crash report (CrashReporter format) ─────────────────
+        ScenarioDefinition(
+            scenario_id="DC-120",
+            subject="ContosoAnalytics Mac app crashes on launch after macOS Sonoma update",
+            description=(
+                "Hi IT Support,\n\n"
+                "Ever since I updated my MacBook Pro (M3 Pro, 16-inch, 2023) to "
+                "macOS Sonoma 14.4 yesterday, the ContosoAnalytics desktop app "
+                "(v6.1.0) crashes immediately on launch. I can see the dock icon "
+                "bounce once and then it disappears. I've tried reinstalling the "
+                "app, clearing the preferences (~/Library/Preferences/"
+                "com.contoso.analytics.plist), and even creating a new user profile "
+                "— same crash every time.\n\n"
+                "Here is the crash report from Console.app:\n\n"
+                "Process:               ContosoAnalytics [1842]\n"
+                "Path:                  /Applications/ContosoAnalytics.app/Contents/"
+                "MacOS/ContosoAnalytics\n"
+                "Identifier:            com.contoso.analytics\n"
+                "Version:               6.1.0 (6100)\n"
+                "Code Type:             ARM-64 (Native)\n"
+                "Parent Process:        launchd [1]\n"
+                "Responsible:           ContosoAnalytics [1842]\n\n"
+                "Date/Time:             2024-03-15 09:14:22.431 +0000\n"
+                "OS Version:            macOS 14.4 (23E214)\n"
+                "Report Version:        12\n"
+                "Anonymous UUID:        8A3F1B2C-4D5E-6F7A-8B9C-0D1E2F3A4B5C\n\n"
+                "Exception Type:        EXC_CRASH (SIGABRT)\n"
+                "Exception Codes:       0x0000000000000000, 0x0000000000000000\n"
+                "Termination Reason:    Namespace DYLD, Code 1 Library missing\n"
+                "Termination Description: Library not loaded: "
+                "@rpath/libssl.3.dylib\n"
+                "  Referenced from: /Applications/ContosoAnalytics.app/Contents/"
+                "Frameworks/ContosoNetworking.framework/ContosoNetworking\n"
+                "  Reason: tried: '/usr/lib/libssl.3.dylib' (no such file), "
+                "'/opt/homebrew/lib/libssl.3.dylib' (no such file, not in dyld "
+                "cache)\n\n"
+                "Thread 0 Crashed:: Dispatch queue: com.apple.main-thread\n"
+                "0   dyld                  0x000000018b2f1a3c "
+                "dyld4::halt(char const*) + 572\n"
+                "1   dyld                  0x000000018b2f5e20 "
+                "dyld4::prepare(dyld4::APIs&, dyld3::MachOAnalyzer const*) + 3740\n"
+                "2   dyld                  0x000000018b2e9a5c "
+                "_dyld_start + 5765\n\n"
+                "Thread 0 crashed with ARM Thread State (64-bit):\n"
+                "    x0: 0x0000000000000006   x1: 0x000000016b4e2b18   "
+                "x2: 0x0000000000000000\n"
+                "    x3: 0x000000016b4e27a0   x4: 0x000000016b4e2048   "
+                "x5: 0x000000000000002d\n"
+                "    x6: 0x0000000000000069   x7: 0x0000000000000900\n"
+                "   pc: 0x000000018b2f1a3c  cpsr: 0x40001000\n\n"
+                "Binary Images:\n"
+                "       0x1009e8000 -        0x100c7bfff  com.contoso.analytics "
+                "(6.1.0) <A1B2C3D4-E5F6-7890-ABCD-EF1234567890> "
+                "/Applications/ContosoAnalytics.app/Contents/MacOS/"
+                "ContosoAnalytics\n"
+                "       0x18b2dc000 -        0x18b31efff  dyld (*) "
+                "<B2C3D4E5-F6A7-890B-CDEF-234567890ABC> /usr/lib/dyld\n\n"
+                "I need this app for my quarterly portfolio analysis which is due "
+                "this Friday. About 15 analysts in my group use this app and I "
+                "expect they will hit the same issue once they update to Sonoma 14.4.\n\n"
+                "Samantha Reeves\nPortfolio Analyst\nAsset Management\n"
+                "San Francisco Office, Floor 5"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.APPLICATION_VERSION, MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Look past the crash report noise (thread state registers, binary "
+                "image addresses, UUIDs, exception codes). The key line is "
+                "'Termination Reason: Namespace DYLD, Code 1 Library missing' — "
+                "ContosoAnalytics bundles a ContosoNetworking framework that depends "
+                "on libssl.3.dylib, which is no longer available at the expected "
+                "paths in macOS Sonoma 14.4. The app needs to be rebuilt to bundle "
+                "its own OpenSSL library or link against the macOS-native Security "
+                "framework."
+            ),
+            remediation_steps=[
+                "Confirm the root cause by checking whether macOS Sonoma 14.4 "
+                "removed or relocated libssl.3.dylib — Apple has been deprecating "
+                "bundled OpenSSL since macOS 10.7.",
+                "As an immediate workaround, install OpenSSL 3.x via Homebrew "
+                "('brew install openssl@3') and create a symlink or set "
+                "DYLD_LIBRARY_PATH to point to the Homebrew OpenSSL lib directory.",
+                "File a defect with the ContosoAnalytics development team to bundle "
+                "libssl.3.dylib inside the app's Frameworks directory or migrate "
+                "ContosoNetworking to Apple's native Security/Network frameworks.",
+                "Send a communication to the 15 Asset Management analysts advising "
+                "them to delay the macOS Sonoma 14.4 update until the fix is ready.",
+                "Request an expedited patch release (v6.1.1) that bundles the "
+                "required OpenSSL libraries before the Friday quarterly analysis "
+                "deadline.",
+            ],
+            reporter_name="Samantha Reeves",
+            reporter_email="samantha.reeves@contoso.com",
+            reporter_department="Asset Management",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "macos-crash-report",
+                "crash-reporter",
+            ],
+            difficulty="medium",
+        ),
     ]
