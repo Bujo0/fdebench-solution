@@ -8,7 +8,11 @@ duplicate/stuttering content, extremely verbose single emails, URL-heavy tickets
 JSON/XML data dumps, Windows Event Log entries, SMTP header dumps,
 auto-generated notification noise, excessive whitespace, OCR artifacts,
 pasted tabular data, phone transcript filler, multi-forward signature chains,
-markdown formatting artifacts, large stack traces, and invisible Unicode.
+markdown formatting artifacts, large stack traces, invisible Unicode,
+MIME boundary markers, base64-encoded PDFs, multiple inline images,
+ICS/vCalendar metadata, very long emails with buried issues,
+multilingual disclaimers, NDR/bounce-back wrappers, regex/code patterns,
+contradictory email threads, and accidental PII in descriptions.
 """
 
 from ms.evals.constants import Category
@@ -4771,6 +4775,693 @@ register(
                 "Check for any ongoing incidents or outages that may match the vague report",
                 "Once sufficient information is gathered, re-triage with the correct category and priority",
                 "Update the ticket with the clarified details for proper tracking",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-066  MIME multipart boundary markers visible in plaintext email
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-066",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.APPLICATION_VERSION],
+        subjects=[
+            "Outlook rendering issue — raw MIME in message body",
+            "Email displays garbled MIME headers instead of content",
+            "Strange boundary markers showing in received emails",
+        ],
+        descriptions=[
+            "Hi IT,\n\n"
+            "Since the latest Outlook update, some emails I receive display raw MIME "
+            "data instead of the message body. Here is what I see:\n\n"
+            "------=_Part_12345_987654321.1711012800000\n"
+            "Content-Type: text/plain; charset=UTF-8\n"
+            "Content-Transfer-Encoding: quoted-printable\n\n"
+            "The actual message body that should be rendered:\n"
+            "Hi team, the monthly finance report for Q1 is attached. Please review.\n\n"
+            "------=_Part_12345_987654321.1711012800000\n"
+            "Content-Type: text/html; charset=UTF-8\n"
+            "Content-Transfer-Encoding: base64\n\n"
+            "PGh0bWw+PGJvZHk+PHA+SGkgdGVhbSwgdGhlIG1vbnRobHkgZmluYW5jZQ==\n\n"
+            "------=_Part_12345_987654321.1711012800000--\n\n"
+            "This is happening on about half the emails from external senders. Internal "
+            "emails render fine. I'm on {os} using Outlook desktop. Please help.",
+            "Getting raw MIME boundaries in my emails. Example below:\n\n"
+            "MIME-Version: 1.0\n"
+            "Content-Type: multipart/alternative;\n"
+            "    boundary=\"----=_NextPart_001_0078_01DA4F2B.A7C3E680\"\n\n"
+            "This is a multi-part message in MIME format.\n\n"
+            "------=_NextPart_001_0078_01DA4F2B.A7C3E680\n"
+            "Content-Type: text/plain; charset=\"utf-8\"\n"
+            "Content-Transfer-Encoding: 7bit\n\n"
+            "Can someone from IT look at this? The emails from our clients at the "
+            "{office} office are arriving like this since Thursday. It's affecting "
+            "the entire {department} team on Floor {floor}.",
+        ],
+        next_best_actions=[
+            "Investigate Outlook MIME rendering regression — likely caused by recent "
+            "update breaking multipart/alternative parsing for external emails.",
+            "Check for known issues with the latest Outlook update affecting MIME "
+            "rendering. Test with OWA to isolate desktop client vs. server issue.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the Outlook version and check for known MIME rendering bugs in that build",
+                "Test the same emails in Outlook Web Access (OWA) to isolate client-side issue",
+                "Clear the Outlook cache and repair the Office installation",
+                "If the issue is build-specific, roll back to the previous Outlook version",
+                "Escalate to Microsoft support if the issue is confirmed as a product bug",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-067  Base64-encoded PDF report pasted inline
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-067",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE, MissingInfo.STEPS_TO_REPRODUCE],
+        subjects=[
+            "Report generation failed — attaching PDF data",
+            "Nightly financial report pipeline broken — see report data below",
+            "Q1 report output corrupted — pasting raw output",
+        ],
+        descriptions=[
+            "The nightly financial report pipeline in {department} failed again last night. "
+            "I'm pasting the last successful PDF output below so you can compare. The pipeline "
+            "used to produce this correctly:\n\n"
+            "JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5k"
+            "b2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4K"
+            "ZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3gg"
+            "WzAgMCA2MTIgNzkyXSAvQ29udGVudHMgNCAwIFIgL1Jlc291cmNlcyA8PCAvRm9udCA8PCAv"
+            "RjEgNSAwIFIgPj4gPj4gPj4KZW5kb2JqCjQgMCBvYmoKPDwgL0xlbmd0aCA0NCA+PgpzdHJl"
+            "YW0KQlQKL0YxIDE4IFRmCjEwMCA3MDAgVGQKKFExIEZpbmFuY2lhbCBSZXBvcnQpIFRqCkVU"
+            "CmVuZHN0cmVhbQplbmRvYmoKNSAwIG9iago8PCAvVHlwZSAvRm9udCAvU3VidHlwZSAvVHlw"
+            "ZTEgL0Jhc2VGb250IC9IZWx2ZXRpY2EgPj4KZW5kb2JqCnhyZWYKMCA2CjAwMDAwMDAwMDY="
+            "\n\n"
+            "Now the pipeline throws an error at the PDF rendering stage. It runs on Azure "
+            "Data Factory and calls a Databricks notebook. The job ID is ADF-RPT-{number}.\n\n"
+            "Please investigate — the {department} team needs this report by 8 AM daily.",
+            "Report generation for the {department} daily risk summary has been failing since "
+            "{date}. I exported the last good output as base64:\n\n"
+            "data:application/pdf;base64,JVBERi0xLjUKJeLjz9MKMSAwIG9iago8PCAvVHlwZSAvQ2F0"
+            "YWxvZyAvUGFnZXMgMiAwIFIgL01hcmtJbmZvIDw8IC9NYXJrZWQgdHJ1ZSA+PiA+PgplbmRv"
+            "YmoKMiAwIG9iago8PCAvVHlwZSAvUGFnZXMgL0tpZHMgWzMgMCBSXSAvQ291bnQgMSA+Pgpl"
+            "bmRvYmoKMyAwIG9iago8PCAvVHlwZSAvUGFnZSAvUGFyZW50IDIgMCBSIC9NZWRpYUJveCBb"
+            "MCAwIDYxMiA3OTJdIC9Db250ZW50cyA0IDAgUiA+PgplbmRvYmoKeHJlZgowIDUKMDAwMMDY="
+            "\n\n"
+            "The current error message in ADF is 'Notebook execution failed: OutOfMemoryError'. "
+            "The Databricks cluster might need resizing — the dataset grew significantly this quarter.",
+        ],
+        next_best_actions=[
+            "Investigate ADF pipeline failure at the PDF rendering stage — likely "
+            "OutOfMemoryError on Databricks. Ignore the base64 PDF dump in the ticket.",
+            "Check Databricks cluster sizing for the report generation notebook and "
+            "review memory allocation against the growing dataset size.",
+        ],
+        remediation_steps=[
+            [
+                "Check the ADF pipeline run logs for the specific failure point",
+                "Review the Databricks notebook memory requirements against cluster sizing",
+                "Increase the Databricks cluster driver and worker memory if needed",
+                "Verify the input dataset size hasn't exceeded expected thresholds",
+                "Re-run the pipeline and monitor resource utilization during execution",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-068  Multiple inline base64 images interspersed in text
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-068",
+        category=Category.NETWORK,
+        priority=Priority.P2,
+        assigned_team=Team.NETWORK,
+        needs_escalation=False,
+        missing_information=[MissingInfo.NETWORK_LOCATION, MissingInfo.DEVICE_INFO],
+        subjects=[
+            "Network outage on Floor {floor} — screenshots embedded",
+            "Wi-Fi dead zone with proof images — please help",
+            "Intermittent connectivity — pasting diagnostic screenshots",
+        ],
+        descriptions=[
+            "I've been getting network drops all day. Here is the first screenshot "
+            "showing the Wi-Fi signal strength:\n\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAA"
+            "FklEQVQYV2P8z8BQz0AEYBxVOHIUAgBGWAkFdZLYSgAAAABJRU5ErkJggg==\n\n"
+            "And this is the ping results showing 40% packet loss:\n\n"
+            "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEB"
+            "AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEB/2w"
+            "BDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEB"
+            "AQEBAf/AABEIAB4AHgMBEQACEQEDEQH/FAKENETESTDATA\n\n"
+            "The third screenshot shows the error message on our VPN client:\n\n"
+            "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAI"
+            "BRAkFDFAKETESTDATA\n\n"
+            "I'm on Floor {floor} in the {office} office. The Wi-Fi SSID is CONTOSO-CORP. "
+            "My laptop is connected to the docking station via USB-C. Other people on the "
+            "floor are also complaining.",
+            "Three screenshots showing network issues (I couldn't figure out how to attach "
+            "them so they got pasted as data):\n\n"
+            "[Screenshot 1 - traceroute]\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAB"
+            "mJLR0QA/wD/AP+gvaeTAAAAQ0lEQVQ4y2P4FAKEFAKEDATAFORNETWORKTRACEROUTERESULTS"
+            "SHOWING15HOPSWITHTIMEOUT/AABBCCDDEEFF0011223344556677ENDOFDATA==\n\n"
+            "[Screenshot 2 - ipconfig]\n"
+            "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDABALDA4MChAODQ4S"
+            "ERATGB4gHBcfICQiJCUUKSs0LSwsLSxNODoxNjc3NUpXUFBQV2JdYGBie3p7dHVudXJ7e3v"
+            "FAKEIPCONFIGOUTPUTFORNETWORKADAPTER=\n\n"
+            "[Screenshot 3 - Wi-Fi analyzer]\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAA"
+            "FAKEWIFIANALYZERSHOWINGCHANNELOVERLAP1234567890ABCDEF==\n\n"
+            "Please investigate — this is impacting about 15 people in {department} and "
+            "we have client calls all afternoon.",
+        ],
+        next_best_actions=[
+            "Investigate network connectivity issues on Floor {floor} — ignore the "
+            "inline base64 image data and focus on the reported Wi-Fi packet loss "
+            "and VPN errors.",
+            "Check AP utilization and channel overlap on the floor — multiple users "
+            "affected suggests infrastructure issue, not client-side.",
+        ],
+        remediation_steps=[
+            [
+                "Check the wireless controller for AP health and utilization on the affected floor",
+                "Run an RF survey to identify channel congestion or dead zones",
+                "Verify DHCP scope availability for the CONTOSO-CORP SSID on that floor",
+                "Check for recent infrastructure changes (AP firmware, VLAN changes, cabling)",
+                "If congestion confirmed, consider adding an AP or adjusting channel allocation",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-069  ICS/vCalendar metadata mixed with support request
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-069",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.DEVICE_INFO],
+        subjects=[
+            "Calendar invite broken — raw ICS data showing up",
+            "FW: Meeting invite garbled — see calendar data below",
+            "Outlook calendar sync failure with ICS artifacts",
+        ],
+        descriptions=[
+            "When I try to accept meeting invites, Outlook shows raw calendar data "
+            "instead of the normal meeting view. Here is what I see:\n\n"
+            "BEGIN:VCALENDAR\n"
+            "VERSION:2.0\n"
+            "PRODID:-//Microsoft Corporation//Outlook 16.0 MIMEDIR//EN\n"
+            "METHOD:REQUEST\n"
+            "BEGIN:VEVENT\n"
+            "DTSTART:20260415T140000Z\n"
+            "DTEND:20260415T150000Z\n"
+            "RRULE:FREQ=WEEKLY;BYDAY=WE;COUNT=10\n"
+            "ORGANIZER;CN={name}:mailto:{name1}@contoso.com\n"
+            "ATTENDEE;ROLE=REQ-PARTICIPANT;RSVP=TRUE:mailto:{name2}@contoso.com\n"
+            "ATTENDEE;ROLE=OPT-PARTICIPANT:mailto:{name3}@contoso.com\n"
+            "LOCATION:Conference Room 4B, Floor {floor}\n"
+            "SUMMARY:Weekly {department} Strategy Sync\n"
+            "DESCRIPTION:Recurring strategy meeting for the {department} team.\n"
+            "UID:040000008200E00074C5B7101A82E0080000000090C9A34C\n"
+            "SEQUENCE:0\n"
+            "STATUS:CONFIRMED\n"
+            "END:VEVENT\n"
+            "END:VCALENDAR\n\n"
+            "I can't accept or decline the meeting. The calendar on my phone (iOS) "
+            "works fine but the desktop client is broken.",
+            "My Outlook calendar is showing raw ICS data for all new meeting invites. "
+            "I forwarded one as an example — the entire invite renders as text:\n\n"
+            "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Exchange//EN\n"
+            "BEGIN:VTIMEZONE\nTZID:Eastern Standard Time\n"
+            "BEGIN:STANDARD\nDTSTART:16010101T020000\nRRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11\n"
+            "TZOFFSETFROM:-0400\nTZOFFSETTO:-0500\nEND:STANDARD\nEND:VTIMEZONE\n"
+            "BEGIN:VEVENT\nDTSTART;TZID=Eastern Standard Time:20260420T093000\n"
+            "DTEND;TZID=Eastern Standard Time:20260420T103000\n"
+            "SUMMARY:Q2 Planning - {department}\nEND:VEVENT\nEND:VCALENDAR\n\n"
+            "This started after I migrated to the new laptop last week. The old laptop "
+            "was fine. I'm on {os} with Outlook desktop.",
+        ],
+        next_best_actions=[
+            "Investigate Outlook calendar rendering failure showing raw ICS data — "
+            "likely a profile or add-in issue after laptop migration.",
+            "Troubleshoot Outlook meeting invite rendering — check for corrupted "
+            "calendar profile or conflicting COM add-ins.",
+        ],
+        remediation_steps=[
+            [
+                "Check for conflicting Outlook COM add-ins that may affect calendar rendering",
+                "Repair the Outlook profile and recreate the OST file",
+                "Verify the Outlook version matches the expected build for the organization",
+                "Test calendar invite rendering in Outlook safe mode (no add-ins)",
+                "If issue persists after profile repair, create a new Outlook profile",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-070  Very long email with critical issue buried at the very end
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-070",
+        category=Category.SECURITY,
+        priority=Priority.P1,
+        assigned_team=Team.SECOPS,
+        needs_escalation=True,
+        missing_information=[MissingInfo.TIMESTAMP, MissingInfo.AFFECTED_SYSTEM],
+        subjects=[
+            "Quick question and also something weird with my account",
+            "Various IT things — and a login alert I got",
+            "Couple of issues plus a security notification",
+        ],
+        descriptions=[
+            "Hi IT team,\n\n"
+            "Hope you had a great weekend! I wanted to reach out because I have a few "
+            "things on my mind. First, I should mention that the coffee machine on Floor "
+            "{floor} has been acting up again — I know that's not really IT but maybe you "
+            "know who to contact?\n\n"
+            "Also, I was wondering if there's a way to change my desktop wallpaper. I know "
+            "it sounds silly but the default one is really depressing and I read somewhere "
+            "that a pleasant workspace improves productivity by 15%. My friend at another "
+            "company says they can customize everything. I'm in {department} by the way.\n\n"
+            "On another note entirely, I wanted to ask about the new {app} deployment. I "
+            "heard from {name} in {department} that it's coming next month. Will there be "
+            "training sessions? I'm not very technical and the last rollout was really "
+            "confusing. The documentation was 47 pages long and nobody read it. Maybe this "
+            "time we could have short video tutorials instead?\n\n"
+            "Oh and the printer on Floor {floor} — is that still under maintenance? I "
+            "haven't been able to print for three days but I just assumed it was planned. "
+            "Actually, now that I think about it, my colleague {name} said the printer "
+            "worked fine for her yesterday, so maybe it's just my laptop? I don't know.\n\n"
+            "Speaking of my laptop, it's been running a bit slow lately. I think I have "
+            "too many Chrome tabs open. How much RAM does my laptop have? Is there a way "
+            "to check? I tried looking in Settings but I got confused.\n\n"
+            "One more thing — I got an email notification from the security team about a "
+            "sign-in to my account from an IP address in a country I've never been to. "
+            "It showed a successful login from Russia at 3 AM this morning.",
+            "Hey team!\n\n"
+            "First off, I just wanted to say you all do amazing work. The way you handled "
+            "the Teams outage last month was impressive. Anyway, I have a bunch of things:\n\n"
+            "1. The {browser} browser keeps asking me to update but the button doesn't "
+            "work. It just spins forever. Not urgent at all, just annoying.\n\n"
+            "2. I need to set up a shared mailbox for the new {department} project team. "
+            "There are about 8 people who need access. I'll send you the list later.\n\n"
+            "3. My headset (Jabra Evolve2 85) makes a weird crackling noise on Teams "
+            "calls but works perfectly for music. Is it a driver issue? Firmware?\n\n"
+            "4. The Wi-Fi in the {office} office cafeteria is really slow during lunch "
+            "time. Can you add more access points? Everyone is on TikTok during break "
+            "and it kills the bandwidth. Just kidding. Sort of.\n\n"
+            "5. Almost forgot the important one — Microsoft Defender flagged my account "
+            "for impossible travel. Someone logged in as me from an IP in China while I "
+            "was sitting at my desk in {office}. The alert says it was a successful auth.",
+        ],
+        next_best_actions=[
+            "URGENT: Investigate the security alert buried at the end — successful "
+            "authentication from a foreign IP address suggests possible account compromise. "
+            "Initiate incident response immediately.",
+            "Prioritize the impossible travel alert — the user's account may be compromised. "
+            "All other requests in this email are low-priority and should be handled separately.",
+        ],
+        remediation_steps=[
+            [
+                "Immediately reset the user's password and revoke all active sessions",
+                "Review Entra ID sign-in logs for the flagged authentication event",
+                "Check for any suspicious mailbox rules, forwarding, or data access during the session",
+                "Enable additional conditional access policies (location-based, risk-based)",
+                "Create separate tickets for the non-security requests mentioned in the email",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-071  Multilingual legal disclaimers burying a short request
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-071",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO],
+        subjects=[
+            "Keyboard not working",
+            "Laptop keyboard — several keys unresponsive",
+            "Need keyboard replacement",
+        ],
+        descriptions=[
+            "Hi, my laptop keyboard has stopped working — the T, Y, and U keys are "
+            "completely dead. I need a replacement keyboard or a USB keyboard as a "
+            "temporary workaround. I'm on Floor {floor}, {office} office.\n\n"
+            "---\n\n"
+            "CONFIDENTIALITY NOTICE: This email and any files transmitted with it are confidential and "
+            "intended solely for the use of the individual or entity to whom they are addressed. If "
+            "you have received this email in error, please notify the system manager.\n\n"
+            "AVIS DE CONFIDENTIALITÉ : Ce courriel et les fichiers qui y sont joints sont "
+            "confidentiels et destinés exclusivement à l'usage de la personne ou de l'entité "
+            "à qui ils sont adressés. Si vous avez reçu ce courriel par erreur, veuillez en "
+            "aviser l'administrateur du système.\n\n"
+            "VERTRAULICHKEITSHINWEIS: Diese E-Mail und alle übertragenen Dateien sind vertraulich "
+            "und ausschließlich für den Gebrauch der Person oder Organisation bestimmt, an die sie "
+            "gerichtet sind. Wenn Sie diese E-Mail irrtümlich erhalten haben, benachrichtigen Sie "
+            "bitte den Systemadministrator.\n\n"
+            "AVISO DE CONFIDENCIALIDAD: Este correo electrónico y los archivos transmitidos son "
+            "confidenciales y están destinados únicamente para el uso del individuo o entidad "
+            "a quien están dirigidos.\n\n"
+            "AVVISO DI RISERVATEZZA: Questa e-mail e tutti i file trasmessi sono riservati e "
+            "destinati esclusivamente all'uso della persona o dell'ente a cui sono indirizzati.\n\n"
+            "AVISO DE CONFIDENCIALIDADE: Este e-mail e os ficheiros transmitidos são confidenciais "
+            "e destinam-se exclusivamente ao uso do indivíduo ou entidade a quem são dirigidos.\n\n"
+            "機密通知：このメールおよび添付ファイルは機密情報であり、宛先の個人または "
+            "団体のみを対象としています。誤って受信された場合は、システム管理者にお知らせください。\n\n"
+            "保密声明：本邮件及其附件为保密信息，仅供收件人个人或实体使用。如您误收此邮件，请通知系统管理员。\n\n"
+            "إشعار السرية: هذا البريد الإلكتروني وأي ملفات مرفقة به سرية ومخصصة حصرياً للاستخدام "
+            "من قبل الفرد أو الجهة المرسل إليها.\n\n"
+            "Contoso Financial Services | Registered in England & Wales | Company No. 12345678\n"
+            "VAT Registration No. GB 123 4567 89 | FCA Authorised No. 123456\n"
+            "This email has been scanned by Contoso Email Gateway v4.12.1.",
+            "Three keys on my keyboard are dead (T, Y, U). Need a replacement ASAP — "
+            "I'm working on the quarterly {department} report and can't type properly.\n\n"
+            "------\n\n"
+            "CONFIDENTIALITY: This message is intended only for the named recipient. "
+            "If received in error, notify the sender and delete. "
+            "CONFIDENTIALITÉ: Ce message est destiné uniquement au destinataire nommé. "
+            "VERTRAULICHKEIT: Diese Nachricht ist nur für den genannten Empfänger bestimmt. "
+            "CONFIDENCIALIDAD: Este mensaje está destinado solo al destinatario nombrado. "
+            "RISERVATEZZA: Questo messaggio è destinato solo al destinatario indicato. "
+            "CONFIDENCIALIDADE: Esta mensagem destina-se apenas ao destinatário indicado. "
+            "機密事項：このメッセージは指定された受信者のみを対象としています。"
+            "保密事项：此消息仅供指定收件人使用。"
+            "السرية: هذه الرسالة مخصصة فقط للمستلم المحدد.\n\n"
+            "Contoso Financial Services | 200 Park Avenue, New York, NY 10166 | "
+            "+1 (212) 555-0199 | www.contoso.com\n"
+            "♻ Please consider the environment before printing this email.",
+        ],
+        next_best_actions=[
+            "Process the keyboard replacement request — ignore the extensive multilingual "
+            "disclaimers. User needs a replacement for dead T/Y/U keys.",
+            "Arrange a USB keyboard as temporary workaround and schedule a keyboard "
+            "replacement for the user on Floor {floor}.",
+        ],
+        remediation_steps=[
+            [
+                "Dispatch a USB keyboard as a temporary workaround to the user's desk",
+                "Create a hardware replacement request for the laptop keyboard",
+                "Schedule an appointment with the endpoint team for keyboard swap",
+                "Verify if the keyboard issue is hardware (physical damage) or software (driver)",
+                "If warranty is active, initiate a manufacturer repair/replacement",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-072  NDR (Non-Delivery Report) / bounce-back wrapping original request
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-072",
+        category=Category.NETWORK,
+        priority=Priority.P2,
+        assigned_team=Team.NETWORK,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE, MissingInfo.AFFECTED_USERS],
+        subjects=[
+            "Undeliverable: RE: Urgent client report — email bouncing",
+            "Mail delivery failed — returning message to sender",
+            "FW: Delivery Status Notification (Failure)",
+        ],
+        descriptions=[
+            "Hi team,\n\n"
+            "Emails to external recipients are bouncing. I'm pasting the NDR I received:\n\n"
+            "From: Microsoft Outlook <postmaster@contoso.com>\n"
+            "Subject: Undeliverable: Urgent client report\n"
+            "To: {name1}@contoso.com\n\n"
+            "Delivery has failed to these recipients or groups:\n\n"
+            "client.contact@externalfirm.com\n"
+            "The email message could not be delivered because the recipient's email "
+            "server refused the connection.\n\n"
+            "Diagnostic information for administrators:\n"
+            "Generating server: mail01.contoso.com\n"
+            "Remote Server returned: '550 5.7.1 Unable to relay'\n\n"
+            "Reporting-MTA: dns;mail01.contoso.com\n"
+            "Received-From-MTA: dns;edge01.contoso.com\n"
+            "Arrival-Date: {date} {time}\n\n"
+            "Final-Recipient: rfc822;client.contact@externalfirm.com\n"
+            "Action: failed\n"
+            "Status: 5.7.1\n"
+            "Remote-MTA: dns;mx1.externalfirm.com (192.0.2.50)\n"
+            "Diagnostic-Code: smtp;550 5.7.1 Message rejected due to SPF check failure\n\n"
+            "X-MS-Exchange-Organization-SCL: -1\n"
+            "X-MS-Exchange-Organization-AuthSource: edge01.contoso.com\n"
+            "X-MS-Exchange-Organization-AuthAs: Internal\n"
+            "X-OriginatorOrg: contoso.com\n\n"
+            "I need to send this client report by end of day. Other people in "
+            "{department} are also reporting bounced emails to external addresses.",
+            "Forwarding the bounce message I keep getting:\n\n"
+            "This is an automatically generated Delivery Status Notification.\n"
+            "Delivery to the following recipients failed:\n"
+            "    partner@externalclient.com\n\n"
+            "421 4.7.0 Try again later, closing connection. (TLS negotiation failed)\n\n"
+            "Original-Envelope-Id: <{number}@mail01.contoso.com>\n"
+            "Reporting-MTA: dns;mail01.contoso.com\n"
+            "X-Mailer: Microsoft Exchange Server 2019\n"
+            "Content-Type: message/delivery-status\n\n"
+            "The emails to external clients have been failing since around {time} today. "
+            "I'm in {department} and this is blocking critical client communications.",
+        ],
+        next_best_actions=[
+            "Investigate outbound email delivery failure — NDR shows SPF check failure "
+            "and TLS negotiation issues on the Edge transport server.",
+            "Check Exchange Edge Transport and DNS/SPF records — multiple users in "
+            "{department} cannot send to external recipients.",
+        ],
+        remediation_steps=[
+            [
+                "Verify SPF, DKIM, and DMARC DNS records for contoso.com are correct and published",
+                "Check the Exchange Edge Transport server for TLS certificate expiration",
+                "Review the mail flow connector configuration for outbound relay",
+                "Test outbound SMTP connectivity from the mail server to external MX records",
+                "If SPF records are misconfigured, update and allow 24-48h for DNS propagation",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-073  Regex/code patterns in ticket text
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-073",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.STEPS_TO_REPRODUCE],
+        subjects=[
+            "Search filter broken in internal tool — regex not matching",
+            "Data validation pattern failing in {app} — special chars issue",
+            "Code search broken — special characters not handled",
+        ],
+        descriptions=[
+            "The search/filter feature in our internal {app} tool is broken. I'm trying "
+            "to use these regex patterns to filter client records but they return no "
+            "results:\n\n"
+            "Pattern 1: ^[A-Z]{{2,3}}-\\d{{4,6}}$\n"
+            "Pattern 2: (?:NYSE|NASDAQ)\\s*:\\s*[A-Z]{{1,5}}\n"
+            "Pattern 3: \\b\\d{{1,3}}(?:,\\d{{3}})*(?:\\.\\d{{2}})?\\b\n"
+            "Pattern 4: SELECT * FROM clients WHERE name LIKE '%O''Brien%' AND "
+            "status IN ('active', 'pending');\n\n"
+            "These patterns used to work last week. I suspect the latest update changed "
+            "the regex engine or escaping rules. The data validation also fails on inputs "
+            "containing: [brackets], (parens), {{}}, pipes|pipes, asterisks*, "
+            "backslashes\\, and caret^ characters.\n\n"
+            "I'm in {department} and this is blocking our daily client reconciliation.",
+            "Hi IT,\n\n"
+            "The search function in {app} is silently failing on queries with special "
+            "characters. Examples that don't work:\n\n"
+            "- `.*@contoso\\.com$` (regex to find internal emails)\n"
+            "- `price >= 100.00 AND price <= 999.99` (filter expression)\n"
+            "- `(dept='Finance' OR dept='Trading') AND active=1`\n"
+            "- `C:\\\\Users\\\\{name}\\\\Documents\\\\report_v2.xlsx` (file path)\n\n"
+            "The error in the browser console is: 'SyntaxError: Invalid regular "
+            "expression: /[unterminated character class/'. It seems like user input "
+            "is being passed to a regex engine without proper escaping.",
+        ],
+        next_best_actions=[
+            "Investigate {app} search filter regression — user input with special "
+            "regex characters is causing SyntaxError. Likely a missing input "
+            "sanitization step in the latest update.",
+            "Check the latest {app} update for changes to the search/filter input "
+            "handling — regex metacharacters need proper escaping before evaluation.",
+        ],
+        remediation_steps=[
+            [
+                "Reproduce the issue with the provided regex patterns in a test environment",
+                "Check the {app} release notes for search/filter engine changes",
+                "Verify that user input is properly escaped before being passed to the regex engine",
+                "If the regression is confirmed, coordinate with the vendor for a hotfix",
+                "As a workaround, advise users to use the basic search (non-regex) mode if available",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-074  Contradictory information across email thread replies
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-074",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.DEVICE_INFO,
+            MissingInfo.ERROR_MESSAGE,
+            MissingInfo.STEPS_TO_REPRODUCE,
+        ],
+        subjects=[
+            "RE: RE: RE: Laptop issue — update",
+            "RE: RE: Laptop won't boot / actually it does / never mind / help",
+            "FW: RE: RE: Laptop problem — conflicting updates",
+        ],
+        descriptions=[
+            "Latest update:\n"
+            "Actually, the laptop turned on this morning but now there's a different "
+            "problem — the display is flickering and the colors look washed out.\n\n"
+            "--- Previous reply ({date}) ---\n"
+            "Update: the laptop turns on now (I left it charging overnight) but the "
+            "screen stays completely black. I can hear the fan spinning and the power "
+            "LED is green. External monitor via HDMI shows nothing either.\n\n"
+            "--- Previous reply ({date}) ---\n"
+            "Correction — the laptop does show a brief Dell logo on startup but then "
+            "goes to a black screen with a blinking cursor. It never reaches Windows.\n\n"
+            "--- Original message ---\n"
+            "My laptop won't turn on at all. No lights, no fan, nothing. I've tried "
+            "holding the power button for 30 seconds, removing the charger, etc. "
+            "Completely dead. I need this for my {department} presentation tomorrow.\n\n"
+            "So to summarize: it was dead, then it showed a logo, then black screen "
+            "with cursor, then it booted but screen was black, and now it boots but "
+            "the display is flickering. Not sure what's going on.",
+            "Thread summary from {name} in {department}:\n\n"
+            "Message 5 (today): 'It's working now, but the trackpad is unresponsive. "
+            "Using an external mouse as workaround.'\n\n"
+            "Message 4 (yesterday): 'Screen came back but it's displaying at 800x600 "
+            "resolution and I can't change it. Display adapter shows Microsoft Basic "
+            "Display Adapter instead of the NVIDIA card.'\n\n"
+            "Message 3 (2 days ago): 'Laptop boots to Windows but the screen goes "
+            "black after about 30 seconds. I think it's a display driver crash.'\n\n"
+            "Message 2 (3 days ago): 'Laptop turns on but I get a blue screen with "
+            "error DRIVER_IRQL_NOT_LESS_OR_EQUAL about 2 minutes after login.'\n\n"
+            "Message 1 (4 days ago): 'My laptop won't start. Just a black screen. "
+            "Nothing happens when I press the power button.'\n\n"
+            "I need someone to look at this — the symptoms keep changing and I can't "
+            "figure out what's actually wrong.",
+        ],
+        next_best_actions=[
+            "Schedule an in-person diagnostic for the laptop — the evolving symptoms "
+            "(power failure → BSOD → display driver issues → trackpad failure) suggest "
+            "a hardware fault, possibly motherboard or GPU related.",
+            "The contradictory thread indicates a progressive hardware failure. Arrange "
+            "for the endpoint team to run full hardware diagnostics on-site.",
+        ],
+        remediation_steps=[
+            [
+                "Run comprehensive hardware diagnostics (Dell/Lenovo built-in diagnostics at boot)",
+                "Check for GPU and display driver issues — reinstall NVIDIA/AMD drivers",
+                "If BSOD is recurring, analyze memory dumps for the specific driver at fault",
+                "Test with a known-good RAM module to rule out memory failure",
+                "If multiple subsystems are failing, recommend a full device replacement",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-075  Accidental PII-like patterns in ticket description
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-075",
+        category=Category.ACCESS_AUTH,
+        priority=Priority.P2,
+        assigned_team=Team.IAM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AUTHENTICATION_METHOD, MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "MFA enrollment failure — need help setting up authenticator",
+            "Can't register my phone for multi-factor authentication",
+            "MFA setup error — verification code not arriving",
+        ],
+        descriptions=[
+            "Hi IT,\n\n"
+            "I'm trying to enroll in MFA but the Microsoft Authenticator setup keeps "
+            "failing. Here are my details so you can look me up:\n\n"
+            "Name: {name}\n"
+            "Employee ID: EMP-{number}\n"
+            "Department: {department}\n"
+            "Phone: +1 (212) 555-{number}\n"
+            "Personal phone (backup): +1 (917) 555-{number}\n"
+            "Home address: 742 Evergreen Terrace, Apt 4B, New York, NY 10001\n"
+            "SSN (last 4): XXXX-XX-{number}\n"
+            "Corporate card (for verification): XXXX-XXXX-XXXX-{number}\n"
+            "Date of birth: 1985-07-{number}\n\n"
+            "The error I get is 'Verification failed — please try again' after scanning "
+            "the QR code. I've tried three times. My phone is an iPhone 15 running iOS 17.4.\n\n"
+            "Please help — I'm locked out of {app} and {browser} SSO until MFA is set up.",
+            "Can't complete MFA enrollment. The setup wizard gets to step 3 (verify phone "
+            "number) and then errors out. I'm providing extra info in case it helps:\n\n"
+            "Account: {name1}@contoso.com\n"
+            "Badge number: CNT-{number}\n"
+            "Phone: +44 20 7946 {number}\n"
+            "Alt contact: +44 7911 {number}\n"
+            "National Insurance: AB-{number}-C (just last digits for reference)\n"
+            "Corporate Amex: XXXX-XXXXXX-X{number}\n"
+            "Passport: GBR-{number} (I had to provide this during onboarding)\n\n"
+            "I'm in the {office} office, Floor {floor}, {department}. This is blocking "
+            "all my work because conditional access requires MFA for everything.",
+        ],
+        next_best_actions=[
+            "Process the MFA enrollment issue — but first flag that the ticket contains "
+            "sensitive PII (partial SSN, credit card digits, home address) that should be "
+            "redacted from the ticket system immediately.",
+            "Resolve the MFA verification failure. Alert the user that personal information "
+            "like SSN and credit card numbers should never be included in support tickets. "
+            "Request that a supervisor redact the sensitive data from the ticket.",
+        ],
+        remediation_steps=[
+            [
+                "IMMEDIATELY redact all PII from the ticket (SSN, credit card, passport, home address)",
+                "Notify the user that sensitive personal data must never be included in tickets",
+                "Troubleshoot the MFA enrollment failure — verify the user's phone number in Entra ID",
+                "Check if the Authenticator app version is compatible with the tenant's MFA configuration",
+                "If enrollment continues to fail, provision a FIDO2 security key as an alternative",
             ],
         ],
     )

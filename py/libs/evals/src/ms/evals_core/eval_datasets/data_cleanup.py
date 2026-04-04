@@ -2083,7 +2083,8 @@ def _dc032_multiple_base64_images() -> EvalCase:
                 "on Gi1/0/24 or spanning tree loop from an unauthorized switch."
             ),
             remediation_steps=[
-                "Check Gi1/0/24 for CRC errors, input/output errors, and GBIC diagnostics (show interfaces transceiver).",
+                "Check Gi1/0/24 for CRC errors, input/output errors, and GBIC diagnostics "
+                "(show interfaces transceiver).",
                 "Review the MAC address table on VLANs 310 and 312 for unexpected entries indicating a rogue switch.",
                 "Inspect Spanning Tree topology for recent reconvergence events (show spanning-tree detail).",
                 "If a rogue switch is found, shut the offending port and enable BPDU Guard on all access ports.",
@@ -2091,7 +2092,10 @@ def _dc032_multiple_base64_images() -> EvalCase:
             ],
         ),
         tags=["data-cleanup", "multiple-base64", "inline-images"],
-        description="Ticket contains three separate base64-encoded inline images interspersed with network issue details.",
+        description=(
+            "Ticket contains three separate base64-encoded inline images "
+            "interspersed with network issue details."
+        ),
     )
 
 
@@ -2248,10 +2252,12 @@ def _dc034_buried_issue_long_email() -> EvalCase:
             ),
             remediation_steps=[
                 "Immediately rotate the credentials for svc-tradecapture-prod and revoke all active sessions.",
-                "Review Azure AD sign-in logs for the service account over the past 30 days for additional anomalous logins.",
+                "Review Azure AD sign-in logs for the service account over the past 30 days "
+                "for additional anomalous logins.",
                 "Check whether the IP 91.243.xx.xx appears in threat intelligence feeds.",
                 "Audit what resources the account accessed during the suspicious session.",
-                "Enable Conditional Access policies to block interactive logins and restrict to Azure East US 2 IP ranges.",
+                "Enable Conditional Access policies to block interactive logins "
+                "and restrict to Azure East US 2 IP ranges.",
                 "Engage the Security Incident Response team for a full investigation.",
             ],
         ),
@@ -2417,7 +2423,8 @@ def _dc036_ndr_bounce() -> EvalCase:
                 "with an April 10th regulatory filing deadline."
             ),
             remediation_steps=[
-                "Check Exchange Admin Center for the compliance-reports shared mailbox status (active, soft-deleted, or disabled).",
+                "Check Exchange Admin Center for the compliance-reports shared mailbox status "
+                "(active, soft-deleted, or disabled).",
                 "If soft-deleted, recover the mailbox from the Exchange retention hold.",
                 "If the mailbox was not migrated, recreate it and restore from the latest backup.",
                 "Verify SMTP routing on smtp-relay-chi-01 to ensure the mailbox is reachable.",
@@ -2486,7 +2493,8 @@ def _dc037_regex_code_patterns() -> EvalCase:
                 "Review the RegexSearchParser.compile() method at line 147 to add proper input escaping.",
                 "Implement Pattern.quote() or equivalent to sanitize user input before regex compilation.",
                 "Add parameterized queries to prevent special characters from breaking the SQL layer.",
-                "Deploy a hotfix to TradeRecon and verify with the problematic inputs (backslash, pipe, curly braces, caret).",
+                "Deploy a hotfix to TradeRecon and verify with the problematic inputs "
+                "(backslash, pipe, curly braces, caret).",
                 "Notify the settlements team once the fix is deployed.",
             ],
         ),
@@ -2560,7 +2568,8 @@ def _dc038_contradictory_replies() -> EvalCase:
                 "Test the laptop display without any dock connected to isolate the laptop hardware.",
                 "Run Lenovo built-in display diagnostics to check for panel or cable faults.",
                 "Roll back the Intel Iris Xe driver to the pre-March version to rule out the driver regression.",
-                "If the issue persists without dock and with rolled-back drivers, arrange a hardware repair for the laptop.",
+                "If the issue persists without dock and with rolled-back drivers, "
+                "arrange a hardware repair for the laptop.",
                 "Provide a loaner laptop before the client presentation tomorrow.",
             ],
         ),
@@ -2629,7 +2638,8 @@ def _dc039_accidental_pii() -> EvalCase:
                 "Verify the user's phone number is correctly registered in Azure AD for SMS-based MFA.",
                 "Attempt enrollment with the user in a screen-share session to observe the exact error.",
                 "Check Azure AD MFA server logs for the five failed attempts between 08:00 and 09:30.",
-                "Redact the PII (SSN-like pattern, home address, personal phone) from the ticket and notify the user about safe data practices.",
+                "Redact the PII (SSN-like pattern, home address, personal phone) from the ticket "
+                "and notify the user about safe data practices.",
             ],
         ),
         tags=["data-cleanup", "pii-patterns", "accidental-pii"],
@@ -2689,7 +2699,7 @@ def _dc040_base64_pdf_inline() -> EvalCase:
         ),
         gold=GoldAnswer(
             ticket_id="INC-DC-040",
-            category=Category.DATA,
+            category=Category.DATA_STORAGE,
             priority=Priority.P2,
             assigned_team=Team.DATA_PLATFORM,
             needs_escalation=False,
@@ -2703,7 +2713,8 @@ def _dc040_base64_pdf_inline() -> EvalCase:
                 "Review the March 28th commit to the report template for changes that could break PDF rendering.",
                 "Compare the ReportLab template before and after the commit using git diff.",
                 "Run the DAG manually in a staging environment with debug logging enabled on the PDF generation step.",
-                "If the March 28th commit is the root cause, revert it and regenerate the reports for April 7th and 8th.",
+                "If the March 28th commit is the root cause, revert it and regenerate "
+                "the reports for April 7th and 8th.",
                 "Push the regenerated P&L reports to the compliance SharePoint to unblock the reporting cycle.",
             ],
         ),
