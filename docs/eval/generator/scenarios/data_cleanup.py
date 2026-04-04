@@ -1118,4 +1118,548 @@ SCENARIOS: list[Scenario] = [
         ],
         tags=["data-cleanup", "terse-ticket", "no-context", "ambiguous"],
     ),
+    # ──────────────────────────────────────────────────────────────────
+    # 23. Very long email with the real issue buried at the very end (variant 2)
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-very-long-buried-issue-v2",
+        category="Security & Compliance",
+        priority="P2",
+        assigned_team="Security Operations",
+        needs_escalation=False,
+        missing_information=["error_message", "environment_details"],
+        subjects=[
+            "RE: RE: FW: FW: RE: Several things I wanted to flag — see end of message",
+            "FW: RE: FW: RE: RE: Various IT notes, badge issue, Wi-Fi, and a security alert at the bottom",
+        ],
+        descriptions=[
+            "Hi IT,\n\n"
+            "Hope you're doing well! Quick update on a few things before I get to my real question.\n\n"
+            "1) The new monitors we ordered last month arrived and they look great. The dock adapters "
+            "fit perfectly. Thanks for recommending the USB-C ones.\n\n"
+            "2) I also wanted to mention that the guest Wi-Fi SSID in the London office lobby was "
+            "broadcasting the wrong network name for about a day last week. Someone on the networking "
+            "team fixed it, so no action needed.\n\n"
+            "3) Our intern asked me about getting a second monitor — I told her to file a ticket, so "
+            "you might see that come through.\n\n"
+            "4) The coffee machine on Floor 5 keeps tripping the circuit breaker, but I know that's "
+            "facilities, not IT. Just venting!\n\n"
+            "5) Badge readers at the north entrance were slow yesterday morning but seem fine now.\n\n"
+            "OK here is the actual reason I'm writing. Since about 6 AM today our SIEM dashboard is "
+            "showing a spike of failed SSH login attempts against the bastion host (bastion-prod-01, "
+            "IP 10.200.1.50). Over 12,000 attempts in the last three hours, originating from five "
+            "external IPs. The source addresses appear to be from a known botnet range. No successful "
+            "authentications yet, but the rate is increasing.",
+            "--- Forwarded message chain (7 forwards) ---\n"
+            "Original: printer toner request — RESOLVED two weeks ago.\n"
+            "Second topic: request for Adobe license — DONE.\n"
+            "Third topic: VoIP phone static noise — FIXED by vendor.\n"
+            "Fourth topic: monitor arm mounting — COMPLETED by facilities.\n"
+            "Fifth topic: Zoom Room calendar sync — RESOLVED after reboot.\n"
+            "Sixth topic: shared mailbox permissions — DONE.\n\n"
+            "==== NEW ISSUE (the only one that matters) ====\n\n"
+            "Starting at approximately 06:00 UTC the bastion host bastion-prod-01 has been "
+            "receiving a brute-force SSH attack. Our Splunk alert fired showing 12,400+ failed "
+            "auth attempts from IPs in the 185.220.x.x range. Fail2ban is blocking individual "
+            "IPs but the attackers are rotating. GeoIP puts the source in Eastern Europe. No "
+            "compromise detected so far but we need to tighten firewall rules urgently.",
+        ],
+        next_best_actions=[
+            "Skip the informational preamble and focus on the SSH brute-force attack against "
+            "bastion-prod-01. Review firewall rules and consider geo-blocking the source range.",
+            "Investigate the SIEM spike — 12k+ failed SSH attempts from known botnet IPs against "
+            "the bastion host. Confirm no successful auth and harden access controls.",
+        ],
+        remediation_steps=[
+            [
+                "Review SIEM logs to confirm no successful authentication from the attacking IPs",
+                "Add a temporary firewall deny rule for the 185.220.x.x source range",
+                "Verify fail2ban thresholds and increase the ban duration",
+                "Consider restricting SSH access to the bastion host by IP allowlist or VPN only",
+                "Escalate to Security Operations if any successful login is found",
+            ],
+        ],
+        tags=["data-cleanup", "buried-issue", "long-email", "irrelevant-preamble"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 24. Base64-encoded PDF report with TLS certificate issue
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-base64-pdf-report",
+        category="Network & Connectivity",
+        priority="P2",
+        assigned_team="Network Operations",
+        needs_escalation=False,
+        missing_information=["certificate_details", "environment_details"],
+        subjects=[
+            "TLS cert expired on internal portal — pasting the full PDF audit report",
+            "Certificate warning on intranet — attached PDF report inline as base64",
+        ],
+        descriptions=[
+            "Hi Network team,\n\n"
+            "Our internal compliance portal (https://compliance.corp.local) started showing "
+            "certificate warnings this morning. I ran an SSL audit and exported the report as "
+            "a PDF. My email client won't attach it so I'm pasting the raw data:\n\n"
+            "data:application/pdf;base64,JVBERi0xLjUKJcOkw7zDtsOfCjIgMCBvYmoKPDwvTGVuZ3RoIDMg"
+            "MCBSL0ZpbHRlci9GbGF0ZURlY29kZT4+CnN0cmVhbQpGQUtFQkFTRTY0REFUQVNJTUVTQU5ZUEFH"
+            "RVBERlJFUE9SVFdJVEhUTFNDRVJUSUZJQ0FURUFVREVJVFJFU1VMVFNBTkRGSU5ESU5HU0ZSWU9V"
+            "UklOVEVSTkFMQ09NUExJQU5DRVBPU1RBTFNTTENIRUNLREVUQU1FRk9SVEVTVA=="
+            "\n[...approximately 1.4 MB of base64 data omitted...]\n\n"
+            "The short version: the TLS certificate for compliance.corp.local expired yesterday "
+            "at 23:59 UTC. It's a wildcard cert (*.corp.local) issued by our internal CA. "
+            "Chrome and Edge both block the page with NET::ERR_CERT_DATE_INVALID. About 200 "
+            "employees use this portal daily for compliance training.",
+            "Users are reporting 'Your connection is not private' errors when accessing the "
+            "compliance portal. I generated a certificate transparency report and pasted it "
+            "here:\n\n"
+            "[BEGIN BASE64 PDF]\n"
+            "JVBERi0xLjcKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5k"
+            "b2JqCkZBS0VfQ0VSVF9SRVBPUlRfQkFTRTY0X0RBVEFfVEhBVF9TSE9VTERfQkVfSUdOT1JF"
+            "RF9CWV9USEVfQ0xBU1NJRklFUl9BTkRfVFJJQUdFX1NZU1RFTQ=="
+            "\n[END BASE64 PDF — 847 KB]\n\n"
+            "The certificate expired on 2026-07-14. It was issued by CorpRootCA and covers "
+            "*.corp.local. The portal uses IIS on Windows Server 2022. Other *.corp.local "
+            "services (wiki, HR portal) still have valid certs — they were renewed last quarter "
+            "but this one was missed.",
+        ],
+        next_best_actions=[
+            "Ignore the base64 PDF data and focus on the expired TLS certificate for "
+            "compliance.corp.local. Renew the certificate through the internal CA.",
+            "Renew the expired wildcard certificate for *.corp.local on the compliance portal.",
+        ],
+        remediation_steps=[
+            [
+                "Generate a new certificate signing request (CSR) for *.corp.local on the IIS server",
+                "Submit the CSR to the internal CA (CorpRootCA) for renewal",
+                "Install the renewed certificate and bind it to the compliance portal in IIS",
+                "Verify the full certificate chain is installed and trusted by client browsers",
+                "Set up a certificate expiration monitoring alert to prevent future lapses",
+            ],
+        ],
+        tags=["data-cleanup", "base64", "pdf-inline", "tls-certificate"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 25. Multi-reply email chain with base64 screenshots
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-base64-reply-chain",
+        category="Software & Applications",
+        priority="P3",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["application_version", "steps_to_reproduce"],
+        subjects=[
+            "RE: RE: RE: RE: SAP error — screenshots from everyone in the thread",
+            "FW: RE: RE: SAP GUI crashes — adding my screenshot too (see below)",
+        ],
+        descriptions=[
+            "Hi IT,\n\n"
+            "Adding my screenshot to the thread. Here are all of them:\n\n"
+            "--- Screenshot from Maria (Tuesday) ---\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAE0lEQVQY"
+            "V2P4z8BQDwYMDAwAFAAL/FiLbwAAAABJRU5ErkJggg==\n\n"
+            "--- Screenshot from James (Wednesday) ---\n"
+            "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgF"
+            "FAKE_SCREENSHOT_DATA_FROM_JAMES_SHOWING_SAP_ERROR_DIALOG_RUNTIME_EXCEPTION==\n\n"
+            "--- Screenshot from Priya (Thursday) ---\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAFAKE_PRIYA"
+            "_SCREENSHOT_DATA_SAP_TRANSACTION_VA01_DUMP_SCREEN_CAPTURE_FRIDAY==\n\n"
+            "--- My screenshot (today, Friday) ---\n"
+            "data:image/png;base64,iVBORw0KGgoFAKE_FOURTH_SCREENSHOT_INLINE_BASE64_SAP_SYSTEM"
+            "_LOG_SHOWING_ABAP_RUNTIME_ERROR_ST22_TRANSACTION_DUMP_DETAILS_TODAY==\n\n"
+            "We're all getting the same SAP error: 'ABAP runtime error TSV_TNEW_PAGE_ALLOC_FAILED' "
+            "when running transaction VA01 (create sales order). It started Tuesday after the "
+            "transport for change request CR-20260715 was imported into production.",
+            "RE: RE: RE: RE: RE: SAP GUI crash — thread with 5 inline screenshots\n\n"
+            "> From: Help Desk\n> Can you send screenshots?\n\n"
+            "> From: Maria\n> Here's mine:\n"
+            "> data:image/png;base64,iVBORw0KGgoAAAAFAKEBASE64MARIA==\n\n"
+            "> From: James\n> Mine too:\n"
+            "> data:image/jpeg;base64,/9j/FAKEBASE64JAMES==\n\n"
+            "> From: Priya\n> Same error, different screen:\n"
+            "> data:image/png;base64,iVBORw0FAKEBASE64PRIYA==\n\n"
+            "Latest update: four of us in the Sales Operations team cannot create sales orders "
+            "in SAP (transaction VA01). The ABAP dump shows TSV_TNEW_PAGE_ALLOC_FAILED, which "
+            "means the application server is running out of extended memory for the dialog work "
+            "process. This started right after the Tuesday transport.",
+        ],
+        next_best_actions=[
+            "Ignore the base64 screenshot data and focus on the SAP ABAP runtime error. Check the "
+            "transport CR-20260715 for memory-intensive changes and SAP extended memory parameters.",
+            "Investigate the SAP TSV_TNEW_PAGE_ALLOC_FAILED dump after Tuesday's transport import.",
+        ],
+        remediation_steps=[
+            [
+                "Review the ABAP dump via transaction ST22 for details on the memory allocation failure",
+                "Check SAP extended memory parameters (em/initial_size_MB, ztta/roll_extension) on the app server",
+                "Review transport CR-20260715 for changes that may consume excessive dialog memory",
+                "Consider rolling back the transport if it introduced a memory-intensive code change",
+                "If parameters are undersized, request a basis admin to increase extended memory allocation",
+            ],
+        ],
+        tags=["data-cleanup", "base64", "reply-chain", "multiple-screenshots"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 26. Voicemail transcription with speech recognition errors
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-speech-transcription-errors",
+        category="Hardware & Peripherals",
+        priority="P2",
+        assigned_team="Data Center Operations",
+        needs_escalation=False,
+        missing_information=["device_info", "error_message", "environment_details"],
+        subjects=[
+            "Voicemail transcription from facilities re: server room temperature",
+            "Transcribed voicemail — server cooling issue (hard to read)",
+        ],
+        descriptions=[
+            "[Automated Voicemail Transcription — Confidence: 42%]\n\n"
+            "Hey this is Rajesh from the fizz uh fizz ickle plant... no, the physical plant "
+            "department. I'm calling about the surfer room... the SERVER room on the third "
+            "floor. The cool ant... the COOLANT unit on rack row see... rack row C stopped "
+            "working around too AM... 2 AM last night and the temp orator... the temperature "
+            "has gone up to like 95 fair and height... 95 Fahrenheit which is way above the "
+            "red line. The sees are racks... the C-series racks are showing amber lights. "
+            "Our HVAC tech said the cry oh jenny... the CRYOGENIC compressor threw a fault "
+            "code: E-R-R dash four seven two. We tried re-setting the braker... the breaker "
+            "but it tripped again. Some of the servers are starting to thermal throttle. "
+            "Please call me back at extension four-seven-three-nine ASAP.\n\n"
+            "[End of transcription]",
+            "[Auto-transcribed Voicemail — Speaker had strong accent, low confidence]\n\n"
+            "Hello I.T., this is Raj from facilities calling about the data scenter... data "
+            "center cooling. The air handler unit for rho see... row C is down. Temps are "
+            "climbing past ninety-five degrees. The chiller threw error foyer seven too... "
+            "error four-seven-two and the kompressor won't restart. We've been running "
+            "portable fans but that's a band-aid. The UPS units are also beeping because the "
+            "battery room is getting hot as well. The Liebert cool thing... the Liebert "
+            "cooling unit model number is D-S-E zero seven five. Our on-site HVAC guy says "
+            "the compressor needs a warranty part. Can someone from I.T. check the server "
+            "health in the mean time? Extension four-seven-three-nine.",
+        ],
+        next_best_actions=[
+            "Look past the transcription errors — the core issue is a cooling failure in the "
+            "server room (row C). CRAC/CRAH unit fault code ERR-472, temps at 95°F and rising.",
+            "Contact facilities (ext 4739) and check server health on rack row C for thermal throttling.",
+        ],
+        remediation_steps=[
+            [
+                "Contact Rajesh at extension 4739 for a direct status update on the cooling unit",
+                "Check server hardware health dashboards for thermal throttling events on rack row C",
+                "If temps exceed the critical threshold, initiate a controlled shutdown of non-essential servers",
+                "Coordinate with HVAC to expedite the compressor repair (Liebert DSE075, fault ERR-472)",
+                "Deploy portable cooling units to the affected row as a temporary measure",
+            ],
+        ],
+        tags=["data-cleanup", "voicemail-transcription", "speech-errors", "phonetic-garble"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 27. Text with zero-width Unicode characters throughout
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-zero-width-unicode",
+        category="Software & Applications",
+        priority="P3",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["application_version", "steps_to_reproduce"],
+        subjects=[
+            "Teams\u200b\u200b\u200b\u200b app\u200b\u200b crashes\u200b\u200b on\u200b start\u200bup",
+            "Microsoft\u200b\u200b Teams\u200b\u200b won't\u200b\u200b launch\u200b\u200b after\u200b update",
+        ],
+        descriptions=[
+            "Hi\u200b\u200b IT\u200b\u200b team\u200b,\n\n"
+            "Since\u200b\u200b yesterday\u200b's\u200b\u200b update\u200b,\u200b Microsoft\u200b"
+            "\u200b Teams\u200b (\u200bversion\u200b 24\u200b.\u200b2\u200b.\u200b1\u200b)"
+            "\u200b crashes\u200b\u200b immediately\u200b\u200b on\u200b launch\u200b.\u200b "
+            "I\u200b\u200b see\u200b\u200b a\u200b\u200b brief\u200b\u200b splash\u200b screen"
+            "\u200b\u200b and\u200b\u200b then\u200b\u200b it\u200b\u200b closes\u200b.\u200b "
+            "The\u200b\u200b Windows\u200b\u200b Event\u200b\u200b Viewer\u200b shows\u200b "
+            "Application\u200b Error\u200b\u200b with\u200b\u200b faulting\u200b module\u200b "
+            "msedge\u200bwebview2\u200b.\u200bdll\u200b.\n\n"
+            "I\u200b've\u200b tried\u200b clearing\u200b\u200b the\u200b\u200b Teams\u200b\u200b"
+            " cache\u200b\u200b folder\u200b (%\u200bAppData\u200b%\u200b\\\u200bMicrosoft"
+            "\u200b\\\u200bTeams\u200b)\u200b and\u200b\u200b reinstalling\u200b\u200b but"
+            "\u200b\u200b the\u200b\u200b same\u200b\u200b crash\u200b\u200b happens\u200b."
+            "\u200b Outlook\u200b\u200b and\u200b\u200b other\u200b\u200b Office\u200b\u200b"
+            " apps\u200b work\u200b\u200b fine\u200b.\n\n"
+            "Running\u200b\u200b Windows\u200b 11\u200b 23H2\u200b on\u200b a\u200b Dell"
+            "\u200b Latitude\u200b 5540\u200b.\n\n"
+            "Thanks\u200b,\nSara\u200b\u200b Nguyen\u200b\nAccounting",
+            "Teams\u200b\u200b\u200b desktop\u200b\u200b app\u200b\u200b won\u200b't\u200b "
+            "open\u200b.\u200b\u200b It\u200b\u200b crashes\u200b\u200b right\u200b\u200b "
+            "after\u200b\u200b the\u200b\u200b loading\u200b\u200b screen\u200b.\u200b\u200b "
+            "I\u200b\u200b checked\u200b\u200b Task\u200b\u200b Manager\u200b\u200b and\u200b"
+            "\u200b the\u200b\u200b process\u200b\u200b starts\u200b\u200b then\u200b\u200b "
+            "disappears\u200b\u200b after\u200b\u200b about\u200b\u200b three\u200b\u200b "
+            "seconds\u200b.\u200b\u200b The\u200b\u200b web\u200b\u200b version\u200b\u200b "
+            "works\u200b\u200b fine\u200b\u200b in\u200b\u200b Edge\u200b\u200b so\u200b\u200b "
+            "it\u200b's\u200b\u200b specific\u200b\u200b to\u200b\u200b the\u200b\u200b "
+            "desktop\u200b\u200b client\u200b.\u200b\u200b The\u200b\u200b faulting\u200b\u200b "
+            "module\u200b\u200b in\u200b\u200b the\u200b\u200b event\u200b\u200b log\u200b\u200b "
+            "is\u200b\u200b msedgewebview2\u200b.\u200bdll\u200b.\u200b\u200b This\u200b\u200b "
+            "started\u200b\u200b after\u200b\u200b yesterday\u200b's\u200b\u200b auto\u200b-"
+            "update\u200b.",
+        ],
+        next_best_actions=[
+            "Strip zero-width Unicode characters from the ticket text and focus on the Teams "
+            "desktop crash. The faulting module is msedgewebview2.dll — likely a WebView2 runtime issue.",
+            "Repair or reinstall the WebView2 runtime to fix the Teams desktop client crash.",
+        ],
+        remediation_steps=[
+            [
+                "Download and reinstall the Microsoft Edge WebView2 runtime from the official site",
+                "Clear the Teams cache folder (%AppData%\\Microsoft\\Teams) and restart",
+                "If the issue persists, uninstall Teams completely and install the latest version",
+                "Check if a Windows Update or WebView2 update caused the regression",
+                "Use the Teams web client as a workaround until the desktop app is fixed",
+            ],
+        ],
+        tags=["data-cleanup", "zero-width-unicode", "invisible-characters"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 28. HTML email with CSS dark-mode styling artifacts
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-css-dark-mode-html",
+        category="Software & Applications",
+        priority="P3",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["application_version", "device_info"],
+        subjects=[
+            '<div style="background:#1e1e1e;color:#1e1e1e">OneDrive sync broken</div>',
+            "OneDrive not syncing — sorry if this email looks weird (dark mode issue)",
+        ],
+        descriptions=[
+            '<html><body style="background-color: #1a1a2e; color: #e0e0e0;">'
+            '<div style="font-family: Segoe UI, sans-serif;">'
+            '<style>@media (prefers-color-scheme: dark) { .content { background: #0d1117; '
+            "color: #c9d1d9; } .highlight { color: #1e1e1e; background: #1e1e1e; } "
+            ".footer { color: #161b22; } }</style>"
+            '<div class="content">'
+            '<p style="color: #c9d1d9;">Hi IT Team,</p>'
+            '<p style="color: #58a6ff;">ISSUE:</p>'
+            '<table style="border: 1px solid #30363d; background: #161b22;">'
+            '<tr><td style="color: #8b949e; padding: 8px;">Application</td>'
+            '<td style="color: #c9d1d9; padding: 8px;">OneDrive for Business</td></tr>'
+            '<tr><td style="color: #8b949e;">Status</td>'
+            '<td style="color: #f85149;">Not Syncing</td></tr>'
+            '<tr><td style="color: #8b949e;">Error Code</td>'
+            '<td style="color: #c9d1d9;">0x8004de40</td></tr>'
+            "</table>"
+            '<p class="highlight" style="color: #1e1e1e; background: #1e1e1e;">'
+            "HIDDEN TEXT YOU CANNOT SEE IN DARK MODE: The actual error details are here but "
+            "rendered invisible by matching foreground/background colors.</p>"
+            '<p style="color: #c9d1d9;">OneDrive shows a red X on the tray icon and says '
+            "&quot;There was a problem signing you in.&quot; I've been unable to sync files "
+            "for two days. Error code is 0x8004de40.</p>"
+            '<div class="footer" style="color: #161b22; font-size: 6pt;">Sent from Outlook '
+            "Dark Mode — some content may be invisible in light mode viewers.</div>"
+            "</div></div></body></html>",
+            '<div style="background: #0d1117; color: #c9d1d9;">'
+            '<style>.dark-only { color: #c9d1d9; } .light-only { color: #0d1117; } '
+            "@media (prefers-color-scheme: light) { .dark-only { color: white; } "
+            ".light-only { color: black; } }</style>"
+            '<p class="dark-only">OneDrive for Business stopped syncing two days ago with '
+            "error 0x8004de40. The sync icon shows a red circle with white X.</p>"
+            '<p class="light-only">If you can read this, you are in light mode and the '
+            "message above may be invisible. The issue is: OneDrive error 0x8004de40, sync "
+            "stopped.</p>"
+            "<p>I've tried unlinking and relinking the account, clearing the OneDrive cache, "
+            "and resetting via %localappdata%\\Microsoft\\OneDrive\\onedrive.exe /reset. None "
+            "of these fixed it. Running Windows 11 with Outlook 365 in dark mode.</p>"
+            "</div>",
+        ],
+        next_best_actions=[
+            "Strip the CSS and dark-mode styling artifacts and focus on the OneDrive sync error "
+            "0x8004de40 — this is a TLS/authentication issue with the OneDrive service.",
+            "Investigate OneDrive error 0x8004de40 — likely a TLS 1.2 requirement or proxy "
+            "authentication issue.",
+        ],
+        remediation_steps=[
+            [
+                "Verify TLS 1.2 is enabled on the machine (error 0x8004de40 is often TLS-related)",
+                "Check network proxy settings — OneDrive requires direct HTTPS access to Microsoft endpoints",
+                "Reset OneDrive using onedrive.exe /reset and re-sign in",
+                "Verify the user's Microsoft 365 license includes OneDrive for Business",
+                "If proxy or firewall is blocking, add the required Microsoft 365 URLs to the allow list",
+            ],
+        ],
+        tags=["data-cleanup", "css-artifacts", "dark-mode", "html-heavy"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 29. SSO failure with JWT token and OAuth error JSON pasted
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-jwt-oauth-dump",
+        category="Access & Authentication",
+        priority="P2",
+        assigned_team="Identity & Access Management",
+        needs_escalation=False,
+        missing_information=["environment_details", "steps_to_reproduce"],
+        subjects=[
+            "SSO login failing — pasting the token and error response below",
+            "Can't sign in via Okta SSO — here's the JWT and the error JSON",
+        ],
+        descriptions=[
+            "Hi IAM team,\n\n"
+            "I can't log in to the internal analytics portal via Okta SSO. I opened the "
+            "browser dev tools and captured the token and the error response. Here's everything:\n\n"
+            "Access Token (from Authorization header):\n"
+            "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkZBS0VLRVlJRCJ9."
+            "eyJzdWIiOiJqZG9lQGNvbnRvc28uY29tIiwiaXNzIjoiaHR0cHM6Ly9pZHAuY29udG9zby5jb20"
+            "iLCJhdWQiOiJhbmFseXRpY3MtcG9ydGFsIiwiZXhwIjoxNzIxMDAwMDAwLCJpYXQiOjE3MjA5"
+            "OTY0MDAsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJncm91cHMiOlsiYW5hbHl0aW"
+            "NzLXVzZXJzIiwiZG9tYWluLXVzZXJzIl19."
+            "FAKE_RSA_SIGNATURE_PLACEHOLDER_DO_NOT_ATTEMPT_TO_VERIFY\n\n"
+            "OAuth Error Response:\n"
+            '{"error":"invalid_grant","error_description":"The authorization code has expired '
+            'or has been used. Code was issued at 2026-07-14T08:30:00Z and is now expired. '
+            "Token endpoint received the request at 2026-07-14T09:45:00Z, which is beyond "
+            'the 600-second validity window.","error_uri":"https://developer.okta.com/docs/'
+            'reference/error-codes/","correlation_id":"abc123-def456-ghi789"}\n\n'
+            "I think the token expired but I'm not sure why. I click 'Sign In', get "
+            "redirected to Okta, enter my credentials, and then it bounces me back to the "
+            "portal with an error page. This started today and I was able to log in fine "
+            "yesterday.",
+            "Okta SSO sign-in broken for the analytics dashboard. The browser console shows:\n\n"
+            "POST https://idp.contoso.com/oauth2/v1/token 400 (Bad Request)\n\n"
+            "Response body:\n"
+            "{\n"
+            '  "error": "invalid_grant",\n'
+            '  "error_description": "Token exchange failed. The client_id '
+            "analytics-portal-prod does not match the audience in the authorization code. "
+            "Expected: analytics-portal-staging. Received: analytics-portal-prod. Verify the "
+            'OAuth application configuration in the Okta admin console.",\n'
+            '  "correlation_id": "xyz-987-654"\n'
+            "}\n\n"
+            "It looks like someone may have changed the Okta app configuration. The staging "
+            "and production app IDs might have gotten swapped. I also noticed the redirect URI "
+            "in the Okta app settings still points to the old domain (analytics-old.contoso.com) "
+            "instead of the current one (analytics.contoso.com).",
+        ],
+        next_best_actions=[
+            "Ignore the raw JWT and OAuth JSON payloads and focus on the SSO misconfiguration. "
+            "The Okta app client_id or redirect URI is misconfigured between staging and production.",
+            "Check the Okta admin console for the analytics portal app — the client_id and redirect "
+            "URI may have been swapped during a recent config change.",
+        ],
+        remediation_steps=[
+            [
+                "Log in to the Okta admin console and review the analytics portal OAuth app configuration",
+                "Verify the client_id matches the production application (analytics-portal-prod)",
+                "Update the redirect URI from the old domain to https://analytics.contoso.com/callback",
+                "Check if a recent change swapped the staging and production app settings",
+                "Test SSO sign-in flow end-to-end after correcting the configuration",
+            ],
+        ],
+        tags=["data-cleanup", "jwt-token", "oauth-error", "json-dump"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 30. Container deployment failure with docker-compose.yml pasted
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-docker-yaml-config",
+        category="Software & Applications",
+        priority="P2",
+        assigned_team="DevOps Engineering",
+        needs_escalation=False,
+        missing_information=["environment_details", "error_message"],
+        subjects=[
+            "Container deployment failing — pasting full docker-compose.yml and logs",
+            "Docker stack won't start — YAML config and error output below",
+        ],
+        descriptions=[
+            "Hi DevOps,\n\n"
+            "Our microservices stack won't start on the staging server. I'm pasting the full "
+            "docker-compose.yml and the error output:\n\n"
+            "```yaml\n"
+            "version: '3.8'\n"
+            "services:\n"
+            "  api-gateway:\n"
+            "    image: registry.contoso.com/api-gateway:2.4.1\n"
+            "    ports:\n"
+            "      - '8080:8080'\n"
+            "    environment:\n"
+            "      - DATABASE_URL=postgresql://svc_api:REDACTED@db-prod-03:5432/gateway_db\n"
+            "      - REDIS_URL=redis://cache-01:6379/0\n"
+            "      - JWT_SECRET=REDACTED_BUT_ORIGINALLY_PASTED_IN_CLEARTEXT\n"
+            "    depends_on:\n"
+            "      - postgres\n"
+            "      - redis\n"
+            "    deploy:\n"
+            "      resources:\n"
+            "        limits:\n"
+            "          memory: 512M\n"
+            "  postgres:\n"
+            "    image: postgres:16\n"
+            "    volumes:\n"
+            "      - pgdata:/var/lib/postgresql/data\n"
+            "    environment:\n"
+            "      - POSTGRES_PASSWORD=REDACTED\n"
+            "  redis:\n"
+            "    image: redis:7-alpine\n"
+            "    ports:\n"
+            "      - '6379:6379'\n"
+            "  worker:\n"
+            "    image: registry.contoso.com/worker:2.4.1\n"
+            "    environment:\n"
+            "      - QUEUE_URL=amqp://rabbitmq:5672\n"
+            "    depends_on:\n"
+            "      - rabbitmq\n"
+            "  rabbitmq:\n"
+            "    image: rabbitmq:3-management\n"
+            "    ports:\n"
+            "      - '15672:15672'\n"
+            "volumes:\n"
+            "  pgdata:\n"
+            "```\n\n"
+            "Error output from `docker compose up`:\n"
+            "```\n"
+            "Error response from daemon: pull access denied for registry.contoso.com/"
+            "api-gateway, repository does not exist or may require 'docker login'\n"
+            "worker_1    | Error: connect ECONNREFUSED 172.18.0.5:5672\n"
+            "api-gateway_1 | Error: FATAL: password authentication failed for user \"svc_api\"\n"
+            "```\n\n"
+            "The deployment was working last week. We recently rotated the database credentials "
+            "and I think the new password wasn't updated in the compose file.",
+            "Docker stack deployment failing on staging. Here is the compose file and logs:\n\n"
+            "--- docker-compose.yml (truncated) ---\n"
+            "services:\n"
+            "  api-gateway:\n"
+            "    image: registry.contoso.com/api-gateway:2.4.1\n"
+            "    ports: ['8080:8080']\n"
+            "    environment:\n"
+            "      DATABASE_URL: postgresql://svc_api:OLD_PASSWORD@db-prod-03:5432/gateway_db\n"
+            "  worker:\n"
+            "    image: registry.contoso.com/worker:2.4.1\n"
+            "    depends_on: [rabbitmq]\n"
+            "  rabbitmq:\n"
+            "    image: rabbitmq:3-management\n\n"
+            "--- docker compose logs ---\n"
+            "api-gateway_1  | FATAL: password authentication failed for user \"svc_api\"\n"
+            "api-gateway_1  | Connection refused: db-prod-03:5432\n"
+            "worker_1       | AMQP connection error: ECONNREFUSED\n\n"
+            "This broke after last Friday's credential rotation. The DB password in the compose "
+            "file is stale. Also, the staging server may not have access to the private Docker "
+            "registry after the recent network changes.",
+        ],
+        next_best_actions=[
+            "Look past the YAML config dump and focus on two root causes: stale database "
+            "credentials after rotation, and Docker registry authentication failure.",
+            "Update the database password in the deployment config and verify Docker registry "
+            "access from the staging server.",
+        ],
+        remediation_steps=[
+            [
+                "Update the DATABASE_URL password in the compose file or secrets manager to match the rotated credential",
+                "Run 'docker login registry.contoso.com' on the staging server to re-authenticate with the private registry",
+                "Verify network connectivity from staging to db-prod-03:5432 and rabbitmq:5672",
+                "Redeploy the stack with 'docker compose up -d' and monitor the logs for successful startup",
+                "Move secrets out of the compose file into Docker secrets or a vault to prevent cleartext credential exposure",
+            ],
+        ],
+        tags=["data-cleanup", "docker-compose", "yaml-config", "credential-rotation"],
+    ),
 ]
