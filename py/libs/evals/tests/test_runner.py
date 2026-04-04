@@ -31,8 +31,9 @@ class TestEvalRunner:
     @respx.mock
     def test_perfect_score_data_cleanup(self) -> None:
         """A perfect responder should score 85/85 on data cleanup."""
-        _, gold_answers = load_dataset(DatasetKind.DATA_CLEANUP)
+        tickets, gold_answers = load_dataset(DatasetKind.DATA_CLEANUP)
         assert gold_answers is not None
+        expected_total = len(tickets)
 
         route = respx.post("http://test:8000/triage")
         responses = iter([_gold_response_for(g) for g in gold_answers])
@@ -45,16 +46,17 @@ class TestEvalRunner:
         runner = EvalRunner("http://test:8000")
         summary = runner.run(DatasetKind.DATA_CLEANUP)
 
-        assert summary.tickets_total == 75
-        assert summary.tickets_scored == 75
+        assert summary.tickets_total == expected_total
+        assert summary.tickets_scored == expected_total
         assert summary.tickets_errored == 0
         assert summary.classification_score == 85.0
 
     @respx.mock
     def test_perfect_score_responsible_ai(self) -> None:
         """A perfect responder should score 85/85 on responsible AI."""
-        _, gold_answers = load_dataset(DatasetKind.RESPONSIBLE_AI)
+        tickets, gold_answers = load_dataset(DatasetKind.RESPONSIBLE_AI)
         assert gold_answers is not None
+        expected_total = len(tickets)
 
         route = respx.post("http://test:8000/triage")
         responses = iter([_gold_response_for(g) for g in gold_answers])
@@ -67,14 +69,18 @@ class TestEvalRunner:
         runner = EvalRunner("http://test:8000")
         summary = runner.run(DatasetKind.RESPONSIBLE_AI)
 
-        assert summary.tickets_total == 75
-        assert summary.tickets_scored == 75
+        assert summary.tickets_total == expected_total
+        assert summary.tickets_scored == expected_total
         assert summary.tickets_errored == 0
         assert summary.classification_score == 85.0
 
     @respx.mock
     def test_all_errors(self) -> None:
         """All requests failing should result in all errored."""
+        tickets, gold_answers = load_dataset(DatasetKind.DATA_CLEANUP)
+        assert gold_answers is not None
+        expected_total = len(tickets)
+
         respx.post("http://test:8000/triage").mock(
             return_value=httpx.Response(500, json={"error": "Internal Server Error"})
         )
@@ -82,14 +88,16 @@ class TestEvalRunner:
         runner = EvalRunner("http://test:8000")
         summary = runner.run(DatasetKind.DATA_CLEANUP)
 
-        assert summary.tickets_errored == 75
+        assert summary.tickets_errored == expected_total
         assert summary.tickets_scored == 0
 
     @respx.mock
     def test_partial_failures(self) -> None:
         """Mix of successes and failures."""
-        _, gold_answers = load_dataset(DatasetKind.DATA_CLEANUP)
+        tickets, gold_answers = load_dataset(DatasetKind.DATA_CLEANUP)
         assert gold_answers is not None
+        expected_total = len(tickets)
+        error_count = 5
 
         call_count = 0
         route = respx.post("http://test:8000/triage")
@@ -97,7 +105,7 @@ class TestEvalRunner:
         def handler(request: httpx.Request) -> httpx.Response:
             nonlocal call_count
             call_count += 1
-            if call_count <= 5:
+            if call_count <= error_count:
                 return httpx.Response(500, json={"error": "fail"})
             idx = call_count - 1
             if idx < len(gold_answers):
@@ -109,8 +117,8 @@ class TestEvalRunner:
         runner = EvalRunner("http://test:8000")
         summary = runner.run(DatasetKind.DATA_CLEANUP)
 
-        assert summary.tickets_errored == 5
-        assert summary.tickets_scored == 70
+        assert summary.tickets_errored == error_count
+        assert summary.tickets_scored == expected_total - error_count
 
     def test_no_gold_raises(self) -> None:
         """Running against a dataset with no gold should raise ValueError."""

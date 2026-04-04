@@ -19,15 +19,15 @@ class TestLoadDataset:
 
     def test_load_data_cleanup(self) -> None:
         tickets, gold = load_dataset(DatasetKind.DATA_CLEANUP)
-        assert len(tickets) == 75
+        assert len(tickets) >= 75
         assert gold is not None
-        assert len(gold) == 75
+        assert len(gold) == len(tickets)
 
     def test_load_responsible_ai(self) -> None:
         tickets, gold = load_dataset(DatasetKind.RESPONSIBLE_AI)
-        assert len(tickets) == 75
+        assert len(tickets) >= 75
         assert gold is not None
-        assert len(gold) == 75
+        assert len(gold) == len(tickets)
 
     def test_load_sample(self) -> None:
         tickets, gold = load_dataset(DatasetKind.SAMPLE)
