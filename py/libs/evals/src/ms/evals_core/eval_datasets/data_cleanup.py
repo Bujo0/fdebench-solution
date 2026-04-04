@@ -5102,13 +5102,659 @@ def _dc070_yaml_config_dump() -> EvalCase:
     )
 
 
+
+
+def _dc071_very_long_email_buried_issue() -> EvalCase:
+    """Very long email with the real issue deeply buried."""
+    long_body = (
+        "Hi IT Support,\n\n"
+        "I am writing to follow up on the ongoing VPN connectivity issue that has been plaguing "
+        "our department for the past week. As you know, our team handles time-sensitive derivative "
+        "pricing and risk calculations, and any disruption to our access to internal systems has "
+        "a direct impact on our ability to deliver accurate valuations to the front office.\n\n"
+        "Before I get to the current issue, I wanted to provide some context. Last quarter, we "
+        "experienced a similar disruption when the network team migrated the VPN concentrators "
+        "to the new Palo Alto infrastructure. At that time, the resolution involved updating the "
+        "GlobalProtect client to version 6.1.4 and reconfiguring the split-tunnel policy for our "
+        "subnet (10.42.0.0/16). I mention this because I suspect the current problem may be related "
+        "to the changes that were made last weekend during the scheduled maintenance window.\n\n"
+        "Speaking of which, I was not informed about the maintenance until after it had already "
+        "started, which is a recurring communication gap I have raised with management. But that "
+        "is a separate matter.\n\n"
+        "So regarding the actual problem: I have been completely unable to connect to the VPN "
+        "since I changed my domain password on Monday. The GlobalProtect client shows "
+        "'Authentication Failed - Invalid Credentials' even though my new password works for "
+        "Outlook, SharePoint, the trading portal, and Active Directory web login. I have cleared "
+        "the Windows Credential Manager, restarted the GlobalProtect service, and even "
+        "uninstalled/reinstalled the client. Nothing works.\n\n"
+        "My colleague Arun in the same team has no issues, and he also changed his password on "
+        "Monday. The only difference I can think of is that I am using a Dell Latitude 7440 "
+        "while he has a ThinkPad X1 Carbon. I am on Windows 11 23H2 build 22631.3155.\n\n"
+        "I should also mention that before the VPN issue started, I had been experiencing "
+        "intermittent Wi-Fi drops at the London office, but I am not sure if that is related "
+        "since I am currently working from home on a wired Ethernet connection (Virgin Media "
+        "broadband, 500 Mbps down / 50 Mbps up).\n\n"
+        "While we are on the topic of network issues, our team has also noticed that the "
+        "Bloomberg terminal connections have been slower than usual, but again, that might be "
+        "a separate infrastructure issue. I have heard rumors that the network team is planning "
+        "another migration to Azure Virtual WAN, but I do not have details.\n\n"
+        "Going back to the VPN: I also tried connecting to the alternate gateway "
+        "(vpn-eu-west.contoso.com) with the same result. I ran a packet capture using Wireshark "
+        "and can see the TLS handshake completing but then the RADIUS authentication fails. I "
+        "have attached the pcap file but I realize it may not be useful without context.\n\n"
+        "One more thing — I noticed that my AD account shows 'Password Last Set' as March 17, "
+        "which is correct. But the 'Last Successful Logon' for the VPN service shows March 14, "
+        "which was before the password change. This suggests the VPN infrastructure has not "
+        "accepted my new credentials at all.\n\n"
+        "Please prioritize this as I have been unable to work effectively for three days now "
+        "and my manager is asking for daily updates on the risk models.\n\n"
+        "--- Forwarded message ---\n"
+        "From: Help Desk <helpdesk@contoso.com>\n"
+        "Date: Mon, 17 Mar 2026 16:30:00 +0000\n"
+        "To: Elena Vasquez <elena.vasquez@contoso.com>\n"
+        "Subject: RE: VPN access\n\n"
+        "Hi Elena, your ticket INC-4955 has been created. A technician will respond within 4 "
+        "hours. In the meantime, please try clearing your Windows Credential Manager.\n\n"
+        "Kind regards,\nIT Service Desk\nContoso Financial Services\n\n"
+        "CONFIDENTIALITY NOTICE: This e-mail message, including any attachments, is for the sole "
+        "use of the intended recipient(s) and may contain confidential and privileged information. "
+        "Any unauthorized review, use, disclosure, or distribution is prohibited. If you are not "
+        "the intended recipient, please contact the sender by reply e-mail and destroy all copies. "
+        "Contoso Financial Services | 200 Park Avenue, New York, NY 10166\n"
+        "Tel: +1 (212) 555-0199 | www.contoso.com\n\n"
+        "This message has been scanned by Contoso Antivirus Gateway v4.12.1.\n"
+        "No threats detected. Scan ID: AV-20260317-163000-HELPDESK-4955\n"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-071",
+            subject="Re: Re: FW: VPN not connecting after password change — follow-up",
+            description=long_body,
+            reporter=Reporter(
+                name="Elena Vasquez",
+                email="elena.vasquez@contoso.com",
+                department="Risk Management",
+            ),
+            created_at="2026-03-20T08:30:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-071",
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            assigned_team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.APPLICATION_VERSION],
+            next_best_action=(
+                "Investigate VPN authentication failure after password change for Elena Vasquez. "
+                "GlobalProtect shows Invalid Credentials despite the new password working elsewhere. "
+                "The deeply buried issue is a RADIUS/NPS credential sync failure."
+            ),
+            remediation_steps=[
+                "Check RADIUS/NPS logs for the user authentication rejection reason.",
+                "Verify AD password replication has completed to all domain controllers used by VPN.",
+                "Clear cached VPN credentials on both the client and the RADIUS server.",
+                "Test RADIUS authentication directly using NTRadPing or similar tool.",
+                "If replication is confirmed, re-provision the GlobalProtect client profile.",
+            ],
+        ),
+        tags=["long_content", "buried_issue", "forwarded_chain"],
+        description="Very long email (10K+ chars) with the real VPN issue buried among tangential context.",
+    )
+
+
+def _dc072_base64_image_flood() -> EvalCase:
+    """Multiple base64-encoded images flooding the ticket."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-072",
+            subject="Laptop screen flickering — screenshots inline",
+            description=(
+                "My laptop screen keeps flickering since the last driver update. "
+                "Here are screenshots I took:\n\n"
+                "[Screenshot 1 - screen during flicker]\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAQCYAAD/qcomAAAABHNCSVQICAgIfAhkiA"
+                "AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oKFwgMNC3WkXYAACAASURBVHic7d15fFT1vf/x95lsk5ns"
+                "G0kgCQlhCfsSAoooLohi3bV1adXaam/dWm1rW2uXW7u4tXZR691s7WLdam3rVq24sIjsyCb7FiAhIfu+Tc7v"
+                "j0kIIZOQhExmJnk9H495nDlnzsx8k8Mj8p7v9/s1TNOUJFVVVen48eOqqamRw+FQXFycMjIylJubq6io==\n\n"
+                "[Screenshot 2 - Device Manager view]\n"
+                "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDB"
+                "kSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMj"
+                "IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAEAAQADASIA"
+                "AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAACDAwQFBgcICQoLBQHzKSECAAAAAElFTkSuQmCCXttzQ7ajGVwI==\n\n"
+                "[Screenshot 3 - error dialog]\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVQYV2P8z8BQ"
+                "z0AEYBxVOHIVAvcHBQHzKSECAAAAAElFTkSuQmCCiVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AA"
+                "AAFUlEQVQYV2P8z8BQz0AEYBxVOHIVAvcHBQHzKSECAAAAAElFTkSuQmCCiVBORw0KGgoAAAANSUhEUgAAAAo"
+                "AAAAKCAYAAACNMs+9AAAAFUlEQVQYV2P8z8BQz0AEYBxVOHIVAvcHBQHzKSECAAAAAElFTkSuQmCC==\n\n"
+                "[Screenshot 4 - Windows Event Viewer]\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhk"
+                "iAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oKFwgMNC3WkXYAAAAAElFTkSuQmCCiVBORw0KGgoAAA"
+                "ANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAdO"
+                "SU1FB9oKFwgMNC3WkXYAAAAAElFTkSuQmCCBQHzKSECAAAAAElFTkSuQmCC==\n\n"
+                "[Screenshot 5 - display properties]\n"
+                "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAADkBSyluO9K2kbzlh9UISyz5DwgdKTjYDu/ns"
+                "6nYeuGwyQpl1qwx5ie3TmN3/iCf5U6chwnBnf/JPX6P0D7nREDEUfQOWKoUYcE53MKSgf5ni1rfXecz"
+                "vBEnwXPZAVyqjPZjwgTu6avzxFZNox0VlqMGpVpbxBq6Kv2flat295Cv7N5VncZ5FscawtkrhrZtfSx0T"
+                "WDAmYUZ4x3MvnNSBpW7ttz7ajGVwI7tMds9eyB34XShI8aumU33avwm67YOC2RmWXJ8Erk6iNbVmgKoKX==\n\n"
+                "The laptop is a Dell Latitude 5540, Windows 11 23H2. The flicker started "
+                "after the Intel Iris Xe driver was updated to version 31.0.101.5186 via "
+                "Windows Update on Friday."
+            ),
+            reporter=Reporter(
+                name="Carlos Mendoza",
+                email="carlos.mendoza@contoso.com",
+                department="Trading",
+            ),
+            created_at="2026-03-19T10:15:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-072",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.DEVICE_INFO],
+            next_best_action=(
+                "Investigate screen flickering on Dell Latitude 5540 after Intel Iris Xe driver "
+                "update to 31.0.101.5186. The five inline base64 images are noise — roll back "
+                "the display driver."
+            ),
+            remediation_steps=[
+                "Roll back the Intel Iris Xe driver to the previous version via Device Manager.",
+                "Check for known issues with Intel driver version 31.0.101.5186.",
+                "If rollback resolves the issue, block this driver version in Intune.",
+                "Test with an external monitor to isolate the issue.",
+                "Submit a Windows Feedback Hub report if this is a confirmed regression.",
+            ],
+        ),
+        tags=["base64", "multiple_images", "inline_binary"],
+        description="Multiple base64-encoded screenshots flooding the description with minimal actual content.",
+    )
+
+
+def _dc073_base64_encoded_log() -> EvalCase:
+    """Base64-encoded error log data (not an image)."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-073",
+            subject="Trade recon app crash — error log encoded",
+            description=(
+                "Our Java trade reconciliation application crashed again this morning. "
+                "I exported the log but it got encoded. Here it is:\n\n"
+                "RVJST1IgMjAyNi0wMy0xOCAwOToxNToyMiBbQXV0aE1vZHVsZV0gRmFpbGVkIHRvIHZhbGlkYXRl"
+                "IE1GQSB0b2tlbiBmb3IgdXNlciBzYXJhaC5jaGVuQGNvbnRvc28uY29tLiBUb2tlbiBleHBpcmVkIGF0"
+                "IDIwMjYtMDMtMThUMDk6MTA6MDBaLiBSZXRyeSBjb3VudDogMy4gTW9kdWxlOiBBenVyZUFELk1GQS5W"
+                "YWxpZGF0b3IuIENvcnJlbGF0aW9uSWQ6IGE4ZjNjMmUxLTRiNWQtNGY2YS04YzlkLTBlMWYyYTNiNGM1"
+                "ZGNBdRVM6FDx2sW33OIeLh8DG8vQpIB8WGumYZbW04hDCs1DXmWgketP07qWifhgu3OygIkC6N1rWz9nD"
+                "heC4DA5ap5UgdlJb5sUjT3JdQS7ya1etZK9tyJ1B9vxDytuhaNT1qWxWWiWQKPK3tbKjbKPA5A8bDEM==\n\n"
+                "The crash happens at 09:15 AM daily during the overnight trade batch. "
+                "The app runs on srv-trade-recon-01 with 16 GB heap. "
+                "The error is java.lang.OutOfMemoryError: Java heap space."
+            ),
+            reporter=Reporter(
+                name="Robert Chen",
+                email="robert.chen@contoso.com",
+                department="Operations",
+            ),
+            created_at="2026-03-18T09:30:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-073",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.ENVIRONMENT_DETAILS,
+                MissingInfoField.STEPS_TO_REPRODUCE,
+            ],
+            next_best_action=(
+                "Investigate Java OutOfMemoryError in the trade reconciliation app on "
+                "srv-trade-recon-01. Ignore the base64-encoded log dump — the issue is "
+                "heap exhaustion during the morning batch job."
+            ),
+            remediation_steps=[
+                "Review JVM heap allocation (-Xmx) and increase if needed.",
+                "Analyze heap dump to find memory-intensive objects.",
+                "Check for memory leaks in the batch processing code.",
+                "Consider processing trades in smaller chunks.",
+                "Add JVM monitoring with alerts for heap usage thresholds.",
+            ],
+        ),
+        tags=["base64", "encoded_log", "application_crash"],
+        description="Base64-encoded error log data (not image) pasted in a ticket about a Java OOM crash.",
+    )
+
+
+def _dc074_giant_signature() -> EvalCase:
+    """Giant email signature dwarfing the actual issue."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-074",
+            subject="MFA push notifications not working",
+            description=(
+                "Hi, my MFA push notifications stopped working. The Authenticator app spins "
+                "and then says Request timed out. Cannot log into anything.\n\n"
+                "Raj Patel\nSVP, Wealth Management\nContoso Financial Services\n"
+                "Direct: +1 (212) 555-0391 | Mobile: +1 (917) 555-0248\n"
+                "Email: raj.patel@contoso.com\n200 Park Ave, 42nd Floor, NY 10166\n"
+                "EA: Martha Wilson, +1 (212) 555-0393\n\n"
+                "IMPORTANT LEGAL DISCLAIMER\n\n"
+                "This email is sent by Contoso Financial Services and/or its subsidiaries "
+                "(collectively Contoso). This email may contain confidential, proprietary, "
+                "or legally privileged information. It is intended solely for the individual "
+                "or entity to whom it is addressed. If you are not the named addressee, you "
+                "should not disseminate, distribute, or copy this email. Please notify the "
+                "sender immediately if you have received this email by mistake. Email cannot "
+                "be guaranteed to be secure or error-free. The sender does not accept liability "
+                "for any errors or omissions.\n\n"
+                "REGULATORY INFORMATION\n\n"
+                "Contoso Financial Services is authorized and regulated by the FCA under firm "
+                "reference number 123456. Registered in England and Wales under company number "
+                "12345678. Member of FINRA, SIPC, and NFA. NFA ID: 0123456.\n\n"
+                "ENVIRONMENTAL NOTICE\n\n"
+                "Please consider the environment before printing this email. Contoso is "
+                "committed to achieving net-zero carbon emissions by 2035.\n\n"
+                "PRIVACY NOTICE\n\n"
+                "Contoso processes personal data in accordance with GDPR, CCPA, and applicable "
+                "privacy laws. See www.contoso.com/privacy for details. Contact dpo@contoso.com "
+                "to exercise your data subject rights.\n\n"
+                "TAX DISCLAIMER\n\n"
+                "Any tax advice in this communication was not intended or written to be used for "
+                "avoiding tax-related penalties under the Internal Revenue Code.\n\n"
+                "ANTI-MONEY LAUNDERING NOTICE\n\n"
+                "Contoso is committed to combating money laundering and terrorist financing in "
+                "compliance with the Bank Secrecy Act, USA PATRIOT Act, and applicable AML regs."
+            ),
+            reporter=Reporter(
+                name="Raj Patel",
+                email="raj.patel@contoso.com",
+                department="Wealth Management",
+            ),
+            created_at="2026-03-18T08:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-074",
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P2,
+            assigned_team=Team.IAM,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE, MissingInfoField.DEVICE_INFO],
+            next_best_action=(
+                "Investigate MFA push notification timeout for Raj Patel. The massive legal "
+                "disclaimer dwarfs the actual two-line issue. Check Azure AD MFA service health "
+                "and the user's Authenticator app registration."
+            ),
+            remediation_steps=[
+                "Check Azure AD MFA service health for outages.",
+                "Verify the Authenticator app registration is current.",
+                "Ensure push notifications are enabled on the user's device.",
+                "Re-register the Authenticator app if registration is stale.",
+                "Issue a temporary access pass for immediate access.",
+            ],
+        ),
+        tags=["giant_signature", "legal_disclaimer", "buried_issue"],
+        description="Two-line MFA issue buried under a massive multi-section legal disclaimer.",
+    )
+
+
+def _dc075_deep_reply_chain() -> EvalCase:
+    """Extremely deep reply chain with 15+ levels of quoting."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-075",
+            subject="Re: Re: Re: Re: Re: Re: Re: Re: Re: Re: Printer jam Floor 7",
+            description=(
+                "Update: printer jamming again today. Same tray 2 issue.\n\n"
+                "> Kevin Park wrote:\n"
+                "> Cleared the jam. Should be fine now.\n>\n"
+                "> > Janet Kim wrote:\n"
+                "> > Jammed again. Third time today. Tray 2.\n> >\n"
+                "> > > Kevin Park wrote:\n"
+                "> > > Ordered replacement rollers. ETA Thursday. Use Tray 1.\n> > >\n"
+                "> > > > Janet Kim wrote:\n"
+                "> > > > Torn paper stuck near fuser unit.\n> > > >\n"
+                "> > > > > Kevin Park wrote:\n"
+                "> > > > > Cleaned feed rollers. Ran 10 test pages OK.\n> > > > >\n"
+                "> > > > > > Janet Kim wrote:\n"
+                "> > > > > > 7 jams today. Entire floor complaining.\n> > > > > >\n"
+                "> > > > > > > Help Desk wrote:\n"
+                "> > > > > > > Dispatching Kevin from Endpoint.\n> > > > > > >\n"
+                "> > > > > > > > Janet Kim wrote:\n"
+                "> > > > > > > > Paper jamming Tray 2, HP LaserJet M609.\n"
+                "> > > > > > > > Floor 7 near 7B. Asset: WM-PRN-0891.\n> > > > > > > >\n"
+                "> > > > > > > > > Janet Kim wrote:\n"
+                "> > > > > > > > > Floor 7 printer jamming. Please help.\n> > > > > > > > >\n"
+                "> > > > > > > > > > Auto-Attendant wrote:\n"
+                "> > > > > > > > > > Ticket INC-4901 created. ETA 2 hours."
+            ),
+            reporter=Reporter(
+                name="Janet Kim",
+                email="janet.kim@contoso.com",
+                department="Wealth Management",
+            ),
+            created_at="2026-03-20T09:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-075",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.DEVICE_INFO],
+            next_best_action=(
+                "Recurring paper jam in Tray 2 of HP LaserJet M609 on Floor 7 (WM-PRN-0891). "
+                "Persists despite roller cleaning. Replace feed rollers and inspect fuser area."
+            ),
+            remediation_steps=[
+                "Expedite Tray 2 feed roller replacement.",
+                "Inspect fuser unit for torn paper fragments.",
+                "Run a full print path cleaning cycle.",
+                "Verify paper stock quality and orientation in Tray 2.",
+                "Schedule HP service call if jam persists after roller replacement.",
+            ],
+        ),
+        tags=["deep_quoting", "reply_chain", "excessive_nesting"],
+        description="15+ levels of email quoting about a recurring printer jam.",
+    )
+
+
+def _dc076_severe_mojibake() -> EvalCase:
+    """Garbled encoding (mojibake) scattered throughout real text."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-076",
+            subject="Can\u00e2\u0080\u0099t access shared drive \u00e2\u0080\u0094 permission denied",
+            description=(
+                "Hi IT,\n\n"
+                "I\u00e2\u0080\u0099m getting a \u00e2\u0080\u009cpermission denied"
+                "\u00e2\u0080\u009d error on \\\\fs-london-01\\wealth-mgmt\\reports. "
+                "Worked fine until yesterday. Need Q1 portfolio files for a 2 PM meeting.\n\n"
+                "Error: \u00e2\u0080\u009cYou do not have permission to access "
+                "\\\\fs-london-01\\wealth-mgmt\\reports\u00e2\u0080\u009d\n\n"
+                "Colleague \u00c3\u0089lodie Martin can still access it. London office, "
+                "Building 2, 4th floor. Login: CONTOSO\\a.williams. "
+                "Lenovo ThinkPad T14 Gen 4.\n\n"
+                "Folder name shows as \u00e2\u0080\u009cQ1_2026_Valu\u00c3\u00a4tion_"
+                "Rep\u00c3\u00b6rts\u00e2\u0080\u009d instead of "
+                "\u00e2\u0080\u009cQ1_2026_Valuation_Reports\u00e2\u0080\u009d.\n\n"
+                "Please fix ASAP.\n\nThanks,\nAlicia Williams"
+            ),
+            reporter=Reporter(
+                name="Alicia Williams",
+                email="alicia.williams@contoso.com",
+                department="Portfolio Management",
+            ),
+            created_at="2026-03-18T10:30:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-076",
+            category=Category.DATA_STORAGE,
+            priority=Priority.P3,
+            assigned_team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.AFFECTED_SYSTEM, MissingInfoField.NETWORK_LOCATION],
+            next_best_action=(
+                "Investigate file share access denial for CONTOSO\\a.williams on "
+                "\\\\fs-london-01\\wealth-mgmt\\reports. The mojibake is noise — "
+                "the core issue is sudden loss of read access."
+            ),
+            remediation_steps=[
+                "Check the user's AD group membership for the wealth-mgmt share ACL.",
+                "Review recent changes to the file server share permissions.",
+                "Verify the user's Kerberos ticket is valid.",
+                "Compare access tokens with colleague who still has access.",
+                "Reset SMB session and retry.",
+            ],
+        ),
+        tags=["mojibake", "encoding_corruption", "scattered_garble"],
+        description="Mojibake (double-encoded UTF-8) scattered throughout a file share access issue.",
+    )
+
+
+def _dc077_json_config_dump() -> EvalCase:
+    """Massive JSON ARM template dump pasted inline."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-077",
+            subject="Azure deployment timeout — ARM template included",
+            description=(
+                "Deployment to staging failed with timeout. Here is the ARM template:\n\n"
+                '{"$schema": "https://schema.management.azure.com/schemas/2019-04-01/'
+                'deploymentTemplate.json#", "contentVersion": "1.0.0.0", "parameters": '
+                '{"environment": {"type": "string", "defaultValue": "staging"}, '
+                '"vmSize": {"type": "string", "defaultValue": "Standard_D4s_v3"}, '
+                '"location": {"type": "string", "defaultValue": "[resourceGroup().location]"}, '
+                '"vnetAddressPrefix": {"type": "string", "defaultValue": "10.0.0.0/16"}, '
+                '"subnetPrefix": {"type": "string", "defaultValue": "10.0.1.0/24"}, '
+                '"storageAccountType": {"type": "string", "defaultValue": "Standard_LRS"}, '
+                '"nsgName": {"type": "string", "defaultValue": "staging-nsg"}, '
+                '"appGwName": {"type": "string", "defaultValue": "staging-appgw"}, '
+                '"lbName": {"type": "string", "defaultValue": "staging-lb"}}, '
+                '"variables": {"nicName": "[concat(parameters(\\\'environment\\\'), \\\'-nic\\\')]", '
+                '"vnetName": "[concat(parameters(\\\'environment\\\'), \\\'-vnet\\\')]"}, '
+                '"resources": [{"type": "Microsoft.Network/virtualNetworks", '
+                '"apiVersion": "2023-05-01", "name": "[variables(\\\'vnetName\\\')]"}]}\n\n'
+                "Deployment ran 45 min then timed out at VNet creation. "
+                "Error: ProvisioningState: TimedOut. Correlation ID: "
+                "d8f3c2e1-4b5d-4f6a-8c9d-0e1f2a3b4c5d. "
+                "Need this before Thursday UAT."
+            ),
+            reporter=Reporter(
+                name="Nora Fischer",
+                email="nora.fischer@contoso.com",
+                department="Cloud Infrastructure",
+            ),
+            created_at="2026-03-18T14:00:00Z",
+            channel=Channel.PORTAL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-077",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE, MissingInfoField.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate Azure ARM template deployment timeout for staging environment. "
+                "The inline JSON is noise — the real issue is VNet creation timing out."
+            ),
+            remediation_steps=[
+                "Check Azure subscription resource quotas for the target region.",
+                "Review Activity Log for the deployment correlation ID.",
+                "Verify region capacity for Standard_D4s_v3.",
+                "Retry with a longer timeout or deploy incrementally.",
+                "Check Azure service health at status.azure.com.",
+            ],
+        ),
+        tags=["json_config_dump", "inline_config", "deployment_issue"],
+        description="Massive ARM template JSON pasted inline in a ticket about a deployment timeout.",
+    )
+
+
+def _dc078_code_switching() -> EvalCase:
+    """Trilingual code-switching (English/Chinese/Spanish)."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-078",
+            subject="Email delivery delay / \u7535\u5b50\u90ae\u4ef6\u5ef6\u8fdf",
+            description=(
+                "\u4f60\u597d IT team,\n\n"
+                "I have email delivery delays. \u6211\u7684\u90ae\u4ef6\u53d1\u9001\u540e"
+                "\u8981\u7b49\u5f88\u4e45 (30-40 minutes).\n\n"
+                "Esto afecta a nuestro equipo de trading en Singapore. "
+                "Los correos internos tambi\u00e9n est\u00e1n lentos.\n\n"
+                "\u95ee\u9898\u4ece\u4e0a\u5468\u4e94\u5f00\u59cb. External emails "
+                "affected more than internal. \u6211\u4eec\u7528 Outlook 2024 on Win 11.\n\n"
+                "\u8c22\u8c22 / Gracias / Thanks,\nWei-Chen Huang\nCross-Border Trading"
+            ),
+            reporter=Reporter(
+                name="Wei-Chen Huang",
+                email="wei-chen.huang@contoso.com",
+                department="Institutional Trading",
+            ),
+            created_at="2026-03-18T11:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-078",
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.AFFECTED_USERS, MissingInfoField.TIMESTAMP],
+            next_best_action=(
+                "Investigate email delivery delays (30-40 min) for Singapore trading team. "
+                "The trilingual code-switching is noise — check Exchange mail flow."
+            ),
+            remediation_steps=[
+                "Check Exchange Online message trace for delivery bottlenecks.",
+                "Review mail flow rules for the Singapore office.",
+                "Check if delays affect specific domains or all recipients.",
+                "Investigate transport queue health and throttling.",
+                "Verify DNS MX record resolution from Singapore.",
+            ],
+        ),
+        tags=["code_switching", "multilingual", "trilingual"],
+        description="Trilingual code-switching (English/Chinese/Spanish) in an email delay ticket.",
+    )
+
+
+def _dc079_url_spam() -> EvalCase:
+    """Newsletter with 30+ tracking URLs burying a sync issue."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-079",
+            subject="FW: SharePoint sync broken + newsletter",
+            description=(
+                "Hi, forwarding my request that got buried in a newsletter.\n\n"
+                "OneDrive sync stopped — red X, 'Sync pending', ~2 GB waiting.\n\n"
+                "--- Contoso Weekly Newsletter ---\n"
+                "Read online: https://contoso.com/newsletter?utm_source=email&utm_medium=internal"
+                "&utm_campaign=weekly_w12&mkt_tok=NDc2LVRYUS0xNzQA\n"
+                "1. Q1 Preview https://contoso.com/q1?ref=nl&sid=abc&utm_source=email&click=x7y8\n"
+                "2. SG Office https://contoso.com/sg?ref=nl&sid=def&utm_source=email&trk=mmm\n"
+                "3. ESG Report https://contoso.com/esg?utm_source=email&campaign=esg2025\n"
+                "4. Tech Update https://contoso.com/tech?ref=w12&utm_source=email&mkt=token\n"
+                "5. Compliance https://contoso.com/comp?session=Q2&utm_source=email\n"
+                "Events: https://contoso.com/townhall?id=TH03&utm=email&register=true\n"
+                "Wellness: https://contoso.com/wellness?id=WW26&utm=email&signup=true\n"
+                "Hackathon: https://contoso.com/hack?id=H26&utm=email&register=true\n"
+                "Benefits: https://contoso.com/benefits?period=2026&utm=email\n"
+                "401k: https://contoso.com/401k?update=Q1&utm=email\n"
+                "Unsubscribe: https://contoso.com/unsub?id=12345&utm=email\n"
+                "Privacy: https://contoso.com/privacy?ref=footer&utm=email\n"
+                "--- End Newsletter ---\n\n"
+                "SharePoint library: https://contoso.sharepoint.com/sites/wealth-mgmt/Docs "
+                "OneDrive version 24.030.0213.0002."
+            ),
+            reporter=Reporter(
+                name="Sophia Martinez",
+                email="sophia.martinez@contoso.com",
+                department="Client Services",
+            ),
+            created_at="2026-03-18T09:45:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-079",
+            category=Category.DATA_STORAGE,
+            priority=Priority.P3,
+            assigned_team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE, MissingInfoField.AFFECTED_SYSTEM],
+            next_best_action=(
+                "Investigate OneDrive sync failure (red X, Sync pending, ~2 GB queued). "
+                "The 15+ newsletter tracking URLs are noise. Check OneDrive client logs."
+            ),
+            remediation_steps=[
+                "Check OneDrive sync client logs for specific error codes.",
+                "Verify client version meets minimum requirements.",
+                "Check for files exceeding size or path length limits.",
+                "Reset OneDrive sync (onedrive.exe /reset).",
+                "Check SharePoint Online storage quota.",
+            ],
+        ),
+        tags=["url_spam", "tracking_urls", "newsletter_noise"],
+        description="SharePoint sync issue buried in a forwarded newsletter with 15+ tracking URLs.",
+    )
+
+
+def _dc080_email_metadata_noise() -> EvalCase:
+    """Raw email headers (MIME, DKIM, SPF) pasted into description."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-080",
+            subject="Teams call quality — choppy audio",
+            description=(
+                "MIME-Version: 1.0\n"
+                "Content-Type: multipart/alternative; boundary=\"----=_Part_12345\"\n"
+                "X-Mailer: Microsoft Outlook 16.0.18025.20160\n"
+                "X-MS-Exchange-Organization-SCL: 0\n"
+                "X-MS-Exchange-Organization-AuthAs: Internal\n"
+                "Authentication-Results: spf=pass smtp.mailfrom=contoso.com;\n"
+                " dkim=pass header.d=contoso.com; dmarc=pass header.from=contoso.com;\n"
+                "Received: from mail-east.contoso.com (10.0.0.5) by mail-hub.contoso.com\n"
+                " with SMTP id 15.2.1118.40; Mon, 18 Mar 2026 11:20:00 -0400\n"
+                "DKIM-Signature: v=1; a=rsa-sha256; d=contoso.com; s=selector1;\n"
+                " bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;\n"
+                " b=dGhpcyBpcyBub3QgYSByZWFsIERLSU0gc2lnbmF0dXJl\n\n"
+                "------=_Part_12345\n"
+                "Content-Type: text/plain; charset=UTF-8\n\n"
+                "Hi IT,\n\n"
+                "Choppy audio on Teams calls for the past two days. Audio cuts in and out "
+                "every few seconds. Video and screen sharing are fine. Colleagues say I "
+                "sound robotic.\n\n"
+                "London office, Building 2, 8th floor. Jabra Evolve2 75 via USB. "
+                "Teams 24053.811.3099. ThinkPad X1 Carbon Gen 11 on Wi-Fi.\n\n"
+                "Thanks,\nAkira Morimoto\nQuantitative Analysis"
+            ),
+            reporter=Reporter(
+                name="Akira Morimoto",
+                email="akira.morimoto@contoso.com",
+                department="Quantitative Analysis",
+            ),
+            created_at="2026-03-18T11:20:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-080",
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            assigned_team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.NETWORK_LOCATION, MissingInfoField.AFFECTED_USERS],
+            next_best_action=(
+                "Investigate choppy Teams audio in London Building 2, 8th floor. The raw "
+                "email headers and MIME data are noise — the issue is degraded voice quality "
+                "likely caused by Wi-Fi congestion or QoS misconfiguration."
+            ),
+            remediation_steps=[
+                "Check Wi-Fi signal quality on Building 2, 8th floor.",
+                "Run Teams network assessment for jitter and packet loss.",
+                "Test with Ethernet to rule out wireless issues.",
+                "Update Jabra Evolve2 75 firmware.",
+                "Verify QoS policies tag Teams audio traffic correctly.",
+            ],
+        ),
+        tags=["email_metadata", "mime_headers", "raw_headers"],
+        description="Raw MIME/DKIM/SPF email headers pasted into a Teams audio quality ticket.",
+    )
+
+
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
 
 def build_dataset() -> EvalDataset:
-    """Build and return the data-cleanup evaluation dataset (70 cases)."""
+    """Build and return the data-cleanup evaluation dataset (80 cases)."""
     return EvalDataset(
         name="data_cleanup",
         description=(
@@ -5192,6 +5838,16 @@ def build_dataset() -> EvalDataset:
             _dc068_env_var_dump(),
             _dc069_git_diff_markers(),
             _dc070_yaml_config_dump(),
+            _dc071_very_long_email_buried_issue(),
+            _dc072_base64_image_flood(),
+            _dc073_base64_encoded_log(),
+            _dc074_giant_signature(),
+            _dc075_deep_reply_chain(),
+            _dc076_severe_mojibake(),
+            _dc077_json_config_dump(),
+            _dc078_code_switching(),
+            _dc079_url_spam(),
+            _dc080_email_metadata_noise(),
         ],
     )
 

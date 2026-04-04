@@ -46,13 +46,13 @@ class TestDataCleanupScenarios:
         """Verify expected scenario IDs exist."""
         scenarios = get_scenarios()
         ids = {s.scenario_id for s in scenarios}
-        expected = {f"DC-{i:03d}" for i in range(1, 131)}
+        expected = {f"DC-{i:03d}" for i in range(1, 161)}
         assert expected.issubset(ids), f"Missing IDs: {expected - ids}"
 
     def test_minimum_scenario_count(self) -> None:
         """Data cleanup should have at least 130 scenarios."""
         scenarios = get_scenarios()
-        assert len(scenarios) >= 130, f"Expected >= 130 DC scenarios, got {len(scenarios)}"
+        assert len(scenarios) >= 160, f"Expected >= 160 DC scenarios, got {len(scenarios)}"
 
     def test_covers_key_cleanup_categories(self) -> None:
         """Verify that key data cleanup noise types are covered."""
@@ -200,5 +200,16 @@ class TestDataCleanupScenarios:
             "merge-conflicts",
             "yaml-config-dump",
             "kubernetes",
+            # New tags from DC-151..DC-160
+            "very-long-email",
+            "base64-flood",
+            "base64-encoded-text",
+            "giant-signature",
+            "deep-quoting",
+            "mojibake-severe",
+            "json-config-dump",
+            "code-switching",
+            "url-spam",
+            "email-metadata",
         }
         assert expected_tags.issubset(all_tags), f"Missing cleanup tags: {expected_tags - all_tags}"

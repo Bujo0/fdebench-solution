@@ -1731,10 +1731,10 @@ SCENARIOS: list[Scenario] = [
         tags=["data-cleanup", "mime-boundaries"],
     ),
     # ──────────────────────────────────────────────────────────────────
-    # 32. Base64-encoded PDF pasted instead of attached
+    # 32. Base64-encoded PDF pasted instead of attached (pipeline issue)
     # ──────────────────────────────────────────────────────────────────
     Scenario(
-        scenario_id="cleanup-base64-pdf-inline",
+        scenario_id="cleanup-base64-pdf-pipeline",
         category="Data & Storage",
         priority="P2",
         assigned_team="Data Platform",
@@ -2372,4 +2372,736 @@ SCENARIOS: list[Scenario] = [
         ],
         tags=["data-cleanup", "pii-patterns"],
     ),
+    # ──────────────────────────────────────────────────────────────────
+    # 41. Raw XML/SOAP error payload dumped into ticket
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-xml-soap-payload",
+        category="Software & Applications",
+        priority="P2",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["error_message", "environment_details"],
+        subjects=[
+            "CRM web service returning 500 errors — SOAP fault below",
+            "Internal API failing with XML error — full response pasted",
+        ],
+        descriptions=[
+            "Hi team,\n\n"
+            "Our CRM integration is failing since this morning. Here is the full SOAP "
+            "response I'm getting:\n\n"
+            '<?xml version="1.0" encoding="utf-8"?>\n'
+            "<soap:Envelope "
+            'xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" '
+            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
+            'xmlns:xsd="http://www.w3.org/2001/XMLSchema">\n'
+            "  <soap:Body>\n"
+            "    <soap:Fault>\n"
+            "      <faultcode>soap:Server</faultcode>\n"
+            "      <faultstring>System.NullReferenceException: Object reference not set "
+            "to an instance of an object.\n"
+            "   at Contoso.CRM.Services.CustomerLookup.GetByAccountId(String accountId) "
+            "in D:\\Build\\src\\Services\\CustomerLookup.cs:line 247\n"
+            "   at Contoso.CRM.API.Controllers.CustomerController.Search(SearchRequest req) "
+            "in D:\\Build\\src\\API\\Controllers\\CustomerController.cs:line 89\n"
+            "   at System.Web.Services.Protocols.SoapHttpClientProtocol.ReadResponse("
+            "SoapClientMessage message, WebResponse response, Stream responseStream, "
+            "Boolean asyncCall)\n"
+            "   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke("
+            "String methodName, Object[] parameters)</faultstring>\n"
+            "      <detail>\n"
+            "        <ErrorDetails>\n"
+            "          <ErrorCode>CRM-SVC-5001</ErrorCode>\n"
+            "          <Timestamp>2026-03-18T08:45:12.347Z</Timestamp>\n"
+            "          <CorrelationId>a1b2c3d4-e5f6-7890-abcd-ef1234567890</CorrelationId>\n"
+            "          <ServerNode>CRM-PROD-WEB-03</ServerNode>\n"
+            "          <RequestUri>/api/v2/customers/search</RequestUri>\n"
+            "        </ErrorDetails>\n"
+            "      </detail>\n"
+            "    </soap:Fault>\n"
+            "  </soap:Body>\n"
+            "</soap:Envelope>\n\n"
+            "This started after the deployment last night (build 2026.3.17.1). "
+            "The customer search endpoint is returning 500 for all requests. "
+            "About 200 users in the sales team are affected and can't look up "
+            "customer records. We need this fixed urgently — it's blocking order processing.",
+            "Full XML error from the CRM API:\n\n"
+            '<?xml version="1.0"?>\n'
+            "<Error>\n"
+            "  <Code>InternalServerError</Code>\n"
+            "  <Message>An unhandled exception occurred during the execution of the "
+            "current web request.</Message>\n"
+            "  <StackTrace>\n"
+            "    at Contoso.Services.CustomerService.FindCustomer(Guid tenantId, "
+            "String query) in /src/Services/CustomerService.cs:line 156\n"
+            "    at Contoso.API.Middleware.ExceptionHandler.HandleAsync(HttpContext ctx) "
+            "in /src/Middleware/ExceptionHandler.cs:line 42\n"
+            "  </StackTrace>\n"
+            "  <InnerException>\n"
+            "    <Code>SqlException</Code>\n"
+            "    <Message>Timeout expired. The timeout period elapsed prior to completion "
+            "of the operation.</Message>\n"
+            "  </InnerException>\n"
+            "</Error>\n\n"
+            "The real issue: CRM customer search API is down since the 3/17 deployment. "
+            "Looks like a database timeout or connection pool exhaustion. Sales team "
+            "is dead in the water — about 200 users affected.",
+        ],
+        next_best_actions=[
+            "Ignore the XML/SOAP payload noise. Core issue is a CRM API failure "
+            "(NullReferenceException or SQL timeout) after the 2026.3.17 deployment "
+            "affecting customer search for ~200 sales users.",
+            "Investigate the database timeout in the CRM customer search API. Roll "
+            "back the 3/17 deployment if a quick fix is not available.",
+        ],
+        remediation_steps=[
+            [
+                "Check the CRM application logs on CRM-PROD-WEB-03 for the root cause of the NullReferenceException",
+                "Verify database connectivity and connection pool health on the CRM SQL server",
+                "If the issue correlates with the 2026.3.17 deployment, initiate a rollback",
+                "Monitor the /api/v2/customers/search endpoint after the fix is applied",
+                "Communicate resolution status to the sales team",
+            ],
+        ],
+        tags=["data-cleanup", "xml-payload"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 42. Screenshot OCR artifacts with garbled text
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-screenshot-ocr-artifacts",
+        category="Hardware & Peripherals",
+        priority="P3",
+        assigned_team="Endpoint Engineering",
+        needs_escalation=False,
+        missing_information=["device_info", "error_message"],
+        subjects=[
+            "M0nitor fIickering — transcrib3d from screenshot",
+            "DspIay iss0e on my Iaptop — OCR from ph0to",
+        ],
+        descriptions=[
+            "Th1s t1cket was cr3ated fron an 0CR scan of a screenshot:\n\n"
+            "Err0r Mess@ge on Scr33n:\n"
+            "\"Disp1ay driv3r stopp3d resp0nding and h@s rec0vered\"\n"
+            "Driv3r: NVID1A GeF0rce RTX 3070 v537.42\n"
+            "0S: Wind0ws 11 Pr0 22H2\n"
+            "Ev3nt V1ewer Err0r C0de: LiveKerne1Event 1d 141\n\n"
+            "The m0nitor g0es b1ack f0r about 2 sec0nds then c0mes back. Th1s happ3ns "
+            "every 15-20 m1nutes. It start3d after the lat3st NVID1A dr1ver upd@te. "
+            "Pr3vious driv3r vers1on was 536.99 and w0rked f1ne. The 1ssue 0ccurs "
+            "0n b0th the ext3rnal m0nitor (De11 U2723QE) and the 1aptop scr33n.",
+            "Transcripti0n fr0m photo 0f err0r scr33n:\n\n"
+            "Wlndows has detected that your dlsplay adapter perfornance\n"
+            "has becone slow. Wlndows wlll automatlcally reduce your\n"
+            "dlsplay settlngs to lmprove perfornance.\n\n"
+            "Dlsplay: NVID|A GeForce RTX 3O70\n"
+            "Drlver Verslon: 537.42\n"
+            "Resolutlon was changed fron 3840x216O to 192Ox1O8O\n\n"
+            "The actuaI issue: My Iaptop's externaI monitor keeps fIickering and "
+            "going bIack. It started after upgrading the NVIDIA driver from 536.99 "
+            "to 537.42. The dispIay driver keeps crashing and recovering. I need "
+            "heIp roIIing back the driver or finding a fix.",
+        ],
+        next_best_actions=[
+            "Look past the OCR artifacts. The real issue is an NVIDIA display driver "
+            "crash (LiveKernelEvent 141) after upgrading from 536.99 to 537.42.",
+            "Roll back the NVIDIA driver from 537.42 to the previous stable version "
+            "(536.99) and verify the monitor flickering stops.",
+        ],
+        remediation_steps=[
+            [
+                "Roll back the NVIDIA GeForce driver from 537.42 to the previous stable version 536.99",
+                "If rollback resolves the issue, block driver 537.42 from auto-updating via WSUS/Intune policy",
+                "Check for known issues with NVIDIA driver 537.42 and the Dell U2723QE monitor",
+                "If rollback does not resolve, run NVIDIA clean install using DDU (Display Driver Uninstaller)",
+                "Monitor for Event ID 141 (LiveKernelEvent) recurrence after the driver change",
+            ],
+        ],
+        tags=["data-cleanup", "ocr-artifacts"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 43. Automated monitoring alert flood
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-monitoring-alert-flood",
+        category="Network & Connectivity",
+        priority="P1",
+        assigned_team="Network Operations",
+        needs_escalation=True,
+        missing_information=["network_location", "affected_users"],
+        subjects=[
+            "[CRITICAL] Multiple alerts — core switch down — Floor 3",
+            "ALERT FLOOD: Network infrastructure failure detected",
+        ],
+        descriptions=[
+            "[Nagios] CRITICAL - Host: core-sw-fl3-01.contoso.local is DOWN\n"
+            "Date/Time: 2026-03-18 07:32:14 UTC\n"
+            "Duration: 0d 0h 2m 15s\n"
+            "Notification Type: PROBLEM\n"
+            "Host Output: PING CRITICAL - Packet loss = 100%\n"
+            "---\n"
+            "[Nagios] CRITICAL - Service: SNMP on core-sw-fl3-01.contoso.local is CRITICAL\n"
+            "Date/Time: 2026-03-18 07:32:44 UTC\n"
+            "Duration: 0d 0h 1m 45s\n"
+            "Service Output: Connection refused\n"
+            "---\n"
+            "[Nagios] WARNING - Service: Uplink-Port-Gi0/1 on core-sw-fl3-01.contoso.local\n"
+            "Date/Time: 2026-03-18 07:33:01 UTC\n"
+            "Service Output: Interface down - no carrier\n"
+            "---\n"
+            "[Nagios] CRITICAL - Host: ap-fl3-01.contoso.local is DOWN (parent: core-sw-fl3-01)\n"
+            "Date/Time: 2026-03-18 07:33:15 UTC\n"
+            "Host Output: PING CRITICAL - 100% packet loss\n"
+            "---\n"
+            "[Nagios] CRITICAL - Host: ap-fl3-02.contoso.local is DOWN (parent: core-sw-fl3-01)\n"
+            "Date/Time: 2026-03-18 07:33:16 UTC\n"
+            "---\n"
+            "[Nagios] CRITICAL - Host: ap-fl3-03.contoso.local is DOWN (parent: core-sw-fl3-01)\n"
+            "Date/Time: 2026-03-18 07:33:17 UTC\n"
+            "---\n"
+            "[Nagios] WARNING - Host: printer-fl3-01.contoso.local is UNREACHABLE\n"
+            "Date/Time: 2026-03-18 07:33:30 UTC\n"
+            "---\n"
+            "[Nagios] CRITICAL - Service: DHCP-Scope-Floor3 on dhcp-01.contoso.local\n"
+            "Date/Time: 2026-03-18 07:34:00 UTC\n"
+            "Service Output: No response from relay agent 10.3.0.1\n"
+            "---\n\n"
+            "All these alerts started at once. The core switch on Floor 3 "
+            "(core-sw-fl3-01, Cisco Catalyst 9300) appears to have gone down, "
+            "taking all downstream access points and network services with it. "
+            "Entire Floor 3 (~75 users) has no network connectivity.",
+            "[Datadog Monitor] ALERT: Network device core-sw-fl3-01 unreachable\n"
+            "Triggered: 2026-03-18T07:32:00Z | Status: Alert | Priority: P1\n"
+            "Tags: env:prod, floor:3, device_type:switch, vendor:cisco\n"
+            "Metric: network.device.reachable = 0 for last 2m on core-sw-fl3-01\n"
+            "---\n"
+            "[Datadog Monitor] ALERT: High packet loss on floor3-uplink\n"
+            "Triggered: 2026-03-18T07:32:30Z | Status: Alert\n"
+            "Metric: network.interface.packet_loss > 95% on port Gi0/1\n"
+            "---\n"
+            "[Datadog Monitor] ALERT: WiFi AP fleet down — floor 3\n"
+            "Triggered: 2026-03-18T07:33:00Z | Status: Alert\n"
+            "Metric: Count of reachable APs on floor:3 = 0 (expected: 12)\n"
+            "---\n"
+            "[Datadog Monitor] WARN: DHCP lease renewals failing — floor 3 scope\n"
+            "Triggered: 2026-03-18T07:34:00Z | Status: Warn\n"
+            "---\n\n"
+            "Root cause: the core switch on Floor 3 is down. All subsequent alerts "
+            "are downstream effects. About 75 employees on Floor 3 have no wired "
+            "or wireless connectivity.",
+        ],
+        next_best_actions=[
+            "Consolidate the alert flood — all alerts stem from a single root cause: "
+            "core-sw-fl3-01 (Cisco Catalyst 9300 on Floor 3) is down. Dispatch "
+            "network operations to investigate the physical switch.",
+            "Identify root cause as the Floor 3 core switch failure. Suppress "
+            "downstream alerts and focus on restoring core-sw-fl3-01.",
+        ],
+        remediation_steps=[
+            [
+                "Dispatch on-site network engineer to Floor 3 IDF to physically inspect core-sw-fl3-01",
+                "Check for power supply failure, blown fuse, or loose power cable on the switch",
+                "If hardware failure, fail over to the redundant switch or deploy a spare",
+                "Once the core switch is restored, verify all downstream APs and services recover",
+                "Suppress the cascading Nagios/Datadog alerts and send a consolidated all-clear to Floor 3 users",
+            ],
+        ],
+        tags=["data-cleanup", "alert-flood"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 44. URL-encoded content from web form
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-url-encoded-content",
+        category="Software & Applications",
+        priority="P3",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["steps_to_reproduce", "application_version"],
+        subjects=[
+            "Form submission error — raw data below",
+            "Web portal form not submitting — URL encoded error",
+        ],
+        descriptions=[
+            "The internal expense report form is failing when I click submit. "
+            "Instead of processing, it shows this raw data in the browser:\n\n"
+            "expense_category%3DTravel%26amount%3D1250.00%26currency%3DUSD%26"
+            "description%3DFlight%2520to%2520Seattle%2520for%2520Q1%2520planning"
+            "%2520meeting%26receipt_attached%3Dtrue%26date%3D2026-03-15%26"
+            "cost_center%3DCC-4420%26approver%3Djohn.smith%2540contoso.com%26"
+            "project_code%3DPRJ-2026-0142%26notes%3DBooked%2520via%2520Concur"
+            "%252C%2520confirmation%2520%2523ABC123%26policy_compliant%3Dtrue%26"
+            "tax_amount%3D0.00%26vendor%3DDelta%2520Airlines%26gl_code%3D6200"
+            "%26payment_method%3Dcorporate_card_ending_4421\n\n"
+            "This has been happening since the last update to the expense portal. "
+            "I'm using Chrome 123 on Windows 11. The form worked fine last week. "
+            "Other people in my department are reporting the same problem — the "
+            "form data appears URL-encoded on screen instead of being submitted "
+            "to the backend.",
+            "When I try to submit a purchase request on the procurement portal, "
+            "the form fails and dumps this in the page:\n\n"
+            "item%3DLaptop%2520Lenovo%2520T14s%26qty%3D5%26unit_price%3D1899.00"
+            "%26total%3D9495.00%26requestor%3Djane.doe%2540contoso.com%26"
+            "department%3DEngineering%26justification%3DNew%2520hire%2520equipment"
+            "%2520for%2520Q2%2520onboarding%26budget_approved%3Dtrue%26"
+            "delivery_address%3D100%2520Main%2520St%252C%2520Bldg%2520A%252C"
+            "%2520Floor%25203%26vendor_id%3DVND-00891%26contract_ref%3DMSA-2025-0044\n\n"
+            "The actual issue: the internal procurement web portal is broken. Form "
+            "submissions are not being sent to the server — instead the URL-encoded "
+            "POST body is being displayed in the browser. Likely a JavaScript error "
+            "or a misconfigured form action URL after the latest deployment.",
+        ],
+        next_best_actions=[
+            "Ignore the URL-encoded data. The issue is a broken form submission in the "
+            "expense/procurement web portal — POST data is displayed instead of submitted.",
+            "Investigate the web portal deployment that broke form submissions. "
+            "Check the form action URL and JavaScript for errors.",
+        ],
+        remediation_steps=[
+            [
+                "Check the latest deployment to the expense/procurement portal for changes to form handling",
+                "Inspect the browser developer console for JavaScript errors on the form submit action",
+                "Verify the form action URL is correctly configured to point to the backend API",
+                "Roll back the latest portal deployment if a quick fix is not available",
+                "Test the form submission in multiple browsers to confirm the fix",
+            ],
+        ],
+        tags=["data-cleanup", "url-encoded"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 45. Massive CC recipient list in email
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-massive-cc-recipient-list",
+        category="Access & Authentication",
+        priority="P2",
+        assigned_team="Identity & Access Management",
+        needs_escalation=False,
+        missing_information=["affected_users", "authentication_method"],
+        subjects=[
+            "Password expiration — entire marketing department affected",
+            "Dept-wide password reset needed — everyone CCed",
+        ],
+        descriptions=[
+            "CC: alice.wong@contoso.com; bob.martinez@contoso.com; "
+            "carol.johnson@contoso.com; david.lee@contoso.com; "
+            "emma.wilson@contoso.com; frank.garcia@contoso.com; "
+            "grace.chen@contoso.com; henry.taylor@contoso.com; "
+            "iris.anderson@contoso.com; jack.thomas@contoso.com; "
+            "karen.moore@contoso.com; larry.jackson@contoso.com; "
+            "maria.white@contoso.com; nathan.harris@contoso.com; "
+            "olivia.martin@contoso.com; peter.thompson@contoso.com; "
+            "quinn.garcia@contoso.com; rachel.robinson@contoso.com; "
+            "steve.clark@contoso.com; tina.rodriguez@contoso.com; "
+            "ursula.lewis@contoso.com; victor.walker@contoso.com; "
+            "wendy.hall@contoso.com; xavier.allen@contoso.com; "
+            "yolanda.young@contoso.com; zachary.king@contoso.com; "
+            "amy.wright@contoso.com; brian.lopez@contoso.com; "
+            "cathy.hill@contoso.com; derek.scott@contoso.com; "
+            "elena.green@contoso.com; george.adams@contoso.com; "
+            "holly.baker@contoso.com; ivan.gonzalez@contoso.com; "
+            "jenny.nelson@contoso.com; kevin.carter@contoso.com; "
+            "laura.mitchell@contoso.com; mike.perez@contoso.com; "
+            "nancy.roberts@contoso.com; oscar.turner@contoso.com; "
+            "paula.phillips@contoso.com; roger.campbell@contoso.com; "
+            "susan.parker@contoso.com; tom.evans@contoso.com; "
+            "uma.edwards@contoso.com; vince.collins@contoso.com\n\n"
+            "Hi IT team,\n\n"
+            "I'm writing on behalf of the entire Marketing department (46 people "
+            "CCed above). Everyone received a password expiration notice yesterday "
+            "saying our passwords expire in 3 days, but when we try to change them "
+            "through the self-service portal, we get an error: 'Password change "
+            "unavailable for your account type.' We are all on the MKTG-Users AD group. "
+            "Can you either extend the expiration deadline or fix the self-service portal "
+            "so we can reset our passwords? This is urgent — if 46 people get locked "
+            "out on Friday it will be a disaster.",
+            "To: helpdesk@contoso.com\n"
+            "CC: [46 Marketing department employees]\n"
+            "marketing-all@contoso.com; mktg-managers@contoso.com; "
+            "mktg-analysts@contoso.com; mktg-creative@contoso.com; "
+            "mktg-ops@contoso.com; mktg-events@contoso.com; "
+            "cmo-direct@contoso.com\n\n"
+            "All 46 members of the Marketing department received password expiration "
+            "warnings but the self-service password change portal returns an error. "
+            "The AD group MKTG-Users may have a misconfigured password policy or the "
+            "self-service reset tool is not recognizing this group. Please investigate "
+            "before Friday when all passwords expire simultaneously.",
+        ],
+        next_best_actions=[
+            "Ignore the long CC list. The issue is that 46 Marketing department users "
+            "cannot change their expiring passwords via the self-service portal due to "
+            "an error with the MKTG-Users AD group.",
+            "Investigate the password policy applied to the MKTG-Users AD group and "
+            "fix the self-service portal error, or extend the password expiration deadline.",
+        ],
+        remediation_steps=[
+            [
+                "Check the password policy linked to the MKTG-Users AD group for misconfigurations",
+                "Verify the self-service password reset portal recognizes the MKTG-Users group",
+                "If the portal issue cannot be resolved quickly, extend the password expiration by 7 days",
+                "Test the self-service password change flow with a test account in the MKTG-Users group",
+                "Send a communication to the Marketing department with resolution status and instructions",
+            ],
+        ],
+        tags=["data-cleanup", "cc-list"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 46. RTF formatting artifacts in ticket text
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-rtf-formatting-artifacts",
+        category="Software & Applications",
+        priority="P3",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["application_version", "steps_to_reproduce"],
+        subjects=[
+            "Word template corrupted — raw formatting data in document",
+            "Document template producing garbled output with control codes",
+        ],
+        descriptions=[
+            "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033"
+            "{\\fonttbl{\\f0\\fswiss\\fprq2\\fcharset0 Calibri;}"
+            "{\\f1\\froman\\fprq2\\fcharset0 Times New Roman;}}\n"
+            "{\\colortbl ;\\red0\\green0\\blue0;\\red31\\green73\\blue125;}\n"
+            "\\viewkind4\\uc1\\pard\\cf1\\f0\\fs22 "
+            "Dear IT Team,\\par\\par\n"
+            "The quarterly report template (Q1-2026-Template.dotx) is producing "
+            "garbled output with these RTF control codes visible in the final document. "
+            "\\par\\par\n"
+            "\\b Issue Description:\\b0\\par\n"
+            "When I open the template in Word, the formatting is completely broken. "
+            "Headers show raw \\{\\\\b Bold Text\\\\b0\\} instead of actual bold. "
+            "Tables have raw \\\\trowd and \\\\cellx commands visible. "
+            "\\par\\par\n"
+            "The template was last updated by the document management team on March 10. "
+            "It worked fine before that update. I've tried opening it in Word 2021 and "
+            "Word 365 — same result in both. About 30 people in Finance use this template "
+            "for their quarterly reports due next week.\\par\n"
+            "}",
+            "Subject: Word template broken\n\n"
+            "\\rtf1\\ansi\\deff0{\\fonttbl{\\f0 Calibri;}}\n"
+            "\\pard Our shared Word template for client proposals is corrupted. "
+            "When you open it, you see raw RTF control codes mixed with the content. "
+            "\\par The template path is: \\\\contoso-fs01\\shared\\templates\\"
+            "ClientProposal-2026.dotx \\par\n"
+            "It was working fine until someone edited it with an older version of Word "
+            "or a third-party editor that mangled the XML/RTF structure. \\par\n"
+            "The Legal team needs this template fixed by Thursday for a major client "
+            "pitch. About 15 people are blocked.\\par\n",
+        ],
+        next_best_actions=[
+            "Ignore the RTF control codes. The issue is a corrupted Word template "
+            "(Q1-2026-Template.dotx) that displays raw formatting instead of "
+            "rendered content, affecting ~30 Finance users.",
+            "Restore the Word template from a backup prior to the March 10 edit "
+            "and investigate what caused the corruption.",
+        ],
+        remediation_steps=[
+            [
+                "Restore the Word template from the most recent backup before the March 10 edit",
+                "Verify the restored template opens correctly in both Word 2021 and Word 365",
+                "Check file version history on SharePoint/network share to identify the corrupting edit",
+                "If no backup exists, recreate the template from the last known good printed copy",
+                "Lock the template permissions to prevent unauthorized edits going forward",
+            ],
+        ],
+        tags=["data-cleanup", "rtf-artifacts"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 47. Raw CSV data dump pasted into ticket
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-csv-data-dump",
+        category="Data & Storage",
+        priority="P3",
+        assigned_team="Data Platform",
+        needs_escalation=False,
+        missing_information=["affected_system", "timestamp"],
+        subjects=[
+            "Suspicious login data from database export — please investigate",
+            "Anomalous data in access logs — raw CSV attached in body",
+        ],
+        descriptions=[
+            "Hi Data Platform,\n\n"
+            "I exported the login audit table and found some anomalies. Pasting "
+            "the CSV here since I can't attach files:\n\n"
+            "timestamp,user_id,source_ip,location,status,user_agent\n"
+            "2026-03-17T02:14:00Z,admin@contoso.com,203.0.113.45,Unknown,success,curl/7.68.0\n"
+            "2026-03-17T02:14:02Z,admin@contoso.com,203.0.113.45,Unknown,success,curl/7.68.0\n"
+            "2026-03-17T02:15:00Z,svc-backup@contoso.com,203.0.113.45,Unknown,success,python-requests/2.28\n"
+            "2026-03-17T02:15:30Z,admin@contoso.com,203.0.113.45,Unknown,success,curl/7.68.0\n"
+            "2026-03-17T02:16:00Z,admin@contoso.com,10.1.0.50,Building A,success,Mozilla/5.0\n"
+            "2026-03-17T02:16:01Z,admin@contoso.com,203.0.113.45,Unknown,success,curl/7.68.0\n"
+            "2026-03-17T02:17:00Z,svc-sql@contoso.com,203.0.113.45,Unknown,success,sqlcmd/15.0\n"
+            "2026-03-17T02:18:00Z,admin@contoso.com,203.0.113.45,Unknown,success,curl/7.68.0\n"
+            "2026-03-17T02:19:00Z,sa@contoso.com,203.0.113.45,Unknown,failed,python-requests/2.28\n"
+            "2026-03-17T02:19:05Z,sa@contoso.com,203.0.113.45,Unknown,failed,python-requests/2.28\n"
+            "2026-03-17T02:19:10Z,sa@contoso.com,203.0.113.45,Unknown,success,python-requests/2.28\n"
+            "2026-03-17T02:20:00Z,dba@contoso.com,203.0.113.45,Unknown,success,curl/7.68.0\n"
+            "2026-03-17T03:00:00Z,admin@contoso.com,10.1.0.50,Building A,success,Mozilla/5.0\n"
+            "2026-03-17T08:30:00Z,admin@contoso.com,10.1.0.50,Building A,success,Mozilla/5.0\n\n"
+            "The concern: IP 203.0.113.45 is not from our network and was used to access "
+            "multiple high-privilege accounts (admin, svc-backup, svc-sql, sa, dba) at 2 AM "
+            "using command-line tools (curl, python-requests, sqlcmd). The admin account "
+            "also had a legitimate login from 10.1.0.50 at the same time — which means "
+            "either the account is compromised or someone is using stolen credentials. "
+            "Please investigate urgently.",
+            "Raw CSV from our SIEM export showing suspicious activity:\n\n"
+            "date,event_type,user,src_ip,dst_host,action\n"
+            "2026-03-17,LOGIN,admin,203.0.113.45,dc-01,success\n"
+            "2026-03-17,FILE_ACCESS,admin,203.0.113.45,file-svr-01,read\n"
+            "2026-03-17,FILE_COPY,admin,203.0.113.45,file-svr-01,copy\n"
+            "2026-03-17,DB_QUERY,svc-sql,203.0.113.45,sql-prod-01,select *\n"
+            "2026-03-17,EXPORT,svc-sql,203.0.113.45,sql-prod-01,bulk_export\n"
+            "2026-03-17,LOGIN,admin,10.1.0.50,dc-01,success\n\n"
+            "This looks like potential unauthorized access and data exfiltration. "
+            "An external IP accessed multiple privileged accounts overnight and "
+            "performed file copies and database exports. Needs immediate investigation.",
+        ],
+        next_best_actions=[
+            "Ignore the CSV formatting. This appears to be a security incident: "
+            "external IP 203.0.113.45 accessed privileged accounts overnight with "
+            "CLI tools. Escalate to Security Operations immediately.",
+            "Investigate the suspicious logins from 203.0.113.45 as a potential "
+            "account compromise and data exfiltration event.",
+        ],
+        remediation_steps=[
+            [
+                "Escalate to Security Operations for immediate investigation of the external IP access",
+                "Disable or rotate credentials for all accounts accessed from 203.0.113.45",
+                "Run a geolocation lookup on IP 203.0.113.45 and check threat intelligence feeds",
+                "Review file server and database audit logs for data exfiltration scope",
+                "Check if the admin account has MFA enabled and verify for credential stuffing or token theft",
+            ],
+        ],
+        tags=["data-cleanup", "csv-dump"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 48. Calendar invite iCal metadata in ticket
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-ical-calendar-metadata",
+        category="Software & Applications",
+        priority="P3",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["affected_users", "application_version"],
+        subjects=[
+            "Calendar invites not being delivered — iCal data included",
+            "Recurring meeting invite failing — raw calendar data below",
+        ],
+        descriptions=[
+            "Hi,\n\n"
+            "I'm trying to send a recurring meeting invite to the leadership team "
+            "but some attendees aren't receiving it. Here's the calendar data I "
+            "exported from Outlook to help debug:\n\n"
+            "BEGIN:VCALENDAR\n"
+            "VERSION:2.0\n"
+            "PRODID:-//Microsoft Corporation//Outlook 16.0//EN\n"
+            "METHOD:REQUEST\n"
+            "BEGIN:VTIMEZONE\n"
+            "TZID:Eastern Standard Time\n"
+            "BEGIN:STANDARD\n"
+            "DTSTART:16011104T020000\n"
+            "RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11\n"
+            "TZOFFSETFROM:-0400\n"
+            "TZOFFSETTO:-0500\n"
+            "END:STANDARD\n"
+            "BEGIN:DAYLIGHT\n"
+            "DTSTART:16010311T020000\n"
+            "RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3\n"
+            "TZOFFSETFROM:-0500\n"
+            "TZOFFSETTO:-0400\n"
+            "END:DAYLIGHT\n"
+            "END:VTIMEZONE\n"
+            "BEGIN:VEVENT\n"
+            "DTSTART;TZID=Eastern Standard Time:20260325T090000\n"
+            "DTEND;TZID=Eastern Standard Time:20260325T100000\n"
+            "RRULE:FREQ=WEEKLY;BYDAY=WE;COUNT=12\n"
+            "SUMMARY:Q2 Leadership Sync\n"
+            "LOCATION:Executive Boardroom / Teams Meeting\n"
+            "ORGANIZER:mailto:vp.operations@contoso.com\n"
+            "ATTENDEE;ROLE=REQ-PARTICIPANT:mailto:cfo@contoso.com\n"
+            "ATTENDEE;ROLE=REQ-PARTICIPANT:mailto:cto@contoso.com\n"
+            "ATTENDEE;ROLE=REQ-PARTICIPANT:mailto:coo@contoso.com\n"
+            "ATTENDEE;ROLE=OPT-PARTICIPANT:mailto:ea.support@contoso.com\n"
+            "STATUS:CONFIRMED\n"
+            "SEQUENCE:3\n"
+            "UID:040000008200E00074C5B7101A82E00800000000F0A2C3D4E5F67890\n"
+            "END:VEVENT\n"
+            "END:VCALENDAR\n\n"
+            "The CFO and COO say they never received the invite. The CTO got it fine. "
+            "I've resent it twice with no luck. This is a weekly recurring meeting "
+            "starting March 25. I'm the organizer (VP Operations). This has worked "
+            "fine for years — something changed recently.",
+            "Calendar invite not being delivered to 3 of 6 attendees. iCal export:\n\n"
+            "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Outlook//EN\nMETHOD:REQUEST\n"
+            "BEGIN:VEVENT\nDTSTART:20260325T130000Z\nDTEND:20260325T140000Z\n"
+            "RRULE:FREQ=WEEKLY;BYDAY=WE\nSUMMARY:Q2 Planning\n"
+            "ORGANIZER:mailto:vp.operations@contoso.com\n"
+            "ATTENDEE:mailto:cfo@contoso.com\nATTENDEE:mailto:cto@contoso.com\n"
+            "ATTENDEE:mailto:coo@contoso.com\nSEQUENCE:3\n"
+            "UID:040000008200E00074C5B7101A82E008\nEND:VEVENT\nEND:VCALENDAR\n\n"
+            "The real issue is that some external-facing mailboxes (CFO, COO) are not "
+            "receiving calendar invites from internal organizers. This may be a mail flow "
+            "rule or Exchange Online transport rule blocking iCal attachments for "
+            "certain mailbox types. It started after the email security policy update "
+            "last week.",
+        ],
+        next_best_actions=[
+            "Ignore the iCal metadata. The issue is that calendar invites are not being "
+            "delivered to certain executive mailboxes — likely a transport rule or "
+            "mail flow policy blocking iCal attachments.",
+            "Check Exchange Online transport rules for any recently modified rules that "
+            "may block or quarantine iCal/calendar invite attachments.",
+        ],
+        remediation_steps=[
+            [
+                "Review Exchange Online transport rules for any rules that filter iCal or .ics attachments",
+                "Check the mail flow trace for the undelivered invites to the CFO and COO mailboxes",
+                "Verify if the email security policy update last week added content filtering "
+                "that affects calendar invites",
+                "Test sending a calendar invite to the affected mailboxes from a different organizer",
+                "If a transport rule is blocking, create an exception for internal-to-internal calendar invites",
+            ],
+        ],
+        tags=["data-cleanup", "ical-metadata"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 49. Terminal output with ANSI escape codes
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-ansi-terminal-escape-codes",
+        category="Software & Applications",
+        priority="P2",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["environment_details", "error_message"],
+        subjects=[
+            "Deployment script failed — terminal output with color codes",
+            "CI/CD pipeline error — raw terminal log below",
+        ],
+        descriptions=[
+            "Our deployment script failed. Here's the terminal output I copied:\n\n"
+            "\033[36m[2026-03-18 09:00:01]\033[0m Starting deployment pipeline v3.2.1\n"
+            "\033[36m[2026-03-18 09:00:02]\033[0m \033[32m\u2714\033[0m Checking prerequisites...\n"
+            "\033[36m[2026-03-18 09:00:03]\033[0m \033[32m\u2714\033[0m Docker image built: contoso/api:2026.3.18\n"
+            "\033[36m[2026-03-18 09:00:10]\033[0m \033[32m\u2714\033[0m Health check: staging... passed\n"
+            "\033[36m[2026-03-18 09:00:15]\033[0m \033[33m\u26a0\033[0m Warning: 2 pods pending in production\n"
+            "\033[36m[2026-03-18 09:00:20]\033[0m Deploying to production cluster...\n"
+            "\033[36m[2026-03-18 09:00:45]\033[0m \033[31m\u2718 ERROR\033[0m: Deployment failed!\n"
+            "\033[31mError: ImagePullBackOff — failed to pull image contoso/api:2026.3.18\n"
+            "from registry.contoso.io: unauthorized: authentication required\033[0m\n"
+            "\033[36m[2026-03-18 09:00:46]\033[0m \033[31m\u2718\033[0m Rolling back to previous version...\n"
+            "\033[36m[2026-03-18 09:01:00]\033[0m \033[32m\u2714\033[0m Rollback complete: contoso/api:2026.3.15\n"
+            "\033[36m[2026-03-18 09:01:01]\033[0m \033[31mPipeline FAILED\033[0m — exit code 1\n\n"
+            "The deployment failed because the production Kubernetes cluster couldn't "
+            "pull the Docker image. The error is 'unauthorized: authentication required' "
+            "which suggests the registry credentials have expired or were rotated. "
+            "The rollback succeeded so production is still on the old version.",
+            "CD pipeline output (pasted from terminal):\n\n"
+            "\x1b[1;34m==>\x1b[0m \x1b[1mRunning deploy.sh --env production\x1b[0m\n"
+            "\x1b[32m[OK]\x1b[0m Pre-flight checks passed\n"
+            "\x1b[32m[OK]\x1b[0m Database migrations applied (3 new)\n"
+            "\x1b[31m[FAIL]\x1b[0m Container registry authentication failed\n"
+            "\x1b[31m[FAIL]\x1b[0m kubectl set image deployment/api-server "
+            "api=registry.contoso.io/contoso/api:2026.3.18 \x1b[31mFAILED\x1b[0m\n"
+            "\x1b[33m[WARN]\x1b[0m Initiating automatic rollback...\n"
+            "\x1b[32m[OK]\x1b[0m Rollback successful\n\n"
+            "The production deployment failed due to expired container registry "
+            "credentials. The Kubernetes service account can no longer authenticate "
+            "to registry.contoso.io. Need the registry credentials renewed.",
+        ],
+        next_best_actions=[
+            "Ignore the ANSI escape codes. The deployment failed because Kubernetes "
+            "can't authenticate to the container registry (ImagePullBackOff / "
+            "unauthorized). Renew the registry credentials.",
+            "Renew the container registry credentials for the production Kubernetes "
+            "cluster and re-run the deployment pipeline.",
+        ],
+        remediation_steps=[
+            [
+                "Renew or rotate the container registry credentials (registry.contoso.io)",
+                "Update the Kubernetes image pull secret with the new credentials",
+                "Verify the service account has the correct RBAC permissions on the registry",
+                "Re-run the deployment pipeline after credentials are updated",
+                "Set up monitoring/alerting for credential expiration to prevent recurrence",
+            ],
+        ],
+        tags=["data-cleanup", "ansi-codes"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 50. PGP/S-MIME encrypted email wrapper
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-pgp-encrypted-wrapper",
+        category="Security & Compliance",
+        priority="P2",
+        assigned_team="Security Operations",
+        needs_escalation=False,
+        missing_information=["configuration_details", "affected_system"],
+        subjects=[
+            "Email encryption broken — PGP blocks visible in messages",
+            "S/MIME encryption failing — recipients see raw encrypted data",
+        ],
+        descriptions=[
+            "Hi Security team,\n\n"
+            "Our email encryption has been malfunctioning since the weekend. "
+            "When I send encrypted emails, recipients see this instead of the "
+            "actual message:\n\n"
+            "-----BEGIN PGP MESSAGE-----\n"
+            "Version: GnuPG v2.2.41 (GNU/Linux)\n\n"
+            "hQEMA8p3hFg0y8XJAQ/+LkZ2M7YB5h9nVJXqGx09VLiW4ZXnBtFzK5jN8sMpQxR\n"
+            "7wP9k3YfOlA2jm5J0J5X4FQaP2LMWV8rC3KsNNJXkzhFG4dEuVqH/MqGRLflJxo\n"
+            "FKr2tN5VpSDml+V2nMC0Y7c1B3qFQFkXt3RLcE4PA1q/hHVdT+nZJlMGPKWBnCqt\n"
+            "xP8d1LfVTJG2nN0jWRi5fMbk3kpXq7dJy0M4rkzaQlBLsVoE8kZ1fJ5YtNxqm6W\n"
+            "FAKE_PGP_ENCRYPTED_BLOCK_DATA_CONTINUES_FOR_MANY_LINES_AND_SHOULD_NOT\n"
+            "CONFUSE_THE_CLASSIFIER_INTO_THINKING_THIS_IS_SOMETHING_OTHER_THAN_AN\n"
+            "EMAIL_ENCRYPTION_CONFIGURATION_ISSUE_AT_THE_ORGANIZATION_LEVEL\n"
+            "=dK7f\n"
+            "-----END PGP MESSAGE-----\n\n"
+            "The actual message is supposed to be a routine update about our Q1 "
+            "compliance audit. Instead, external recipients see the raw PGP block. "
+            "Internal recipients on Outlook can decrypt fine, but anyone outside "
+            "our domain (auditors, legal counsel, regulators) sees the raw data. "
+            "This started after the email gateway update on Saturday. About 20 "
+            "people in the compliance team send encrypted emails daily to external "
+            "parties and all of them are affected.",
+            "Encrypted email test showing the issue:\n\n"
+            "Content-Type: application/pkcs7-mime; smime-type=enveloped-data;\n"
+            " name=smime.p7m\n"
+            "Content-Transfer-Encoding: base64\n"
+            "Content-Disposition: attachment; filename=smime.p7m\n\n"
+            "MIIBxwYJKoZIhvcNAQcDoIIBuDCCAbQCAQAxggF0MIIBcAIBADBYMFIxCzAJBgNV\n"
+            "BAYTAlVTMRMwEQYDVQQIEwpXYXNoaW5ndG9uMRAwDgYDVQQHEwdSZWRtb25kMRww\n"
+            "FAKE_SMIME_ENCRYPTED_DATA_BLOCK_THAT_REPRESENTS_THE_ENCRYPTED_PAYLOAD\n"
+            "OF_AN_EMAIL_MESSAGE_USING_PKCS7_ENVELOPE_FORMAT\n\n"
+            "External recipients are seeing this S/MIME block instead of the decrypted "
+            "message. Our email gateway's S/MIME certificate may have expired or the "
+            "gateway-level decryption/re-encryption for external parties stopped working "
+            "after the Saturday update. The compliance team needs this fixed ASAP — "
+            "they have regulatory communications that must be encrypted but readable.",
+        ],
+        next_best_actions=[
+            "Ignore the PGP/S-MIME encrypted blocks. The issue is that the email "
+            "gateway is not properly handling encryption for external recipients "
+            "after the Saturday update — external parties see raw encrypted data.",
+            "Investigate the email gateway update from Saturday that broke "
+            "encryption handling for external recipients. Check certificate "
+            "expiration and gateway re-encryption configuration.",
+        ],
+        remediation_steps=[
+            [
+                "Check the email gateway's S/MIME and PGP certificates for expiration or misconfiguration",
+                "Review the email gateway update from Saturday for changes to encryption processing",
+                "Verify the gateway's ability to decrypt and re-encrypt emails for external delivery",
+                "If the gateway certificate expired, renew it and restart the encryption service",
+                "Test sending encrypted emails to external recipients to confirm the fix",
+                "Notify the compliance team once external encryption delivery is restored",
+            ],
+        ],
+        tags=["data-cleanup", "pgp-encrypted"],
+    ),
 ]
+

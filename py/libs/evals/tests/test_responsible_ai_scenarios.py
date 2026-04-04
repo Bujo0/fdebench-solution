@@ -46,13 +46,13 @@ class TestResponsibleAiScenarios:
         """Verify expected scenario IDs exist."""
         scenarios = get_scenarios()
         ids = {s.scenario_id for s in scenarios}
-        expected = {f"RAI-{i:03d}" for i in range(1, 161)}
+        expected = {f"RAI-{i:03d}" for i in range(1, 201)}
         assert expected.issubset(ids), f"Missing IDs: {expected - ids}"
 
     def test_minimum_scenario_count(self) -> None:
         """Responsible AI should have at least 160 scenarios."""
         scenarios = get_scenarios()
-        assert len(scenarios) >= 160, f"Expected >= 160 RAI scenarios, got {len(scenarios)}"
+        assert len(scenarios) >= 200, f"Expected >= 200 RAI scenarios, got {len(scenarios)}"
 
     def test_covers_key_attack_categories(self) -> None:
         """Verify that key adversarial categories are covered."""
@@ -210,5 +210,16 @@ class TestResponsibleAiScenarios:
             "fake-history",
             "progressive-escalation",
             "multi-stage",
+            # New attack patterns (RAI-191..200)
+            "dan-jailbreak",
+            "gradual-escalation",
+            "fake-pentest",
+            "emotional-manipulation",
+            "authority-spoofing",
+            "base64-injection",
+            "fake-compliance",
+            "multi-language-obfuscation",
+            "payload-splitting",
+            "recursive-injection",
         }
         assert expected_tags.issubset(all_tags), f"Missing attack tags: {expected_tags - all_tags}"
