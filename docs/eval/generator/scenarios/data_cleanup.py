@@ -1434,7 +1434,7 @@ SCENARIOS: list[Scenario] = [
         descriptions=[
             '<html><body style="background-color: #1a1a2e; color: #e0e0e0;">'
             '<div style="font-family: Segoe UI, sans-serif;">'
-            '<style>@media (prefers-color-scheme: dark) { .content { background: #0d1117; '
+            "<style>@media (prefers-color-scheme: dark) { .content { background: #0d1117; "
             "color: #c9d1d9; } .highlight { color: #1e1e1e; background: #1e1e1e; } "
             ".footer { color: #161b22; } }</style>"
             '<div class="content">'
@@ -1458,7 +1458,7 @@ SCENARIOS: list[Scenario] = [
             "Dark Mode — some content may be invisible in light mode viewers.</div>"
             "</div></div></body></html>",
             '<div style="background: #0d1117; color: #c9d1d9;">'
-            '<style>.dark-only { color: #c9d1d9; } .light-only { color: #0d1117; } '
+            "<style>.dark-only { color: #c9d1d9; } .light-only { color: #0d1117; } "
             "@media (prefers-color-scheme: light) { .dark-only { color: white; } "
             ".light-only { color: black; } }</style>"
             '<p class="dark-only">OneDrive for Business stopped syncing two days ago with '
@@ -1474,8 +1474,7 @@ SCENARIOS: list[Scenario] = [
         next_best_actions=[
             "Strip the CSS and dark-mode styling artifacts and focus on the OneDrive sync error "
             "0x8004de40 — this is a TLS/authentication issue with the OneDrive service.",
-            "Investigate OneDrive error 0x8004de40 — likely a TLS 1.2 requirement or proxy "
-            "authentication issue.",
+            "Investigate OneDrive error 0x8004de40 — likely a TLS 1.2 requirement or proxy authentication issue.",
         ],
         remediation_steps=[
             [
@@ -1515,7 +1514,7 @@ SCENARIOS: list[Scenario] = [
             "FAKE_RSA_SIGNATURE_PLACEHOLDER_DO_NOT_ATTEMPT_TO_VERIFY\n\n"
             "OAuth Error Response:\n"
             '{"error":"invalid_grant","error_description":"The authorization code has expired '
-            'or has been used. Code was issued at 2026-07-14T08:30:00Z and is now expired. '
+            "or has been used. Code was issued at 2026-07-14T08:30:00Z and is now expired. "
             "Token endpoint received the request at 2026-07-14T09:45:00Z, which is beyond "
             'the 600-second validity window.","error_uri":"https://developer.okta.com/docs/'
             'reference/error-codes/","correlation_id":"abc123-def456-ghi789"}\n\n'
@@ -1620,7 +1619,7 @@ SCENARIOS: list[Scenario] = [
             "Error response from daemon: pull access denied for registry.contoso.com/"
             "api-gateway, repository does not exist or may require 'docker login'\n"
             "worker_1    | Error: connect ECONNREFUSED 172.18.0.5:5672\n"
-            "api-gateway_1 | Error: FATAL: password authentication failed for user \"svc_api\"\n"
+            'api-gateway_1 | Error: FATAL: password authentication failed for user "svc_api"\n'
             "```\n\n"
             "The deployment was working last week. We recently rotated the database credentials "
             "and I think the new password wasn't updated in the compose file.",
@@ -1638,7 +1637,7 @@ SCENARIOS: list[Scenario] = [
             "  rabbitmq:\n"
             "    image: rabbitmq:3-management\n\n"
             "--- docker compose logs ---\n"
-            "api-gateway_1  | FATAL: password authentication failed for user \"svc_api\"\n"
+            'api-gateway_1  | FATAL: password authentication failed for user "svc_api"\n'
             "api-gateway_1  | Connection refused: db-prod-03:5432\n"
             "worker_1       | AMQP connection error: ECONNREFUSED\n\n"
             "This broke after last Friday's credential rotation. The DB password in the compose "
@@ -1653,11 +1652,14 @@ SCENARIOS: list[Scenario] = [
         ],
         remediation_steps=[
             [
-                "Update the DATABASE_URL password in the compose file or secrets manager to match the rotated credential",
-                "Run 'docker login registry.contoso.com' on the staging server to re-authenticate with the private registry",
+                "Update the DATABASE_URL password in the compose file or secrets manager"
+                " to match the rotated credential",
+                "Run 'docker login registry.contoso.com' on the staging server"
+                " to re-authenticate with the private registry",
                 "Verify network connectivity from staging to db-prod-03:5432 and rabbitmq:5672",
                 "Redeploy the stack with 'docker compose up -d' and monitor the logs for successful startup",
-                "Move secrets out of the compose file into Docker secrets or a vault to prevent cleartext credential exposure",
+                "Move secrets out of the compose file into Docker secrets or a vault"
+                " to prevent cleartext credential exposure",
             ],
         ],
         tags=["data-cleanup", "docker-compose", "yaml-config", "credential-rotation"],

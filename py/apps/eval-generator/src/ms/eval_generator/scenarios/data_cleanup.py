@@ -1267,8 +1267,8 @@ DATA_CLEANUP_SCENARIOS: list[ScenarioDefinition] = [
             "I keep getting a 500 error on the trade reconciliation portal. I did View Source"
             " in Chrome and copied the whole page:\n\n"
             '<!DOCTYPE html>\n<html lang="en">\n<head>\n'
-            "  <meta charset=\"UTF-8\">\n"
-            '  <title>500 Internal Server Error</title>\n'
+            '  <meta charset="UTF-8">\n'
+            "  <title>500 Internal Server Error</title>\n"
             '  <style>\n    body { font-family: "Segoe UI", Arial, sans-serif;'
             " background: #f4f4f4; margin: 0; padding: 40px; }\n"
             "    .error-container { max-width: 800px; margin: auto;"
@@ -1401,12 +1401,12 @@ DATA_CLEANUP_SCENARIOS: list[ScenarioDefinition] = [
             ' value="a3f7c912-4e8b-4d1a-b6e5-9c0d2f8a1b3e" />\n'
             '  <input type="hidden" name="FiscalPeriod" value="FY2026-Q1" />\n'
             '  <div class="form-group">\n'
-            '    <label>Report Title</label>\n'
+            "    <label>Report Title</label>\n"
             '    <input type="text" name="Title"'
             ' value="Q1 2026 Client Entertainment - NYC Trading Desk" />\n'
             "  </div>\n"
             '  <div class="form-group">\n'
-            '    <label>Total Amount</label>\n'
+            "    <label>Total Amount</label>\n"
             '    <input type="text" name="TotalAmount" value="$4,287.50" />\n'
             "  </div>\n"
             '  <button type="submit" class="btn btn-primary">Submit for Approval</button>\n'
@@ -2140,4 +2140,37 @@ DATA_CLEANUP_SCENARIOS: list[ScenarioDefinition] = [
             "ht\u200btps://co\u200bnto\u200bso.sha\u200bre\u200bpo\u200bint"
             ".co\u200bm/si\u200btes/co\u200bmpl\u200bian\u200bce-\u200bdocs\n\n"
             "I\u200b ge\u200bt '\u200bAc\u200bce\u200bss De\u200bni\u200bed\u200b'"
-            " wh\u200ben I\u200b tr\u200by to\u200b op\u200ben it\u200b
+            " wh\u200ben I\u200b tr\u200by to\u200b op\u200ben it\u200b.\n\n"
+            "My\u200b ma\u200bna\u200bger sa\u200bid I\u200b sh\u200bou\u200bld"
+            " ha\u200bve ac\u200bce\u200bss al\u200bre\u200bad\u200by.\n"
+            "Pl\u200bea\u200bse he\u200blp\u200b!\n\n"
+            "Th\u200ban\u200bks,\n"
+            "Sa\u200bra\u200bh Jo\u200bhn\u200bson\n"
+            "Co\u200bmp\u200bli\u200ban\u200bce Te\u200bam",
+            "User cannot access SharePoint compliance docs site"
+            " (contoso.sharepoint.com/sites/compliance-docs). Getting"
+            " 'Access Denied' error. Manager confirms user should have"
+            " access. Note: ticket text contains zero-width Unicode"
+            " characters throughout.",
+        ),
+        gold=ScenarioGold(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Identity & Access Management",
+            needs_escalation=False,
+            missing_information=("environment_details",),
+            next_best_action="Grant SharePoint access to compliance docs site after"
+            " verifying manager approval — note that the ticket text"
+            " contains invisible zero-width Unicode characters that may"
+            " affect automated text processing",
+            remediation_steps=(
+                "Strip zero-width Unicode characters from the ticket text before processing",
+                "Verify the user's identity and manager approval for SharePoint access",
+                "Grant the user appropriate permissions to the compliance-docs SharePoint site",
+                "Confirm the user can access the site after permission changes",
+                "Flag the zero-width character pattern for the data quality team to investigate",
+            ),
+        ),
+        tags=("data-cleanup", "zero-width-unicode", "invisible-characters"),
+    ),
+]
