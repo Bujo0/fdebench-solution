@@ -1826,5 +1826,570 @@
       "If a portal bug is found, file a defect with the portal development team.",
       "Provide the reporter with an alternative method to submit tickets until fixed."
     ]
+  },
+  {
+    "ticket_id": "INC-5101",
+    "category": "Data & Storage",
+    "priority": "P3",
+    "assigned_team": "Data Platform",
+    "needs_escalation": false,
+    "missing_information": [
+      "affected_system",
+      "previous_ticket_id"
+    ],
+    "next_best_action": "Ignore the GraphQL introspection dump and investigate the SharePoint permissions issue \u2014 verify whether the access grant from REQ-20260301-0042 was actually applied to the Regulatory Filings site.",
+    "remediation_steps": [
+      "Check ServiceNow ticket REQ-20260301-0042 to confirm approval status and fulfilment.",
+      "Verify the reporter's AD group membership against the SharePoint site's permission groups.",
+      "If the access grant was not applied, manually add the user to the appropriate SP group.",
+      "Clear any cached permission tokens and ask the user to re-authenticate.",
+      "Confirm the user can access the Regulatory Filings document library."
+    ]
+  },
+  {
+    "ticket_id": "INC-5102",
+    "category": "Hardware & Peripherals",
+    "priority": "P2",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [
+      "device_info",
+      "environment_details"
+    ],
+    "next_best_action": "Analyze the BSOD minidump pointing to Wdf01000.sys / DRIVER_POWER_STATE_FAILURE \u2014 likely a dock or USB driver issue. Prioritize because quarter-end reconciliation is impacted.",
+    "remediation_steps": [
+      "Collect the full minidump files from C:\\Windows\\Minidump on the affected laptop.",
+      "Update the Lenovo ThinkPad USB-C Dock Gen 2 firmware and WDF/USB drivers.",
+      "Check Windows Update history for any recently installed driver updates that correlate with the issue.",
+      "If BSOD persists after driver updates, test without the dock to isolate the failure.",
+      "Provide a loaner laptop if the issue cannot be resolved within 4 hours given quarter-end urgency."
+    ]
+  },
+  {
+    "ticket_id": "INC-5103",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "configuration_details",
+      "timestamp"
+    ],
+    "next_best_action": "The webhook URL has expired per the 400 error response \u2014 regenerate the Teams incoming webhook connector URL and update the risk alerting system's configuration with the new endpoint.",
+    "remediation_steps": [
+      "Navigate to the Risk Alerts channel in Teams and regenerate the incoming webhook connector URL.",
+      "Update the risk alerting system's webhook endpoint configuration with the new URL.",
+      "Test with a sample MessageCard payload to confirm delivery.",
+      "Set a calendar reminder for the next webhook expiry window to proactively rotate.",
+      "Verify that queued alerts from the last 3 days are replayed or re-sent."
+    ]
+  },
+  {
+    "ticket_id": "INC-5104",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "error_message",
+      "environment_details"
+    ],
+    "next_best_action": "The deployment health check reveals a database connection timeout \u2014 investigate the production database server connectivity from the app tier rather than the deployment script itself.",
+    "remediation_steps": [
+      "Check the production database server for connectivity issues or recent configuration changes.",
+      "Verify firewall rules between the app tier and database tier haven't been modified.",
+      "Test direct SQL connectivity from APP-PROD-01 to the ReportingDB instance.",
+      "Review any weekend maintenance or patching that may have affected the database.",
+      "Once database connectivity is restored, re-run Deploy-ContosoApp.ps1 for v4.7.2."
+    ]
+  },
+  {
+    "ticket_id": "INC-5105",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "environment_details",
+      "configuration_details"
+    ],
+    "next_best_action": "The Docker error indicates the new hosts lack ACR authentication \u2014 configure docker login or managed identity credentials for contosoacr.azurecr.io on the migrated Docker hosts.",
+    "remediation_steps": [
+      "Run 'az acr login --name contosoacr' or configure a service principal for ACR pull access on each new host.",
+      "Verify the managed identity or service principal has AcrPull role on the contosoacr registry.",
+      "Test pulling the image manually: docker pull contosoacr.azurecr.io/trade-recon-api:4.1.0.",
+      "Once authenticated, re-run docker compose up and verify all services start healthy.",
+      "Document the ACR authentication step in the infrastructure migration runbook for future hosts."
+    ]
+  },
+  {
+    "ticket_id": "INC-5106",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "application_version",
+      "error_message"
+    ],
+    "next_best_action": "The OCR-like corruption (O/0 and l/1 confusion, column misalignment) started after ContosoReportEngine v3.5.0 upgrade \u2014 investigate the PDF rendering library change in that version.",
+    "remediation_steps": [
+      "Compare ContosoReportEngine v3.5.0 release notes for changes to the PDF rendering library.",
+      "Test rolling back to v3.4.x to confirm the regression.",
+      "Check if font embedding settings changed \u2014 O/0 and l/1 confusion suggests a font substitution issue.",
+      "Generate a test NAV report and compare PDF text extraction output against the database source.",
+      "If v3.5.0 font rendering is confirmed buggy, deploy v3.4.x as hotfix while the vendor investigates."
+    ]
+  },
+  {
+    "ticket_id": "INC-5107",
+    "category": "Access & Authentication",
+    "priority": "P2",
+    "assigned_team": "Identity & Access Management",
+    "needs_escalation": false,
+    "missing_information": [
+      "authentication_method",
+      "error_message"
+    ],
+    "next_best_action": "Investigate the SSO redirect loop for the Contoso Trade Portal \u2014 likely a conditional access policy or token caching issue specific to this user's Azure AD session.",
+    "remediation_steps": [
+      "Check the user's Azure AD sign-in logs for error codes during the redirect loop.",
+      "Review conditional access policies applied to the Trade Portal app registration.",
+      "Revoke the user's refresh tokens (Revoke-AzureADUserAllRefreshToken) and have them re-authenticate.",
+      "Verify the app registration redirect URIs match the current Trade Portal deployment URL.",
+      "If the issue is policy-related, grant a temporary exclusion so the user can process the 47 pending trade confirmations."
+    ]
+  },
+  {
+    "ticket_id": "INC-5108",
+    "category": "Network & Connectivity",
+    "priority": "P3",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": [
+      "affected_users",
+      "network_location"
+    ],
+    "next_best_action": "Cut through the ServiceNow audit trail \u2014 the core request is simple: add 12 HK new-hire AD accounts (HK-2026-001 through HK-2026-012) to the HK-OFFICE-VPN-2026Q1 GlobalProtect group and configure split-tunnel for HK\u2192NYC.",
+    "remediation_steps": [
+      "Add AD accounts HK-2026-001 through HK-2026-012 to the HK-OFFICE-VPN-2026Q1 security group immediately.",
+      "Verify GlobalProtect portal configuration includes the HK-OFFICE-VPN-2026Q1 group in the allowed access policy.",
+      "Follow up on Palo Alto TAC case #TA-887432 for the split-tunnel configuration.",
+      "Have one new hire test VPN connectivity from the HK office to confirm access to NYC trading systems.",
+      "Update INC0048721 and close once all 12 users have confirmed working VPN access."
+    ]
+  },
+  {
+    "ticket_id": "INC-5109",
+    "category": "Software & Applications",
+    "priority": "P1",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": true,
+    "missing_information": [
+      "network_location",
+      "environment_details"
+    ],
+    "next_best_action": "Critical Bloomberg B-PIPE outage affecting entire trading floor \u2014 all three feed servers are unreachable (SYN_SENT / RST). Investigate network path from trading floor VLAN to Bloomberg feed servers on 10.60.1.x and check firewall rules.",
+    "remediation_steps": [
+      "Verify network connectivity from the trading floor VLAN to the Bloomberg feed servers (10.60.1.101-103) on port 8194.",
+      "Check the firewall rules \u2014 the BLPAPI diagnostic says it cannot reach the policy server, suggesting a firewall change.",
+      "Contact Bloomberg support with the B-PIPE connection error details if the network path is clear.",
+      "As an interim measure, expand access to the backup Reuters feed for more traders.",
+      "Once connectivity is restored, verify all 12,847 subscriptions re-establish and data is flowing."
+    ]
+  },
+  {
+    "ticket_id": "INC-5110",
+    "category": "Data & Storage",
+    "priority": "P2",
+    "assigned_team": "Data Platform",
+    "needs_escalation": false,
+    "missing_information": [
+      "application_version",
+      "steps_to_reproduce"
+    ],
+    "next_best_action": "The ContosoReporter v3.0 upgrade broke Excel export \u2014 it now emits raw formulas and cell references instead of computed values. Investigate the export logic change in v3.0 and consider rolling back to v2.8 as a hotfix.",
+    "remediation_steps": [
+      "Compare ContosoReporter v3.0 vs v2.8 export logic \u2014 v3.0 likely switched from value-paste to formula-paste mode.",
+      "Check if the export uses OpenXML or COM automation and whether 'PasteSpecial Values' was removed in v3.0.",
+      "Roll back ContosoReporter to v2.8 on the reporter's workstation as an immediate fix for tonight's risk report.",
+      "File a defect with the ContosoReporter development team to fix the formula-vs-value export regression in v3.0.",
+      "Investigate the #REF! and #N/A errors separately \u2014 these may indicate broken cross-sheet references in the source workbook."
+    ]
+  },
+  {
+    "ticket_id": "INC-5111",
+    "category": "Data & Storage",
+    "priority": "P2",
+    "assigned_team": "Data Platform",
+    "needs_escalation": false,
+    "missing_information": [
+      "error_message",
+      "timestamp"
+    ],
+    "next_best_action": "Ignore the raw SQL result-set formatting noise (pipe-delimited table borders, column headers, row counts). The core issue is that primary database server SRV-0041 (db-east-prod-01) is DOWN and blocked connections are stacking on the secondary. Investigate why SRV-0041 went offline at 07:44 AM and consider failing over to the DR node db-west-dr-01 while the primary is recovered.",
+    "remediation_steps": [
+      "Check SRV-0041 (db-east-prod-01) server health \u2014 review OS-level logs, storage subsystem, and SQL Server error log for the 07:44 AM outage event.",
+      "If SRV-0041 cannot be recovered quickly, initiate failover to the DR node db-west-dr-01 (SRV-0044) to restore service before market close.",
+      "Kill the long-running blocked sessions (connection IDs 884201, 884203, 884210) on SRV-0042 to reduce CPU pressure.",
+      "Verify application connection strings support automatic failover and update them if they point only to the primary node.",
+      "After restoring service, perform a root-cause analysis on SRV-0041 and ensure monitoring alerts fire correctly for future outages."
+    ]
+  },
+  {
+    "ticket_id": "INC-5112",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "error_message",
+      "environment_details"
+    ],
+    "next_best_action": "Disregard the embedded Mermaid and PlantUML diagram markup \u2014 they are visual aids, not code to debug. The actual issue is that the SWIFT gateway is timing out when ContosoSettleFlow attempts to send trade confirmations, leaving 142 FX spot trades stuck in 'Pending Confirmation'. Investigate the SWIFT gateway connectivity and service health immediately.",
+    "remediation_steps": [
+      "Check the SWIFT gateway service status and network connectivity \u2014 review its application logs for timeout or connection-refused errors starting from 11 PM last night.",
+      "Verify SWIFT Alliance Lite2 or equivalent gateway certificates have not expired and that the TLS handshake completes successfully.",
+      "Restart the SWIFT gateway service if logs indicate a hung process or thread-pool exhaustion.",
+      "Once the gateway is restored, trigger a bulk retry of the 142 stuck confirmations from ContosoSettleFlow's admin console.",
+      "Add monitoring alerts for SWIFT gateway send latency exceeding 30 seconds to catch similar issues earlier in the future."
+    ]
+  },
+  {
+    "ticket_id": "INC-5113",
+    "category": "Hardware & Peripherals",
+    "priority": "P2",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [
+      "device_info",
+      "application_version"
+    ],
+    "next_best_action": "Ignore the raw BSOD memory addresses, stack frames, and dump file paths \u2014 the key signal is DRIVER_POWER_STATE_FAILURE caused by UcmUcsiCx.sys (USB Type-C connector manager). This points to a USB-C dock power-state driver bug introduced by the recent Windows update. Check for an updated UcmUcsiCx.sys driver or roll back the Windows update KB on this machine.",
+    "remediation_steps": [
+      "Identify the specific Windows update (KB number) pushed last Tuesday and check Microsoft known-issues for UcmUcsiCx.sys regressions.",
+      "Download the latest Lenovo ThinkPad USB-C Dock Gen 2 firmware and driver package from Lenovo support and install on the user's T14s.",
+      "If no updated driver is available, roll back the Windows update on this device as an interim fix using 'wusa /uninstall /kb:XXXXXXX'.",
+      "Collect the minidump file (031524-12345-01.dmp) and analyze with WinDbg to confirm UcmUcsiCx.sys as the definitive root cause.",
+      "Check if other docking-station users on the same Windows update experience similar BSODs and consider pausing the update rollout.",
+      "Once resolved, re-enable the Windows update after the driver fix is confirmed and monitor for recurrence."
+    ]
+  },
+  {
+    "ticket_id": "INC-5114",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "configuration_details",
+      "steps_to_reproduce"
+    ],
+    "next_best_action": "Disregard the verbose kubectl describe output (labels, annotations, event timestamps, liveness probes, etc.). The critical signal is that pods are OOMKilled \u2014 Exit Code 137 \u2014 because v2.14.3 expanded the model cache (PRICING_MODEL_CACHE_SIZE=8192) but the memory limit is still 4Gi with -Xmx3584m. Either roll back to v2.14.2 immediately or increase the pod memory limit to accommodate the larger cache.",
+    "remediation_steps": [
+      "Roll back the deployment to v2.14.2 immediately to restore real-time pricing for the 200 impacted trading floor users: 'kubectl rollout undo deployment/contoso-risk-pricing -n contoso-risk-prod'.",
+      "After rollback, verify all 8 replicas are Running and passing readiness checks.",
+      "Analyze v2.14.3 memory requirements \u2014 the expanded model cache (PRICING_MODEL_CACHE_SIZE=8192) likely needs 6-8Gi total pod memory.",
+      "Update the deployment manifest to increase memory limits to 8Gi and set -Xmx to 6144m before re-deploying v2.14.3.",
+      "Re-deploy v2.14.3 to a staging namespace first with updated memory limits, run load tests, then promote to production during a maintenance window."
+    ]
+  },
+  {
+    "ticket_id": "INC-5115",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "error_message",
+      "screenshot_or_attachment"
+    ],
+    "next_best_action": "Ignore the extremely long URL with tracking/analytics query parameters (UTM tags, marketing tokens, click IDs, analytics payloads). The user confirmed that even the base URL (/benefits/enrollment/2024) returns 404, so the issue is that the enrollment module on the ContosoHR portal is not yet enabled or deployed. Coordinate with the HR platform team to activate the enrollment route before the open-enrollment deadline.",
+    "remediation_steps": [
+      "Verify the ContosoHR portal /benefits/enrollment/2024 route exists in the application routing configuration \u2014 check if the enrollment module was deployed for the current plan year.",
+      "Contact the HR platform team to confirm the enrollment module is enabled and the campaign was not sent prematurely before the portal was ready.",
+      "Once the route is live, test the full URL from the email including tracking parameters to ensure the portal handles the long query string without truncation errors.",
+      "Send a follow-up communication to the 1,200 affected employees confirming the portal is now accessible.",
+      "Implement a pre-launch checklist that requires portal route verification before HR sends enrollment campaign emails."
+    ]
+  },
+  {
+    "ticket_id": "INC-5116",
+    "category": "Network & Connectivity",
+    "priority": "P3",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": [
+      "network_location",
+      "environment_details"
+    ],
+    "next_best_action": "Strip out the Teams chat formatting noise (join/leave messages, meeting recording system events, screen-share notifications, timestamps). The substantive issue is that VPN sessions on GlobalProtect v5.2.13 connecting to vpn-eu-west.contoso.com are dropping at exact 15-minute intervals for London floor users after weekend network maintenance. This strongly suggests a session idle-timeout or re-key interval misconfiguration on the VPN concentrator changed during maintenance.",
+    "remediation_steps": [
+      "Review the weekend maintenance change log for vpn-eu-west.contoso.com \u2014 check if session timeout, re-key interval, or keep-alive settings were modified.",
+      "Inspect the VPN concentrator (Palo Alto GlobalProtect gateway) configuration for IPSec/IKE re-key lifetime \u2014 a 900-second (15 min) re-key interval that fails would explain the exact drop pattern.",
+      "Compare the current gateway config against the pre-maintenance backup to identify any parameter changes.",
+      "As an immediate workaround, adjust the re-key interval to a longer period or fix the re-key negotiation if it is failing.",
+      "Verify the fix by monitoring affected users' VPN sessions for at least 1 hour to confirm no further drops at 15-minute intervals."
+    ]
+  },
+  {
+    "ticket_id": "INC-5117",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "application_version",
+      "steps_to_reproduce"
+    ],
+    "next_best_action": "Look past the LaTeX/math notation ($$, \\frac, \\sigma, \\partial, etc.) \u2014 these are formula references, not part of the bug itself. The reporter has identified a likely regression in ContosoCalc v8.3.1 where the Black-Scholes d1 drift term uses sigma instead of sigma^2/2. Escalate to the quantitative development team with the specific test case (S=150, K=100, r=0.05, sigma=0.20, T=0.5) and the version comparison (v8.3.0 correct vs v8.3.1 incorrect).",
+    "remediation_steps": [
+      "File a high-priority defect with the ContosoCalc quantitative development team referencing the d1 drift-term regression in v8.3.1.",
+      "Provide the test case inputs (S=150, K=100, r=0.05, sigma=0.20, T=0.5) and expected vs actual Delta/Gamma values for reproduction.",
+      "Diff the d1 calculation code between ContosoCalc v8.3.0 and v8.3.1 to confirm the sigma vs sigma^2/2 hypothesis.",
+      "Roll back affected production systems to ContosoCalc v8.3.0 until the fix is verified, as incorrect Greeks pose financial risk.",
+      "After the fix, run the full Greeks validation test suite (including deep ITM, ATM, and deep OTM cases) before re-releasing."
+    ]
+  },
+  {
+    "ticket_id": "INC-5118",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "configuration_details",
+      "environment_details"
+    ],
+    "next_best_action": "Ignore the bulk of the ARM template JSON (schema, parameters, resource definitions, dependsOn chains, app settings). The actual error is clear: the Application Insights resource 'ai-contosopay-staging' is missing from resource group 'rg-contosopay-staging'. The ARM template references it but does not define it. Add a Microsoft.Insights/components resource to the template and re-run the deployment.",
+    "remediation_steps": [
+      "Add a Microsoft.Insights/components resource definition for 'ai-contosopay-staging' to the ARM template with the correct location and workspace configuration.",
+      "Add the App Insights resource to the dependsOn array of the Microsoft.Web/sites resource so it deploys in the correct order.",
+      "Validate the updated ARM template using 'az deployment group validate' before re-deploying to catch any other missing references.",
+      "Re-run the deployment pipeline targeting the rg-contosopay-staging resource group and verify all resources provision successfully.",
+      "Review the template against the production ARM template to identify any other resources that may have been missed when setting up the new staging environment.",
+      "Add a CI validation step to the pipeline that runs 'what-if' deployment checks to catch missing resources before actual deploys."
+    ]
+  },
+  {
+    "ticket_id": "INC-5119",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "configuration_details",
+      "affected_system"
+    ],
+    "next_best_action": "Recognize that the <<<<<<< HEAD, =======, and >>>>>>> markers are unresolved Git merge conflict artifacts, not valid YAML. The pipeline config file needs these conflicts manually resolved. Coordinate with the developer and the settlement-batch feature owner to determine the correct database host and batch_processing settings, then commit the resolved file to unblock the CI/CD pipeline.",
+    "remediation_steps": [
+      "Identify the correct database configuration by consulting the settlement-batch feature owner \u2014 determine whether the migration to sql-tradeledger-prod-v2 and TradeLedgerDB_v2 is ready for production.",
+      "Remove all Git merge conflict markers (<<<<<<< HEAD, =======, >>>>>>> feature/settlement-batch) from the pipeline config file.",
+      "Resolve the batch_processing section \u2014 if the feature is ready, accept the feature branch values (enabled: true, batch_size: 500, parallel_workers: 4).",
+      "Commit the resolved config file, push to main, and verify the CI/CD pipeline passes the YAML validation stage.",
+      "Set up branch protection rules requiring successful builds before merge to prevent unresolved conflicts from reaching main in the future."
+    ]
+  },
+  {
+    "ticket_id": "INC-5120",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "application_version",
+      "device_info"
+    ],
+    "next_best_action": "Look past the crash report noise (thread state registers, binary image addresses, UUIDs, exception codes). The key line is 'Termination Reason: Namespace DYLD, Code 1 Library missing' \u2014 ContosoAnalytics bundles a ContosoNetworking framework that depends on libssl.3.dylib, which is no longer available at the expected paths in macOS Sonoma 14.4. The app needs to be rebuilt to bundle its own OpenSSL library or link against the macOS-native Security framework.",
+    "remediation_steps": [
+      "Confirm the root cause by checking whether macOS Sonoma 14.4 removed or relocated libssl.3.dylib \u2014 Apple has been deprecating bundled OpenSSL since macOS 10.7.",
+      "As an immediate workaround, install OpenSSL 3.x via Homebrew ('brew install openssl@3') and create a symlink or set DYLD_LIBRARY_PATH to point to the Homebrew OpenSSL lib directory.",
+      "File a defect with the ContosoAnalytics development team to bundle libssl.3.dylib inside the app's Frameworks directory or migrate ContosoNetworking to Apple's native Security/Network frameworks.",
+      "Send a communication to the 15 Asset Management analysts advising them to delay the macOS Sonoma 14.4 update until the fix is ready.",
+      "Request an expedited patch release (v6.1.1) that bundles the required OpenSSL libraries before the Friday quarterly analysis deadline."
+    ]
+  },
+  {
+    "ticket_id": "INC-5121",
+    "category": "Access & Authentication",
+    "priority": "P3",
+    "assigned_team": "Identity & Access Management",
+    "needs_escalation": false,
+    "missing_information": [
+      "error_message",
+      "authentication_method"
+    ],
+    "next_best_action": "Extract the affected users from the CSV data (those with 'Locked' or 'Expired' status) and investigate why AD sync on March 10 caused account lockouts. Ignore the CSV noise and focus on the AD sync issue.",
+    "remediation_steps": [
+      "Identify the 6 affected accounts (E10422, E10424, E10426, E10429, E10434, E10438, E10440) from the CSV data.",
+      "Check Active Directory sync logs for March 10 to identify what triggered the lockouts.",
+      "Verify the accounts' status in Azure AD and on-prem AD for any sync discrepancies.",
+      "Unlock the locked accounts and reset the expired accounts per standard procedure.",
+      "Verify the Contoso Trade Portal access is restored for all affected users."
+    ]
+  },
+  {
+    "ticket_id": "INC-5122",
+    "category": "Data & Storage",
+    "priority": "P3",
+    "assigned_team": "Data Platform",
+    "needs_escalation": false,
+    "missing_information": [
+      "environment_details"
+    ],
+    "next_best_action": "Investigate broken SharePoint document library links after the site migration. Ignore the tracking URL parameters \u2014 the core issue is 404 errors on three SharePoint document libraries that were migrated.",
+    "remediation_steps": [
+      "Strip the tracking parameters from the URLs and verify the base SharePoint paths.",
+      "Check the SharePoint migration logs for the three affected site collections (WealthMgmt, Compliance, Trading).",
+      "Verify URL redirect mappings were created during migration for old-to-new paths.",
+      "Create or fix the redirect mappings for the broken document library URLs.",
+      "Update saved bookmarks and Teams tabs with the new URLs."
+    ]
+  },
+  {
+    "ticket_id": "INC-5123",
+    "category": "Hardware & Peripherals",
+    "priority": "P3",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [
+      "steps_to_reproduce"
+    ],
+    "next_best_action": "Ignore the RTF formatting artifacts and extract the core issue: HP Color LaserJet Pro M479fdw fails to print from Word with error 0x00000709. Printing works from other applications.",
+    "remediation_steps": [
+      "Investigate error 0x00000709 \u2014 this typically indicates the default printer registry key is corrupted or the print driver is incompatible with Word.",
+      "Check the Windows registry key HKCU\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows for a corrupted 'Device' value.",
+      "Reset the default printer setting and verify the HP driver version matches the printer firmware.",
+      "If the Word-specific issue persists, repair the Office installation via Settings > Apps > Microsoft 365 > Modify > Online Repair.",
+      "Test printing from Word after each step to confirm resolution."
+    ]
+  },
+  {
+    "ticket_id": "INC-5124",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "device_info",
+      "reproduction_frequency"
+    ],
+    "next_best_action": "Skip past the 5 auto-reply/notification messages and focus on the original issue: Teams audio drops after ~30 seconds during calls. User is on a Jabra Evolve2 75 headset via Bluetooth.",
+    "remediation_steps": [
+      "Check for known issues with Jabra Evolve2 75 Bluetooth audio dropouts in Teams.",
+      "Update the Jabra headset firmware via Jabra Direct and update the Bluetooth driver.",
+      "Test with the headset connected via USB dongle instead of Bluetooth to isolate the connection method as the cause.",
+      "Check Teams audio device settings and ensure the Jabra headset is selected as the default device (not switching mid-call).",
+      "If Bluetooth is the root cause, update the laptop's Bluetooth driver and check for interference from other Bluetooth devices."
+    ]
+  },
+  {
+    "ticket_id": "INC-5125",
+    "category": "Network & Connectivity",
+    "priority": "P2",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": [
+      "affected_users"
+    ],
+    "next_best_action": "Ignore the SVG diagram markup and focus on the network issue: intermittent connectivity drops on Floor 7 Building 2, affecting ~15 users in the AP-7B coverage area during market open hours.",
+    "remediation_steps": [
+      "Check access point AP-7B health, uptime, and error logs on the wireless controller for the 9:00-10:30 AM window.",
+      "Verify the uplink from AP-7B to the floor switch for errors, CRC failures, or bandwidth saturation.",
+      "Check AP-7B client density \u2014 15 traders with real-time applications may exceed the AP's client or throughput capacity.",
+      "If AP capacity is the bottleneck, consider adding a second AP to split the load between Trading Desk B and the Risk Team area.",
+      "Monitor the floor for a full trading day after any changes to confirm the drops are resolved."
+    ]
+  },
+  {
+    "ticket_id": "INC-5126",
+    "category": "Network & Connectivity",
+    "priority": "P2",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": [
+      "device_info",
+      "network_location"
+    ],
+    "next_best_action": "This email thread contains TWO separate issues interleaved: (1) Tom's VPN tunnel drops with GP-ERR-4502 after maintenance, and (2) Rebecca's printer fuser error on Floor 3. Triage the primary issue \u2014 the VPN drops \u2014 and create a separate ticket for the printer.",
+    "remediation_steps": [
+      "Address Tom's VPN issue first: check GlobalProtect gateway logs for his session around the Saturday maintenance window for configuration changes.",
+      "Investigate the 'Tunnel timeout \u2014 keepalive missed' errors \u2014 check if MTU or keepalive interval settings were changed during maintenance.",
+      "Compare Tom's GlobalProtect client configuration with Raj Patel's to identify differences.",
+      "For the printer issue, create a separate ticket and route to Endpoint Engineering for the HP LaserJet fuser error (WM-PRN-0318).",
+      "Follow up with Tom after gateway log analysis to apply targeted fix."
+    ]
+  },
+  {
+    "ticket_id": "INC-5127",
+    "category": "Security & Compliance",
+    "priority": "P2",
+    "assigned_team": "Security Operations",
+    "needs_escalation": true,
+    "missing_information": [
+      "error_message"
+    ],
+    "next_best_action": "Ignore the large CC list and focus on the critical issue: the Contoso Compliance Scanner cannot complete daily regulatory scans due to a database connection pool exhaustion. This is audit-critical with a FINRA deadline on Monday.",
+    "remediation_steps": [
+      "Check the SQL Server connection pool on ccs-db-prod-01 \u2014 the pool may be exhausted by leaked connections or a recent configuration change.",
+      "Review the CCS application logs on ccs-app-prod-01/02 for connection leak patterns or increased query volumes.",
+      "Restart the CCS application services and monitor connection pool metrics.",
+      "If the connection pool limit is too low, increase it after verifying the SQL Server can handle the additional load.",
+      "Run a manual compliance scan after the fix to confirm 5 consecutive clean results before the Monday FINRA audit."
+    ]
+  },
+  {
+    "ticket_id": "INC-5128",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "environment_details"
+    ],
+    "next_best_action": "Ignore the .env configuration dump (secrets are redacted) and focus on the Azure deployment failure: managed identity allocation is failing for the staging App Service deployment slot.",
+    "remediation_steps": [
+      "Check the Azure App Service staging slot status and its managed identity configuration in the Azure portal.",
+      "Verify the managed identity is enabled and has the correct role assignments on the resource group rg-contoso-payments-staging.",
+      "If the managed identity is in a failed state, delete and recreate it via 'az webapp identity assign'.",
+      "Check if the Azure subscription has hit any managed identity limits.",
+      "Re-run the deployment pipeline after fixing the managed identity and verify the staging slot provisions successfully."
+    ]
+  },
+  {
+    "ticket_id": "INC-5129",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "affected_users"
+    ],
+    "next_best_action": "Ignore the git merge conflict markers in the description and focus on the issue: unresolved merge conflicts in config/appsettings.Production.json are breaking the ContosoRisk CI/CD pipeline.",
+    "remediation_steps": [
+      "Resolve the merge conflict markers in config/appsettings.Production.json \u2014 coordinate with the risk engine team on which connection strings to keep.",
+      "Verify no other files in the repository contain unresolved conflict markers by running 'git diff --check' or searching for '<<<<<<<'.",
+      "Commit the resolved configuration and push to trigger the pipeline.",
+      "Monitor the pipeline run to confirm all 12 steps pass successfully.",
+      "Add a pre-commit hook or CI check that rejects files containing merge conflict markers to prevent this in the future."
+    ]
+  },
+  {
+    "ticket_id": "INC-5130",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "environment_details"
+    ],
+    "next_best_action": "Ignore the YAML configuration dump and focus on the root cause: the Kubernetes secret 'settlement-db-secret' still has the old database IP (10.0.4.52) after Friday's migration to 10.0.4.80.",
+    "remediation_steps": [
+      "Update the Kubernetes secret 'settlement-db-secret' with the new database IP (10.0.4.80) using 'kubectl edit secret' or a sealed-secret update.",
+      "Restart the contoso-settlement pods with 'kubectl rollout restart deployment contoso-settlement -n production'.",
+      "Verify the pods transition from CrashLoopBackOff to Running status.",
+      "Check the pod logs to confirm successful database connectivity after restart.",
+      "Update the infrastructure documentation to reflect the new database IP and ensure the CI/CD pipeline's secret management is updated for future deploys."
+    ]
   }
 ]

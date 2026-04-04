@@ -1298,5 +1298,395 @@
     "created_at": "2026-03-18T09:00:00Z",
     "channel": "portal",
     "attachments": []
+  },
+  {
+    "ticket_id": "INC-5101",
+    "subject": "SharePoint site permissions broken - can't access Regulatory Filings library",
+    "description": "Hi Support,\n\nI can't access the Regulatory Filings document library on SharePoint. I keep getting a 403 error. I tried to debug this myself using our internal GraphQL API and here's what I got back \u2014 maybe it helps?\n\n{\"data\":{\"__schema\":{\"queryType\":{\"name\":\"Query\"},\"mutationType\":{\"name\":\"Mutation\"},\"subscriptionType\":null,\"types\":[{\"kind\":\"OBJECT\",\"name\":\"Query\",\"description\":null,\"fields\":[{\"name\":\"sitePermissions\",\"description\":\"Retrieve SharePoint site permissions\",\"args\":[{\"name\":\"siteUrl\",\"description\":null,\"type\":{\"kind\":\"NON_NULL\",\"name\":null,\"ofType\":{\"kind\":\"SCALAR\",\"name\":\"String\",\"ofType\":null}},\"defaultValue\":null},{\"name\":\"principalId\",\"description\":null,\"type\":{\"kind\":\"SCALAR\",\"name\":\"Int\",\"ofType\":null},\"defaultValue\":null}],\"type\":{\"kind\":\"LIST\",\"name\":null,\"ofType\":{\"kind\":\"OBJECT\",\"name\":\"PermissionEntry\",\"ofType\":null}},\"isDeprecated\":false,\"deprecationReason\":null},{\"name\":\"userProfile\",\"description\":\"Get user profile by UPN\",\"args\":[{\"name\":\"upn\",\"description\":null,\"type\":{\"kind\":\"NON_NULL\",\"name\":null,\"ofType\":{\"kind\":\"SCALAR\",\"name\":\"String\",\"ofType\":null}},\"defaultValue\":null}],\"type\":{\"kind\":\"OBJECT\",\"name\":\"UserProfile\",\"ofType\":null},\"isDeprecated\":false,\"deprecationReason\":null},{\"name\":\"groupMembership\",\"description\":\"List group memberships\",\"args\":[{\"name\":\"groupId\",\"description\":null,\"type\":{\"kind\":\"NON_NULL\",\"name\":null,\"ofType\":{\"kind\":\"SCALAR\",\"name\":\"ID\",\"ofType\":null}},\"defaultValue\":null}],\"type\":{\"kind\":\"LIST\",\"name\":null,\"ofType\":{\"kind\":\"OBJECT\",\"name\":\"GroupMember\",\"ofType\":null}},\"isDeprecated\":false,\"deprecationReason\":null},{\"name\":\"auditLog\",\"description\":\"Query audit log entries\",\"args\":[{\"name\":\"startDate\",\"description\":null,\"type\":{\"kind\":\"SCALAR\",\"name\":\"DateTime\",\"ofType\":null},\"defaultValue\":null},{\"name\":\"endDate\",\"description\":null,\"type\":{\"kind\":\"SCALAR\",\"name\":\"DateTime\",\"ofType\":null},\"defaultValue\":null},{\"name\":\"operation\",\"description\":null,\"type\":{\"kind\":\"SCALAR\",\"name\":\"String\",\"ofType\":null},\"defaultValue\":null}],\"type\":{\"kind\":\"LIST\",\"name\":null,\"ofType\":{\"kind\":\"OBJECT\",\"name\":\"AuditEntry\",\"ofType\":null}},\"isDeprecated\":false,\"deprecationReason\":null}],\"inputFields\":null,\"interfaces\":[],\"enumValues\":null,\"possibleTypes\":null},{\"kind\":\"OBJECT\",\"name\":\"PermissionEntry\",\"description\":null,\"fields\":[{\"name\":\"principalName\",\"type\":{\"kind\":\"SCALAR\",\"name\":\"String\",\"ofType\":null}},{\"name\":\"roleDefinition\",\"type\":{\"kind\":\"SCALAR\",\"name\":\"String\",\"ofType\":null}},{\"name\":\"scope\",\"type\":{\"kind\":\"SCALAR\",\"name\":\"String\",\"ofType\":null}}],\"inputFields\":null,\"interfaces\":[],\"enumValues\":null,\"possibleTypes\":null}],\"directives\":[{\"name\":\"include\",\"description\":\"\"},{\"name\":\"skip\",\"description\":\"\"}]}}}\n\nI don't understand any of this GraphQL stuff. The point is: I need access to the Regulatory Filings library at https://contoso.sharepoint.com/sites/RegulatoryFilings/Shared%20Documents. My manager Priya Sharma already approved my access two weeks ago in ServiceNow ticket REQ-20260301-0042 but nothing happened.\n\nThanks,\nAlex Chen\nCompliance Analyst, Regulatory Affairs\nDesk 4-217, NYC Office",
+    "reporter": {
+      "name": "Alex Chen",
+      "email": "alex.chen@contoso.com",
+      "department": "Regulatory Affairs"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5102",
+    "subject": "Laptop keeps blue screening - BSOD every 2 hours - URGENT",
+    "description": "My laptop (asset tag NYC-LT-4892) has been blue screening roughly every 2 hours since Monday. I lose all my unsettled trade confirmations each time. I managed to pull this from the minidump file before it crashed again:\n\n*** STOP 0x0000009F (0x0000000000000003, 0xFFFFE10B3A4C7060, 0xFFFFF8076C9E1B40, 0xFFFFE10B3A832010)\nDRIVER_POWER_STATE_FAILURE\n\nSTACK_TEXT:\nfffff807`6c9e1b40 fffff807`6b2a4f21 : 00000000`0000009f 00000000`00000003 ffffe10b`3a4c7060 fffff807`6c9e1b40 : nt!KeBugCheckEx\nfffff807`6c9e1b48 fffff807`6b2a4ad0 : 00000000`00000000 ffffe10b`3a4c7060 00000000`00000000 fffff807`6b1e34a2 : nt!PopIrpWatchdogBugcheck+0x131\nfffff807`6c9e1bb0 fffff807`6b1d8e46 : ffffe10b`00000003 ffffe10b`3a4c7000 00000000`00000000 00000000`00000000 : nt!PopIrpWatchdog+0x70\nfffff807`6c9e1c00 fffff807`6b0d7115 : ffffe10b`37629040 fffff807`6b1e3440 00000000`00000000 00000000`00000022 : nt!KiProcessExpiredTimerList+0x1d6\n\nREGISTER STATE:\nrax=0000000000000003 rbx=ffffe10b3a4c7060 rcx=000000000000009f\nrdx=0000000000000003 rsi=fffff8076c9e1b40 rdi=ffffe10b3a832010\nrip=fffff8076b2a5c10 rsp=fffff8076c9e1b40 rbp=fffff8076c9e1c60\n r8=fffff8076c9e1b40  r9=ffffe10b3a832010 r10=0000000000000000\nr11=fffff8076c9e19f0 r12=0000000000000000 r13=0000000000000000\nr14=ffffe10b3a4c7060 r15=0000000000000003\ncs=0010 ss=0018 ds=002b es=002b fs=0053 gs=002b efl=00040202\n\nMODULE_NAME: Wdf01000\nIMAGE_NAME: Wdf01000.sys\nBUCKET_ID_FUNC_OFFSET: 2a4f21\nFAILURE_BUCKET_ID: 0x9F_3_IMAGE_Wdf01000.sys\nOS_VERSION: 10.0.22631.1\nBUILDLAB_STR: ni_release\n\nI have no idea what any of this means. I just need my laptop to stop crashing. I'm in the middle of quarter-end reconciliation and can't afford downtime. My dock is a Lenovo ThinkPad USB-C Dock Gen 2 and I'm running Windows 11 23H2. Is it the dock driver? Please help ASAP.\n\n- Raj Kapoor, Fixed Income Trading, Desk 7-103",
+    "reporter": {
+      "name": "Raj Kapoor",
+      "email": "raj.kapoor@contoso.com",
+      "department": "Fixed Income Trading"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5103",
+    "subject": "Teams connector integration stopped posting to Risk Alerts channel",
+    "description": "Hi IT,\n\nOur Risk Alerts channel in Teams stopped receiving automated notifications from the webhook connector about 3 days ago. I tried to debug it and captured these webhook payloads that are failing. Can you figure out what's wrong?\n\nPOST https://contoso.webhook.office.com/webhookb2/7c8d9e0f-1a2b-3c4d-5e6f-7a8b9c0d1e2f@72f988bf-86f1-41af-91ab-2d7cd011db47/IncomingWebhook/a1b2c3d4e5f6/g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t0u1v2\nContent-Type: application/json\n\n{\"@type\":\"MessageCard\",\"@context\":\"http://schema.org/extensions\",\"themeColor\":\"FF0000\",\"summary\":\"Risk Threshold Breach - Portfolio ALPHA-7\",\"sections\":[{\"activityTitle\":\"\u26a0\ufe0f VaR Limit Breach\",\"activitySubtitle\":\"Portfolio ALPHA-7 | Desk: Macro Trading\",\"activityImage\":\"https://contoso.sharepoint.com/sites/RiskOps/icons/alert-red.png\",\"facts\":[{\"name\":\"Portfolio\",\"value\":\"ALPHA-7\"},{\"name\":\"Current VaR\",\"value\":\"$14.2M\"},{\"name\":\"VaR Limit\",\"value\":\"$12.0M\"},{\"name\":\"Breach %\",\"value\":\"18.3%\"},{\"name\":\"As-of Date\",\"value\":\"2026-03-18\"},{\"name\":\"Risk Engine\",\"value\":\"risk-calc-v3.2.1\"},{\"name\":\"Calculation Time\",\"value\":\"08:15:22 UTC\"}],\"markdown\":true}],\"potentialAction\":[{\"@type\":\"OpenUri\",\"name\":\"View in Risk Dashboard\",\"targets\":[{\"os\":\"default\",\"uri\":\"https://risk.contoso.com/portfolio/ALPHA-7/var\"}]},{\"@type\":\"OpenUri\",\"name\":\"Acknowledge\",\"targets\":[{\"os\":\"default\",\"uri\":\"https://risk.contoso.com/api/alerts/ack/2026-03-18/ALPHA-7\"}]}]}\n\nResponse: 400 Bad Request\n{\"error\":{\"code\":\"WebhookUrlExpired\",\"message\":\"The webhook URL has expired. Please regenerate the connector URL.\",\"innerError\":{\"date\":\"2026-03-18T08:15:23\",\"request-id\":\"e4f5a6b7-c8d9-0e1f-2a3b-4c5d6e7f8a9b\",\"client-request-id\":\"e4f5a6b7-c8d9-0e1f-2a3b-4c5d6e7f8a9b\"}}}\n\nI also captured like 50 more of these payloads with different portfolio alerts (BETA-3, GAMMA-12, DELTA-9, etc.) but they all fail the same way. The webhook was working fine until March 15. We need these alerts \u2014 they're critical for real-time risk monitoring across all trading desks.\n\nMarcus Webb\nRisk Operations\nExt 4-7891",
+    "reporter": {
+      "name": "Marcus Webb",
+      "email": "marcus.webb@contoso.com",
+      "department": "Risk Operations"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5104",
+    "subject": "Deploy-ContosoApp.ps1 failing on prod app servers since last Friday",
+    "description": "The automated deployment script Deploy-ContosoApp.ps1 has been failing on all production app servers (APP-PROD-01 through APP-PROD-06) since Friday. Here's the full output I captured with -Verbose and $ErrorActionPreference = 'Continue':\n\nVERBOSE: [2026-03-15 18:30:01] Starting deployment of ContosoExpensePortal v4.7.2\nVERBOSE: [2026-03-15 18:30:01] Target servers: APP-PROD-01, APP-PROD-02, APP-PROD-03, APP-PROD-04, APP-PROD-05, APP-PROD-06\nVERBOSE: [2026-03-15 18:30:02] Connecting to APP-PROD-01 via WinRM...\nVERBOSE: [2026-03-15 18:30:03] Connected. Session ID: PSSession-7a8b9c\nVERBOSE: [2026-03-15 18:30:03] Stopping IIS Application Pool 'ContosoExpensePool'...\nVERBOSE: [2026-03-15 18:30:04] Application Pool stopped.\nVERBOSE: [2026-03-15 18:30:04] Backing up current deployment to D:\\Backups\\v4.7.1_20260315...\nVERBOSE: [2026-03-15 18:30:08] Backup complete. 847 files copied.\nVERBOSE: [2026-03-15 18:30:08] Extracting package ContosoExpensePortal.4.7.2.nupkg...\nVERBOSE: [2026-03-15 18:30:12] Extraction complete. Applying transforms for PROD environment...\nWARNING: [2026-03-15 18:30:12] Config transform: ConnectionStrings.config \u2014 key 'ReportingDB' not found in transform file. Using base value.\nWARNING: [2026-03-15 18:30:12] Config transform: AppSettings.config \u2014 key 'FeatureFlag.NewDashboard' not found in transform file. Using base value.\nVERBOSE: [2026-03-15 18:30:13] Transforms applied. Starting file deployment...\nVERBOSE: [2026-03-15 18:30:15] Deployed 312/847 files...\nVERBOSE: [2026-03-15 18:30:17] Deployed 624/847 files...\nVERBOSE: [2026-03-15 18:30:19] Deployed 847/847 files.\nVERBOSE: [2026-03-15 18:30:19] Running post-deploy health check...\nWrite-Error: [2026-03-15 18:30:22] Health check FAILED on APP-PROD-01.\nWrite-Error: HTTP GET https://app-prod-01.contoso.local/health returned 503\nWrite-Error: Response body: {\"status\":\"unhealthy\",\"checks\":{\"database\":{\"status\":\"degraded\",\"description\":\"Connection timeout after 30s\"},\"redis\":{\"status\":\"healthy\"},\"blobStorage\":{\"status\":\"healthy\"}}}\nWARNING: [2026-03-15 18:30:22] Rolling back APP-PROD-01 to v4.7.1...\nVERBOSE: [2026-03-15 18:30:28] Rollback complete on APP-PROD-01.\nWrite-Error: [2026-03-15 18:30:28] Deployment FAILED. 0 of 6 servers updated.\nWrite-Error: Reason: Health check failure \u2014 database connection timeout.\n\nI ran the same script last Thursday for v4.7.1 and it worked perfectly. Something changed with the database or network over the weekend. Can you check?\n\n- Naomi Okafor, DevOps Engineering",
+    "reporter": {
+      "name": "Naomi Okafor",
+      "email": "naomi.okafor@contoso.com",
+      "department": "DevOps Engineering"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5105",
+    "subject": "Containerized reconciliation app won't start after infra migration",
+    "description": "Hi team,\n\nSince the infrastructure team migrated us to the new Docker hosts last week, our Trade Reconciliation app won't start. I've attached all three of our docker-compose files below. Can someone tell me what's wrong?\n\n=== docker-compose.yml (base) ===\nversion: '3.8'\nservices:\n  recon-api:\n    image: contosoacr.azurecr.io/trade-recon-api:4.1.0\n    ports:\n      - '8080:8080'\n    environment:\n      - ASPNETCORE_ENVIRONMENT=Production\n      - ConnectionStrings__ReconDB=Server=sqlprod-03.contoso.local;Database=TradeRecon;Trusted_Connection=true\n      - Redis__Endpoint=redis-cluster.contoso.local:6379\n      - Kafka__BootstrapServers=kafka-01.contoso.local:9092,kafka-02.contoso.local:9092\n    depends_on:\n      - recon-worker\n      - redis\n    networks:\n      - recon-net\n    deploy:\n      resources:\n        limits:\n          memory: 2G\n          cpus: '1.0'\n    healthcheck:\n      test: ['CMD', 'curl', '-f', 'http://localhost:8080/health']\n      interval: 30s\n      timeout: 10s\n      retries: 3\n\n  recon-worker:\n    image: contosoacr.azurecr.io/trade-recon-worker:4.1.0\n    environment:\n      - WORKER_CONCURRENCY=8\n      - ConnectionStrings__ReconDB=Server=sqlprod-03.contoso.local;Database=TradeRecon;Trusted_Connection=true\n      - Kafka__BootstrapServers=kafka-01.contoso.local:9092,kafka-02.contoso.local:9092\n      - Kafka__ConsumerGroup=recon-worker-prod\n    networks:\n      - recon-net\n    deploy:\n      replicas: 3\n      resources:\n        limits:\n          memory: 4G\n          cpus: '2.0'\n\n  redis:\n    image: redis:7.2-alpine\n    ports:\n      - '6379:6379'\n    volumes:\n      - redis-data:/data\n    networks:\n      - recon-net\n\nvolumes:\n  redis-data:\n\nnetworks:\n  recon-net:\n    driver: bridge\n\n=== docker-compose.override.yml ===\nversion: '3.8'\nservices:\n  recon-api:\n    ports:\n      - '8443:8443'\n    environment:\n      - ASPNETCORE_URLS=https://+:8443;http://+:8080\n      - ASPNETCORE_Kestrel__Certificates__Default__Path=/certs/contoso-recon.pfx\n      - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERT_PASSWORD}\n    volumes:\n      - /etc/contoso/certs:/certs:ro\n\n=== docker-compose.monitoring.yml ===\nversion: '3.8'\nservices:\n  prometheus:\n    image: prom/prometheus:v2.51.0\n    volumes:\n      - ./prometheus.yml:/etc/prometheus/prometheus.yml\n    ports:\n      - '9090:9090'\n    networks:\n      - recon-net\n\nThe error when I run docker compose up is:\nError response from daemon: pull access denied for contosoacr.azurecr.io/trade-recon-api, repository does not exist or may require 'docker login'\n\nThe images definitely exist in our ACR \u2014 I can see them in the Azure portal. I think the new Docker hosts aren't authenticated to our container registry.\n\nThis is blocking the entire Trade Ops team from running end-of-day reconciliation.\n\nKevin Nguyen\nTrade Operations Technology\nExt 3-2198",
+    "reporter": {
+      "name": "Kevin Nguyen",
+      "email": "kevin.nguyen@contoso.com",
+      "department": "Trade Operations Technology"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5106",
+    "subject": "Report generation app producing garbled PDF output for quarterly NAV reports",
+    "description": "The ContosoReportEngine application is producing corrupted PDF output when generating quarterly NAV (Net Asset Value) reports. When I try to copy-paste the table data from the PDF, this is what I get \u2014 the columns are completely misaligned and the numbers are garbled:\n\nCONTOSO FINANCIAL SERVICES \u2014 Q1 2026 NAV REPORT\nFund Name                NAV/Share    AUM ($M)     YTD Return   Sharpe   Benchmark\nContoso Growth Eq        $142.87      3,2l7.4      +8.37%       1.42     S&P 500\nContoso Fixed Inc                     $98.23       1,876.O      +2.91%            0.87     BBG Agg\nContoso Balanced    $ll5.6O           2,O43.8      +5.12%                1.15     60/40 Blend\nContoso Em Mkt Eq   $67.34                         897.2        +12.4l%  1.03     MSCI EM\nContoso Real Asset       $83.9l       654.3                     +3.78%   0.92     CPI+3%\nContoso HY Credit        $lO1.22      1,1O9.7      +6.54%       1.28     ICE HY\nContoso Quant Alph  $178.45      4,567.l      +15.23%      1.89     HFRX\nContoso Pvt Credit       $95.OO       2,334.6      +7.8O%       1.34     CDLI\n\n                    TOTAL AUM:   $l6,72O.l M\n\nPERFORMANCE ATTRIBUTION (Contoso Growth Equity)\nSector               Weight    Contrib    S&P Wt    Active     Selection\nTechnology            28.3%     +3.2l%     3l.7%     -3.4%      +O.87%\nHealthcare            l5.7%     +l.O3%     l2.4%     +3.3%      +O.42%\nFinancials            l8.2%     +l.56%     l3.l%     +5.l%      +O.3l%\nConsumer Disc         l2.l%     +O.98%     lO.5%     +l.6%      +O.22%\nlndustrials            9.4%     +O.7l%      8.7%     +O.7%      +O.l8%\nEnergy                 6.8%     +O.43%      3.9%     +2.9%      -O.O5%\nOther                  9.5%     +O.45%     l9.7%    -lO.2%      -O.l2%\nTOTAL               lOO.O%     +8.37%    lOO.O%      O.O%      +l.83%\n\nAs you can see, zeros are showing as capital O, ones and lowercase L are confused, columns bleed into each other, and some cells shifted rows. The raw data in our database is correct \u2014 I've verified that. The problem is the PDF rendering engine. This started after the ContosoReportEngine was upgraded to v3.5.0 last Tuesday.\n\nThis is blocking our quarterly client reporting \u2014 we have 230+ institutional clients waiting for these reports.\n\nDiane Kowalski\nClient Reporting, Portfolio Analytics\nExt 5-3344",
+    "reporter": {
+      "name": "Diane Kowalski",
+      "email": "diane.kowalski@contoso.com",
+      "department": "Client Reporting"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5107",
+    "subject": "SSO login failing for Contoso Trade Portal - getting infinite redirect loop",
+    "description": "Hi IT Support,\n\nI can=E2=80=99t log into the Contoso Trade Portal (https://trade.contoso.c=\nom/portal) since this morning. It just keeps redirecting me in a loop and =\neventually shows =E2=80=9CThis page isn=E2=80=99t working =E2=80=94 trade.contoso.com =\nredirected you too many times.=E2=80=9D\n\nI=E2=80=99ve tried the following:\n=E2=80=A2 Cleared all cookies and cache in Edge and Chrome\n=E2=80=A2 Tried InPrivate/Incognito browsing =E2=80=94 same result\n=E2=80=A2 Asked my colleague David (david.park@contoso.com) =E2=80=94 he ca=\nn log in fine\n=E2=80=A2 Tried from my phone on cellular (not VPN) =E2=80=94 still fails\n=E2=80=A2 Checked https://myaccount.microsoft.com =E2=80=94 my account looks=\n fine there\n\nThe URL it keeps bouncing between is:\nhttps://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/o=\nauth2/v2.0/authorize?client_id=3Da8c7e4f2-91b5-4d3a-b6c8-f0e2d4a6b8c0&r=\nedirect_uri=3Dhttps%3A%2F%2Ftrade.contoso.com%2F.auth%2Flogin%2Faad%2Fcal=\nlback&response_type=3Dcode&scope=3Dopenid%20profile%20email&state=3DeyJub=\n25jZSI6IjVhNGIzYzJkMWU2ZiJ9\n\nAnd then it redirects to:\nhttps://trade.contoso.com/.auth/login/aad/callback?code=3D0.AYIA-4j5cv=\nGBr0GRqy180BHbR_LE...\n\nThis is=20really urgent =E2=80=94 I have 47 pending trade confirmations that =\nneed to be approved by 4 PM ET today. If I miss the cutoff the trades go =\nto exception processing which costs the firm $2,300 per ticket.\n\nCan someone look at my Azure AD / SSO configuration? Maybe my conditional=\n access policy changed?\n\nThanks,\nElena Vasquez\nTrade Confirmation Analyst\nCapital Markets Operations\nExt 6-2847=20\n",
+    "reporter": {
+      "name": "Elena Vasquez",
+      "email": "elena.vasquez@contoso.com",
+      "department": "Capital Markets Operations"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5108",
+    "subject": "FW: INC0048721 - VPN access request for new Hong Kong office employees",
+    "description": "---------- Forwarded message ----------\nFrom: ServiceNow Notifications <servicenow-noreply@contoso.com>\nTo: it-helpdesk@contoso.com\nSubject: INC0048721 - State changed to: Awaiting Assignment\n\n=== INCIDENT RECORD: INC0048721 ===\nShort description: VPN access for HK office new hires\nState: Awaiting Assignment\nPriority: 3 - Moderate\nCategory: Network\nAssigned to: (empty)\nAssignment group: Network Operations\n\n=== FULL ACTIVITY LOG ===\n\n[2026-03-01 09:15:22 HKT] Incident created by: jennifer.wong@contoso.com\n  Field changes:\n    Short description: (empty) \u2192 'VPN access for HK office new hires'\n    Description: (empty) \u2192 'We have 12 new employees starting in the Hong Kong office on March 15 who need GlobalProtect VPN access to the NYC trading systems. Employee IDs: HK-2026-001 through HK-2026-012.'\n    Category: (empty) \u2192 Network\n    Subcategory: (empty) \u2192 VPN\n    Priority: (empty) \u2192 3 - Moderate\n    Contact type: (empty) \u2192 Email\n    Caller: (empty) \u2192 Jennifer Wong\n\n[2026-03-01 09:15:23 HKT] Auto-assignment rule triggered\n  Rule: 'Network category \u2192 Network Operations'\n  Field changes:\n    Assignment group: (empty) \u2192 Network Operations\n    State: New \u2192 Awaiting Assignment\n\n[2026-03-01 10:30:45 HKT] Approval requested\n  Approval for: VPN access \u2014 12 users\n  Approver: michael.burke@contoso.com (HK Office Manager)\n  State: Requested\n\n[2026-03-01 14:22:11 HKT] Approval record updated\n  Approver: michael.burke@contoso.com\n  State: Requested \u2192 Approved\n  Comments: 'Approved. All 12 are confirmed new hires starting 3/15.'\n\n[2026-03-02 08:45:33 HKT] Work note added by: network-ops-bot@contoso.com\n  'Auto-check: GlobalProtect license count = 4,847/5,000. Sufficient capacity for 12 additional users.'\n\n[2026-03-02 09:12:44 HKT] Field changes by: system\n    SLA: (empty) \u2192 'P3 Resolution - 5 business days'\n    SLA breach time: (empty) \u2192 2026-03-08 09:15:22 HKT\n\n[2026-03-05 11:33:22 HKT] Work note added by: amit.sharma@contoso.com\n  'Created GP user groups HK-OFFICE-VPN-2026Q1. Waiting on AD account creation for the 12 new hires before we can add them. Pinged IAM team.'\n\n[2026-03-07 16:45:00 HKT] SLA warning notification sent\n  'SLA breach in 1 business day for INC0048721'\n  Notified: network-ops-leads@contoso.com\n\n[2026-03-08 09:15:22 HKT] SLA BREACHED\n  Field changes:\n    SLA status: In Progress \u2192 Breached\n    Escalation: Normal \u2192 High\n\n[2026-03-10 08:00:15 HKT] Work note added by: jennifer.wong@contoso.com\n  'The new hires start in 5 days! Their AD accounts were created on 3/8. Can someone please add them to the VPN group?'\n\n[2026-03-12 14:22:33 HKT] Assignment changed by: amit.sharma@contoso.com\n  Field changes:\n    Assigned to: (empty) \u2192 Amit Sharma\n    State: Awaiting Assignment \u2192 In Progress\n\n[2026-03-12 14:30:00 HKT] Work note added by: amit.sharma@contoso.com\n  'Adding HK-2026-001 through HK-2026-012 to HK-OFFICE-VPN-2026Q1 group now. Need to also configure split-tunnel for HK\u2192NYC traffic.'\n\n[2026-03-14 09:00:00 HKT] Field changes by: amit.sharma@contoso.com\n    State: In Progress \u2192 Pending\n    Pending reason: Awaiting vendor\n  Work note: 'Split-tunnel config requires Palo Alto TAC case. Opened case #TA-887432.'\n\n[2026-03-15 07:30:00 HKT] Comment added by: jennifer.wong@contoso.com\n  'The new hires are starting TODAY and they still cannot connect to VPN! This was submitted 2 weeks ago. Please escalate.'\n\n[2026-03-15 07:31:12 HKT] State changed by: system (escalation rule)\n  Field changes:\n    Priority: 3 - Moderate \u2192 2 - High\n    State: Pending \u2192 Awaiting Assignment\n    Assigned to: Amit Sharma \u2192 (empty)\n    Assignment group: Network Operations \u2192 Network Operations (re-queued)\n\n=== END ACTIVITY LOG ===\n\nCan someone PLEASE just give these 12 people VPN access? They started today and can't do anything. \u2014 Jennifer",
+    "reporter": {
+      "name": "Jennifer Wong",
+      "email": "jennifer.wong@contoso.com",
+      "department": "Hong Kong Office Operations"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5109",
+    "subject": "CRITICAL - Bloomberg terminal not connecting - entire trading floor affected",
+    "description": "BLOOMBERG IS DOWN. I've been trying to troubleshoot and I'm getting this on my terminal screen. Pasting everything I can see:\n\nB-PIPE CONNECTION STATUS\n========================\nHost: ny-bbg-feed-01.contoso.local    Port: 8194    Status: DISCONNECTED\nHost: ny-bbg-feed-02.contoso.local    Port: 8194    Status: DISCONNECTED\nHost: ny-bbg-feed-03.contoso.local    Port: 8194    Status: TIMEOUT (30s)\nLast successful heartbeat: 2026-03-18T07:42:11.003Z (48 min ago)\nReconnect attempts: 147 (all failed)\nError: E_CONNECTION_REFUSED | BLPAPI SessionOptions timeout\n\nLast good data snapshot before disconnect:\nTICKER          BID       ASK       LAST      VOLUME     CHG     CHG%\n-----------------------------------------------------------------------\nSPX Index       5,847.23  5,847.89  5,847.56  1.2B       +23.45  +0.40%\nINDU Index     43,892.10 43,895.40 43,893.75  342M       +112.30 +0.26%\nCCMP Index     18,234.67 18,236.12 18,235.40  4.8B       +89.23  +0.49%\nUS10YT=RR       4.2340    4.2355    4.2348    98.2B      -0.0120 -0.28%\nEUR Curncy      1.0892    1.0894    1.0893    187B       +0.0023 +0.21%\nJPY Curncy    149.8700  149.8900  149.8800    245B       -0.2300 -0.15%\nCL1 Comdty     78.34     78.37     78.35     412K       +1.23   +1.60%\nGC1 Comdty   2,178.40  2,178.90  2,178.65    198K       +12.40  +0.57%\nVIX Index       14.23     14.45     14.34     n/a        -0.67   -4.48%\n\nBLPAPI DIAGNOSTICS:\n  Session pool: 0/24 active (all sessions closed by remote)\n  Subscription count: 12,847 (all stale)\n  Last event type: SESSION_STATUS / SESSION_TERMINATED\n  TCP state to ny-bbg-feed-01: SYN_SENT (no ACK received)\n  TCP state to ny-bbg-feed-02: SYN_SENT (no ACK received)\n  TCP state to ny-bbg-feed-03: CLOSED (RST received)\n  Network path MTU: 1500 (no fragmentation)\n  DNS resolution: ny-bbg-feed-01 \u2192 10.60.1.101 (OK)\n  DNS resolution: ny-bbg-feed-02 \u2192 10.60.1.102 (OK)\n  DNS resolution: ny-bbg-feed-03 \u2192 10.60.1.103 (OK)\n  Firewall rule check: UNKNOWN (cannot reach policy server)\n\nWe have 34 portfolio managers and 22 traders on this floor who are completely blind right now. Market opened 30 minutes ago. Every minute we are down costs us real money \u2014 we can't see prices, can't execute, can't hedge. The backup Reuters feed is on a different system that only 3 people have access to.\n\nPlease treat this as the highest possible priority.\n\nGeorge Papadopoulos\nHead of Equity Trading Desk\nFloor 12, NYC\nDirect: 212-555-0147",
+    "reporter": {
+      "name": "George Papadopoulos",
+      "email": "george.papadopoulos@contoso.com",
+      "department": "Equity Trading"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "phone",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5110",
+    "subject": "Data export from ContosoReporter tool showing formulas instead of values",
+    "description": "Hi,\n\nSomething is very wrong with the ContosoReporter data export. When I export the daily P&L summary to Excel and then paste it into our risk system upload template, all the formulas are showing instead of values. Here's what the clipboard paste looks like:\n\nDesk\tGross P&L\tNet P&L\tVaR Utilization\tTrade Count\tNotional ($M)\nEquity Trading\t=SUM(B14:B87)\t=B2-VLOOKUP(A2,Costs!A:C,3,FALSE)\t=IF(D2>0.85,\"BREACH\",IF(D2>0.7,\"WARNING\",\"OK\"))\t=COUNTA(Trades!A:A)-1\t=SUMPRODUCT(Trades!F2:F500,Trades!G2:G500)/1000000\nFixed Income\t=SUM(B88:B134)\t=B3-VLOOKUP(A3,Costs!A:C,3,FALSE)\t#REF!\t=COUNTIFS(Trades!B:B,\"FI\",Trades!H:H,\">0\")\t=SUMPRODUCT((Trades!B2:B500=\"FI\")*Trades!F2:F500*Trades!G2:G500)/1000000\nFX & Rates\t#N/A\t=B4-VLOOKUP(A4,Costs!A:C,3,FALSE)\t=C15/VLOOKUP(A4,Limits!A:B,2,FALSE)\t=COUNTIFS(Trades!B:B,\"FX*\")\t#VALUE!\nCredit\t=SUM(B200:B267)\t=B5-VLOOKUP(A5,Costs!A:C,3,FALSE)\t=C16/VLOOKUP(A5,Limits!A:B,2,FALSE)\t=COUNTIFS(Trades!B:B,\"CRD\")\t=SUMPRODUCT((Trades!B2:B500=\"CRD\")*Trades!F2:F500*Trades!G2:G500)/1000000\nCommodities\t=SUM(B268:B301)\t#REF!\t=C17/VLOOKUP(A6,Limits!A:B,2,FALSE)\t=COUNTIFS(Trades!B:B,\"CMDTY\")\t#N/A\nTOTAL\t=SUM(B2:B6)\t=SUM(C2:C6)\t=MAX(D2:D6)\t=SUM(E2:E6)\t=SUM(F2:F6)\n\nThere are also these errors scattered throughout:\n#REF! \u2014 appears in Fixed Income VaR Utilization and Commodities Net P&L\n#N/A \u2014 appears in FX & Rates Gross P&L and Commodities Notional\n#VALUE! \u2014 appears in FX & Rates Notional\n\nThe previous version of ContosoReporter (v2.8) exported actual calculated values. Since the upgrade to v3.0 last week, it's exporting the raw formulas. The risk system upload rejects the file because it expects numeric values, not formula strings.\n\nI need this fixed before 6 PM ET \u2014 that's when the daily risk report is due to the Chief Risk Officer. I've been manually calculating these values for the past 3 days and it takes over 2 hours each time.\n\nTanya Birch\nRisk Reporting Analyst\nEnterprise Risk Management\nFloor 9, NYC Office",
+    "reporter": {
+      "name": "Tanya Birch",
+      "email": "tanya.birch@contoso.com",
+      "department": "Enterprise Risk Management"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5111",
+    "subject": "Database connectivity failures on ContosoTradeDB \u2014 query results attached",
+    "description": "Hi support,\n\nOur trading analytics application has been failing to connect to ContosoTradeDB since approximately 07:45 AM ET this morning. The app returns 'Connection timed out' after 30 seconds. I ran some diagnostic queries directly on the server to show what's happening. Here's the output from our monitoring query:\n\n+-----------+------------------+--------+---------------------+--------+\n| server_id | hostname         | status | last_heartbeat      | cpu_pct|\n+-----------+------------------+--------+---------------------+--------+\n| SRV-0041  | db-east-prod-01  | DOWN   | 2024-03-15 07:44:02 |  NULL  |\n| SRV-0042  | db-east-prod-02  | WARN   | 2024-03-15 08:01:55 |  97.3  |\n| SRV-0043  | db-east-prod-03  | OK     | 2024-03-15 08:12:33 |  42.1  |\n| SRV-0044  | db-west-dr-01    | OK     | 2024-03-15 08:12:30 |  11.8  |\n+-----------+------------------+--------+---------------------+--------+\n4 rows in set (0.03 sec)\n\nSELECT c.connection_id, c.client_ip, c.state, c.wait_time_sec,\n       c.last_query, c.db_name\nFROM sys.active_connections c\nWHERE c.db_name = 'ContosoTradeDB'\nORDER BY c.wait_time_sec DESC;\n\n+---------------+----------------+----------+---------------+---------------------------+-----------------+\n| connection_id | client_ip      | state    | wait_time_sec | last_query                | db_name         |\n+---------------+----------------+----------+---------------+---------------------------+-----------------+\n| 884201        | 10.20.5.112    | BLOCKED  |         14422 | EXEC sp_GetTradePositions | ContosoTradeDB  |\n| 884203        | 10.20.5.113    | BLOCKED  |         14301 | SELECT * FROM vw_DailyPnL | ContosoTradeDB  |\n| 884210        | 10.20.5.112    | BLOCKED  |         13987 | EXEC sp_CalcMarginReqs    | ContosoTradeDB  |\n| 884215        | 10.20.5.119    | WAITING  |          9022 | INSERT INTO TradeAuditLog | ContosoTradeDB  |\n| 884220        | 10.20.5.120    | RUNNING  |             2 | SELECT @@VERSION          | ContosoTradeDB  |\n+---------------+----------------+----------+---------------+---------------------------+-----------------+\n5 rows in set (0.01 sec)\n\nAs you can see, SRV-0041 (db-east-prod-01) is DOWN and the remaining connections are piling up on SRV-0042 which is at 97% CPU. Most of the trading desk is affected \u2014 roughly 35 users cannot access the trade blotter or run end-of-day reports. We need this resolved before the market close at 4 PM ET.\n\nMarcus Finlay\nDatabase Operations Team Lead\nCapital Markets Technology\nExt. 4477",
+    "reporter": {
+      "name": "Marcus Finlay",
+      "email": "marcus.finlay@contoso.com",
+      "department": "Capital Markets Technology"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5112",
+    "subject": "Trade settlement workflow stuck \u2014 see diagram of expected flow",
+    "description": "Hello IT Support,\n\nOur trade settlement workflow engine (ContosoSettleFlow v4.2) has been stuck in the 'Pending Confirmation' state for all USD/EUR FX spot trades since last night. Normally, these settle within T+2, but nothing has moved since 11 PM yesterday.\n\nI drew the expected flow so you can see where it's breaking:\n\n```mermaid\ngraph TD\n    A[Trade Executed] --> B{Validation OK?}\n    B -->|Yes| C[Send to Matching Engine]\n    B -->|No| D[Return to Trader]\n    C --> E{Match Found?}\n    E -->|Yes| F[Generate Confirmation]\n    E -->|No| G[Queue for Manual Match]\n    F --> H[Counterparty Ack]\n    H --> I{Ack Received?}\n    I -->|Yes| J[Schedule Settlement]\n    I -->|No, timeout 4hr| K[Escalate to Ops]\n    J --> L[Settlement Complete]\n    K --> M[Manual Resolution]\n```\n\nThe process appears to be stuck between step F (Generate Confirmation) and step H (Counterparty Ack). The confirmations ARE being generated \u2014 I can see them in the Confirmations table \u2014 but the SWIFT gateway does not appear to be transmitting them to the counterparties.\n\nHere is the sequence as I understand it:\n\n```plantuml\n@startuml\nparticipant SettleFlow\nparticipant ConfirmationSvc\nparticipant SWIFTGateway\nparticipant Counterparty\n\nSettleFlow -> ConfirmationSvc: generateConfirm(tradeId)\nConfirmationSvc --> SettleFlow: confirmId=CFM-20240315-001\nSettleFlow -> SWIFTGateway: send(confirmId)  <-- THIS TIMES OUT\nSWIFTGateway --> SettleFlow: timeout after 120s\nSettleFlow -> SettleFlow: retry (max 3)\nSWIFTGateway --> SettleFlow: timeout after 120s\nSettleFlow -> SettleFlow: mark as PENDING_CONFIRMATION\n@enduml\n```\n\nThere are currently 142 trades stuck in this state. The operations team is manually calling counterparties to confirm, but this is not sustainable. Can someone look at the SWIFT gateway connectivity?\n\nPriya Venkatesh\nSettlement Operations Analyst\nPost-Trade Services\nDesk: 3-East, Row C",
+    "reporter": {
+      "name": "Priya Venkatesh",
+      "email": "priya.venkatesh@contoso.com",
+      "department": "Post-Trade Services"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5113",
+    "subject": "Laptop blue screens every morning when connecting to docking station",
+    "description": "My laptop (Contoso-issued ThinkPad T14s Gen 4, asset tag LPT-08832) has been crashing with a blue screen every morning when I plug into my docking station (ThinkPad USB-C Dock Gen 2). It was working fine until the latest round of Windows updates pushed last Tuesday.\n\nHere is the full BSOD information from the last crash this morning:\n\n*** STOP: 0x0000009F (0x0000000000000003, 0xFFFFD60F8A4C17B0, 0xFFFFF80174E3A4D0, 0xFFFFD60F8A012010)\nDRIVER_POWER_STATE_FAILURE\n\n*** Stack trace:\nnt!KeBugCheckEx\nnt!PopIrpWatchdogBugcheck+0x100\nnt!PopIrpWatchdog+0x44\nnt!KiProcessExpiredTimerList+0x1a6\nnt!KiRetireDpcList+0x5df\nnt!KiIdleLoop+0x9e\n\nProbably caused by: UcmUcsiCx.sys\n\nFAILURE_BUCKET_ID: 0x9F_3_UcmUcsiCx_IMAGE_UcmUcsiCx.sys\nMODULE_NAME: UcmUcsiCx\nIMAGE_NAME: UcmUcsiCx.sys\nIMAGE_VERSION: 10.0.22621.3085\nSTACK_TEXT:\n  ffffd60f`8a4c17b0 fffff801`74e3a4d0 : nt!PopIrpWatchdogBugcheck\n  ffffd60f`8a4c1830 fffff801`73b2f1a0 : UcmUcsiCx!UcmUcsiDevicePowerDown\n  ffffd60f`8a4c18a0 fffff801`73c1e2cc : UcmUcsiCx!UcmUcsiConnectorPowerOff\n  ffffd60f`8a4c1900 fffff801`73a0dc10 : Wdf01000!FxPkgPnp::PowerPolicyStop\n  ffffd60f`8a4c1980 fffff801`6f810045 : USBHUB3!HubPdo_EvtDeviceD0Exit\n  ffffd60f`8a4c19f0 fffff801`6f6a7823 : ucx01000!Ucx_EvtDeviceD0Exit\n\nBugcheck timestamp: 2024-03-15T08:23:14.000Z\nDump file: C:\\Windows\\MEMORY.DMP (Full kernel dump, 4.2 GB)\nMinidump: C:\\Windows\\Minidump\\031524-12345-01.dmp\n\nThis has happened 4 out of the last 5 mornings. The only workaround is to not use the dock and work on laptop screen + Wi-Fi, but I need my dual monitors for trading floor work. Please help.\n\nDerek Hanson\nEquities Trader\nUS Equities Desk\nFloor 7, Station 14B",
+    "reporter": {
+      "name": "Derek Hanson",
+      "email": "derek.hanson@contoso.com",
+      "department": "US Equities Desk"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "phone",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5114",
+    "subject": "ContosoRisk pricing service pods in CrashLoopBackOff since 6 AM",
+    "description": "The ContosoRisk real-time pricing service has been down since ~6 AM. All 8 replicas are in CrashLoopBackOff. This is the production namespace (contoso-risk-prod) in our AKS cluster (aks-east-prod-01). I've pasted the full describe output so you can see everything:\n\n$ kubectl describe pod contoso-risk-pricing-7f8b9c6d4-xk2lm -n contoso-risk-prod\nName:         contoso-risk-pricing-7f8b9c6d4-xk2lm\nNamespace:    contoso-risk-prod\nPriority:     0\nNode:         aks-nodepool1-38291045-vmss000004/10.240.0.7\nStart Time:   Fri, 15 Mar 2024 06:02:14 +0000\nLabels:       app=contoso-risk-pricing\n              pod-template-hash=7f8b9c6d4\n              version=v2.14.3\nAnnotations:  prometheus.io/scrape: true\n              prometheus.io/port: 9090\nStatus:       Running\nIP:           10.244.3.18\nContainers:\n  pricing-engine:\n    Image:         contosoacr.azurecr.io/risk/pricing-engine:v2.14.3\n    Port:          8080/TCP\n    State:         Waiting\n      Reason:      CrashLoopBackOff\n    Last State:    Terminated\n      Reason:      OOMKilled\n      Exit Code:   137\n    Ready:         False\n    Restart Count: 47\n    Limits:\n      cpu:     2\n      memory:  4Gi\n    Requests:\n      cpu:     500m\n      memory:  2Gi\n    Liveness:   http-get http://:8080/healthz delay=30s timeout=5s\n    Readiness:  http-get http://:8080/readyz delay=10s timeout=3s\n    Environment:\n      PRICING_MODEL_CACHE_SIZE:  8192\n      JAVA_OPTS:                 -Xmx3584m -Xms2048m\n      REDIS_HOST:                redis-pricing-prod.contoso.internal\n      DB_CONN_STRING:            <set to the key 'db-conn' in secret 'pricing-db-secret'>\nEvents:\n  Type     Reason     Age                  From     Message\n  ----     ------     ----                 ----     -------\n  Normal   Scheduled  2h15m                scheduler  Successfully assigned\n  Normal   Pulled     2h14m                kubelet   Container image pulled\n  Normal   Created    2h14m                kubelet   Created container\n  Normal   Started    2h14m                kubelet   Started container\n  Warning  OOMKilled  2h12m                kubelet   Container killed (OOM)\n  Normal   Pulled     2h11m (x2 over 2h)  kubelet   Container image pulled\n  Warning  OOMKilled  2h9m                 kubelet   Container killed (OOM)\n  Warning  BackOff    4m (x47 over 2h)     kubelet   Back-off restarting\n\nThe pricing service was working fine on v2.14.2. We deployed v2.14.3 at 5:55 AM this morning as part of a scheduled release. The new version includes an expanded model cache for faster option pricing, but it seems like it's consuming too much memory and getting OOMKilled.\n\nThis is blocking all real-time risk calculations for the trading floor. About 200 users are impacted.\n\nRajesh Nair\nSRE \u2014 Risk Platform\nCloud Infrastructure\nOn-call: +1-555-0142",
+    "reporter": {
+      "name": "Rajesh Nair",
+      "email": "rajesh.nair@contoso.com",
+      "department": "Cloud Infrastructure"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5115",
+    "subject": "Internal benefits portal returns 404 after clicking enrollment link",
+    "description": "Hi team,\n\nI received the annual benefits open-enrollment email from HR this morning and when I click the enrollment link, it goes to a 404 page on the ContosoHR portal. I've tried three different browsers (Edge, Chrome, Firefox) and they all give the same error. Other colleagues on my floor have the same problem.\n\nHere is the exact URL from the email (I copied it from the href):\n\nhttps://contosohr.contoso.com/benefits/enrollment/2024?utm_source=internal_email&utm_medium=email&utm_campaign=open_enrollment_2024_q1_annual_benefits_review_contoso_financial_services_all_employees_north_america&utm_content=cta_button_primary_enroll_now_blue_variant_a&utm_term=benefits_enrollment_health_dental_vision_401k_hsa_fsa_life_insurance_disability&mkt_tok=eyJpIjoiTXpRMU1RZNFltRm1OV1kiLCJ0IjoiZ0VHbDB0UExkbExYK3FQMHE3alhQZmVYNnRVVjFkK0RrWVlYT2hTMUF6WTRDQmZ3aDBQbVlUUkZxTUJiUit3PT0ifQ%3D%3D&svc_track=a]]]f8d9e2-41a7-4b8c-9f12-3c5e7a8b1d04&click_id=emp_20240315_091422_finlay_m_00832&session_ref=S-2024-0315-0914-ABX7Y9&redirect_chain=portal_sso%3E%3Ebenefits_hub%3E%3Eenrollment_wizard&encoding=UTF-8&locale=en-US&dept_code=CMT&cost_center=4400&employee_band=L7&benefits_eligible=true&plan_year=2024&enrollment_window=open&window_start=2024-03-15&window_end=2024-04-15&fallback_url=https%3A%2F%2Fcontosohr.contoso.com%2Fbenefits%2Ffallback&error_redirect=https%3A%2F%2Fcontosohr.contoso.com%2Fsupport%2Fticket%3Fcontext%3Denrollment_failure%26ts%3D1710496462&analytics_payload=eyJldmVudCI6ImNsaWNrIiwibGFiZWwiOiJlbnJvbGxfY3RhIiwidGltZXN0YW1wIjoxNzEwNDk2NDYyfQ%3D%3D\n\nWhen I manually shorten the URL to just https://contosohr.contoso.com/benefits/enrollment/2024 it also 404s, so the tracking parameters are not the only problem \u2014 but I wanted to share the full URL in case it helps.\n\nWe are in the open-enrollment window (March 15 \u2013 April 15) and people need to make their selections. About 1,200 employees in North America received this same email.\n\nCould you check the ContosoHR portal and the /benefits/enrollment route? We had a similar issue last year when the enrollment module wasn't enabled by the HR platform team before the campaign emails went out.\n\nAlicia Drummond\nBenefits Coordinator\nHuman Resources\nBuilding 3, Room 210",
+    "reporter": {
+      "name": "Alicia Drummond",
+      "email": "alicia.drummond@contoso.com",
+      "department": "Human Resources"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5116",
+    "subject": "VPN drops every 15 min \u2014 chat log from affected users attached",
+    "description": "We have been experiencing intermittent VPN disconnections all day. Multiple users on the London trading floor are affected. I grabbed the conversation from our Teams channel to show the timeline:\n\n[08:12 AM] === Oliver Bright joined the meeting ===\n[08:12 AM] Oliver Bright: Hey, is anyone else's VPN dropping?\n[08:13 AM] === Sandra Yee joined the meeting ===\n[08:13 AM] Sandra Yee: Yes! Just got disconnected for the third time this morning.\n[08:14 AM] Oliver Bright: Same here. It reconnects after about 30 seconds but I lose my Citrix session every time.\n[08:14 AM] === System: Meeting recording started ===\n[08:15 AM] Sandra Yee: I'm on the Contoso GlobalProtect VPN client v5.2.13. Anyone on a different version?\n[08:15 AM] Oliver Bright: Same version. 5.2.13.\n[08:16 AM] === Kevin Marsh joined the meeting ===\n[08:16 AM] Kevin Marsh: Adding myself \u2014 same issue. VPN drops exactly every 15 minutes. I timed it.\n[08:17 AM] Sandra Yee: That's weirdly consistent. Could it be a session timeout?\n[08:17 AM] === System: Sandra Yee is now sharing screen ===\n[08:18 AM] Sandra Yee: Look at my event log \u2014 the disconnects are at 07:30, 07:45, 08:00, 08:15. Exactly 15 min intervals.\n[08:19 AM] Kevin Marsh: Same pattern here. 07:32, 07:47, 08:02, 08:17. Offset by 2 min from Sandra but same interval.\n[08:20 AM] === System: Meeting recording stopped ===\n[08:20 AM] Oliver Bright: I'll open a ticket. This is killing our productivity \u2014 we keep losing our Bloomberg and trading sessions.\n[08:21 AM] === Sandra Yee left the meeting ===\n[08:21 AM] === Kevin Marsh left the meeting ===\n[08:22 AM] === Oliver Bright left the meeting ===\n\nSo as you can see, at least 3 of us are affected. The VPN drops every 15 minutes like clockwork. We are all on the London office network (VLAN 40, subnet 10.30.40.0/24) using GlobalProtect v5.2.13 connecting to vpn-eu-west.contoso.com.\n\nThis started this morning after the weekend network maintenance window. Can someone check the VPN concentrator settings?\n\nOliver Bright\nFX Options Trader\nLondon Trading Floor\nDesk: LDN-7-42",
+    "reporter": {
+      "name": "Oliver Bright",
+      "email": "oliver.bright@contoso.com",
+      "department": "London Trading Floor"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5117",
+    "subject": "ContosoCalc option pricing module returns wrong Greeks \u2014 formula ref",
+    "description": "Hi Support,\n\nThe ContosoCalc pricing library (v8.3.1) is returning incorrect Delta and Gamma values for European-style equity options. I've been comparing the output against our validated reference spreadsheet and the values diverge significantly for deep in-the-money options.\n\nFor reference, the correct Black-Scholes formulas that ContosoCalc should be implementing are:\n\nThe option price:\n$$C = S_0 N(d_1) - K e^{-rT} N(d_2)$$\n\nWhere:\n$$d_1 = \\frac{\\ln(S_0/K) + (r + \\sigma^2/2)T}{\\sigma\\sqrt{T}}$$\n$$d_2 = d_1 - \\sigma\\sqrt{T}$$\n\nDelta should be:\n$$\\Delta = \\frac{\\partial C}{\\partial S} = N(d_1)$$\n\nAnd Gamma:\n$$\\Gamma = \\frac{\\partial^2 C}{\\partial S^2} = \\frac{N'(d_1)}{S_0 \\sigma \\sqrt{T}}$$\n\nWhere $N'(x) = \\frac{1}{\\sqrt{2\\pi}} e^{-x^2/2}$ is the standard normal PDF.\n\nThe specific test case where I see the error:\n- Spot price $S_0 = 150$, Strike $K = 100$, Risk-free rate $r = 0.05$\n- Volatility $\\sigma = 0.20$, Time to expiry $T = 0.5$ years\n- Expected Delta: 0.9782, ContosoCalc returns: 0.8431\n- Expected Gamma: 0.0045, ContosoCalc returns: 0.0312\n\nThe error seems to be in the $d_1$ calculation \u2014 I suspect the library is using $\\sigma$ instead of $\\sigma^2/2$ in the drift term, which would be a classic implementation bug:\n$$d_1^{\\text{buggy}} = \\frac{\\ln(S_0/K) + (r + \\sigma)T}{\\sigma\\sqrt{T}} \\neq d_1^{\\text{correct}}$$\n\nThis was introduced in v8.3.1 \u2014 version 8.3.0 was correct. Can the quantitative development team investigate?\n\nNatalie Zhao\nQuantitative Analyst\nDerivatives Pricing\nFloor 12, Quant Lab",
+    "reporter": {
+      "name": "Natalie Zhao",
+      "email": "natalie.zhao@contoso.com",
+      "department": "Derivatives Pricing"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5118",
+    "subject": "Azure deployment failed for ContosoPayments staging \u2014 ARM template attached",
+    "description": "Our staging deployment for the ContosoPayments service failed at 2:30 AM during the automated release pipeline. The Azure Resource Manager returned a 'ResourceDeploymentFailure' error. I'm pasting the relevant section of our ARM template so you can see the config:\n\n{\n  \"$schema\": \"https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#\",\n  \"contentVersion\": \"1.0.0.0\",\n  \"parameters\": {\n    \"appServicePlanSku\": {\n      \"type\": \"string\",\n      \"defaultValue\": \"P2v3\",\n      \"allowedValues\": [\"P1v3\", \"P2v3\", \"P3v3\"]\n    },\n    \"sqlServerAdminPassword\": {\n      \"type\": \"securestring\",\n      \"metadata\": {\n        \"description\": \"SQL admin password from Key Vault\"\n      }\n    }\n  },\n  \"resources\": [\n    {\n      \"type\": \"Microsoft.Web/serverfarms\",\n      \"apiVersion\": \"2022-03-01\",\n      \"name\": \"asp-contosopay-staging\",\n      \"location\": \"[resourceGroup().location]\",\n      \"sku\": {\n        \"name\": \"[parameters('appServicePlanSku')]\",\n        \"capacity\": 3\n      }\n    },\n    {\n      \"type\": \"Microsoft.Web/sites\",\n      \"apiVersion\": \"2022-03-01\",\n      \"name\": \"app-contosopay-staging\",\n      \"location\": \"[resourceGroup().location]\",\n      \"dependsOn\": [\n        \"[resourceId('Microsoft.Web/serverfarms', 'asp-contosopay-staging')]\"\n      ],\n      \"properties\": {\n        \"serverFarmId\": \"[resourceId('Microsoft.Web/serverfarms', 'asp-contosopay-staging')]\",\n        \"siteConfig\": {\n          \"alwaysOn\": true,\n          \"linuxFxVersion\": \"DOTNETCORE|8.0\",\n          \"appSettings\": [\n            {\n              \"name\": \"APPINSIGHTS_INSTRUMENTATIONKEY\",\n              \"value\": \"[reference(resourceId('Microsoft.Insights/components', 'ai-contosopay-staging')).InstrumentationKey]\"\n            },\n            {\n              \"name\": \"ConnectionStrings__PaymentDb\",\n              \"value\": \"[concat('Server=tcp:', reference(resourceId('Microsoft.Sql/servers', 'sql-contosopay-staging')).fullyQualifiedDomainName, ',1433;Database=PaymentDb;')]}\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}\n\nThe actual error message from the deployment log is:\n\"Code: ResourceNotFound, Message: The Resource 'Microsoft.Insights/components/ai-contosopay-staging' under resource group 'rg-contosopay-staging' was not found.\"\n\nIt seems like the Application Insights resource doesn't exist yet in staging. We just created this new staging resource group last week and I think we missed adding the App Insights resource to the template.\n\nCan someone help us add the missing resource and re-run the deployment? We need staging up for UAT testing that starts Monday.\n\nJames Okoro\nDevOps Engineer\nPayments Platform Team\nRemote \u2014 Toronto Office",
+    "reporter": {
+      "name": "James Okoro",
+      "email": "james.okoro@contoso.com",
+      "department": "Payments Platform Team"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5119",
+    "subject": "Build pipeline broken \u2014 config file has merge issues after branch merge",
+    "description": "Hi team,\n\nOur CI/CD build pipeline (Azure DevOps, contoso-tradeledger repo) has been failing since this morning. I merged the feature/settlement-batch branch into main at 7:40 AM and the build broke immediately. The error says 'Invalid YAML' in the pipeline config.\n\nI looked at the config file and found the problem \u2014 there are merge conflicts that didn't get resolved. Here's what the file looks like right now:\n\n# contoso-tradeledger pipeline config\nservice:\n  name: trade-ledger-service\n  version: 4.12.0\n\ndatabase:\n<<<<<<< HEAD\n  host: sql-tradeledger-prod.database.windows.net\n  port: 1433\n  name: TradeLedgerDB\n  pool_size: 25\n  timeout: 30\n=======\n  host: sql-tradeledger-prod-v2.database.windows.net\n  port: 1433\n  name: TradeLedgerDB_v2\n  pool_size: 50\n  timeout: 60\n  retry_count: 3\n  retry_delay: 5\n>>>>>>> feature/settlement-batch\n\nbatch_processing:\n<<<<<<< HEAD\n  enabled: false\n  batch_size: 100\n=======\n  enabled: true\n  batch_size: 500\n  parallel_workers: 4\n  checkpoint_interval: 60\n>>>>>>> feature/settlement-batch\n\nlogging:\n  level: INFO\n  output: /var/log/tradeledger/app.log\n\nI'm not sure which version of the database config is correct \u2014 the old one pointing to sql-tradeledger-prod or the new one pointing to sql-tradeledger-prod-v2. The feature branch was supposed to migrate us to the new database with larger pool sizes for batch settlement.\n\nThe build has been red for 3 hours now and the team can't merge any other PRs. Can someone help us resolve this properly?\n\nTom\u00e1s Rivera\nSoftware Developer\nTrade Ledger Engineering\nAustin Office, Bldg 2",
+    "reporter": {
+      "name": "Tom\u00e1s Rivera",
+      "email": "tomas.rivera@contoso.com",
+      "department": "Trade Ledger Engineering"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5120",
+    "subject": "ContosoAnalytics Mac app crashes on launch after macOS Sonoma update",
+    "description": "Hi IT Support,\n\nEver since I updated my MacBook Pro (M3 Pro, 16-inch, 2023) to macOS Sonoma 14.4 yesterday, the ContosoAnalytics desktop app (v6.1.0) crashes immediately on launch. I can see the dock icon bounce once and then it disappears. I've tried reinstalling the app, clearing the preferences (~/Library/Preferences/com.contoso.analytics.plist), and even creating a new user profile \u2014 same crash every time.\n\nHere is the crash report from Console.app:\n\nProcess:               ContosoAnalytics [1842]\nPath:                  /Applications/ContosoAnalytics.app/Contents/MacOS/ContosoAnalytics\nIdentifier:            com.contoso.analytics\nVersion:               6.1.0 (6100)\nCode Type:             ARM-64 (Native)\nParent Process:        launchd [1]\nResponsible:           ContosoAnalytics [1842]\n\nDate/Time:             2024-03-15 09:14:22.431 +0000\nOS Version:            macOS 14.4 (23E214)\nReport Version:        12\nAnonymous UUID:        8A3F1B2C-4D5E-6F7A-8B9C-0D1E2F3A4B5C\n\nException Type:        EXC_CRASH (SIGABRT)\nException Codes:       0x0000000000000000, 0x0000000000000000\nTermination Reason:    Namespace DYLD, Code 1 Library missing\nTermination Description: Library not loaded: @rpath/libssl.3.dylib\n  Referenced from: /Applications/ContosoAnalytics.app/Contents/Frameworks/ContosoNetworking.framework/ContosoNetworking\n  Reason: tried: '/usr/lib/libssl.3.dylib' (no such file), '/opt/homebrew/lib/libssl.3.dylib' (no such file, not in dyld cache)\n\nThread 0 Crashed:: Dispatch queue: com.apple.main-thread\n0   dyld                  0x000000018b2f1a3c dyld4::halt(char const*) + 572\n1   dyld                  0x000000018b2f5e20 dyld4::prepare(dyld4::APIs&, dyld3::MachOAnalyzer const*) + 3740\n2   dyld                  0x000000018b2e9a5c _dyld_start + 5765\n\nThread 0 crashed with ARM Thread State (64-bit):\n    x0: 0x0000000000000006   x1: 0x000000016b4e2b18   x2: 0x0000000000000000\n    x3: 0x000000016b4e27a0   x4: 0x000000016b4e2048   x5: 0x000000000000002d\n    x6: 0x0000000000000069   x7: 0x0000000000000900\n   pc: 0x000000018b2f1a3c  cpsr: 0x40001000\n\nBinary Images:\n       0x1009e8000 -        0x100c7bfff  com.contoso.analytics (6.1.0) <A1B2C3D4-E5F6-7890-ABCD-EF1234567890> /Applications/ContosoAnalytics.app/Contents/MacOS/ContosoAnalytics\n       0x18b2dc000 -        0x18b31efff  dyld (*) <B2C3D4E5-F6A7-890B-CDEF-234567890ABC> /usr/lib/dyld\n\nI need this app for my quarterly portfolio analysis which is due this Friday. About 15 analysts in my group use this app and I expect they will hit the same issue once they update to Sonoma 14.4.\n\nSamantha Reeves\nPortfolio Analyst\nAsset Management\nSan Francisco Office, Floor 5",
+    "reporter": {
+      "name": "Samantha Reeves",
+      "email": "samantha.reeves@contoso.com",
+      "department": "Asset Management"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5121",
+    "subject": "User access provisioning issue \u2014 see affected users list below",
+    "description": "Hi IAM team,\n\nWe need to review access for the following employees. Several of them report they cannot reach the Contoso Trade Portal since the last AD sync. I exported the data from our tracking spreadsheet:\n\nEmployeeID,Name,Department,Role,AccessLevel,LastLogin,Status\nE10421,Maria Chen,Trading,Senior Trader,Level3,2026-03-14,Active\nE10422,James O'Brien,Trading,Analyst,Level2,2026-03-10,Locked\nE10423,Priya Kapoor,Risk Management,Manager,Level3,2026-03-15,Active\nE10424,Robert Kim,Compliance,Analyst,Level2,2026-02-28,Expired\nE10425,Sofia Vargas,Wealth Management,VP,Level4,2026-03-14,Active\nE10426,Daniel Nakamura,Trading,Quant,Level3,2026-03-01,Locked\nE10427,Emily Watson,Finance,Controller,Level2,2026-03-12,Active\nE10428,Ahmed Hassan,Data Engineering,Engineer,Level2,2026-03-13,Active\nE10429,Lisa Park,Compliance,Senior Analyst,Level3,2026-03-11,Locked\nE10430,Michael Torres,Trading,Director,Level4,2026-03-15,Active\nE10431,Rachel Green,HR,Business Partner,Level2,2026-03-09,Active\nE10432,Kevin Liu,Engineering,Staff Eng,Level3,2026-03-14,Active\nE10433,Anna Schmidt,Regulatory Affairs,Analyst,Level2,2026-03-08,Expired\nE10434,Carlos Mendez,Settlements,Processor,Level1,2026-03-13,Locked\nE10435,Olivia Brown,Portfolio Mgmt,PM,Level3,2026-03-14,Active\nE10436,David Ng,IT Security,Architect,Level4,2026-03-15,Active\nE10437,Sarah Johnson,Legal,Counsel,Level3,2026-03-12,Active\nE10438,Thomas Wright,Fixed Income,Trader,Level3,2026-03-07,Locked\nE10439,Jessica Lee,Derivatives,Analyst,Level2,2026-03-14,Active\nE10440,Mark Davis,Middle Office,Ops Analyst,Level1,2026-03-10,Expired\n\nThe ones showing 'Locked' or 'Expired' are the affected users. They all say they get 'Access Denied \u2014 contact your administrator' when trying to log in. This started after the AD sync on March 10.\n\nCan you investigate and unlock/reprovision the affected accounts?\n\nThanks,\nAnna Kowalski\nIT Operations",
+    "reporter": {
+      "name": "Anna Kowalski",
+      "email": "anna.kowalski@contoso.com",
+      "department": "IT Operations"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5122",
+    "subject": "SharePoint links broken after migration \u2014 URLs not working",
+    "description": "Hi Data Platform team,\n\nSince the SharePoint site migration last weekend, several document links are returning 404 errors. Here are the URLs that are broken:\n\n1. https://contoso.sharepoint.com/sites/WealthMgmt/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FWealthMgmt%2FShared%20Documents%2FClient%20Reports%2FQ1-2026&viewid=a8f3b2c1-4d5e-6f7a-8b9c-0d1e2f3a4b5c&utm_source=email_notification&utm_medium=internal&utm_campaign=weekly_digest_2026_03_15&utm_content=document_link&utm_term=client_reports&fbclid=IwAR3xYz1AbCdEfGhIjKlMnOpQrStUvWxYz&ref=email_weekly&tracking_id=TRK-2026-03-15-WM-001-abcdef1234567890abcdef1234567890&session=s_1710500400_abcdef&click_id=CK-98765432109876543210&source_campaign_id=SCI-WM-Q1-2026-WEEKLY-DIGEST\n\n2. https://contoso.sharepoint.com/sites/Compliance/Shared%20Documents/Regulatory%20Filings/2026/Q1-Submissions?csf=1&web=1&e=Ab3Cd4&CID=12345678-abcd-efgh-ijkl-123456789012&utm_source=teams_notification&utm_medium=internal_chat&utm_campaign=compliance_alerts_2026_03&utm_content=filing_deadline&tracking_id=TRK-2026-03-15-COMP-002-ghijkl5678901234ghijkl5678901234&ref=teams_bot&click_id=CK-12345678901234567890&source_campaign_id=SCI-COMP-Q1-2026-ALERTS&redirect_count=3&original_url=https%3A%2F%2Fcontoso-old.sharepoint.com%2Fsites%2FCompliance%2FRegulatory\n\n3. https://contoso.sharepoint.com/sites/Trading/Shared%20Documents/Market%20Analysis?sortField=Modified&isAscending=false&viewid=b1c2d3e4-f5a6-b7c8-d9e0-f1a2b3c4d5e6&utm_source=sharepoint_alert&utm_medium=email&utm_campaign=sp_migration_notification_2026_03_15&tracking_id=TRK-2026-03-15-TRAD-003-mnopqr7890123456mnopqr7890123456&ms_ref=SPMigration2026Q1Batch3&engagement_score=0.85\n\nAll three used to work before the migration. The old URLs still show in saved bookmarks and Teams tabs. We need these fixed ASAP \u2014 the compliance filing deadlines are next week.\n\nRegards,\nVictor Petrov\nCompliance",
+    "reporter": {
+      "name": "Victor Petrov",
+      "email": "victor.petrov@contoso.com",
+      "department": "Compliance"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5123",
+    "subject": "Printer driver issue \u2014 error when printing from Word",
+    "description": "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fswiss\\fprq2\\fcharset0 Calibri;}}{\\colortbl ;\\red0\\green0\\blue0;\\red0\\green0\\blue255;}{\\*\\generator Riched20 10.0.22621}\\viewkind4\\uc1 \\pard\\widctlpar\\sa200\\sl276\\slmult1\\f0\\fs22\\lang9 Hi IT Support,\\par\n\\par\nI\\rquote m having a problem with my printer. Every time I try to print a document from Microsoft Word, the print job fails with the error \\b\\i Error 0x00000709 - Operation could not be completed\\b0\\i0 .\\\\par\n\\par\nThe printer is an HP Color LaserJet Pro MFP M479fdw on Floor 4, near the trading desks. It\\rquote s connected via the network (IP: 10.20.4.115). Printing works fine from Notepad and Chrome \\endash  it\\rquote s only Word that fails.\\\\par\n\\par\nI\\rquote ve tried:\\\\par\\pard{\\pntext\\f0 1.\\tab}{\\*\\pn\\pnlvlbody\\pnf0\\pnindent0\\pnstart1\\pndec{\\pntxta.}}\\widctlpar\\fi-360\\li720\\sa200\\sl276\\slmult1 Removing and re-adding the printer\\\\par{\\pntext\\f0 2.\\tab}Updating the driver from HP\\rquote s website\\\\par{\\pntext\\f0 3.\\tab}Running the Print Troubleshooter\\\\par{\\pntext\\f0 4.\\tab}Clearing the print spooler\\\\par\\pard\\widctlpar\\sa200\\sl276\\slmult1 None of these helped.\\\\par\n\\par\nMy laptop is a Lenovo ThinkPad X1 Carbon Gen 11 running Windows 11 23H2. Word version is 16.0.17328.20162.\\\\par\n\\par\nThanks,\\\\parKevin Wu\\\\parTrading Floor 4\\\\par}",
+    "reporter": {
+      "name": "Kevin Wu",
+      "email": "kevin.wu@contoso.com",
+      "department": "Trading"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5124",
+    "subject": "RE: Automatic reply: RE: Automatic reply: RE: Teams audio issue",
+    "description": "--- Automatic Reply ---\nFrom: itsupport-noreply@contoso.com\nSubject: Ticket Received \u2014 INC-PENDING\nThank you for contacting IT Support. Your request has been received and will be reviewed within 4 business hours. If this is urgent, please call the Service Desk at x4357.\n\n--- Automatic Reply ---\nFrom: rajesh.gupta@contoso.com\nSubject: Out of Office\nThank you for your email. I am out of the office from March 12\u201319 with limited access to email. For urgent IT issues, please contact the Service Desk. For project-related inquiries, please reach out to my backup, Anita Sharma (anita.sharma@contoso.com). I will respond to your email upon my return.\n\n--- Automatic Reply ---\nFrom: mailer-daemon@contoso.com\nSubject: Delivery Status Notification (Relay)\nThis is an automatically generated message. Your message was successfully relayed to the following recipients:\n  itsupport@contoso.com (delivered to mailbox)\n  rajesh.gupta@contoso.com (delivered to mailbox)\n\n--- Read Receipt ---\nFrom: itsupport@contoso.com\nSubject: Read: Teams audio issue\nYour message 'Teams audio issue' was read on 3/15/2026 at 10:42 AM.\n\n--- Automatic Reply ---\nFrom: compliance-audit@contoso.com\nSubject: Email Retention Notice\nThis email has been archived per Contoso retention policy CP-2026-04. Retention period: 7 years. Classification: Internal.\n\n--- Original Message ---\nFrom: Diana Morales <diana.morales@contoso.com>\nTo: IT Support <itsupport@contoso.com>\nSubject: Teams audio issue\n\nHi team,\n\nMy Teams audio has been cutting out during calls for the last two days. The other participants can hear me for about 30 seconds, then my audio drops and they hear nothing until I toggle my mic off and on. Video continues to work fine. I am using a Jabra Evolve2 75 headset connected via Bluetooth. I'm on Teams version 24004.1309.2689.2246 on Windows 11.\n\nThis is affecting my client calls \u2014 I had to switch to my phone twice today.\n\nThanks,\nDiana Morales\nWealth Management",
+    "reporter": {
+      "name": "Diana Morales",
+      "email": "diana.morales@contoso.com",
+      "department": "Wealth Management"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5125",
+    "subject": "Intermittent network drops on Floor 7 \u2014 topology diagram attached inline",
+    "description": "Hi Network Ops,\n\nWe are experiencing intermittent connectivity drops on Floor 7, Building 2 in the New York office. About 15 users are affected. I drew a diagram of our floor layout showing the affected areas:\n\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 800 600\">\n  <rect x=\"0\" y=\"0\" width=\"800\" height=\"600\" fill=\"#f5f5f5\" stroke=\"#333\" stroke-width=\"2\"/>\n  <text x=\"400\" y=\"30\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\">Floor 7 - Building 2 - Network Layout</text>\n  <rect x=\"50\" y=\"50\" width=\"200\" height=\"150\" fill=\"#e8f5e9\" stroke=\"#4caf50\" stroke-width=\"1\"/>\n  <text x=\"150\" y=\"80\" text-anchor=\"middle\" font-size=\"12\">Trading Desk A (OK)</text>\n  <rect x=\"300\" y=\"50\" width=\"200\" height=\"150\" fill=\"#ffebee\" stroke=\"#f44336\" stroke-width=\"2\"/>\n  <text x=\"400\" y=\"80\" text-anchor=\"middle\" font-size=\"12\" fill=\"#f44336\">Trading Desk B (AFFECTED)</text>\n  <rect x=\"550\" y=\"50\" width=\"200\" height=\"150\" fill=\"#ffebee\" stroke=\"#f44336\" stroke-width=\"2\"/>\n  <text x=\"650\" y=\"80\" text-anchor=\"middle\" font-size=\"12\" fill=\"#f44336\">Risk Team Area (AFFECTED)</text>\n  <rect x=\"50\" y=\"250\" width=\"200\" height=\"150\" fill=\"#e8f5e9\" stroke=\"#4caf50\" stroke-width=\"1\"/>\n  <text x=\"150\" y=\"280\" text-anchor=\"middle\" font-size=\"12\">Conference Rooms (OK)</text>\n  <rect x=\"300\" y=\"250\" width=\"200\" height=\"150\" fill=\"#fff3e0\" stroke=\"#ff9800\" stroke-width=\"1\"/>\n  <text x=\"400\" y=\"280\" text-anchor=\"middle\" font-size=\"12\">Kitchen / Break (Intermittent)</text>\n  <circle cx=\"500\" cy=\"450\" r=\"30\" fill=\"#2196f3\" opacity=\"0.7\"/>\n  <text x=\"500\" y=\"455\" text-anchor=\"middle\" font-size=\"10\" fill=\"white\">AP-7B</text>\n  <circle cx=\"200\" cy=\"450\" r=\"30\" fill=\"#2196f3\" opacity=\"0.7\"/>\n  <text x=\"200\" y=\"455\" text-anchor=\"middle\" font-size=\"10\" fill=\"white\">AP-7A</text>\n  <line x1=\"200\" y1=\"450\" x2=\"500\" y2=\"450\" stroke=\"#2196f3\" stroke-width=\"2\" stroke-dasharray=\"5,5\"/>\n  <text x=\"350\" y=\"500\" text-anchor=\"middle\" font-size=\"11\">Backbone link between APs</text>\n</svg>\n\nAs you can see, the affected areas (Trading Desk B and Risk Team) are both served by access point AP-7B. The areas served by AP-7A are fine. The drops happen mostly between 9:00-10:30 AM when trading volume is highest.\n\nCan you check AP-7B and the uplink to the floor switch?\n\nThanks,\nNathan Brooks\nNetwork Engineering",
+    "reporter": {
+      "name": "Nathan Brooks",
+      "email": "nathan.brooks@contoso.com",
+      "department": "Network Engineering"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5126",
+    "subject": "RE: RE: VPN issue / also printer on Floor 3",
+    "description": "--- Thread participant: Tom Gallagher (tom.gallagher@contoso.com) ---\n\nAdding to this thread \u2014 my VPN has been dropping every 20 minutes since the maintenance window last Saturday. I get error GP-ERR-4502 each time. I'm remote, on Comcast residential, using GlobalProtect 6.1.3 on a Dell Latitude 5550 with Windows 11. This is blocking me from accessing the trade execution platform.\n\n--- Thread participant: Rebecca Cho (rebecca.cho@contoso.com) ---\n\nHi, I know this thread is about VPN but I also wanted to mention that the printer on Floor 3 (HP LaserJet Pro near the elevator) has been jammed since yesterday morning. The paper tray light is blinking red. I cleared the jam once but it happened again immediately. Asset tag: WM-PRN-0318.\n\n--- Thread participant: Tom Gallagher ---\n\nUpdate on my VPN issue: I tried switching from Wi-Fi to a wired Ethernet connection and the drops are less frequent but still happen about every 45 minutes now. The GlobalProtect event log shows 'Tunnel timeout \u2014 keepalive missed' right before each drop.\n\n--- Thread participant: Rebecca Cho ---\n\nUpdate on the printer: it's now showing 'Fuser Error' on the LCD screen. I don't think clearing the jam helped \u2014 it might be a hardware failure. Can someone from Endpoint Engineering take a look?\n\n--- Thread participant: Tom Gallagher ---\n\nJust wanted to add \u2014 my colleague Raj Patel on the same ISP and same GlobalProtect version doesn't have this issue, so it might be specific to my machine or profile.\n\nThanks,\nTom Gallagher\nEquity Trading",
+    "reporter": {
+      "name": "Tom Gallagher",
+      "email": "tom.gallagher@contoso.com",
+      "department": "Equity Trading"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5127",
+    "subject": "URGENT: Compliance audit scanner failing \u2014 all teams alerted",
+    "description": "To: IT Support <itsupport@contoso.com>\nCC: john.sterling@contoso.com; maria.vasquez@contoso.com; chen.wei@contoso.com; sarah.oconnor@contoso.com; dmitri.volkov@contoso.com; fatima.al-rashid@contoso.com; james.whitfield@contoso.com; priya.mehta@contoso.com; robert.nakamura@contoso.com; elena.popov@contoso.com; marcus.johnson@contoso.com; aisha.ibrahim@contoso.com; thomas.mueller@contoso.com; li.zhang@contoso.com; sophia.anderson@contoso.com; kenji.tanaka@contoso.com; olivia.martinez@contoso.com; benjamin.clark@contoso.com; nadia.hassan@contoso.com; david.osei@contoso.com; catherine.dubois@contoso.com; raj.krishnamurthy@contoso.com; emma.fitzgerald@contoso.com; yuki.watanabe@contoso.com; michael.oconnell@contoso.com; amara.diallo@contoso.com; lucas.bergstrom@contoso.com; zara.khan@contoso.com; peter.novak@contoso.com; jessica.wong@contoso.com; compliance-all@contoso.com; risk-team@contoso.com; audit-committee@contoso.com; legal-team@contoso.com; executive-leadership@contoso.com\n\nHi IT team,\n\nThe Contoso Compliance Scanner (CCS) has been failing since this morning at 6:15 AM. It is unable to complete the daily regulatory scan across our trading systems. The error in the CCS dashboard reads: 'Scan aborted \u2014 database connection pool exhausted after retry limit (5/5). Last successful scan: 2026-03-14 06:00:00 UTC.'\n\nThis is critical because we have a FINRA audit review scheduled for Monday and we need at least 5 consecutive days of clean scan results to present. If the scanner stays down through the weekend, we will not meet the audit requirement.\n\nThe CCS connects to the compliance database on ccs-db-prod-01 (SQL Server 2022). The scanner service runs on ccs-app-prod-01 and ccs-app-prod-02 behind the internal load balancer.\n\nPlease prioritize this.\n\nBest regards,\nLaura Chen\nChief Compliance Officer",
+    "reporter": {
+      "name": "Laura Chen",
+      "email": "laura.chen@contoso.com",
+      "department": "Compliance"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5128",
+    "subject": "Azure deployment pipeline failing \u2014 config details below",
+    "description": "Hi team,\n\nOur Azure deployment pipeline for the ContosoPayments service has been failing since yesterday afternoon. I'm sharing the relevant configuration \u2014 I've redacted the actual secret values:\n\n# .env.staging \u2014 ContosoPayments\nAZURE_SUBSCRIPTION_ID=a1b2c3d4-e5f6-7890-abcd-ef1234567890\nAZURE_TENANT_ID=f9e8d7c6-b5a4-3210-fedc-ba9876543210\nAZURE_CLIENT_ID=11111111-2222-3333-4444-555555555555\nAZURE_CLIENT_SECRET=<REDACTED>\nAZURE_RESOURCE_GROUP=rg-contoso-payments-staging\nAZURE_APP_SERVICE_NAME=app-contoso-payments-stg\nAZURE_KEY_VAULT_NAME=kv-contoso-pay-stg\nDATABASE_HOST=contoso-pay-db-stg.database.windows.net\nDATABASE_NAME=contoso_payments_staging\nDATABASE_USER=app_service_user\nDATABASE_PASSWORD=<REDACTED>\nREDIS_HOST=contoso-pay-redis-stg.redis.cache.windows.net\nREDIS_PORT=6380\nREDIS_PASSWORD=<REDACTED>\nAPPLICATIONINSIGHTS_CONNECTION_STRING=InstrumentationKey=00000000-0000-0000-0000-000000000000;IngestionEndpoint=https://eastus-0.in.applicationinsights.azure.com/\nSERVICE_BUS_NAMESPACE=sb-contoso-payments-stg\nSERVICE_BUS_QUEUE=payment-processing\nBLOB_STORAGE_ACCOUNT=stcontosopaymentstg\nBLOB_CONTAINER=payment-receipts\nLOG_LEVEL=DEBUG\nFEATURE_FLAG_NEW_CHECKOUT=true\nMAX_RETRY_COUNT=3\nTIMEOUT_SECONDS=30\n\nThe pipeline fails at the 'Deploy to App Service' step with:\n'ERROR: The deployment slot staging is in a failed state. Provisioning state: Failed. Details: Cannot allocate managed identity for the app service.'\n\nWe need this fixed before end of day \u2014 the payments team is waiting to test the new checkout flow in staging.\n\nThanks,\nOmar Farouk\nBackend Engineering",
+    "reporter": {
+      "name": "Omar Farouk",
+      "email": "omar.farouk@contoso.com",
+      "department": "Backend Engineering"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5129",
+    "subject": "CI/CD pipeline broken after branch merge \u2014 conflict markers in config",
+    "description": "Hi team,\n\nOur CI/CD pipeline for the ContosoRisk service has been failing since a bad merge this morning. The build step fails because there are merge conflict markers left in the configuration file. Here's what the pipeline shows:\n\n```\nStep 4/12: Validate configuration\nERROR: Parse error in config/appsettings.Production.json at line 47\n--- begin file excerpt ---\n  \"ConnectionStrings\": {\n<<<<<<< HEAD\n    \"RiskDatabase\": \"Server=risk-db-prod-01.database.windows.net;Database=contoso_risk;Encrypt=true;TrustServerCertificate=false;\",\n    \"CacheConnection\": \"contoso-risk-redis.redis.cache.windows.net:6380,password=****,ssl=True,abortConnect=False\"\n=======\n    \"RiskDatabase\": \"Server=risk-db-prod-02.database.windows.net;Database=contoso_risk_v2;Encrypt=true;TrustServerCertificate=false;\",\n    \"CacheConnection\": \"contoso-risk-redis-v2.redis.cache.windows.net:6380,password=****,ssl=True,abortConnect=False\"\n>>>>>>> feature/risk-engine-v2\n  },\n  \"Logging\": {\n<<<<<<< HEAD\n    \"LogLevel\": {\n      \"Default\": \"Warning\",\n      \"Microsoft\": \"Warning\"\n    }\n=======\n    \"LogLevel\": {\n      \"Default\": \"Information\",\n      \"Microsoft\": \"Warning\",\n      \"ContosoRisk.Engine\": \"Debug\"\n    }\n>>>>>>> feature/risk-engine-v2\n  }\n--- end file excerpt ---\n```\n\nThe merge was between `main` and `feature/risk-engine-v2`. It looks like someone resolved the merge on GitHub but missed these conflict markers in the config file. The pipeline has been red for 4 hours now and the risk engine team can't deploy their hotfix.\n\nCan someone help resolve the merge conflicts and get the pipeline green again?\n\nThanks,\nAlex Rivera\nDevOps",
+    "reporter": {
+      "name": "Alex Rivera",
+      "email": "alex.rivera@contoso.com",
+      "department": "DevOps"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5130",
+    "subject": "Kubernetes pod crash loop \u2014 deployment config attached",
+    "description": "Hi team,\n\nThe ContosoSettlement service pods have been in CrashLoopBackOff since 5:30 AM this morning. Here's the deployment YAML for reference:\n\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: contoso-settlement\n  namespace: production\n  labels:\n    app: contoso-settlement\n    team: settlements\n    version: v3.2.1\nspec:\n  replicas: 3\n  selector:\n    matchLabels:\n      app: contoso-settlement\n  template:\n    metadata:\n      labels:\n        app: contoso-settlement\n    spec:\n      containers:\n      - name: settlement-api\n        image: contoso.azurecr.io/settlement-api:v3.2.1\n        ports:\n        - containerPort: 8080\n        resources:\n          requests:\n            memory: '512Mi'\n            cpu: '250m'\n          limits:\n            memory: '1Gi'\n            cpu: '500m'\n        env:\n        - name: DB_HOST\n          valueFrom:\n            secretKeyRef:\n              name: settlement-db-secret\n              key: host\n        - name: DB_PASSWORD\n          valueFrom:\n            secretKeyRef:\n              name: settlement-db-secret\n              key: password\n        livenessProbe:\n          httpGet:\n            path: /health\n            port: 8080\n          initialDelaySeconds: 15\n          periodSeconds: 10\n        readinessProbe:\n          httpGet:\n            path: /ready\n            port: 8080\n          initialDelaySeconds: 5\n          periodSeconds: 5\n\nThe pod logs show:\n'FATAL: Could not connect to database at settlement-db-secret:host. Error: ECONNREFUSED 10.0.4.52:5432. Retries exhausted (5/5). Exiting.'\n\nThe database was migrated to a new IP on Friday (10.0.4.80) but the Kubernetes secret still points to the old IP. Can you update the secret and restart the pods?\n\nThanks,\nHenry Park\nSettlements",
+    "reporter": {
+      "name": "Henry Park",
+      "email": "henry.park@contoso.com",
+      "department": "Settlements"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
   }
 ]

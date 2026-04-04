@@ -8124,4 +8124,728 @@ def get_scenarios() -> list[ScenarioDefinition]:
             ],
             difficulty="medium",
         ),
+        # ── DC-121  CSV spreadsheet data pasted inline ───────────────
+        ScenarioDefinition(
+            scenario_id="DC-121",
+            subject="User access provisioning issue — see affected users list below",
+            description=(
+                "Hi IAM team,\n\n"
+                "We need to review access for the following employees. Several of them "
+                "report they cannot reach the Contoso Trade Portal since the last AD "
+                "sync. I exported the data from our tracking spreadsheet:\n\n"
+                "EmployeeID,Name,Department,Role,AccessLevel,LastLogin,Status\n"
+                "E10421,Maria Chen,Trading,Senior Trader,Level3,2026-03-14,Active\n"
+                "E10422,James O'Brien,Trading,Analyst,Level2,2026-03-10,Locked\n"
+                "E10423,Priya Kapoor,Risk Management,Manager,Level3,2026-03-15,Active\n"
+                "E10424,Robert Kim,Compliance,Analyst,Level2,2026-02-28,Expired\n"
+                "E10425,Sofia Vargas,Wealth Management,VP,Level4,2026-03-14,Active\n"
+                "E10426,Daniel Nakamura,Trading,Quant,Level3,2026-03-01,Locked\n"
+                "E10427,Emily Watson,Finance,Controller,Level2,2026-03-12,Active\n"
+                "E10428,Ahmed Hassan,Data Engineering,Engineer,Level2,2026-03-13,Active\n"
+                "E10429,Lisa Park,Compliance,Senior Analyst,Level3,2026-03-11,Locked\n"
+                "E10430,Michael Torres,Trading,Director,Level4,2026-03-15,Active\n"
+                "E10431,Rachel Green,HR,Business Partner,Level2,2026-03-09,Active\n"
+                "E10432,Kevin Liu,Engineering,Staff Eng,Level3,2026-03-14,Active\n"
+                "E10433,Anna Schmidt,Regulatory Affairs,Analyst,Level2,2026-03-08,Expired\n"
+                "E10434,Carlos Mendez,Settlements,Processor,Level1,2026-03-13,Locked\n"
+                "E10435,Olivia Brown,Portfolio Mgmt,PM,Level3,2026-03-14,Active\n"
+                "E10436,David Ng,IT Security,Architect,Level4,2026-03-15,Active\n"
+                "E10437,Sarah Johnson,Legal,Counsel,Level3,2026-03-12,Active\n"
+                "E10438,Thomas Wright,Fixed Income,Trader,Level3,2026-03-07,Locked\n"
+                "E10439,Jessica Lee,Derivatives,Analyst,Level2,2026-03-14,Active\n"
+                "E10440,Mark Davis,Middle Office,Ops Analyst,Level1,2026-03-10,Expired\n\n"
+                "The ones showing 'Locked' or 'Expired' are the affected users. They "
+                "all say they get 'Access Denied — contact your administrator' when "
+                "trying to log in. This started after the AD sync on March 10.\n\n"
+                "Can you investigate and unlock/reprovision the affected accounts?\n\n"
+                "Thanks,\nAnna Kowalski\nIT Operations"
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P3,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE, MissingInfo.AUTHENTICATION_METHOD],
+            next_best_action=(
+                "Extract the affected users from the CSV data (those with 'Locked' "
+                "or 'Expired' status) and investigate why AD sync on March 10 caused "
+                "account lockouts. Ignore the CSV noise and focus on the AD sync issue."
+            ),
+            remediation_steps=[
+                "Identify the 6 affected accounts (E10422, E10424, E10426, E10429, E10434, E10438, E10440) "
+                "from the CSV data.",
+                "Check Active Directory sync logs for March 10 to identify what triggered the lockouts.",
+                "Verify the accounts' status in Azure AD and on-prem AD for any sync discrepancies.",
+                "Unlock the locked accounts and reset the expired accounts per standard procedure.",
+                "Verify the Contoso Trade Portal access is restored for all affected users.",
+            ],
+            reporter_name="Anna Kowalski",
+            reporter_email="anna.kowalski@contoso.com",
+            reporter_department="IT Operations",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "csv-data-inline", "tabular-noise"],
+            difficulty="medium",
+        ),
+        # ── DC-122  Extremely long tracking URLs ─────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-122",
+            subject="SharePoint links broken after migration — URLs not working",
+            description=(
+                "Hi Data Platform team,\n\n"
+                "Since the SharePoint site migration last weekend, several document "
+                "links are returning 404 errors. Here are the URLs that are broken:\n\n"
+                "1. https://contoso.sharepoint.com/sites/WealthMgmt/Shared%20Documents/"
+                "Forms/AllItems.aspx?id=%2Fsites%2FWealthMgmt%2FShared%20Documents%2F"
+                "Client%20Reports%2FQ1-2026&viewid=a8f3b2c1-4d5e-6f7a-8b9c-0d1e2f3a4b5c"
+                "&utm_source=email_notification&utm_medium=internal&utm_campaign="
+                "weekly_digest_2026_03_15&utm_content=document_link&utm_term=client_reports"
+                "&fbclid=IwAR3xYz1AbCdEfGhIjKlMnOpQrStUvWxYz&ref=email_weekly&"
+                "tracking_id=TRK-2026-03-15-WM-001-abcdef1234567890abcdef1234567890&"
+                "session=s_1710500400_abcdef&click_id=CK-98765432109876543210&"
+                "source_campaign_id=SCI-WM-Q1-2026-WEEKLY-DIGEST\n\n"
+                "2. https://contoso.sharepoint.com/sites/Compliance/Shared%20Documents/"
+                "Regulatory%20Filings/2026/Q1-Submissions?csf=1&web=1&e=Ab3Cd4&"
+                "CID=12345678-abcd-efgh-ijkl-123456789012&utm_source=teams_notification"
+                "&utm_medium=internal_chat&utm_campaign=compliance_alerts_2026_03&"
+                "utm_content=filing_deadline&tracking_id=TRK-2026-03-15-COMP-002-"
+                "ghijkl5678901234ghijkl5678901234&ref=teams_bot&click_id="
+                "CK-12345678901234567890&source_campaign_id=SCI-COMP-Q1-2026-ALERTS"
+                "&redirect_count=3&original_url=https%3A%2F%2Fcontoso-old.sharepoint"
+                ".com%2Fsites%2FCompliance%2FRegulatory\n\n"
+                "3. https://contoso.sharepoint.com/sites/Trading/Shared%20Documents/"
+                "Market%20Analysis?sortField=Modified&isAscending=false&viewid="
+                "b1c2d3e4-f5a6-b7c8-d9e0-f1a2b3c4d5e6&utm_source=sharepoint_alert"
+                "&utm_medium=email&utm_campaign=sp_migration_notification_2026_03_15"
+                "&tracking_id=TRK-2026-03-15-TRAD-003-mnopqr7890123456mnopqr7890123456"
+                "&ms_ref=SPMigration2026Q1Batch3&engagement_score=0.85\n\n"
+                "All three used to work before the migration. The old URLs still show "
+                "in saved bookmarks and Teams tabs. We need these fixed ASAP — the "
+                "compliance filing deadlines are next week.\n\n"
+                "Regards,\nVictor Petrov\nCompliance"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P3,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate broken SharePoint document library links after the site "
+                "migration. Ignore the tracking URL parameters — the core issue is "
+                "404 errors on three SharePoint document libraries that were migrated."
+            ),
+            remediation_steps=[
+                "Strip the tracking parameters from the URLs and verify the base SharePoint paths.",
+                "Check the SharePoint migration logs for the three affected site collections "
+                "(WealthMgmt, Compliance, Trading).",
+                "Verify URL redirect mappings were created during migration for old-to-new paths.",
+                "Create or fix the redirect mappings for the broken document library URLs.",
+                "Update saved bookmarks and Teams tabs with the new URLs.",
+            ],
+            reporter_name="Victor Petrov",
+            reporter_email="victor.petrov@contoso.com",
+            reporter_department="Compliance",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "long-urls", "tracking-parameters"],
+            difficulty="medium",
+        ),
+        # ── DC-123  RTF / Word document conversion artifacts ─────────
+        ScenarioDefinition(
+            scenario_id="DC-123",
+            subject="Printer driver issue — error when printing from Word",
+            description=(
+                r"{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033"
+                r"{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri;}}"
+                r"{\colortbl ;\red0\green0\blue0;\red0\green0\blue255;}"
+                r"{\*\generator Riched20 10.0.22621}"
+                r"\viewkind4\uc1 "
+                r"\pard\widctlpar\sa200\sl276\slmult1\f0\fs22\lang9 "
+                "Hi IT Support,\\par\n"
+                "\\par\n"
+                r"I\rquote m having a problem with my printer. Every time I try to "
+                "print a document from Microsoft Word, the print job fails with "
+                r"the error \b\i Error 0x00000709 - Operation could not be completed"
+                r"\b0\i0 .\\par"
+                "\n\\par\n"
+                r"The printer is an HP Color LaserJet Pro MFP M479fdw on Floor 4, "
+                r"near the trading desks. It\rquote s connected via the network "
+                r"(IP: 10.20.4.115). Printing works fine from Notepad and Chrome "
+                r"\endash  it\rquote s only Word that fails.\\par"
+                "\n\\par\n"
+                r"I\rquote ve tried:\\par"
+                r"\pard{\pntext\f0 1.\tab}"
+                r"{\*\pn\pnlvlbody\pnf0\pnindent0\pnstart1\pndec"
+                r"{\pntxta.}}\widctlpar\fi-360\li720\sa200\sl276\slmult1 "
+                r"Removing and re-adding the printer\\par"
+                r"{\pntext\f0 2.\tab}Updating the driver from HP\rquote s website\\par"
+                r"{\pntext\f0 3.\tab}Running the Print Troubleshooter\\par"
+                r"{\pntext\f0 4.\tab}Clearing the print spooler\\par"
+                r"\pard\widctlpar\sa200\sl276\slmult1 None of these helped.\\par"
+                "\n\\par\n"
+                r"My laptop is a Lenovo ThinkPad X1 Carbon Gen 11 running Windows 11 "
+                r"23H2. Word version is 16.0.17328.20162.\\par"
+                "\n\\par\n"
+                r"Thanks,\\par"
+                r"Kevin Wu\\par"
+                r"Trading Floor 4\\par}"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Ignore the RTF formatting artifacts and extract the core issue: "
+                "HP Color LaserJet Pro M479fdw fails to print from Word with error "
+                "0x00000709. Printing works from other applications."
+            ),
+            remediation_steps=[
+                "Investigate error 0x00000709 — this typically indicates the default printer "
+                "registry key is corrupted or the print driver is incompatible with Word.",
+                "Check the Windows registry key HKCU\\Software\\Microsoft\\Windows NT\\"
+                "CurrentVersion\\Windows for a corrupted 'Device' value.",
+                "Reset the default printer setting and verify the HP driver version matches "
+                "the printer firmware.",
+                "If the Word-specific issue persists, repair the Office installation via "
+                "Settings > Apps > Microsoft 365 > Modify > Online Repair.",
+                "Test printing from Word after each step to confirm resolution.",
+            ],
+            reporter_name="Kevin Wu",
+            reporter_email="kevin.wu@contoso.com",
+            reporter_department="Trading",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "rtf-conversion", "document-artifacts"],
+            difficulty="medium",
+        ),
+        # ── DC-124  Chained auto-reply / out-of-office messages ──────
+        ScenarioDefinition(
+            scenario_id="DC-124",
+            subject="RE: Automatic reply: RE: Automatic reply: RE: Teams audio issue",
+            description=(
+                "--- Automatic Reply ---\n"
+                "From: itsupport-noreply@contoso.com\n"
+                "Subject: Ticket Received — INC-PENDING\n"
+                "Thank you for contacting IT Support. Your request has been received "
+                "and will be reviewed within 4 business hours. If this is urgent, "
+                "please call the Service Desk at x4357.\n\n"
+                "--- Automatic Reply ---\n"
+                "From: rajesh.gupta@contoso.com\n"
+                "Subject: Out of Office\n"
+                "Thank you for your email. I am out of the office from March 12–19 "
+                "with limited access to email. For urgent IT issues, please contact "
+                "the Service Desk. For project-related inquiries, please reach out to "
+                "my backup, Anita Sharma (anita.sharma@contoso.com). I will respond "
+                "to your email upon my return.\n\n"
+                "--- Automatic Reply ---\n"
+                "From: mailer-daemon@contoso.com\n"
+                "Subject: Delivery Status Notification (Relay)\n"
+                "This is an automatically generated message. Your message was "
+                "successfully relayed to the following recipients:\n"
+                "  itsupport@contoso.com (delivered to mailbox)\n"
+                "  rajesh.gupta@contoso.com (delivered to mailbox)\n\n"
+                "--- Read Receipt ---\n"
+                "From: itsupport@contoso.com\n"
+                "Subject: Read: Teams audio issue\n"
+                "Your message 'Teams audio issue' was read on 3/15/2026 at 10:42 AM.\n\n"
+                "--- Automatic Reply ---\n"
+                "From: compliance-audit@contoso.com\n"
+                "Subject: Email Retention Notice\n"
+                "This email has been archived per Contoso retention policy CP-2026-04. "
+                "Retention period: 7 years. Classification: Internal.\n\n"
+                "--- Original Message ---\n"
+                "From: Diana Morales <diana.morales@contoso.com>\n"
+                "To: IT Support <itsupport@contoso.com>\n"
+                "Subject: Teams audio issue\n\n"
+                "Hi team,\n\n"
+                "My Teams audio has been cutting out during calls for the last two days. "
+                "The other participants can hear me for about 30 seconds, then my audio "
+                "drops and they hear nothing until I toggle my mic off and on. Video "
+                "continues to work fine. I am using a Jabra Evolve2 75 headset connected "
+                "via Bluetooth. I'm on Teams version 24004.1309.2689.2246 on Windows 11.\n\n"
+                "This is affecting my client calls — I had to switch to my phone twice "
+                "today.\n\n"
+                "Thanks,\nDiana Morales\nWealth Management"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.REPRODUCTION_FREQUENCY],
+            next_best_action=(
+                "Skip past the 5 auto-reply/notification messages and focus on the "
+                "original issue: Teams audio drops after ~30 seconds during calls. "
+                "User is on a Jabra Evolve2 75 headset via Bluetooth."
+            ),
+            remediation_steps=[
+                "Check for known issues with Jabra Evolve2 75 Bluetooth audio dropouts in Teams.",
+                "Update the Jabra headset firmware via Jabra Direct and update the Bluetooth driver.",
+                "Test with the headset connected via USB dongle instead of Bluetooth to isolate "
+                "the connection method as the cause.",
+                "Check Teams audio device settings and ensure the Jabra headset is selected as "
+                "the default device (not switching mid-call).",
+                "If Bluetooth is the root cause, update the laptop's Bluetooth driver and check "
+                "for interference from other Bluetooth devices.",
+            ],
+            reporter_name="Diana Morales",
+            reporter_email="diana.morales@contoso.com",
+            reporter_department="Wealth Management",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "auto-reply-chain", "ooo-noise"],
+            difficulty="medium",
+        ),
+        # ── DC-125  Large inline SVG image data ──────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-125",
+            subject="Intermittent network drops on Floor 7 — topology diagram attached inline",
+            description=(
+                "Hi Network Ops,\n\n"
+                "We are experiencing intermittent connectivity drops on Floor 7, "
+                "Building 2 in the New York office. About 15 users are affected. "
+                "I drew a diagram of our floor layout showing the affected areas:\n\n"
+                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">\n'
+                '  <rect x="0" y="0" width="800" height="600" fill="#f5f5f5" '
+                'stroke="#333" stroke-width="2"/>\n'
+                '  <text x="400" y="30" text-anchor="middle" font-size="16" '
+                'font-weight="bold">Floor 7 - Building 2 - Network Layout</text>\n'
+                '  <rect x="50" y="50" width="200" height="150" fill="#e8f5e9" '
+                'stroke="#4caf50" stroke-width="1"/>\n'
+                '  <text x="150" y="80" text-anchor="middle" font-size="12">'
+                "Trading Desk A (OK)</text>\n"
+                '  <rect x="300" y="50" width="200" height="150" fill="#ffebee" '
+                'stroke="#f44336" stroke-width="2"/>\n'
+                '  <text x="400" y="80" text-anchor="middle" font-size="12" '
+                'fill="#f44336">Trading Desk B (AFFECTED)</text>\n'
+                '  <rect x="550" y="50" width="200" height="150" fill="#ffebee" '
+                'stroke="#f44336" stroke-width="2"/>\n'
+                '  <text x="650" y="80" text-anchor="middle" font-size="12" '
+                'fill="#f44336">Risk Team Area (AFFECTED)</text>\n'
+                '  <rect x="50" y="250" width="200" height="150" fill="#e8f5e9" '
+                'stroke="#4caf50" stroke-width="1"/>\n'
+                '  <text x="150" y="280" text-anchor="middle" font-size="12">'
+                "Conference Rooms (OK)</text>\n"
+                '  <rect x="300" y="250" width="200" height="150" fill="#fff3e0" '
+                'stroke="#ff9800" stroke-width="1"/>\n'
+                '  <text x="400" y="280" text-anchor="middle" font-size="12">'
+                "Kitchen / Break (Intermittent)</text>\n"
+                '  <circle cx="500" cy="450" r="30" fill="#2196f3" opacity="0.7"/>\n'
+                '  <text x="500" y="455" text-anchor="middle" font-size="10" '
+                'fill="white">AP-7B</text>\n'
+                '  <circle cx="200" cy="450" r="30" fill="#2196f3" opacity="0.7"/>\n'
+                '  <text x="200" y="455" text-anchor="middle" font-size="10" '
+                'fill="white">AP-7A</text>\n'
+                '  <line x1="200" y1="450" x2="500" y2="450" stroke="#2196f3" '
+                'stroke-width="2" stroke-dasharray="5,5"/>\n'
+                '  <text x="350" y="500" text-anchor="middle" font-size="11">'
+                "Backbone link between APs</text>\n"
+                "</svg>\n\n"
+                "As you can see, the affected areas (Trading Desk B and Risk Team) "
+                "are both served by access point AP-7B. The areas served by AP-7A "
+                "are fine. The drops happen mostly between 9:00-10:30 AM when "
+                "trading volume is highest.\n\n"
+                "Can you check AP-7B and the uplink to the floor switch?\n\n"
+                "Thanks,\nNathan Brooks\nNetwork Engineering"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.AFFECTED_USERS],
+            next_best_action=(
+                "Ignore the SVG diagram markup and focus on the network issue: "
+                "intermittent connectivity drops on Floor 7 Building 2, affecting "
+                "~15 users in the AP-7B coverage area during market open hours."
+            ),
+            remediation_steps=[
+                "Check access point AP-7B health, uptime, and error logs on the wireless "
+                "controller for the 9:00-10:30 AM window.",
+                "Verify the uplink from AP-7B to the floor switch for errors, CRC failures, "
+                "or bandwidth saturation.",
+                "Check AP-7B client density — 15 traders with real-time applications may "
+                "exceed the AP's client or throughput capacity.",
+                "If AP capacity is the bottleneck, consider adding a second AP to split "
+                "the load between Trading Desk B and the Risk Team area.",
+                "Monitor the floor for a full trading day after any changes to confirm "
+                "the drops are resolved.",
+            ],
+            reporter_name="Nathan Brooks",
+            reporter_email="nathan.brooks@contoso.com",
+            reporter_department="Network Engineering",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "svg-inline", "xml-noise"],
+            difficulty="medium",
+        ),
+        # ── DC-126  Interleaved / cross-threaded email issues ────────
+        ScenarioDefinition(
+            scenario_id="DC-126",
+            subject="RE: RE: VPN issue / also printer on Floor 3",
+            description=(
+                "--- Thread participant: Tom Gallagher (tom.gallagher@contoso.com) ---\n\n"
+                "Adding to this thread — my VPN has been dropping every 20 minutes "
+                "since the maintenance window last Saturday. I get error GP-ERR-4502 "
+                "each time. I'm remote, on Comcast residential, using GlobalProtect "
+                "6.1.3 on a Dell Latitude 5550 with Windows 11. This is blocking me "
+                "from accessing the trade execution platform.\n\n"
+                "--- Thread participant: Rebecca Cho (rebecca.cho@contoso.com) ---\n\n"
+                "Hi, I know this thread is about VPN but I also wanted to mention "
+                "that the printer on Floor 3 (HP LaserJet Pro near the elevator) has "
+                "been jammed since yesterday morning. The paper tray light is blinking "
+                "red. I cleared the jam once but it happened again immediately. Asset "
+                "tag: WM-PRN-0318.\n\n"
+                "--- Thread participant: Tom Gallagher ---\n\n"
+                "Update on my VPN issue: I tried switching from Wi-Fi to a wired "
+                "Ethernet connection and the drops are less frequent but still happen "
+                "about every 45 minutes now. The GlobalProtect event log shows "
+                "'Tunnel timeout — keepalive missed' right before each drop.\n\n"
+                "--- Thread participant: Rebecca Cho ---\n\n"
+                "Update on the printer: it's now showing 'Fuser Error' on the LCD "
+                "screen. I don't think clearing the jam helped — it might be a "
+                "hardware failure. Can someone from Endpoint Engineering take a look?\n\n"
+                "--- Thread participant: Tom Gallagher ---\n\n"
+                "Just wanted to add — my colleague Raj Patel on the same ISP and "
+                "same GlobalProtect version doesn't have this issue, so it might be "
+                "specific to my machine or profile.\n\n"
+                "Thanks,\nTom Gallagher\nEquity Trading"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.NETWORK_LOCATION],
+            next_best_action=(
+                "This email thread contains TWO separate issues interleaved: (1) Tom's "
+                "VPN tunnel drops with GP-ERR-4502 after maintenance, and (2) Rebecca's "
+                "printer fuser error on Floor 3. Triage the primary issue — the VPN "
+                "drops — and create a separate ticket for the printer."
+            ),
+            remediation_steps=[
+                "Address Tom's VPN issue first: check GlobalProtect gateway logs for "
+                "his session around the Saturday maintenance window for configuration changes.",
+                "Investigate the 'Tunnel timeout — keepalive missed' errors — check if "
+                "MTU or keepalive interval settings were changed during maintenance.",
+                "Compare Tom's GlobalProtect client configuration with Raj Patel's to "
+                "identify differences.",
+                "For the printer issue, create a separate ticket and route to Endpoint "
+                "Engineering for the HP LaserJet fuser error (WM-PRN-0318).",
+                "Follow up with Tom after gateway log analysis to apply targeted fix.",
+            ],
+            reporter_name="Tom Gallagher",
+            reporter_email="tom.gallagher@contoso.com",
+            reporter_department="Equity Trading",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "cross-threaded", "interleaved-issues"],
+            difficulty="hard",
+        ),
+        # ── DC-127  Massive CC / BCC recipient list ──────────────────
+        ScenarioDefinition(
+            scenario_id="DC-127",
+            subject="URGENT: Compliance audit scanner failing — all teams alerted",
+            description=(
+                "To: IT Support <itsupport@contoso.com>\n"
+                "CC: john.sterling@contoso.com; maria.vasquez@contoso.com; "
+                "chen.wei@contoso.com; sarah.oconnor@contoso.com; "
+                "dmitri.volkov@contoso.com; fatima.al-rashid@contoso.com; "
+                "james.whitfield@contoso.com; priya.mehta@contoso.com; "
+                "robert.nakamura@contoso.com; elena.popov@contoso.com; "
+                "marcus.johnson@contoso.com; aisha.ibrahim@contoso.com; "
+                "thomas.mueller@contoso.com; li.zhang@contoso.com; "
+                "sophia.anderson@contoso.com; kenji.tanaka@contoso.com; "
+                "olivia.martinez@contoso.com; benjamin.clark@contoso.com; "
+                "nadia.hassan@contoso.com; david.osei@contoso.com; "
+                "catherine.dubois@contoso.com; raj.krishnamurthy@contoso.com; "
+                "emma.fitzgerald@contoso.com; yuki.watanabe@contoso.com; "
+                "michael.oconnell@contoso.com; amara.diallo@contoso.com; "
+                "lucas.bergstrom@contoso.com; zara.khan@contoso.com; "
+                "peter.novak@contoso.com; jessica.wong@contoso.com; "
+                "compliance-all@contoso.com; risk-team@contoso.com; "
+                "audit-committee@contoso.com; legal-team@contoso.com; "
+                "executive-leadership@contoso.com\n\n"
+                "Hi IT team,\n\n"
+                "The Contoso Compliance Scanner (CCS) has been failing since this "
+                "morning at 6:15 AM. It is unable to complete the daily regulatory "
+                "scan across our trading systems. The error in the CCS dashboard "
+                "reads: 'Scan aborted — database connection pool exhausted after "
+                "retry limit (5/5). Last successful scan: 2026-03-14 06:00:00 UTC.'\n\n"
+                "This is critical because we have a FINRA audit review scheduled for "
+                "Monday and we need at least 5 consecutive days of clean scan results "
+                "to present. If the scanner stays down through the weekend, we will "
+                "not meet the audit requirement.\n\n"
+                "The CCS connects to the compliance database on ccs-db-prod-01 "
+                "(SQL Server 2022). The scanner service runs on ccs-app-prod-01 and "
+                "ccs-app-prod-02 behind the internal load balancer.\n\n"
+                "Please prioritize this.\n\n"
+                "Best regards,\nLaura Chen\nChief Compliance Officer"
+            ),
+            category=Category.SECURITY,
+            priority=Priority.P2,
+            team=Team.SECURITY_OPS,
+            needs_escalation=True,
+            missing_info=[MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Ignore the large CC list and focus on the critical issue: the Contoso "
+                "Compliance Scanner cannot complete daily regulatory scans due to a "
+                "database connection pool exhaustion. This is audit-critical with a "
+                "FINRA deadline on Monday."
+            ),
+            remediation_steps=[
+                "Check the SQL Server connection pool on ccs-db-prod-01 — the pool may "
+                "be exhausted by leaked connections or a recent configuration change.",
+                "Review the CCS application logs on ccs-app-prod-01/02 for connection "
+                "leak patterns or increased query volumes.",
+                "Restart the CCS application services and monitor connection pool metrics.",
+                "If the connection pool limit is too low, increase it after verifying the "
+                "SQL Server can handle the additional load.",
+                "Run a manual compliance scan after the fix to confirm 5 consecutive "
+                "clean results before the Monday FINRA audit.",
+            ],
+            reporter_name="Laura Chen",
+            reporter_email="laura.chen@contoso.com",
+            reporter_department="Compliance",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "massive-cc-list", "buried-content"],
+            difficulty="medium",
+        ),
+        # ── DC-128  Environment variable / secrets dump ──────────────
+        ScenarioDefinition(
+            scenario_id="DC-128",
+            subject="Azure deployment pipeline failing — config details below",
+            description=(
+                "Hi team,\n\n"
+                "Our Azure deployment pipeline for the ContosoPayments service has "
+                "been failing since yesterday afternoon. I'm sharing the relevant "
+                "configuration — I've redacted the actual secret values:\n\n"
+                "# .env.staging — ContosoPayments\n"
+                "AZURE_SUBSCRIPTION_ID=a1b2c3d4-e5f6-7890-abcd-ef1234567890\n"
+                "AZURE_TENANT_ID=f9e8d7c6-b5a4-3210-fedc-ba9876543210\n"
+                "AZURE_CLIENT_ID=11111111-2222-3333-4444-555555555555\n"
+                "AZURE_CLIENT_SECRET=<REDACTED>\n"
+                "AZURE_RESOURCE_GROUP=rg-contoso-payments-staging\n"
+                "AZURE_APP_SERVICE_NAME=app-contoso-payments-stg\n"
+                "AZURE_KEY_VAULT_NAME=kv-contoso-pay-stg\n"
+                "DATABASE_HOST=contoso-pay-db-stg.database.windows.net\n"
+                "DATABASE_NAME=contoso_payments_staging\n"
+                "DATABASE_USER=app_service_user\n"
+                "DATABASE_PASSWORD=<REDACTED>\n"
+                "REDIS_HOST=contoso-pay-redis-stg.redis.cache.windows.net\n"
+                "REDIS_PORT=6380\n"
+                "REDIS_PASSWORD=<REDACTED>\n"
+                "APPLICATIONINSIGHTS_CONNECTION_STRING=InstrumentationKey="
+                "00000000-0000-0000-0000-000000000000;IngestionEndpoint="
+                "https://eastus-0.in.applicationinsights.azure.com/\n"
+                "SERVICE_BUS_NAMESPACE=sb-contoso-payments-stg\n"
+                "SERVICE_BUS_QUEUE=payment-processing\n"
+                "BLOB_STORAGE_ACCOUNT=stcontosopaymentstg\n"
+                "BLOB_CONTAINER=payment-receipts\n"
+                "LOG_LEVEL=DEBUG\n"
+                "FEATURE_FLAG_NEW_CHECKOUT=true\n"
+                "MAX_RETRY_COUNT=3\n"
+                "TIMEOUT_SECONDS=30\n\n"
+                "The pipeline fails at the 'Deploy to App Service' step with:\n"
+                "'ERROR: The deployment slot staging is in a failed state. "
+                "Provisioning state: Failed. Details: Cannot allocate managed "
+                "identity for the app service.'\n\n"
+                "We need this fixed before end of day — the payments team is waiting "
+                "to test the new checkout flow in staging.\n\n"
+                "Thanks,\nOmar Farouk\nBackend Engineering"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Ignore the .env configuration dump (secrets are redacted) and focus "
+                "on the Azure deployment failure: managed identity allocation is failing "
+                "for the staging App Service deployment slot."
+            ),
+            remediation_steps=[
+                "Check the Azure App Service staging slot status and its managed identity "
+                "configuration in the Azure portal.",
+                "Verify the managed identity is enabled and has the correct role assignments "
+                "on the resource group rg-contoso-payments-staging.",
+                "If the managed identity is in a failed state, delete and recreate it via "
+                "'az webapp identity assign'.",
+                "Check if the Azure subscription has hit any managed identity limits.",
+                "Re-run the deployment pipeline after fixing the managed identity and verify "
+                "the staging slot provisions successfully.",
+            ],
+            reporter_name="Omar Farouk",
+            reporter_email="omar.farouk@contoso.com",
+            reporter_department="Backend Engineering",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "env-var-dump", "config-noise"],
+            difficulty="medium",
+        ),
+        # ── DC-129  Git diff / merge conflict markers ────────────────
+        ScenarioDefinition(
+            scenario_id="DC-129",
+            subject="CI/CD pipeline broken after branch merge — conflict markers in config",
+            description=(
+                "Hi team,\n\n"
+                "Our CI/CD pipeline for the ContosoRisk service has been failing since "
+                "a bad merge this morning. The build step fails because there are merge "
+                "conflict markers left in the configuration file. Here's what the "
+                "pipeline shows:\n\n"
+                "```\n"
+                "Step 4/12: Validate configuration\n"
+                "ERROR: Parse error in config/appsettings.Production.json at line 47\n"
+                "--- begin file excerpt ---\n"
+                '  "ConnectionStrings": {\n'
+                "<<<<<<< HEAD\n"
+                '    "RiskDatabase": "Server=risk-db-prod-01.database.windows.net;'
+                'Database=contoso_risk;Encrypt=true;TrustServerCertificate=false;",\n'
+                '    "CacheConnection": "contoso-risk-redis.redis.cache.windows.net:6380,'
+                'password=****,ssl=True,abortConnect=False"\n'
+                "=======\n"
+                '    "RiskDatabase": "Server=risk-db-prod-02.database.windows.net;'
+                'Database=contoso_risk_v2;Encrypt=true;TrustServerCertificate=false;",\n'
+                '    "CacheConnection": "contoso-risk-redis-v2.redis.cache.windows.net:6380,'
+                'password=****,ssl=True,abortConnect=False"\n'
+                ">>>>>>> feature/risk-engine-v2\n"
+                "  },\n"
+                '  "Logging": {\n'
+                "<<<<<<< HEAD\n"
+                '    "LogLevel": {\n'
+                '      "Default": "Warning",\n'
+                '      "Microsoft": "Warning"\n'
+                "    }\n"
+                "=======\n"
+                '    "LogLevel": {\n'
+                '      "Default": "Information",\n'
+                '      "Microsoft": "Warning",\n'
+                '      "ContosoRisk.Engine": "Debug"\n'
+                "    }\n"
+                ">>>>>>> feature/risk-engine-v2\n"
+                "  }\n"
+                "--- end file excerpt ---\n"
+                "```\n\n"
+                "The merge was between `main` and `feature/risk-engine-v2`. It looks "
+                "like someone resolved the merge on GitHub but missed these conflict "
+                "markers in the config file. The pipeline has been red for 4 hours now "
+                "and the risk engine team can't deploy their hotfix.\n\n"
+                "Can someone help resolve the merge conflicts and get the pipeline "
+                "green again?\n\n"
+                "Thanks,\nAlex Rivera\nDevOps"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.AFFECTED_USERS],
+            next_best_action=(
+                "Ignore the git merge conflict markers in the description and focus on "
+                "the issue: unresolved merge conflicts in config/appsettings.Production.json "
+                "are breaking the ContosoRisk CI/CD pipeline."
+            ),
+            remediation_steps=[
+                "Resolve the merge conflict markers in config/appsettings.Production.json — "
+                "coordinate with the risk engine team on which connection strings to keep.",
+                "Verify no other files in the repository contain unresolved conflict markers "
+                "by running 'git diff --check' or searching for '<<<<<<<'.",
+                "Commit the resolved configuration and push to trigger the pipeline.",
+                "Monitor the pipeline run to confirm all 12 steps pass successfully.",
+                "Add a pre-commit hook or CI check that rejects files containing merge "
+                "conflict markers to prevent this in the future.",
+            ],
+            reporter_name="Alex Rivera",
+            reporter_email="alex.rivera@contoso.com",
+            reporter_department="DevOps",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "git-diff-noise", "merge-conflicts"],
+            difficulty="medium",
+        ),
+        # ── DC-130  YAML / TOML configuration dump ───────────────────
+        ScenarioDefinition(
+            scenario_id="DC-130",
+            subject="Kubernetes pod crash loop — deployment config attached",
+            description=(
+                "Hi team,\n\n"
+                "The ContosoSettlement service pods have been in CrashLoopBackOff "
+                "since 5:30 AM this morning. Here's the deployment YAML for reference:\n\n"
+                "apiVersion: apps/v1\n"
+                "kind: Deployment\n"
+                "metadata:\n"
+                "  name: contoso-settlement\n"
+                "  namespace: production\n"
+                "  labels:\n"
+                "    app: contoso-settlement\n"
+                "    team: settlements\n"
+                "    version: v3.2.1\n"
+                "spec:\n"
+                "  replicas: 3\n"
+                "  selector:\n"
+                "    matchLabels:\n"
+                "      app: contoso-settlement\n"
+                "  template:\n"
+                "    metadata:\n"
+                "      labels:\n"
+                "        app: contoso-settlement\n"
+                "    spec:\n"
+                "      containers:\n"
+                "      - name: settlement-api\n"
+                "        image: contoso.azurecr.io/settlement-api:v3.2.1\n"
+                "        ports:\n"
+                "        - containerPort: 8080\n"
+                "        resources:\n"
+                "          requests:\n"
+                "            memory: '512Mi'\n"
+                "            cpu: '250m'\n"
+                "          limits:\n"
+                "            memory: '1Gi'\n"
+                "            cpu: '500m'\n"
+                "        env:\n"
+                "        - name: DB_HOST\n"
+                "          valueFrom:\n"
+                "            secretKeyRef:\n"
+                "              name: settlement-db-secret\n"
+                "              key: host\n"
+                "        - name: DB_PASSWORD\n"
+                "          valueFrom:\n"
+                "            secretKeyRef:\n"
+                "              name: settlement-db-secret\n"
+                "              key: password\n"
+                "        livenessProbe:\n"
+                "          httpGet:\n"
+                "            path: /health\n"
+                "            port: 8080\n"
+                "          initialDelaySeconds: 15\n"
+                "          periodSeconds: 10\n"
+                "        readinessProbe:\n"
+                "          httpGet:\n"
+                "            path: /ready\n"
+                "            port: 8080\n"
+                "          initialDelaySeconds: 5\n"
+                "          periodSeconds: 5\n\n"
+                "The pod logs show:\n"
+                "'FATAL: Could not connect to database at settlement-db-secret:host. "
+                "Error: ECONNREFUSED 10.0.4.52:5432. Retries exhausted (5/5). Exiting.'\n\n"
+                "The database was migrated to a new IP on Friday (10.0.4.80) but the "
+                "Kubernetes secret still points to the old IP. Can you update the secret "
+                "and restart the pods?\n\n"
+                "Thanks,\nHenry Park\nSettlements"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Ignore the YAML configuration dump and focus on the root cause: the "
+                "Kubernetes secret 'settlement-db-secret' still has the old database "
+                "IP (10.0.4.52) after Friday's migration to 10.0.4.80."
+            ),
+            remediation_steps=[
+                "Update the Kubernetes secret 'settlement-db-secret' with the new database "
+                "IP (10.0.4.80) using 'kubectl edit secret' or a sealed-secret update.",
+                "Restart the contoso-settlement pods with 'kubectl rollout restart deployment "
+                "contoso-settlement -n production'.",
+                "Verify the pods transition from CrashLoopBackOff to Running status.",
+                "Check the pod logs to confirm successful database connectivity after restart.",
+                "Update the infrastructure documentation to reflect the new database IP and "
+                "ensure the CI/CD pipeline's secret management is updated for future deploys.",
+            ],
+            reporter_name="Henry Park",
+            reporter_email="henry.park@contoso.com",
+            reporter_department="Settlements",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "yaml-config-dump", "kubernetes"],
+            difficulty="medium",
+        ),
     ]
