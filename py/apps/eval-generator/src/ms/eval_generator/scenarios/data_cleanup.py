@@ -3598,4 +3598,682 @@ DATA_CLEANUP_SCENARIOS: list[ScenarioDefinition] = [
         ),
         tags=("data-cleanup", "monitoring-flood", "alert-noise"),
     ),
+    # ------------------------------------------------------------------
+    # dc-gen-062  Thread hijacking – email thread switches topics
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-062",
+        subjects=(
+            "RE: RE: RE: Printer paper jam on 4th floor – NOW: Cannot connect to VPN",
+            "FW: Printer Issue → Actually VPN is down for my whole team",
+        ),
+        descriptions=(
+            "Original thread started three weeks ago about a recurring paper jam"
+            " on the HP LaserJet 4250 on the 4th floor (ticket INC0041233). That"
+            " issue was resolved on 2024-04-11. However, instead of opening a new"
+            " ticket, the user replied to the old printer thread with a completely"
+            " unrelated issue:\n\n'Hi team, unrelated to the printer – since this"
+            " morning around 08:15 I cannot establish a VPN connection using"
+            " GlobalProtect. It gets to 'Connecting…' then times out after 45"
+            " seconds. I'm working from our Austin office on the guest Wi-Fi."
+            " My colleague next to me has the same problem. We both updated to"
+            " GlobalProtect 6.1.3 last Friday. Could the update have broken"
+            " something? We need VPN to reach the internal finance portal for"
+            " month-end close today. Thanks, Dana.'",
+            "Thread subject still says 'Printer paper jam 4th floor' but the"
+            " latest reply is about a VPN connectivity failure. The user writes:"
+            " 'Sorry for hijacking this thread – IT portal was down so I just"
+            " replied here. Since 8 AM today GlobalProtect on my laptop"
+            " (WIN-PC-7829) keeps spinning at 'Connecting' and drops after ~40s."
+            " I'm at the Austin satellite office, wired ethernet. Tried"
+            " forgetting and re-adding the VPN profile, flushed DNS, rebooted."
+            " Nothing works. Same for two other people on this floor. We all"
+            " upgraded GP to 6.1.3 on Friday. Finance month-end reports are"
+            " due by EOD – this is blocking us.'",
+        ),
+        gold=ScenarioGold(
+            category="Network & Connectivity",
+            priority="P3",
+            assigned_team="Network Operations",
+            needs_escalation=False,
+            missing_information=("application_version",),
+            next_best_action="Disregard the stale printer thread context and triage the"
+            " actual issue — multiple users at the Austin office cannot connect"
+            " via GlobalProtect VPN after upgrading to version 6.1.3, which"
+            " suggests a client-side or gateway compatibility regression",
+            remediation_steps=(
+                "Confirm the exact GlobalProtect client version on affected machines and compare with the"
+                " gateway's supported version list",
+                "Check the GlobalProtect gateway and portal logs for TLS handshake or certificate errors"
+                " corresponding to the Austin office IP range",
+                "Test connectivity from an Austin machine using the previous GlobalProtect version to isolate"
+                " whether the 6.1.3 upgrade is the root cause",
+                "If the upgrade is confirmed as the cause, roll back affected clients to the last known-good"
+                " version and coordinate with Palo Alto support",
+                "Open a new ticket for the VPN issue with correct categorization and link it to the original"
+                " printer ticket for audit trail",
+            ),
+        ),
+        tags=("data-cleanup", "thread-hijack"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-063  Mixed RTL/LTR text – Hebrew/Arabic mixed with English
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-063",
+        subjects=(
+            "בעיה בהרשאות SharePoint – Permission denied on Contoso Finance site",
+            "مشكلة في صلاحيات شير بوينت – Cannot access Contoso Finance library",
+        ),
+        descriptions=(
+            "שלום צוות IT,\n\nאני לא מצליח לגשת לספריית המסמכים של Contoso"
+            " Finance ב-SharePoint Online. כשאני לוחץ על הקישור אני מקבל הודעה:"
+            " 'Access Denied – You do not have permission to access this resource."
+            " Contact your administrator.' (Error code: 403 SPO-ERR-8821)\n\n"
+            "I was added to the Finance Contributors group last week by my manager"
+            " Rachel Levy. I can see the site in my SharePoint home page but"
+            " clicking into the 'Q4 Reports' document library gives the 403."
+            " Other team members (Yossi, Miriam) access it fine.\n\n"
+            "אני עובד על Windows 11 עם Edge 122.0 ומחובר עם חשבון"
+            " d.cohen@contoso.com. ניסיתי גם ב-Chrome וגם ב-InPrivate – אותה"
+            " בעיה. זה דחוף כי אני צריך להעלות דוחות עד סוף השבוע.\nתודה, דניאל",
+            "مرحبا فريق الدعم,\n\nI need help with SharePoint permissions. أنا"
+            " عضو جديد في فريق Finance وتمت إضافتي إلى مجموعة 'Finance"
+            " Contributors' الأسبوع الماضي. When I try to open the Q4 Reports"
+            " library on https://contoso.sharepoint.com/sites/finance I get"
+            " 'Access Denied' error 403 SPO-ERR-8821.\n\nMy account is"
+            " a.hassan@contoso.com. حاولت عدة متصفحات – Edge, Chrome,"
+            " Firefox – ونفس المشكلة. My manager confirmed I should have"
+            " Contribute-level access. Other new hires who joined the same"
+            " week can access the library without issues.\n\nهل يمكنكم التحقق"
+            " من الصلاحيات؟ أحتاج الوصول بشكل عاجل لإغلاق التقارير الربعية."
+            "\nشكراً, أحمد",
+        ),
+        gold=ScenarioGold(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+            needs_escalation=False,
+            missing_information=("error_message", "environment_details"),
+            next_best_action="Investigate the SharePoint Online 403 error (SPO-ERR-8821)"
+            " for the user's account in the Finance Contributors group — the user"
+            " was recently added but the permission grant may not have propagated"
+            " or may be overridden by a library-level permission break",
+            remediation_steps=(
+                "Verify the user's membership in the Finance Contributors group via SharePoint admin center"
+                " and confirm the group has Contribute permissions on the Q4 Reports library",
+                "Check whether the Q4 Reports library has broken permission inheritance from the site and"
+                " whether the Finance Contributors group is explicitly granted access at the library level",
+                "Review the SharePoint ULS/audit logs for the 403 SPO-ERR-8821 to identify whether a"
+                " conditional access policy or DLP rule is blocking the user",
+                "If permissions appear correct, force a profile recompilation by removing and re-adding the"
+                " user to the group, then wait up to 24 hours for token refresh",
+                "Confirm access is restored and document the root cause for the permissions discrepancy",
+            ),
+        ),
+        tags=("data-cleanup", "rtl-ltr-mixed"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-064  HTML table paste – massive HTML with issue in one cell
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-064",
+        subjects=(
+            "Data Migration Report – URGENT: SQL backup job failing on SQLPROD07",
+            "Pasting migration tracker – backup failure row highlighted",
+        ),
+        descriptions=(
+            "<html><body><table border='1' cellpadding='4'><tr><th>Server</th>"
+            "<th>Migration Status</th><th>Last Backup</th><th>Notes</th></tr>"
+            "<tr><td>SQLPROD01</td><td style='background:green;color:white'>"
+            "Complete</td><td>2024-04-14 02:00</td><td>OK</td></tr>"
+            "<tr><td>SQLPROD02</td><td style='background:green;color:white'>"
+            "Complete</td><td>2024-04-14 02:15</td><td>OK</td></tr>"
+            "<tr><td>SQLPROD03</td><td style='background:green;color:white'>"
+            "Complete</td><td>2024-04-14 02:30</td><td>OK</td></tr>"
+            "<tr><td>SQLPROD04</td><td style='background:green;color:white'>"
+            "Complete</td><td>2024-04-14 03:00</td><td>OK</td></tr>"
+            "<tr><td>SQLPROD05</td><td style='background:green;color:white'>"
+            "Complete</td><td>2024-04-14 03:15</td><td>OK</td></tr>"
+            "<tr><td>SQLPROD06</td><td style='background:green;color:white'>"
+            "Complete</td><td>2024-04-14 03:30</td><td>OK</td></tr>"
+            "<tr><td style='background:red;color:white'>SQLPROD07</td>"
+            "<td style='background:red;color:white'>FAILED</td>"
+            "<td>2024-04-14 04:00 – ABORTED</td>"
+            "<td>Backup job SQLPROD07_FULL_DAILY failed with error: 'Insufficient"
+            " disk space on E:\\SQLBackups – 12GB required, 1.3GB available."
+            " Transaction log backup also failing since 2024-04-12. ~2TB database"
+            " (ContosoFinanceDW). Data team needs this resolved before Monday"
+            " morning ETL run or risk data loss.'</td></tr>"
+            "<tr><td>SQLPROD08</td><td style='background:green;color:white'>"
+            "Complete</td><td>2024-04-14 04:15</td><td>OK</td></tr>"
+            "</table></body></html>",
+            "Migration tracker (copied from Excel):\n\n"
+            "| Server     | Status   | Last Backup       | Notes |\n"
+            "|------------|----------|-------------------|-------|\n"
+            "| SQLPROD01  | Complete | 2024-04-14 02:00  | OK    |\n"
+            "| SQLPROD02  | Complete | 2024-04-14 02:15  | OK    |\n"
+            "| SQLPROD03  | Complete | 2024-04-14 02:30  | OK    |\n"
+            "| SQLPROD04  | Complete | 2024-04-14 03:00  | OK    |\n"
+            "| SQLPROD05  | Complete | 2024-04-14 03:15  | OK    |\n"
+            "| SQLPROD06  | Complete | 2024-04-14 03:30  | OK    |\n"
+            "| SQLPROD07  | **FAILED** | 2024-04-14 04:00 ABORTED | Backup job"
+            " SQLPROD07_FULL_DAILY failed – insufficient disk space on"
+            " E:\\SQLBackups (12GB needed, 1.3GB free). Transaction log backup"
+            " also failing since April 12. Database is ContosoFinanceDW (~2TB)."
+            " Must be fixed before Monday AM ETL run – potential data loss. |\n"
+            "| SQLPROD08  | Complete | 2024-04-14 04:15  | OK    |\n\n"
+            "Please help with the SQLPROD07 row – everything else is fine.",
+        ),
+        gold=ScenarioGold(
+            category="Data & Storage",
+            priority="P2",
+            assigned_team="Data Platform",
+            needs_escalation=False,
+            missing_information=("affected_system", "error_message"),
+            next_best_action="Address the disk-space-exhaustion failure on SQLPROD07 — the"
+            " E:\\SQLBackups volume has only 1.3 GB free of the 12 GB required"
+            " for the daily full backup of ContosoFinanceDW, and transaction log"
+            " backups have also been failing since April 12, creating a growing"
+            " data-loss risk ahead of Monday's ETL run",
+            remediation_steps=(
+                "Immediately free space on E:\\SQLBackups by moving or purging older backup files and verify"
+                " available space exceeds 12 GB",
+                "Run a manual transaction log backup to break the log chain failure that has been accumulating"
+                " since April 12",
+                "Execute a full backup of ContosoFinanceDW and confirm it completes successfully",
+                "Set up disk-space monitoring alerts on the E:\\SQLBackups volume at 80% and 90% thresholds"
+                " to prevent recurrence",
+                "Review the backup retention policy for SQLPROD07 and consider moving backups to a larger"
+                " volume or network share",
+            ),
+        ),
+        tags=("data-cleanup", "html-table-paste"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-065  Extreme OCR artifacts – scanned/faxed document
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-065",
+        subjects=(
+            "Fax from warehouse: Sc@nner/print3r issu3 – urg3nt",
+            "FW: Scanned request from Building C – printer malfunction",
+        ),
+        descriptions=(
+            "--- Beg1n Faxed Docum3nt ---\n\n"
+            "D@te: Apr1l 15, 2O24\nFr0m: J. Mart1nez, Wareh0use Bldg C\n"
+            "T0: lT Supp0rt\n\nSubj3ct: Pr1nter N0t Work1ng\n\n"
+            "0ur ma1n pr1nter (l th1nk 1t's an HP Laserl3t 4O9Odn) 0n the"
+            " sh1pp1ng fl00r has st0pped pr1nt1ng ent1rely. Th3 d1splay sh0ws"
+            " 'PC L0AD LETTER' wh1ch w3 d0n't und3rstand. W3 tr1ed turn1ng"
+            " 1t 0ff and 0n, r3plac1ng t0ner, and check1ng pap3r trays."
+            " N0th1ng w0rks. Th1s pr1nter hand1es all 0ur sh1pp1ng lab3ls"
+            " and w3 hav3 0rders back1ng up. N33d s0me0ne t0 l00k at 1t"
+            " t0day 1f p0ss1ble.\n\nTh@nks,\nJ. Mart1nez\nExt 4421\n\n"
+            "--- 3nd Faxed D0cum3nt ---",
+            "This ticket was auto-created from a scanned fax received at"
+            " 09:42 AM. OCR confidence: LOW.\n\n"
+            "Transcribed text:\n'Oate: Apri| 15, 2024. From: J. Martinez,"
+            " Warehouse B|dg C. To: lT Support. Subject: Printer Not Working."
+            " Our main printer (HP Laser]et 4090dn maybe?) on the shipping"
+            " f|oor stopped printing comp|etely. Disp|ay shows PC LOAD LETTER"
+            " error. We tried: power cyc|e, rep|aced toner cartridge, checked"
+            " a|| paper trays, c|eared paper path. Nothing he|ps. This is the"
+            " on|y printer for shipping |abe|s and we have 50+ orders waiting."
+            " P|ease send someone today. Thanks, J. Martinez, Ext 4421.'\n\n"
+            "Note: Original fax image attached as TIFF. OCR quality degraded"
+            " due to low scan resolution (150 DPI) and fax transmission noise.",
+        ),
+        gold=ScenarioGold(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+            needs_escalation=False,
+            missing_information=("device_info", "error_message"),
+            next_best_action="Dispatch a technician to Building C shipping floor to"
+            " diagnose the HP LaserJet 4090dn displaying 'PC LOAD LETTER' —"
+            " despite the heavy OCR corruption the core issue is a printer"
+            " that is non-functional and blocking shipping label output",
+            remediation_steps=(
+                "Verify the exact printer model and asset tag on-site in Building C shipping floor",
+                "Clear the 'PC LOAD LETTER' error by checking that the correct paper size (Letter/A4) is"
+                " loaded in the tray matching the print job's requested media",
+                "Inspect the paper path, pickup rollers, and fuser for jams or wear that could trigger the error",
+                "Print a configuration page from the printer's control panel to confirm basic functionality",
+                "If the error persists after tray and paper-path checks, update the printer firmware and"
+                " reset to factory defaults as a last resort",
+            ),
+        ),
+        tags=("data-cleanup", "ocr-artifacts"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-066  Terse one-word ticket
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-066",
+        subjects=(
+            "help",
+            "broken",
+        ),
+        descriptions=(
+            "broken",
+            "not working",
+        ),
+        gold=ScenarioGold(
+            category="General Inquiry",
+            priority="P4",
+            assigned_team="None",
+            needs_escalation=False,
+            missing_information=(
+                "affected_system",
+                "error_message",
+                "steps_to_reproduce",
+                "device_info",
+                "contact_info",
+                "environment_details",
+            ),
+            next_best_action="Reply to the submitter requesting basic triage information —"
+            " the ticket contains no actionable detail and cannot be categorized"
+            " or assigned without knowing what system, device, or application"
+            " is affected",
+            remediation_steps=(
+                "Respond to the user asking them to identify the affected system or application",
+                "Request a description of the problem including any error messages or screenshots",
+                "Ask for the user's device type, operating system, and location or office",
+                "Once sufficient information is provided, recategorize and assign the ticket appropriately",
+                "If no response is received within 48 hours, follow up once more before closing as"
+                " insufficient information",
+            ),
+        ),
+        tags=("data-cleanup", "terse-ticket"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-067  Terminal output dump – DNS issue buried in tracert
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-067",
+        subjects=(
+            "Network issue – pasting tracert and nslookup output",
+            "VPN/DNS problem – see terminal output below",
+        ),
+        descriptions=(
+            "PS C:\\Users\\tchen> tracert intranet.contoso.com\n\n"
+            "Tracing route to intranet.contoso.com [10.128.4.20]\n"
+            "over a maximum of 30 hops:\n\n"
+            "  1     1 ms     1 ms     1 ms  gateway.local [192.168.1.1]\n"
+            "  2     8 ms     7 ms     9 ms  10.0.0.1\n"
+            "  3    12 ms    11 ms    13 ms  core-rtr-01.contoso.com [10.64.0.1]\n"
+            "  4     *        *        *     Request timed out.\n"
+            "  5     *        *        *     Request timed out.\n"
+            "  6     *        *        *     Request timed out.\n"
+            "  7     *        *        *     Request timed out.\n"
+            "  8     *        *        *     Request timed out.\n"
+            "  9     *        *        *     Request timed out.\n"
+            " 10     *        *        *     Request timed out.\n\n"
+            "Trace complete.\n\n"
+            "PS C:\\Users\\tchen> nslookup intranet.contoso.com\n"
+            "Server:  dns-ext-01.contoso.com\n"
+            "Address:  168.63.129.16\n\n"
+            "*** dns-ext-01.contoso.com can't find intranet.contoso.com:"
+            " Non-existent domain\n\n"
+            "PS C:\\Users\\tchen> nslookup intranet.contoso.com 10.64.1.53\n"
+            "Server:  dns-int-01.contoso.com\n"
+            "Address:  10.64.1.53\n\n"
+            "Name:    intranet.contoso.com\n"
+            "Address:  10.128.4.20\n\n"
+            "PS C:\\Users\\tchen> ipconfig /all | findstr DNS\n"
+            "   DNS Servers . . . . . . . . . . . : 168.63.129.16\n\n"
+            "So it looks like my laptop is pointed at the external DNS"
+            " (168.63.129.16) instead of the internal one (10.64.1.53)."
+            " I think the VPN is connecting but not pushing DNS settings."
+            " GlobalProtect 6.1.3 on Windows 11. Started after Friday's update.",
+            "Dumping my PowerShell session:\n\n"
+            "PS C:\\> Test-NetConnection intranet.contoso.com -Port 443\n"
+            "WARNING: Name resolution of intranet.contoso.com failed\n"
+            "ComputerName     : intranet.contoso.com\n"
+            "RemoteAddress    :\nRemotePort       : 443\n"
+            "InterfaceAlias   :\nSourceAddress    :\n"
+            "TcpTestSucceeded : False\n\n"
+            "PS C:\\> Resolve-DnsName intranet.contoso.com\n"
+            "Resolve-DnsName : intranet.contoso.com : DNS name does not exist\n\n"
+            "PS C:\\> Resolve-DnsName intranet.contoso.com -Server 10.64.1.53\n"
+            "Name           Type TTL Section IPAddress\n"
+            "----           ---- --- ------- ---------\n"
+            "intranet.conto A    300 Answer  10.128.4.20\n\n"
+            "PS C:\\> Get-DnsClientServerAddress -InterfaceAlias 'Wi-Fi'\n"
+            "InterfaceAlias  AddressFamily ServerAddresses\n"
+            "--------------  ------------- ---------------\n"
+            "Wi-Fi           IPv4          {168.63.129.16}\n"
+            "Wi-Fi           IPv6          {}\n\n"
+            "Clearly the VPN tunnel is up but DNS is not being overridden to"
+            " use internal servers. Started happening after GlobalProtect"
+            " 6.1.3 update last Friday. All internal sites fail to resolve.",
+        ),
+        gold=ScenarioGold(
+            category="Network & Connectivity",
+            priority="P2",
+            assigned_team="Network Operations",
+            needs_escalation=False,
+            missing_information=("network_location",),
+            next_best_action="Investigate the GlobalProtect VPN split-DNS configuration —"
+            " the VPN tunnel connects successfully but is not pushing internal DNS"
+            " server settings (10.64.1.53) to the client, leaving external DNS"
+            " (168.63.129.16) as the sole resolver and causing all internal name"
+            " resolution to fail",
+            remediation_steps=(
+                "Check the GlobalProtect gateway agent configuration to verify that DNS settings"
+                " (10.64.1.53) are included in the split-tunnel or full-tunnel DNS push",
+                "Review recent changes to the GlobalProtect 6.1.3 gateway configuration that may have"
+                " altered DNS proxy or split-DNS behavior after Friday's update",
+                "As an immediate workaround, have the user manually set DNS to 10.64.1.53 on the VPN"
+                " adapter to restore internal name resolution",
+                "Test the fix with nslookup and tracert against intranet.contoso.com to confirm"
+                " resolution via internal DNS",
+                "If the 6.1.3 client update is confirmed as the cause, coordinate a rollback or"
+                " configuration patch across affected users",
+            ),
+        ),
+        tags=("data-cleanup", "terminal-dump"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-068  Auto-generated monitoring alert – Datadog JSON
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-068",
+        subjects=(
+            "[ALERT] Datadog Monitor #488291 TRIGGERED: CRM API p99 latency > 5s",
+            "[Datadog] ALERT – CRM-API-PROD latency threshold exceeded",
+        ),
+        descriptions=(
+            '{"alert_id":"evt-488291-a7c3","monitor_name":"CRM API p99 latency'
+            ' > 5000ms","monitor_type":"metric alert","status":"ALERT",'
+            '"priority":"P2","trigger_ts":"2024-04-15T14:32:07Z","resolve_ts"'
+            ':null,"tags":["service:crm-api","env:prod","team:enterprise-apps"'
+            ',"region:eastus2"],"query":"avg(last_5m):p99:trace.http.request'
+            '{service:crm-api,env:prod} > 5000","value":8742.3,"threshold":5000'
+            ',"notify":["@slack-crm-oncall","@pagerduty-crm"],"message":'
+            '"p99 latency for crm-api in prod/eastus2 is 8742ms (threshold'
+            " 5000ms). Started spiking at 14:27 UTC. Correlated metrics show"
+            " DB connection pool saturation on crm-db-replica-02 (active"
+            " connections: 498/500). Application logs show increased"
+            " timeout errors from ORM layer. Last deploy: crm-api v2.14.3"
+            ' at 13:55 UTC.","org":"contoso-financial"}',
+            "[Datadog Auto-Alert]\n"
+            "Monitor: CRM API p99 latency > 5000ms (#488291)\n"
+            "Status: ALERT (was OK)\n"
+            "Triggered: 2024-04-15 14:32:07 UTC\n"
+            "Region: eastus2\n"
+            "Current value: 8,742 ms (threshold: 5,000 ms)\n\n"
+            "Context:\n"
+            "- Service: crm-api (prod)\n"
+            "- Last deployment: crm-api v2.14.3 deployed at 13:55 UTC\n"
+            "- DB connection pool on crm-db-replica-02: 498/500 active\n"
+            "- ORM timeout errors increasing since 14:27 UTC\n"
+            "- No infrastructure changes in the last 24h\n\n"
+            "Notified: #crm-oncall (Slack), CRM PagerDuty rotation\n\n"
+            "This is an auto-generated alert from Datadog. Do not reply"
+            " to this message. Runbook: https://wiki.contoso.com/runbooks/crm-latency",
+        ),
+        gold=ScenarioGold(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+            needs_escalation=False,
+            missing_information=("affected_users", "business_impact"),
+            next_best_action="Investigate the CRM API latency spike — p99 jumped to 8.7s"
+            " (threshold 5s) starting at 14:27 UTC, likely caused by DB connection"
+            " pool saturation on crm-db-replica-02 (498/500) following the v2.14.3"
+            " deployment at 13:55 UTC",
+            remediation_steps=(
+                "Check whether the crm-api v2.14.3 deployment introduced a query regression or connection"
+                " leak by comparing DB pool metrics before and after 13:55 UTC",
+                "If connection pool saturation is confirmed, increase the pool limit temporarily on"
+                " crm-db-replica-02 and restart affected crm-api pods",
+                "Review the ORM timeout errors in application logs to identify the specific queries or"
+                " endpoints causing the pool exhaustion",
+                "If the deployment is the root cause, initiate a rollback to crm-api v2.14.2 and verify"
+                " latency returns to normal",
+                "Update the Datadog monitor to include connection pool utilization as a correlated metric"
+                " and add it to the CRM runbook",
+            ),
+        ),
+        tags=("data-cleanup", "monitoring-alert"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-069  Double-encoded UTF-8 (mojibake)
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-069",
+        subjects=(
+            "Probl\u00c3\u00a8me avec l\u2019application \u2013 erreur d\u2019authentification",
+            "Application login failure \u2013 mojibake in error message",
+        ),
+        descriptions=(
+            "Bonjour \u00c3\u00a9quipe IT,\n\n"
+            "Je n\u2019arrive plus \u00c3\u00a0 me connecter \u00c3\u00a0"
+            " l\u2019application Contoso ExpenseTracker depuis ce matin. Quand"
+            " j\u2019entre mes identifiants, je re\u00c3\u00a7ois le message"
+            " d\u2019erreur suivant :\n\n"
+            "\u2018Authentification \u00c3\u00a9chou\u00c3\u00a9e \u2013 votre"
+            " jeton de session a expir\u00c3\u00a9. Veuillez contacter votre"
+            " administrateur.\u2019\n\n"
+            "J\u2019ai essay\u00c3\u00a9 de vider le cache du navigateur,"
+            " d\u2019utiliser un autre navigateur (Chrome, Firefox, Edge) et de"
+            " r\u00c3\u00a9initialiser mon mot de passe via le portail"
+            " self-service. Rien ne fonctionne. Mes coll\u00c3\u00a8gues dans"
+            " le m\u00c3\u00aame bureau n\u2019ont pas ce probl\u00c3\u00a8me.\n\n"
+            "Mon poste : WIN-PC-5523, Windows 11, connect\u00c3\u00a9 au"
+            " r\u00c3\u00a9seau filaire du bureau de Montr\u00c3\u00a9al.\n\n"
+            "Merci,\n\u00c3\u2030milie Dupr\u00c3\u00a9",
+            "Hi team,\n\n"
+            "Something is wrong with the encoding in Contoso ExpenseTracker"
+            " \u2013 but also I can\u2019t log in at all. The error says"
+            " \u2018Authentication failed \u2013 session token expired\u2019."
+            " I have tried:\n"
+            "- Clearing browser cache and cookies\n"
+            "- Trying Chrome, Edge, and Firefox\n"
+            "- Resetting my password via the self-service portal\n"
+            "- Using InPrivate/Incognito mode\n\n"
+            "Nothing works. I suspect there\u2019s a backend issue because the"
+            " error page itself is rendering with garbled characters (\u00c3\u00a9"
+            " instead of \u00e9, \u00c3\u00a8 instead of \u00e8, etc.), which"
+            " suggests a double-encoding problem on the server side.\n\n"
+            "Account: e.dupre@contoso.com\n"
+            "Device: WIN-PC-5523, Windows 11 23H2\n"
+            "Location: Montr\u00c3\u00a9al office, wired LAN\n\n"
+            "This is blocking my expense reports for month-end.\nThanks, Emilie",
+        ),
+        gold=ScenarioGold(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+            needs_escalation=False,
+            missing_information=("application_version", "steps_to_reproduce"),
+            next_best_action="Investigate the Contoso ExpenseTracker authentication failure"
+            " — the user cannot log in due to an expired session token error,"
+            " and the garbled character rendering (mojibake) suggests the"
+            " application may have a double-UTF-8-encoding issue on the"
+            " server side that could be related to the auth failure",
+            remediation_steps=(
+                "Check the ExpenseTracker application logs for authentication errors related to"
+                " e.dupre@contoso.com and verify whether the session token service is functioning",
+                "Investigate whether a recent deployment introduced a character encoding change that"
+                " is double-encoding UTF-8 responses, causing both display corruption and potential"
+                " token parsing failures",
+                "Verify the user's account status in Azure AD and confirm the account is not locked,"
+                " expired, or affected by a conditional access policy",
+                "As a workaround, have the administrator manually invalidate and reissue the user's"
+                " session tokens in the ExpenseTracker admin panel",
+                "If double-encoding is confirmed, coordinate with the development team to fix the"
+                " Content-Type and encoding headers on the authentication endpoint",
+            ),
+        ),
+        tags=("data-cleanup", "mojibake"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-070  Massive disclaimer chain – real MFA issue buried
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-070",
+        subjects=(
+            "RE: FW: RE: FW: MFA not working on new phone",
+            "FW: Multi-factor authentication issue (see below disclaimers)",
+        ),
+        descriptions=(
+            "CONFIDENTIALITY NOTICE: This email and any attachments are for the"
+            " exclusive and confidential use of the intended recipient. If you"
+            " are not the intended recipient, please do not read, distribute,"
+            " or take action based on this message. If you have received this"
+            " in error, please notify the sender immediately and delete this"
+            " message. Contoso Financial Services, 1200 Market St, Suite 400,"
+            " Philadelphia, PA 19107.\n\n"
+            "AVIS DE CONFIDENTIALITÉ : Ce courriel et ses pièces jointes sont"
+            " destinés exclusivement à l'usage confidentiel du destinataire"
+            " prévu. Si vous n'êtes pas le destinataire prévu, veuillez ne pas"
+            " lire, distribuer ou agir sur la base de ce message.\n\n"
+            "VERTRAULICHKEITSHINWEIS: Diese E-Mail und alle Anhänge sind"
+            " ausschließlich für den vertraulichen Gebrauch des vorgesehenen"
+            " Empfängers bestimmt.\n\n"
+            "機密通知：本邮件及其附件仅供指定收件人机密使用。\n\n"
+            "AVISO DE CONFIDENCIALIDAD: Este correo electrónico y sus archivos"
+            " adjuntos son para uso exclusivo y confidencial del destinatario"
+            " previsto.\n\n"
+            "--- Actual message (forwarded 4 times) ---\n\n"
+            "Hi IT,\n\n"
+            "I got a new iPhone 15 and I need to transfer my MFA. I unenrolled"
+            " my old phone from the Microsoft Authenticator app but now I can't"
+            " add my Contoso account on the new phone. When I scan the QR code"
+            " it says 'Account already registered – contact your administrator.'"
+            " I'm locked out of everything – Outlook, Teams, SharePoint, VPN."
+            " I have a client presentation at 2 PM today and I can't access my"
+            " slides. Please help ASAP.\n\n"
+            "– Karen Liu, Senior Analyst, Contoso Wealth Management\n"
+            "  k.liu@contoso.com | Ext 3387\n\n"
+            "CONFIDENTIALITY NOTICE: This email and any attachments are for the"
+            " exclusive and confidential use of the intended recipient...\n"
+            "[Disclaimer repeated 3 more times in English, French, German,"
+            " Chinese, and Spanish]",
+            "---------- Forwarded message ----------\n"
+            "From: Karen Liu <k.liu@contoso.com>\n"
+            "To: IT Helpdesk <ithelpdesk@contoso.com>\n"
+            "Date: Mon, Apr 15, 2024 at 10:22 AM\n\n"
+            "[DISCLAIMER – Contoso Financial Services – Confidential – English]\n"
+            "[DISCLAIMER – Contoso Financial Services – Confidentiel – Français]\n"
+            "[DISCLAIMER – Contoso Financial Services – Vertraulich – Deutsch]\n"
+            "[DISCLAIMER – Contoso Financial Services – 机密 – 中文]\n"
+            "[DISCLAIMER – Contoso Financial Services – Confidencial – Español]\n\n"
+            "Hi, I switched to a new iPhone 15 and my Microsoft Authenticator"
+            " MFA is broken. Old phone was wiped. New phone gives error"
+            " 'Account already registered' when I try to set up MFA for"
+            " k.liu@contoso.com. I'm completely locked out of all Contoso"
+            " services – email, Teams, SharePoint, VPN. I have an urgent"
+            " client meeting at 2 PM and need access to my presentation"
+            " deck on SharePoint. Can someone reset my MFA registration?\n\n"
+            "Karen Liu | Senior Analyst | Ext 3387\n\n"
+            "[DISCLAIMER – Contoso Financial Services – repeated in 5 languages]\n"
+            "[DISCLAIMER – Contoso Financial Services – repeated in 5 languages]\n"
+            "[DISCLAIMER – Contoso Financial Services – repeated in 5 languages]",
+        ),
+        gold=ScenarioGold(
+            category="Access & Authentication",
+            priority="P2",
+            assigned_team="Identity & Access Management",
+            needs_escalation=False,
+            missing_information=("device_info", "authentication_method"),
+            next_best_action="Reset the MFA registration for k.liu@contoso.com in Azure AD"
+            " — the user switched to a new iPhone 15, wiped the old device, and"
+            " the Authenticator app on the new phone cannot re-register because"
+            " the old enrollment is still active, leaving the user locked out"
+            " of all Contoso services with a client meeting at 2 PM",
+            remediation_steps=(
+                "Verify the user's identity through an out-of-band method (e.g., manager confirmation"
+                " or in-person ID verification) before resetting MFA",
+                "Delete the existing MFA registration for k.liu@contoso.com in the Azure AD admin portal"
+                " under Authentication Methods",
+                "Guide the user through re-enrolling Microsoft Authenticator on the new iPhone 15 by"
+                " scanning the fresh QR code from aka.ms/mysecurityinfo",
+                "Confirm the user can successfully authenticate to Outlook, Teams, and SharePoint"
+                " with the new MFA enrollment",
+                "Recommend the user register a backup MFA method (e.g., phone number or FIDO2 key)"
+                " to avoid total lockout during future device changes",
+            ),
+        ),
+        tags=("data-cleanup", "disclaimer-chain"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-071  Interleaved conversations – two threads merged
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-071",
+        subjects=(
+            "RE: Laptop docking station + headset issue (two problems)",
+            "Merged thread: dock display + wireless headset",
+        ),
+        descriptions=(
+            "--- Message from Alex Park (10:05 AM) ---\n"
+            "My Dell WD19S docking station stopped outputting to my external"
+            " monitor (Dell U2723QE) this morning. Laptop screen works fine"
+            " but the dock's DisplayPort shows no signal.\n\n"
+            "--- Message from Priya Sharma (10:07 AM) ---\n"
+            "My Jabra Evolve2 75 headset won't connect to my laptop via"
+            " Bluetooth anymore. It pairs but audio routes to laptop speakers.\n\n"
+            "--- Message from Alex Park (10:12 AM) ---\n"
+            "Update: I tried a different DP cable and different monitor port."
+            " Still no signal. The dock's power LED is solid white. USB"
+            " peripherals through the dock work fine (keyboard, mouse).\n\n"
+            "--- Message from Priya Sharma (10:15 AM) ---\n"
+            "I forgot to mention – this started after the Windows 11 23H2"
+            " update last night. Bluetooth driver shows as up to date in"
+            " Device Manager. Headset firmware is current.\n\n"
+            "--- Message from Alex Park (10:20 AM) ---\n"
+            "Also noticed dock firmware is v01.00.02 – pretty old. Could"
+            " that be the issue? My laptop is a Latitude 5540 with Windows"
+            " 11 23H2, updated last night. Asset tag: IT-DOCK-0891.\n\n"
+            "--- Message from Priya Sharma (10:23 AM) ---\n"
+            "Jabra Direct says headset firmware v2.6.0 is current. My laptop"
+            " is a Latitude 7440, asset LTOP-2204. Bluetooth adapter is Intel"
+            " AX211. I need the headset for client calls starting at 11 AM.",
+            "This ticket appears to contain two interleaved conversations from"
+            " a shared Teams channel that were merged into one ticket:\n\n"
+            "THREAD A (Alex Park – Docking Station):\n"
+            "Dell WD19S dock not outputting display to Dell U2723QE monitor."
+            " Power LED solid white, USB passthrough works, DP output does"
+            " not. Tried different cable and port. Dock firmware v01.00.02."
+            " Laptop: Latitude 5540, Win 11 23H2 (updated last night)."
+            " Asset: IT-DOCK-0891.\n\n"
+            "THREAD B (Priya Sharma – Headset):\n"
+            "Jabra Evolve2 75 pairs via Bluetooth but audio does not route"
+            " to headset — stays on laptop speakers. Started after Win 11"
+            " 23H2 update. Bluetooth driver and headset firmware (v2.6.0)"
+            " up to date. Laptop: Latitude 7440, asset LTOP-2204. Intel"
+            " AX211 Bluetooth. Needs headset for 11 AM client calls.\n\n"
+            "Both issues started after the Win 11 23H2 update pushed last"
+            " night — may be related to driver changes in the update.",
+        ),
+        gold=ScenarioGold(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+            needs_escalation=False,
+            missing_information=("device_info",),
+            next_best_action="Split this ticket into two separate issues — (1) Alex Park's"
+            " Dell WD19S dock display output failure and (2) Priya Sharma's"
+            " Jabra Evolve2 75 Bluetooth audio routing problem — both appear"
+            " to have been triggered by the Windows 11 23H2 update and should"
+            " be investigated for driver regressions introduced by that update",
+            remediation_steps=(
+                "Create two separate tickets: one for the dock display issue (Alex Park, IT-DOCK-0891)"
+                " and one for the Bluetooth headset issue (Priya Sharma, LTOP-2204)",
+                "For the dock issue: update the Dell WD19S firmware from v01.00.02 to the latest via"
+                " Dell Command Update and test DisplayPort output",
+                "For the headset issue: check the Windows 11 23H2 update for known Bluetooth audio"
+                " routing regressions with Intel AX211 and roll back the Bluetooth driver if needed",
+                "For both: review the Windows Update KB article for 23H2 to identify known hardware"
+                " compatibility issues with Dell docks and Intel Bluetooth adapters",
+                "Verify both issues are resolved after remediation and link the tickets to track the"
+                " common root cause (23H2 update)",
+            ),
+        ),
+        tags=("data-cleanup", "interleaved-threads"),
+    ),
 ]

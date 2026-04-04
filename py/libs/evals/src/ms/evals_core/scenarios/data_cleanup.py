@@ -11005,4 +11005,603 @@ def get_scenarios() -> list[ScenarioDefinition]:
             tags=["data-cleanup", "email-metadata", "mime-headers", "raw-headers"],
             difficulty="medium",
         ),
+        # ── DC-161  Thread hijacking — topic switches mid-chain ──
+        ScenarioDefinition(
+            scenario_id="DC-161",
+            subject="RE: RE: RE: Printer on 4th floor not working",
+            description=(
+                "From: Carlos Medina <carlos.medina@contoso.com>\n"
+                "Sent: Wednesday, March 19, 2026 3:42 PM\n"
+                "To: IT Support <itsupport@contoso.com>\n"
+                "Subject: RE: RE: RE: Printer on 4th floor not working\n\n"
+                "Actually, forget the printer — that got fixed yesterday when "
+                "someone replaced the toner.\n\n"
+                "I have a different problem now. I can't connect to the VPN from "
+                "home. I'm using the Cisco AnyConnect client and when I enter my "
+                "credentials and click Connect, it spins for about 30 seconds and "
+                "then says 'Connection attempt has failed due to server being "
+                "unreachable.' I've tried both vpn.contoso.com and "
+                "vpn-backup.contoso.com. My home internet is working fine — I can "
+                "browse the web and stream video without issues.\n\n"
+                "I need VPN access urgently because I'm working from home tomorrow "
+                "for the equity derivatives end-of-quarter reconciliation and I "
+                "need to reach the Bloomberg terminal server and the internal "
+                "pricing engine.\n\n"
+                "Thanks,\nCarlos\n\n"
+                "--- Original message ---\n"
+                "From: IT Support <itsupport@contoso.com>\n"
+                "Sent: Tuesday, March 18, 2026 10:15 AM\n\n"
+                "Hi Carlos, we've dispatched a technician to check the 4th floor "
+                "HP LaserJet Pro M404dn. Can you confirm the asset tag number?\n\n"
+                "--- Original message ---\n"
+                "From: Carlos Medina <carlos.medina@contoso.com>\n"
+                "Sent: Monday, March 17, 2026 4:55 PM\n\n"
+                "The printer next to the kitchen on the 4th floor is jammed again. "
+                "Paper tray 2 won't feed. This is the third time this month."
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P3,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.APPLICATION_VERSION],
+            next_best_action=(
+                "Investigate VPN connectivity failure for Carlos Medina using Cisco "
+                "AnyConnect. The email thread started as a printer issue (now resolved) "
+                "but the actual current problem is VPN unreachable errors when connecting "
+                "to vpn.contoso.com and vpn-backup.contoso.com from a home network."
+            ),
+            remediation_steps=[
+                "Verify Cisco AnyConnect client version and check for pending updates.",
+                "Confirm VPN gateway health — check if vpn.contoso.com and vpn-backup.contoso.com "
+                "are responding to connections from external networks.",
+                "Ask the user to run a traceroute to vpn.contoso.com to identify where the "
+                "connection is being dropped.",
+                "Check if the user's home ISP is blocking UDP 443 or DTLS ports used by AnyConnect.",
+                "Verify the user's VPN group policy and certificate have not expired.",
+            ],
+            reporter_name="Carlos Medina",
+            reporter_email="carlos.medina@contoso.com",
+            reporter_department="Equity Trading",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "thread-hijack"],
+            difficulty="hard",
+        ),
+        # ── DC-162  Mixed RTL/LTR text with Hebrew and Arabic ──
+        ScenarioDefinition(
+            scenario_id="DC-162",
+            subject="שגיאת הרשאות ב-SharePoint / SharePoint permissions error",
+            description=(
+                "שלום צוות IT,\n\n"
+                "אני לא מצליחה לגשת לאתר SharePoint של מחלקת הציות. כשאני לוחצת "
+                "על הקישור https://contoso.sharepoint.com/sites/compliance-docs "
+                "אני מקבלת שגיאה.\n\n"
+                "The error says 'Access Denied — You do not have permission to "
+                "access this resource. Contact the site owner.' I was able to "
+                "access this site last week without any issues.\n\n"
+                "ملاحظة: زميلتي في فريق الامتثال في دبي أيضاً لا تستطيع الوصول "
+                "إلى نفس الموقع منذ يوم الاثنين.\n\n"
+                "Note from my Dubai colleague: she also gets the same Access Denied "
+                "error since Monday. We both need this for the upcoming regulatory "
+                "filing deadline on March 28.\n\n"
+                "I'm using Microsoft Edge version 122.0 on Windows 11. My SharePoint "
+                "account is yael.goldstein@contoso.com. I have not changed any of my "
+                "credentials or group memberships recently.\n\n"
+                "תודה רבה,\nיעל גולדשטיין\nCompliance Department"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE, MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate SharePoint Access Denied error on the compliance-docs site "
+                "for Yael Goldstein and her Dubai colleague. The ticket contains mixed "
+                "Hebrew, Arabic, and English text with bidirectional formatting — the "
+                "core issue is a permissions regression on the Compliance SharePoint site "
+                "since approximately Monday."
+            ),
+            remediation_steps=[
+                "Check SharePoint site permissions for contoso.sharepoint.com/sites/"
+                "compliance-docs — look for recent changes to site collection admins or "
+                "member groups.",
+                "Verify that the Compliance security group in Azure AD still includes "
+                "yael.goldstein@contoso.com and the Dubai colleague's account.",
+                "Check the SharePoint admin center audit logs for permission changes made around last Monday.",
+                "Confirm the site has not been locked or placed in read-only mode by "
+                "a retention policy or eDiscovery hold.",
+                "Request the exact error message or correlation ID from the Access Denied "
+                "page for deeper investigation.",
+            ],
+            reporter_name="Yael Goldstein",
+            reporter_email="yael.goldstein@contoso.com",
+            reporter_department="Compliance",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "rtl-ltr-mixed"],
+            difficulty="hard",
+        ),
+        # ── DC-163  HTML table paste — issue buried in spreadsheet data ──
+        ScenarioDefinition(
+            scenario_id="DC-163",
+            subject="Data pipeline failure — see attached reconciliation table",
+            description=(
+                "<table border='1'><thead><tr><th>Row</th><th>Source</th>"
+                "<th>Target</th><th>Status</th><th>Records</th><th>Notes</th>"
+                "</tr></thead><tbody>\n"
+                "<tr><td>1</td><td>Bloomberg Feed</td><td>pricing_db</td>"
+                "<td>OK</td><td>14,302</td><td></td></tr>\n"
+                "<tr><td>2</td><td>Reuters Feed</td><td>pricing_db</td>"
+                "<td>OK</td><td>9,871</td><td></td></tr>\n"
+                "<tr><td>3</td><td>Internal Trades</td><td>trade_ledger</td>"
+                "<td>OK</td><td>3,455</td><td></td></tr>\n"
+                "<tr><td>4</td><td>FX Rates</td><td>fx_rates_db</td>"
+                "<td>OK</td><td>188</td><td></td></tr>\n"
+                "<tr><td>5</td><td>Settlement Feed</td><td>settlements_db</td>"
+                "<td>FAIL</td><td>0</td><td>ERROR: Connection to SQL Server "
+                "instance SQLPROD-SETTLE-03 timed out after 30s. Last successful "
+                "load was 2026-03-17 23:45:01 UTC. The nightly ETL job "
+                "(job_id=ETL-SETTLE-DAILY-2026031800) has been failing since "
+                "midnight. 12,847 settlement records are stuck in staging.</td></tr>\n"
+                "<tr><td>6</td><td>Client Accounts</td><td>client_db</td>"
+                "<td>OK</td><td>502</td><td></td></tr>\n"
+                "<tr><td>7</td><td>Risk Metrics</td><td>risk_engine</td>"
+                "<td>OK</td><td>22,190</td><td></td></tr>\n"
+                "<tr><td>8</td><td>Margin Calls</td><td>margin_db</td>"
+                "<td>OK</td><td>73</td><td></td></tr>\n"
+                "</tbody></table>\n\n"
+                "Hi IT — the above is this morning's reconciliation dashboard. "
+                "Row 5 is the problem. The settlement ETL hasn't loaded since last "
+                "night and we have nearly 13K records stuck. Can someone check "
+                "SQLPROD-SETTLE-03? This is blocking the morning settlement report."
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.AFFECTED_SYSTEM, MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate connection timeout to SQL Server instance "
+                "SQLPROD-SETTLE-03 that is blocking the nightly settlement ETL "
+                "pipeline. The ticket contains a pasted HTML table with reconciliation "
+                "data — the actual issue is in row 5: 12,847 settlement records stuck "
+                "in staging since the job ETL-SETTLE-DAILY-2026031800 started failing."
+            ),
+            remediation_steps=[
+                "Check the health and availability of SQL Server instance "
+                "SQLPROD-SETTLE-03 — verify it is online and accepting connections.",
+                "Review SQL Server error logs for disk space, memory pressure, or "
+                "blocking lock issues around midnight UTC on March 18.",
+                "Verify network connectivity between the ETL server and "
+                "SQLPROD-SETTLE-03 — check for firewall rule changes or DNS issues.",
+                "Once the server is restored, re-run ETL job "
+                "ETL-SETTLE-DAILY-2026031800 to flush the 12,847 staged records.",
+                "Confirm the morning settlement report generates correctly after the data load completes.",
+            ],
+            reporter_name="James O'Brien",
+            reporter_email="james.obrien@contoso.com",
+            reporter_department="Data Engineering",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "html-table-paste"],
+            difficulty="medium",
+        ),
+        # ── DC-164  Extreme OCR artifacts from scanned fax ──
+        ScenarioDefinition(
+            scenario_id="DC-164",
+            subject="Sc4nner / pr1nter 1ssue on 2nd f1oor",
+            description=(
+                "D3ar IT H3lp D3sk,\n\n"
+                "Th3 mult1funct1on pr1nter/sc4nner 0n the 2nd fl00r (n3ar the "
+                "c0nference r00m) 1s n0t w0rk1ng pr0perly. Wh3n I try t0 sc4n "
+                "d0cum3nts t0 3ma1l, th3 mach1ne g1ves an 3rr0r c0de E-742 4nd "
+                "th3 sc4n n3ver c0mpl3tes.\n\n"
+                "Th1s start3d y3sterday aft3rn00n. I'v3 tr1ed r3b00t1ng th3 "
+                "d3v1ce tw1ce but th3 pr0bl3m p3rs1sts. 0ther p30pl3 0n my "
+                "fl00r ar3 als0 aff3cted — n0b0dy c4n sc4n t0 ema1l.\n\n"
+                "The pr1nt1ng funct10n st1ll w0rks f1ne, 1t's 0nly the sc4n-"
+                "t0-3ma1l f3ature that 1s br0ken. C0py1ng als0 w0rks.\n\n"
+                "I n33d th1s f1xed urg3ntly b3caus3 w3 hav3 a batch 0f "
+                "fac1l1ty ma1nt3nance f0rms that n33d t0 b3 d1g1t1z3d by "
+                "Fr1day.\n\n"
+                "Thank y0u,\nD0r0thy Wang\nFac1l1t1es D3partm3nt\n"
+                "Ext. 4 -1 0 2"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate scan-to-email failure (error code E-742) on the 2nd floor "
+                "multifunction printer/scanner near the conference room. The ticket text "
+                "has severe OCR artifacts from a scanned fax — letters are systematically "
+                "replaced (e→3, o→0, i→1, a→4). The actual issue is that scanning to "
+                "email fails while printing and copying still work."
+            ),
+            remediation_steps=[
+                "Identify the exact make and model of the 2nd floor multifunction "
+                "device — check the asset management database for devices near the "
+                "conference room.",
+                "Look up error code E-742 in the manufacturer's documentation to "
+                "determine the root cause (likely SMTP relay or network config).",
+                "Check the device's scan-to-email SMTP settings — verify the relay "
+                "server, port, and authentication credentials are still valid.",
+                "Test the device's network connectivity to the mail relay server.",
+                "If the SMTP relay configuration is correct, check whether the device's email certificate has expired.",
+            ],
+            reporter_name="Dorothy Wang",
+            reporter_email="dorothy.wang@contoso.com",
+            reporter_department="Facilities",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "ocr-artifacts"],
+            difficulty="hard",
+        ),
+        # ── DC-165  Terse one-word ticket with no usable information ──
+        ScenarioDefinition(
+            scenario_id="DC-165",
+            subject="help",
+            description=("broken"),
+            category=Category.GENERAL_INQUIRY,
+            priority=Priority.P4,
+            team=Team.NONE,
+            needs_escalation=False,
+            missing_info=[
+                MissingInfo.AFFECTED_SYSTEM,
+                MissingInfo.ERROR_MESSAGE,
+                MissingInfo.STEPS_TO_REPRODUCE,
+                MissingInfo.DEVICE_INFO,
+                MissingInfo.CONTACT_INFO,
+                MissingInfo.ENVIRONMENT_DETAILS,
+            ],
+            next_best_action=(
+                "Request basic information from the reporter. The ticket contains "
+                "only 'help' as the subject and 'broken' as the description with no "
+                "identifying information, no system details, and no way to contact "
+                "the reporter. Cannot triage without knowing what is broken."
+            ),
+            remediation_steps=[
+                "Attempt to identify the reporter from the submission metadata "
+                "(IP address, authenticated session, or chat handle).",
+                "Reply requesting: what system or application is broken, what error "
+                "they see, when the issue started, and their contact information.",
+                "If no response is received within 24 hours, close the ticket as "
+                "insufficient information with a note inviting resubmission.",
+            ],
+            reporter_name="anonymous reporter",
+            reporter_email="unknown@contoso.com",
+            reporter_department="Unknown",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "terse-ticket"],
+            difficulty="hard",
+        ),
+        # ── DC-166  Terminal output dump with issue buried in noise ──
+        ScenarioDefinition(
+            scenario_id="DC-166",
+            subject="Network issue — see diagnostic output below",
+            description=(
+                "PS C:\\Users\\arashid> ipconfig /all\n\n"
+                "Windows IP Configuration\n\n"
+                "   Host Name . . . . . . . . . . . . : WS-ARASHID-01\n"
+                "   Primary Dns Suffix  . . . . . . . : contoso.com\n"
+                "   Node Type . . . . . . . . . . . . : Hybrid\n"
+                "   IP Routing Enabled. . . . . . . . : No\n"
+                "   WINS Proxy Enabled. . . . . . . . : No\n"
+                "   DNS Suffix Search List. . . . . . : contoso.com\n\n"
+                "Ethernet adapter Ethernet0:\n\n"
+                "   Connection-specific DNS Suffix  . : contoso.com\n"
+                "   Description . . . . . . . . . . . : Intel(R) Ethernet Connection I219-LM\n"
+                "   DHCP Enabled. . . . . . . . . . . : Yes\n"
+                "   IPv4 Address. . . . . . . . . . . : 10.50.22.187\n"
+                "   Subnet Mask . . . . . . . . . . . : 255.255.254.0\n"
+                "   Default Gateway . . . . . . . . . : 10.50.22.1\n"
+                "   DNS Servers . . . . . . . . . . . : 10.0.1.53\n"
+                "                                       10.0.2.53\n\n"
+                "PS C:\\Users\\arashid> tracert 10.0.5.40\n\n"
+                "Tracing route to sqlprod-report-01.contoso.com [10.0.5.40]\n"
+                "over a maximum of 30 hops:\n\n"
+                "  1    <1 ms    <1 ms    <1 ms  10.50.22.1\n"
+                "  2     1 ms     1 ms     1 ms  core-sw-bldg3.contoso.com [10.0.0.1]\n"
+                "  3     *        *        *     Request timed out.\n"
+                "  4     *        *        *     Request timed out.\n"
+                "  5     *        *        *     Request timed out.\n\n"
+                "Trace complete.\n\n"
+                "PS C:\\Users\\arashid> Test-NetConnection 10.0.5.40 -Port 1433\n\n"
+                "ComputerName     : 10.0.5.40\n"
+                "RemoteAddress    : 10.0.5.40\n"
+                "RemotePort       : 1433\n"
+                "TcpTestSucceeded : False\n\n"
+                "I can't reach the reporting database server (sqlprod-report-01, "
+                "10.0.5.40) from my workstation. Traceroute dies at hop 3 and "
+                "TCP port 1433 is unreachable. This started after the network "
+                "maintenance window last night. I need this for the CI/CD pipeline "
+                "that deploys reporting dashboard updates."
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.NETWORK_LOCATION],
+            next_best_action=(
+                "Investigate network connectivity failure between workstation "
+                "WS-ARASHID-01 (10.50.22.187) and reporting database server "
+                "sqlprod-report-01 (10.0.5.40) on port 1433. The ticket is mostly "
+                "terminal output from ipconfig/tracert/Test-NetConnection — the key "
+                "finding is that traceroute fails at hop 3 after last night's "
+                "maintenance window."
+            ),
+            remediation_steps=[
+                "Check the network change log from last night's maintenance window "
+                "for ACL or firewall rule changes affecting the 10.50.22.0/23 to "
+                "10.0.5.0/24 route.",
+                "Verify the core switch (core-sw-bldg3, 10.0.0.1) routing table "
+                "includes the correct next-hop for the 10.0.5.0/24 subnet.",
+                "Check if the firewall between Building 3 and the data center "
+                "VLAN has a rule permitting TCP 1433 from the DevOps subnet.",
+                "Confirm sqlprod-report-01 (10.0.5.40) is online and the SQL Server service is listening on port 1433.",
+                "Request the user's physical office location to confirm which network segment they are on.",
+            ],
+            reporter_name="Ahmed Rashid",
+            reporter_email="ahmed.rashid@contoso.com",
+            reporter_department="DevOps",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "terminal-dump"],
+            difficulty="medium",
+        ),
+        # ── DC-167  Auto-generated monitoring alert with JSON payloads ──
+        ScenarioDefinition(
+            scenario_id="DC-167",
+            subject="[ALERT][CRITICAL] Service degradation detected — AppPool recycle threshold exceeded",
+            description=(
+                "--- Automated Alert from Contoso Monitoring Platform ---\n"
+                "Alert ID: MON-2026031800247\n"
+                "Severity: CRITICAL\n"
+                "Source: Datadog Agent v7.52.1\n"
+                "Timestamp: 2026-03-18T06:15:33.441Z\n"
+                "Host: webprod-app-07.contoso.com\n"
+                "Service: contoso-trading-portal\n\n"
+                "Payload:\n"
+                '{"monitor_id":88421,"monitor_name":"IIS AppPool Recycle Rate",'
+                '"status":"Alert","threshold":5,"current_value":23,'
+                '"tags":["env:production","service:trading-portal",'
+                '"team:enterprise-apps","region:us-east"],'
+                '"message":"AppPool \'ContosoTradingPortal\' has recycled 23 '
+                "times in the last hour (threshold: 5). Likely memory leak or "
+                'unhandled exception causing repeated crashes.",'
+                '"host":"webprod-app-07.contoso.com",'
+                '"ip":"10.0.12.107","last_recycle":"2026-03-18T06:14:58Z",'
+                '"w3wp_pid":18204,"private_bytes_mb":3841,'
+                '"gen2_gc_count":1247}\n\n'
+                "PagerDuty Incident: PD-INC-20260318-0091\n"
+                "Escalation Policy: Enterprise Apps On-Call\n"
+                "Acknowledged by: (none)\n\n"
+                "--- End Alert ---"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.AFFECTED_USERS, MissingInfo.BUSINESS_IMPACT],
+            next_best_action=(
+                "Investigate excessive IIS AppPool recycling on webprod-app-07 for "
+                "the Contoso Trading Portal. The automated monitoring alert indicates "
+                "23 recycles in the last hour (threshold: 5), with the w3wp process "
+                "consuming 3.8 GB of private bytes — likely a memory leak causing "
+                "repeated crashes."
+            ),
+            remediation_steps=[
+                "Connect to webprod-app-07.contoso.com and check IIS Manager for "
+                "the ContosoTradingPortal AppPool status and recent recycle events.",
+                "Collect a memory dump of the w3wp.exe process (PID 18204) before "
+                "the next recycle to analyze for memory leaks.",
+                "Check the Windows Event Log (Application and System) for crash "
+                "details, unhandled exceptions, or out-of-memory events.",
+                "As an immediate mitigation, increase the AppPool private memory "
+                "limit and recycle interval to reduce user-facing impact.",
+                "Determine the number of affected users and business impact — the "
+                "trading portal may be intermittently unavailable during recycles.",
+            ],
+            reporter_name="monitoring-bot",
+            reporter_email="monitoring-bot@contoso.com",
+            reporter_department="Engineering",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "monitoring-alert"],
+            difficulty="medium",
+        ),
+        # ── DC-168  Double-encoded UTF-8 (mojibake) ──
+        ScenarioDefinition(
+            scenario_id="DC-168",
+            subject="ProblÃ¨me avec l'application de rapports financiers",
+            description=(
+                "Bonjour Ã©quipe IT,\n\n"
+                "Je suis FranÃ§ois Leblanc du dÃ©partement Finance. J'ai un "
+                "problÃ¨me avec l'application de rapports financiers "
+                "(Contoso Financial Reporter v4.2).\n\n"
+                "Quand j'essaie de gÃ©nÃ©rer le rapport trimestriel Q1 2026, "
+                "l'application affiche une erreur: Â«Ã‰chec de la gÃ©nÃ©ration "
+                "du rapport \u2014 connexion Ã\u00a0 la base de donnÃ©es interrompueÂ».\n\n"
+                "The error started this morning. I can log into the application "
+                "fine but any report that queries the financial data warehouse "
+                "fails with what appears to be a database connection timeout. "
+                "Other colleagues in Finance — RenÃ©e Dufresne and StÃ©phane "
+                "MorÃ©au — are experiencing the same issue.\n\n"
+                "J'utilise Windows 11 avec Chrome version 123.0.6312.58. "
+                "L'application fonctionne normalement pour les rapports en "
+                "cache mais pas pour les nouvelles requÃªtes.\n\n"
+                "Merci,\nFranÃ§ois Leblanc\nFinance"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.APPLICATION_VERSION, MissingInfo.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Investigate database connection timeout in Contoso Financial "
+                "Reporter v4.2 when generating the Q1 2026 quarterly report. "
+                "The ticket has double-encoded UTF-8 (mojibake) throughout — "
+                "the reporter is François Leblanc from Finance. Multiple users "
+                "are affected. Cached reports work but live queries to the "
+                "financial data warehouse fail."
+            ),
+            remediation_steps=[
+                "Check the financial data warehouse connectivity — verify the "
+                "database server is online and accepting connections from the "
+                "Financial Reporter application server.",
+                "Review the Financial Reporter application logs for the exact "
+                "database connection error and timeout details.",
+                "Confirm whether the issue affects all report types or only "
+                "those querying specific data warehouse tables.",
+                "Check if any database maintenance, patching, or schema changes "
+                "were performed overnight that could affect connectivity.",
+                "Verify the application's database connection string and credentials have not expired or been rotated.",
+            ],
+            reporter_name="François Leblanc",
+            reporter_email="francois.leblanc@contoso.com",
+            reporter_department="Finance",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "mojibake", "encoding"],
+            difficulty="hard",
+        ),
+        # ── DC-169  Massive disclaimer chain burying actual MFA issue ──
+        ScenarioDefinition(
+            scenario_id="DC-169",
+            subject="Can't log in — MFA not working",
+            description=(
+                "Hi, I can't complete MFA on my phone. The Microsoft Authenticator "
+                "app shows a number-matching prompt but when I tap the correct number, "
+                "it says 'Approval failed — please try again' and I'm locked out of "
+                "everything. I've tried 6 times this morning. My phone is an iPhone 14 "
+                "Pro on iOS 17.4. I need access urgently for a court filing deadline "
+                "at 2 PM today.\n\n"
+                "— Sophia Papadopoulos, Legal Department, Ext. 5501\n\n"
+                "═══════════════════════════════════════════════════\n"
+                "CONFIDENTIALITY NOTICE: This email and any attachments are for the "
+                "exclusive and confidential use of the intended recipient. If you are "
+                "not the intended recipient, please do not read, distribute, or take "
+                "action based on this message. If you have received this email in "
+                "error, please notify the sender immediately by return email and "
+                "permanently delete this message and any attachments.\n\n"
+                "AVIS DE CONFIDENTIALITÉ: Ce courriel et ses pièces jointes sont "
+                "destinés exclusivement au destinataire prévu et sont confidentiels. "
+                "Si vous n'êtes pas le destinataire prévu, veuillez ne pas lire, "
+                "distribuer ou prendre des mesures fondées sur ce message.\n\n"
+                "VERTRAULICHKEITSHINWEIS: Diese E-Mail und alle Anhänge sind "
+                "ausschließlich für den vorgesehenen Empfänger bestimmt und "
+                "vertraulich. Wenn Sie nicht der vorgesehene Empfänger sind, lesen, "
+                "verteilen oder handeln Sie bitte nicht auf Grundlage dieser "
+                "Nachricht.\n\n"
+                "機密通知：本電子郵件及其附件僅供預定收件人專用及機密使用。如果您不是預定"
+                "收件人，請勿閱讀、分發或根據本郵件採取行動。\n\n"
+                "إشعار السرية: هذا البريد الإلكتروني وأي مرفقات مخصصة حصرياً "
+                "للمستلم المقصود وهي سرية. إذا لم تكن المستلم المقصود، يرجى عدم "
+                "القراءة أو التوزيع أو اتخاذ أي إجراء بناءً على هذه الرسالة.\n\n"
+                "This email has been scanned by the Contoso Email Security Gateway. "
+                "No threats detected. Message ID: MSG-20260319-LGL-00847. "
+                "Classification: Contoso-Internal. Retention: 7 years (Legal Hold). "
+                "DLP Policy: Legal-Privileged-Communications.\n"
+                "═══════════════════════════════════════════════════"
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P2,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.AUTHENTICATION_METHOD],
+            next_best_action=(
+                "Investigate MFA approval failure for Sophia Papadopoulos in the "
+                "Legal Department. The email is 90% legal disclaimers in 5 languages "
+                "— the actual issue is that Microsoft Authenticator number-matching "
+                "shows 'Approval failed — please try again' after tapping the correct "
+                "number. User has a court filing deadline at 2 PM and is locked out."
+            ),
+            remediation_steps=[
+                "Check Azure AD sign-in logs for sophia.papadopoulos@contoso.com "
+                "to see the MFA failure reason codes (e.g., token expired, device "
+                "not registered, time sync issue).",
+                "Verify the user's Authenticator app registration in the Azure AD "
+                "MFA portal — re-register the device if the enrollment is corrupted.",
+                "Check if the iPhone's date/time is set to automatic — TOTP-based "
+                "approvals fail if the device clock is skewed.",
+                "As an urgent workaround, issue a temporary access pass so the user "
+                "can meet the 2 PM court filing deadline.",
+                "After access is restored, have the user remove and re-add their "
+                "account in the Microsoft Authenticator app.",
+            ],
+            reporter_name="Sophia Papadopoulos",
+            reporter_email="sophia.papadopoulos@contoso.com",
+            reporter_department="Legal",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "disclaimer-chain"],
+            difficulty="hard",
+        ),
+        # ── DC-170  Interleaved conversations — two merged threads ──
+        ScenarioDefinition(
+            scenario_id="DC-170",
+            subject="RE: Monitor flickering / Also: Adobe Creative Cloud license",
+            description=(
+                "From: Nina Johansson <nina.johansson@contoso.com>\n"
+                "Sent: Thursday, March 20, 2026 9:17 AM\n"
+                "To: IT Support <itsupport@contoso.com>\n\n"
+                "Hi IT team, I have two separate issues that somehow ended up "
+                "in the same email thread (sorry, my Outlook merged them).\n\n"
+                "ISSUE 1 — MONITOR FLICKERING:\n"
+                "My external monitor (Dell U2723QE, connected via USB-C) has been "
+                "flickering intermittently since Monday. It flickers every 10-15 "
+                "minutes for about 5 seconds, then stabilizes. I've tried a "
+                "different USB-C cable and a different port on my laptop (ThinkPad "
+                "X1 Carbon Gen 11) but the problem persists.\n\n"
+                "--- interleaved reply from different thread ---\n"
+                "From: Nina Johansson <nina.johansson@contoso.com>\n"
+                "Sent: Wednesday, March 19, 2026 4:45 PM\n"
+                "To: Software Licensing <licensing@contoso.com>\n\n"
+                "Hi Licensing team, my Adobe Creative Cloud subscription shows "
+                "'License expired' when I open Photoshop and Illustrator. My "
+                "manager approved the renewal last week (approval ref: LIC-2026-"
+                "0342). Can someone re-activate my license? My Adobe ID is "
+                "nina.johansson@contoso.com.\n\n"
+                "--- back to monitor thread ---\n"
+                "From: IT Support <itsupport@contoso.com>\n"
+                "Sent: Tuesday, March 19, 2026 11:00 AM\n\n"
+                "Hi Nina, can you confirm if the flickering happens with the "
+                "laptop lid closed (external only) or also with dual-display?\n\n"
+                "--- back to licensing thread ---\n"
+                "From: Software Licensing <licensing@contoso.com>\n"
+                "Sent: Wednesday, March 19, 2026 2:30 PM\n\n"
+                "Hi Nina, we can see approval LIC-2026-0342. Processing now, "
+                "should be active within 24 hours.\n\n"
+                "--- Nina's combined reply ---\n"
+                "The flickering happens in both modes — lid open and lid closed. "
+                "And thanks for the license update, I'll check Photoshop again "
+                "tomorrow."
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Separate and triage two interleaved issues from Nina Johansson. "
+                "Issue 1 (hardware): Dell U2723QE external monitor flickering via "
+                "USB-C on a ThinkPad X1 Carbon Gen 11 — persists across cables, "
+                "ports, and display modes. Issue 2 (software licensing): Adobe "
+                "Creative Cloud license renewal is already being processed (ref "
+                "LIC-2026-0342). Focus triage on the monitor flickering issue."
+            ),
+            remediation_steps=[
+                "Test the Dell U2723QE with a different laptop to isolate whether "
+                "the issue is the monitor or the ThinkPad's USB-C/Thunderbolt port.",
+                "Update the ThinkPad X1 Carbon Gen 11 Intel graphics and Thunderbolt "
+                "firmware — USB-C display flickering is a known issue with older "
+                "Thunderbolt drivers.",
+                "Check the Dell U2723QE firmware version and update via Dell Display "
+                "Manager if a newer version is available.",
+                "Try connecting via DisplayPort or HDMI (with an adapter) to rule out "
+                "USB-C/Thunderbolt protocol negotiation issues.",
+                "For the Adobe license issue, confirm with the licensing team that "
+                "approval LIC-2026-0342 has been fully processed and no further "
+                "action is needed on IT's side.",
+            ],
+            reporter_name="Nina Johansson",
+            reporter_email="nina.johansson@contoso.com",
+            reporter_department="Frontend Engineering",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "interleaved-threads"],
+            difficulty="hard",
+        ),
     ]

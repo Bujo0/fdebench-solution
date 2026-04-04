@@ -8601,3 +8601,706 @@ register(
         ],
     )
 )
+
+# ---------------------------------------------------------------------------
+# dc-131  Thread hijacking — topic switch mid-conversation
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-131",
+        category=Category.NETWORK,
+        priority=Priority.P3,
+        assigned_team=Team.NETWORK,
+        needs_escalation=False,
+        missing_information=[MissingInfo.APPLICATION_VERSION],
+        subjects=[
+            "Re: Re: FW: Printer on {floor} not printing — actually, VPN question",
+            "RE: Printer jam follow-up (also: VPN keeps dropping)",
+            "Re: Print queue stuck — unrelated VPN issue too",
+        ],
+        descriptions=[
+            "Hi team,\n\n"
+            "Quick update on the printer — it's actually working now, someone power-cycled it.\n\n"
+            "BUT, completely different issue: my VPN has been disconnecting every 20 minutes "
+            "since last Thursday. I'm using GlobalProtect on {os} from the {office} office, "
+            "Floor {floor}. Every time I reconnect it works for a bit then drops again.\n\n"
+            "--- Original Message ---\n"
+            "From: {name} <{name1}@contoso.com>\n"
+            "Sent: Monday, April 7, 2026 9:15 AM\n"
+            "To: IT Support <itsupport@contoso.com>\n"
+            "Subject: Re: FW: Printer on {floor} not printing\n\n"
+            "The HP LaserJet on Floor {floor} near the kitchen is still showing offline. "
+            "Jobs queue up but never print. Can someone look at the print server?\n\n"
+            "--- Original Message ---\n"
+            "From: IT Support <itsupport@contoso.com>\n"
+            "Sent: Friday, April 4, 2026 3:30 PM\n"
+            "Subject: FW: Printer on {floor} not printing\n\n"
+            "We've restarted the spooler. Please try again and let us know.\n\n"
+            "Thanks,\n{name}, {department}",
+            "Following up on the printer ticket — ignore that, it's resolved.\n\n"
+            "New problem: I can't stay connected to the corporate VPN for more than "
+            "15-20 minutes at a stretch. I'm on Wi-Fi at the {office} office, Floor "
+            "{floor}. My laptop is running {os} and I don't know the VPN client version "
+            "off the top of my head.\n\n"
+            "The original thread was about the Floor {floor} HP printer being offline. "
+            "That one is fixed now.\n\n"
+            "This VPN issue started after the network maintenance window last Wednesday "
+            "night. I've tried forgetting and re-adding the Wi-Fi network, rebooting, "
+            "and even connecting via Ethernet — same problem on Ethernet too actually.\n\n"
+            "Can someone from the network team take a look?\n\n"
+            "Thanks,\n{name}, {department}",
+        ],
+        next_best_actions=[
+            "Ignore the resolved printer thread; the actual issue is recurring VPN "
+            "disconnects every 15-20 minutes post-maintenance. Investigate VPN gateway "
+            "session timeout settings and recent configuration changes.",
+            "The ticket topic switched mid-thread from a printer issue (now resolved) to "
+            "a VPN connectivity problem. Focus on the VPN disconnect pattern and correlate "
+            "with the recent network maintenance window.",
+        ],
+        remediation_steps=[
+            [
+                "Confirm the printer issue is resolved — no action needed on that thread",
+                "Check VPN gateway logs for the user's session termination events over the past week",
+                "Review changes made during the last network maintenance window that may affect VPN tunnels",
+                "Verify VPN session timeout and keep-alive settings on the gateway",
+                "Request the user's GlobalProtect client version to check for known bugs",
+                "If issue persists on both Wi-Fi and Ethernet, escalate to the network engineering team",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-132  Mixed RTL/LTR text — Hebrew/Arabic mixed with English
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-132",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE, MissingInfo.ENVIRONMENT_DETAILS],
+        subjects=[
+            "בעיה בהרשאות SharePoint — Permission denied on document library",
+            "SharePoint permissions broken — مشكلة في الأذونات",
+            "Cannot access {app} document library — הרשאות חסרות",
+        ],
+        descriptions=[
+            "שלום,\n\n"
+            "אני לא מצליח לגשת לספריית המסמכים ב-SharePoint.\n"
+            "I'm getting a permissions error when I try to open the {department} "
+            "document library on our SharePoint site.\n\n"
+            "כשאני לוחץ על הקישור, אני מקבל שגיאה:\n"
+            '"Access Denied — You do not have permission to access this resource."\n\n'
+            "I was able to access this library last week without any issues. My colleague "
+            "{name1} on Floor {floor} can still open it. Nothing changed on my end — same "
+            "laptop, same credentials, same {os} build.\n\n"
+            "תודה,\n{name}, {department}",
+            "مرحبا فريق الدعم,\n\n"
+            "I need help accessing the {department} SharePoint document library. "
+            "لا أستطيع الوصول إلى المجلد المشترك.\n\n"
+            "When I click the link I get a white page that says I don't have permission. "
+            "My manager says my access should still be active. I haven't changed teams or "
+            "roles recently.\n\n"
+            "I'm at the {office} office, Floor {floor}, using {os}. The site URL is "
+            "https://contoso.sharepoint.com/sites/{department}-docs.\n\n"
+            "هل يمكنكم التحقق من الأذونات الخاصة بي؟\n\n"
+            "شكرا,\n{name}, {department}",
+        ],
+        next_best_actions=[
+            "Investigate SharePoint permission denial for the {department} document "
+            "library — check if the user's access was removed during a recent permissions "
+            "audit or group membership change.",
+            "Verify the user's Azure AD group membership and SharePoint site collection "
+            "permissions. The mixed RTL/LTR text is a normal bilingual submission — the "
+            "core issue is a SharePoint access denial.",
+        ],
+        remediation_steps=[
+            [
+                "Check the user's Azure AD group membership for the {department} SharePoint group",
+                "Review the SharePoint site collection permissions audit log for recent changes",
+                "Verify the user's account is not disabled or flagged in Azure AD",
+                "If permissions were removed, re-add the user to the appropriate SharePoint group",
+                "Request the exact error message text or screenshot for further diagnosis",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-133  HTML table paste — massive spreadsheet data with buried IT issue
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-133",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AFFECTED_SYSTEM, MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "Data import failing — see table below with affected records",
+            "ETL pipeline error on {app} — pasted raw data from spreadsheet",
+            "Database load failure — here is the full dataset",
+        ],
+        descriptions=[
+            "Hi team,\n\n"
+            "Our daily ETL pipeline failed this morning. I'm pasting the raw data that "
+            "was supposed to load so you can see what we're working with:\n\n"
+            '<table border="1">\n'
+            "<tr><th>RecordID</th><th>AccountName</th><th>Region</th><th>Amount</th>"
+            "<th>Status</th><th>Date</th></tr>\n"
+            "<tr><td>10001</td><td>Contoso East</td><td>AMER</td><td>45230.50</td>"
+            "<td>PENDING</td><td>2026-04-01</td></tr>\n"
+            "<tr><td>10002</td><td>Contoso West</td><td>AMER</td><td>78125.00</td>"
+            "<td>COMPLETED</td><td>2026-04-01</td></tr>\n"
+            "<tr><td>10003</td><td>Contoso EMEA</td><td>EMEA</td><td>23400.75</td>"
+            "<td>FAILED</td><td>2026-04-01</td></tr>\n"
+            "<tr><td>10004</td><td>Contoso APAC</td><td>APAC</td><td>91200.00</td>"
+            "<td>PENDING</td><td>2026-04-01</td></tr>\n"
+            "<tr><td>10005</td><td>Contoso North</td><td>AMER</td><td>12340.25</td>"
+            "<td>COMPLETED</td><td>2026-04-01</td></tr>\n"
+            "<tr><td>10006</td><td>Contoso South</td><td>LATAM</td><td>56780.00</td>"
+            "<td>FAILED</td><td>2026-04-01</td></tr>\n"
+            "<tr><td>10007</td><td>Contoso UK</td><td>EMEA</td><td>34560.50</td>"
+            "<td>PENDING</td><td>2026-04-01</td></tr>\n"
+            "<tr><td>10008</td><td>Contoso DE</td><td>EMEA</td><td>67890.00</td>"
+            "<td>COMPLETED</td><td>2026-04-01</td></tr>\n"
+            "<tr><td>10009</td><td>Contoso JP</td><td>APAC</td><td>22345.75</td>"
+            "<td>FAILED</td><td>2026-04-01</td></tr>\n"
+            "<tr><td>10010</td><td>Contoso AU</td><td>APAC</td><td>88900.00</td>"
+            "<td>PENDING</td><td>2026-04-01</td></tr>\n"
+            "</table>\n\n"
+            "...there are about 50 more rows like this. The pipeline chokes somewhere "
+            "around record 10003. I think it's a data type mismatch but I'm not sure. "
+            "Floor {floor}, {department}.\n\n{name}",
+            "The nightly data load into our reporting database failed again. Here's "
+            "a dump of the source data (copied from Excel):\n\n"
+            "RecordID | AccountName | Region | Amount | Status | Date\n"
+            "10001 | Contoso East | AMER | 45230.50 | PENDING | 2026-04-01\n"
+            "10002 | Contoso West | AMER | 78125.00 | COMPLETED | 2026-04-01\n"
+            "10003 | Contoso EMEA | EMEA | $23,400.75 | FAILED | 04/01/2026\n"
+            "10004 | Contoso APAC | APAC | 91200.00 | PENDING | 2026-04-01\n"
+            "10005 | Contoso North | AMER | 12340.25 | COMPLETED | 2026-04-01\n"
+            "10006 | Contoso South | LATAM | N/A | FAILED | 2026-04-01\n"
+            "10007 | Contoso UK | EMEA | 34560.50 | PENDING | 2026-04-01\n"
+            "10008 | Contoso DE | EMEA | 67890.00 | COMPLETED | 2026-04-01\n"
+            "10009 | Contoso JP | APAC | 22345.75 | FAILED | 2026-04-01\n"
+            "10010 | Contoso AU | APAC | 88900.00 | PENDING | 2026-04-01\n\n"
+            "Notice record 10003 has a dollar sign and comma in the Amount column, and "
+            "10006 has 'N/A' instead of a number. The date format also changes. I think "
+            "these inconsistencies are causing the ETL to fail.\n\n"
+            "{name}, {department}, Floor {floor}",
+        ],
+        next_best_actions=[
+            "The ETL failure is caused by inconsistent data formatting in the source "
+            "spreadsheet — mixed currency symbols, N/A values, and inconsistent date "
+            "formats. Identify the specific records causing parse failures.",
+            "Review the pasted data for format inconsistencies: dollar signs in numeric "
+            "fields, 'N/A' strings in required columns, and mixed date formats. Fix the "
+            "ETL validation rules or clean the source data.",
+        ],
+        remediation_steps=[
+            [
+                "Identify the ETL pipeline and target database/table that failed",
+                "Check the ETL error logs for the specific record and column causing the failure",
+                "Fix the source data: remove currency symbols, replace N/A with NULL, normalize date formats",
+                "Add input validation rules to the ETL pipeline to handle common format variations",
+                "Re-run the ETL pipeline with the corrected data",
+                "Set up data quality checks on the source to prevent future inconsistencies",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-134  Extreme OCR artifacts — scanned document with heavy OCR errors
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-134",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "Sc4nner not w0rking — piease heIp",
+            "Pr1nter/sc&nner jarn on Floor {floor}",
+            "MFP dev1ce err0r — scanned t1cket attached",
+        ],
+        descriptions=[
+            "He1lo IT Supp0rt,\n\n"
+            "I arn wr1ting to rep0rt an 1ssue w1th the mult1-functi0n pr1nter/scanner "
+            "on F1oor {floor} near the c0nference r00m. The dev1ce was mak1ng a gr1nding "
+            "n01se when I tr1ed to sc4n a d0cument th1s m0rning.\n\n"
+            "The LCD d1splay sh0wed an err0r c0de but I c0uldn't read 1t bef0re the "
+            "screen went b1ank. The paper g0t jammed ins1de and I c0uldn't pull 1t 0ut "
+            "w1thout r1sk1ng damage.\n\n"
+            "I'm 1n the {office} 0ffice, {department} dep4rtment. The dev1ce is the "
+            "1arge Ric0h un1t next to the k1tchen.\n\n"
+            "PIease send s0meone to l00k at it.\n\n"
+            "Th4nks,\n{name}",
+            "T1cket fr0m scanned f0rm:\n\n"
+            "Name: {name}\n"
+            "Dep4rtment: {department}\n"
+            "F1oor: {floor}\n"
+            "0ffice: {office}\n\n"
+            "Descr1pti0n of 1ssue:\nThe c0pier/scanner 0n our f1oor has a paper jarn "
+            "that w0n't clear. We've tr1ed 0pening all the d00rs and trays but the "
+            "paper 1s stuck 1n the fuser un1t. The dev1ce n0w sh0ws 'Service Requ1red' "
+            "0n the d1splay.\n\n"
+            "N0body 0n the f1oor can pr1nt or sc4n unt1l th1s is f1xed. Th1s 1s "
+            "affect1ng ab0ut 15 pe0ple.\n\n"
+            "Th4nk y0u",
+        ],
+        next_best_actions=[
+            "Despite heavy OCR artifacts, the issue is a paper jam in the fuser unit "
+            "of the multi-function printer/scanner on Floor {floor}. Dispatch a "
+            "technician to clear the jam and check the fuser assembly.",
+            "The OCR-garbled text describes a multi-function device showing 'Service "
+            "Required' after a paper jam. The fuser unit needs physical inspection. "
+            "This is blocking printing/scanning for approximately 15 users.",
+        ],
+        remediation_steps=[
+            [
+                "Dispatch an endpoint technician to Floor {floor} to inspect the multi-function device",
+                "Clear the paper jam from the fuser unit following the manufacturer's procedure",
+                "Check the fuser assembly for damage — if damaged, order a replacement part",
+                "Run a test print and scan to verify the device is operational",
+                "Request the device model and serial number for the asset inventory",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-135  Terse one-word ticket — minimal information
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-135",
+        category=Category.GENERAL,
+        priority=Priority.P4,
+        assigned_team=Team.NONE,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.AFFECTED_SYSTEM,
+            MissingInfo.ERROR_MESSAGE,
+            MissingInfo.STEPS_TO_REPRODUCE,
+            MissingInfo.DEVICE_INFO,
+            MissingInfo.CONTACT_INFO,
+            MissingInfo.ENVIRONMENT_DETAILS,
+        ],
+        subjects=[
+            "help",
+            "broken",
+            "URGENT",
+        ],
+        descriptions=[
+            "broken",
+            "doesnt work",
+        ],
+        next_best_actions=[
+            "The ticket contains no actionable information. Reach out to the submitter "
+            "to gather basic details: what system or application is affected, what they "
+            "were trying to do, and what happened.",
+            "This is an incomplete ticket with no description of the issue. Contact the "
+            "user to obtain the affected system, error message, steps to reproduce, and "
+            "device information before triaging.",
+        ],
+        remediation_steps=[
+            [
+                "Contact the ticket submitter via email or Teams to request a description of the problem",
+                "Ask what application or system is affected",
+                "Ask for the error message or behavior they are seeing",
+                "Ask what they were trying to do when the issue occurred",
+                "Once sufficient information is gathered, re-triage and assign the ticket to the correct team",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-136  Terminal output dump — PowerShell/ipconfig/tracert filling description
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-136",
+        category=Category.NETWORK,
+        priority=Priority.P2,
+        assigned_team=Team.NETWORK,
+        needs_escalation=False,
+        missing_information=[MissingInfo.NETWORK_LOCATION],
+        subjects=[
+            "Network issue — ipconfig and tracert output below",
+            "Can't reach internal servers — pasted diagnostics",
+            "Connectivity problem — see PowerShell output",
+        ],
+        descriptions=[
+            "I can't reach any internal servers. Here's my diagnostics:\n\n"
+            "PS C:\\Users\\{name1}> ipconfig /all\n\n"
+            "Windows IP Configuration\n\n"
+            "   Host Name . . . . . . . . . . . . : WS-{name1}-PC\n"
+            "   Primary Dns Suffix  . . . . . . . : contoso.com\n"
+            "   Node Type . . . . . . . . . . . . : Hybrid\n"
+            "   IP Routing Enabled. . . . . . . . : No\n\n"
+            "Ethernet adapter Ethernet0:\n\n"
+            "   Connection-specific DNS Suffix  . : contoso.com\n"
+            "   IPv4 Address. . . . . . . . . . . : 10.45.12.87\n"
+            "   Subnet Mask . . . . . . . . . . . : 255.255.254.0\n"
+            "   Default Gateway . . . . . . . . . : 10.45.12.1\n\n"
+            "PS C:\\Users\\{name1}> tracert fileserver01.contoso.com\n\n"
+            "Tracing route to fileserver01.contoso.com [10.10.1.50]\n"
+            "over a maximum of 30 hops:\n\n"
+            "  1    <1 ms    <1 ms    <1 ms  10.45.12.1\n"
+            "  2     1 ms     1 ms     1 ms  10.45.0.1\n"
+            "  3     *        *        *     Request timed out.\n"
+            "  4     *        *        *     Request timed out.\n"
+            "  5     *        *        *     Request timed out.\n\n"
+            "Trace complete.\n\n"
+            "PS C:\\Users\\{name1}> Test-NetConnection fileserver01.contoso.com -Port 445\n\n"
+            "ComputerName     : fileserver01.contoso.com\n"
+            "RemotePort       : 445\n"
+            "TcpTestSucceeded : False\n\n"
+            "So I can reach the gateway but nothing beyond the second hop. "
+            "{department}, Floor {floor}.\n\n{name}",
+            "Something is wrong with the network. Diagnostics below:\n\n"
+            "C:\\> ipconfig\n"
+            "   IPv4 Address: 10.45.12.93\n"
+            "   Subnet: 255.255.254.0\n"
+            "   Gateway: 10.45.12.1\n\n"
+            "C:\\> ping 10.10.1.50\n"
+            "Request timed out.\n"
+            "Request timed out.\n"
+            "Request timed out.\n"
+            "Request timed out.\n\n"
+            "C:\\> ping 10.45.12.1\n"
+            "Reply from 10.45.12.1: bytes=32 time<1ms TTL=64\n"
+            "Reply from 10.45.12.1: bytes=32 time<1ms TTL=64\n\n"
+            "C:\\> nslookup fileserver01.contoso.com\n"
+            "Server:  dc01.contoso.com\n"
+            "Address:  10.10.1.10\n"
+            "Name:    fileserver01.contoso.com\n"
+            "Address:  10.10.1.50\n\n"
+            "Gateway is reachable, DNS resolves, but file server is unreachable. "
+            "I'm on {os} at the {office} office.\n\n{name}, {department}",
+        ],
+        next_best_actions=[
+            "The diagnostics show the user can reach the local gateway (10.45.12.1) "
+            "but traffic dies at the second hop toward the 10.10.1.0/24 subnet. "
+            "Investigate routing between the 10.45.12.0/23 and 10.10.1.0/24 subnets.",
+            "Network diagnostics indicate a routing failure between the user's VLAN "
+            "(10.45.12.x) and the server VLAN (10.10.1.x). Check for ACL changes, "
+            "route table issues, or a down inter-VLAN link.",
+        ],
+        remediation_steps=[
+            [
+                "Check the core router/firewall for routing between the 10.45.12.0/23 and 10.10.1.0/24 subnets",
+                "Verify there are no recent ACL or firewall rule changes blocking inter-VLAN traffic",
+                "Check the intermediate hop (10.45.0.1) for interface status and errors",
+                "Verify fileserver01 (10.10.1.50) is up and responding to other clients",
+                "Confirm the user's physical network location (building, floor, switch port) for VLAN verification",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-137  Auto-generated monitoring alert — machine-formatted JSON dump
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-137",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AFFECTED_USERS, MissingInfo.BUSINESS_IMPACT],
+        subjects=[
+            "[ALERT] AppDynamics — {app} response time threshold exceeded",
+            "[MONITORING] Dynatrace alert: {app} error rate spike",
+            "[AUTO] Synthetic monitor failure — {app} health check",
+        ],
+        descriptions=[
+            "[ALERT GENERATED BY MONITORING SYSTEM — DO NOT REPLY TO THIS EMAIL]\n\n"
+            "{{\n"
+            '  "alertId": "MON-2026-04-10-0847",\n'
+            '  "severity": "WARNING",\n'
+            '  "source": "AppDynamics",\n'
+            '  "application": "{app}",\n'
+            '  "metric": "avg_response_time_ms",\n'
+            '  "threshold": 2000,\n'
+            '  "current_value": 8750,\n'
+            '  "duration": "15m",\n'
+            '  "environment": "PROD",\n'
+            '  "affected_nodes": [\n'
+            '    "app-node-01.contoso.com",\n'
+            '    "app-node-02.contoso.com",\n'
+            '    "app-node-03.contoso.com"\n'
+            "  ],\n"
+            '  "timestamp": "2026-04-10T08:47:23Z",\n'
+            '  "status": "OPEN",\n'
+            '  "runbook": "https://wiki.contoso.com/runbooks/{app}-perf"\n'
+            "}}\n\n"
+            "This alert was auto-forwarded to the IT Service Desk by the {department} "
+            "on-call rotation.\n\n— Monitoring System",
+            "[AUTOMATED ALERT]\n\n"
+            "Alert: Synthetic monitor for {app} has failed 3 consecutive checks.\n"
+            "Time: 2026-04-10 08:50 UTC\n"
+            "Monitor: HTTPS health check — https://{app}.contoso.com/health\n"
+            "Expected: HTTP 200 in < 5s\n"
+            "Actual: HTTP 503 after 30s timeout\n\n"
+            "Raw check output:\n"
+            "  Check 1: 08:40 UTC — FAIL (503, 30012ms)\n"
+            "  Check 2: 08:45 UTC — FAIL (503, 30008ms)\n"
+            "  Check 3: 08:50 UTC — FAIL (503, 30015ms)\n\n"
+            "Previous 24h success rate: 99.8%\n"
+            "Current success rate: 0% (last 3 checks)\n\n"
+            "Auto-generated by Contoso Monitoring. Forwarded to IT Service Desk.\n"
+            "{department} on-call: {name}",
+        ],
+        next_best_actions=[
+            "The monitoring alert shows {app} response times have spiked to 8750ms "
+            "(threshold: 2000ms) across all production nodes. Follow the runbook and "
+            "check application logs, database connections, and upstream dependencies.",
+            "The synthetic health check for {app} is returning 503 errors. Verify the "
+            "application is running on all nodes, check load balancer health, and review "
+            "recent deployments that may have caused the outage.",
+        ],
+        remediation_steps=[
+            [
+                "Check the application status on all affected nodes (app-node-01 through 03)",
+                "Review application logs for errors, stack traces, or dependency failures",
+                "Check database and upstream service connectivity from the application nodes",
+                "If a recent deployment occurred, consider rolling back to the last known good version",
+                "Determine the number of affected users and business impact for priority assessment",
+                "Follow the runbook linked in the alert for application-specific recovery steps",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-138  Double-encoded UTF-8 (mojibake) — garbled accented characters
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-138",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.STEPS_TO_REPRODUCE],
+        subjects=[
+            "Outlook displaying Ã©, Ã¼, Ã± instead of proper characters",
+            "{app} showing garbled text — encoding issue?",
+            "Email body shows mojibake characters after migration",
+        ],
+        descriptions=[
+            "Hi support,\n\n"
+            "Since the mailbox migration last weekend, all emails with accented "
+            "characters are displaying incorrectly. For example:\n\n"
+            "  - 'RÃ©sumÃ©' instead of 'Résumé'\n"
+            "  - 'Ã\u009cber' instead of 'Über'\n"
+            "  - 'El NiÃ±o' instead of 'El Niño'\n"
+            "  - 'naÃ¯ve' instead of 'naïve'\n"
+            "  - 'cafÃ©' instead of 'café'\n\n"
+            "This affects both old emails that were migrated and new emails coming in "
+            "from external contacts who use accented characters. Internal English-only "
+            "emails look fine.\n\n"
+            "I'm using {app} on {os}. I'm at the {office} office, Floor {floor}, "
+            "{department}.\n\n"
+            "This is really impacting my work because I correspond with our "
+            "European and Latin American offices daily.\n\n{name}",
+            "Bonjour,\n\n"
+            "Depuis la migration, tous les caractÃ¨res spÃ©ciaux sont cassÃ©s "
+            "dans {app}. Voici ce que je vois:\n\n"
+            "  'caractÃ¨res' au lieu de 'caractères'\n"
+            "  'spÃ©ciaux' au lieu de 'spéciaux'\n"
+            "  'franÃ§ais' au lieu de 'français'\n\n"
+            "Sorry, switching to English — the problem is that all accented characters "
+            "in my email client are showing as double-encoded UTF-8 (mojibake). This "
+            "started after the Exchange migration last Saturday.\n\n"
+            "Emails I send also appear garbled to recipients. My colleague {name1} in "
+            "{department} has the same problem. We're both on {os}, Floor {floor}.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "This is a classic UTF-8 double-encoding issue (mojibake) that started "
+            "after the Exchange mailbox migration. The migration likely re-encoded "
+            "UTF-8 content as Latin-1 then back to UTF-8. Check the migration tool's "
+            "encoding settings.",
+            "The garbled characters (Ã© → é, Ã¼ → ü) indicate UTF-8 bytes being "
+            "interpreted as Latin-1 and then re-encoded. Investigate the Exchange "
+            "migration tool configuration and check if a mailbox repair can fix "
+            "affected messages.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the encoding settings used in the Exchange mailbox migration tool",
+                "Check if the issue affects all migrated mailboxes or only a subset",
+                "Request the user's {app} version and any custom encoding settings in the mail profile",
+                "Run a mailbox content repair for affected users to fix double-encoded messages",
+                "For new incoming emails, verify the mail transport rules are not altering encoding",
+                "Test sending and receiving accented characters after the fix to confirm resolution",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-139  Massive disclaimer chain — 90% legal disclaimers, real MFA issue buried
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-139",
+        category=Category.ACCESS_AUTH,
+        priority=Priority.P2,
+        assigned_team=Team.IAM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.AUTHENTICATION_METHOD],
+        subjects=[
+            "Re: FW: MFA not working — can't log in to {app}",
+            "RE: FW: FW: Authentication failure — please help ASAP",
+            "Fwd: Re: MFA push notifications stopped working",
+        ],
+        descriptions=[
+            "I've been locked out of {app} since this morning because MFA push "
+            "notifications aren't arriving on my phone. I've tried 5 times.\n\n"
+            "--- Forwarded message ---\n"
+            "From: {name} <{name1}@contoso.com>\n"
+            "Date: April 10, 2026\n"
+            "Subject: MFA not working\n"
+            "To: helpdesk@contoso.com\n\n"
+            "My MFA stopped working. Please help.\n\n"
+            "------\n"
+            "CONFIDENTIALITY NOTICE: This email and any attachments are for the "
+            "exclusive and confidential use of the intended recipient. If you are not "
+            "the intended recipient, please do not read, distribute, or take action "
+            "based on this message. If you have received this in error, please notify "
+            "the sender immediately by return email and delete this message from your "
+            "system. Contoso Financial Services, 100 Market Street, {office}.\n\n"
+            "AVIS DE CONFIDENTIALITÉ: Ce courriel et ses pièces jointes sont destinés "
+            "exclusivement à l'usage confidentiel du destinataire prévu. Si vous n'êtes "
+            "pas le destinataire prévu, veuillez ne pas lire, distribuer ou prendre de "
+            "mesure sur la base de ce message.\n\n"
+            "VERTRAULICHKEITSHINWEIS: Diese E-Mail und alle Anhänge sind ausschließlich "
+            "für den vertraulichen Gebrauch des beabsichtigten Empfängers bestimmt.\n\n"
+            "機密通知: このメールおよび添付ファイルは、意図された受信者のみを対象としています。\n\n"
+            "إشعار السرية: هذا البريد الإلكتروني وأي مرفقات مخصصة للاستخدام الحصري والسري "
+            "للمستلم المقصود.\n\n"
+            "Sent from my iPhone\n\n"
+            "---\n{name}, {department}, Floor {floor}",
+            "Hi,\n\n"
+            "My MFA has completely stopped working. I can't authenticate to any "
+            "corporate app — {app}, SharePoint, Teams, nothing. The Authenticator "
+            "app just spins and says 'No notification received.'\n\n"
+            "I changed my phone last week — could that be related? I thought IT set "
+            "up the new phone already.\n\n"
+            "CONFIDENTIALITY NOTICE: This email and any attachments are confidential "
+            "and intended solely for the use of the individual or entity to whom they "
+            "are addressed. Any unauthorized review, use, disclosure or distribution "
+            "is prohibited. If you have received this email in error, please contact "
+            "the sender and destroy all copies. Contoso Financial Services.\n\n"
+            "AVIS DE CONFIDENTIALITÉ: Ce courriel est confidentiel et destiné "
+            "uniquement à la personne ou entité à laquelle il est adressé.\n\n"
+            "VERTRAULICHKEITSHINWEIS: Diese E-Mail ist vertraulich und nur für die "
+            "Person oder Organisation bestimmt, an die sie gerichtet ist.\n\n"
+            "AVISO DE CONFIDENCIALIDAD: Este correo electrónico y sus archivos "
+            "adjuntos son confidenciales y están destinados únicamente al uso del "
+            "destinatario previsto.\n\n"
+            "INFORMATIVA SULLA RISERVATEZZA: Questa email e qualsiasi allegato sono "
+            "riservati e destinati esclusivamente all'uso del destinatario previsto.\n\n"
+            "{name}, {department}, {office} office",
+        ],
+        next_best_actions=[
+            "The actual issue (buried under multilingual disclaimers) is an MFA "
+            "failure — push notifications are not arriving. The user may have recently "
+            "changed phones without re-enrolling MFA. Reset MFA registration and "
+            "re-enroll the new device.",
+            "Strip away the disclaimer noise: the user cannot authenticate because "
+            "MFA push notifications stopped working. Check if their Authenticator "
+            "app registration is still valid and whether a recent phone change "
+            "invalidated the enrollment.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the user's MFA registration status in Azure AD / Entra ID",
+                "Check if the user recently changed devices — if so, the old MFA registration is invalid",
+                "Issue a temporary access pass so the user can re-enroll MFA on the new device",
+                "Walk the user through re-registering the Microsoft Authenticator app",
+                "Confirm the user can successfully authenticate to {app} and other corporate services",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-140  Interleaved conversations — two email threads merged
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-140",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO],
+        subjects=[
+            "Monitor flickering + software license question",
+            "Two issues: display problem AND {app} license expired",
+            "Re: Monitor issue (also: need a license for {app})",
+        ],
+        descriptions=[
+            "Hi IT,\n\n"
+            "Two separate issues — sorry for combining them, the portal was being slow.\n\n"
+            "ISSUE 1 — MONITOR:\n"
+            "My external monitor started flickering yesterday. It's a Dell U2722D connected "
+            "via USB-C to my docking station. The flickering happens every few seconds — "
+            "the screen goes black for half a second then comes back. It's worse when I "
+            "have Teams video calls open. I've tried a different cable, same problem.\n\n"
+            "ISSUE 2 — SOFTWARE LICENSE:\n"
+            "Completely unrelated, but my {app} license expired last week and I'm getting "
+            "a 'License required' banner every time I open it. My manager approved the "
+            "renewal but I don't know who handles license assignments.\n\n"
+            "For the monitor: I'm on Floor {floor}, {office} office, using a Lenovo "
+            "ThinkPad with {os}. The dock is a Lenovo USB-C Gen 2.\n\n"
+            "For the license: my user ID is {name1}@contoso.com.\n\n"
+            "Thanks,\n{name}, {department}",
+            "Wanted to flag two things:\n\n"
+            "First, my monitor keeps cutting out. It flickers black every few seconds, "
+            "sometimes for a split second, sometimes for 2-3 seconds. I'm using a dual "
+            "monitor setup with a Dell dock on Floor {floor}. The left monitor (connected "
+            "via DisplayPort) is fine — only the right one (USB-C) flickers.\n\n"
+            "Second, totally different topic — I need a license for {app}. I got moved "
+            "to the {department} team and they all use it. My old team didn't, so I "
+            "never had a license. My manager already approved it in the request portal.\n\n"
+            "For the monitor issue specifically, I noticed it happens more often when "
+            "the laptop is charging through the dock. Could be a power issue with the "
+            "USB-C port?\n\n"
+            "Please advise on both.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "This ticket contains two unrelated issues: (1) external monitor flickering "
+            "via USB-C dock — likely a dock firmware, USB-C bandwidth, or power delivery "
+            "issue; (2) an {app} license renewal/assignment. Split into two tickets.",
+            "Separate the two issues: the monitor flicker should go to the endpoint/hardware "
+            "team for dock and display diagnostics; the {app} license request should be "
+            "routed to the software asset management team.",
+        ],
+        remediation_steps=[
+            [
+                "For the monitor flicker: update the docking station firmware to the latest version",
+                "Test with a different USB-C dock or direct connection to rule out the dock",
+                "Check if the USB-C port is providing enough power — try a powered dock or separate charger",
+                "If the issue persists, request the monitor and dock model/serial for hardware replacement",
+                "For the license: verify the manager's approval in the request portal and assign the {app} license",
+                "Consider splitting this into two separate tickets for proper tracking",
+            ],
+        ],
+    )
+)

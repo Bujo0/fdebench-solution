@@ -3103,5 +3103,771 @@ SCENARIOS: list[Scenario] = [
         ],
         tags=["data-cleanup", "pgp-encrypted"],
     ),
+    # ──────────────────────────────────────────────────────────────────
+    # 22. Email thread where topic switches mid-conversation
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-thread-hijack",
+        category="Network & Connectivity",
+        priority="P3",
+        assigned_team="Network Operations",
+        needs_escalation=False,
+        missing_information=["error_message", "network_location"],
+        subjects=[
+            "RE: RE: FW: Printer on 4th floor not working — also VPN question",
+            "RE: RE: RE: Copier jam issue → now about VPN dropping constantly",
+        ],
+        descriptions=[
+            "-----Original Message-----\n"
+            "From: Lisa Park\nSent: Monday 8:15 AM\nTo: Help Desk\n\n"
+            "Hi, the printer on the 4th floor (HP LaserJet 4250 near the break room) is "
+            "showing a paper jam error but there's no paper stuck. I've opened all the trays "
+            "and checked the fuser area. Can someone come take a look?\n\n"
+            "> From: Help Desk\n> Sent: Monday 9:02 AM\n>\n"
+            "> Hi Lisa, we've logged ticket INC-40821 for the printer jam. A technician "
+            "> will be on-site by noon.\n\n"
+            "Thanks for the printer update. Actually, while I have you — the real reason "
+            "I'm writing is my VPN has been dropping every 10-15 minutes since last Thursday. "
+            "I'm on the Contoso Financial Services trading floor and need a stable connection "
+            "to the risk analytics platform. Every time it drops I lose my session and have to "
+            "re-authenticate through Okta. I'm using the GlobalProtect client version 5.2.13 "
+            "on Windows 11. My manager says this is impacting our end-of-quarter reporting "
+            "deadlines. Can this be prioritized?",
+            "RE: RE: RE: FW: Copier issue — 3rd floor\n\n"
+            "--- thread history ---\n"
+            "> Original issue: The MFP copier on 3rd floor is showing error code E-302.\n"
+            "> Tech response: Parts ordered, ETA 3 business days.\n"
+            "> User reply: OK thanks.\n\n"
+            "Hey, unrelated but replying here because it's easier — my VPN connection to "
+            "the Contoso Financial Services data center has been completely unreliable for "
+            "the past week. I get connected fine but after about 10 minutes the tunnel drops "
+            "and I have to reconnect. I've tried both the office Wi-Fi and a hardwired "
+            "Ethernet connection with the same result. The GlobalProtect client shows "
+            "'Gateway timed out' before disconnecting. I'm in building B, 2nd floor. "
+            "This is blocking my access to the internal risk dashboards and I have "
+            "compliance reports due Friday. Please help.",
+        ],
+        next_best_actions=[
+            "Ignore the printer/copier thread history — the actual issue is recurring VPN "
+            "disconnections on the GlobalProtect client. Investigate gateway timeout and "
+            "tunnel stability for the user's network segment.",
+            "Focus on the VPN dropping issue buried after the topic switch. Check "
+            "GlobalProtect gateway logs, split-tunnel configuration, and MTU settings "
+            "for the user's building/floor network segment.",
+        ],
+        remediation_steps=[
+            [
+                "Identify the user's GlobalProtect gateway and check its health and connection logs",
+                "Review firewall session timeout and keep-alive settings for the VPN tunnel",
+                "Check for MTU or fragmentation issues on the user's network segment",
+                "Update the GlobalProtect client to the latest stable version",
+                "If the issue persists, capture a packet trace during the next disconnection event",
+            ],
+        ],
+        tags=["data-cleanup", "thread-hijack"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 23. Hebrew/Arabic text mixed with English causing RTL/LTR confusion
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-rtl-ltr-mixed",
+        category="Software & Applications",
+        priority="P3",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["error_message", "affected_users"],
+        subjects=[
+            "SharePoint permissions error — \u05d1\u05e2\u05d9\u05d4 \u05d1\u05d2\u05d9\u05e9\u05d4 "
+            "\u05dc\u05ea\u05d9\u05e7\u05d9\u05d4 — cannot access site",
+            "\u0645\u0634\u0643\u0644\u0629 \u0641\u064a \u0627\u0644\u0648\u0635\u0648\u0644 — "
+            "SharePoint access denied for finance team",
+        ],
+        descriptions=[
+            "\u05e9\u05dc\u05d5\u05dd, I need help with a SharePoint issue at Contoso Financial Services.\n\n"
+            "\u05d0\u05e0\u05d9 \u05dc\u05d0 \u05de\u05e6\u05dc\u05d9\u05d7 \u05dc\u05d2\u05e9\u05ea "
+            "\u05dc\u05d0\u05ea\u05e8 (I cannot access the site) — "
+            "every time I click on the Finance Reports library "
+            "I get \u05e9\u05d2\u05d9\u05d0\u05d4 403 "
+            "(403 error). \u05d4\u05d0\u05ea\u05e8 \u05d4\u05d5\u05d0 "
+            "https://contoso.sharepoint.com/sites/FinanceReports "
+            "and it was working fine "
+            "\u05e2\u05d3 \u05d9\u05d5\u05dd \u05e9\u05dc\u05d9\u05e9\u05d9 (until Tuesday).\n\n"
+            "\u05d4\u05de\u05e0\u05d4\u05dc \u05e9\u05dc\u05d9 \u05d0\u05de\u05e8 (my manager said) "
+            "that our team was supposed to keep access "
+            "after the site migration. "
+            "\u05d0\u05e0\u05d9 \u05d1\u05e6\u05d5\u05d5\u05ea Finance Operations "
+            "and I need the Q4 reports "
+            "\u05d1\u05d3\u05d7\u05d9\u05e4\u05d5\u05ea (urgently). "
+            "\u05d0\u05e0\u05d0 \u05ea\u05e2\u05d6\u05e8\u05d5 \u05dc\u05d9 (please help me). "
+            "There are 12 people "
+            "on my team and "
+            "\u05db\u05d5\u05dc\u05dd \u05e0\u05ea\u05e7\u05dc\u05d5 "
+            "\u05d1\u05d0\u05d5\u05ea\u05d4 \u05d1\u05e2\u05d9\u05d4 (all of them "
+            "have the same issue).",
+            "\u0645\u0631\u062d\u0628\u0627, this is regarding the SharePoint "
+            "site for Contoso Financial Services "
+            "regulatory compliance documents.\n\n"
+            "\u0623\u0646\u0627 \u0644\u0627 \u0623\u0633\u062a\u0637\u064a\u0639 "
+            "\u0627\u0644\u0648\u0635\u0648\u0644 (I cannot access) the site at "
+            "https://contoso.sharepoint.com/sites/RegulatoryDocs. "
+            "\u0627\u0644\u062e\u0637\u0623 \u064a\u0642\u0648\u0644 "
+            "(the error says) 'Access Denied — you do not have "
+            "permission to access this "
+            "resource.' "
+            "\u0643\u0627\u0646 \u064a\u0639\u0645\u0644 \u0628\u0634\u0643\u0644 "
+            "\u0637\u0628\u064a\u0639\u064a (it was working normally) "
+            "before the weekend. "
+            "\u0641\u0631\u064a\u0642\u064a (my team) in the compliance department "
+            "also lost access. "
+            "\u0646\u062d\u062a\u0627\u062c \u0647\u0630\u0627 \u0628\u0634\u0643\u0644 "
+            "\u0639\u0627\u062c\u0644 (we need this urgently) "
+            "for the quarterly audit "
+            "\u0627\u0644\u0630\u064a \u064a\u0628\u062f\u0623 \u064a\u0648\u0645 "
+            "\u0627\u0644\u0627\u062b\u0646\u064a\u0646 (which starts Monday). "
+            "\u0634\u0643\u0631\u0627 (thank you).",
+        ],
+        next_best_actions=[
+            "Look past the mixed Hebrew/Arabic and English text — the core issue is a "
+            "SharePoint 403 permissions error after a site migration. The finance/compliance "
+            "team lost access to document libraries.",
+            "Investigate SharePoint site permissions for the Finance Reports and Regulatory "
+            "Docs sites. Check if the recent migration reset group memberships or broke "
+            "permission inheritance.",
+        ],
+        remediation_steps=[
+            [
+                "Check SharePoint site collection permissions for the affected sites",
+                "Verify that the finance/compliance security groups were preserved during migration",
+                "Re-add the affected teams to the appropriate SharePoint permission levels",
+                "Test access with one affected user to confirm the fix",
+                "Notify all affected team members once access is restored",
+            ],
+        ],
+        tags=["data-cleanup", "rtl-ltr-mixed"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 24. User pasted a massive HTML table with the issue buried in one cell
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-html-table-paste",
+        category="Data & Storage",
+        priority="P2",
+        assigned_team="Data Platform",
+        needs_escalation=False,
+        missing_information=["error_message", "environment_details"],
+        subjects=[
+            "Database connection failure — see data extract below",
+            "DB error when running quarterly report — pasted full dataset",
+        ],
+        descriptions=[
+            "Hi team, I keep getting database errors when running the Contoso Financial Services "
+            "quarterly reconciliation report. Here is the dataset I was trying to load:\n\n"
+            "<table border='1'>\n"
+            "<tr><th>Row</th><th>Account</th><th>Region</th><th>Amount</th><th>Status</th><th>Notes</th></tr>\n"
+            "<tr><td>1</td><td>ACT-10001</td><td>US-East</td><td>$12,450.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>2</td><td>ACT-10002</td><td>US-West</td><td>$8,320.50</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>3</td><td>ACT-10003</td><td>EMEA</td><td>$45,100.00</td><td>Pending</td><td></td></tr>\n"
+            "<tr><td>4</td><td>ACT-10004</td><td>APAC</td><td>$3,200.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>5</td><td>ACT-10005</td><td>US-East</td><td>$67,890.25</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>6</td><td>ACT-10006</td><td>EMEA</td><td>$15,430.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>7</td><td>ACT-10007</td><td>US-West</td><td>$22,100.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>8</td><td>ACT-10008</td><td>APAC</td><td>$9,870.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>9</td><td>ACT-10009</td><td>US-East</td><td>$31,250.75</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>10</td><td>ACT-10010</td><td>EMEA</td><td>$5,600.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>11</td><td>ACT-10011</td><td>US-East</td><td>$18,900.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>12</td><td>ACT-10012</td><td>APAC</td><td>$41,300.00</td><td>Pending</td><td></td></tr>\n"
+            "<tr><td>13</td><td>ACT-10013</td><td>US-West</td><td>$7,650.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>14</td><td>ACT-10014</td><td>EMEA</td><td>$28,400.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>15</td><td>ACT-10015</td><td>US-East</td><td>$53,200.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>16</td><td>ACT-10016</td><td>APAC</td><td>$11,750.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>17</td><td>ACT-10017</td><td>EMEA</td><td>$6,430.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>18</td><td>ACT-10018</td><td>US-West</td><td>$39,800.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>19</td><td>ACT-10019</td><td>US-East</td><td>$2,100.00</td><td>ERROR</td>"
+            "<td>DATABASE CONNECTION FAILED: ORA-12541 TNS no listener on FINDB-PROD-03</td></tr>\n"
+            "<tr><td>20</td><td>ACT-10020</td><td>APAC</td><td>$14,560.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>21</td><td>ACT-10021</td><td>US-East</td><td>$8,900.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>22</td><td>ACT-10022</td><td>EMEA</td><td>$25,340.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>23</td><td>ACT-10023</td><td>US-West</td><td>$19,200.00</td><td>Cleared</td><td></td></tr>\n"
+            "<tr><td>24</td><td>ACT-10024</td><td>APAC</td><td>$33,100.00</td><td>Pending</td><td></td></tr>\n"
+            "<tr><td>25</td><td>ACT-10025</td><td>US-East</td><td>$4,780.00</td><td>Cleared</td><td></td></tr>\n"
+            "</table>\n\n"
+            "As you can see in row 19, the import failed with a database connection error. "
+            "This started happening this morning around 7:30 AM.",
+            "Trying to load our Contoso Financial Services Q4 reconciliation data and row 19 "
+            "out of 50+ keeps failing. Here is the output:\n\n"
+            "<table border='1'>\n"
+            "<tr><th>ID</th><th>Account</th><th>Debit</th><th>Credit</th><th>Status</th></tr>\n"
+            "<tr><td>1</td><td>GL-5001</td><td>$10,000</td><td>$0</td><td>OK</td></tr>\n"
+            "<tr><td>2</td><td>GL-5002</td><td>$0</td><td>$10,000</td><td>OK</td></tr>\n"
+            "<tr><td>3</td><td>GL-5003</td><td>$25,000</td><td>$0</td><td>OK</td></tr>\n"
+            "<tr><td>4</td><td>GL-5004</td><td>$0</td><td>$25,000</td><td>OK</td></tr>\n"
+            "<tr><td>5</td><td>GL-5005</td><td>$15,000</td><td>$0</td><td>OK</td></tr>\n"
+            "<tr><td>6</td><td>GL-5006</td><td>$0</td><td>$15,000</td><td>OK</td></tr>\n"
+            "<tr><td>7</td><td>GL-5007</td><td>$42,000</td><td>$0</td><td>OK</td></tr>\n"
+            "<tr><td>8</td><td>GL-5008</td><td>$0</td><td>$42,000</td><td>OK</td></tr>\n"
+            "<tr><td>9</td><td>GL-5009</td><td>$8,500</td><td>$0</td><td>FAIL: "
+            "ORA-12541 TNS:no listener — connection to FINDB-PROD-03 refused</td></tr>\n"
+            "<tr><td>10</td><td>GL-5010</td><td>$0</td><td>$8,500</td><td>OK</td></tr>\n"
+            "</table>\n\n"
+            "The actual problem is that our production Oracle database listener on FINDB-PROD-03 "
+            "appears to be down. All rows after the failure also failed but I truncated the table. "
+            "This is blocking the entire finance team's end-of-quarter close.",
+        ],
+        next_best_actions=[
+            "Ignore the massive HTML table data — the actual issue is buried in row 19: "
+            "ORA-12541 TNS no listener on FINDB-PROD-03. The Oracle database listener "
+            "service is down on the production finance database server.",
+            "Investigate the Oracle TNS listener on FINDB-PROD-03. Check if the listener "
+            "service crashed or was stopped during maintenance, and restart it.",
+        ],
+        remediation_steps=[
+            [
+                "SSH to FINDB-PROD-03 and check the Oracle TNS listener status with lsnrctl status",
+                "If the listener is down, restart it with lsnrctl start",
+                "Check the listener log for the root cause of the shutdown",
+                "Verify database connectivity from the application server after restart",
+                "Re-run the failed reconciliation import and confirm all rows process successfully",
+            ],
+        ],
+        tags=["data-cleanup", "html-table-paste"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 25. Heavy OCR artifacts from scanned/faxed document
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-extreme-ocr-artifacts",
+        category="Hardware & Peripherals",
+        priority="P3",
+        assigned_team="Endpoint Engineering",
+        needs_escalation=False,
+        missing_information=["device_info", "steps_to_reproduce"],
+        subjects=[
+            "Lapt0p batt3ry n0t charg1ng — p1ease he1p",
+            "N0teb00k battery fa11s t0 charge — need repa1r",
+        ],
+        descriptions=[
+            "He11o IT supp0rt,\n\n"
+            "I arn wr1ting t0 rep0rt that rny C0ntos0 F1nanc1al Serv1ces 1ssued "
+            "1apt0p batt3ry w111 n0t charge. The 1apt0p 1s a De11 Lat1tude 5540 "
+            "and 1t was w0rk1ng f1ne unt11 1ast week. N0w when I p1ug 1n the "
+            "charg3r, the 11ght 0n the s1de b11nks 0range three t1mes and then "
+            "turns 0ff. The batt3ry 1s stuck at 7% and w0n't g0 any h1gher.\n\n"
+            "I have tr1ed:\n"
+            "- Us1ng a d1fferent p0wer 0ut1et\n"
+            "- A d1fferent charg1ng cab1e fr0rn rny c011eague\n"
+            "- Shutt1ng d0wn c0rnplete1y and charg1ng wh11e 0ff\n\n"
+            "N0ne 0f th1s w0rked. I arn 0n the trad1ng f100r and need rny "
+            "1apt0p rn0b11e f0r rneeet1ngs. P1ease adv1se.",
+            "T1cket subrn1tted v1a fax scan:\n\n"
+            "Dea1 He1p Desk,\n\n"
+            "My w0rk n0teb00k (De11 Lat1tude ser1es) batt3ry 1s n0t h01d1ng "
+            "a charge at a11. It dr0ps fr0rn 1OO% t0 O% 1n ab0ut 2O rn1nutes "
+            "even when d01ng n0th1ng. The batt3ry hea1th check 1n the B1OS "
+            "says 'P00r' and recornrnends rep1acernent. I arn at the C0ntos0 "
+            "F1nanc1al Serv1ces bu11d1ng C, 4th f100r. I've had th1s 1apt0p "
+            "f0r ab0ut 3 years. The rn0de1 nurnber 0n the b0tt0rn 1s hard "
+            "t0 read but 1 th1nk 1t says P/N: 0X4F2R. P1ease send s0rne0ne "
+            "0r sh1p rne a new batt3ry.",
+        ],
+        next_best_actions=[
+            "Decode the OCR-garbled text: the user's Dell Latitude laptop battery is not "
+            "charging (orange blinking light, stuck at 7%). They have tried alternate "
+            "outlets and chargers. Likely a failed battery or charging circuit.",
+            "The OCR artifacts obscure the text but the issue is clear: Dell Latitude "
+            "battery failure. Check warranty status and order a replacement battery "
+            "or schedule an on-site technician.",
+        ],
+        remediation_steps=[
+            [
+                "Run Dell battery diagnostics via the BIOS pre-boot menu (F12 > Diagnostics)",
+                "Check the battery health status in Dell Power Manager or BIOS",
+                "If battery health is Poor or Failed, order a replacement battery under warranty",
+                "If out of warranty, submit a procurement request for a new OEM battery",
+                "Schedule on-site battery replacement or ship to the user's building",
+            ],
+        ],
+        tags=["data-cleanup", "ocr-artifacts"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 26. Extremely terse ticket with almost no information
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-terse-one-word",
+        category="General Inquiry",
+        priority="P4",
+        assigned_team="None",
+        needs_escalation=False,
+        missing_information=[
+            "affected_system",
+            "error_message",
+            "steps_to_reproduce",
+            "affected_users",
+            "environment_details",
+            "device_info",
+            "application_version",
+            "business_impact",
+            "contact_info",
+        ],
+        subjects=[
+            "help",
+            "broken",
+        ],
+        descriptions=[
+            "broken",
+            "it doesnt work",
+        ],
+        next_best_actions=[
+            "This ticket has virtually no actionable information. Reply to the user and ask "
+            "them to specify: what system or application is affected, what error they are "
+            "seeing, what they were trying to do, and their contact details.",
+            "The ticket is too terse to act on. Request clarification: which device, which "
+            "application, what error message, and the business impact so the ticket can be "
+            "properly categorized and prioritized.",
+        ],
+        remediation_steps=[
+            [
+                "Reply to the user requesting basic details: affected system, error message, "
+                "and what they were trying to do",
+                "Ask for their device type, operating system, and application version",
+                "Request their preferred contact method and business impact/urgency",
+                "Once sufficient information is gathered, re-categorize and assign the ticket",
+            ],
+        ],
+        tags=["data-cleanup", "terse-ticket"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 27. Terminal/PowerShell output dump with issue buried in one line
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-terminal-output-dump",
+        category="Network & Connectivity",
+        priority="P2",
+        assigned_team="Network Operations",
+        needs_escalation=False,
+        missing_information=["error_message", "network_location"],
+        subjects=[
+            "Network issue — here's everything I ran (ipconfig, tracert, nslookup)",
+            "DNS not resolving — dumping all my diagnostic output",
+        ],
+        descriptions=[
+            "Something is wrong with my network. I'm on the Contoso Financial Services "
+            "trading floor, desk 14B. Here is everything I ran:\n\n"
+            "PS C:\\Users\\jsmith> ipconfig /all\n\n"
+            "Windows IP Configuration\n\n"
+            "   Host Name . . . . . . . . . . . . : CNTSO-WS-4021\n"
+            "   Primary Dns Suffix  . . . . . . . : contoso.local\n"
+            "   Node Type . . . . . . . . . . . . : Hybrid\n"
+            "   IP Routing Enabled. . . . . . . . : No\n\n"
+            "Ethernet adapter Ethernet0:\n\n"
+            "   Connection-specific DNS Suffix  . : contoso.local\n"
+            "   IPv4 Address. . . . . . . . . . . : 10.52.14.87\n"
+            "   Subnet Mask . . . . . . . . . . . : 255.255.254.0\n"
+            "   Default Gateway . . . . . . . . . : 10.52.14.1\n"
+            "   DNS Servers . . . . . . . . . . . : 10.10.1.53\n"
+            "                                       10.10.2.53\n\n"
+            "PS C:\\Users\\jsmith> nslookup riskportal.contoso.local\n"
+            "Server:  dc01.contoso.local\n"
+            "Address:  10.10.1.53\n\n"
+            "*** dc01.contoso.local can't find riskportal.contoso.local: Non-existent domain\n\n"
+            "PS C:\\Users\\jsmith> nslookup google.com\n"
+            "Server:  dc01.contoso.local\n"
+            "Address:  10.10.1.53\n\n"
+            "Non-authoritative answer:\n"
+            "Name:    google.com\n"
+            "Address:  142.250.80.46\n\n"
+            "PS C:\\Users\\jsmith> tracert riskportal.contoso.local\n"
+            "Unable to resolve target system name riskportal.contoso.local.\n\n"
+            "PS C:\\Users\\jsmith> ping 10.52.14.1\n"
+            "Reply from 10.52.14.1: bytes=32 time<1ms TTL=255\n"
+            "Reply from 10.52.14.1: bytes=32 time<1ms TTL=255\n\n"
+            "So basically riskportal.contoso.local won't resolve but everything "
+            "else works fine. I need this for the live trading dashboard.",
+            "I can't reach the risk analytics portal and I dumped all my output below. "
+            "I'm at Contoso Financial Services building A, floor 3.\n\n"
+            "PS C:\\Users\\alee> Get-NetIPAddress | Format-Table\n\n"
+            "ifIndex IPAddress                     PrefixLength PrefixOrigin\n"
+            "------- ---------                     ------------ ------------\n"
+            "12      10.52.14.92                   23           Dhcp\n"
+            "1       127.0.0.1                     8            WellKnown\n"
+            "12      fe80::a4d1:7e2f:3b90:cf12%12  64           WellKnown\n\n"
+            "PS C:\\Users\\alee> Resolve-DnsName riskportal.contoso.local\n"
+            "Resolve-DnsName : riskportal.contoso.local : DNS name does not exist\n"
+            "At line:1 char:1\n\n"
+            "PS C:\\Users\\alee> Resolve-DnsName intranet.contoso.local\n"
+            "Name             Type TTL Section IPAddress\n"
+            "----             ---- --- ------- ---------\n"
+            "intranet.contoso A    300 Answer  10.10.5.20\n\n"
+            "PS C:\\Users\\alee> Test-NetConnection riskportal.contoso.local -Port 443\n"
+            "WARNING: Name resolution of riskportal.contoso.local failed\n"
+            "ComputerName : riskportal.contoso.local\n"
+            "TcpTestSucceeded : False\n\n"
+            "The only thing that's broken is DNS for riskportal.contoso.local. "
+            "External DNS and other internal names resolve fine. This is blocking "
+            "the entire trading floor.",
+        ],
+        next_best_actions=[
+            "Cut through the terminal output dump — the issue is that the internal DNS "
+            "record for riskportal.contoso.local is missing or was deleted. External "
+            "DNS and other internal records work fine. Check the DNS zone for the "
+            "missing A record.",
+            "The diagnostic output confirms a DNS resolution failure specifically for "
+            "riskportal.contoso.local. Investigate the internal DNS zone on the domain "
+            "controllers for a missing or expired record.",
+        ],
+        remediation_steps=[
+            [
+                "Check the contoso.local DNS zone on the domain controllers for the "
+                "riskportal host record",
+                "If the record is missing, re-create the A record pointing to the correct "
+                "server IP",
+                "If the record exists, check for replication issues between DNS servers "
+                "10.10.1.53 and 10.10.2.53",
+                "Flush DNS caches on the affected workstations with ipconfig /flushdns",
+                "Verify resolution from the trading floor and confirm access to the risk portal",
+            ],
+        ],
+        tags=["data-cleanup", "terminal-output"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 28. Machine-generated monitoring alert dump (Datadog/PagerDuty/Nagios)
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-auto-monitoring-alert",
+        category="Software & Applications",
+        priority="P2",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["application_version", "environment_details"],
+        subjects=[
+            "[ALERT] CRITICAL — contosofinapp-prod-web-03 — Memory threshold exceeded",
+            "[PagerDuty] Incident #48291 — Application memory leak detected",
+        ],
+        descriptions=[
+            '{"alert_id":"ALT-2024-48291","source":"datadog","severity":"CRITICAL",'
+            '"host":"contosofinapp-prod-web-03","service":"contoso-risk-api",'
+            '"metric":"system.mem.used","value":97.3,"threshold":90.0,'
+            '"unit":"percent","timestamp":"2024-11-15T07:23:41Z",'
+            '"tags":["env:production","team:finservices","app:risk-api"],'
+            '"message":"Memory usage on contosofinapp-prod-web-03 has exceeded '
+            '97% for the last 15 minutes."}\n\n'
+            '{"alert_id":"ALT-2024-48292","source":"datadog","severity":"WARNING",'
+            '"host":"contosofinapp-prod-web-03","service":"contoso-risk-api",'
+            '"metric":"system.cpu.user","value":88.5,"threshold":80.0,'
+            '"unit":"percent","timestamp":"2024-11-15T07:24:02Z",'
+            '"tags":["env:production","team:finservices","app:risk-api"],'
+            '"message":"CPU usage elevated, likely due to memory pressure and '
+            'excessive garbage collection."}\n\n'
+            '{"alert_id":"ALT-2024-48293","source":"datadog","severity":"WARNING",'
+            '"host":"contosofinapp-prod-web-03","service":"contoso-risk-api",'
+            '"metric":"jvm.heap.used","value":3891,"threshold":3584,'
+            '"unit":"megabytes","timestamp":"2024-11-15T07:24:15Z",'
+            '"tags":["env:production","team:finservices","app:risk-api","runtime:jvm"],'
+            '"message":"JVM heap usage at 3891 MB out of 4096 MB max. Heap is not '
+            'being reclaimed — possible memory leak in the Contoso Financial Services '
+            'risk calculation API."}\n\n'
+            "The above alerts were auto-forwarded from Datadog. The risk-api service on "
+            "contosofinapp-prod-web-03 appears to have a memory leak that is causing "
+            "the JVM heap to fill up and not be garbage collected.",
+            "[PagerDuty Incident #48291]\n"
+            "Status: TRIGGERED\n"
+            "Urgency: HIGH\n"
+            "Service: Contoso Risk API (Production)\n"
+            "Assigned to: FinServices On-Call\n"
+            "Created: 2024-11-15T07:23:41Z\n\n"
+            "--- Alert Details ---\n"
+            '{"monitor_id":119284,"monitor_name":"[Prod] Memory Critical — Risk API",'
+            '"host":"contosofinapp-prod-web-03","ip":"10.20.5.103",'
+            '"current_value":"97.3%","threshold":"90%","duration":"15m",'
+            '"escalation_policy":"FinServices-P1","responders":['
+            '{"name":"On-Call Engineer","email":"oncall@contoso.com"}]}\n\n'
+            "--- Runbook Link ---\n"
+            "https://wiki.contoso.local/runbooks/risk-api-memory-leak\n\n"
+            "--- Recent Deployments ---\n"
+            "2024-11-14 22:15 UTC — risk-api v3.8.2 deployed to prod (contains fix for "
+            "JIRA-4521: add caching to position calculator)\n\n"
+            "Likely root cause: the v3.8.2 deployment added an unbounded cache to the "
+            "position calculator module that is not evicting entries. The Contoso Financial "
+            "Services risk API has been slowly consuming memory since the deployment "
+            "14 hours ago.",
+        ],
+        next_best_actions=[
+            "Parse the machine-generated alert JSON — the issue is a memory leak on "
+            "contosofinapp-prod-web-03 in the Contoso risk-api service. JVM heap is at "
+            "97% and not being reclaimed. Likely caused by the v3.8.2 deployment.",
+            "The monitoring alerts point to a memory leak in the risk-api after the "
+            "v3.8.2 deployment. The unbounded cache in the position calculator is the "
+            "likely root cause. Roll back or add cache eviction.",
+        ],
+        remediation_steps=[
+            [
+                "Immediately restart the risk-api service on contosofinapp-prod-web-03 "
+                "to restore service",
+                "Investigate the v3.8.2 deployment's position calculator cache for missing "
+                "eviction policy",
+                "Roll back to v3.8.1 if the leak cannot be quickly patched",
+                "Add a bounded cache with TTL eviction to the position calculator module",
+                "Monitor JVM heap metrics after the fix to confirm memory is stable",
+            ],
+        ],
+        tags=["data-cleanup", "monitoring-alert"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 29. Double-encoded UTF-8 creating mojibake
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-double-encoded-utf8",
+        category="Software & Applications",
+        priority="P3",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["application_version", "steps_to_reproduce"],
+        subjects=[
+            "Localization bug \u2014 characters showing as Ã© Ã¼ Ã¶ in web app",
+            "Internal app displaying Ã±, Ã©, Ã¼ instead of proper characters",
+        ],
+        descriptions=[
+            "Hi team,\n\n"
+            "Our Contoso Financial Services internal compliance portal is displaying garbled "
+            "characters for any non-ASCII text. Here are some examples of what we see:\n\n"
+            "- Employee name 'José García' displays as 'JosÃ© GarcÃ\\xada'\n"
+            "- Department 'Zürich Office' displays as 'ZÃ¼rich Office'\n"
+            "- Client name 'François Müller' displays as 'FranÃ§ois MÃ¼ller'\n"
+            "- Report title 'Année Fiscale' displays as 'AnnÃ©e Fiscale'\n"
+            "- Branch 'São Paulo' displays as 'SÃ£o Paulo'\n\n"
+            "This started after the latest deployment on Thursday. The database has the "
+            "correct UTF-8 data — I verified by querying directly. The issue only appears "
+            "in the web interface. It looks like the text is being double-encoded: the "
+            "server reads UTF-8 bytes, interprets them as Latin-1, and then re-encodes to "
+            "UTF-8. This is affecting every page that displays international characters. "
+            "The compliance team in our European offices cannot use the portal because "
+            "all their reports are unreadable.",
+            "Since the Thursday release, the Contoso Financial Services HR self-service "
+            "portal is showing mojibake for all accented characters:\n\n"
+            "- 'Ãœbersicht' instead of 'Übersicht' (German overview page)\n"
+            "- 'EspaÃ±ol' instead of 'Español' (language selector)\n"
+            "- 'RÃ©sumÃ©' instead of 'Résumé' (document upload section)\n"
+            "- 'DÃ¼sseldorf' instead of 'Düsseldorf' (office location)\n"
+            "- 'PeÃ±a' instead of 'Peña' (employee surnames)\n\n"
+            "The issue is clearly a double-encoding problem. The Content-Type header "
+            "on the page says 'text/html; charset=utf-8' but the server middleware "
+            "appears to be treating the already-UTF-8 database output as ISO-8859-1 "
+            "and encoding it again. I confirmed by checking the raw bytes — the "
+            "two-byte UTF-8 sequence for 'é' (0xC3 0xA9) is being treated as two "
+            "separate Latin-1 characters 'Ã' and '©'. This affects all 200+ employees "
+            "in EMEA offices.",
+        ],
+        next_best_actions=[
+            "The mojibake characters (Ã©, Ã¼, Ã¶, etc.) indicate a classic double-encoding "
+            "bug: UTF-8 data is being re-encoded as if it were Latin-1. Investigate the "
+            "server middleware's character encoding configuration changed in Thursday's release.",
+            "Check the application server's response encoding pipeline. The database stores "
+            "correct UTF-8 but the middleware is double-encoding it. Review the Thursday "
+            "deployment for changes to character set handling or Content-Type headers.",
+        ],
+        remediation_steps=[
+            [
+                "Review the Thursday deployment's changes for any modifications to character "
+                "encoding, Content-Type headers, or database connection string charset parameters",
+                "Check the application middleware for a layer that is converting UTF-8 bytes "
+                "to Latin-1 before re-encoding to UTF-8",
+                "Fix the encoding pipeline to pass through UTF-8 data without re-interpretation",
+                "Test with known international characters (é, ü, ö, ñ, ç) to confirm the fix",
+                "Deploy the fix and verify all EMEA office portals display correctly",
+            ],
+        ],
+        tags=["data-cleanup", "double-encoded-utf8"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 30. Email with 90% legal disclaimers in 5 languages
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-massive-disclaimer-chain",
+        category="Access & Authentication",
+        priority="P2",
+        assigned_team="Identity & Access Management",
+        needs_escalation=False,
+        missing_information=["device_info", "authentication_method"],
+        subjects=[
+            "MFA not working after phone replacement — URGENT",
+            "Cannot authenticate — new phone, old MFA still linked",
+        ],
+        descriptions=[
+            "Hi, I replaced my phone last weekend and now I can't log into anything "
+            "at Contoso Financial Services because MFA keeps sending codes to my old "
+            "device which I no longer have. I need this resolved today — I have "
+            "regulatory filings due by 5 PM.\n\n"
+            "========================================\n"
+            "CONFIDENTIALITY NOTICE: This email and any attachments are for the "
+            "exclusive and confidential use of the intended recipient. If you are not "
+            "the intended recipient, please do not read, distribute, or take action "
+            "based on this message. If you have received this in error, please notify "
+            "the sender immediately and delete this message from your system.\n"
+            "========================================\n"
+            "AVIS DE CONFIDENTIALITÉ : Ce courriel et toute pièce jointe sont "
+            "destinés exclusivement à l'usage confidentiel du destinataire prévu. "
+            "Si vous n'êtes pas le destinataire prévu, veuillez ne pas lire, "
+            "distribuer ou agir sur la base de ce message. Si vous avez reçu ce "
+            "message par erreur, veuillez en informer immédiatement l'expéditeur "
+            "et supprimer ce message de votre système.\n"
+            "========================================\n"
+            "VERTRAULICHKEITSHINWEIS: Diese E-Mail und alle Anhänge sind "
+            "ausschließlich für den vertraulichen Gebrauch des beabsichtigten "
+            "Empfängers bestimmt. Wenn Sie nicht der beabsichtigte Empfänger sind, "
+            "lesen, verteilen oder handeln Sie bitte nicht auf der Grundlage dieser "
+            "Nachricht. Wenn Sie diese Nachricht irrtümlich erhalten haben, "
+            "benachrichtigen Sie bitte umgehend den Absender und löschen Sie diese "
+            "Nachricht aus Ihrem System.\n"
+            "========================================\n"
+            "機密通知：このメールおよび添付ファイルは、意図された受信者の"
+            "排他的かつ機密的な使用を目的としています。意図された受信者でない場合は、"
+            "このメッセージを読んだり、配布したり、行動を起こしたりしないでください。"
+            "誤って受信した場合は、直ちに送信者に通知し、システムからこのメッセージを"
+            "削除してください。\n"
+            "========================================\n"
+            "AVISO DE CONFIDENCIALIDADE: Este e-mail e quaisquer anexos são para uso "
+            "exclusivo e confidencial do destinatário pretendido. Se você não for o "
+            "destinatário pretendido, por favor não leia, distribua ou tome ações com "
+            "base nesta mensagem. Se você recebeu esta mensagem por engano, por favor "
+            "notifique o remetente imediatamente e exclua esta mensagem do seu sistema.\n"
+            "========================================",
+            "I got a new iPhone 15 and my old iPhone 12 was wiped and traded in. "
+            "Now the Contoso Financial Services Okta MFA prompt goes to the old "
+            "device that no longer exists. I'm completely locked out of email, "
+            "SharePoint, and the risk analytics portal. My manager (David Chen, "
+            "VP of Trading Operations) can vouch for my identity. Please reset "
+            "my MFA to my new phone ASAP.\n\n"
+            "────────────────────────────────────────\n"
+            "LEGAL DISCLAIMER: The information contained in this communication is "
+            "confidential and may be legally privileged. It is intended solely for "
+            "the use of the individual or entity to whom it is addressed. Access to "
+            "this email by anyone else is unauthorized. If you are not the intended "
+            "recipient, any disclosure, copying, distribution or any action taken or "
+            "omitted to be taken in reliance on it, is prohibited and may be unlawful.\n"
+            "────────────────────────────────────────\n"
+            "AVIS JURIDIQUE : Les informations contenues dans cette communication "
+            "sont confidentielles et peuvent être légalement protégées. Elles sont "
+            "destinées uniquement à l'usage de la personne ou de l'entité à laquelle "
+            "elles sont adressées. L'accès à ce courriel par toute autre personne "
+            "n'est pas autorisé.\n"
+            "────────────────────────────────────────\n"
+            "RECHTSHINWEIS: Die in dieser Mitteilung enthaltenen Informationen sind "
+            "vertraulich und können rechtlich geschützt sein. Sie sind ausschließlich "
+            "für die Nutzung durch die Person oder Organisation bestimmt, an die sie "
+            "gerichtet sind. Der Zugriff auf diese E-Mail durch andere Personen ist "
+            "nicht gestattet.\n"
+            "────────────────────────────────────────\n"
+            "法的免責事項：この通信に含まれる情報は機密であり、法的に保護されて"
+            "いる場合があります。これは、宛先の個人または団体のみが使用することを"
+            "目的としています。\n"
+            "────────────────────────────────────────\n"
+            "AVISO LEGAL: As informações contidas nesta comunicação são confidenciais "
+            "e podem ser legalmente protegidas. Destinam-se exclusivamente ao uso do "
+            "indivíduo ou entidade a quem são endereçadas. O acesso a este e-mail por "
+            "qualquer outra pessoa não é autorizado.\n"
+            "────────────────────────────────────────",
+        ],
+        next_best_actions=[
+            "Ignore the massive multi-language legal disclaimers — the actual issue is "
+            "two sentences long: the user replaced their phone and MFA is still linked "
+            "to the old device. They are locked out of all Contoso Financial Services "
+            "systems and need an MFA reset.",
+            "Reset the user's MFA enrollment in Okta after identity verification. The "
+            "disclaimers are noise — the issue is a phone replacement requiring MFA "
+            "re-enrollment.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the user's identity through an alternate method (manager confirmation, "
+                "security questions, or in-person verification)",
+                "Reset the user's MFA enrollment in Okta to remove the old device",
+                "Guide the user through enrolling their new phone in Okta Verify",
+                "Test authentication to email, SharePoint, and the risk analytics portal",
+                "Advise the user to set up a backup MFA method to prevent future lockouts",
+            ],
+        ],
+        tags=["data-cleanup", "disclaimer-chain"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # 31. Two separate email conversations merged/interleaved by mail client
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-interleaved-conversations",
+        category="Hardware & Peripherals",
+        priority="P3",
+        assigned_team="Endpoint Engineering",
+        needs_escalation=False,
+        missing_information=["device_info", "error_message"],
+        subjects=[
+            "RE: Monitor flickering + software license question (two issues)",
+            "RE: RE: Display problem / also need Adobe license — mixed thread",
+        ],
+        descriptions=[
+            "--- Conversation A: Monitor Issue ---\n"
+            "From: Sarah Kim <skim@contoso.com>\n"
+            "Date: Monday 8:30 AM\n"
+            "My external monitor (Dell U2722D) connected to the Contoso Financial Services "
+            "issued laptop keeps flickering every few seconds. It's a rapid black-flash "
+            "that makes it unusable.\n\n"
+            "--- Conversation B: Software License ---\n"
+            "From: Sarah Kim <skim@contoso.com>\n"
+            "Date: Monday 8:45 AM\n"
+            "Separately, I need an Adobe Acrobat Pro license for the compliance team. We "
+            "have 5 people who need to edit and redact PDF documents for regulatory filings.\n\n"
+            "--- Conversation A continued ---\n"
+            "From: Help Desk\n"
+            "Date: Monday 9:15 AM\n"
+            "> Have you tried a different cable or port?\n\n"
+            "From: Sarah Kim\n"
+            "Date: Monday 9:30 AM\n"
+            "Yes, I tried both HDMI and USB-C cables. Same flickering on both. I also "
+            "tried the monitor with a colleague's laptop and it works fine, so the issue "
+            "might be my laptop's GPU or driver.\n\n"
+            "--- Conversation B continued ---\n"
+            "From: Software Asset Team\n"
+            "Date: Monday 10:00 AM\n"
+            "> Please submit a request through the software catalog for Adobe Acrobat Pro.\n\n"
+            "From: Sarah Kim\n"
+            "Date: Monday 10:15 AM\n"
+            "Done, I submitted request REQ-7823 for 5 licenses. But more urgently, the "
+            "monitor flickering is getting worse — now it's happening every 2-3 seconds "
+            "and I can barely work. I'm on the Contoso Financial Services trading floor "
+            "and need this fixed today.",
+            "From: Tom Nguyen <tnguyen@contoso.com>\n"
+            "To: Help Desk\n\n"
+            "I have two issues that somehow got merged into one thread:\n\n"
+            "ISSUE 1 — MONITOR: My Dell P2419H monitor goes completely black for 1-2 "
+            "seconds randomly throughout the day. It happens about every 5 minutes. "
+            "I've checked the power cable, tried different display ports on my Contoso "
+            "Financial Services Dell Latitude 5550 docking station, and updated the "
+            "Intel graphics driver to the latest version. Nothing helps. The monitor "
+            "works fine when connected directly to another laptop without the dock.\n\n"
+            "ISSUE 2 — SOFTWARE: I also need my Visio Pro license renewed. It expired "
+            "last week and I can't open project architecture diagrams. License key is "
+            "tied to my contoso.com account. The software catalog shows it as 'pending "
+            "renewal' since last Tuesday.\n\n"
+            "The monitor issue is much more urgent — it's affecting my productivity on "
+            "the trading analytics project. The Visio thing can wait a few days. Please "
+            "prioritize the hardware issue. I'm in Building A, 6th floor, desk 612.",
+        ],
+        next_best_actions=[
+            "Separate the two interleaved conversations: (1) Monitor flickering — likely "
+            "a laptop GPU/driver or docking station issue since the monitor works on other "
+            "machines. (2) Software license request — already submitted, lower priority. "
+            "Prioritize the hardware issue.",
+            "The interleaved thread contains two distinct issues. The monitor flickering "
+            "is the priority — investigate the docking station and laptop display driver. "
+            "The software license is secondary and already in the request queue.",
+        ],
+        remediation_steps=[
+            [
+                "For the monitor issue: update the laptop's display/GPU drivers to the latest version",
+                "Test with a different docking station to isolate whether the dock is faulty",
+                "If the dock is the issue, replace it; if the laptop GPU is the issue, schedule a repair",
+                "For the software license: follow up on the pending catalog request and expedite if needed",
+                "Close as two separate tickets to track each issue independently",
+            ],
+        ],
+        tags=["data-cleanup", "interleaved-conversations"],
+    ),
 ]
 
