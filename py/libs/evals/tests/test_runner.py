@@ -46,8 +46,8 @@ class TestEvalRunner:
         runner = EvalRunner("http://test:8000")
         summary = runner.run(DatasetKind.DATA_CLEANUP)
 
-        assert summary.tickets_total == 60
-        assert summary.tickets_scored == 60
+        assert summary.tickets_total == 75
+        assert summary.tickets_scored == 75
         assert summary.tickets_errored == 0
         assert summary.classification_score == 85.0
 
@@ -68,8 +68,8 @@ class TestEvalRunner:
         runner = EvalRunner("http://test:8000")
         summary = runner.run(DatasetKind.RESPONSIBLE_AI)
 
-        assert summary.tickets_total == 60
-        assert summary.tickets_scored == 60
+        assert summary.tickets_total == 75
+        assert summary.tickets_scored == 75
         assert summary.tickets_errored == 0
         assert summary.classification_score == 85.0
 
@@ -83,7 +83,7 @@ class TestEvalRunner:
         runner = EvalRunner("http://test:8000")
         summary = runner.run(DatasetKind.DATA_CLEANUP)
 
-        assert summary.tickets_errored == 60
+        assert summary.tickets_errored == 75
         assert summary.tickets_scored == 0
 
     @respx.mock
@@ -111,7 +111,7 @@ class TestEvalRunner:
         summary = runner.run(DatasetKind.DATA_CLEANUP)
 
         assert summary.tickets_errored == 5
-        assert summary.tickets_scored == 55
+        assert summary.tickets_scored == 70
 
     def test_no_gold_raises(self) -> None:
         """Running against a dataset with no gold should raise ValueError."""

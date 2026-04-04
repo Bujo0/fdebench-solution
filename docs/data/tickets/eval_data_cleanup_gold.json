@@ -1089,5 +1089,279 @@
       "For Issue 2: Coordinate with Network Ops to assess WiFi coverage changes after the new partition installation on the 3rd floor.",
       "For Issue 5: Increase the HR shared mailbox quota or implement an auto-archive policy to prevent the 50 GB limit from being hit again."
     ]
+  },
+  {
+    "ticket_id": "INC-5061",
+    "category": "Network & Connectivity",
+    "priority": "P3",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": [
+      "application_version",
+      "error_message"
+    ],
+    "next_best_action": "Diagnose GlobalProtect VPN 'gateway not reachable' error for a single user on Floor 4, Building 2 NYC \u2014 colleague on same floor is unaffected, suggesting a client-side or profile configuration issue.",
+    "remediation_steps": [
+      "Verify the user's GlobalProtect client version and update if outdated.",
+      "Check the VPN gateway address configured on the client \u2014 it may have been corrupted after an update.",
+      "Run 'netsh winsock reset' and flush DNS to rule out local networking stack issues.",
+      "If the issue persists, remove and reinstall the GlobalProtect VPN client.",
+      "Confirm network connectivity to the VPN gateway IP directly using ping and traceroute."
+    ]
+  },
+  {
+    "ticket_id": "INC-5062",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "configuration_details"
+    ],
+    "next_best_action": "Coordinate Bloomberg Terminal license renewal for key BBGTERM-QA-2026-0047 expiring March 31 \u2014 PO already submitted via Ariba (PO-2026-11847). Verify renewal status with Bloomberg rep.",
+    "remediation_steps": [
+      "Confirm the Ariba PO (PO-2026-11847) has been approved and transmitted to Bloomberg.",
+      "Contact the Bloomberg account representative to verify the renewal is in progress.",
+      "If the renewal cannot be completed before March 31, request a temporary extension from Bloomberg.",
+      "Verify the B-PIPE data feed configuration will survive the license rollover without reconfiguration.",
+      "Notify the quant team of the renewal timeline and any expected downtime window."
+    ]
+  },
+  {
+    "ticket_id": "INC-5063",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "environment_details"
+    ],
+    "next_best_action": "Investigate OOMKilled crash in risk-calc-service v3.2.1 \u2014 the pod is in CrashLoopBackOff with Java heap OOM during VaR calculation. Likely a memory regression introduced in the v3.2.1 deployment.",
+    "remediation_steps": [
+      "Roll back risk-calc-service from v3.2.1 to v3.2.0 to restore production stability immediately.",
+      "Compare heap usage profiles between v3.2.0 and v3.2.1 to identify the memory regression.",
+      "Investigate the VaR calculation path for portfolio PF-2847 \u2014 it may involve unusually large datasets.",
+      "Consider increasing the pod memory limit from 4Gi to 8Gi as a temporary measure if rollback is not feasible.",
+      "Add memory usage alerts at 70% threshold to catch future regressions before OOMKill."
+    ]
+  },
+  {
+    "ticket_id": "INC-5064",
+    "category": "Hardware & Peripherals",
+    "priority": "P4",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [
+      "error_message",
+      "device_info"
+    ],
+    "next_best_action": "Investigate HP Color LaserJet error on Floor 6 near room 6.12 \u2014 blinking red/yellow LEDs and display showing 'Error'. Multiple users affected.",
+    "remediation_steps": [
+      "Check the printer's LCD display for a specific error code or message.",
+      "Open the printer and check for paper jams, low toner, or imaging drum issues.",
+      "Power-cycle the printer and check if the error clears on reboot.",
+      "If LEDs continue blinking red/yellow, consult the HP service manual for the specific LED pattern meaning.",
+      "If hardware failure is confirmed, open a warranty or service request with HP."
+    ]
+  },
+  {
+    "ticket_id": "INC-5065",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "affected_users"
+    ],
+    "next_best_action": "Grant 'Log on as a service' right to svc-intune-deploy so the CyberArk Agent MSI can start its Windows service during Intune deployment.",
+    "remediation_steps": [
+      "Add CONTOSO\\svc-intune-deploy to the 'Log on as a service' local security policy via GPO or secpol.msc.",
+      "Verify the service account has the correct permissions on the target machines.",
+      "Re-run the Intune Win32 app deployment after the policy change propagates.",
+      "Validate the installation completes successfully on a test machine before fleet-wide deployment.",
+      "Update the Intune deployment documentation to include the 'Log on as a service' prerequisite."
+    ]
+  },
+  {
+    "ticket_id": "INC-5066",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "steps_to_reproduce"
+    ],
+    "next_best_action": "Investigate 500 error on the expense portal \u2014 stack trace shows SQL connection pool exhaustion on PROD-WEB-04. Likely a connection leak or traffic spike.",
+    "remediation_steps": [
+      "Check PROD-WEB-04 for SQL connection pool exhaustion \u2014 review active and idle connection counts.",
+      "Recycle the application pool on PROD-WEB-04 as an immediate mitigation.",
+      "Review the ExpenseController.Submit() code path for connection leaks or missing Dispose() calls.",
+      "Check if there was a traffic spike or slow query causing connections to be held longer than usual.",
+      "Increase the connection pool MaxPoolSize if legitimate traffic growth is the root cause."
+    ]
+  },
+  {
+    "ticket_id": "INC-5067",
+    "category": "Data & Storage",
+    "priority": "P3",
+    "assigned_team": "Data Platform",
+    "needs_escalation": false,
+    "missing_information": [
+      "authentication_method"
+    ],
+    "next_best_action": "Grant SharePoint access to reg-docs-emea site for Omar Hassan \u2014 ServiceNow request REQ-2026-04821 already approved by manager Fatima Al-Ali.",
+    "remediation_steps": [
+      "Verify ServiceNow request REQ-2026-04821 is approved and includes the correct site URL.",
+      "Add Omar Hassan to the appropriate SharePoint security group for reg-docs-emea.",
+      "Confirm the user can access the site after permission changes propagate (up to 24 hours).",
+      "If access is still denied, check for any Conditional Access policies blocking the London office IP range.",
+      "Update the ServiceNow request to 'Fulfilled' once access is confirmed."
+    ]
+  },
+  {
+    "ticket_id": "INC-5068",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "error_message",
+      "environment_details"
+    ],
+    "next_best_action": "Investigate timeout error on the expense report portal during form submission \u2014 likely a backend API issue since the user gets consistent 30s timeouts.",
+    "remediation_steps": [
+      "Check the expense portal API logs for timeout errors on the /api/v2/expenses/submit endpoint.",
+      "Verify backend service health and database connectivity for the expense processing system.",
+      "Check if there is a known issue with the expense portal deployment or recent changes.",
+      "As a workaround, ask the user to submit the expense via the mobile app or email to expenses@contoso.com.",
+      "Monitor the portal for recurring timeout issues and escalate if systemic."
+    ]
+  },
+  {
+    "ticket_id": "INC-5069",
+    "category": "Hardware & Peripherals",
+    "priority": "P2",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [
+      "application_version"
+    ],
+    "next_best_action": "Investigate recurring BSOD with KERNEL_MODE_HEAP_CORRUPTION on NYC-WS-3847 \u2014 bugcheck code 209 suggests a kernel-mode driver is corrupting the heap. Correlates with Excel + Bloomberg concurrent usage.",
+    "remediation_steps": [
+      "Collect the MEMORY.DMP from C:\\Windows and analyze with WinDbg to identify the faulting driver.",
+      "Check for updated drivers for the Dell Latitude 5540, especially display and chipset drivers.",
+      "Verify the Bloomberg Terminal driver/plugin is compatible with Windows 11 23H2.",
+      "Run Windows Memory Diagnostic to rule out faulty RAM.",
+      "If driver analysis is inconclusive, replace the workstation with a fresh image and reinstall applications incrementally to isolate the cause."
+    ]
+  },
+  {
+    "ticket_id": "INC-5070",
+    "category": "Network & Connectivity",
+    "priority": "P2",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": [
+      "network_location"
+    ],
+    "next_best_action": "Investigate recurring TCP connection resets to Singapore data center (10.30.1.50) after ~8 min of normal traffic \u2014 likely a stateful firewall or NAT table timeout issue.",
+    "remediation_steps": [
+      "Check firewall session timeout settings on the path between NYC and Singapore \u2014 8-minute drops suggest a session table expiry.",
+      "Verify TCP keepalive settings on both endpoints to ensure sessions stay active.",
+      "Check the WAN link utilization and packet loss between NYC and Singapore offices.",
+      "Review recent firewall or network configuration changes that may have reduced session timeouts.",
+      "If firewall timeouts are the cause, increase the TCP session timeout or enable TCP keepalive passthrough."
+    ]
+  },
+  {
+    "ticket_id": "INC-5071",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "environment_details"
+    ],
+    "next_best_action": "Investigate failing test in client-reporting-api CI pipeline \u2014 report.test.ts:47 returns 500 instead of 200 for large portfolios. Likely caused by Monday's database schema migration.",
+    "remediation_steps": [
+      "Review the database schema migration that ran Monday and check for breaking changes to the report generation query.",
+      "Run the failing test locally with verbose output to get the full error stack trace.",
+      "Check if the report generation endpoint handles the new schema correctly, especially for large portfolio datasets.",
+      "If the migration introduced a new column or changed a type, update the report service code to match.",
+      "Once fixed, re-run the CI pipeline and verify all 24 tests pass."
+    ]
+  },
+  {
+    "ticket_id": "INC-5072",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "error_message"
+    ],
+    "next_best_action": "Investigate broken SAP Fiori approval link from email notification \u2014 URL contains excessive tracking parameters that may be causing parsing issues. User needs to approve PO-2026-11892.",
+    "remediation_steps": [
+      "Provide the user with a clean direct link to the SAP approval page without the tracking parameters.",
+      "Verify the SAP Fiori Launchpad is accessible at the base URL and the approval workflow is active.",
+      "Check if the email notification template is generating malformed URLs with excessive query parameters.",
+      "Report the URL truncation issue to the SAP notification team for template correction.",
+      "As a workaround, have the user navigate to the SAP portal directly and find the pending approval in their inbox."
+    ]
+  },
+  {
+    "ticket_id": "INC-5073",
+    "category": "Software & Applications",
+    "priority": "P4",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "application_version",
+      "affected_users"
+    ],
+    "next_best_action": "Investigate Outlook duplicate calendar event issue affecting the Finance department after the latest M365 update \u2014 accepted meetings appear twice and cancelled events persist.",
+    "remediation_steps": [
+      "Check the M365 admin center for known issues with the latest Outlook update affecting calendar sync.",
+      "Verify the Exchange calendar processing settings for affected mailboxes.",
+      "Run 'outlook.exe /cleanreminders' and '/resetnavpane' on an affected machine to clear corrupted calendar cache.",
+      "If the issue is widespread, consider rolling back the M365 update for the Finance department.",
+      "Report the issue to Microsoft support if no known fix exists."
+    ]
+  },
+  {
+    "ticket_id": "INC-5074",
+    "category": "Data & Storage",
+    "priority": "P2",
+    "assigned_team": "Data Platform",
+    "needs_escalation": false,
+    "missing_information": [
+      "timestamp"
+    ],
+    "next_best_action": "Investigate overnight reconciliation ETL failure causing portfolio data mismatches \u2014 2 accounts missing entirely and 3 with quantity discrepancies. Blocking daily NAV calculation.",
+    "remediation_steps": [
+      "Check the overnight reconciliation ETL job logs for errors or incomplete runs.",
+      "Investigate PF-2849 (missing from local DB) and PF-2852 (missing from custodian feed) \u2014 may be new accounts not yet mapped.",
+      "For the quantity mismatches (PF-2848, PF-2851, PF-2855), check if Friday's settlement transactions were fully processed.",
+      "Re-run the reconciliation ETL with the latest custodian data feed.",
+      "Provide the corrected data to Fund Admin so the NAV calculation can proceed."
+    ]
+  },
+  {
+    "ticket_id": "INC-5075",
+    "category": "Network & Connectivity",
+    "priority": "P3",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": [
+      "timestamp"
+    ],
+    "next_best_action": "Investigate prod-web-04 down alert \u2014 100% packet loss and HTTP/HTTPS connection refused. Also check prod-db-02 for 12% packet loss and slow MySQL queries.",
+    "remediation_steps": [
+      "Check physical/virtual status of prod-web-04 \u2014 verify it is powered on and reachable from the management network.",
+      "If the server is responsive via console, check for OS-level issues (disk full, kernel panic, hung processes).",
+      "Restart the HTTP/HTTPS services on prod-web-04 if the OS is healthy.",
+      "For prod-db-02, investigate the slow queries and 12% packet loss \u2014 check network interface errors and query execution plans.",
+      "Update the Nagios monitoring team on findings and any remediation actions taken."
+    ]
   }
 ]

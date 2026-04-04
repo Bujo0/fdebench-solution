@@ -3874,4 +3874,1146 @@ def get_scenarios() -> list[ScenarioDefinition]:
             ],
             difficulty="hard",
         ),
+        # ── DC-061  ALL CAPS email with poor grammar ─────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-061",
+            subject="VPN NOT WORKING AGAIN PLEASE FIX",
+            description=(
+                "HI IT TEAM\n\n"
+                "MY VPN IS NOT WORKING AGAIN. I TRYED TO CONNECT THIS "
+                "MORNING AND IT SAYS CONECTION FAILED. I RESTARTED MY "
+                "LAPTOP AND TRYED AGAIN BUT SAME THING. I NEED TO "
+                "ACCESS THE TRADING PLATFORM AND CANT DO ANYTHING "
+                "WITHOUT VPN. THIS HAPPENS EVERY WEEK AND NOBODY "
+                "FIXES IT. I AM ON THE 4TH FLOOR BUILDING 2 IN NEW "
+                "YORK. MY LAPTOP IS A LENOVO THINKPAD T14. I AM USING "
+                "WINDOWS 11. THE VPN CLIENT IS GLOBALPROTECT. WHEN I "
+                "CLICK CONNECT IT SPINS FOR ABOUT 30 SECONDS THEN "
+                "SAYS GATEWAY NOT REACHABLE. I ASKED MY COLLEAGUE AND "
+                "HIS VPN WORKS FINE SO ITS JUST MY MACHINE. PLEASE "
+                "HELP URGENTLY I HAVE A CLIENT CALL AT 10AM AND NEED "
+                "ACCESS TO THE PORTFOLIO MANAGEMENT SYSTEM.\n\n"
+                "THANKS\nKEVIN"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P3,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[
+                MissingInfo.APPLICATION_VERSION,
+                MissingInfo.ERROR_MESSAGE,
+            ],
+            next_best_action=(
+                "Diagnose GlobalProtect VPN 'gateway not reachable' "
+                "error for a single user on Floor 4, Building 2 NYC "
+                "— colleague on same floor is unaffected, suggesting "
+                "a client-side or profile configuration issue."
+            ),
+            remediation_steps=[
+                "Verify the user's GlobalProtect client version and "
+                "update if outdated.",
+                "Check the VPN gateway address configured on the "
+                "client — it may have been corrupted after an update.",
+                "Run 'netsh winsock reset' and flush DNS to rule out "
+                "local networking stack issues.",
+                "If the issue persists, remove and reinstall the "
+                "GlobalProtect VPN client.",
+                "Confirm network connectivity to the VPN gateway IP "
+                "directly using ping and traceroute.",
+            ],
+            reporter_name="Kevin Marsh",
+            reporter_email="kevin.marsh@contoso.com",
+            reporter_department="Portfolio Management",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "all-caps", "poor-formatting"],
+            difficulty="medium",
+        ),
+        # ── DC-062  Extremely long subject line ──────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-062",
+            subject=(
+                "Bloomberg Terminal license renewal request for the "
+                "Quantitative Analysis team — license key BBGTERM-"
+                "QA-2026-0047 is expiring on March 31 and we need "
+                "it renewed before end of month or we lose access "
+                "to the B-PIPE data feed which is critical for our "
+                "model calibration pipeline"
+            ),
+            description=(
+                "Hi IT,\n\n"
+                "As mentioned in the subject, our Bloomberg Terminal "
+                "license (key: BBGTERM-QA-2026-0047) is set to expire "
+                "on March 31, 2026. This license covers 3 terminals "
+                "used by our quant team for real-time market data via "
+                "the B-PIPE feed.\n\n"
+                "We already have budget approval from our department "
+                "head (Maria Santos). The renewal PO was submitted "
+                "through Ariba last week (PO-2026-11847).\n\n"
+                "Can you coordinate with Bloomberg to ensure the "
+                "license is renewed before the expiry date? If we "
+                "lose access even for a day it will disrupt our risk "
+                "model validation cycle.\n\n"
+                "Thanks,\nAndrew Kim\nQuantitative Analysis"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.CONFIGURATION_DETAILS],
+            next_best_action=(
+                "Coordinate Bloomberg Terminal license renewal for "
+                "key BBGTERM-QA-2026-0047 expiring March 31 — PO "
+                "already submitted via Ariba (PO-2026-11847). Verify "
+                "renewal status with Bloomberg rep."
+            ),
+            remediation_steps=[
+                "Confirm the Ariba PO (PO-2026-11847) has been "
+                "approved and transmitted to Bloomberg.",
+                "Contact the Bloomberg account representative to "
+                "verify the renewal is in progress.",
+                "If the renewal cannot be completed before March 31, "
+                "request a temporary extension from Bloomberg.",
+                "Verify the B-PIPE data feed configuration will "
+                "survive the license rollover without reconfiguration.",
+                "Notify the quant team of the renewal timeline and "
+                "any expected downtime window.",
+            ],
+            reporter_name="Andrew Kim",
+            reporter_email="andrew.kim@contoso.com",
+            reporter_department="Quantitative Analysis",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "long-subject",
+                "unusual-formatting",
+            ],
+            difficulty="easy",
+        ),
+        # ── DC-063  Kubernetes / Docker container log dump ───────────────
+        ScenarioDefinition(
+            scenario_id="DC-063",
+            subject="Risk calculation service crashing in production",
+            description=(
+                "The risk-calc-service keeps crashing in our AKS "
+                "cluster. Here are the pod logs:\n\n"
+                "$ kubectl logs risk-calc-service-7b9f4d6c8-xk2mv "
+                "--tail=100\n"
+                "2026-03-18T08:14:01.223Z [INFO] Starting risk-calc-"
+                "service v3.2.1 (commit: a4f8e2d)\n"
+                "2026-03-18T08:14:01.224Z [INFO] Connecting to "
+                "Azure SQL: tcp:contoso-prod-sql.database.windows"
+                ".net:1433\n"
+                "2026-03-18T08:14:02.118Z [INFO] DB connection pool "
+                "initialized (min=5, max=50)\n"
+                "2026-03-18T08:14:02.119Z [INFO] Loading risk models "
+                "from blob storage...\n"
+                "2026-03-18T08:14:05.447Z [INFO] Loaded 47 risk "
+                "models (1.2 GB total)\n"
+                "2026-03-18T08:14:05.448Z [INFO] Starting gRPC "
+                "server on :8443\n"
+                "2026-03-18T08:14:05.449Z [INFO] Health check "
+                "endpoint ready on :8080/healthz\n"
+                "2026-03-18T08:14:05.450Z [INFO] Ready to accept "
+                "requests\n"
+                "2026-03-18T08:22:17.891Z [WARN] Memory usage at "
+                "78% (3.12 GB / 4 GB limit)\n"
+                "2026-03-18T08:22:18.002Z [WARN] GC pressure high "
+                "— consider increasing memory limit\n"
+                "2026-03-18T08:25:33.114Z [ERROR] OutOfMemoryError "
+                "in VaR calculation for portfolio PF-2847\n"
+                "2026-03-18T08:25:33.115Z [ERROR] java.lang.Out"
+                "OfMemoryError: Java heap space\n"
+                "    at com.contoso.risk.VaREngine.calculate"
+                "(VaREngine.java:287)\n"
+                "    at com.contoso.risk.BatchProcessor.process"
+                "(BatchProcessor.java:142)\n"
+                "    at com.contoso.risk.grpc.RiskServiceImpl"
+                ".calculateRisk(RiskServiceImpl.java:58)\n"
+                "2026-03-18T08:25:33.116Z [FATAL] Unrecoverable "
+                "error — shutting down\n\n"
+                "$ kubectl describe pod risk-calc-service-7b9f4d6c8"
+                "-xk2mv\n"
+                "Name:         risk-calc-service-7b9f4d6c8-xk2mv\n"
+                "Namespace:    prod-risk\n"
+                "Node:         aks-nodepool1-38274651-vmss000003\n"
+                "Status:       CrashLoopBackOff\n"
+                "Restart Count: 7\n"
+                "Containers:\n"
+                "  risk-calc:\n"
+                "    Image:    contosoacr.azurecr.io/risk-calc"
+                ":3.2.1\n"
+                "    Limits:   cpu: 2, memory: 4Gi\n"
+                "    Requests: cpu: 500m, memory: 2Gi\n"
+                "    State:    Waiting (CrashLoopBackOff)\n"
+                "    Last State: Terminated (OOMKilled)\n"
+                "Events:\n"
+                "  Warning  OOMKilled  3m  kubelet  Container "
+                "risk-calc exceeded memory limit\n"
+                "  Warning  BackOff    1m  kubelet  Back-off "
+                "restarting failed container\n\n"
+                "This started after we deployed v3.2.1 on Friday. "
+                "The previous version (v3.2.0) ran fine with the "
+                "same memory limits."
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate OOMKilled crash in risk-calc-service "
+                "v3.2.1 — the pod is in CrashLoopBackOff with Java "
+                "heap OOM during VaR calculation. Likely a memory "
+                "regression introduced in the v3.2.1 deployment."
+            ),
+            remediation_steps=[
+                "Roll back risk-calc-service from v3.2.1 to v3.2.0 "
+                "to restore production stability immediately.",
+                "Compare heap usage profiles between v3.2.0 and "
+                "v3.2.1 to identify the memory regression.",
+                "Investigate the VaR calculation path for portfolio "
+                "PF-2847 — it may involve unusually large datasets.",
+                "Consider increasing the pod memory limit from 4Gi "
+                "to 8Gi as a temporary measure if rollback is not "
+                "feasible.",
+                "Add memory usage alerts at 70% threshold to catch "
+                "future regressions before OOMKill.",
+            ],
+            reporter_name="Priya Nair",
+            reporter_email="priya.nair@contoso.com",
+            reporter_department="Cloud Infrastructure",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "container-logs",
+                "k8s-output",
+                "log-dump",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-064  Emoji-only subject with emoji-heavy description ──────
+        ScenarioDefinition(
+            scenario_id="DC-064",
+            subject="\U0001f5a8\ufe0f\u274c\U0001f6a8\U0001f62d\U0001f44e",
+            description=(
+                "\U0001f5a8\ufe0f The printer on Floor 6 near the "
+                "kitchen \U0001f373 is not working again \U0001f62d"
+                "\U0001f62d\U0001f62d\n\n"
+                "I tried printing my expense report \U0001f4b8 and "
+                "it just shows 'Error' on the display \u274c\n\n"
+                "Other people are having the same problem \U0001f46b"
+                "\U0001f46c\U0001f46d so it's not just me \U0001f937"
+                "\u200d\u2642\ufe0f\n\n"
+                "The lights on the printer are blinking \U0001f6a8"
+                "\U0001f6a8\U0001f6a8 red and yellow\n\n"
+                "Can someone please come fix it \U0001f64f\U0001f64f"
+                "\U0001f64f\n\n"
+                "It's the HP Color LaserJet \U0001f5a8\ufe0f near "
+                "room 6.12 \U0001f3e2\n\n"
+                "Thanks \U0001f44d\U0001f44d\U0001f44d"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P4,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[
+                MissingInfo.ERROR_MESSAGE,
+                MissingInfo.DEVICE_INFO,
+            ],
+            next_best_action=(
+                "Investigate HP Color LaserJet error on Floor 6 "
+                "near room 6.12 — blinking red/yellow LEDs and "
+                "display showing 'Error'. Multiple users affected."
+            ),
+            remediation_steps=[
+                "Check the printer's LCD display for a specific "
+                "error code or message.",
+                "Open the printer and check for paper jams, low "
+                "toner, or imaging drum issues.",
+                "Power-cycle the printer and check if the error "
+                "clears on reboot.",
+                "If LEDs continue blinking red/yellow, consult "
+                "the HP service manual for the specific LED "
+                "pattern meaning.",
+                "If hardware failure is confirmed, open a warranty "
+                "or service request with HP.",
+            ],
+            reporter_name="Tomas Reyes",
+            reporter_email="tomas.reyes@contoso.com",
+            reporter_department="Client Services",
+            channel=Channel.CHAT,
+            tags=[
+                "data-cleanup",
+                "emoji-subject",
+                "emoji-heavy",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-065  PowerShell verbose output dump ───────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-065",
+            subject="Intune app deployment failing — PowerShell log",
+            description=(
+                "The Intune Win32 app deployment for CyberArk "
+                "Privilege Cloud is failing on all machines in the "
+                "Trading department. Here's the verbose PowerShell "
+                "output from a manual test run:\n\n"
+                "PS C:\\> Install-CyberArkAgent.ps1 -Verbose\n"
+                "VERBOSE: Starting CyberArk Privilege Cloud agent "
+                "installation v12.6.2\n"
+                "VERBOSE: Checking prerequisites...\n"
+                "VERBOSE: .NET Framework 4.8: OK (4.8.09032)\n"
+                "VERBOSE: Visual C++ 2019 Redistributable: OK\n"
+                "VERBOSE: Checking service 'CyberArkAgent'... Not "
+                "found (expected for fresh install)\n"
+                "VERBOSE: Downloading installer from https://pkg"
+                ".cyberark.com/agents/v12.6.2/CyberArkAgent.msi\n"
+                "VERBOSE: Download complete (48.7 MB)\n"
+                "VERBOSE: Verifying SHA256 hash: a4f8e2d1b7c9...\n"
+                "VERBOSE: Hash verification: OK\n"
+                "VERBOSE: Running MSI installer with parameters:\n"
+                "VERBOSE:   /i CyberArkAgent.msi /qn /norestart\n"
+                "VERBOSE:   PVWAURL=https://contoso.privilegecloud"
+                ".cyberark.cloud\n"
+                "VERBOSE:   APPUSERID=svc-intune-deploy\n"
+                "VERBOSE: MSI installer started (PID: 14832)\n"
+                "VERBOSE: Waiting for installation to complete...\n"
+                "VERBOSE: MSI installer exited with code: 1603\n"
+                "VERBOSE: ERROR — MSI installation failed!\n"
+                "VERBOSE: Checking Windows Installer log: C:\\Temp"
+                "\\CyberArkInstall.log\n"
+                "VERBOSE: Log excerpt: 'Error 1920: Service "
+                "'CyberArk Agent' (CyberArkAgent) failed to start. "
+                "Verify that you have sufficient privileges.'\n"
+                "VERBOSE: The service account 'svc-intune-deploy' "
+                "may lack 'Log on as a service' rights.\n"
+                "VERBOSE: Checking local security policy...\n"
+                "VERBOSE: 'Log on as a service': CONTOSO\\svc-intune"
+                "-deploy is NOT listed\n"
+                "VERBOSE: Cleanup: removing partial installation...\n"
+                "VERBOSE: Cleanup complete.\n"
+                "VERBOSE: Installation FAILED — exit code 1603\n\n"
+                "Can you grant the service account the required "
+                "privilege so we can deploy?"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.AFFECTED_USERS],
+            next_best_action=(
+                "Grant 'Log on as a service' right to svc-intune-"
+                "deploy so the CyberArk Agent MSI can start its "
+                "Windows service during Intune deployment."
+            ),
+            remediation_steps=[
+                "Add CONTOSO\\svc-intune-deploy to the 'Log on as "
+                "a service' local security policy via GPO or "
+                "secpol.msc.",
+                "Verify the service account has the correct "
+                "permissions on the target machines.",
+                "Re-run the Intune Win32 app deployment after the "
+                "policy change propagates.",
+                "Validate the installation completes successfully "
+                "on a test machine before fleet-wide deployment.",
+                "Update the Intune deployment documentation to "
+                "include the 'Log on as a service' prerequisite.",
+            ],
+            reporter_name="Raj Patel",
+            reporter_email="raj.patel@contoso.com",
+            reporter_department="IT Security",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "powershell-output",
+                "verbose-logs",
+                "terminal-output",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-066  Browser view-source HTML paste ───────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-066",
+            subject="Internal expense portal showing error page",
+            description=(
+                "When I try to submit my expense report on the "
+                "internal portal I get an error page. I did "
+                "view-source and this is what I see:\n\n"
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n'
+                "  <meta charset=\"UTF-8\">\n"
+                "  <title>500 - Internal Server Error</title>\n"
+                "  <style>\n"
+                "    body { font-family: Segoe UI, sans-serif; "
+                "margin: 40px; background: #f5f5f5; }\n"
+                "    .error-container { background: white; "
+                "padding: 30px; border-radius: 8px; }\n"
+                "    .error-code { color: #d32f2f; font-size: "
+                "72px; font-weight: bold; }\n"
+                "    .stack-trace { background: #f5f5f5; "
+                "padding: 15px; font-family: Consolas; "
+                "font-size: 12px; overflow-x: auto; }\n"
+                "  </style>\n</head>\n<body>\n"
+                '  <div class="error-container">\n'
+                '    <div class="error-code">500</div>\n'
+                "    <h1>Internal Server Error</h1>\n"
+                "    <p>An unhandled exception occurred while "
+                "processing the request.</p>\n"
+                '    <div class="stack-trace">\n'
+                "      System.InvalidOperationException: The "
+                "connection pool has been exhausted.\n"
+                "        at Microsoft.Data.SqlClient.SqlInternal"
+                "ConnectionPool.GetConnection()\n"
+                "        at Contoso.Expenses.Api.Controllers."
+                "ExpenseController.Submit()\n"
+                "        at lambda_method17(Closure, Object)\n"
+                "    </div>\n"
+                "    <!-- Request ID: 7f3a2b1c-4e8d-4f9a -->\n"
+                "    <!-- Server: PROD-WEB-04 -->\n"
+                "    <!-- Timestamp: 2026-03-18T09:15:22.847Z "
+                "-->\n"
+                "  </div>\n</body>\n</html>\n\n"
+                "The URL is https://expenses.contoso.internal/"
+                "submit and I'm using Chrome."
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Investigate 500 error on the expense portal — "
+                "stack trace shows SQL connection pool exhaustion "
+                "on PROD-WEB-04. Likely a connection leak or "
+                "traffic spike."
+            ),
+            remediation_steps=[
+                "Check PROD-WEB-04 for SQL connection pool "
+                "exhaustion — review active and idle connection "
+                "counts.",
+                "Recycle the application pool on PROD-WEB-04 as "
+                "an immediate mitigation.",
+                "Review the ExpenseController.Submit() code path "
+                "for connection leaks or missing Dispose() calls.",
+                "Check if there was a traffic spike or slow query "
+                "causing connections to be held longer than usual.",
+                "Increase the connection pool MaxPoolSize if "
+                "legitimate traffic growth is the root cause.",
+            ],
+            reporter_name="Helen Park",
+            reporter_email="helen.park@contoso.com",
+            reporter_department="Finance",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "view-source",
+                "raw-html",
+                "html-heavy",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-067  Mixed RTL/LTR text ───────────────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-067",
+            subject=(
+                "SharePoint access \u2014 "
+                "\u0645\u0648\u0642\u0639 \u0634\u064a\u0631"
+                "\u0628\u0648\u064a\u0646\u062a "
+                "\u0644\u0627 \u064a\u0639\u0645\u0644"
+            ),
+            description=(
+                "\u0645\u0631\u062d\u0628\u0627 IT team,\n\n"
+                "\u0623\u0646\u0627 \u0645\u0646 "
+                "\u0641\u0631\u064a\u0642 "
+                "\u0627\u0644\u0627\u0645\u062a\u062b\u0627"
+                "\u0644 (Compliance team) \u0641\u064a "
+                "\u0645\u0643\u062a\u0628 London.\n\n"
+                "I need access to the new SharePoint site for "
+                "regulatory documents:\n"
+                "https://contoso.sharepoint.com/sites/"
+                "reg-docs-emea\n\n"
+                "\u0639\u0646\u062f\u0645\u0627 "
+                "\u0623\u062d\u0627\u0648\u0644 "
+                "\u0627\u0644\u0648\u0635\u0648\u0644 "
+                "\u0623\u062d\u0635\u0644 \u0639\u0644\u0649 "
+                "\u0631\u0633\u0627\u0644\u0629 "
+                "\u0627\u0644\u062e\u0637\u0623:\n"
+                '"Access Denied — You do not have permission to '
+                'access this resource."\n\n'
+                "My manager \u0641\u0627\u0637\u0645\u0629 "
+                "\u0627\u0644\u0639\u0644\u064a "
+                "(Fatima Al-Ali) approved my access request "
+                "through ServiceNow last week "
+                "(REQ-2026-04821).\n\n"
+                "\u0634\u0643\u0631\u0627\u064b (Thanks),\n"
+                "Omar Hassan\n"
+                "\u0642\u0633\u0645 "
+                "\u0627\u0644\u0627\u0645\u062a\u062b\u0627"
+                "\u0644 | Compliance Department"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P3,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.AUTHENTICATION_METHOD],
+            next_best_action=(
+                "Grant SharePoint access to reg-docs-emea site "
+                "for Omar Hassan — ServiceNow request REQ-2026-"
+                "04821 already approved by manager Fatima Al-Ali."
+            ),
+            remediation_steps=[
+                "Verify ServiceNow request REQ-2026-04821 is "
+                "approved and includes the correct site URL.",
+                "Add Omar Hassan to the appropriate SharePoint "
+                "security group for reg-docs-emea.",
+                "Confirm the user can access the site after "
+                "permission changes propagate (up to 24 hours).",
+                "If access is still denied, check for any "
+                "Conditional Access policies blocking the London "
+                "office IP range.",
+                "Update the ServiceNow request to 'Fulfilled' "
+                "once access is confirmed.",
+            ],
+            reporter_name="Omar Hassan",
+            reporter_email="omar.hassan@contoso.com",
+            reporter_department="Compliance",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "rtl-text",
+                "mixed-direction",
+                "multilingual",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-068  HTML form submission artifacts ───────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-068",
+            subject="Expense report portal submission error",
+            description=(
+                "I tried to submit my expense report and the portal "
+                "gave me an error. Here is what I copied from the "
+                "page:\n\n"
+                "form action=\"/api/v2/expenses/submit\" "
+                'method="POST"\n'
+                'input type="hidden" name="__csrf_token" '
+                'value="a8f3e2d1-b7c9-4a6e-91f5-2c8d7e3b4a1f"\n'
+                'input type="hidden" name="__session_id" '
+                'value="sess_Kj8mNp2qRtL1vW5x"\n'
+                'input type="hidden" name="employee_id" '
+                'value="EMP-4521"\n'
+                'input type="hidden" name="cost_center" '
+                'value="CC-7200-TRADING"\n'
+                'input type="hidden" name="approval_chain" '
+                'value="MGR:sarah.chen|VP:james.wu|CFO:auto"\n'
+                'select name="expense_type"\n'
+                "  option value=\"travel\"\n"
+                "  option value=\"equipment\" selected\n"
+                "  option value=\"software\"\n"
+                "/select\n"
+                'input type="text" name="amount" '
+                'value="2,450.00"\n'
+                'textarea name="description"'
+                "New ergonomic standing desk for my workstation"
+                "/textarea\n"
+                'input type="submit" value="Submit"\n\n'
+                "When I click submit it says 'Error: Request "
+                "timeout after 30000ms'. The amount is $2,450 "
+                "for a new standing desk. I've tried three times "
+                "and same error every time."
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[
+                MissingInfo.ERROR_MESSAGE,
+                MissingInfo.ENVIRONMENT_DETAILS,
+            ],
+            next_best_action=(
+                "Investigate timeout error on the expense report "
+                "portal during form submission — likely a backend "
+                "API issue since the user gets consistent 30s "
+                "timeouts."
+            ),
+            remediation_steps=[
+                "Check the expense portal API logs for timeout "
+                "errors on the /api/v2/expenses/submit endpoint.",
+                "Verify backend service health and database "
+                "connectivity for the expense processing system.",
+                "Check if there is a known issue with the expense "
+                "portal deployment or recent changes.",
+                "As a workaround, ask the user to submit the "
+                "expense via the mobile app or email to "
+                "expenses@contoso.com.",
+                "Monitor the portal for recurring timeout issues "
+                "and escalate if systemic.",
+            ],
+            reporter_name="Marcus Johnson",
+            reporter_email="marcus.johnson@contoso.com",
+            reporter_department="Trading",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "form-artifacts",
+                "hidden-fields",
+                "html-noise",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-069  Windows Event Log XML blocks ─────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-069",
+            subject="Recurring BSOD on my workstation — Event Logs",
+            description=(
+                "My workstation keeps blue-screening 2-3 times "
+                "per day. I exported the relevant Event Log entries "
+                "as XML:\n\n"
+                "<Event xmlns=\"http://schemas.microsoft.com/"
+                "win/2004/08/events/event\">\n"
+                "  <System>\n"
+                "    <Provider Name=\"Microsoft-Windows-Kernel-"
+                'Power" Guid="{331C3B3A-2005-44C2-AC5E-77220C37'
+                'D6B4}"/>\n'
+                "    <EventID>41</EventID>\n"
+                "    <Level>1</Level>\n"
+                "    <Task>63</Task>\n"
+                "    <Keywords>0x8000400000000002</Keywords>\n"
+                "    <TimeCreated SystemTime=\"2026-03-18T"
+                '08:14:33.0000000Z"/>\n'
+                "    <Computer>NYC-WS-3847.contoso.local"
+                "</Computer>\n"
+                "  </System>\n"
+                "  <EventData>\n"
+                '    <Data Name="BugcheckCode">209</Data>\n'
+                '    <Data Name="BugcheckParameter1">0xfffff802'
+                "1a3c7b10</Data>\n"
+                '    <Data Name="BugcheckParameter2">0x2</Data>\n'
+                '    <Data Name="SleepInProgress">0</Data>\n'
+                '    <Data Name="PowerButtonTimestamp">0'
+                "</Data>\n"
+                "  </EventData>\n"
+                "</Event>\n\n"
+                "<Event xmlns=\"http://schemas.microsoft.com/"
+                "win/2004/08/events/event\">\n"
+                "  <System>\n"
+                "    <Provider Name=\"Microsoft-Windows-"
+                'WER-SystemErrorReporting"/>\n'
+                "    <EventID>1001</EventID>\n"
+                "    <Level>2</Level>\n"
+                "    <TimeCreated SystemTime=\"2026-03-18T"
+                '08:14:45.0000000Z"/>\n'
+                "    <Computer>NYC-WS-3847.contoso.local"
+                "</Computer>\n"
+                "  </System>\n"
+                "  <EventData>\n"
+                '    <Data Name="DumpFile">C:\\Windows\\MEMORY'
+                ".DMP</Data>\n"
+                '    <Data Name="ReportId">a7f3e2d1-b8c9-4f6a'
+                "</Data>\n"
+                "  </EventData>\n"
+                "</Event>\n\n"
+                "The BSOD shows KERNEL_MODE_HEAP_CORRUPTION. "
+                "Machine is a Dell Latitude 5540, 16GB RAM, "
+                "Windows 11 23H2. The crashes seem to happen "
+                "when I have Excel and Bloomberg open at the "
+                "same time."
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P2,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.APPLICATION_VERSION],
+            next_best_action=(
+                "Investigate recurring BSOD with KERNEL_MODE_"
+                "HEAP_CORRUPTION on NYC-WS-3847 — bugcheck code "
+                "209 suggests a kernel-mode driver is corrupting "
+                "the heap. Correlates with Excel + Bloomberg "
+                "concurrent usage."
+            ),
+            remediation_steps=[
+                "Collect the MEMORY.DMP from C:\\Windows and "
+                "analyze with WinDbg to identify the faulting "
+                "driver.",
+                "Check for updated drivers for the Dell Latitude "
+                "5540, especially display and chipset drivers.",
+                "Verify the Bloomberg Terminal driver/plugin is "
+                "compatible with Windows 11 23H2.",
+                "Run Windows Memory Diagnostic to rule out "
+                "faulty RAM.",
+                "If driver analysis is inconclusive, replace the "
+                "workstation with a fresh image and reinstall "
+                "applications incrementally to isolate the cause.",
+            ],
+            reporter_name="Victoria Chang",
+            reporter_email="victoria.chang@contoso.com",
+            reporter_department="Equity Trading",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "event-log",
+                "xml-dump",
+                "windows-events",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-070  Wireshark / tcpdump packet capture output ────────────
+        ScenarioDefinition(
+            scenario_id="DC-070",
+            subject=(
+                "Intermittent connectivity — packet capture attached"
+            ),
+            description=(
+                "My connection to the Singapore data center keeps "
+                "dropping. I ran a tcpdump capture and here is a "
+                "snippet:\n\n"
+                "$ sudo tcpdump -i eth0 host 10.30.1.50 -n\n"
+                "08:14:01.223 IP 10.20.5.117.49832 > 10.30.1.50"
+                ".443: Flags [S], seq 2847193625, win 64240\n"
+                "08:14:01.287 IP 10.30.1.50.443 > 10.20.5.117"
+                ".49832: Flags [S.], seq 1938274651, ack "
+                "2847193626, win 65535\n"
+                "08:14:01.287 IP 10.20.5.117.49832 > 10.30.1.50"
+                ".443: Flags [.], ack 1, win 64240\n"
+                "08:14:01.350 IP 10.20.5.117.49832 > 10.30.1.50"
+                ".443: Flags [P.], seq 1:518, ack 1, win 64240\n"
+                "08:14:01.414 IP 10.30.1.50.443 > 10.20.5.117"
+                ".49832: Flags [P.], seq 1:1453, ack 518, win "
+                "65535\n"
+                "...(normal traffic for ~8 minutes)...\n"
+                "08:22:17.891 IP 10.20.5.117.49832 > 10.30.1.50"
+                ".443: Flags [P.], seq 48291:48809, ack 127350, "
+                "win 64240\n"
+                "08:22:18.891 IP 10.20.5.117.49832 > 10.30.1.50"
+                ".443: Flags [P.], seq 48291:48809, ack 127350, "
+                "win 64240  [TCP Retransmission]\n"
+                "08:22:20.891 IP 10.20.5.117.49832 > 10.30.1.50"
+                ".443: Flags [P.], seq 48291:48809, ack 127350, "
+                "win 64240  [TCP Retransmission]\n"
+                "08:22:24.891 IP 10.20.5.117.49832 > 10.30.1.50"
+                ".443: Flags [R.], seq 48809, ack 127350, win 0\n"
+                "\n"
+                "You can see the connection works fine initially "
+                "but after about 8 minutes I start getting TCP "
+                "retransmissions and then the connection resets. "
+                "This happens every 8-10 minutes. I'm on Floor 7, "
+                "Building 1, New York office."
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.NETWORK_LOCATION],
+            next_best_action=(
+                "Investigate recurring TCP connection resets to "
+                "Singapore data center (10.30.1.50) after ~8 min "
+                "of normal traffic — likely a stateful firewall "
+                "or NAT table timeout issue."
+            ),
+            remediation_steps=[
+                "Check firewall session timeout settings on the "
+                "path between NYC and Singapore — 8-minute drops "
+                "suggest a session table expiry.",
+                "Verify TCP keepalive settings on both endpoints "
+                "to ensure sessions stay active.",
+                "Check the WAN link utilization and packet loss "
+                "between NYC and Singapore offices.",
+                "Review recent firewall or network configuration "
+                "changes that may have reduced session timeouts.",
+                "If firewall timeouts are the cause, increase the "
+                "TCP session timeout or enable TCP keepalive "
+                "passthrough.",
+            ],
+            reporter_name="James Liu",
+            reporter_email="james.liu@contoso.com",
+            reporter_department="Data Engineering",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "packet-capture",
+                "tcpdump",
+                "network-diagnostics",
+            ],
+            difficulty="hard",
+        ),
+        # ── DC-071  GitHub Actions CI pipeline log ───────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-071",
+            subject="Internal deployment pipeline broken since Monday",
+            description=(
+                "Our CI/CD pipeline for the client-reporting-api "
+                "has been failing since Monday. Here is the GitHub "
+                "Actions output:\n\n"
+                "Run #847 \u2014 build-and-deploy.yml\n"
+                "Triggered by: push to main (commit a4f8e2d)\n\n"
+                "\u2705 Step 1/7: Checkout (2s)\n"
+                "  Syncing repository: contoso/client-reporting-"
+                "api\n"
+                "  HEAD is now at a4f8e2d Fix: add null check "
+                "for client ID\n\n"
+                "\u2705 Step 2/7: Setup Node.js 20 (3s)\n"
+                "  Successfully setup Node.js 20.11.1\n\n"
+                "\u2705 Step 3/7: Install dependencies (28s)\n"
+                "  npm ci --ignore-scripts\n"
+                "  added 1,247 packages in 27s\n\n"
+                "\u2705 Step 4/7: Lint (12s)\n"
+                "  > eslint src/ --max-warnings 0\n"
+                "  No warnings or errors found.\n\n"
+                "\u274c Step 5/7: Test (45s)\n"
+                "  > jest --ci --coverage\n"
+                "  PASS src/services/auth.test.ts (2.1s)\n"
+                "  PASS src/services/client.test.ts (1.8s)\n"
+                "  FAIL src/services/report.test.ts (3.2s)\n"
+                "    \u25cf generateReport > should handle large "
+                "portfolios\n"
+                "      Expected: 200\n"
+                "      Received: 500\n"
+                "      at Object.<anonymous> (report.test.ts"
+                ":47)\n"
+                "  Tests: 1 failed, 23 passed, 24 total\n"
+                "  Coverage: 87.3% (threshold: 80%)\n\n"
+                "\u23f9 Step 6/7: Build (skipped)\n"
+                "\u23f9 Step 7/7: Deploy to Azure (skipped)\n\n"
+                "The test that's failing was working before the "
+                "database schema migration that ran Monday "
+                "morning. Can someone look at this?"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate failing test in client-reporting-api "
+                "CI pipeline — report.test.ts:47 returns 500 "
+                "instead of 200 for large portfolios. Likely "
+                "caused by Monday's database schema migration."
+            ),
+            remediation_steps=[
+                "Review the database schema migration that ran "
+                "Monday and check for breaking changes to the "
+                "report generation query.",
+                "Run the failing test locally with verbose output "
+                "to get the full error stack trace.",
+                "Check if the report generation endpoint handles "
+                "the new schema correctly, especially for large "
+                "portfolio datasets.",
+                "If the migration introduced a new column or "
+                "changed a type, update the report service code "
+                "to match.",
+                "Once fixed, re-run the CI pipeline and verify "
+                "all 24 tests pass.",
+            ],
+            reporter_name="Nina Torres",
+            reporter_email="nina.torres@contoso.com",
+            reporter_department="Backend Engineering",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "ci-pipeline",
+                "github-actions",
+                "build-log",
+            ],
+            difficulty="easy",
+        ),
+        # ── DC-072  Massive tracking URL parameters ──────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-072",
+            subject="SAP Fiori link not working from email",
+            description=(
+                "I received a notification email from SAP about "
+                "an approval I need to complete, but the link in "
+                "the email doesn't work. Here's the full URL I'm "
+                "clicking:\n\n"
+                "https://contoso-sap-prod.dispatcher.launchpad"
+                ".cfapps.us10.hana.ondemand.com/sites#Workflow-"
+                "approve&/approval/PO-2026-11892?sap-client=100"
+                "&sap-language=EN&sap-theme=sap_horizon&sap-"
+                "ui-language=en-US&sap-shell-navmode=embedded"
+                "&utm_source=sap_notification&utm_medium=email"
+                "&utm_campaign=po_approval_q1_2026&utm_content="
+                "approve_button&utm_term=purchase_order&mkt_tok="
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOi"
+                "IxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRta"
+                "W4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFO"
+                "NfAHjNc&session_id=s_78a2f3b1c4e9d0g6h5&track="
+                "click_po_approve_20260318_091500_user4521&ref="
+                "email_notification_v3&correlation_id=corr-"
+                "a8f3e2d1-b7c9-4a6e-91f5-2c8d7e3b4a1f&"
+                "device_id=did_Kj8mNp2qRtL1vW5x&analytics_"
+                "session=as_9f2e1d3c4b5a6&user_segment=finance_"
+                "approver_tier2&exp_variant=approval_flow_v4\n\n"
+                "When I click it I get a 'Page not found' error. "
+                "I need to approve PO-2026-11892 before end of "
+                "day — it's for the quarterly software license "
+                "renewals for the Trading floor.\n\n"
+                "Chrome shows the URL gets cut off at the '?' "
+                "when I paste it."
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate broken SAP Fiori approval link from "
+                "email notification — URL contains excessive "
+                "tracking parameters that may be causing parsing "
+                "issues. User needs to approve PO-2026-11892."
+            ),
+            remediation_steps=[
+                "Provide the user with a clean direct link to the "
+                "SAP approval page without the tracking parameters.",
+                "Verify the SAP Fiori Launchpad is accessible at "
+                "the base URL and the approval workflow is active.",
+                "Check if the email notification template is "
+                "generating malformed URLs with excessive query "
+                "parameters.",
+                "Report the URL truncation issue to the SAP "
+                "notification team for template correction.",
+                "As a workaround, have the user navigate to the "
+                "SAP portal directly and find the pending approval "
+                "in their inbox.",
+            ],
+            reporter_name="Lisa Nakamura",
+            reporter_email="lisa.nakamura@contoso.com",
+            reporter_department="Finance",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "tracking-urls",
+                "long-urls",
+                "url-noise",
+            ],
+            difficulty="easy",
+        ),
+        # ── DC-073  Calendar invite spam / ICS data ──────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-073",
+            subject=(
+                "FW: FW: FW: Accepted: Quarterly Budget Review "
+                "(was: FW: Declined: Team Standup)"
+            ),
+            description=(
+                "Begin forwarded message:\n"
+                "From: Calendar System <noreply@contoso.com>\n"
+                "Subject: Accepted: Quarterly Budget Review\n\n"
+                "BEGIN:VCALENDAR\n"
+                "VERSION:2.0\n"
+                "PRODID:-//Microsoft Corporation//Outlook 16.0\n"
+                "METHOD:REPLY\n"
+                "BEGIN:VEVENT\n"
+                "DTSTART:20260320T140000Z\n"
+                "DTEND:20260320T150000Z\n"
+                "SUMMARY:Quarterly Budget Review\n"
+                "LOCATION:NYC-Conf-12A (12th Floor)\n"
+                "ORGANIZER:mailto:sarah.chen@contoso.com\n"
+                "ATTENDEE;RSVP=TRUE:mailto:james.wu@contoso.com\n"
+                "ATTENDEE;RSVP=TRUE:mailto:maria.santos@contoso"
+                ".com\n"
+                "STATUS:CONFIRMED\n"
+                "UID:040000008200E001-A8F3E2D1B7C9@contoso.com\n"
+                "END:VEVENT\n"
+                "END:VCALENDAR\n\n"
+                "--- Previous forward ---\n"
+                "BEGIN:VCALENDAR\n"
+                "VERSION:2.0\n"
+                "METHOD:CANCEL\n"
+                "BEGIN:VEVENT\n"
+                "DTSTART:20260318T093000Z\n"
+                "DTEND:20260318T094500Z\n"
+                "SUMMARY:Team Standup\n"
+                "STATUS:CANCELLED\n"
+                "END:VEVENT\n"
+                "END:VCALENDAR\n\n"
+                "---\n\n"
+                "Hi IT, in between all these calendar "
+                "notifications \u2014 our Outlook desktop client "
+                "is creating duplicate calendar events for every "
+                "meeting. Accepted meetings show up twice and "
+                "cancelled ones don't disappear. This started "
+                "after the M365 update last week. It's affecting "
+                "everyone in the Finance department.\n\n"
+                "Elena Rossi\nFinance"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P4,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[
+                MissingInfo.APPLICATION_VERSION,
+                MissingInfo.AFFECTED_USERS,
+            ],
+            next_best_action=(
+                "Investigate Outlook duplicate calendar event "
+                "issue affecting the Finance department after "
+                "the latest M365 update — accepted meetings "
+                "appear twice and cancelled events persist."
+            ),
+            remediation_steps=[
+                "Check the M365 admin center for known issues "
+                "with the latest Outlook update affecting calendar "
+                "sync.",
+                "Verify the Exchange calendar processing settings "
+                "for affected mailboxes.",
+                "Run 'outlook.exe /cleanreminders' and "
+                "'/resetnavpane' on an affected machine to clear "
+                "corrupted calendar cache.",
+                "If the issue is widespread, consider rolling "
+                "back the M365 update for the Finance department.",
+                "Report the issue to Microsoft support if no "
+                "known fix exists.",
+            ],
+            reporter_name="Elena Rossi",
+            reporter_email="elena.rossi@contoso.com",
+            reporter_department="Finance",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "calendar-forward",
+                "ics-spam",
+                "auto-forward",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-074  Pasted spreadsheet data with misaligned columns ──────
+        ScenarioDefinition(
+            scenario_id="DC-074",
+            subject="Portfolio reconciliation data mismatch",
+            description=(
+                "There's a mismatch in the reconciliation data "
+                "between our system and the custodian. I pasted "
+                "the comparison from Excel below but the columns "
+                "got messed up:\n\n"
+                "Account\tOur Qty\tCust Qty\tDiff\tStatus\n"
+                "PF-2847\t10,000\t10,000\t0\tOK\n"
+                "PF-2848\t5,500\t5,250\t250\tMISMATCH\n"
+                "PF-2849\t\t8,200\t-8200\tMISSING_LOCAL\n"
+                "PF-2850\t3,750\t3,750\t0\tOK\n"
+                "PF-2851\t12,000\t12,500\t-500\tMISMATCH\n"
+                "PF-2852\t7,100\t\t7100\tMISSING_CUSTODIAN\n"
+                "PF-2853\t22,000\t22,000\t0\tOK\n"
+                "PF-2854\t450\t450\t0\tOK\n"
+                "PF-2855\t8,900\t9,100\t-200\tMISMATCH\n"
+                "PF-2856\t15,000\t15,000\t0\tOK\n\n"
+                "As you can see, PF-2849 is completely missing "
+                "from our database, and PF-2852 is missing from "
+                "the custodian's feed. The other mismatches might "
+                "be timing issues from Friday's settlement.\n\n"
+                "This is blocking our daily NAV calculation which "
+                "needs to go out to clients by 10 AM. Can someone "
+                "from the Data Platform team check the overnight "
+                "reconciliation ETL job?\n\n"
+                "Priya Sharma\nFund Administration"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.TIMESTAMP],
+            next_best_action=(
+                "Investigate overnight reconciliation ETL "
+                "failure causing portfolio data mismatches — "
+                "2 accounts missing entirely and 3 with quantity "
+                "discrepancies. Blocking daily NAV calculation."
+            ),
+            remediation_steps=[
+                "Check the overnight reconciliation ETL job "
+                "logs for errors or incomplete runs.",
+                "Investigate PF-2849 (missing from local DB) "
+                "and PF-2852 (missing from custodian feed) — "
+                "may be new accounts not yet mapped.",
+                "For the quantity mismatches (PF-2848, PF-2851, "
+                "PF-2855), check if Friday's settlement "
+                "transactions were fully processed.",
+                "Re-run the reconciliation ETL with the latest "
+                "custodian data feed.",
+                "Provide the corrected data to Fund Admin so "
+                "the NAV calculation can proceed.",
+            ],
+            reporter_name="Priya Sharma",
+            reporter_email="priya.sharma@contoso.com",
+            reporter_department="Fund Administration",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "spreadsheet-paste",
+                "misaligned-columns",
+                "tabular-data",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-075  ANSI escape codes and control characters ─────────────
+        ScenarioDefinition(
+            scenario_id="DC-075",
+            subject="Network monitoring tool showing errors",
+            description=(
+                "Our Nagios monitoring dashboard is showing "
+                "critical alerts. I copied the output from the "
+                "terminal but it has weird characters:\n\n"
+                "\x1b[1;31m[CRITICAL]\x1b[0m Host: "
+                "prod-web-04.contoso.local — PING CRITICAL "
+                "- Packet loss = 100%\n"
+                "\x1b[1;31m[CRITICAL]\x1b[0m Service: "
+                "prod-web-04/HTTP — Connection refused\n"
+                "\x1b[1;33m[WARNING]\x1b[0m  Host: "
+                "prod-db-02.contoso.local — PING WARNING "
+                "- Packet loss = 12%\n"
+                "\x1b[1;32m[OK]\x1b[0m       Host: "
+                "prod-web-01.contoso.local — PING OK "
+                "- 0% packet loss\n"
+                "\x1b[1;32m[OK]\x1b[0m       Host: "
+                "prod-web-02.contoso.local — PING OK "
+                "- 0% packet loss\n"
+                "\x1b[1;31m[CRITICAL]\x1b[0m Service: "
+                "prod-web-04/HTTPS — Connection refused\n"
+                "\x1b[1;33m[WARNING]\x1b[0m  Service: "
+                "prod-db-02/MySQL — Slow query detected "
+                "(avg 4.2s)\n"
+                "\x1b[1;32m[OK]\x1b[0m       Service: "
+                "prod-web-01/HTTP — HTTP/1.1 200 OK "
+                "- 127ms response time\n\n"
+                "It looks like prod-web-04 is completely down "
+                "(100% packet loss and both HTTP and HTTPS "
+                "refusing connections). Also prod-db-02 has "
+                "intermittent packet loss and slow queries. Can "
+                "someone check these servers?"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P3,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.TIMESTAMP],
+            next_best_action=(
+                "Investigate prod-web-04 down alert — 100% "
+                "packet loss and HTTP/HTTPS connection refused. "
+                "Also check prod-db-02 for 12% packet loss and "
+                "slow MySQL queries."
+            ),
+            remediation_steps=[
+                "Check physical/virtual status of prod-web-04 "
+                "— verify it is powered on and reachable from "
+                "the management network.",
+                "If the server is responsive via console, check "
+                "for OS-level issues (disk full, kernel panic, "
+                "hung processes).",
+                "Restart the HTTP/HTTPS services on prod-web-04 "
+                "if the OS is healthy.",
+                "For prod-db-02, investigate the slow queries "
+                "and 12% packet loss — check network interface "
+                "errors and query execution plans.",
+                "Update the Nagios monitoring team on findings "
+                "and any remediation actions taken.",
+            ],
+            reporter_name="Thomas Weber",
+            reporter_email="thomas.weber@contoso.com",
+            reporter_department="DevOps",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "ansi-codes",
+                "control-characters",
+                "terminal-noise",
+            ],
+            difficulty="medium",
+        ),
     ]

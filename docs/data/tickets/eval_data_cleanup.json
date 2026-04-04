@@ -778,5 +778,200 @@
     "created_at": "2026-03-18T09:00:00Z",
     "channel": "email",
     "attachments": []
+  },
+  {
+    "ticket_id": "INC-5061",
+    "subject": "VPN NOT WORKING AGAIN PLEASE FIX",
+    "description": "HI IT TEAM\n\nMY VPN IS NOT WORKING AGAIN. I TRYED TO CONNECT THIS MORNING AND IT SAYS CONECTION FAILED. I RESTARTED MY LAPTOP AND TRYED AGAIN BUT SAME THING. I NEED TO ACCESS THE TRADING PLATFORM AND CANT DO ANYTHING WITHOUT VPN. THIS HAPPENS EVERY WEEK AND NOBODY FIXES IT. I AM ON THE 4TH FLOOR BUILDING 2 IN NEW YORK. MY LAPTOP IS A LENOVO THINKPAD T14. I AM USING WINDOWS 11. THE VPN CLIENT IS GLOBALPROTECT. WHEN I CLICK CONNECT IT SPINS FOR ABOUT 30 SECONDS THEN SAYS GATEWAY NOT REACHABLE. I ASKED MY COLLEAGUE AND HIS VPN WORKS FINE SO ITS JUST MY MACHINE. PLEASE HELP URGENTLY I HAVE A CLIENT CALL AT 10AM AND NEED ACCESS TO THE PORTFOLIO MANAGEMENT SYSTEM.\n\nTHANKS\nKEVIN",
+    "reporter": {
+      "name": "Kevin Marsh",
+      "email": "kevin.marsh@contoso.com",
+      "department": "Portfolio Management"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5062",
+    "subject": "Bloomberg Terminal license renewal request for the Quantitative Analysis team \u2014 license key BBGTERM-QA-2026-0047 is expiring on March 31 and we need it renewed before end of month or we lose access to the B-PIPE data feed which is critical for our model calibration pipeline",
+    "description": "Hi IT,\n\nAs mentioned in the subject, our Bloomberg Terminal license (key: BBGTERM-QA-2026-0047) is set to expire on March 31, 2026. This license covers 3 terminals used by our quant team for real-time market data via the B-PIPE feed.\n\nWe already have budget approval from our department head (Maria Santos). The renewal PO was submitted through Ariba last week (PO-2026-11847).\n\nCan you coordinate with Bloomberg to ensure the license is renewed before the expiry date? If we lose access even for a day it will disrupt our risk model validation cycle.\n\nThanks,\nAndrew Kim\nQuantitative Analysis",
+    "reporter": {
+      "name": "Andrew Kim",
+      "email": "andrew.kim@contoso.com",
+      "department": "Quantitative Analysis"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5063",
+    "subject": "Risk calculation service crashing in production",
+    "description": "The risk-calc-service keeps crashing in our AKS cluster. Here are the pod logs:\n\n$ kubectl logs risk-calc-service-7b9f4d6c8-xk2mv --tail=100\n2026-03-18T08:14:01.223Z [INFO] Starting risk-calc-service v3.2.1 (commit: a4f8e2d)\n2026-03-18T08:14:01.224Z [INFO] Connecting to Azure SQL: tcp:contoso-prod-sql.database.windows.net:1433\n2026-03-18T08:14:02.118Z [INFO] DB connection pool initialized (min=5, max=50)\n2026-03-18T08:14:02.119Z [INFO] Loading risk models from blob storage...\n2026-03-18T08:14:05.447Z [INFO] Loaded 47 risk models (1.2 GB total)\n2026-03-18T08:14:05.448Z [INFO] Starting gRPC server on :8443\n2026-03-18T08:14:05.449Z [INFO] Health check endpoint ready on :8080/healthz\n2026-03-18T08:14:05.450Z [INFO] Ready to accept requests\n2026-03-18T08:22:17.891Z [WARN] Memory usage at 78% (3.12 GB / 4 GB limit)\n2026-03-18T08:22:18.002Z [WARN] GC pressure high \u2014 consider increasing memory limit\n2026-03-18T08:25:33.114Z [ERROR] OutOfMemoryError in VaR calculation for portfolio PF-2847\n2026-03-18T08:25:33.115Z [ERROR] java.lang.OutOfMemoryError: Java heap space\n    at com.contoso.risk.VaREngine.calculate(VaREngine.java:287)\n    at com.contoso.risk.BatchProcessor.process(BatchProcessor.java:142)\n    at com.contoso.risk.grpc.RiskServiceImpl.calculateRisk(RiskServiceImpl.java:58)\n2026-03-18T08:25:33.116Z [FATAL] Unrecoverable error \u2014 shutting down\n\n$ kubectl describe pod risk-calc-service-7b9f4d6c8-xk2mv\nName:         risk-calc-service-7b9f4d6c8-xk2mv\nNamespace:    prod-risk\nNode:         aks-nodepool1-38274651-vmss000003\nStatus:       CrashLoopBackOff\nRestart Count: 7\nContainers:\n  risk-calc:\n    Image:    contosoacr.azurecr.io/risk-calc:3.2.1\n    Limits:   cpu: 2, memory: 4Gi\n    Requests: cpu: 500m, memory: 2Gi\n    State:    Waiting (CrashLoopBackOff)\n    Last State: Terminated (OOMKilled)\nEvents:\n  Warning  OOMKilled  3m  kubelet  Container risk-calc exceeded memory limit\n  Warning  BackOff    1m  kubelet  Back-off restarting failed container\n\nThis started after we deployed v3.2.1 on Friday. The previous version (v3.2.0) ran fine with the same memory limits.",
+    "reporter": {
+      "name": "Priya Nair",
+      "email": "priya.nair@contoso.com",
+      "department": "Cloud Infrastructure"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5064",
+    "subject": "\ud83d\udda8\ufe0f\u274c\ud83d\udea8\ud83d\ude2d\ud83d\udc4e",
+    "description": "\ud83d\udda8\ufe0f The printer on Floor 6 near the kitchen \ud83c\udf73 is not working again \ud83d\ude2d\ud83d\ude2d\ud83d\ude2d\n\nI tried printing my expense report \ud83d\udcb8 and it just shows 'Error' on the display \u274c\n\nOther people are having the same problem \ud83d\udc6b\ud83d\udc6c\ud83d\udc6d so it's not just me \ud83e\udd37\u200d\u2642\ufe0f\n\nThe lights on the printer are blinking \ud83d\udea8\ud83d\udea8\ud83d\udea8 red and yellow\n\nCan someone please come fix it \ud83d\ude4f\ud83d\ude4f\ud83d\ude4f\n\nIt's the HP Color LaserJet \ud83d\udda8\ufe0f near room 6.12 \ud83c\udfe2\n\nThanks \ud83d\udc4d\ud83d\udc4d\ud83d\udc4d",
+    "reporter": {
+      "name": "Tomas Reyes",
+      "email": "tomas.reyes@contoso.com",
+      "department": "Client Services"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5065",
+    "subject": "Intune app deployment failing \u2014 PowerShell log",
+    "description": "The Intune Win32 app deployment for CyberArk Privilege Cloud is failing on all machines in the Trading department. Here's the verbose PowerShell output from a manual test run:\n\nPS C:\\> Install-CyberArkAgent.ps1 -Verbose\nVERBOSE: Starting CyberArk Privilege Cloud agent installation v12.6.2\nVERBOSE: Checking prerequisites...\nVERBOSE: .NET Framework 4.8: OK (4.8.09032)\nVERBOSE: Visual C++ 2019 Redistributable: OK\nVERBOSE: Checking service 'CyberArkAgent'... Not found (expected for fresh install)\nVERBOSE: Downloading installer from https://pkg.cyberark.com/agents/v12.6.2/CyberArkAgent.msi\nVERBOSE: Download complete (48.7 MB)\nVERBOSE: Verifying SHA256 hash: a4f8e2d1b7c9...\nVERBOSE: Hash verification: OK\nVERBOSE: Running MSI installer with parameters:\nVERBOSE:   /i CyberArkAgent.msi /qn /norestart\nVERBOSE:   PVWAURL=https://contoso.privilegecloud.cyberark.cloud\nVERBOSE:   APPUSERID=svc-intune-deploy\nVERBOSE: MSI installer started (PID: 14832)\nVERBOSE: Waiting for installation to complete...\nVERBOSE: MSI installer exited with code: 1603\nVERBOSE: ERROR \u2014 MSI installation failed!\nVERBOSE: Checking Windows Installer log: C:\\Temp\\CyberArkInstall.log\nVERBOSE: Log excerpt: 'Error 1920: Service 'CyberArk Agent' (CyberArkAgent) failed to start. Verify that you have sufficient privileges.'\nVERBOSE: The service account 'svc-intune-deploy' may lack 'Log on as a service' rights.\nVERBOSE: Checking local security policy...\nVERBOSE: 'Log on as a service': CONTOSO\\svc-intune-deploy is NOT listed\nVERBOSE: Cleanup: removing partial installation...\nVERBOSE: Cleanup complete.\nVERBOSE: Installation FAILED \u2014 exit code 1603\n\nCan you grant the service account the required privilege so we can deploy?",
+    "reporter": {
+      "name": "Raj Patel",
+      "email": "raj.patel@contoso.com",
+      "department": "IT Security"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5066",
+    "subject": "Internal expense portal showing error page",
+    "description": "When I try to submit my expense report on the internal portal I get an error page. I did view-source and this is what I see:\n\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>500 - Internal Server Error</title>\n  <style>\n    body { font-family: Segoe UI, sans-serif; margin: 40px; background: #f5f5f5; }\n    .error-container { background: white; padding: 30px; border-radius: 8px; }\n    .error-code { color: #d32f2f; font-size: 72px; font-weight: bold; }\n    .stack-trace { background: #f5f5f5; padding: 15px; font-family: Consolas; font-size: 12px; overflow-x: auto; }\n  </style>\n</head>\n<body>\n  <div class=\"error-container\">\n    <div class=\"error-code\">500</div>\n    <h1>Internal Server Error</h1>\n    <p>An unhandled exception occurred while processing the request.</p>\n    <div class=\"stack-trace\">\n      System.InvalidOperationException: The connection pool has been exhausted.\n        at Microsoft.Data.SqlClient.SqlInternalConnectionPool.GetConnection()\n        at Contoso.Expenses.Api.Controllers.ExpenseController.Submit()\n        at lambda_method17(Closure, Object)\n    </div>\n    <!-- Request ID: 7f3a2b1c-4e8d-4f9a -->\n    <!-- Server: PROD-WEB-04 -->\n    <!-- Timestamp: 2026-03-18T09:15:22.847Z -->\n  </div>\n</body>\n</html>\n\nThe URL is https://expenses.contoso.internal/submit and I'm using Chrome.",
+    "reporter": {
+      "name": "Helen Park",
+      "email": "helen.park@contoso.com",
+      "department": "Finance"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5067",
+    "subject": "SharePoint access \u2014 \u0645\u0648\u0642\u0639 \u0634\u064a\u0631\u0628\u0648\u064a\u0646\u062a \u0644\u0627 \u064a\u0639\u0645\u0644",
+    "description": "\u0645\u0631\u062d\u0628\u0627 IT team,\n\n\u0623\u0646\u0627 \u0645\u0646 \u0641\u0631\u064a\u0642 \u0627\u0644\u0627\u0645\u062a\u062b\u0627\u0644 (Compliance team) \u0641\u064a \u0645\u0643\u062a\u0628 London.\n\nI need access to the new SharePoint site for regulatory documents:\nhttps://contoso.sharepoint.com/sites/reg-docs-emea\n\n\u0639\u0646\u062f\u0645\u0627 \u0623\u062d\u0627\u0648\u0644 \u0627\u0644\u0648\u0635\u0648\u0644 \u0623\u062d\u0635\u0644 \u0639\u0644\u0649 \u0631\u0633\u0627\u0644\u0629 \u0627\u0644\u062e\u0637\u0623:\n\"Access Denied \u2014 You do not have permission to access this resource.\"\n\nMy manager \u0641\u0627\u0637\u0645\u0629 \u0627\u0644\u0639\u0644\u064a (Fatima Al-Ali) approved my access request through ServiceNow last week (REQ-2026-04821).\n\n\u0634\u0643\u0631\u0627\u064b (Thanks),\nOmar Hassan\n\u0642\u0633\u0645 \u0627\u0644\u0627\u0645\u062a\u062b\u0627\u0644 | Compliance Department",
+    "reporter": {
+      "name": "Omar Hassan",
+      "email": "omar.hassan@contoso.com",
+      "department": "Compliance"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5068",
+    "subject": "Expense report portal submission error",
+    "description": "I tried to submit my expense report and the portal gave me an error. Here is what I copied from the page:\n\nform action=\"/api/v2/expenses/submit\" method=\"POST\"\ninput type=\"hidden\" name=\"__csrf_token\" value=\"a8f3e2d1-b7c9-4a6e-91f5-2c8d7e3b4a1f\"\ninput type=\"hidden\" name=\"__session_id\" value=\"sess_Kj8mNp2qRtL1vW5x\"\ninput type=\"hidden\" name=\"employee_id\" value=\"EMP-4521\"\ninput type=\"hidden\" name=\"cost_center\" value=\"CC-7200-TRADING\"\ninput type=\"hidden\" name=\"approval_chain\" value=\"MGR:sarah.chen|VP:james.wu|CFO:auto\"\nselect name=\"expense_type\"\n  option value=\"travel\"\n  option value=\"equipment\" selected\n  option value=\"software\"\n/select\ninput type=\"text\" name=\"amount\" value=\"2,450.00\"\ntextarea name=\"description\"New ergonomic standing desk for my workstation/textarea\ninput type=\"submit\" value=\"Submit\"\n\nWhen I click submit it says 'Error: Request timeout after 30000ms'. The amount is $2,450 for a new standing desk. I've tried three times and same error every time.",
+    "reporter": {
+      "name": "Marcus Johnson",
+      "email": "marcus.johnson@contoso.com",
+      "department": "Trading"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5069",
+    "subject": "Recurring BSOD on my workstation \u2014 Event Logs",
+    "description": "My workstation keeps blue-screening 2-3 times per day. I exported the relevant Event Log entries as XML:\n\n<Event xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\">\n  <System>\n    <Provider Name=\"Microsoft-Windows-Kernel-Power\" Guid=\"{331C3B3A-2005-44C2-AC5E-77220C37D6B4}\"/>\n    <EventID>41</EventID>\n    <Level>1</Level>\n    <Task>63</Task>\n    <Keywords>0x8000400000000002</Keywords>\n    <TimeCreated SystemTime=\"2026-03-18T08:14:33.0000000Z\"/>\n    <Computer>NYC-WS-3847.contoso.local</Computer>\n  </System>\n  <EventData>\n    <Data Name=\"BugcheckCode\">209</Data>\n    <Data Name=\"BugcheckParameter1\">0xfffff8021a3c7b10</Data>\n    <Data Name=\"BugcheckParameter2\">0x2</Data>\n    <Data Name=\"SleepInProgress\">0</Data>\n    <Data Name=\"PowerButtonTimestamp\">0</Data>\n  </EventData>\n</Event>\n\n<Event xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\">\n  <System>\n    <Provider Name=\"Microsoft-Windows-WER-SystemErrorReporting\"/>\n    <EventID>1001</EventID>\n    <Level>2</Level>\n    <TimeCreated SystemTime=\"2026-03-18T08:14:45.0000000Z\"/>\n    <Computer>NYC-WS-3847.contoso.local</Computer>\n  </System>\n  <EventData>\n    <Data Name=\"DumpFile\">C:\\Windows\\MEMORY.DMP</Data>\n    <Data Name=\"ReportId\">a7f3e2d1-b8c9-4f6a</Data>\n  </EventData>\n</Event>\n\nThe BSOD shows KERNEL_MODE_HEAP_CORRUPTION. Machine is a Dell Latitude 5540, 16GB RAM, Windows 11 23H2. The crashes seem to happen when I have Excel and Bloomberg open at the same time.",
+    "reporter": {
+      "name": "Victoria Chang",
+      "email": "victoria.chang@contoso.com",
+      "department": "Equity Trading"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5070",
+    "subject": "Intermittent connectivity \u2014 packet capture attached",
+    "description": "My connection to the Singapore data center keeps dropping. I ran a tcpdump capture and here is a snippet:\n\n$ sudo tcpdump -i eth0 host 10.30.1.50 -n\n08:14:01.223 IP 10.20.5.117.49832 > 10.30.1.50.443: Flags [S], seq 2847193625, win 64240\n08:14:01.287 IP 10.30.1.50.443 > 10.20.5.117.49832: Flags [S.], seq 1938274651, ack 2847193626, win 65535\n08:14:01.287 IP 10.20.5.117.49832 > 10.30.1.50.443: Flags [.], ack 1, win 64240\n08:14:01.350 IP 10.20.5.117.49832 > 10.30.1.50.443: Flags [P.], seq 1:518, ack 1, win 64240\n08:14:01.414 IP 10.30.1.50.443 > 10.20.5.117.49832: Flags [P.], seq 1:1453, ack 518, win 65535\n...(normal traffic for ~8 minutes)...\n08:22:17.891 IP 10.20.5.117.49832 > 10.30.1.50.443: Flags [P.], seq 48291:48809, ack 127350, win 64240\n08:22:18.891 IP 10.20.5.117.49832 > 10.30.1.50.443: Flags [P.], seq 48291:48809, ack 127350, win 64240  [TCP Retransmission]\n08:22:20.891 IP 10.20.5.117.49832 > 10.30.1.50.443: Flags [P.], seq 48291:48809, ack 127350, win 64240  [TCP Retransmission]\n08:22:24.891 IP 10.20.5.117.49832 > 10.30.1.50.443: Flags [R.], seq 48809, ack 127350, win 0\n\nYou can see the connection works fine initially but after about 8 minutes I start getting TCP retransmissions and then the connection resets. This happens every 8-10 minutes. I'm on Floor 7, Building 1, New York office.",
+    "reporter": {
+      "name": "James Liu",
+      "email": "james.liu@contoso.com",
+      "department": "Data Engineering"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5071",
+    "subject": "Internal deployment pipeline broken since Monday",
+    "description": "Our CI/CD pipeline for the client-reporting-api has been failing since Monday. Here is the GitHub Actions output:\n\nRun #847 \u2014 build-and-deploy.yml\nTriggered by: push to main (commit a4f8e2d)\n\n\u2705 Step 1/7: Checkout (2s)\n  Syncing repository: contoso/client-reporting-api\n  HEAD is now at a4f8e2d Fix: add null check for client ID\n\n\u2705 Step 2/7: Setup Node.js 20 (3s)\n  Successfully setup Node.js 20.11.1\n\n\u2705 Step 3/7: Install dependencies (28s)\n  npm ci --ignore-scripts\n  added 1,247 packages in 27s\n\n\u2705 Step 4/7: Lint (12s)\n  > eslint src/ --max-warnings 0\n  No warnings or errors found.\n\n\u274c Step 5/7: Test (45s)\n  > jest --ci --coverage\n  PASS src/services/auth.test.ts (2.1s)\n  PASS src/services/client.test.ts (1.8s)\n  FAIL src/services/report.test.ts (3.2s)\n    \u25cf generateReport > should handle large portfolios\n      Expected: 200\n      Received: 500\n      at Object.<anonymous> (report.test.ts:47)\n  Tests: 1 failed, 23 passed, 24 total\n  Coverage: 87.3% (threshold: 80%)\n\n\u23f9 Step 6/7: Build (skipped)\n\u23f9 Step 7/7: Deploy to Azure (skipped)\n\nThe test that's failing was working before the database schema migration that ran Monday morning. Can someone look at this?",
+    "reporter": {
+      "name": "Nina Torres",
+      "email": "nina.torres@contoso.com",
+      "department": "Backend Engineering"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5072",
+    "subject": "SAP Fiori link not working from email",
+    "description": "I received a notification email from SAP about an approval I need to complete, but the link in the email doesn't work. Here's the full URL I'm clicking:\n\nhttps://contoso-sap-prod.dispatcher.launchpad.cfapps.us10.hana.ondemand.com/sites#Workflow-approve&/approval/PO-2026-11892?sap-client=100&sap-language=EN&sap-theme=sap_horizon&sap-ui-language=en-US&sap-shell-navmode=embedded&utm_source=sap_notification&utm_medium=email&utm_campaign=po_approval_q1_2026&utm_content=approve_button&utm_term=purchase_order&mkt_tok=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONfAHjNc&session_id=s_78a2f3b1c4e9d0g6h5&track=click_po_approve_20260318_091500_user4521&ref=email_notification_v3&correlation_id=corr-a8f3e2d1-b7c9-4a6e-91f5-2c8d7e3b4a1f&device_id=did_Kj8mNp2qRtL1vW5x&analytics_session=as_9f2e1d3c4b5a6&user_segment=finance_approver_tier2&exp_variant=approval_flow_v4\n\nWhen I click it I get a 'Page not found' error. I need to approve PO-2026-11892 before end of day \u2014 it's for the quarterly software license renewals for the Trading floor.\n\nChrome shows the URL gets cut off at the '?' when I paste it.",
+    "reporter": {
+      "name": "Lisa Nakamura",
+      "email": "lisa.nakamura@contoso.com",
+      "department": "Finance"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5073",
+    "subject": "FW: FW: FW: Accepted: Quarterly Budget Review (was: FW: Declined: Team Standup)",
+    "description": "Begin forwarded message:\nFrom: Calendar System <noreply@contoso.com>\nSubject: Accepted: Quarterly Budget Review\n\nBEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Microsoft Corporation//Outlook 16.0\nMETHOD:REPLY\nBEGIN:VEVENT\nDTSTART:20260320T140000Z\nDTEND:20260320T150000Z\nSUMMARY:Quarterly Budget Review\nLOCATION:NYC-Conf-12A (12th Floor)\nORGANIZER:mailto:sarah.chen@contoso.com\nATTENDEE;RSVP=TRUE:mailto:james.wu@contoso.com\nATTENDEE;RSVP=TRUE:mailto:maria.santos@contoso.com\nSTATUS:CONFIRMED\nUID:040000008200E001-A8F3E2D1B7C9@contoso.com\nEND:VEVENT\nEND:VCALENDAR\n\n--- Previous forward ---\nBEGIN:VCALENDAR\nVERSION:2.0\nMETHOD:CANCEL\nBEGIN:VEVENT\nDTSTART:20260318T093000Z\nDTEND:20260318T094500Z\nSUMMARY:Team Standup\nSTATUS:CANCELLED\nEND:VEVENT\nEND:VCALENDAR\n\n---\n\nHi IT, in between all these calendar notifications \u2014 our Outlook desktop client is creating duplicate calendar events for every meeting. Accepted meetings show up twice and cancelled ones don't disappear. This started after the M365 update last week. It's affecting everyone in the Finance department.\n\nElena Rossi\nFinance",
+    "reporter": {
+      "name": "Elena Rossi",
+      "email": "elena.rossi@contoso.com",
+      "department": "Finance"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5074",
+    "subject": "Portfolio reconciliation data mismatch",
+    "description": "There's a mismatch in the reconciliation data between our system and the custodian. I pasted the comparison from Excel below but the columns got messed up:\n\nAccount\tOur Qty\tCust Qty\tDiff\tStatus\nPF-2847\t10,000\t10,000\t0\tOK\nPF-2848\t5,500\t5,250\t250\tMISMATCH\nPF-2849\t\t8,200\t-8200\tMISSING_LOCAL\nPF-2850\t3,750\t3,750\t0\tOK\nPF-2851\t12,000\t12,500\t-500\tMISMATCH\nPF-2852\t7,100\t\t7100\tMISSING_CUSTODIAN\nPF-2853\t22,000\t22,000\t0\tOK\nPF-2854\t450\t450\t0\tOK\nPF-2855\t8,900\t9,100\t-200\tMISMATCH\nPF-2856\t15,000\t15,000\t0\tOK\n\nAs you can see, PF-2849 is completely missing from our database, and PF-2852 is missing from the custodian's feed. The other mismatches might be timing issues from Friday's settlement.\n\nThis is blocking our daily NAV calculation which needs to go out to clients by 10 AM. Can someone from the Data Platform team check the overnight reconciliation ETL job?\n\nPriya Sharma\nFund Administration",
+    "reporter": {
+      "name": "Priya Sharma",
+      "email": "priya.sharma@contoso.com",
+      "department": "Fund Administration"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-5075",
+    "subject": "Network monitoring tool showing errors",
+    "description": "Our Nagios monitoring dashboard is showing critical alerts. I copied the output from the terminal but it has weird characters:\n\n\u001b[1;31m[CRITICAL]\u001b[0m Host: prod-web-04.contoso.local \u2014 PING CRITICAL - Packet loss = 100%\n\u001b[1;31m[CRITICAL]\u001b[0m Service: prod-web-04/HTTP \u2014 Connection refused\n\u001b[1;33m[WARNING]\u001b[0m  Host: prod-db-02.contoso.local \u2014 PING WARNING - Packet loss = 12%\n\u001b[1;32m[OK]\u001b[0m       Host: prod-web-01.contoso.local \u2014 PING OK - 0% packet loss\n\u001b[1;32m[OK]\u001b[0m       Host: prod-web-02.contoso.local \u2014 PING OK - 0% packet loss\n\u001b[1;31m[CRITICAL]\u001b[0m Service: prod-web-04/HTTPS \u2014 Connection refused\n\u001b[1;33m[WARNING]\u001b[0m  Service: prod-db-02/MySQL \u2014 Slow query detected (avg 4.2s)\n\u001b[1;32m[OK]\u001b[0m       Service: prod-web-01/HTTP \u2014 HTTP/1.1 200 OK - 127ms response time\n\nIt looks like prod-web-04 is completely down (100% packet loss and both HTTP and HTTPS refusing connections). Also prod-db-02 has intermittent packet loss and slow queries. Can someone check these servers?",
+    "reporter": {
+      "name": "Thomas Weber",
+      "email": "thomas.weber@contoso.com",
+      "department": "DevOps"
+    },
+    "created_at": "2026-03-18T09:00:00Z",
+    "channel": "portal",
+    "attachments": []
   }
 ]

@@ -3587,3 +3587,81 @@ register(
         ],
     )
 )
+
+
+
+# ---------------------------------------------------------------------------
+# dc-049  ALL CAPS email body with poor grammar — VPN issue
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-049",
+        category=Category.NETWORK,
+        priority=Priority.P3,
+        assigned_team=Team.NETWORK,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.DEVICE_INFO,
+            MissingInfo.NETWORK_LOCATION,
+        ],
+        subjects=[
+            "VPN NOT WORKING!!!",
+            "CANT CONNECT TO VPN PLEASE HELP",
+            "VPN IS DOWN AGAIN FIX IT",
+        ],
+        descriptions=[
+            "HI IT TEAM,\n\n"
+            "MY VPN IS NOT WORKING AGAIN AND I CANT DO MY JOB. "
+            "I TRYED RESTARTING MY COMPUTER LIKE 5 TIMES AND IT "
+            "STILL DONT WORK. EVERY TIME I CLICK CONNECT IT SAYS "
+            "ERROR AND THEN NOTHING HAPPENS. I DONT NO WHAT THE "
+            "ERROR CODE IS BECAUSE IT GOES AWAY TO FAST.\n\n"
+            "I NEED THIS FIXED RITE NOW BECAUSE I HAVE A DEADLINE "
+            "TODAY AND I CANT ACCESS ANY OF THE SHARED DRIVES OR "
+            "INTERNAL SITES FROM HOME. THIS HAS BEEN HAPENING SINCE "
+            "LAST WEEK BUT TODAY IT IS THE WORSE ITS EVER BEEN.\n\n"
+            "ALSO MY INTERNET IS FINE BECAUSE I CAN USE GOOGLE AND "
+            "YOUTUBE NO PROBLEM SO ITS DEFINTELY A VPN ISSUE NOT A "
+            "INTERNET ISSUE.\n\n"
+            "PLEASE FIX ASAP!!!\n\n"
+            "{name}\n{department}",
+            "HELLO,\n\n"
+            "I BEEN TRYING TO CONNECT TO THE VPN ALL MORNING AND "
+            "IT KEEPS SAYING AUTHENTICATION FAILED BUT MY PASSWORD "
+            "IS CORRECT I JUST CHANGED IT YESTERDAY. I ALSO TRYED "
+            "THE BACKUP VPN SERVER AND THAT DONT WORK NEITHER.\n\n"
+            "I AM WORKING FROM {office} TODAY AND NOBODY ELSE ON "
+            "MY TEAM SEEMS TO HAVE THIS PROBLEM SO I DONT KNOW "
+            "WHATS GOING ON. CAN SOMEONE PLEASE CALL ME OR REMOTE "
+            "INTO MY COMPUTER TO FIX THIS? I DONT UNDERSTAND THE "
+            "TECHNICAL STUFF.\n\n"
+            "THANKS,\n{name}",
+        ],
+        next_best_actions=[
+            "Clarify the VPN error message and gather device "
+            "details \u2014 user reports persistent VPN connection "
+            "failures but did not capture the error code. Verify "
+            "VPN client version and credential status.",
+            "Investigate VPN authentication failure \u2014 user "
+            "recently changed password and may have a credential "
+            "sync delay. Check VPN logs for the specific error "
+            "and confirm client configuration.",
+        ],
+        remediation_steps=[
+            [
+                "Ask the user to capture a screenshot of the VPN "
+                "error message on the next connection attempt",
+                "Verify the VPN client version is current and "
+                "supported by the organization",
+                "Confirm the user\u2019s password change has "
+                "propagated to all authentication systems "
+                "including RADIUS and NPS",
+                "Test connectivity to the VPN gateway using ping "
+                "and traceroute from the user\u2019s machine",
+                "If the issue persists, collect VPN client "
+                "diagnostic logs and escalate to network "
+                "engineering",
+            ],
+        ],
+    )
+)

@@ -46,7 +46,7 @@ class TestDataCleanupScenarios:
         """Verify expected scenario IDs exist."""
         scenarios = get_scenarios()
         ids = {s.scenario_id for s in scenarios}
-        expected = {f"DC-{i:03d}" for i in range(1, 61)}
+        expected = {f"DC-{i:03d}" for i in range(1, 76)}
         assert expected.issubset(ids), f"Missing IDs: {expected - ids}"
 
     def test_covers_key_cleanup_categories(self) -> None:
@@ -94,5 +94,27 @@ class TestDataCleanupScenarios:
             "vcard-data",
             "cron-output",
             "concatenated-tickets",
+            "all-caps",
+            "long-subject",
+            "container-logs",
+            "k8s-output",
+            "emoji-subject",
+            "powershell-output",
+            "view-source",
+            "rtl-text",
+            "form-artifacts",
+            "event-log",
+            "windows-events",
+            "packet-capture",
+            "tcpdump",
+            "ci-pipeline",
+            "github-actions",
+            "tracking-urls",
+            "calendar-forward",
+            "ics-spam",
+            "spreadsheet-paste",
+            "misaligned-columns",
+            "ansi-codes",
+            "control-characters",
         }
         assert expected_tags.issubset(all_tags), f"Missing cleanup tags: {expected_tags - all_tags}"
