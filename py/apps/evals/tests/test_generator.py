@@ -5,6 +5,9 @@ import random
 from datetime import datetime
 from datetime import timezone
 
+import pytest
+from pydantic import ValidationError
+
 from ms.evals.constants import Category
 from ms.evals.constants import Channel
 from ms.evals.constants import MissingInfo
@@ -43,11 +46,8 @@ class TestScenarioTemplate:
 
     def test_scenario_is_frozen(self) -> None:
         scenario = _make_test_scenario()
-        try:
+        with pytest.raises(ValidationError):
             scenario.priority = Priority.P1  # type: ignore[misc]
-            raise AssertionError("Should have raised")  # noqa: B017
-        except Exception:
-            pass
 
 
 class TestGenerateTicketPair:

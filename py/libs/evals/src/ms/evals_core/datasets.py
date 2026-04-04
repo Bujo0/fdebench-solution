@@ -79,7 +79,7 @@ def load_dataset(
         msg = f"Tickets file not found: {tickets_path}"
         raise FileNotFoundError(msg)
 
-    raw_tickets: list[dict] = json.loads(tickets_path.read_text(encoding="utf-8"))  # noqa: UP006
+    raw_tickets: list[dict] = json.loads(tickets_path.read_text(encoding="utf-8"))
     tickets = [Ticket.model_validate(t) for t in raw_tickets]
 
     gold_answers: list[GoldAnswer] | None = None
@@ -88,7 +88,7 @@ def load_dataset(
         if not gold_path.exists():
             msg = f"Gold file not found: {gold_path}"
             raise FileNotFoundError(msg)
-        raw_gold: list[dict] = json.loads(gold_path.read_text(encoding="utf-8"))  # noqa: UP006
+        raw_gold: list[dict] = json.loads(gold_path.read_text(encoding="utf-8"))
         gold_answers = [GoldAnswer.model_validate(g) for g in raw_gold]
 
     return tickets, gold_answers

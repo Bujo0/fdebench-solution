@@ -8,6 +8,7 @@ Each modifier takes a subject and description and returns modified versions.
 
 import base64
 import random
+from collections.abc import Callable
 
 # Modifier type identifiers
 MODIFIER_VAGUE = "vague"
@@ -1092,7 +1093,9 @@ def apply_formal_template(subject: str, description: str, rng: random.Random) ->
     return rng.choice(templates)
 
 
-_MODIFIER_FUNCTIONS: dict[str, object] = {
+_ModifierFunc = Callable[[str, str, random.Random], tuple[str, str]]
+
+_MODIFIER_FUNCTIONS: dict[str, _ModifierFunc] = {
     MODIFIER_VAGUE: apply_vague,
     MODIFIER_VERBOSE: apply_verbose,
     MODIFIER_FRUSTRATED: apply_frustrated,
@@ -1122,8 +1125,6 @@ _MODIFIER_FUNCTIONS: dict[str, object] = {
     MODIFIER_EMOJI_HEAVY: apply_emoji_heavy,
     MODIFIER_FORMAL_TEMPLATE: apply_formal_template,
 }
-
-ModifierFunc = type[None]  # just for documentation; actual type is callable
 
 
 def select_modifiers(rng: random.Random, max_modifiers: int = 3) -> list[str]:
@@ -1174,4 +1175,4 @@ def apply_modifier(
     if func is None:
         msg = f"Unknown modifier: {modifier_name}"
         raise ValueError(msg)
-    return func(subject, description, rng)  # type: ignore[operator]
+    return func(subject, description, rng)
