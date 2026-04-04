@@ -8843,4 +8843,638 @@ def get_scenarios() -> list[ScenarioDefinition]:
             tags=["data-cleanup", "yaml-config-dump", "kubernetes"],
             difficulty="medium",
         ),
+        # ── DC-131  Terraform plan output pasted inline ────────────────
+        ScenarioDefinition(
+            scenario_id="DC-131",
+            subject="Azure deployment failing — terraform plan output attached",
+            description=(
+                "Hi IT,\n\n"
+                "Our Azure deployment keeps failing. I ran terraform plan and here's "
+                "the output:\n\n"
+                "Terraform will perform the following actions:\n\n"
+                "  # azurerm_linux_virtual_machine.trading_api will be created\n"
+                "  + resource \"azurerm_linux_virtual_machine\" \"trading_api\" {\n"
+                "      + admin_username                  = \"azureuser\"\n"
+                "      + allow_extension_operations      = true\n"
+                "      + computer_name                   = (known after apply)\n"
+                "      + disable_password_authentication = true\n"
+                "      + extensions_time_budget           = \"PT1H30M\"\n"
+                "      + id                              = (known after apply)\n"
+                "      + location                        = \"eastus2\"\n"
+                "      + max_bid_price                   = -1\n"
+                "      + name                            = \"vm-trading-api-prod-001\"\n"
+                "      + network_interface_ids            = (known after apply)\n"
+                "      + patch_assessment_mode            = \"ImageDefault\"\n"
+                "      + patch_mode                       = \"ImageDefault\"\n"
+                "      + platform_fault_domain            = -1\n"
+                "      + priority                         = \"Regular\"\n"
+                "      + private_ip_address               = (known after apply)\n"
+                "      + provision_vm_agent               = true\n"
+                "      + public_ip_address                = (known after apply)\n"
+                "      + resource_group_name              = \"rg-trading-prod-eastus2\"\n"
+                "      + size                             = \"Standard_D4s_v5\"\n"
+                "      + virtual_machine_id               = (known after apply)\n"
+                "      + os_disk {\n"
+                "          + caching              = \"ReadWrite\"\n"
+                "          + storage_account_type = \"Premium_LRS\"\n"
+                "          + disk_size_gb         = 128\n"
+                "        }\n"
+                "    }\n\n"
+                "  # azurerm_network_security_group.trading_nsg will be updated in-place\n"
+                "  ~ resource \"azurerm_network_security_group\" \"trading_nsg\" {\n"
+                "        id   = \"/subscriptions/a1b2c3d4/resourceGroups/rg-trading-prod\"\n"
+                "      ~ tags = {\n"
+                "          + \"environment\" = \"production\"\n"
+                "        }\n"
+                "    }\n\n"
+                "  # azurerm_subnet.trading_subnet will be destroyed\n"
+                "  - resource \"azurerm_subnet\" \"old_trading_subnet\" {\n"
+                "      - address_prefixes = [\"10.0.1.0/24\"] -> null\n"
+                "      - id              = \"/subscriptions/a1b2c3d4/...\" -> null\n"
+                "    }\n\n"
+                "Plan: 1 to add, 1 to change, 1 to destroy.\n\n"
+                "When I run terraform apply it fails with:\n"
+                "Error: creating Linux Virtual Machine: compute.VirtualMachinesClient#CreateOrUpdate: "
+                "Failure sending request: StatusCode=409 -- Original Error: Code=\"OperationNotAllowed\" "
+                "Message=\"Operation could not be completed as it results in exceeding approved "
+                "Total Regional Cores quota.\"\n\n"
+                "We need the core quota increased for eastus2 or we need to resize the VM. "
+                "Can you help?\n\n"
+                "Thanks,\nDaniel Osei\nCloud Infrastructure"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ENVIRONMENT_DETAILS, MissingInfo.BUSINESS_IMPACT],
+            next_best_action=(
+                "Ignore the terraform plan output noise and focus on the root cause: "
+                "Azure regional vCPU quota exceeded in eastus2 when trying to create a "
+                "Standard_D4s_v5 VM for the trading API."
+            ),
+            remediation_steps=[
+                "Check the current vCPU quota utilization for the eastus2 region in the subscription.",
+                "Submit an Azure support request to increase the Dv5 family quota in eastus2.",
+                "Alternatively, consider deploying in a different region with available quota.",
+                "If urgent, resize the VM to a smaller SKU (e.g., Standard_D2s_v5) as a temporary measure.",
+                "Review and clean up unused VMs in the subscription to free up quota headroom.",
+            ],
+            reporter_name="Daniel Osei",
+            reporter_email="daniel.osei@contoso.com",
+            reporter_department="Cloud Infrastructure",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "terraform-output", "infrastructure-as-code"],
+            difficulty="hard",
+        ),
+        # ── DC-132  Windows Registry export pasted inline ──────────────
+        ScenarioDefinition(
+            scenario_id="DC-132",
+            subject="Network adapter keeps losing IP after reboot — registry dump",
+            description=(
+                "My network adapter keeps losing its static IP configuration every time "
+                "I reboot. I exported the relevant registry keys, maybe this helps:\n\n"
+                "Windows Registry Editor Version 5.00\n\n"
+                "[HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services"
+                "\\Tcpip\\Parameters\\Interfaces"
+                "\\{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}]\n"
+                "\"EnableDHCP\"=dword:00000000\n"
+                "\"IPAddress\"=hex(7):31,00,30,00,2e,00,30,00,2e,00,34,00,2e,00,"
+                "31,00,35,00,00,00,00,00\n"
+                "\"SubnetMask\"=hex(7):32,00,35,00,35,00,2e,00,32,00,35,00,35,00,"
+                "2e,00,32,00,35,00,35,00,2e,00,30,00,00,00,00,00\n"
+                "\"DefaultGateway\"=hex(7):31,00,30,00,2e,00,30,00,2e,00,34,00,"
+                "2e,00,31,00,00,00,00,00\n"
+                "\"NameServer\"=\"10.0.4.10,10.0.4.11\"\n"
+                "\"Domain\"=\"contoso.local\"\n"
+                "\"RegistrationEnabled\"=dword:00000001\n"
+                "\"RegisterAdapterName\"=dword:00000000\n\n"
+                "[HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services"
+                "\\Tcpip\\Parameters]\n"
+                "\"Hostname\"=\"WKSTN-FI-3421\"\n"
+                "\"Domain\"=\"contoso.local\"\n"
+                "\"SearchList\"=\"contoso.local,contoso.com\"\n"
+                "\"UseDomainNameDevolution\"=dword:00000001\n"
+                "\"EnableICMPRedirect\"=dword:00000001\n"
+                "\"DeadGWDetectDefault\"=dword:00000001\n"
+                "\"DontAddDefaultGatewayDefault\"=dword:00000000\n\n"
+                "[HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services"
+                "\\NDIS\\Parameters]\n"
+                "\"TraceLevel\"=dword:00000001\n\n"
+                "The static IP is 10.0.4.15 but after reboot it falls back to DHCP "
+                "and gets 10.0.4.107 instead. This breaks my mapped drives and the "
+                "Bloomberg terminal connection.\n\n"
+                "Workstation: WKSTN-FI-3421, Windows 11 Enterprise 23H2\n"
+                "Adapter: Intel I225-V 2.5G Ethernet"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Ignore the registry dump noise and focus on the core issue: the static "
+                "IP configuration (10.0.4.15) is not persisting across reboots on "
+                "WKSTN-FI-3421, reverting to DHCP each time."
+            ),
+            remediation_steps=[
+                "Check if a Group Policy or Intune policy is overriding the static IP with DHCP on reboot.",
+                "Verify the network adapter driver is up to date for the Intel I225-V.",
+                "Reconfigure the static IP via the Network Connections GUI rather than registry to ensure proper persistence.",
+                "Check for conflicting DHCP reservations on the DHCP server for this MAC address.",
+                "Test whether the issue persists after disabling the DHCP Client service.",
+            ],
+            reporter_name="Tomoko Hayashi",
+            reporter_email="tomoko.hayashi@contoso.com",
+            reporter_department="Fixed Income",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "registry-dump", "windows-registry"],
+            difficulty="hard",
+        ),
+        # ── DC-133  Browser DevTools console errors pasted ─────────────
+        ScenarioDefinition(
+            scenario_id="DC-133",
+            subject="Internal portal SSO login broken — browser console errors",
+            description=(
+                "I can't log into the internal risk portal (risk.contoso.com). I opened "
+                "the browser DevTools and copied the console output:\n\n"
+                "[09:14:32.441] Navigating to https://risk.contoso.com/auth/login\n"
+                "[09:14:33.102] GET https://login.microsoftonline.com/a1b2c3d4-e5f6-..."
+                " 302 Redirect\n"
+                "[09:14:33.558] GET https://risk.contoso.com/auth/callback?code=0.AXEA..."
+                " 500 Internal Server Error\n"
+                "[09:14:33.560] Error: Failed to fetch user profile\n"
+                "    at AuthModule.handleCallback (auth.bundle.js:1:24521)\n"
+                "    at async Router.processRoute (router.bundle.js:1:8847)\n"
+                "    at async App.initialize (app.bundle.js:1:3392)\n"
+                "[09:14:33.562] Uncaught (in promise) TypeError: Cannot read properties "
+                "of undefined (reading 'displayName')\n"
+                "    at UserContext.setUser (user-context.js:1:1205)\n"
+                "    at AuthModule.completeLogin (auth.bundle.js:1:24890)\n"
+                "[09:14:33.890] Mixed Content: The page at 'https://risk.contoso.com' "
+                "was loaded over HTTPS but requested 'http://api.contoso.com/v2/user/"
+                "profile' (insecure resource).\n"
+                "[09:14:34.001] Access to XMLHttpRequest at 'https://api.contoso.com/"
+                "v2/user/profile' from origin 'https://risk.contoso.com' has been "
+                "blocked by CORS policy: No 'Access-Control-Allow-Origin' header.\n"
+                "[09:14:34.250] POST https://telemetry.contoso.com/collect 200 OK\n"
+                "[09:14:34.500] WebSocket connection to 'wss://risk.contoso.com/ws' "
+                "failed: Error during WebSocket handshake: net::ERR_CONNECTION_REFUSED\n\n"
+                "The login starts but then the callback fails. Other people on my team "
+                "can log in fine. This started after I was moved to the new Entra ID "
+                "group last week.\n\n"
+                "Browser: Edge 122.0.2365.80, Windows 11"
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P2,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.AUTHENTICATION_METHOD, MissingInfo.AFFECTED_SYSTEM],
+            next_best_action=(
+                "Ignore the verbose browser console output and focus on the root cause: "
+                "the auth callback returns 500 after the user was moved to a new Entra ID "
+                "group, suggesting a group-based conditional access or app role assignment issue."
+            ),
+            remediation_steps=[
+                "Verify the user's Entra ID group membership includes the required app role for risk.contoso.com.",
+                "Check the enterprise application's user/group assignment in Entra ID.",
+                "Review conditional access policies that may block the new group.",
+                "Check the backend auth callback logs for the 500 error details.",
+                "If CORS errors appear, verify the API backend configuration allows the portal origin.",
+            ],
+            reporter_name="Ravi Krishnamurthy",
+            reporter_email="ravi.krishnamurthy@contoso.com",
+            reporter_department="Risk Management",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "browser-devtools", "console-errors"],
+            difficulty="hard",
+        ),
+        # ── DC-134  Azure CLI JSON output pasted ───────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-134",
+            subject="Azure VM not reachable — az vm show output",
+            description=(
+                "My Azure VM stopped responding. I ran az vm show and got:\n\n"
+                "{\n"
+                "  \"id\": \"/subscriptions/a1b2c3d4-e5f6-7890/resourceGroups/"
+                "rg-analytics-prod/providers/Microsoft.Compute/virtualMachines/"
+                "vm-analytics-01\",\n"
+                "  \"location\": \"eastus\",\n"
+                "  \"name\": \"vm-analytics-01\",\n"
+                "  \"hardwareProfile\": { \"vmSize\": \"Standard_E8s_v5\" },\n"
+                "  \"storageProfile\": {\n"
+                "    \"osDisk\": {\n"
+                "      \"osType\": \"Linux\",\n"
+                "      \"name\": \"osdisk-analytics-01\",\n"
+                "      \"diskSizeGb\": 128,\n"
+                "      \"managedDisk\": { \"storageAccountType\": \"Premium_LRS\" }\n"
+                "    },\n"
+                "    \"dataDisks\": [{\n"
+                "      \"lun\": 0,\n"
+                "      \"name\": \"datadisk-analytics-01\",\n"
+                "      \"diskSizeGb\": 1024,\n"
+                "      \"managedDisk\": { \"storageAccountType\": \"Premium_LRS\" }\n"
+                "    }]\n"
+                "  },\n"
+                "  \"osProfile\": {\n"
+                "    \"computerName\": \"vm-analytics-01\",\n"
+                "    \"adminUsername\": \"azureadmin\"\n"
+                "  },\n"
+                "  \"networkProfile\": {\n"
+                "    \"networkInterfaces\": [{\n"
+                "      \"id\": \"/subscriptions/a1b2c3d4/.../nic-analytics-01\"\n"
+                "    }]\n"
+                "  },\n"
+                "  \"provisioningState\": \"Succeeded\",\n"
+                "  \"instanceView\": {\n"
+                "    \"statuses\": [{\n"
+                "      \"code\": \"PowerState/stopped\",\n"
+                "      \"displayStatus\": \"VM stopped\"\n"
+                "    }]\n"
+                "  }\n"
+                "}\n\n"
+                "I can't SSH into it and I need it for the quarterly analytics run "
+                "which starts tomorrow. Please start the VM and check why it stopped."
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE, MissingInfo.TIMESTAMP],
+            next_best_action=(
+                "Ignore the verbose az vm show JSON dump and focus on the issue: "
+                "VM vm-analytics-01 is in PowerState/stopped and needs to be started "
+                "before the quarterly analytics run tomorrow."
+            ),
+            remediation_steps=[
+                "Start the VM using 'az vm start -g rg-analytics-prod -n vm-analytics-01'.",
+                "Check Azure Activity Log to determine why the VM was stopped (auto-shutdown policy, billing, or manual action).",
+                "Verify SSH connectivity once the VM is running.",
+                "Check if an auto-shutdown schedule is configured that needs adjustment.",
+                "Consider setting up Azure alerts for unexpected VM deallocations.",
+            ],
+            reporter_name="Amelia Foster",
+            reporter_email="amelia.foster@contoso.com",
+            reporter_department="Data Science",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "azure-cli-output", "json-dump"],
+            difficulty="medium",
+        ),
+        # ── DC-135  macOS kernel panic crash report ────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-135",
+            subject="MacBook Pro keeps crashing — panic report attached",
+            description=(
+                "My MacBook Pro crashes every 2-3 hours. Here's the crash report:\n\n"
+                "panic(cpu 4 caller 0xffffff800a2e1f30): Kernel trap at 0xffffff7f8b2c4020, "
+                "type 14=page fault\n"
+                "CR0: 0x0000000080010033, CR2: 0xffffff80deadbeef, CR3: 0x000000010a814000, "
+                "CR4: 0x00000000003626e0\n"
+                "RAX: 0x0000000000000000, RBX: 0xffffff800a4e3100, "
+                "RCX: 0xffffff80deadbeef, RDX: 0x0000000000000001\n"
+                "RSP: 0xffffff920d5fba80, RBP: 0xffffff920d5fbb00, "
+                "RSI: 0x0000000000000040, RDI: 0xffffff8015a32000\n"
+                "R8:  0x0000000000000000, R9:  0x0000000000000000, "
+                "R10: 0xffffff800a2c1480, R11: 0x0000000000000246\n"
+                "R12: 0xffffff8015a32000, R13: 0x0000000000000001, "
+                "R14: 0x0000000000000000, R15: 0xffffff800a4e3100\n"
+                "RFL: 0x0000000000010282, RIP: 0xffffff7f8b2c4020, "
+                "CS:  0x0000000000000008, SS:  0x0000000000000010\n\n"
+                "Backtrace (CPU 4), Frame : Return Address\n"
+                "0xffffff920d5fb680 : 0xffffff800a0bb0a0\n"
+                "0xffffff920d5fb6d0 : 0xffffff800a21c5bc\n"
+                "0xffffff920d5fb710 : 0xffffff800a20c5a9\n"
+                "0xffffff920d5fb760 : 0xffffff800a05f8e0\n"
+                "0xffffff920d5fb980 : 0xffffff800a2e1f30\n\n"
+                "Kernel Extensions in backtrace:\n"
+                "  com.apple.iokit.IOThunderboltFamily(9.4.2)\n"
+                "  com.apple.driver.AppleThunderboltNHI(7.2.81)\n\n"
+                "Model: MacBookPro18,1, BootROM 10151.140.19, 10 processors, "
+                "Apple M1 Pro, 16 GB, SMC\n"
+                "macOS Version 14.3 (Build 23D56)\n\n"
+                "The crashes happen randomly but seem more frequent when I use my "
+                "CalDigit TS4 Thunderbolt dock. Can you replace the dock or the laptop?"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P2,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.REPRODUCTION_FREQUENCY, MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Ignore the kernel panic registers and backtrace dump. Focus on the "
+                "pattern: crashes correlate with CalDigit TS4 Thunderbolt dock usage. "
+                "The backtrace implicates IOThunderboltFamily, suggesting a dock or "
+                "Thunderbolt driver issue."
+            ),
+            remediation_steps=[
+                "Update macOS to the latest point release to get Thunderbolt driver fixes.",
+                "Update the CalDigit TS4 dock firmware from the manufacturer's site.",
+                "Test the MacBook without the dock for 1-2 days to confirm the correlation.",
+                "If dock-related, provide a replacement dock or try a different Thunderbolt port.",
+                "If crashes persist without the dock, schedule a Genius Bar or AASP hardware diagnostic.",
+            ],
+            reporter_name="Sophia Chen",
+            reporter_email="sophia.chen@contoso.com",
+            reporter_department="Quantitative Analysis",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "kernel-panic", "macos-crash-report"],
+            difficulty="hard",
+        ),
+        # ── DC-136  iptables firewall rules dump ───────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-136",
+            subject="Can't reach internal API server — firewall rules listed below",
+            description=(
+                "I can't connect to our internal API at api-internal.contoso.com:8443 "
+                "from my workstation. I dumped the firewall rules on the server:\n\n"
+                "Chain INPUT (policy DROP)\n"
+                "target     prot opt source               destination\n"
+                "ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0  state RELATED,ESTABLISHED\n"
+                "ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0\n"
+                "ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0  /* loopback */\n"
+                "ACCEPT     tcp  --  10.0.0.0/8           0.0.0.0/0  tcp dpt:22\n"
+                "ACCEPT     tcp  --  10.0.1.0/24          0.0.0.0/0  tcp dpt:8443\n"
+                "ACCEPT     tcp  --  10.0.2.0/24          0.0.0.0/0  tcp dpt:8443\n"
+                "DROP       all  --  0.0.0.0/0            0.0.0.0/0\n\n"
+                "Chain FORWARD (policy DROP)\n"
+                "target     prot opt source               destination\n\n"
+                "Chain OUTPUT (policy ACCEPT)\n"
+                "target     prot opt source               destination\n\n"
+                "My workstation IP is 10.0.3.45 which is on the 10.0.3.0/24 subnet "
+                "(3rd floor, Building 2). It looks like only 10.0.1.0/24 and "
+                "10.0.2.0/24 are allowed. Can you add 10.0.3.0/24 to the firewall?\n\n"
+                "Thanks,\nLuis Ramirez"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P3,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.BUSINESS_IMPACT, MissingInfo.AFFECTED_USERS],
+            next_best_action=(
+                "The user correctly identified the issue: the iptables INPUT chain on "
+                "api-internal.contoso.com only allows port 8443 from 10.0.1.0/24 and "
+                "10.0.2.0/24 subnets, but the user is on 10.0.3.0/24."
+            ),
+            remediation_steps=[
+                "Verify the change request through proper approval channels before modifying production firewall rules.",
+                "Add an iptables rule: iptables -I INPUT 6 -s 10.0.3.0/24 -p tcp --dport 8443 -j ACCEPT.",
+                "Save the iptables configuration to persist across reboots.",
+                "Verify connectivity from the user's workstation (10.0.3.45) after the rule change.",
+                "Update the firewall documentation to reflect the new subnet allowlist.",
+            ],
+            reporter_name="Luis Ramirez",
+            reporter_email="luis.ramirez@contoso.com",
+            reporter_department="Backend Engineering",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "iptables-dump", "firewall-rules"],
+            difficulty="medium",
+        ),
+        # ── DC-137  LDAP search results dump ───────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-137",
+            subject="AD account not authenticating — ldapsearch output",
+            description=(
+                "My account stopped working for LDAP-based authentication to the "
+                "legacy trading system. I ran an ldapsearch and here's what I got:\n\n"
+                "# extended LDIF\n"
+                "# LDAPv3\n"
+                "# base <DC=contoso,DC=local> with scope subtree\n"
+                "# filter: (sAMAccountName=j.nakamura)\n"
+                "# requesting: ALL\n\n"
+                "dn: CN=Jun Nakamura,OU=Trading,OU=Users,DC=contoso,DC=local\n"
+                "objectClass: top\n"
+                "objectClass: person\n"
+                "objectClass: organizationalPerson\n"
+                "objectClass: user\n"
+                "cn: Jun Nakamura\n"
+                "sn: Nakamura\n"
+                "givenName: Jun\n"
+                "distinguishedName: CN=Jun Nakamura,OU=Trading,OU=Users,DC=contoso,"
+                "DC=local\n"
+                "displayName: Jun Nakamura\n"
+                "memberOf: CN=Trading-Floor-Users,OU=Groups,DC=contoso,DC=local\n"
+                "memberOf: CN=Bloomberg-Access,OU=Groups,DC=contoso,DC=local\n"
+                "memberOf: CN=VPN-Users,OU=Groups,DC=contoso,DC=local\n"
+                "sAMAccountName: j.nakamura\n"
+                "userPrincipalName: j.nakamura@contoso.com\n"
+                "userAccountControl: 514\n"
+                "lockoutTime: 133567890123456789\n"
+                "pwdLastSet: 133490000000000000\n"
+                "accountExpires: 133600000000000000\n"
+                "lastLogon: 133567800000000000\n\n"
+                "# search result\n"
+                "search: 2\n"
+                "result: 0 Success\n\n"
+                "I notice userAccountControl is 514 which I think means disabled? "
+                "And the lockoutTime has a value. I need this fixed ASAP as I can't "
+                "execute trades."
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P1,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.TIMESTAMP, MissingInfo.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "The LDAP output confirms the account (j.nakamura) has "
+                "userAccountControl=514 (account disabled) and a non-zero lockoutTime. "
+                "Re-enable the account and clear the lockout."
+            ),
+            remediation_steps=[
+                "Unlock the Active Directory account using 'Unlock-ADAccount -Identity j.nakamura'.",
+                "Re-enable the account using 'Enable-ADAccount -Identity j.nakamura'.",
+                "Investigate why the account was disabled (security incident, HR action, or automated policy).",
+                "Verify the account password has not expired (pwdLastSet check against policy).",
+                "Confirm the user can authenticate to the legacy trading system after account restoration.",
+            ],
+            reporter_name="Jun Nakamura",
+            reporter_email="jun.nakamura@contoso.com",
+            reporter_department="Equity Trading",
+            channel=Channel.PHONE,
+            tags=["data-cleanup", "ldap-output", "active-directory"],
+            difficulty="hard",
+        ),
+        # ── DC-138  SQL Server execution plan XML ──────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-138",
+            subject="Slow query on settlement database — execution plan",
+            description=(
+                "The daily settlement reconciliation query is taking 45 minutes instead "
+                "of the usual 3 minutes. I exported the execution plan from SSMS:\n\n"
+                "<?xml version=\"1.0\"?>\n"
+                "<ShowPlanXML xmlns=\"http://schemas.microsoft.com/sqlserver/2004/"
+                "07/showplan\" Version=\"1.6\" Build=\"16.0.4085.2\">\n"
+                "  <BatchSequence>\n"
+                "    <Batch>\n"
+                "      <Statements>\n"
+                "        <StmtSimple StatementText=\"SELECT t.TradeID, t.Amount..."
+                "\" StatementId=\"1\" StatementType=\"SELECT\"\n"
+                "          StatementSubTreeCost=\"847234.2\" StatementEstRows=\"3400000\">\n"
+                "          <QueryPlan CachedPlanSize=\"128\" CompileTime=\"4521\"\n"
+                "            CompileCPU=\"4521\" CompileMemory=\"65536\">\n"
+                "            <RelOp NodeId=\"0\" PhysicalOp=\"Hash Match\"\n"
+                "              LogicalOp=\"Inner Join\" EstimateRows=\"3400000\"\n"
+                "              EstimatedTotalSubtreeCost=\"847234.2\">\n"
+                "              <OutputList>\n"
+                "                <ColumnReference Table=\"[trades]\" Column=\"TradeID\"/>\n"
+                "              </OutputList>\n"
+                "              <Hash>\n"
+                "                <RelOp PhysicalOp=\"Table Scan\"\n"
+                "                  LogicalOp=\"Table Scan\" EstimateRows=\"15000000\"\n"
+                "                  TableCardinality=\"15000000\">\n"
+                "                </RelOp>\n"
+                "              </Hash>\n"
+                "            </RelOp>\n"
+                "          </QueryPlan>\n"
+                "        </StmtSimple>\n"
+                "      </Statements>\n"
+                "    </Batch>\n"
+                "  </BatchSequence>\n"
+                "</ShowPlanXML>\n\n"
+                "The execution plan shows a Table Scan on 15 million rows in the trades "
+                "table. I think we need an index but I don't have DBA access to create one.\n\n"
+                "Database: SQLPROD-SETTLE-01\n"
+                "Query: Daily reconciliation (job: DailyRecon_0600)"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.BUSINESS_IMPACT, MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Ignore the XML execution plan dump. The key issue is a full table scan "
+                "on a 15M-row trades table causing the daily reconciliation to run 15x "
+                "slower than normal. A missing or fragmented index is the likely cause."
+            ),
+            remediation_steps=[
+                "Analyze the reconciliation query and identify missing indexes using the Missing Index DMVs.",
+                "Create the recommended index on the trades table (likely on the join/filter columns).",
+                "Check index fragmentation levels and rebuild if above 30%.",
+                "Update statistics on the trades table if they are stale.",
+                "Monitor the query execution time after the index change to confirm improvement.",
+            ],
+            reporter_name="Patricia Volkov",
+            reporter_email="patricia.volkov@contoso.com",
+            reporter_department="Settlements",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "execution-plan-xml", "sql-server"],
+            difficulty="hard",
+        ),
+        # ── DC-139  IIS access log entries pasted ──────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-139",
+            subject="Internal compliance portal returning 503 — IIS logs",
+            description=(
+                "The compliance portal (compliance.contoso.com) keeps returning 503 errors. "
+                "I grabbed some IIS log entries:\n\n"
+                "#Software: Microsoft Internet Information Services 10.0\n"
+                "#Version: 1.0\n"
+                "#Date: 2026-03-18 14:00:01\n"
+                "#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port "
+                "cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus "
+                "sc-win32-status time-taken\n"
+                "2026-03-18 14:00:01 10.0.5.20 GET /dashboard - 443 CONTOSO\\a.singh "
+                "10.0.3.12 Mozilla/5.0+(Windows+NT+10.0) - 503 0 0 15625\n"
+                "2026-03-18 14:00:02 10.0.5.20 GET /api/compliance/status - 443 "
+                "CONTOSO\\b.johnson 10.0.3.15 Mozilla/5.0+(Windows+NT+10.0) - 503 0 0 15640\n"
+                "2026-03-18 14:00:03 10.0.5.20 GET /dashboard - 443 CONTOSO\\c.lee "
+                "10.0.3.22 Mozilla/5.0+(Windows+NT+10.0) - 503 0 0 15680\n"
+                "2026-03-18 14:00:04 10.0.5.20 GET /reports/quarterly - 443 "
+                "CONTOSO\\d.patel 10.0.3.44 Mozilla/5.0+(Windows+NT+10.0) - 503 0 0 15590\n"
+                "2026-03-18 14:00:05 10.0.5.20 POST /api/upload - 443 CONTOSO\\e.kim "
+                "10.0.3.18 Mozilla/5.0+(Windows+NT+10.0) - 503 0 0 15700\n"
+                "2026-03-18 14:00:06 10.0.5.20 GET /healthcheck - 443 - 10.0.5.1 "
+                "HealthChecker/2.0 - 503 0 0 15550\n"
+                "2026-03-18 14:00:07 10.0.5.20 GET /dashboard - 443 CONTOSO\\f.garcia "
+                "10.0.3.30 Mozilla/5.0+(Windows+NT+10.0) - 503 0 0 15620\n"
+                "2026-03-18 14:00:08 10.0.5.20 GET /api/compliance/alerts - 443 "
+                "CONTOSO\\g.tanaka 10.0.3.55 Mozilla/5.0+(Windows+NT+10.0) - 503 0 0 15660\n\n"
+                "(continues for hundreds of lines)\n\n"
+                "Every single request is returning 503. This affects the entire "
+                "Compliance department — about 40 people can't work. The quarterly "
+                "regulatory filing deadline is in 3 days."
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P1,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=True,
+            missing_info=[MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "The IIS logs confirm a complete outage of compliance.contoso.com "
+                "with 100% 503 errors affecting ~40 users. The uniform sc-win32-status=0 "
+                "and ~15.6s response times suggest the application pool has crashed or "
+                "the backend service is down. Urgent — regulatory filing deadline in 3 days."
+            ),
+            remediation_steps=[
+                "Check the IIS application pool for compliance.contoso.com — recycle it if stopped or failing.",
+                "Check the backend application service and database connectivity.",
+                "Review the Windows Event Log on the IIS server for application crash details.",
+                "If the app pool keeps crashing, check for memory leaks or unhandled exceptions in application logs.",
+                "Escalate to the application development team if the issue is a code-level crash.",
+            ],
+            reporter_name="Anil Singh",
+            reporter_email="anil.singh@contoso.com",
+            reporter_department="Compliance",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "iis-access-logs", "web-server-logs"],
+            difficulty="hard",
+        ),
+        # ── DC-140  npm dependency tree output ─────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-140",
+            subject="npm install failing — dependency tree conflict",
+            description=(
+                "I'm trying to set up the internal dashboard project and npm install "
+                "keeps failing. Here's the dependency tree output:\n\n"
+                "npm ERR! code ERESOLVE\n"
+                "npm ERR! ERESOLVE could not resolve\n"
+                "npm ERR!\n"
+                "npm ERR! While resolving: @contoso/dashboard-widgets@3.2.1\n"
+                "npm ERR! Found: react@18.2.0\n"
+                "npm ERR! node_modules/react\n"
+                "npm ERR!   react@\"^18.2.0\" from the root project\n"
+                "npm ERR!   peer react@\"^18.0.0\" from @contoso/ui-kit@5.1.0\n"
+                "npm ERR!   node_modules/@contoso/ui-kit\n"
+                "npm ERR!     @contoso/ui-kit@\"^5.0.0\" from the root project\n"
+                "npm ERR!\n"
+                "npm ERR! Could not resolve dependency:\n"
+                "npm ERR! peer react@\"^17.0.0\" from @contoso/legacy-charts@2.8.4\n"
+                "npm ERR! node_modules/@contoso/legacy-charts\n"
+                "npm ERR!   @contoso/legacy-charts@\"^2.8.0\" from "
+                "@contoso/dashboard-widgets@3.2.1\n"
+                "npm ERR!   node_modules/@contoso/dashboard-widgets\n"
+                "npm ERR!     @contoso/dashboard-widgets@\"^3.2.0\" from the root project\n"
+                "npm ERR!\n"
+                "npm ERR! Conflicting peer dependency: react@17.0.2\n"
+                "npm ERR! node_modules/react\n"
+                "npm ERR!   peer react@\"^17.0.0\" from @contoso/legacy-charts@2.8.4\n"
+                "npm ERR!   node_modules/@contoso/legacy-charts\n\n"
+                "npm ERR! Fix the upstream dependency conflict, or retry\n"
+                "npm ERR! this command with --force or --legacy-peer-deps\n\n"
+                "The @contoso/legacy-charts package requires React 17 but everything "
+                "else uses React 18. I need this working for the dashboard demo on "
+                "Friday. I don't want to use --force blindly."
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.APPLICATION_VERSION, MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "The npm ERESOLVE output pinpoints the issue: @contoso/legacy-charts@2.8.4 "
+                "has a peer dependency on React 17, conflicting with the project's React 18. "
+                "Coordinate with the internal package maintainers to update legacy-charts."
+            ),
+            remediation_steps=[
+                "Check if a newer version of @contoso/legacy-charts supports React 18.",
+                "If no update is available, contact the internal package team to request a React 18-compatible release.",
+                "As a short-term workaround, use npm install --legacy-peer-deps (but document this technical debt).",
+                "Consider replacing @contoso/legacy-charts with an alternative charting library compatible with React 18.",
+                "Update the project documentation to note the peer dependency constraint.",
+            ],
+            reporter_name="Maya Johansson",
+            reporter_email="maya.johansson@contoso.com",
+            reporter_department="Frontend Engineering",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "npm-dependency-tree", "package-conflict"],
+            difficulty="medium",
+        ),
     ]
