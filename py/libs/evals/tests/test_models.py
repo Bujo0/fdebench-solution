@@ -4,6 +4,10 @@
 import pytest
 from pydantic import ValidationError
 
+from ms.evals_core.constants import Channel
+from ms.evals_core.constants import MissingInfo
+from ms.evals_core.constants import Priority
+from ms.evals_core.constants import Team
 from ms.evals_core.eval_models import AssignedTeam
 from ms.evals_core.eval_models import Category
 from ms.evals_core.eval_models import GoldAnswer
@@ -21,21 +25,23 @@ class TestTicketModel:
             description="A test ticket",
             reporter=Reporter(name="Alice", email="alice@contoso.com", department="IT"),
             created_at="2026-03-18T00:00:00Z",
-            channel="email",
+            channel=Channel.EMAIL,
         )
         assert t.ticket_id == "INC-0001"
-        assert t.channel == "email"
+        assert t.channel == Channel.EMAIL
         assert t.attachments == []
 
     def test_invalid_channel_rejected(self) -> None:
         with pytest.raises(ValidationError):
-            Ticket(
-                ticket_id="INC-0001",
-                subject="Test",
-                description="Test",
-                reporter=Reporter(name="Alice", email="a@b.com", department="IT"),
-                created_at="2026-03-18T00:00:00Z",
-                channel="fax",
+            Ticket.model_validate(
+                {
+                    "ticket_id": "INC-0001",
+                    "subject": "Test",
+                    "description": "Test",
+                    "reporter": {"name": "Alice", "email": "a@b.com", "department": "IT"},
+                    "created_at": "2026-03-18T00:00:00Z",
+                    "channel": "fax",
+                }
             )
 
     def test_immutable(self) -> None:
@@ -45,7 +51,7 @@ class TestTicketModel:
             description="Test",
             reporter=Reporter(name="Alice", email="a@b.com", department="IT"),
             created_at="2026-03-18T00:00:00Z",
-            channel="email",
+            channel=Channel.EMAIL,
         )
         with pytest.raises(ValidationError):
             t.subject = "Changed"
@@ -55,11 +61,11 @@ class TestGoldAnswerModel:
     def test_valid_gold(self) -> None:
         g = GoldAnswer(
             ticket_id="INC-0001",
-            category="Security & Compliance",
-            priority="P1",
-            assigned_team="Security Operations",
+            category=Category.SECURITY,
+            priority=Priority.P1,
+            assigned_team=Team.SECURITY_OPS,
             needs_escalation=True,
-            missing_information=["timestamp", "error_message"],
+            missing_information=[MissingInfo.TIMESTAMP, MissingInfo.ERROR_MESSAGE],
             next_best_action="Investigate immediately",
             remediation_steps=["Step 1", "Step 2"],
         )
@@ -69,54 +75,62 @@ class TestGoldAnswerModel:
 
     def test_invalid_category_rejected(self) -> None:
         with pytest.raises(ValidationError):
-            GoldAnswer(
-                ticket_id="INC-0001",
-                category="Invalid Category",
-                priority="P1",
-                assigned_team="Security Operations",
-                needs_escalation=False,
-                missing_information=[],
-                next_best_action="",
-                remediation_steps=[],
+            GoldAnswer.model_validate(
+                {
+                    "ticket_id": "INC-0001",
+                    "category": "Invalid Category",
+                    "priority": "P1",
+                    "assigned_team": "Security Operations",
+                    "needs_escalation": False,
+                    "missing_information": [],
+                    "next_best_action": "",
+                    "remediation_steps": [],
+                }
             )
 
     def test_invalid_team_rejected(self) -> None:
         with pytest.raises(ValidationError):
-            GoldAnswer(
-                ticket_id="INC-0001",
-                category="Security & Compliance",
-                priority="P1",
-                assigned_team="Made Up Team",
-                needs_escalation=False,
-                missing_information=[],
-                next_best_action="",
-                remediation_steps=[],
+            GoldAnswer.model_validate(
+                {
+                    "ticket_id": "INC-0001",
+                    "category": "Security & Compliance",
+                    "priority": "P1",
+                    "assigned_team": "Made Up Team",
+                    "needs_escalation": False,
+                    "missing_information": [],
+                    "next_best_action": "",
+                    "remediation_steps": [],
+                }
             )
 
     def test_invalid_priority_rejected(self) -> None:
         with pytest.raises(ValidationError):
-            GoldAnswer(
-                ticket_id="INC-0001",
-                category="Security & Compliance",
-                priority="P5",
-                assigned_team="Security Operations",
-                needs_escalation=False,
-                missing_information=[],
-                next_best_action="",
-                remediation_steps=[],
+            GoldAnswer.model_validate(
+                {
+                    "ticket_id": "INC-0001",
+                    "category": "Security & Compliance",
+                    "priority": "P5",
+                    "assigned_team": "Security Operations",
+                    "needs_escalation": False,
+                    "missing_information": [],
+                    "next_best_action": "",
+                    "remediation_steps": [],
+                }
             )
 
     def test_invalid_missing_info_rejected(self) -> None:
         with pytest.raises(ValidationError):
-            GoldAnswer(
-                ticket_id="INC-0001",
-                category="Security & Compliance",
-                priority="P1",
-                assigned_team="Security Operations",
-                needs_escalation=False,
-                missing_information=["not_a_valid_field"],
-                next_best_action="",
-                remediation_steps=[],
+            GoldAnswer.model_validate(
+                {
+                    "ticket_id": "INC-0001",
+                    "category": "Security & Compliance",
+                    "priority": "P1",
+                    "assigned_team": "Security Operations",
+                    "needs_escalation": False,
+                    "missing_information": ["not_a_valid_field"],
+                    "next_best_action": "",
+                    "remediation_steps": [],
+                }
             )
 
 
