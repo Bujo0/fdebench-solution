@@ -5468,8 +5468,454 @@ register(
 )
 
 # ---------------------------------------------------------------------------
-# dc-101  GraphQL introspection dump in description
+# dc-076  Extremely long email with buried issue
 # ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-076",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "Various things — also laptop problem",
+            "Quick update + IT issue at the end",
+            "Couple of things to mention (including a tech issue)",
+        ],
+        descriptions=[
+            "Hi IT team,\n\n"
+            "Hope you all had a great weekend! I went hiking up near {office} and the weather "
+            "was absolutely perfect — sunny, mid-60s, not a cloud in the sky. My dog loved it.\n\n"
+            "Anyway, I wanted to follow up on the parking situation. I noticed that the spots "
+            "on level B2 near the south elevator are still unmarked, and a few people from "
+            "{department} have been parking there even though those are supposed to be reserved "
+            "for visitors. Could someone from facilities look into that? I mentioned it to "
+            "{name1} last Tuesday but haven't heard back.\n\n"
+            "Also, the printer on {floor} — the big color LaserJet near the kitchen — has been "
+            "making a grinding noise for about two weeks now. I know this isn't really your "
+            "department but I figured I'd mention it since the facilities request form has been "
+            "down (ironic, right?).\n\n"
+            "Oh, and the badges — {name1} said the new badge readers on the east wing were "
+            "going to be installed by end of Q3 but we're well past that now. The old ones "
+            "work fine I guess, but they're slow and sometimes you have to tap three or four "
+            "times. Minor annoyance.\n\n"
+            "Speaking of minor annoyances, the vending machine on {floor} ate my dollar again "
+            "yesterday. That's the third time this month. I've started keeping a tally.\n\n"
+            "The coffee machine in the {department} break room is also acting up — it dispenses "
+            "about half a cup and then stops. {name1} tried descaling it but no luck.\n\n"
+            "I also wanted to say thanks for fixing the projector in conference room {number} "
+            "last week. That was super quick turnaround and we were able to get our client "
+            "presentation done on time. Really appreciated.\n\n"
+            "Now, the actual reason I'm writing — my laptop ({os}) has been randomly freezing "
+            "for about 10-15 seconds at a time. It happens maybe 4-5 times a day, usually when "
+            "I have {app} and {browser} open together. The screen just locks up completely, "
+            "the cursor won't move, and then it comes back like nothing happened. No error "
+            "message, no blue screen, just a hard freeze. Started around {date}.\n\n"
+            "Let me know if you need me to bring it in or if there's something I can try first. "
+            "Thanks!\n\n"
+            "Best,\n{name}\n{department}",
+            "Hello,\n\n"
+            "Before I get to my actual question I just want to say that the new {office} "
+            "renovation looks amazing. The open floor plan is going to be great for "
+            "collaboration. I heard {name1} from facilities was the one who pushed for the "
+            "standing desk option and I think that's fantastic.\n\n"
+            "I also want to mention that the shuttle schedule between buildings has been really "
+            "inconsistent lately. Last Thursday I waited 25 minutes for what's supposed to be "
+            "a 10-minute loop. I almost missed my 2pm with the {department} team. Maybe we "
+            "could get a real-time tracking app or something?\n\n"
+            "On the topic of apps, the new expense reporting tool is… an experience. I spent "
+            "an hour trying to figure out how to attach a receipt and ended up just emailing it "
+            "to {name1} manually. Maybe some training sessions would help? Just a thought.\n\n"
+            "Also, the air conditioning on {floor} has been set to what I can only describe as "
+            "'arctic tundra' for the past week. I'm wearing a jacket indoors in July. I know "
+            "facilities handles that but again, their form is broken.\n\n"
+            "The cafeteria switched coffee suppliers and I'm not a fan. The old brand was from "
+            "that local roaster and had actual flavor. This new stuff tastes like sadness.\n\n"
+            "OK here is my actual issue: my docking station stopped recognizing my second "
+            "monitor as of {date}. I'm running {os} and have a dual-monitor setup. The left "
+            "monitor works fine through HDMI but the right one connected via DisplayPort just "
+            "shows 'No Signal.' I've tried swapping cables, rebooting, updating drivers — "
+            "nothing works. I rely on the second screen for {app} dashboards and it's really "
+            "slowing me down.\n\n"
+            "Anyway, sorry for the long email. Let me know what you think!\n\n"
+            "Cheers,\n{name}",
+        ],
+        next_best_actions=[
+            "Diagnose intermittent laptop freezing under multi-application load.",
+            "Troubleshoot docking station display output failure on secondary monitor.",
+        ],
+        remediation_steps=[
+            [
+                "Run hardware diagnostics (memory and SSD health check) on the reported laptop",
+                "Check Task Manager during freeze for any process consuming 100% CPU or disk",
+                "Update chipset and display adapter drivers to the latest vendor release",
+                "Test with a replacement docking station to rule out hardware failure",
+                "If freezes persist, schedule a full OS reimage and hardware swap",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-077  Massive base64-encoded PDF inline
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-077",
+        category=Category.SECURITY,
+        priority=Priority.P2,
+        assigned_team=Team.SECOPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AFFECTED_SYSTEM, MissingInfo.TIMESTAMP],
+        subjects=[
+            "Compliance audit report — see attached PDF inline",
+            "Security scan results — PDF embedded below",
+            "Quarterly compliance report — inline attachment",
+        ],
+        descriptions=[
+            "Hi SecOps,\n\n"
+            "I ran the quarterly compliance scan and the report flagged several issues. I'm "
+            "pasting the PDF inline because the attachment system is broken again.\n\n"
+            "--- BEGIN COMPLIANCE REPORT PDF ---\n"
+            "data:application/pdf;base64,JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZwov"
+            "UGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzCi9LaWRzIFsz"
+            "IDAgUl0KL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UKL1BhcmVu"
+            "dCAyIDAgUgovTWVkaWFCb3ggWzAgMCA2MTIgNzkyXQovQ29udGVudHMgNCAwIFIKL1Jlc291cm"
+            "NlcyA8PCAvRm9udCA8PCAvRjEgNSAwIFIgPj4gPj4gPj4KZW5kb2JqCjQgMCBvYmoKPDwgL0xl"
+            "bmd0aCA0NCA+PgpzdHJlYW0KQlQKL0YxIDE4IFRmCjEwMCA3MDAgVGQKKENvbXBsaWFuY2Ug"
+            "UmVwb3J0KSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCjUgMCBvYmoKPDwgL1R5cGUgL0ZvbnQK"
+            "L1N1YnR5cGUgL1R5cGUxCi9CYXNlRm9udCAvSGVsdmV0aWNhID4+CmVuZG9iagp4cmVmCjAg"
+            "NgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMDkgMDAwMDAgbiAKMDAwMDAwMDA1OCAw"
+            "MDAwMCBuIAowMDAwMDAwMTE1IDAwMDAwIG4gCjAwMDAwMDAzMDYgMDAwMDAgbiAKMDAwMMDM"
+            "OTkgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSA2Ci9Sb290IDEgMCBSID4+CnN0YXJ0eHJl"
+            "ZgozNDkKJSVFT0YKCi9TdWJ0eXBlIC9UeXBlMQovQmFzZUZvbnQgL0hlbHZldGljYSA+Pgpl"
+            "bmRvYmoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDA5IDAwMDAwIG4g"
+            "CjAwMDAwMDAwNTggMDAwMDAgbiAKMDAwMDAwMDExNSAwMDAwMCBuIAowMDAwMDAwMzA2IDAw"
+            "MDAwIG4gCjAwMDAwMDAzOTkgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSA2Ci9Sb290IDEg"
+            "MCBSID4+CnN0YXJ0eHJlZgozNDkKJSVFT0YK\n"
+            "--- END COMPLIANCE REPORT PDF ---\n\n"
+            "The scan found that several endpoints in the {department} segment are running "
+            "outdated antivirus definitions. The specific hosts aren't listed in the PDF "
+            "summary for some reason — it just says '{number} hosts non-compliant.' "
+            "We need to figure out which machines are affected before the audit on {date}.\n\n"
+            "Also, the scan tool itself ({app}) crashed twice during the run with error "
+            "'{error_code}' which makes me wonder if the results are even complete.\n\n"
+            "Can you investigate?\n\n"
+            "— {name}, {department}",
+            "Team,\n\n"
+            "Attached below (inline, sorry) is the PDF output from our {app} vulnerability "
+            "scanner. The ticketing system won't let me upload .pdf files today for some "
+            "reason.\n\n"
+            "data:application/pdf;base64,JVBERi0xLjcNCjEgMCBvYmoNCjw8IC9UeXBlIC9DYXRhbG9n"
+            "IC9QYWdlcyAyIDAgUiA+Pg0KZW5kb2JqDQoyIDAgb2JqDQo8PCAvVHlwZSAvUGFnZXMgL0tp"
+            "ZHMgWzMgMCBSXSAvQ291bnQgMSA+Pg0KZW5kb2JqDQozIDAgb2JqDQo8PCAvVHlwZSAvUGFn"
+            "ZSAvUGFyZW50IDIgMCBSIC9NZWRpYUJveCBbMCAwIDYxMiA3OTJdIC9Db250ZW50cyA0IDAg"
+            "UiAvUmVzb3VyY2VzIDw8IC9Gb250IDw8IC9GMSAFIDAgUiA+PiA+PiA+Pg0KZW5kb2JqDQo0"
+            "IDAgb2JqDQo8PCAvTGVuZ3RoIDQ0ID4+DQpzdHJlYW0NCkJUDQovRjEgMTIgVGYNCjEwMCA3"
+            "MDAgVGQNCihWdWxuZXJhYmlsaXR5IFJlcG9ydCkgVGoNCkVUDQplbmRzdHJlYW0NCmVuZG9i"
+            "ag0KNSAwIG9iag0KPDwgL1R5cGUgL0ZvbnQgL1N1YnR5cGUgL1R5cGUxIC9CYXNlRm9udCAv"
+            "SGVsdmV0aWNhID4+DQplbmRvYmoNCnhyZWYNCjAgNg0KMDAwMDAwMDAwMCA2NTUzNSBmIA0K"
+            "MDAwMDAwMDAwOSAwMDAwMCBuIA0KMDAwMDAwMDA1OCAwMDAwMCBuIA0KMDAwMDAwMDExNSAw\n\n"
+            "The report summary says we have {number} critical and {number} high-severity "
+            "findings across the {office} network segment. Most seem related to unpatched "
+            "{os} systems and expired TLS certificates on internal services.\n\n"
+            "I need SecOps to review these findings and confirm which ones are real vs. "
+            "false positives. The auditor from {department} is coming on {date} and we need "
+            "a remediation plan before then.\n\n"
+            "Thanks,\n{name}",
+        ],
+        next_best_actions=[
+            "Review compliance scan results and identify non-compliant endpoints.",
+            "Validate vulnerability findings and prepare remediation plan before audit deadline.",
+        ],
+        remediation_steps=[
+            [
+                "Extract and decode the PDF report to identify specific non-compliant hosts",
+                "Cross-reference flagged endpoints against the CMDB to confirm ownership",
+                "Push emergency antivirus definition updates to non-compliant machines",
+                "Renew expired TLS certificates on internal services before audit date",
+                "Re-run the compliance scan to verify remediation and generate a clean report",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-078  Multiple base64 screenshots in email chain
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-078",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "Laptop screen glitch — multiple screenshots attached",
+            "Display artifacts — see all images below",
+            "Screen issues — several screenshots inline",
+        ],
+        descriptions=[
+            "Hi,\n\n"
+            "My laptop screen keeps showing weird colored lines. Here are screenshots I took "
+            "throughout the day:\n\n"
+            "Screenshot 1 (9:04 AM — first occurrence):\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABHNCSVQI"
+            "CAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBl"
+            "Lm9yZ5vuPBoAACAASURBVHic7Z13XFTX1sd/M0NvUkVBsWBBsaFiN/ZeY429xBhjEjXJjcmNud6b"
+            "3JvE9F5MNBqNMRpj773FXrBhQ0BFpErvzLx/nBkYYAZQk7z3fb+fDzBn9t5nn73XXnvttc8MKIqi"
+            "KP8f1/8H/g/wf4D/A/wf4L8A/1/y3wBj9aoAAAAASUVORK5CYII=\n\n"
+            "Screenshot 2 (11:32 AM — happened again during a Teams call):\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAACXBIWXMA"
+            "AAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYA"
+            "AAY1SURBVHja7J17cBRlHsc/uwlJICSEBBRRRFFARFBBVDgVBcQL4uF5FiqnUuWJdz7O8r+yTqvK"
+            "unPPq7Ku0rPUKvVOj0MEBUVAHoqIiIAgAiKP8JKQEELI+9F7f7y7s7uZ3exudjfJ7nw+VVOzM/ub"
+            "2Zn5/r7f3/f7e3cNBoPB8N/m/wn/m5wCsP8/aBf+GwEUBfv/A/4L+C/A/wEU8F+L/z+w/38BRQH/"
+            "LfgHjAL+C/C/e7T/6QMoKirif/rUqf8GZ+W/Y/TfCKAo2P83OP8/gn+A/9PmDAb7/4P+D6Ao4L8F"
+            "/4BRwH8B/neP9v+9CYOi/H+D/X8B5f8D/jvw/4D/A/w3QDbm/8P+HxT8H+C/Af+Akf5b8N+C/wb8"
+            "A/43R/ufPICiYP9/4P8A/wf4P8D/ART8n+C/AP+7R/v/4AEUBfv/Bue/Ef8N+Af8b472P3UARQH/"
+            "tfgv4L8A/we4/k8fQFGw/z/wfwD5/wd7AKEAAAAABJRU5ErkJggg==\n\n"
+            "It went away for a bit and I thought it was fixed, but then:\n\n"
+            "Screenshot 3 (2:17 PM — after docking):\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEA"
+            "ALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB9sECgEMC3MklPUAAAAZdEVYdENv"
+            "bW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAANklEQVR42u3BMQEAAADCoPVPbQwfoAAAAAAAA"
+            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBrA8QAAQDR6h+YAAAAABJRU5ErkJggg==\n\n"
+            "Screenshot 4 (4:45 PM — worst one yet, whole screen had pink tint):\n"
+            "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQ"
+            "NDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwL"
+            "DBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy"
+            "MjL/wAARCAABAAEDASIAAhEBAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAACP/EABQQAQAAAAAAAAAAAAA"
+            "AAAAAAAAB/8QAFQEBAQAAAAAAAAAAAAAAAAAAB//EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAh"
+            "EDEQA/AKYAB//Z\n\n"
+            "The lines are always horizontal, green or pink, and they flicker. The laptop is "
+            "about 2 years old. Running {os}. I mostly use it docked on {floor} but it "
+            "happens undocked too.\n\n"
+            "— {name}",
+            "Forwarding my screenshots of the screen artifacts issue.\n\n"
+            "From: {name}\nTo: IT Support\nDate: {date}\n\n"
+            "Image A — the glitch when I first open {app}:\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVQY"
+            "V2P8z8BQz0AEYBxVOHIUAgBGWAgEe5fL3AAAAABJRU5ErkJggg==\n\n"
+            "Image B — the glitch after about 20 minutes:\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVQY"
+            "V2P8z8DwHwMNgHFU4chRCADVhAgIyPcZcQAAAABJRU5ErkJggg==\n\n"
+            "Image C — the screen after a reboot (still broken):\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVQY"
+            "V2P8z8BQz0AEYBxVOHIUAgBu7wgIL2vDCAAAAABJRU5ErkJggg==\n\n"
+            "Image D — zoomed in on the artifact area:\n"
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVQY"
+            "V2P8z8BQz0AEYBxVOHIUAgBrcwgIlrK09QAAAABJRU5ErkJggg==\n\n"
+            "As you can see the artifacts are persistent. They get worse through the day. "
+            "Restarting doesn't fix it. Happens in {app} and {browser} and everywhere. "
+            "I think the display panel might be failing. {os} updated last week but I "
+            "don't know if that's related.\n\n"
+            "Please help — {name}, {department}",
+        ],
+        next_best_actions=[
+            "Diagnose display artifacts on laptop screen, both docked and undocked.",
+            "Determine if GPU or display panel hardware is failing.",
+        ],
+        remediation_steps=[
+            [
+                "Run built-in display diagnostics to confirm artifacts appear outside the OS",
+                "Update GPU drivers and firmware to the latest vendor release",
+                "Test with an external monitor to isolate whether the internal panel or GPU is at fault",
+                "If artifacts persist on internal display only, schedule a panel replacement",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-079  Mobile autocorrect mangling technical terms
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-079",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "Outlook not sinking on phone",
+            "Cant log into the van",
+            "Apps keeps crashing on my devise",
+        ],
+        descriptions=[
+            "Hey so I'm typing this from my phone sorry for any typos\n\n"
+            "So basically my outlook has been acting up all week on my phone it keeps saying "
+            "something about a certificate era and then it won't sink my mail. I tried going "
+            "to the sittings and doing a mantle sink but it just spins forever.\n\n"
+            "Also the van has been super slow lately — I connect and it says connected but then "
+            "nothing loads. I tried the web version of the portal through my browser and it's "
+            "fine so it's definitely something with the van client. My college {name1} in "
+            "{department} has the same issue on their phone too.\n\n"
+            "The teams app is also being weird — sometimes when I get a notification and tap "
+            "it it takes me to a blank white screen and I have to force clothes the app and "
+            "re-open it. This has been happening since the last {os} update.\n\n"
+            "OH also the multi-factory authentication thing keeps asking me every single time "
+            "I open anything even though I checked the 'remember this devise' box. It's asking "
+            "like 10 times a day and it's really annoying.\n\n"
+            "I'm not at my desk right now so I can't check the exact error massage but I'll "
+            "try to get a screen shot when it happens again.\n\n"
+            "Sent from my iPhone\n"
+            "{name}\n{department}",
+            "Hi IT\n\n"
+            "I'm having trouble with {app} on my phone. When I try to open the app it shows "
+            "a beside screen (you know the blue screen with the sad face) for like a second "
+            "and then just closes itself. This started happening after I updated to the latest "
+            "version of {os}.\n\n"
+            "I also can't get the company male to work — it says it can't very fy my credentials "
+            "and to contact my administrator. I'm using the same password I always use and it "
+            "works fine on my lap top.\n\n"
+            "My college suggested I try clearing the cash but I went to settings and there's no "
+            "option for that in the new update. The inter face changed completely and I can't "
+            "find half the sittings anymore.\n\n"
+            "One more thing — the wire less connection in the {office} building keeps dropping. "
+            "I'll be on a teams call and suddenly I'm disconnected and have to re join. It shows "
+            "the wi-if signal as full bars but the inter net just stops working for about "
+            "30 seconds at a time. This happens on {floor} mostly.\n\n"
+            "Can someone please help? I'm loosing productivity big time.\n\n"
+            "Thanks\n{name}\n\nSent from my Samsung Galaxy",
+        ],
+        next_best_actions=[
+            "Troubleshoot mobile email sync failure and VPN connectivity issues.",
+            "Investigate app crash and credential verification failure on mobile device.",
+        ],
+        remediation_steps=[
+            [
+                "Verify mail profile configuration and SSL certificate validity on the mobile device",
+                "Reinstall the VPN client and re-provision the connection profile",
+                "Clear app cache and data for the crashing application, then re-authenticate",
+                "Check MFA token registration and re-enroll the device if persistent prompts continue",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-080  Voicemail / speech-to-text transcription with accent errors
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-080",
+        category=Category.NETWORK,
+        priority=Priority.P2,
+        assigned_team=Team.NETWORK,
+        needs_escalation=False,
+        missing_information=[MissingInfo.NETWORK_LOCATION, MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "Voicemail transcription — network issue report",
+            "Transcribed voicemail from {name} re: connectivity",
+            "Auto-transcribed voice message — urgent network problem",
+        ],
+        descriptions=[
+            "[Auto-transcribed voicemail received {date} at 3:47 PM — duration 2:34]\n"
+            "[Confidence: Low — background noise detected]\n\n"
+            "Hello yes this is {name} calling from the {department} apartment... department "
+            "sorry. I need to report a serious internet issue we are having on floor "
+            "{floor}.\n\n"
+            "So basically since about — um — since this moaning... morning, the wire less "
+            "network has been going in and out. It connects for maybe five minutes and then "
+            "drops for like two or free minutes and then connects again. It's been doing this "
+            "all morning and we can't get any work done.\n\n"
+            "I spoke with our adminis traitor... administrator {name1} and they said to call "
+            "you guys because it might be an issue with the excess... access point near "
+            "conference room {number}. Apparently the light on the device is blinking read "
+            "instead of green which apparently means something bad.\n\n"
+            "We've got about {number} people on this floor who are all effective... affected "
+            "by this and we have a big client prison... presentation tomorrow so we really "
+            "need this fixed by the end of today if possible.\n\n"
+            "Also I should mention that the ether net... ethernet connections at the desks "
+            "seem to be working fine so it's just the wife eye... Wi-Fi that's the problem. "
+            "I tried connecting to the guest net work as a walk around... workaround but it "
+            "won't let me access any of the interval... internal resources.\n\n"
+            "Please call me back at extension {number} or you can email me but "
+            "I might not get the email because of the internet thing.\n\n"
+            "Thank you.\n\n"
+            "[End of transcription]",
+            "[Voicemail transcription — {date} 10:12 AM]\n"
+            "[Speaker: {name}, {department}]\n"
+            "[Transcription quality: Poor — heavy accent detected]\n\n"
+            "Yes hello I am calling because we have a very big problem with the net work "
+            "in the {office} building. Since yes-today... yesterday evening the VEE PEE "
+            "ENN... VPN has been not working for anyone in our department.\n\n"
+            "When we try to connect it says — let me read the message — it says 'failed to "
+            "establish tunnel air or code {error_code}.' I don't know what that means but "
+            "everyone is getting the same error.\n\n"
+            "We tried rebooting the fire wall... firewall on our floor but that didn't help. "
+            "Actually I'm not sure if we're supposed to reboot the fire wall ourselves but "
+            "{name1} said it would be okay.\n\n"
+            "The strange thing is that the net work browse-ing... browsing works fine. I can "
+            "open goo-gull... Google and web sites and everything. It's just the VPN that "
+            "won't connect. And without the VPN we can't reach the file sever... server or "
+            "the share point... SharePoint or any of the internal tools.\n\n"
+            "Also one more thing — the print... printer on {floor} is showing off-line "
+            "even though the lights are on and it's connected to the net work. But the "
+            "printer might be a separate issue I don't know.\n\n"
+            "Please call me back or send someone as soon as possible because this is "
+            "affecting our whole department's prod-ductivity.\n\n"
+            "[End of voicemail transcription]",
+        ],
+        next_best_actions=[
+            "Investigate Wi-Fi access point failure causing intermittent wireless connectivity.",
+            "Troubleshoot VPN tunnel establishment failure across department.",
+        ],
+        remediation_steps=[
+            [
+                "Check the access point status on the wireless controller dashboard for the reported floor",
+                "Restart or replace the access point showing a red status LED",
+                "Verify VPN concentrator configuration and check for expired certificates causing tunnel failures",
+                "Test VPN connectivity from the affected floor after access point restoration",
+                "Confirm all internal resources (file server, SharePoint) are reachable via VPN",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-081  Zero-width Unicode and invisible characters
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-081",
+        category=Category.ACCESS_AUTH,
+        priority=Priority.P2,
+        assigned_team=Team.IAM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AUTHENTICATION_METHOD, MissingInfo.AFFECTED_SYSTEM],
+        subjects=[
+            "Can\u200bt lo\u200bg i\u200dn to\u200b por\u200btal",
+            "Account\u200b lock\u200ced\u200b out\u200b aga\u200bin",
+            "SS\u200bO \u200bnot\u200b work\u200bing\u200b for \u200bme",
+        ],
+        descriptions=[
+            "Hi\u200b IT\u200b team\u200b,\n\n"
+            "I\u200b've\u200b been\u200b locked\u200b out\u200b of\u200b my\u200b account\u200b "
+            "again\u200b.\u200b This\u200b is\u200b the\u200b third\u200b time\u200b this\u200b "
+            "week\u200b.\u200b Every\u200b time\u200b I\u200b try\u200b to\u200b log\u200b "
+            "in\u200b to\u200b the\u200b {app}\u200b portal\u200b,\u200b it\u200b says\u200b "
+            "'\u200bInvalid\u200b credentials\u200b'\u200b even\u200b though\u200b I\u200b "
+            "just\u200b reset\u200b my\u200b password\u200b yesterday\u200b.\n\n"
+            "I\u200b think\u200b there\u200b might\u200b be\u200b a\u200b problem\u200b with\u200b "
+            "the\u200b SSO\u200b configuration\u200b because\u200b {name1}\u200b in\u200b "
+            "my\u200b department\u200b is\u200b having\u200b the\u200b same\u200b issue\u200b.\n\n"
+            "I\u200b am\u200b using\u200b {browser}\u200b on\u200b {os}\u200b.\u200b The\u200b "
+            "error\u200b happens\u200b on\u200b the\u200b login\u200b page\u200b after\u200b "
+            "I\u200b enter\u200b my\u200b email\u200b and\u200b password\u200b and\u200b "
+            "click\u200b '\u200bSign\u200b In\u200b'\u200b.\u200b It\u200b redirects\u200b "
+            "me\u200b to\u200b the\u200b IdP\u200b page\u200b and\u200b then\u200b comes\u200b "
+            "back\u200b with\u200b the\u200b error\u200b.\n\n"
+            "I\u200b also\u200b noticed\u200b that\u200b when\u200b I\u200b copy\u200b "
+            "paste\u200b my\u200b username\u200b from\u200b our\u200b directory\u200b,\u200b "
+            "it\u200b doesn\u200b't\u200b work\u200b,\u200b but\u200b when\u200b I\u200b "
+            "manually\u200b type\u200b it\u200b,\u200b it\u200b sometimes\u200b does\u200b.\u200b "
+            "Very\u200b confusing\u200b.\n\n"
+            "Please\u200b help\u200b
 register(
     ScenarioTemplate(
         scenario_id="dc-101",
