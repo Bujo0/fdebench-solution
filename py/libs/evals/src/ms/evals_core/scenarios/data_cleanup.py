@@ -5794,4 +5794,577 @@ def get_scenarios() -> list[ScenarioDefinition]:
             tags=["data-cleanup", "bidi-text", "rtl-ltr-mixed", "arabic-english", "unicode-control"],
             difficulty="hard",
         ),
+        # ── DC-091  Zalgo text with combining diacritics ─────────────────
+        ScenarioDefinition(
+            scenario_id="DC-091",
+            subject=(
+                "L\u0337\u0332a\u0338\u0327p\u0336\u0321t\u0335\u0328o\u0338\u0327p\u0335\u0322 "
+                "w\u0338\u0322o\u0336\u0327n\u0335\u0328'\u0338\u0327t\u0335\u0322 "
+                "t\u0335\u0328u\u0338\u0327r\u0336\u0322n\u0335 o\u0338\u0327n\u0335\u0322"
+            ),
+            description=(
+                "H\u0336\u0321\u030ai\u0338\u0327\u030f I\u0338\u0327\u0310T\u0335\u0328\u0311 "
+                "S\u0338\u030au\u0336\u0322p\u0335\u0327\u0308p\u0338\u0328\u0311o\u0335\u0327"
+                "r\u0336\u0322t\u0338\u030a,\u0335\u0328\u0308\n\n"
+                "My laptop will not turn on at all. I press the power button and "
+                "nothing happens.\n\n"
+                "No lights, no fan spin, nothing. It was working fine yesterday.\n\n"
+                "I need it for a client presentation tomorrow.\n\n"
+                "The text in this email looks corrupted because my email client "
+                "applied excessive Unicode combining characters. I apologize for "
+                "the visual mess.\n\n"
+                "Thanks,\nDaniel Kwame\nWealth Management"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Request laptop make, model, and asset tag from the reporter. "
+                "Check whether any LED indicators appear when pressing the power "
+                "button. Arrange a loaner device if needed for the presentation."
+            ),
+            remediation_steps=[
+                "Contact the reporter to gather device details (make, model, asset tag).",
+                "Ask whether any LED indicators light up when pressing the power button.",
+                "Determine if the laptop was recently dropped, exposed to liquid, or updated.",
+                "If basic troubleshooting fails, schedule a hardware inspection.",
+                "Provide a loaner device if the repair will take more than one business day.",
+            ],
+            reporter_name="Daniel Kwame",
+            reporter_email="daniel.kwame@contoso.com",
+            reporter_department="Wealth Management",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "zalgo-text",
+                "combining-diacritics",
+                "unicode-corruption",
+                "hardware-issue",
+            ],
+            difficulty="hard",
+        ),
+        # ── DC-092  URL-encoded content throughout ───────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-092",
+            subject="SharePoint%20file%20access%20denied%20%2D%20urgent",
+            description=(
+                "Hi%20IT%20Support%2C%0A%0A"
+                "I%20am%20unable%20to%20access%20a%20file%20on%20SharePoint.%0A%0A"
+                "URL%3A%20https%3A%2F%2Fcontoso.sharepoint.com%2Fsites%2FFinance"
+                "%2FShared%2520Documents%2FQ1%2520Report.xlsx%0A%0A"
+                "Error%3A%20%22Access%20Denied%20%2D%20You%20do%20not%20have%20"
+                "permission%20to%20access%20this%20resource%22%0A%0A"
+                "I%20was%20able%20to%20open%20it%20last%20week%20with%20no%20"
+                "issues.%20My%20manager%20%40jennifer.wu%40contoso.com%20should"
+                "%20have%20granted%20me%20access.%0A%0A"
+                "Please%20help%2C%0ASofia%20Marquez%0AFinance"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P3,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE, MissingInfo.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Investigate SharePoint file-level permission denial for Q1 Report.xlsx "
+                "in the Finance site. Verify whether the reporter's access was revoked "
+                "or if the file was moved to a restricted library."
+            ),
+            remediation_steps=[
+                "Decode the URL-encoded ticket to extract the actual SharePoint URL and error.",
+                "Check the reporter's permissions on the Finance SharePoint site collection.",
+                "Verify whether the file was moved or permissions were changed recently.",
+                "If access was revoked, confirm with the manager and re-grant as appropriate.",
+                "Confirm the reporter can open the file after remediation.",
+            ],
+            reporter_name="Sofia Marquez",
+            reporter_email="sofia.marquez@contoso.com",
+            reporter_department="Finance",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "url-encoded",
+                "percent-encoding",
+                "sharepoint-access",
+                "copy-paste-artifact",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-093  Monitoring system alert flood ────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-093",
+            subject="[CRITICAL] DB connection pool exhaustion — alert storm",
+            description=(
+                "[PagerDuty Alert] CRITICAL — db-pool-primary: connection pool "
+                "exhausted (450/450) at 2026-03-17T14:23:01Z\n"
+                "[PagerDuty Alert] CRITICAL — db-pool-primary: connection pool "
+                "exhausted (450/450) at 2026-03-17T14:23:31Z\n"
+                "[PagerDuty Alert] CRITICAL — db-pool-primary: connection pool "
+                "exhausted (450/450) at 2026-03-17T14:24:01Z\n"
+                "[PagerDuty Alert] WARNING — app-server-01: response time > 5s "
+                "at 2026-03-17T14:24:05Z\n"
+                "[PagerDuty Alert] WARNING — app-server-02: response time > 5s "
+                "at 2026-03-17T14:24:06Z\n"
+                "[PagerDuty Alert] WARNING — app-server-03: response time > 5s "
+                "at 2026-03-17T14:24:07Z\n"
+                "[PagerDuty Alert] CRITICAL — db-pool-primary: connection pool "
+                "exhausted (450/450) at 2026-03-17T14:24:31Z\n"
+                "[PagerDuty Alert] CRITICAL — db-pool-primary: connection pool "
+                "exhausted (450/450) at 2026-03-17T14:25:01Z\n"
+                "[PagerDuty Alert] CRITICAL — db-pool-replica: connection pool "
+                "exhausted (200/200) at 2026-03-17T14:25:15Z\n"
+                "[PagerDuty Alert] CRITICAL — db-pool-primary: connection pool "
+                "exhausted (450/450) at 2026-03-17T14:25:31Z\n"
+                "[Nagios] CRITICAL — Service: postgres-primary, Host: db01.contoso"
+                ".internal — CRITICAL: 450 active connections (max 450)\n"
+                "[Nagios] WARNING — Service: app-health, Host: app01.contoso"
+                ".internal — WARNING: health check timeout after 30s\n\n"
+                "Hi team — the above alerts have been firing nonstop for the last "
+                "20 minutes. The primary database connection pool is fully exhausted "
+                "and it is cascading to the app servers. Replica pool also hit its "
+                "limit. We need someone to investigate the root cause — likely a "
+                "runaway query or connection leak.\n\n"
+                "— Ops on-call"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=True,
+            missing_info=[MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate database connection pool exhaustion on db-pool-primary "
+                "(450/450) and db-pool-replica (200/200). Identify the root cause — "
+                "likely a runaway query or connection leak — and restore service."
+            ),
+            remediation_steps=[
+                "Identify the top consumers of database connections using pg_stat_activity.",
+                "Kill any long-running or idle-in-transaction sessions to free connections.",
+                "Check for recent deployments or query changes that may have introduced a leak.",
+                "Increase the connection pool limit temporarily if needed to restore service.",
+                "Implement connection pool monitoring alerts at 80% threshold to catch this earlier.",
+            ],
+            reporter_name="Ops On-Call",
+            reporter_email="ops.oncall@contoso.com",
+            reporter_department="Cloud Infrastructure",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "alert-flood",
+                "monitoring-noise",
+                "pagerduty",
+                "nagios",
+                "connection-pool",
+            ],
+            difficulty="hard",
+        ),
+        # ── DC-094  SQL query dump pasted inline ─────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-094",
+            subject="Report aggregation returning wrong totals",
+            description=(
+                "Hi Data Platform team,\n\n"
+                "The quarterly revenue report is showing incorrect aggregation "
+                "totals. Here is the query I am running:\n\n"
+                "WITH regional_sales AS (\n"
+                "    SELECT r.region_name, SUM(s.amount) AS total_sales\n"
+                "    FROM sales s\n"
+                "    JOIN regions r ON s.region_id = r.id\n"
+                "    WHERE s.sale_date BETWEEN '2026-01-01' AND '2026-03-31'\n"
+                "    GROUP BY r.region_name\n"
+                "),\n"
+                "top_regions AS (\n"
+                "    SELECT region_name, total_sales\n"
+                "    FROM regional_sales\n"
+                "    WHERE total_sales > (\n"
+                "        SELECT SUM(total_sales) / 10 FROM regional_sales\n"
+                "    )\n"
+                ")\n"
+                "SELECT o.order_id, o.amount, t.region_name, t.total_sales\n"
+                "FROM orders o\n"
+                "JOIN top_regions t ON o.region_name = t.region_name\n"
+                "ORDER BY t.total_sales DESC;\n\n"
+                "The total_sales column does not match what Finance is reporting. "
+                "I think the JOIN between orders and top_regions is creating "
+                "duplicates but I am not sure. Can someone take a look?\n\n"
+                "Thanks,\nRaj Patel\nData Engineering"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P3,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_info=[
+                MissingInfo.ENVIRONMENT_DETAILS,
+                MissingInfo.STEPS_TO_REPRODUCE,
+            ],
+            next_best_action=(
+                "Review the SQL query for the quarterly revenue report — the JOIN "
+                "between orders and top_regions likely produces duplicate rows, "
+                "inflating the total_sales aggregation."
+            ),
+            remediation_steps=[
+                "Analyze the SQL query for correctness — check for fan-out from the JOIN.",
+                "Verify whether the orders-to-regions relationship is one-to-many.",
+                "Compare the query output with the Finance team's expected totals.",
+                "Suggest a corrected query that avoids duplication (e.g., use a subquery or window).",
+                "Schedule a review with the reporter to validate the corrected output.",
+            ],
+            reporter_name="Raj Patel",
+            reporter_email="raj.patel@contoso.com",
+            reporter_department="Data Engineering",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "sql-dump",
+                "inline-query",
+                "report-aggregation",
+                "cte-query",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-095  Certificate / private key material accidentally pasted ─
+        ScenarioDefinition(
+            scenario_id="DC-095",
+            subject="SSL certificate expired on api.contoso.com",
+            description=(
+                "Hi Security team,\n\n"
+                "The SSL certificate for api.contoso.com expired today and clients "
+                "are getting TLS errors. Here is the certificate and key so you "
+                "can see the expiry:\n\n"
+                "-----BEGIN CERTIFICATE-----\n"
+                "MIIFjTCCA3WgAwIBAgIUDm3mMk3AOBIvSGNP0GFbK9bFzRkwDQYJKoZIhvcNAQEL\n"
+                "BQAwXjELMAkGA1UEBhMCVVMxCzAJBgNVBAgMAk5ZMREwDwYDVQQHDAhOZXcgWW9y\n"
+                "azEQMA4GA1UECgwHQ29udG9zbzEdMBsGA1UEAwwUYXBpLmNvbnRvc28uY29tMB4X\n"
+                "DTI1MDMxN1QxNDAwMDBaFw0yNjAzMTdUMTQwMDAwWjBeMQswCQYDVQQGEwJVUzEL\n"
+                "FAKE_CERT_DATA_FOR_SCENARIO_PURPOSES_ONLY_NOT_REAL\n"
+                "-----END CERTIFICATE-----\n\n"
+                "-----BEGIN RSA PRIVATE KEY-----\n"
+                "MIIEpAIBAAKCAQEA0Z3VS5JJcds3xfn/ygWyF8PbnGy0AHB7MhgHcTz6sE2I2yPB\n"
+                "aFDrBz8sPPNBMEJJJHGrasfW2EBJHGE4R3hQbLTAOJ1FakePrivateKeyDataForSc\n"
+                "enarioPurposesOnlyDoNotUseInProductionOrAnywher3ElseThisIsAT3st0nly\n"
+                "-----END RSA PRIVATE KEY-----\n\n"
+                "As you can see the cert expired. Please renew it ASAP.\n\n"
+                "Thanks,\nMarcus Henley\nCloud Infrastructure"
+            ),
+            category=Category.SECURITY,
+            priority=Priority.P2,
+            team=Team.SECURITY_OPS,
+            needs_escalation=True,
+            missing_info=[MissingInfo.CONFIGURATION_DETAILS],
+            next_best_action=(
+                "URGENT — Private key material was pasted in a support ticket. "
+                "Rotate the api.contoso.com certificate and private key immediately. "
+                "Treat the exposed key as compromised."
+            ),
+            remediation_steps=[
+                "Immediately revoke the exposed private key and certificate.",
+                "Generate a new key pair and request a new certificate for api.contoso.com.",
+                "Deploy the new certificate to all endpoints serving api.contoso.com.",
+                "Purge the private key material from the ticketing system and any logs.",
+                "Remind the reporter that private keys must never be shared in tickets.",
+            ],
+            reporter_name="Marcus Henley",
+            reporter_email="marcus.henley@contoso.com",
+            reporter_department="Cloud Infrastructure",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "sensitive-data",
+                "private-key-exposure",
+                "pem-certificate",
+                "security-incident",
+            ],
+            difficulty="hard",
+        ),
+        # ── DC-096  Hex dump (hexdump -C) output ─────────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-096",
+            subject="File corruption on network drive — hex dump attached",
+            description=(
+                "Hi team,\n\n"
+                "I noticed files on the \\\\contoso-nas\\finance share are getting "
+                "corrupted. I ran hexdump -C on a corrupted file and here is the "
+                "output:\n\n"
+                "00000000  50 4b 03 04 14 00 06 00  08 00 00 00 21 00 62 ee  "
+                "|PK..........!.b.|\n"
+                "00000010  9d 68 5e 01 00 00 90 04  00 00 13 00 08 02 5b 43  "
+                "|.h^...........[C|\n"
+                "00000020  6f 6e 74 65 6e 74 5f 54  79 70 65 73 5d 2e 78 6d  "
+                "|ontent_Types].xm|\n"
+                "00000030  6c 20 a2 04 02 28 a0 00  02 00 00 00 00 00 00 00  "
+                "|l ...(.........|\n"
+                "00000040  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  "
+                "|................|\n"
+                "*\n"
+                "00000060  00 00 00 00 00 00 FF FF  FF FF FF FF FF FF FF FF  "
+                "|................|\n"
+                "00000070  FF FF FF FF FF FF FF FF  FF FF FF FF FF FF FF FF  "
+                "|................|\n\n"
+                "The file should be a valid .xlsx but it is zero-filled from "
+                "offset 0x40 onwards. Multiple files on the same share show "
+                "similar corruption patterns. This started around last Thursday.\n\n"
+                "Thanks,\nAmira Benyoussef\nFinance"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P3,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_info=[
+                MissingInfo.AFFECTED_SYSTEM,
+                MissingInfo.REPRODUCTION_FREQUENCY,
+            ],
+            next_best_action=(
+                "Investigate file corruption on \\\\contoso-nas\\finance — multiple "
+                ".xlsx files are zero-filled from offset 0x40. Started around last "
+                "Thursday; may indicate a storage hardware or firmware issue."
+            ),
+            remediation_steps=[
+                "Check the NAS appliance health logs for disk errors or firmware warnings.",
+                "Verify RAID status and check for degraded arrays or failed drives.",
+                "Compare the corrupted files against recent backups to assess the scope.",
+                "Restore corrupted files from the most recent clean backup.",
+                "If the issue persists, engage the NAS vendor for hardware diagnostics.",
+            ],
+            reporter_name="Amira Benyoussef",
+            reporter_email="amira.benyoussef@contoso.com",
+            reporter_department="Finance",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "hex-dump",
+                "binary-output",
+                "file-corruption",
+                "network-drive",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-097  Mixed date/time format confusion ─────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-097",
+            subject="Meeting room double-bookings — dates are all wrong",
+            description=(
+                "Hi IT,\n\n"
+                "We keep getting meeting room conflicts. The booking system shows "
+                "different dates depending on where you look:\n\n"
+                "- Outlook says the meeting is on 03/04/2026 (is that March 4 or "
+                "April 3?)\n"
+                "- The room display panel shows 04-Mar-26\n"
+                "- The booking API returns 2026-03-04T14:00:00Z\n"
+                "- The export CSV has 1709560800 (epoch seconds)\n"
+                "- The audit log shows 04/03/2026 10:00 AM EST\n\n"
+                "I booked Conference Room B on what I thought was March 4th at "
+                "2 PM ET, but someone else booked the same room for April 3rd "
+                "and the system did not flag a conflict. Or maybe we both booked "
+                "March 4th and the system just allowed a double-booking?\n\n"
+                "This has happened at least three times this month with different "
+                "rooms. The London office says they see dates in DD/MM/YYYY but "
+                "we see MM/DD/YYYY in New York.\n\n"
+                "Thanks,\nPreeti Sharma\nOperations"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P4,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.STEPS_TO_REPRODUCE, MissingInfo.TIMESTAMP],
+            next_best_action=(
+                "Investigate the meeting room booking system for locale-dependent "
+                "date parsing — MM/DD vs DD/MM ambiguity is causing double-bookings "
+                "across the New York and London offices."
+            ),
+            remediation_steps=[
+                "Review the booking system's date parsing logic for locale handling.",
+                "Verify how dates are stored internally — should be ISO 8601 (YYYY-MM-DD).",
+                "Check the three reported double-booking incidents to confirm the root cause.",
+                "Apply a fix to normalize date display and input to ISO 8601 across all locales.",
+                "Notify affected users and ask them to verify upcoming bookings.",
+            ],
+            reporter_name="Preeti Sharma",
+            reporter_email="preeti.sharma@contoso.com",
+            reporter_department="Operations",
+            channel=Channel.CHAT,
+            tags=[
+                "data-cleanup",
+                "date-format-confusion",
+                "locale-ambiguity",
+                "mixed-formats",
+                "epoch-timestamp",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-098  Financial ticker / code confusion ────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-098",
+            subject="Bloomberg data feed mapping error — CUSIP/ISIN mismatch",
+            description=(
+                "Hi Enterprise Apps,\n\n"
+                "We are seeing incorrect data in the Bloomberg terminal for several "
+                "securities. The mapping between identifiers is wrong:\n\n"
+                "- AAPL US Equity (BBG ticker) maps to CUSIP 037833100 which is "
+                "correct\n"
+                "- But MSFT US Equity maps to CUSIP 594918104 which is actually "
+                "the CUSIP for META\n"
+                "- ISIN US5949181045 should be MSFT but resolves to META in our "
+                "system\n"
+                "- SEDOL 2588173 (MSFT on LSE) maps correctly in London but not NY\n"
+                "- BBG FIGI BBG000BPH459 shows MSFT but pulls META pricing\n\n"
+                "This started after the overnight data feed refresh at 02:15 UTC. "
+                "The raw feed file looks correct but something in our mapping "
+                "layer is swapping MSFT and META identifiers.\n\n"
+                "This is impacting P&L calculations for the equities desk.\n\n"
+                "Thanks,\nVictor Nwosu\nQuantitative Analysis"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[
+                MissingInfo.CONFIGURATION_DETAILS,
+                MissingInfo.APPLICATION_VERSION,
+            ],
+            next_best_action=(
+                "Investigate the Bloomberg data feed mapping layer — MSFT and META "
+                "identifiers are swapped after the overnight refresh. Impacting "
+                "P&L calculations on the equities desk."
+            ),
+            remediation_steps=[
+                "Compare the raw Bloomberg feed file against the mapped output for MSFT and META.",
+                "Identify where in the mapping layer the CUSIP/ISIN swap is occurring.",
+                "Correct the mapping and trigger a re-import of affected securities.",
+                "Verify P&L calculations are accurate after the fix.",
+                "Add validation rules to detect identifier mismatches in future feed imports.",
+            ],
+            reporter_name="Victor Nwosu",
+            reporter_email="victor.nwosu@contoso.com",
+            reporter_department="Quantitative Analysis",
+            channel=Channel.PHONE,
+            tags=[
+                "data-cleanup",
+                "financial-codes",
+                "ticker-symbols",
+                "cusip-isin",
+                "bloomberg",
+                "nlp-confusion",
+            ],
+            difficulty="hard",
+        ),
+        # ── DC-099  tcpdump / packet capture output ──────────────────────
+        ScenarioDefinition(
+            scenario_id="DC-099",
+            subject="High DNS query latency — tcpdump output included",
+            description=(
+                "Hi Network Ops,\n\n"
+                "DNS resolution is extremely slow from the trading floor (Building "
+                "A, Floor 3). I ran tcpdump and here is what I captured:\n\n"
+                "14:23:01.234567 IP 10.50.3.101.52341 > 10.1.1.53.53: 12345+ A? "
+                "api.contoso.com. (33)\n"
+                "14:23:04.567890 IP 10.1.1.53.53 > 10.50.3.101.52341: 12345 1/0/0 "
+                "A 10.100.5.20 (49)\n"
+                "14:23:04.568123 IP 10.50.3.101.52342 > 10.1.1.53.53: 12346+ AAAA?"
+                " api.contoso.com. (33)\n"
+                "14:23:07.891234 IP 10.1.1.53.53 > 10.50.3.101.52342: 12346 0/1/0 "
+                "(98)\n"
+                "14:23:07.891567 IP 10.50.3.101.52343 > 10.1.1.53.53: 12347+ A? "
+                "market-data.contoso.com. (40)\n"
+                "14:23:11.123456 IP 10.1.1.53.53 > 10.50.3.101.52343: 12347 1/0/0 "
+                "A 10.100.5.30 (56)\n\n"
+                "Each DNS query takes over 3 seconds to resolve. The DNS server is "
+                "10.1.1.53. This is causing timeouts in our trading applications. "
+                "Normal resolution time should be under 10ms.\n\n"
+                "Thanks,\nChen Wei\nInstitutional Trading"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.NETWORK_LOCATION],
+            next_best_action=(
+                "Investigate DNS resolution latency from the trading floor "
+                "(10.50.3.0/24 to DNS server 10.1.1.53) — queries taking 3+ "
+                "seconds instead of the expected sub-10ms."
+            ),
+            remediation_steps=[
+                "Check the DNS server 10.1.1.53 for high CPU, memory, or query load.",
+                "Verify the network path between 10.50.3.0/24 and 10.1.1.53 for latency.",
+                "Check for DNS forwarder misconfigurations or upstream resolver issues.",
+                "Consider adding a local caching resolver closer to the trading floor.",
+                "Monitor DNS latency after remediation to confirm sub-10ms response times.",
+            ],
+            reporter_name="Chen Wei",
+            reporter_email="chen.wei@contoso.com",
+            reporter_department="Institutional Trading",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "tcpdump",
+                "packet-capture",
+                "dns-latency",
+                "raw-network-output",
+            ],
+            difficulty="medium",
+        ),
+        # ── DC-100  Screen reader / accessibility tree artifacts ─────────
+        ScenarioDefinition(
+            scenario_id="DC-100",
+            subject="Cannot access self-service portal — screen reader output",
+            description=(
+                "Hi IT Support,\n\n"
+                "I use a screen reader (JAWS) and I cannot access the self-service "
+                "IT portal. Here is what my screen reader announces when I try to "
+                "navigate the page:\n\n"
+                "[banner landmark] Contoso IT Self-Service Portal\n"
+                "[navigation landmark] Main Navigation\n"
+                "  [link] Home\n"
+                "  [link] Submit Ticket\n"
+                "  [link] Knowledge Base\n"
+                "  [link] My Tickets\n"
+                "[main landmark]\n"
+                "  [heading level 1] Welcome to IT Self-Service\n"
+                "  [region] Login Form\n"
+                "    [label] Username [edit text]\n"
+                "    [label] Password [edit password]\n"
+                "    [button] Sign In\n"
+                "    [alert] Error: Authentication failed. Please try again.\n"
+                "  [complementary landmark] Quick Links\n"
+                "    [list] 3 items\n"
+                "      [link] Reset Password\n"
+                "      [link] VPN Setup Guide\n"
+                "      [link] New Equipment Request\n"
+                "[contentinfo landmark] Footer\n\n"
+                "When I activate the Sign In button, the screen reader announces "
+                "'Error: Authentication failed. Please try again.' but I am "
+                "certain my credentials are correct — I just changed my password "
+                "yesterday. The portal works for my colleagues who do not use "
+                "screen readers.\n\n"
+                "Thanks,\nIsabella Torres\nCompliance"
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P3,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE, MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Investigate authentication failure on the IT self-service portal "
+                "for a screen reader user — may be an accessibility-related login "
+                "form issue or a credential sync problem after password change."
+            ),
+            remediation_steps=[
+                "Verify the reporter's credentials are valid and the password change propagated.",
+                "Test the self-service portal login with a screen reader to reproduce the issue.",
+                "Check if the login form uses JavaScript that interferes with assistive technology.",
+                "If a portal bug is found, file a defect with the portal development team.",
+                "Provide the reporter with an alternative method to submit tickets until fixed.",
+            ],
+            reporter_name="Isabella Torres",
+            reporter_email="isabella.torres@contoso.com",
+            reporter_department="Compliance",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "screen-reader",
+                "accessibility-tree",
+                "aria-landmarks",
+                "assistive-technology",
+            ],
+            difficulty="hard",
+        ),
     ]
