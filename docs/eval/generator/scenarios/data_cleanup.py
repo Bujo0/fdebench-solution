@@ -687,8 +687,7 @@ SCENARIOS: list[Scenario] = [
             "═══════════════════════════════════════════",
         ],
         next_best_actions=[
-            "Provision VPN access to the APAC regional network — verify manager "
-            "approval and configure by end of week.",
+            "Provision VPN access to the APAC regional network — verify manager approval and configure by end of week.",
         ],
         remediation_steps=[
             [
@@ -716,7 +715,7 @@ SCENARIOS: list[Scenario] = [
             "[MONITORING] CRITICAL: Disk usage above 95% on production SQL node",
         ],
         descriptions=[
-            '{\n'
+            "{\n"
             '  "alert_id": "MON-2026-031718-4492",\n'
             '  "alert_type": "DiskSpaceThresholdExceeded",\n'
             '  "severity": "CRITICAL",\n'
@@ -727,7 +726,7 @@ SCENARIOS: list[Scenario] = [
             '    "datacenter": "US-East-1",\n'
             '    "os": "Windows Server 2022 Datacenter",\n'
             '    "role": "SQL Server Production Node"\n'
-            '  },\n'
+            "  },\n"
             '  "disk_metrics": {\n'
             '    "drive_letter": "E:",\n'
             '    "total_capacity_gb": 2048,\n'
@@ -735,17 +734,17 @@ SCENARIOS: list[Scenario] = [
             '    "percent_used": 95.06,\n'
             '    "growth_rate_gb_per_day": 12.4,\n'
             '    "estimated_days_until_full": 8.2\n'
-            '  },\n'
+            "  },\n"
             '  "top_consumers": [\n'
             '    {"database": "AuditLog", "size_gb": 512.8, "growth_30d_gb": 156.3},\n'
             '    {"database": "TradeHistory", "size_gb": 743.2, "growth_30d_gb": 89.1}\n'
-            '  ],\n'
+            "  ],\n"
             '  "recent_events": [\n'
             '    {"timestamp": "2026-03-16T02:00:00Z", '
             '"event": "AuditLog retention job FAILED"}\n'
-            '  ],\n'
+            "  ],\n"
             '  "escalation": {"auto_ticket": true, "sla_response_minutes": 60}\n'
-            '}',
+            "}",
         ],
         next_best_actions=[
             "Address critical disk space on PROD-SQL-NODE-03 — AuditLog retention "
@@ -780,7 +779,7 @@ SCENARIOS: list[Scenario] = [
             "The    printer   on    the   6th   floor    near   conference   "
             "room   B   is     not     working.\n\n\n\n\n\n\n"
             "It    is    a    HP    LaserJet    Pro    MFP    M428fdn    and   "
-            "the     display     says     \"Paper   Jam\"     but     I   "
+            'the     display     says     "Paper   Jam"     but     I   '
             "checked     and     there    is    no     paper     stuck   "
             "anywhere.\n\n\n\n\n\n"
             "I     tried:\n\n\n"

@@ -3910,16 +3910,11 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "a client-side or profile configuration issue."
             ),
             remediation_steps=[
-                "Verify the user's GlobalProtect client version and "
-                "update if outdated.",
-                "Check the VPN gateway address configured on the "
-                "client — it may have been corrupted after an update.",
-                "Run 'netsh winsock reset' and flush DNS to rule out "
-                "local networking stack issues.",
-                "If the issue persists, remove and reinstall the "
-                "GlobalProtect VPN client.",
-                "Confirm network connectivity to the VPN gateway IP "
-                "directly using ping and traceroute.",
+                "Verify the user's GlobalProtect client version and update if outdated.",
+                "Check the VPN gateway address configured on the client — it may have been corrupted after an update.",
+                "Run 'netsh winsock reset' and flush DNS to rule out local networking stack issues.",
+                "If the issue persists, remove and reinstall the GlobalProtect VPN client.",
+                "Confirm network connectivity to the VPN gateway IP directly using ping and traceroute.",
             ],
             reporter_name="Kevin Marsh",
             reporter_email="kevin.marsh@contoso.com",
@@ -3967,16 +3962,11 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "renewal status with Bloomberg rep."
             ),
             remediation_steps=[
-                "Confirm the Ariba PO (PO-2026-11847) has been "
-                "approved and transmitted to Bloomberg.",
-                "Contact the Bloomberg account representative to "
-                "verify the renewal is in progress.",
-                "If the renewal cannot be completed before March 31, "
-                "request a temporary extension from Bloomberg.",
-                "Verify the B-PIPE data feed configuration will "
-                "survive the license rollover without reconfiguration.",
-                "Notify the quant team of the renewal timeline and "
-                "any expected downtime window.",
+                "Confirm the Ariba PO (PO-2026-11847) has been approved and transmitted to Bloomberg.",
+                "Contact the Bloomberg account representative to verify the renewal is in progress.",
+                "If the renewal cannot be completed before March 31, request a temporary extension from Bloomberg.",
+                "Verify the B-PIPE data feed configuration will survive the license rollover without reconfiguration.",
+                "Notify the quant team of the renewal timeline and any expected downtime window.",
             ],
             reporter_name="Andrew Kim",
             reporter_email="andrew.kim@contoso.com",
@@ -4067,17 +4057,13 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "regression introduced in the v3.2.1 deployment."
             ),
             remediation_steps=[
-                "Roll back risk-calc-service from v3.2.1 to v3.2.0 "
-                "to restore production stability immediately.",
-                "Compare heap usage profiles between v3.2.0 and "
-                "v3.2.1 to identify the memory regression.",
-                "Investigate the VaR calculation path for portfolio "
-                "PF-2847 — it may involve unusually large datasets.",
+                "Roll back risk-calc-service from v3.2.1 to v3.2.0 to restore production stability immediately.",
+                "Compare heap usage profiles between v3.2.0 and v3.2.1 to identify the memory regression.",
+                "Investigate the VaR calculation path for portfolio PF-2847 — it may involve unusually large datasets.",
                 "Consider increasing the pod memory limit from 4Gi "
                 "to 8Gi as a temporary measure if rollback is not "
                 "feasible.",
-                "Add memory usage alerts at 70% threshold to catch "
-                "future regressions before OOMKill.",
+                "Add memory usage alerts at 70% threshold to catch future regressions before OOMKill.",
             ],
             reporter_name="Priya Nair",
             reporter_email="priya.nair@contoso.com",
@@ -4126,17 +4112,13 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "display showing 'Error'. Multiple users affected."
             ),
             remediation_steps=[
-                "Check the printer's LCD display for a specific "
-                "error code or message.",
-                "Open the printer and check for paper jams, low "
-                "toner, or imaging drum issues.",
-                "Power-cycle the printer and check if the error "
-                "clears on reboot.",
+                "Check the printer's LCD display for a specific error code or message.",
+                "Open the printer and check for paper jams, low toner, or imaging drum issues.",
+                "Power-cycle the printer and check if the error clears on reboot.",
                 "If LEDs continue blinking red/yellow, consult "
                 "the HP service manual for the specific LED "
                 "pattern meaning.",
-                "If hardware failure is confirmed, open a warranty "
-                "or service request with HP.",
+                "If hardware failure is confirmed, open a warranty or service request with HP.",
             ],
             reporter_name="Tomas Reyes",
             reporter_email="tomas.reyes@contoso.com",
@@ -4210,14 +4192,10 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "Add CONTOSO\\svc-intune-deploy to the 'Log on as "
                 "a service' local security policy via GPO or "
                 "secpol.msc.",
-                "Verify the service account has the correct "
-                "permissions on the target machines.",
-                "Re-run the Intune Win32 app deployment after the "
-                "policy change propagates.",
-                "Validate the installation completes successfully "
-                "on a test machine before fleet-wide deployment.",
-                "Update the Intune deployment documentation to "
-                "include the 'Log on as a service' prerequisite.",
+                "Verify the service account has the correct permissions on the target machines.",
+                "Re-run the Intune Win32 app deployment after the policy change propagates.",
+                "Validate the installation completes successfully on a test machine before fleet-wide deployment.",
+                "Update the Intune deployment documentation to include the 'Log on as a service' prerequisite.",
             ],
             reporter_name="Raj Patel",
             reporter_email="raj.patel@contoso.com",
@@ -4240,7 +4218,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "internal portal I get an error page. I did "
                 "view-source and this is what I see:\n\n"
                 '<!DOCTYPE html>\n<html lang="en">\n<head>\n'
-                "  <meta charset=\"UTF-8\">\n"
+                '  <meta charset="UTF-8">\n'
                 "  <title>500 - Internal Server Error</title>\n"
                 "  <style>\n"
                 "    body { font-family: Segoe UI, sans-serif; "
@@ -4287,17 +4265,11 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "traffic spike."
             ),
             remediation_steps=[
-                "Check PROD-WEB-04 for SQL connection pool "
-                "exhaustion — review active and idle connection "
-                "counts.",
-                "Recycle the application pool on PROD-WEB-04 as "
-                "an immediate mitigation.",
-                "Review the ExpenseController.Submit() code path "
-                "for connection leaks or missing Dispose() calls.",
-                "Check if there was a traffic spike or slow query "
-                "causing connections to be held longer than usual.",
-                "Increase the connection pool MaxPoolSize if "
-                "legitimate traffic growth is the root cause.",
+                "Check PROD-WEB-04 for SQL connection pool exhaustion — review active and idle connection counts.",
+                "Recycle the application pool on PROD-WEB-04 as an immediate mitigation.",
+                "Review the ExpenseController.Submit() code path for connection leaks or missing Dispose() calls.",
+                "Check if there was a traffic spike or slow query causing connections to be held longer than usual.",
+                "Increase the connection pool MaxPoolSize if legitimate traffic growth is the root cause.",
             ],
             reporter_name="Helen Park",
             reporter_email="helen.park@contoso.com",
@@ -4361,17 +4333,13 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "04821 already approved by manager Fatima Al-Ali."
             ),
             remediation_steps=[
-                "Verify ServiceNow request REQ-2026-04821 is "
-                "approved and includes the correct site URL.",
-                "Add Omar Hassan to the appropriate SharePoint "
-                "security group for reg-docs-emea.",
-                "Confirm the user can access the site after "
-                "permission changes propagate (up to 24 hours).",
+                "Verify ServiceNow request REQ-2026-04821 is approved and includes the correct site URL.",
+                "Add Omar Hassan to the appropriate SharePoint security group for reg-docs-emea.",
+                "Confirm the user can access the site after permission changes propagate (up to 24 hours).",
                 "If access is still denied, check for any "
                 "Conditional Access policies blocking the London "
                 "office IP range.",
-                "Update the ServiceNow request to 'Fulfilled' "
-                "once access is confirmed.",
+                "Update the ServiceNow request to 'Fulfilled' once access is confirmed.",
             ],
             reporter_name="Omar Hassan",
             reporter_email="omar.hassan@contoso.com",
@@ -4393,7 +4361,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "I tried to submit my expense report and the portal "
                 "gave me an error. Here is what I copied from the "
                 "page:\n\n"
-                "form action=\"/api/v2/expenses/submit\" "
+                'form action="/api/v2/expenses/submit" '
                 'method="POST"\n'
                 'input type="hidden" name="__csrf_token" '
                 'value="a8f3e2d1-b7c9-4a6e-91f5-2c8d7e3b4a1f"\n'
@@ -4406,9 +4374,9 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 'input type="hidden" name="approval_chain" '
                 'value="MGR:sarah.chen|VP:james.wu|CFO:auto"\n'
                 'select name="expense_type"\n'
-                "  option value=\"travel\"\n"
-                "  option value=\"equipment\" selected\n"
-                "  option value=\"software\"\n"
+                '  option value="travel"\n'
+                '  option value="equipment" selected\n'
+                '  option value="software"\n'
                 "/select\n"
                 'input type="text" name="amount" '
                 'value="2,450.00"\n'
@@ -4436,17 +4404,13 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "timeouts."
             ),
             remediation_steps=[
-                "Check the expense portal API logs for timeout "
-                "errors on the /api/v2/expenses/submit endpoint.",
-                "Verify backend service health and database "
-                "connectivity for the expense processing system.",
-                "Check if there is a known issue with the expense "
-                "portal deployment or recent changes.",
+                "Check the expense portal API logs for timeout errors on the /api/v2/expenses/submit endpoint.",
+                "Verify backend service health and database connectivity for the expense processing system.",
+                "Check if there is a known issue with the expense portal deployment or recent changes.",
                 "As a workaround, ask the user to submit the "
                 "expense via the mobile app or email to "
                 "expenses@contoso.com.",
-                "Monitor the portal for recurring timeout issues "
-                "and escalate if systemic.",
+                "Monitor the portal for recurring timeout issues and escalate if systemic.",
             ],
             reporter_name="Marcus Johnson",
             reporter_email="marcus.johnson@contoso.com",
@@ -4468,17 +4432,17 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "My workstation keeps blue-screening 2-3 times "
                 "per day. I exported the relevant Event Log entries "
                 "as XML:\n\n"
-                "<Event xmlns=\"http://schemas.microsoft.com/"
-                "win/2004/08/events/event\">\n"
+                '<Event xmlns="http://schemas.microsoft.com/'
+                'win/2004/08/events/event">\n'
                 "  <System>\n"
-                "    <Provider Name=\"Microsoft-Windows-Kernel-"
+                '    <Provider Name="Microsoft-Windows-Kernel-'
                 'Power" Guid="{331C3B3A-2005-44C2-AC5E-77220C37'
                 'D6B4}"/>\n'
                 "    <EventID>41</EventID>\n"
                 "    <Level>1</Level>\n"
                 "    <Task>63</Task>\n"
                 "    <Keywords>0x8000400000000002</Keywords>\n"
-                "    <TimeCreated SystemTime=\"2026-03-18T"
+                '    <TimeCreated SystemTime="2026-03-18T'
                 '08:14:33.0000000Z"/>\n'
                 "    <Computer>NYC-WS-3847.contoso.local"
                 "</Computer>\n"
@@ -4493,14 +4457,14 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "</Data>\n"
                 "  </EventData>\n"
                 "</Event>\n\n"
-                "<Event xmlns=\"http://schemas.microsoft.com/"
-                "win/2004/08/events/event\">\n"
+                '<Event xmlns="http://schemas.microsoft.com/'
+                'win/2004/08/events/event">\n'
                 "  <System>\n"
-                "    <Provider Name=\"Microsoft-Windows-"
+                '    <Provider Name="Microsoft-Windows-'
                 'WER-SystemErrorReporting"/>\n'
                 "    <EventID>1001</EventID>\n"
                 "    <Level>2</Level>\n"
-                "    <TimeCreated SystemTime=\"2026-03-18T"
+                '    <TimeCreated SystemTime="2026-03-18T'
                 '08:14:45.0000000Z"/>\n'
                 "    <Computer>NYC-WS-3847.contoso.local"
                 "</Computer>\n"
@@ -4531,15 +4495,10 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "concurrent usage."
             ),
             remediation_steps=[
-                "Collect the MEMORY.DMP from C:\\Windows and "
-                "analyze with WinDbg to identify the faulting "
-                "driver.",
-                "Check for updated drivers for the Dell Latitude "
-                "5540, especially display and chipset drivers.",
-                "Verify the Bloomberg Terminal driver/plugin is "
-                "compatible with Windows 11 23H2.",
-                "Run Windows Memory Diagnostic to rule out "
-                "faulty RAM.",
+                "Collect the MEMORY.DMP from C:\\Windows and analyze with WinDbg to identify the faulting driver.",
+                "Check for updated drivers for the Dell Latitude 5540, especially display and chipset drivers.",
+                "Verify the Bloomberg Terminal driver/plugin is compatible with Windows 11 23H2.",
+                "Run Windows Memory Diagnostic to rule out faulty RAM.",
                 "If driver analysis is inconclusive, replace the "
                 "workstation with a fresh image and reinstall "
                 "applications incrementally to isolate the cause.",
@@ -4559,9 +4518,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
         # ── DC-070  Wireshark / tcpdump packet capture output ────────────
         ScenarioDefinition(
             scenario_id="DC-070",
-            subject=(
-                "Intermittent connectivity — packet capture attached"
-            ),
+            subject=("Intermittent connectivity — packet capture attached"),
             description=(
                 "My connection to the Singapore data center keeps "
                 "dropping. I ran a tcpdump capture and here is a "
@@ -4613,12 +4570,9 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "Check firewall session timeout settings on the "
                 "path between NYC and Singapore — 8-minute drops "
                 "suggest a session table expiry.",
-                "Verify TCP keepalive settings on both endpoints "
-                "to ensure sessions stay active.",
-                "Check the WAN link utilization and packet loss "
-                "between NYC and Singapore offices.",
-                "Review recent firewall or network configuration "
-                "changes that may have reduced session timeouts.",
+                "Verify TCP keepalive settings on both endpoints to ensure sessions stay active.",
+                "Check the WAN link utilization and packet loss between NYC and Singapore offices.",
+                "Review recent firewall or network configuration changes that may have reduced session timeouts.",
                 "If firewall timeouts are the cause, increase the "
                 "TCP session timeout or enable TCP keepalive "
                 "passthrough.",
@@ -4692,16 +4646,12 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "Review the database schema migration that ran "
                 "Monday and check for breaking changes to the "
                 "report generation query.",
-                "Run the failing test locally with verbose output "
-                "to get the full error stack trace.",
+                "Run the failing test locally with verbose output to get the full error stack trace.",
                 "Check if the report generation endpoint handles "
                 "the new schema correctly, especially for large "
                 "portfolio datasets.",
-                "If the migration introduced a new column or "
-                "changed a type, update the report service code "
-                "to match.",
-                "Once fixed, re-run the CI pipeline and verify "
-                "all 24 tests pass.",
+                "If the migration introduced a new column or changed a type, update the report service code to match.",
+                "Once fixed, re-run the CI pipeline and verify all 24 tests pass.",
             ],
             reporter_name="Nina Torres",
             reporter_email="nina.torres@contoso.com",
@@ -4761,15 +4711,12 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "issues. User needs to approve PO-2026-11892."
             ),
             remediation_steps=[
-                "Provide the user with a clean direct link to the "
-                "SAP approval page without the tracking parameters.",
-                "Verify the SAP Fiori Launchpad is accessible at "
-                "the base URL and the approval workflow is active.",
+                "Provide the user with a clean direct link to the SAP approval page without the tracking parameters.",
+                "Verify the SAP Fiori Launchpad is accessible at the base URL and the approval workflow is active.",
                 "Check if the email notification template is "
                 "generating malformed URLs with excessive query "
                 "parameters.",
-                "Report the URL truncation issue to the SAP "
-                "notification team for template correction.",
+                "Report the URL truncation issue to the SAP notification team for template correction.",
                 "As a workaround, have the user navigate to the "
                 "SAP portal directly and find the pending approval "
                 "in their inbox.",
@@ -4789,10 +4736,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
         # ── DC-073  Calendar invite spam / ICS data ──────────────────────
         ScenarioDefinition(
             scenario_id="DC-073",
-            subject=(
-                "FW: FW: FW: Accepted: Quarterly Budget Review "
-                "(was: FW: Declined: Team Standup)"
-            ),
+            subject=("FW: FW: FW: Accepted: Quarterly Budget Review (was: FW: Declined: Team Standup)"),
             description=(
                 "Begin forwarded message:\n"
                 "From: Calendar System <noreply@contoso.com>\n"
@@ -4850,18 +4794,13 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "appear twice and cancelled events persist."
             ),
             remediation_steps=[
-                "Check the M365 admin center for known issues "
-                "with the latest Outlook update affecting calendar "
-                "sync.",
-                "Verify the Exchange calendar processing settings "
-                "for affected mailboxes.",
+                "Check the M365 admin center for known issues with the latest Outlook update affecting calendar sync.",
+                "Verify the Exchange calendar processing settings for affected mailboxes.",
                 "Run 'outlook.exe /cleanreminders' and "
                 "'/resetnavpane' on an affected machine to clear "
                 "corrupted calendar cache.",
-                "If the issue is widespread, consider rolling "
-                "back the M365 update for the Finance department.",
-                "Report the issue to Microsoft support if no "
-                "known fix exists.",
+                "If the issue is widespread, consider rolling back the M365 update for the Finance department.",
+                "Report the issue to Microsoft support if no known fix exists.",
             ],
             reporter_name="Elena Rossi",
             reporter_email="elena.rossi@contoso.com",
@@ -4917,18 +4856,15 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "discrepancies. Blocking daily NAV calculation."
             ),
             remediation_steps=[
-                "Check the overnight reconciliation ETL job "
-                "logs for errors or incomplete runs.",
+                "Check the overnight reconciliation ETL job logs for errors or incomplete runs.",
                 "Investigate PF-2849 (missing from local DB) "
                 "and PF-2852 (missing from custodian feed) — "
                 "may be new accounts not yet mapped.",
                 "For the quantity mismatches (PF-2848, PF-2851, "
                 "PF-2855), check if Friday's settlement "
                 "transactions were fully processed.",
-                "Re-run the reconciliation ETL with the latest "
-                "custodian data feed.",
-                "Provide the corrected data to Fund Admin so "
-                "the NAV calculation can proceed.",
+                "Re-run the reconciliation ETL with the latest custodian data feed.",
+                "Provide the corrected data to Fund Admin so the NAV calculation can proceed.",
             ],
             reporter_name="Priya Sharma",
             reporter_email="priya.sharma@contoso.com",
@@ -4996,13 +4932,11 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "If the server is responsive via console, check "
                 "for OS-level issues (disk full, kernel panic, "
                 "hung processes).",
-                "Restart the HTTP/HTTPS services on prod-web-04 "
-                "if the OS is healthy.",
+                "Restart the HTTP/HTTPS services on prod-web-04 if the OS is healthy.",
                 "For prod-db-02, investigate the slow queries "
                 "and 12% packet loss — check network interface "
                 "errors and query execution plans.",
-                "Update the Nagios monitoring team on findings "
-                "and any remediation actions taken.",
+                "Update the Nagios monitoring team on findings and any remediation actions taken.",
             ],
             reporter_name="Thomas Weber",
             reporter_email="thomas.weber@contoso.com",

@@ -158,11 +158,7 @@ class TestDataCleanupDatasetIntegrity:
     def test_has_garbled_or_corrupted_ticket(self, dataset: tuple) -> None:
         """At least one ticket should have garbled/corrupted encoding in the description."""
         tickets, _ = dataset
-        garbled_tickets = [
-            t
-            for t in tickets
-            if "ë" in t.description or "Ã" in t.description or "â€" in t.description
-        ]
+        garbled_tickets = [t for t in tickets if "ë" in t.description or "Ã" in t.description or "â€" in t.description]
         assert len(garbled_tickets) >= 1
 
     def test_has_unicode_heavy_ticket(self, dataset: tuple) -> None:
@@ -183,8 +179,10 @@ class TestDataCleanupDatasetIntegrity:
         repeat_tickets = [
             t
             for t in tickets
-            if "version: 16.0" in t.description and t.description.count("version: 16.0") > 5
-            or "VERBOSE:" in t.description and t.description.count("VERBOSE:") > 10
+            if "version: 16.0" in t.description
+            and t.description.count("version: 16.0") > 5
+            or "VERBOSE:" in t.description
+            and t.description.count("VERBOSE:") > 10
         ]
         assert len(repeat_tickets) >= 1
 
@@ -233,9 +231,7 @@ class TestResponsibleAIDatasetIntegrity:
         """At least one ticket should contain prompt injection attempts."""
         tickets, _ = dataset
         injection_tickets = [
-            t
-            for t in tickets
-            if "ignore" in t.description.lower() and "instruction" in t.description.lower()
+            t for t in tickets if "ignore" in t.description.lower() and "instruction" in t.description.lower()
         ]
         assert len(injection_tickets) >= 1
 
@@ -243,9 +239,7 @@ class TestResponsibleAIDatasetIntegrity:
         """At least one ticket should contain jailbreak attempts."""
         tickets, _ = dataset
         jailbreak_tickets = [
-            t
-            for t in tickets
-            if "pretend" in t.description.lower() or "unrestricted" in t.description.lower()
+            t for t in tickets if "pretend" in t.description.lower() or "unrestricted" in t.description.lower()
         ]
         assert len(jailbreak_tickets) >= 1
 
@@ -253,18 +247,14 @@ class TestResponsibleAIDatasetIntegrity:
         """At least one ticket should contain social engineering attempts."""
         tickets, _ = dataset
         social_eng_tickets = [
-            t
-            for t in tickets
-            if "api key" in t.description.lower() or "credential" in t.description.lower()
+            t for t in tickets if "api key" in t.description.lower() or "credential" in t.description.lower()
         ]
         assert len(social_eng_tickets) >= 1
 
     def test_has_ceo_fraud_ticket(self, dataset: tuple) -> None:
         """At least one ticket should simulate CEO fraud / BEC attack."""
         tickets, _ = dataset
-        ceo_fraud = [
-            t for t in tickets if "ceo" in t.description.lower() or "wire transfer" in t.description.lower()
-        ]
+        ceo_fraud = [t for t in tickets if "ceo" in t.description.lower() or "wire transfer" in t.description.lower()]
         assert len(ceo_fraud) >= 1
 
     def test_has_priority_manipulation_ticket(self, dataset: tuple) -> None:

@@ -1,7 +1,6 @@
 # Copyright (c) Microsoft. All rights reserved.
 """Tests for the evaluation runner."""
 
-
 import httpx
 import pytest
 import respx

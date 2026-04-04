@@ -2001,41 +2001,41 @@ register(
             "--- PROMETHEUS METRICS DUMP ---\n"
             "# HELP node_cpu_seconds_total Total CPU seconds.\n"
             "# TYPE node_cpu_seconds_total counter\n"
-            "node_cpu_seconds_total{cpu=\"0\",mode=\"idle\"} 1.84293817e+06\n"
-            "node_cpu_seconds_total{cpu=\"0\",mode=\"system\"} 48291.73\n"
-            "node_cpu_seconds_total{cpu=\"0\",mode=\"user\"} 192847.44\n"
-            "node_cpu_seconds_total{cpu=\"1\",mode=\"idle\"} 1.83847291e+06\n"
-            "node_cpu_seconds_total{cpu=\"1\",mode=\"system\"} 51029.88\n"
+            'node_cpu_seconds_total{cpu="0",mode="idle"} 1.84293817e+06\n'
+            'node_cpu_seconds_total{cpu="0",mode="system"} 48291.73\n'
+            'node_cpu_seconds_total{cpu="0",mode="user"} 192847.44\n'
+            'node_cpu_seconds_total{cpu="1",mode="idle"} 1.83847291e+06\n'
+            'node_cpu_seconds_total{cpu="1",mode="system"} 51029.88\n'
             "# HELP node_memory_MemTotal_bytes Total memory.\n"
             "# TYPE node_memory_MemTotal_bytes gauge\n"
             "node_memory_MemTotal_bytes 6.7108864e+10\n"
             "node_memory_MemAvailable_bytes 4.294967296e+09\n"
             "# HELP node_filesystem_avail_bytes Available filesystem bytes.\n"
             "# TYPE node_filesystem_avail_bytes gauge\n"
-            "node_filesystem_avail_bytes{device=\"/dev/sda1\",mountpoint=\"/\"} 2.147483648e+09\n"
-            "node_filesystem_avail_bytes{device=\"/dev/sdb1\",mountpoint=\"/data\"} 5.36870912e+08\n"
-            "node_filesystem_size_bytes{device=\"/dev/sdb1\",mountpoint=\"/data\"} 1.07374182e+11\n"
+            'node_filesystem_avail_bytes{device="/dev/sda1",mountpoint="/"} 2.147483648e+09\n'
+            'node_filesystem_avail_bytes{device="/dev/sdb1",mountpoint="/data"} 5.36870912e+08\n'
+            'node_filesystem_size_bytes{device="/dev/sdb1",mountpoint="/data"} 1.07374182e+11\n'
             "# HELP mssql_io_stall_seconds_total IO stall time.\n"
-            "mssql_io_stall_seconds_total{database=\"ContosoProd\",type=\"read\"} 89241.7\n"
-            "mssql_io_stall_seconds_total{database=\"ContosoProd\",type=\"write\"} 142819.3\n"
+            'mssql_io_stall_seconds_total{database="ContosoProd",type="read"} 89241.7\n'
+            'mssql_io_stall_seconds_total{database="ContosoProd",type="write"} 142819.3\n'
             "--- END METRICS ---\n\n"
             "The /data mount has only 512MB free out of 100GB. This hosts the ContosoProd "
             "database. It will fill up within hours at the current write rate.",
             "Got a Grafana alert at {time}. Pasting the raw metrics:\n\n"
-            "disk_used_percent{{host=\"sql-prod-01\",mount=\"/data\"}} 98.7\n"
-            "disk_used_percent{{host=\"sql-prod-01\",mount=\"/\"}} 45.2\n"
-            "disk_used_percent{{host=\"sql-prod-01\",mount=\"/backup\"}} 72.1\n"
-            "mssql_active_transactions{{db=\"TradingDB\"}} 847\n"
-            "mssql_log_space_used_percent{{db=\"TradingDB\"}} 94.2\n"
+            'disk_used_percent{{host="sql-prod-01",mount="/data"}} 98.7\n'
+            'disk_used_percent{{host="sql-prod-01",mount="/"}} 45.2\n'
+            'disk_used_percent{{host="sql-prod-01",mount="/backup"}} 72.1\n'
+            'mssql_active_transactions{{db="TradingDB"}} 847\n'
+            'mssql_log_space_used_percent{{db="TradingDB"}} 94.2\n'
             "mssql_deadlocks_total 23\n"
-            "process_cpu_percent{{service=\"mssql\"}} 78.3\n"
-            "process_memory_bytes{{service=\"mssql\"}} 5.8e+10\n"
-            "net_bytes_recv{{interface=\"eth0\"}} 2.4e+12\n"
-            "net_bytes_sent{{interface=\"eth0\"}} 1.8e+12\n"
+            'process_cpu_percent{{service="mssql"}} 78.3\n'
+            'process_memory_bytes{{service="mssql"}} 5.8e+10\n'
+            'net_bytes_recv{{interface="eth0"}} 2.4e+12\n'
+            'net_bytes_sent{{interface="eth0"}} 1.8e+12\n'
             "go_goroutines 1247\n"
             "go_memstats_alloc_bytes 4.29e+08\n"
-            "http_requests_total{{status=\"200\"}} 9847291\n"
-            "http_requests_total{{status=\"500\"}} 4821\n\n"
+            'http_requests_total{{status="200"}} 9847291\n'
+            'http_requests_total{{status="500"}} 4821\n\n'
             "Bottom line: the TradingDB data partition is at 98.7% and the "
             "transaction log is at 94.2%. We need to free space immediately or "
             "the database will stop accepting writes.",
@@ -2108,8 +2108,7 @@ register(
         next_best_actions=[
             "Initiate software license renewal process — the enterprise license is "
             "approaching expiry and will block access for authorized users.",
-            "Process vendor license renewal before expiration date to prevent "
-            "service disruption for the team.",
+            "Process vendor license renewal before expiration date to prevent service disruption for the team.",
         ],
         remediation_steps=[
             [
@@ -2225,7 +2224,7 @@ register(
             "|                                                     |\n"
             "|  E rror:  Doc ument  cou ld  not  be  pos ted       |\n"
             "|  Mes sage  no. F5 729                                |\n"
-            "|  \" Bal ance in tra nsaction cur rency \"              |\n"
+            '|  " Bal ance in tra nsaction cur rency "              |\n'
             "|                                                     |\n"
             "| |  Deb it   |  Cre dit  |  Diff erence |            |\n"
             "| | 142,847  |  139,291  |    3,556     |            |\n"
@@ -2236,8 +2235,8 @@ register(
             "SAP Tran saction:   VA01 - Cre ate Sal es Ord er\n"
             "-----------------------------------------------\n"
             "  Err or   Mes sage:\n"
-            "  \"Mat erial  {number}  is  not  def ined  for\n"
-            "   sal es  org  1000 /  dis tribution  cha nnel  10\"\n\n"
+            '  "Mat erial  {number}  is  not  def ined  for\n'
+            '   sal es  org  1000 /  dis tribution  cha nnel  10"\n\n'
             "  Mes sage  No:   VE  021\n"
             "  Mes sage  Ty pe:  E  (Err or)\n\n"
             "  |  Ord er Type  |  Sal es Org  |  Dist Ch  |  Div  |\n"
@@ -2442,7 +2441,7 @@ register(
             "\\b Problem:\\b0  Network drive \\\\\\\\filesvr03\\\\shared "
             "is not accessible.\\par\n"
             "\\b When:\\b0  Started around {time} today.\\par\n"
-            "\\b Error:\\b0  \\i \"The network path was not found\"\\i0\\par\n"
+            '\\b Error:\\b0  \\i "The network path was not found"\\i0\\par\n'
             "\\par\n"
             "I am on a {os} laptop, connected via Ethernet on floor "
             "{floor}. I was able to access the drive yesterday without any "
@@ -2597,12 +2596,12 @@ register(
             "metric payload below.\n\n"
             "# HELP node_cpu_seconds_total Total CPU seconds.\n"
             "# TYPE node_cpu_seconds_total counter\n"
-            "node_cpu_seconds_total{{cpu=\"0\",mode=\"idle\"}} 1.284903e+06\n"
-            "node_cpu_seconds_total{{cpu=\"0\",mode=\"system\"}} 48205.3\n"
-            "node_cpu_seconds_total{{cpu=\"0\",mode=\"user\"}} 97312.7\n"
-            "node_cpu_seconds_total{{cpu=\"1\",mode=\"idle\"}} 1.290441e+06\n"
-            "node_cpu_seconds_total{{cpu=\"1\",mode=\"system\"}} 45891.1\n"
-            "node_cpu_seconds_total{{cpu=\"1\",mode=\"user\"}} 94278.4\n"
+            'node_cpu_seconds_total{{cpu="0",mode="idle"}} 1.284903e+06\n'
+            'node_cpu_seconds_total{{cpu="0",mode="system"}} 48205.3\n'
+            'node_cpu_seconds_total{{cpu="0",mode="user"}} 97312.7\n'
+            'node_cpu_seconds_total{{cpu="1",mode="idle"}} 1.290441e+06\n'
+            'node_cpu_seconds_total{{cpu="1",mode="system"}} 45891.1\n'
+            'node_cpu_seconds_total{{cpu="1",mode="user"}} 94278.4\n'
             "# HELP node_memory_MemTotal_bytes Total memory in bytes.\n"
             "# TYPE node_memory_MemTotal_bytes gauge\n"
             "node_memory_MemTotal_bytes 6.7108864e+10\n"
@@ -2611,17 +2610,17 @@ register(
             "node_memory_Cached_bytes 1.209384e+10\n"
             "# HELP node_filesystem_avail_bytes Available filesystem bytes.\n"
             "# TYPE node_filesystem_avail_bytes gauge\n"
-            "node_filesystem_avail_bytes{{device=\"/dev/sda1\",mountpoint=\"/\"}} "
+            'node_filesystem_avail_bytes{{device="/dev/sda1",mountpoint="/"}} '
             "4.2949673e+09\n"
-            "node_filesystem_avail_bytes{{device=\"/dev/sdb1\",mountpoint=\"/data\"}} "
+            'node_filesystem_avail_bytes{{device="/dev/sdb1",mountpoint="/data"}} '
             "1.8253612e+08\n"
-            "node_filesystem_size_bytes{{device=\"/dev/sdb1\",mountpoint=\"/data\"}} "
+            'node_filesystem_size_bytes{{device="/dev/sdb1",mountpoint="/data"}} '
             "5.36870912e+10\n"
             "# HELP node_disk_io_time_seconds_total Total I/O time.\n"
             "# TYPE node_disk_io_time_seconds_total counter\n"
-            "node_disk_io_time_seconds_total{{device=\"sdb\"}} 987214.4\n"
-            "node_disk_read_bytes_total{{device=\"sdb\"}} 4.81036e+12\n"
-            "node_disk_written_bytes_total{{device=\"sdb\"}} 7.93102e+12\n\n"
+            'node_disk_io_time_seconds_total{{device="sdb"}} 987214.4\n'
+            'node_disk_read_bytes_total{{device="sdb"}} 4.81036e+12\n'
+            'node_disk_written_bytes_total{{device="sdb"}} 7.93102e+12\n\n'
             "---\n"
             "The /data mount on db-prod-07 is at 96.6% utilization with only "
             "~174 MB free of 50 GB. This is the primary data volume for the "
@@ -3160,7 +3159,7 @@ register(
             "```\n\n"
             "So the policy *should* allow it. But meetings still don't sync. "
             "My colleague **{name}** in {department} has the same problem.\n\n"
-            "> _\"This is impacting our ability to schedule client calls.\"_\n\n"
+            '> _"This is impacting our ability to schedule client calls."_\n\n'
             "Priority: medium to high.",
         ],
         next_best_actions=[
@@ -3285,10 +3284,8 @@ register(
         remediation_steps=[
             [
                 "Verify the access request approval from the named manager in the access governance portal",
-                "Create a VPN access profile for the target regional network subnet "
-                "in the GlobalProtect admin console",
-                "Assign the profile to the user's AD account and add them to the "
-                "appropriate project security group",
+                "Create a VPN access profile for the target regional network subnet in the GlobalProtect admin console",
+                "Assign the profile to the user's AD account and add them to the appropriate project security group",
                 "Send the user VPN configuration instructions and test connectivity to a target host",
                 "Set a review date for the access in 90 days per the temporary project access policy",
             ],
@@ -3313,7 +3310,7 @@ register(
             "[AUTO-ALERT] Storage critical \u2014 production database volume nearing capacity",
         ],
         descriptions=[
-            '{\n'
+            "{\n"
             '  "alert_id": "MON-2026-031718-4492",\n'
             '  "alert_type": "DiskSpaceThresholdExceeded",\n'
             '  "severity": "CRITICAL",\n'
@@ -3325,7 +3322,7 @@ register(
             '    "rack": "R14-B",\n'
             '    "os": "Windows Server 2022 Datacenter",\n'
             '    "role": "SQL Server Production Node"\n'
-            '  },\n'
+            "  },\n"
             '  "disk_metrics": {\n'
             '    "drive_letter": "E:",\n'
             '    "volume_label": "SQLData",\n'
@@ -3336,14 +3333,14 @@ register(
             '    "threshold_percent": 90,\n'
             '    "growth_rate_gb_per_day": 12.4,\n'
             '    "estimated_days_until_full": 8.2\n'
-            '  },\n'
+            "  },\n"
             '  "top_consumers": [\n'
             '    {"database": "TradeHistory", "size_gb": 743.2, "growth_30d_gb": 89.1},\n'
             '    {"database": "AuditLog", "size_gb": 512.8, "growth_30d_gb": 156.3},\n'
             '    {"database": "MarketData", "size_gb": 398.4, "growth_30d_gb": 42.7},\n'
             '    {"database": "ClientPortfolios", "size_gb": 187.1, "growth_30d_gb": 18.9},\n'
             '    {"database": "TempDB", "size_gb": 105.2, "growth_30d_gb": 0.0}\n'
-            '  ],\n'
+            "  ],\n"
             '  "recent_events": [\n'
             '    {"timestamp": "2026-03-15T02:00:00Z", '
             '"event": "Nightly backup completed \u2014 1.2TB transferred"},\n'
@@ -3351,14 +3348,14 @@ register(
             '"event": "AuditLog retention job FAILED \u2014 old records not purged"},\n'
             '    {"timestamp": "2026-03-17T02:00:00Z", '
             '"event": "Nightly backup completed \u2014 1.2TB transferred"}\n'
-            '  ],\n'
+            "  ],\n"
             '  "escalation": {\n'
             '    "notify_team": "data-platform-oncall",\n'
             '    "auto_ticket": true,\n'
             '    "sla_response_minutes": 60\n'
-            '  }\n'
-            '}',
-            '{\n'
+            "  }\n"
+            "}",
+            "{\n"
             '  "alert_id": "MON-2026-031719-5513",\n'
             '  "alert_type": "DiskSpaceThresholdExceeded",\n'
             '  "severity": "CRITICAL",\n'
@@ -3369,7 +3366,7 @@ register(
             '    "datacenter": "EU-West-1",\n'
             '    "os": "Windows Server 2022 Datacenter",\n'
             '    "role": "SQL Server Analytics Node"\n'
-            '  },\n'
+            "  },\n"
             '  "disk_metrics": {\n'
             '    "drive_letter": "F:",\n'
             '    "volume_label": "AnalyticsData",\n'
@@ -3380,12 +3377,12 @@ register(
             '    "threshold_percent": 90,\n'
             '    "growth_rate_gb_per_day": 28.6,\n'
             '    "estimated_days_until_full": 5.7\n'
-            '  },\n'
+            "  },\n"
             '  "top_consumers": [\n'
             '    {"database": "RiskModels", "size_gb": 1287.3, "growth_30d_gb": 312.0},\n'
             '    {"database": "MarketDataArchive", "size_gb": 984.1, "growth_30d_gb": 167.4},\n'
             '    {"database": "ReportingDW", "size_gb": 872.4, "growth_30d_gb": 94.2}\n'
-            '  ],\n'
+            "  ],\n"
             '  "recent_events": [\n'
             '    {"timestamp": "2026-03-16T03:00:00Z", '
             '"event": "ETL batch completed \u2014 218 GB ingested"},\n'
@@ -3393,13 +3390,13 @@ register(
             '"event": "ETL batch completed \u2014 241 GB ingested \u2014 ABOVE NORMAL"},\n'
             '    {"timestamp": "2026-03-17T14:00:00Z", '
             '"event": "Archive job SKIPPED \u2014 maintenance window conflict"}\n'
-            '  ],\n'
+            "  ],\n"
             '  "escalation": {\n'
             '    "notify_team": "data-platform-oncall",\n'
             '    "auto_ticket": true,\n'
             '    "sla_response_minutes": 30\n'
-            '  }\n'
-            '}',
+            "  }\n"
+            "}",
         ],
         next_best_actions=[
             "Address critical disk space on production SQL node (drive at 95%+ \u2014 "
@@ -3443,7 +3440,7 @@ register(
             "The    printer   on    the   {floor}    near   conference   "
             "room   B   is     not     working.\n\n\n\n\n\n\n"
             "It    is    a    HP    LaserJet    Pro    MFP    M428fdn    and   "
-            "the     display     says     \"Paper   Jam\"     but     I   "
+            'the     display     says     "Paper   Jam"     but     I   '
             "checked     and     there    is    no     paper     stuck   "
             "anywhere.\n\n\n\n\n\n"
             "I     tried:\n\n\n"
@@ -3589,7 +3586,6 @@ register(
 )
 
 
-
 # ---------------------------------------------------------------------------
 # dc-049  ALL CAPS email body with poor grammar — VPN issue
 # ---------------------------------------------------------------------------
@@ -3649,18 +3645,13 @@ register(
         ],
         remediation_steps=[
             [
-                "Ask the user to capture a screenshot of the VPN "
-                "error message on the next connection attempt",
-                "Verify the VPN client version is current and "
-                "supported by the organization",
+                "Ask the user to capture a screenshot of the VPN error message on the next connection attempt",
+                "Verify the VPN client version is current and supported by the organization",
                 "Confirm the user\u2019s password change has "
                 "propagated to all authentication systems "
                 "including RADIUS and NPS",
-                "Test connectivity to the VPN gateway using ping "
-                "and traceroute from the user\u2019s machine",
-                "If the issue persists, collect VPN client "
-                "diagnostic logs and escalate to network "
-                "engineering",
+                "Test connectivity to the VPN gateway using ping and traceroute from the user\u2019s machine",
+                "If the issue persists, collect VPN client diagnostic logs and escalate to network engineering",
             ],
         ],
     )
@@ -3799,8 +3790,7 @@ register(
                 "encoding settings (UTF-8 vs ISO-8859-1)",
                 "Check the authentication token endpoint — the invalid token error may "
                 "be caused by encoding issues corrupting CSRF tokens",
-                "Roll back to the previous known-good deployment if the issue is "
-                "confirmed to be a recent change",
+                "Roll back to the previous known-good deployment if the issue is confirmed to be a recent change",
                 "Test the portal from multiple browsers and networks to confirm the fix",
             ],
         ],
@@ -3874,8 +3864,7 @@ register(
                 "reallocated sector count, read/write error rates)",
                 "Check Windows Event Viewer for disk-related errors (Event IDs 7, 11, "
                 "51, 153) around the times of the blue screens",
-                "If SSD is degrading, immediately back up user data and arrange a "
-                "replacement drive or laptop swap",
+                "If SSD is degrading, immediately back up user data and arrange a replacement drive or laptop swap",
                 "As a temporary measure, reduce Chrome tab count and consider moving "
                 "large workbooks to OneDrive streaming to reduce disk I/O",
                 "Monitor for recurrence over the next 48 hours after hardware replacement",
@@ -3949,8 +3938,7 @@ register(
             [
                 "Check the Group Policy Object linked to the user's OU for Outlook "
                 "signature settings enforcing the old signature name",
-                "Run 'gpresult /H gpresult.html' to confirm which GPO is applying "
-                "the signature preference",
+                "Run 'gpresult /H gpresult.html' to confirm which GPO is applying the signature preference",
                 "Update the GPO to reference the correct signature name or remove "
                 "the forced setting if individual choice is permitted",
                 "Run 'gpupdate /force' on the user's machine after the GPO change",
@@ -4027,15 +4015,11 @@ register(
         ],
         remediation_steps=[
             [
-                "Check health and resource utilization (CPU, memory, disk I/O) on all "
-                "upstream backend nodes",
-                "Review application logs on the API service for errors or connection "
-                "pool exhaustion",
+                "Check health and resource utilization (CPU, memory, disk I/O) on all upstream backend nodes",
+                "Review application logs on the API service for errors or connection pool exhaustion",
                 "Check the nginx reverse proxy configuration and upstream timeout settings",
-                "Verify the downstream data provider is responding and not causing "
-                "the backend to hang",
-                "If a backend restart is needed, perform a rolling restart to maintain "
-                "partial availability",
+                "Verify the downstream data provider is responding and not causing the backend to hang",
+                "If a backend restart is needed, perform a rolling restart to maintain partial availability",
             ],
         ],
     )
@@ -4073,7 +4057,7 @@ register(
             'Content-Type: image/png; name="image001.png"\n'
             "Content-Transfer-Encoding: base64\n"
             "Content-ID: <image001.png@01DAF2B3.A1B2C3D4>\n"
-            '[base64 data stripped by mail gateway]\n\n'
+            "[base64 data stripped by mail gateway]\n\n"
             "I'm on Windows 11 Enterprise, {floor}, Building 3.\n\n"
             "{name}\n{department}",
             "My desktop icons keep rearranging every reboot. Some icons show as "
@@ -4098,8 +4082,7 @@ register(
             [
                 "Check if a Group Policy or profile management tool (e.g., FSLogix) "
                 "is resetting the desktop layout on logon",
-                "Clear and rebuild the icon cache by deleting IconCache.db and "
-                "restarting Explorer",
+                "Clear and rebuild the icon cache by deleting IconCache.db and restarting Explorer",
                 "Verify the desktop layout is not managed by a mandatory profile or GPO",
                 "Check if the triggering Windows Update included a shell or Explorer update",
                 "If the issue persists, use a logon script to restore the saved layout",
@@ -4142,8 +4125,8 @@ register(
             "The {department} data pipeline is returning deeply nested escaped JSON "
             "errors that are nearly impossible to read:\n\n"
             '{"error":"{\\"code\\":500,\\"inner\\":{\\"msg\\":\\"NULL values in '
-            "required field\\\",\\\"table\\\":\\\"dbo.Transactions\\\","
-            '\\\"batch\\\":\\"BATCH-{date}-0923\\"}}"}\n\n'
+            'required field\\",\\"table\\":\\"dbo.Transactions\\",'
+            '\\"batch\\":\\"BATCH-{date}-0923\\"}}"}\n\n'
             "Translated: NULL values in dbo.Transactions are breaking the pipeline. "
             "Regulatory report deadline is 5 PM today.\n\n"
             "{name}",
@@ -4156,13 +4139,10 @@ register(
         ],
         remediation_steps=[
             [
-                "Query the source table for records with NULL values in required "
-                "fields to assess scope",
-                "Check the upstream data source for schema or NULL handling changes "
-                "that introduced the bad records",
+                "Query the source table for records with NULL values in required fields to assess scope",
+                "Check the upstream data source for schema or NULL handling changes that introduced the bad records",
                 "Patch or exclude the NULL records to unblock the current pipeline batch",
-                "Add a NOT NULL constraint or pre-validation step to catch these "
-                "issues at ingestion time",
+                "Add a NOT NULL constraint or pre-validation step to catch these issues at ingestion time",
                 "Re-trigger the ETL pipeline after the data is corrected and verify "
                 "the regulatory report generates successfully",
             ],
@@ -4235,8 +4215,7 @@ register(
                 "if it invalidated existing credentials or changed lockout thresholds",
                 "Check Azure AD sign-in logs for the locked accounts to confirm "
                 "lockout was caused by repeated failed auth, not an attack",
-                "Communicate to all remote users that they may need to update their "
-                "cached credentials",
+                "Communicate to all remote users that they may need to update their cached credentials",
                 "Consider phased rollout for future password policy changes with advance notice",
             ],
         ],
@@ -4304,8 +4283,7 @@ register(
         ],
         remediation_steps=[
             [
-                "Check the physical access control system to verify the badge has "
-                "the correct floor access permissions",
+                "Check the physical access control system to verify the badge has the correct floor access permissions",
                 "Compare the new badge's access group assignments with the old badge "
                 "to identify missing floor-level permissions",
                 "Add the missing floor access to the new badge",
@@ -4389,12 +4367,9 @@ register(
                 "sessions, or resource exhaustion around the 02:00 AM window",
                 "Review the execution plan for the failing stored procedure — it may "
                 "need index tuning or statistics updates",
-                "Check if a lock conflict with another overnight process is causing "
-                "the timeout",
-                "Increase the command timeout as a temporary measure while the stored "
-                "procedure is optimized",
-                "Manually trigger report generation for the missed dates once the "
-                "issue is resolved",
+                "Check if a lock conflict with another overnight process is causing the timeout",
+                "Increase the command timeout as a temporary measure while the stored procedure is optimized",
+                "Manually trigger report generation for the missed dates once the issue is resolved",
             ],
         ],
     )
@@ -4461,17 +4436,14 @@ register(
             "This ticket contains multiple separate issues bundled into one "
             "submission. Split into individual tickets and triage each with "
             "the appropriate team.",
-            "Split the concatenated ticket into individual issues — prioritize "
-            "the highest-impact items first.",
+            "Split the concatenated ticket into individual issues — prioritize the highest-impact items first.",
         ],
         remediation_steps=[
             [
-                "Create separate tickets for each reported issue and assign to the "
-                "appropriate teams",
+                "Create separate tickets for each reported issue and assign to the appropriate teams",
                 "Prioritize the items that directly impact business operations "
                 "(app crashes, data feed drops, mailbox full)",
-                "For the settlement app crash, investigate the OutOfMemoryException "
-                "in the CSV export code path",
+                "For the settlement app crash, investigate the OutOfMemoryException in the CSV export code path",
                 "For WiFi issues, coordinate with Network Ops to assess coverage "
                 "changes after the partition installation",
                 "For the mailbox quota, increase the limit or implement an auto-archive policy",

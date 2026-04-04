@@ -1,1367 +1,1367 @@
 [
-  {
-    "ticket_id": "INC-5001",
-    "category": "Network & Connectivity",
-    "priority": "P2",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version"
-    ],
-    "next_best_action": "Investigate recurring VPN tunnel drops correlated with 09:30 ET market-open traffic spike for user on 5th floor Wi-Fi, Building 3 NYC.",
-    "remediation_steps": [
-      "Check GlobalProtect VPN gateway logs for Marco's session drops between 09:25-09:35 ET.",
-      "Correlate with wireless controller data for Building 3, 5th floor AP utilization.",
-      "Verify VPN split-tunnel configuration and MTU settings on the client.",
-      "If Wi-Fi congestion confirmed, consider moving user to Ethernet or a less congested AP.",
-      "Provide user with updated GlobalProtect client if version is outdated."
-    ]
-  },
-  {
-    "ticket_id": "INC-5002",
-    "category": "Hardware & Peripherals",
-    "priority": "P3",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Troubleshoot Dell U2722D monitor flickering after Windows Update \u2014 likely a display driver regression via WD19S dock.",
-    "remediation_steps": [
-      "Roll back the most recent Intel/NVIDIA display driver update from Windows Update.",
-      "Check Dell WD19S firmware version and update if behind current release.",
-      "Test monitor on a different docking station to isolate dock vs. driver issue.",
-      "If driver rollback resolves, add the driver to the WSUS deferral list."
-    ]
-  },
-  {
-    "ticket_id": "INC-5003",
-    "category": "Access & Authentication",
-    "priority": "P2",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message"
-    ],
-    "next_best_action": "Investigate 403 Forbidden on SharePoint Compliance Policy Library for user \u2014 likely a permission mapping gap from Friday's migration.",
-    "remediation_steps": [
-      "Check SharePoint admin center for the Compliance Policy Library site permissions.",
-      "Verify user's Azure AD group memberships against the migrated site's access list.",
-      "Re-grant access to the site collection if permissions were lost during migration.",
-      "Confirm user can access the site after permission fix and clear any cached 403."
-    ]
-  },
-  {
-    "ticket_id": "INC-5004",
-    "category": "Hardware & Peripherals",
-    "priority": "P2",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message"
-    ],
-    "next_best_action": "Investigate HP LaserJet MFP M634 on 3rd floor producing garbled output \u2014 likely a corrupt print driver or PCL/PostScript mismatch.",
-    "remediation_steps": [
-      "Check the print server for driver version and compare against HP's latest release.",
-      "Reinstall or update the printer driver on the print server.",
-      "Verify PCL vs PostScript language setting matches the printer's configuration.",
-      "Print a test page from the server to confirm the fix before notifying the user."
-    ]
-  },
-  {
-    "ticket_id": "INC-5005",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": true,
-    "missing_information": [
-      "timestamp",
-      "error_message"
-    ],
-    "next_best_action": "Investigate Slack-Jira integration returning 502 errors in #trading-incidents \u2014 blocking incident tracking workflow for Institutional Trading.",
-    "remediation_steps": [
-      "Check the Jira Cloud status page and Slack API status for ongoing incidents.",
-      "Verify the Jira for Slack app OAuth tokens have not expired or been revoked.",
-      "Review Jira webhook logs for 502 errors and identify the failing endpoint.",
-      "If the integration app needs reauthorization, walk the channel admin through it.",
-      "Test /jira create from the channel to confirm resolution."
-    ]
-  },
-  {
-    "ticket_id": "INC-5006",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Diagnose Outlook crash (0xc0000005 in mso40uiwin32client.dll) triggered by a specific email \u2014 likely a corrupted message or embedded object.",
-    "remediation_steps": [
-      "Identify the specific email causing the crash from the user's mailbox.",
-      "Attempt to open the email in Outlook Web App to confirm it is message-specific.",
-      "Run Outlook in safe mode to rule out add-in conflicts.",
-      "If OWA works, repair the Office installation or update to the latest build.",
-      "If the email is corrupted, remove it via MFCMAPI or an admin mailbox tool."
-    ]
-  },
-  {
-    "ticket_id": "INC-5007",
-    "category": "Access & Authentication",
-    "priority": "P3",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Reactivate or replace badge for user unable to enter Building 6 main entrance turnstile.",
-    "remediation_steps": [
-      "Look up the user's badge ID in the physical access control system.",
-      "Check if the badge was deactivated, expired, or flagged for any reason.",
-      "Reactivate the badge or issue a replacement if the physical card is damaged.",
-      "Test badge at the Building 6 turnstile before confirming with the user."
-    ]
-  },
-  {
-    "ticket_id": "INC-5008",
-    "category": "Network & Connectivity",
-    "priority": "P2",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "network_location",
-      "environment_details"
-    ],
-    "next_best_action": "Investigate VDI session freezes when user connects to Singapore and London pools \u2014 likely WAN latency or VMware Horizon blast protocol issue.",
-    "remediation_steps": [
-      "Review VMware Horizon connection server logs for the user's sessions in SG and LDN.",
-      "Measure round-trip latency and packet loss from the user's NYC location to SG/LDN.",
-      "Check if the Blast Extreme protocol is tuned for high-latency WAN links.",
-      "Consider enabling the Horizon Performance Tracker on the client for diagnostics.",
-      "If WAN quality is the root cause, evaluate SD-WAN or dedicated VDI circuit options."
-    ]
-  },
-  {
-    "ticket_id": "INC-5009",
-    "category": "Data & Storage",
-    "priority": "P1",
-    "assigned_team": "Data Platform",
-    "needs_escalation": true,
-    "missing_information": [
-      "environment_details"
-    ],
-    "next_best_action": "Urgently resolve SQL Server replication lag on SQLREPLICA-NYC-03 before 16:00 ET EOD NAV calculation \u2014 45-minute data staleness affecting 30 PMs.",
-    "remediation_steps": [
-      "Check disk subsystem on SQLREPLICA-NYC-03 for I/O bottleneck (48ms write latency).",
-      "Review SQL Server replication monitor for error states or suspended subscriptions.",
-      "If disk I/O is the bottleneck, identify competing workloads and throttle or stop them.",
-      "Consider reinitializing replication from a snapshot if the lag cannot be recovered.",
-      "Notify portfolio management leads of potential data staleness and EOD NAV risk."
-    ]
-  },
-  {
-    "ticket_id": "INC-5010",
-    "category": "Access & Authentication",
-    "priority": "P1",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": true,
-    "missing_information": [
-      "authentication_method"
-    ],
-    "next_best_action": "Restore CTP access for trader locked out after maintenance window \u2014 session token or account state likely not migrated correctly.",
-    "remediation_steps": [
-      "Check CTP identity provider logs for Kenji's failed authentication attempts.",
-      "Verify the user's account was not disabled or locked during maintenance.",
-      "Clear stale session tokens in the CTP session store for this user.",
-      "If SAML/OIDC tokens were rotated during maintenance, ensure the user's IdP mapping is current.",
-      "Confirm login works and monitor for recurrence over the next trading session."
-    ]
-  },
-  {
-    "ticket_id": "INC-5011",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Restore connectivity to integration test database sqltest-nyc-02:1433 \u2014 CI/CD pipeline for risk-engine repo blocked since 06:15 AM.",
-    "remediation_steps": [
-      "Check if sqltest-nyc-02 SQL Server service is running and accepting connections.",
-      "Verify network connectivity from the Jenkins agent to 10.42.8.15:1433.",
-      "Check if there was a maintenance or patching event on sqltest-nyc-02 overnight.",
-      "Restart the SQL Server service if it is stopped, and verify integration tests pass.",
-      "Notify the Backend Engineering team once the pipeline is green."
-    ]
-  },
-  {
-    "ticket_id": "INC-5012",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version"
-    ],
-    "next_best_action": "Troubleshoot Zoom Phone call routing for ext 5-2201 \u2014 incoming calls going directly to voicemail despite available status.",
-    "remediation_steps": [
-      "Check Zoom Phone admin portal for call routing rules on extension 5-2201.",
-      "Verify there is no call forwarding or after-hours rule overriding the user's status.",
-      "Check if the Zoom Phone license is active and properly assigned to the user.",
-      "Test inbound call to the user's direct number while monitoring the admin dashboard.",
-      "Update the Zoom desktop client if the version is outdated."
-    ]
-  },
-  {
-    "ticket_id": "INC-5013",
-    "category": "Hardware & Peripherals",
-    "priority": "P3",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Replace Dell TB16 dock with WD19S for user on Building 4, 8th floor \u2014 known USB-C video dropout issue with Latitude 5550 and TB16 docks.",
-    "remediation_steps": [
-      "Confirm the user's laptop model and current dock firmware version.",
-      "Check if a TB16 firmware update resolves the intermittent video dropout.",
-      "If the firmware update does not resolve, issue a WD19S replacement dock.",
-      "Verify both external monitors work reliably on the replacement dock.",
-      "Log the TB16 compatibility issue in the endpoint refresh tracker for reporting."
-    ]
-  },
-  {
-    "ticket_id": "INC-5014",
-    "category": "Hardware & Peripherals",
-    "priority": "P3",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Investigate badge reader 'Card Read Error' at Building 6 south entrance turnstile \u2014 badge works at north entrance, suggesting a reader hardware fault.",
-    "remediation_steps": [
-      "Dispatch a facilities technician to inspect the Building 6 south entrance badge reader.",
-      "Check the badge reader logs for error patterns and failed card reads.",
-      "Test the reader with a known-good badge to confirm it is a reader-side issue.",
-      "Replace or recalibrate the reader if it is confirmed faulty.",
-      "Verify the user's badge works at the south entrance after the fix."
-    ]
-  },
-  {
-    "ticket_id": "INC-5015",
-    "category": "Data & Storage",
-    "priority": "P2",
-    "assigned_team": "Data Platform",
-    "needs_escalation": true,
-    "missing_information": [
-      "affected_users",
-      "business_impact"
-    ],
-    "next_best_action": "Investigate sqlprod-nyc-04 resource exhaustion \u2014 CPU at 100%, memory at 99%, and query queue growing to 400+ since 08:00. Likely a runaway query or batch job.",
-    "remediation_steps": [
-      "Identify the top resource-consuming queries on sqlprod-nyc-04 using sys.dm_exec_requests.",
-      "Check if a scheduled batch job or report is causing the CPU and memory spike.",
-      "Kill or throttle the runaway query if identified, and notify the owning team.",
-      "Monitor the server for recovery and verify the query queue is draining.",
-      "Review Resource Governor settings to prevent a single workload from saturating the server."
-    ]
-  },
-  {
-    "ticket_id": "INC-5016",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": true,
-    "missing_information": [
-      "timestamp"
-    ],
-    "next_best_action": "Investigate broken links on the compliance intranet site \u2014 12 of 15 links returning errors, likely caused by a content migration or site restructure. Urgent due to upcoming regulatory exam.",
-    "remediation_steps": [
-      "Check the SharePoint or IIS logs for the compliance site to identify the error pattern.",
-      "Verify if a recent content migration or URL restructure moved or renamed the documents.",
-      "Restore or redirect the broken document links to their new locations.",
-      "Test all 12 broken links after the fix to confirm they resolve correctly.",
-      "Notify the Regulatory Affairs team once all links are restored."
-    ]
-  },
-  {
-    "ticket_id": "INC-5017",
-    "category": "Network & Connectivity",
-    "priority": "P2",
-    "assigned_team": "Network Operations",
-    "needs_escalation": true,
-    "missing_information": [
-      "affected_users"
-    ],
-    "next_best_action": "Investigate 2-hour mail delivery delay between edge01 and EX01 for inbound external email \u2014 likely a mail queue bottleneck or transport rule processing delay.",
-    "remediation_steps": [
-      "Check the mail queue on edge01.contoso.com for message backlog or throttling.",
-      "Review Exchange transport rule processing times for inbound external messages.",
-      "Check Forefront/EOP content filtering for latency spikes on edge01.",
-      "Verify network connectivity and DNS resolution between edge01 and EX01.",
-      "If a queue backlog is confirmed, increase transport capacity or clear stuck messages."
-    ]
-  },
-  {
-    "ticket_id": "INC-5018",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version"
-    ],
-    "next_best_action": "Investigate SharePoint upload failure caused by invisible Unicode characters (zero-width spaces, RTL/LTR marks) in the file name \u2014 user needs to strip hidden characters from the filename.",
-    "remediation_steps": [
-      "Identify the zero-width and bidirectional Unicode characters in the file name.",
-      "Rename the file using only ASCII characters and re-attempt the upload.",
-      "Check if the original Arabic filename triggered SharePoint's invalid character filter.",
-      "Verify the SharePoint site does not have a custom file naming policy blocking the upload.",
-      "Confirm the upload succeeds after the file is renamed with clean characters."
-    ]
-  },
-  {
-    "ticket_id": "INC-5019",
-    "category": "Network & Connectivity",
-    "priority": "P2",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message"
-    ],
-    "next_best_action": "Investigate intermittent 502 errors on appgw-prod-eus2-01 during morning traffic peak \u2014 backend pool timeout of 30s may be too low for the API tier under load.",
-    "remediation_steps": [
-      "Check Application Gateway access logs for 502 errors and correlate with backend health probe results.",
-      "Review backend pool member (10.42.1.10-13) health status during the 09:00-09:30 window.",
-      "Increase the API backend HTTP settings request timeout from 30s to 60s.",
-      "Check if the backend VMs are hitting CPU or memory limits during the traffic spike.",
-      "Consider enabling connection draining and auto-scaling on the Application Gateway."
-    ]
-  },
-  {
-    "ticket_id": "INC-5020",
-    "category": "Access & Authentication",
-    "priority": "P2",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Re-provision expired RSA SecurID soft token for employee E-28491 \u2014 token shows 'Disabled' and user needs VPN access for remote work next week.",
-    "remediation_steps": [
-      "Look up employee E-28491 in the RSA Authentication Manager console.",
-      "Verify the token status and confirm it is disabled/expired.",
-      "Re-provision a new RSA SecurID soft token and send the activation link to the user.",
-      "Guide the user through importing the new token on their mobile device.",
-      "Test VPN connectivity with the new token before the office closure."
-    ]
-  },
-  {
-    "ticket_id": "INC-5021",
-    "category": "Access & Authentication",
-    "priority": "P3",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": false,
-    "missing_information": [
-      "environment_details"
-    ],
-    "next_best_action": "Provision SAP access (FI, CO, MM modules) for new joiner E-31024 in Finance \u2014 request has been circulating for two weeks through a long forward chain. Verify manager approval from Robert Chen.",
-    "remediation_steps": [
-      "Verify the new joiner's employment and role with HR using employee ID E-31024.",
-      "Confirm manager authorization from Robert Chen for SAP FI, CO, and MM access.",
-      "Provision the SAP user account with the appropriate role profile for Finance.",
-      "Send the user their SAP login credentials via the secure onboarding portal.",
-      "Follow up to confirm access is working and the user can process invoices."
-    ]
-  },
-  {
-    "ticket_id": "INC-5022",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Investigate corrupted PDF from vendor \u2014 user cannot open expense report in Adobe Acrobat Reader DC. May be a file transfer corruption issue or incompatible PDF version. Ignore the base64-encoded raw PDF data in the ticket body.",
-    "remediation_steps": [
-      "Ask the user to re-download the PDF from the original email or vendor portal.",
-      "Test opening the file with an alternative PDF reader (Edge, Chrome built-in).",
-      "Check if the email attachment was corrupted during transfer (compare file sizes).",
-      "If the vendor's PDF is consistently corrupt, request a re-send from the vendor.",
-      "Verify Adobe Acrobat Reader DC is up to date and not blocked by Group Policy."
-    ]
-  },
-  {
-    "ticket_id": "INC-5023",
-    "category": "Data & Storage",
-    "priority": "P2",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "business_impact"
-    ],
-    "next_best_action": "Investigate Azure SQL DTU quota exhaustion blocking production deployment \u2014 subscription prod-sub-001 has 0 DTU remaining. Need to increase the DTU quota or optimize existing database allocations.",
-    "remediation_steps": [
-      "Check the current DTU allocation across all databases in subscription prod-sub-001.",
-      "Identify databases that are over-provisioned or unused and can be scaled down.",
-      "Submit an Azure support request to increase the DTU quota if needed.",
-      "Consider switching to vCore-based pricing for more flexible resource management.",
-      "Re-run the deployment after quota is available and verify all 47 resources deploy."
-    ]
-  },
-  {
-    "ticket_id": "INC-5024",
-    "category": "Data & Storage",
-    "priority": "P1",
-    "assigned_team": "Data Platform",
-    "needs_escalation": true,
-    "missing_information": [],
-    "next_best_action": "URGENT: /data volume on db-prod-03 (production PostgreSQL) is at 99% (475/476GB) and has been filling steadily since 02:15 UTC. Immediate action needed to prevent database crash from disk exhaustion.",
-    "remediation_steps": [
-      "Immediately check current disk usage on db-prod-03 /data volume.",
-      "Identify the largest consumers \u2014 check for WAL file accumulation, old backups, or temp files.",
-      "Clear any safe-to-delete files (old WAL segments, pg_dump temp files) to buy time.",
-      "Expand the /data volume or add additional storage if on cloud/SAN.",
-      "Investigate the root cause of rapid disk growth and set up proactive alerts at 85%."
-    ]
-  },
-  {
-    "ticket_id": "INC-5025",
-    "category": "Hardware & Peripherals",
-    "priority": "P4",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Order replacement cyan toner cartridge for Canon imageRUNNER ADVANCE C5560i (BLD2-PRN-0012) on Floor 7, Building 2. Faded streaks indicate low toner. Ignore the reply-all noise.",
-    "remediation_steps": [
-      "Check the printer's built-in supply status page for toner levels.",
-      "Order a replacement Canon C-EXV51 cyan toner cartridge.",
-      "Dispatch a technician to replace the toner and clean the drum unit if needed.",
-      "Print a test page after replacement to verify streak-free output.",
-      "Advise the original sender to use targeted distribution lists in the future."
-    ]
-  },
-  {
-    "ticket_id": "INC-5026",
-    "category": "Hardware & Peripherals",
-    "priority": "P2",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Investigate BSOD (IRQL_NOT_LESS_OR_EQUAL) on lobby visitor check-in kiosk in Building 1 \u2014 likely a driver or memory issue. Kiosk is blocking all guest sign-ins.",
-    "remediation_steps": [
-      "Dispatch a technician to the lobby kiosk to perform a hard restart.",
-      "Check the Windows Event Viewer for the IRQL_NOT_LESS_OR_EQUAL crash dump.",
-      "Inspect recently installed drivers or updates that may have caused the BSOD.",
-      "Run Windows Memory Diagnostic to check for faulty RAM.",
-      "If recurring, re-image the kiosk from the standard kiosk deployment image."
-    ]
-  },
-  {
-    "ticket_id": "INC-5027",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "environment_details"
-    ],
-    "next_best_action": "Investigate benefits portal blank page \u2014 the /api/benefits endpoint returns empty body (200 OK), causing a TypeError when the frontend tries to map over undefined benefits array. Likely a backend deployment or database connectivity issue from last night's maintenance.",
-    "remediation_steps": [
-      "Check the backend service for /api/benefits \u2014 verify database connectivity.",
-      "Review last night's maintenance changes for anything affecting the benefits API.",
-      "Check application logs for errors in the benefits data retrieval path.",
-      "If the database is accessible, verify the benefits table has data and is not truncated.",
-      "Roll back the maintenance change if it caused the API regression."
-    ]
-  },
-  {
-    "ticket_id": "INC-5028",
-    "category": "Hardware & Peripherals",
-    "priority": "P2",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Dispatch technician to repair badge reader BDG-PK-0044 at Building 4 parking garage Gate B \u2014 LED showing solid red since 7:30 AM, causing 20-minute entry delays. Reader may need power cycle or replacement.",
-    "remediation_steps": [
-      "Dispatch facilities/endpoint technician to Gate B, Building 4 parking garage.",
-      "Attempt a power cycle of badge reader BDG-PK-0044.",
-      "Check the reader's network connection to the access control server.",
-      "If power cycle fails, replace the reader unit with a spare from inventory.",
-      "Verify badge access works after repair and clear any entry queue."
-    ]
-  },
-  {
-    "ticket_id": "INC-5029",
-    "category": "Hardware & Peripherals",
-    "priority": "P2",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Urgent: Lenovo ThinkPad X1 Carbon Gen 11 completely unresponsive for employee E-20145 on 4th floor, Building 2, London. User has client presentation in 2 hours with locally-stored slides. Prioritize loaner device and data recovery.",
-    "remediation_steps": [
-      "Immediately dispatch a loaner laptop to the user's location (4th floor, Building 2, London).",
-      "Attempt to recover the dead ThinkPad \u2014 try a full battery disconnect/reconnect reset.",
-      "If the laptop powers on, help the user sync the presentation files to OneDrive.",
-      "If unrecoverable, pull the NVMe SSD and mount it externally to retrieve the slides.",
-      "Log a warranty claim for the ThinkPad X1 Carbon if it is confirmed dead."
-    ]
-  },
-  {
-    "ticket_id": "INC-5030",
-    "category": "Hardware & Peripherals",
-    "priority": "P3",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message"
-    ],
-    "next_best_action": "Troubleshoot triple-monitor setup with Lenovo ThinkPad USB-C Dock Gen 2 \u2014 Monitor 2 (HDMI) shows no signal, Monitor 3 (USB-C adapter) is flickering. Likely a dock bandwidth or DisplayLink driver limitation with three 2560x1440 monitors.",
-    "remediation_steps": [
-      "Check if the dock firmware supports three simultaneous displays at 2560x1440.",
-      "Verify the HDMI port on the dock is functional by testing with a known-good cable/monitor.",
-      "Replace the USB-C to DisplayPort adapter for Monitor 3 with a certified one.",
-      "Check if MST (Multi-Stream Transport) daisy-chaining could reduce dock port usage.",
-      "If the dock cannot support three QHD monitors, consider a DisplayLink USB adapter for the third."
-    ]
-  },
-  {
-    "ticket_id": "INC-5031",
-    "category": "Data & Storage",
-    "priority": "P2",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_system",
-      "error_message"
-    ],
-    "next_best_action": "Investigate network drive mapping failure for \\\\fs-compliance-01\\shared \u2014 user receives a timeout after 30 seconds despite the server responding to ping.  Strip RTF formatting noise to extract the core issue, then check SMB connectivity and credential cache state.",
-    "remediation_steps": [
-      "Verify SMB connectivity to fs-compliance-01 on port 445 from the user's subnet.",
-      "Check if the user's AD computer account has valid Kerberos tickets for the file server.",
-      "Confirm the shared folder permissions on fs-compliance-01 include the Compliance group.",
-      "Review recent Group Policy changes that may have altered drive-mapping logon scripts.",
-      "If SMB signing or encryption policies changed, ensure client and server negotiate the same version."
-    ]
-  },
-  {
-    "ticket_id": "INC-5032",
-    "category": "Access & Authentication",
-    "priority": "P3",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": false,
-    "missing_information": [
-      "authentication_method"
-    ],
-    "next_best_action": "Process password reset for treyes \u2014 user reports that the self-service password reset MFA challenge (SMS and Authenticator push) is not arriving, and the current password expires tomorrow.  Ignore earlier VPN and printer issues which the user confirmed are resolved.",
-    "remediation_steps": [
-      "Verify the user's MFA registration in Azure AD \u2014 confirm phone number and Authenticator device.",
-      "Check Azure MFA service health for any delivery delays on SMS or push notifications.",
-      "If MFA is unreachable, perform an admin-assisted password reset with temp password; force change.",
-      "Re-register the user's MFA methods if the Authenticator token has drifted or phone number changed.",
-      "Extend the password expiry by 48 hours if the reset cannot be completed before end of day."
-    ]
-  },
-  {
-    "ticket_id": "INC-5033",
-    "category": "Data & Storage",
-    "priority": "P1",
-    "assigned_team": "Data Platform",
-    "needs_escalation": true,
-    "missing_information": [
-      "affected_users",
-      "business_impact"
-    ],
-    "next_best_action": "URGENT \u2014 db-analytics-07 /data volume is nearly full (~10 MB free of 1 TB).  Expand the volume or purge stale data before the 02:00 UTC batch job.  Ignore the large Prometheus metrics dump and focus on the disk-space issue.",
-    "remediation_steps": [
-      "SSH into db-analytics-07 and confirm current disk usage with df -h /data.",
-      "Identify and remove or archive old analytics temp files under /data/tmp and /data/staging.",
-      "If immediate space cannot be freed, expand the /dev/sdb1 volume via the storage array or cloud.",
-      "Notify the Data Engineering team to delay the 02:00 UTC batch job until disk space is safe.",
-      "Set up a Prometheus alert for node_filesystem_avail_bytes < 5% to catch this earlier in future."
-    ]
-  },
-  {
-    "ticket_id": "INC-5034",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version"
-    ],
-    "next_best_action": "Renew Bloomberg Terminal B-PIPE license (contract BB-ENT-2024-04871) before April 15, 2026 \u2014 expand from 8 to 12 concurrent seats.  Contact Bloomberg account manager Sarah Chen.  Ignore PDF-to-text conversion artifacts (broken ligatures, repeated headers/footers, page numbers).",
-    "remediation_steps": [
-      "Contact Bloomberg account manager Sarah Chen to initiate renewal of contract BB-ENT-2024-04871.",
-      "Confirm the seat count increase from 8 to 12 with the Risk Management budget owner.",
-      "Obtain purchase approval for cost center CC-4420-RM and submit the PO before April 10.",
-      "Coordinate with Enterprise Apps to provision the 4 additional B-PIPE seats once license is active.",
-      "Update the software asset inventory with the new seat count and expiry date."
-    ]
-  },
-  {
-    "ticket_id": "INC-5035",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "timestamp",
-      "affected_users"
-    ],
-    "next_best_action": "Investigate why the shared mailbox clientservices@contoso.com is rejecting external inbound email with '550 5.7.1 Unable to relay'.  Check Exchange transport rules and inbound connectors.  Ignore the large CC list and concatenated out-of-office auto-replies.",
-    "remediation_steps": [
-      "Check Exchange Online message trace for emails sent to clientservices@contoso.com in the last 7 days.",
-      "Review inbound mail-flow connectors for changes that may block external relay to shared mailboxes.",
-      "Inspect Exchange transport rules for any rule rejecting mail based on recipient type or origin.",
-      "Verify that the shared mailbox has not exceeded its storage quota, which can cause inbound rejection.",
-      "Once resolved, ask Nadia's team to confirm receipt of a test email from an external address."
-    ]
-  },
-  {
-    "ticket_id": "INC-5036",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message",
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Investigate SAP error M7 021 for material 400-117 in plant 2100 \u2014 the material master record may have been modified or deleted during the weekend maintenance window.  Restore or re-extend the material to plant 2100 so sales order creation in VA01 works again.",
-    "remediation_steps": [
-      "Check material master for 400-117 in SAP transaction MM03 \u2014 verify plant 2100 view exists.",
-      "Review the change log (CDHDR/CDPOS) for material 400-117 to identify recent modifications.",
-      "If plant 2100 view was deleted, re-extend material using MM01 with sales, MRP, and purchasing views.",
-      "Test sales order creation in VA01 with material 400-117 and plant 2100 to confirm the fix.",
-      "Notify SAP Basis team to review weekend maintenance scripts that may have altered material masters."
-    ]
-  },
-  {
-    "ticket_id": "INC-5037",
-    "category": "Data & Storage",
-    "priority": "P3",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message"
-    ],
-    "next_best_action": "Increase the SharePoint upload size limit for the Legal/FilingArchive site collection from 250 MB to at least 500 MB, or guide the user to upload via the SharePoint migration tool / OneDrive sync client.  Ignore the inline base64-encoded file contents.",
-    "remediation_steps": [
-      "Verify the current max upload size for the Legal site collection in the SharePoint admin center.",
-      "Increase the file upload limit to 500 MB via Set-SPOSite -MaxUploadSize or the admin UI.",
-      "If the tenant-wide limit is below 500 MB, raise it at the tenant level after IT governance approval.",
-      "Advise the user to upload large bundles via the OneDrive sync client or SharePoint Migration Tool.",
-      "Confirm the user can successfully upload the 380 MB ZIP file after the limit change."
-    ]
-  },
-  {
-    "ticket_id": "INC-5038",
-    "category": "Hardware & Peripherals",
-    "priority": "P3",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info",
-      "environment_details"
-    ],
-    "next_best_action": "Investigate rapid battery drain and overheating on Jin-Ho Park's laptop \u2014 battery goes from 100% to 15% by midday, 'System Interrupts' process at ~30% CPU.  Likely a driver issue introduced by a recent Windows security patch.  Schedule a desk-side visit or ask user to bring the device to the help desk on the 4th floor.",
-    "remediation_steps": [
-      "Run powercfg /batteryreport and check design capacity vs. full-charge capacity for cell degradation.",
-      "Review recently installed Windows updates and cross-reference with known battery-drain issues.",
-      "Investigate high 'System Interrupts' CPU \u2014 run LatencyMon or xperf to find the offending driver.",
-      "If a specific driver is the cause, roll it back or install the latest version from the manufacturer.",
-      "If battery health shows significant degradation (>20% loss), initiate a warranty battery replacement."
-    ]
-  },
-  {
-    "ticket_id": "INC-5039",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version",
-      "error_message"
-    ],
-    "next_best_action": "Investigate Outlook crashes when opening calendar invites for Sophie Tremblay \u2014 started the previous day. Likely a corrupt calendar cache or an add-in conflict after a recent update. Ignore the forwarded newsletter content.",
-    "remediation_steps": [
-      "Ask the user to confirm the Outlook version (File > Office Account) and whether they are using desktop or New Outlook.",
-      "Launch Outlook in safe mode (outlook.exe /safe) to rule out add-in conflicts.",
-      "Clear the Outlook calendar cache by renaming the local .ost file and letting it rebuild.",
-      "If the issue persists, run the Microsoft Support and Recovery Assistant (SaRA) calendar diagnostic.",
-      "Check for pending Office updates and apply them if available."
-    ]
-  },
-  {
-    "ticket_id": "INC-5040",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version"
-    ],
-    "next_best_action": "Process Bloomberg Terminal license renewal for seat ID BT-4471 assigned to Rachel Moreno before the March 31 expiration. Manager approval from David Kowalski is referenced. Discard the inline base64 PDF content and request a clean copy of the approval form.",
-    "remediation_steps": [
-      "Request Rachel resend the manager approval PDF as a proper email attachment.",
-      "Verify the Bloomberg seat ID BT-4471 in the license management portal and confirm the current expiration date.",
-      "Submit the renewal request through the enterprise software procurement workflow with manager approval attached.",
-      "Confirm with Bloomberg vendor support that the renewal will be processed before month-end cutoff.",
-      "Notify Rachel once the renewal is confirmed and verify terminal connectivity."
-    ]
-  },
-  {
-    "ticket_id": "INC-5041",
-    "category": "Data & Storage",
-    "priority": "P3",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message",
-      "timestamp"
-    ],
-    "next_best_action": "Investigate the Regulatory Filings SharePoint site failing to load for multiple users \u2014 Gregory, Nadia, and Tom in Regulatory Affairs are all affected. Filing deadline on Thursday makes this time-sensitive. Ignore the CSS/style block noise in the ticket.",
-    "remediation_steps": [
-      "Check the SharePoint admin center for service health alerts affecting the Regulatory Filings site collection.",
-      "Verify site collection storage quota \u2014 a full quota can cause infinite loading spinners.",
-      "Review recent changes to site permissions or page customizations that may have broken rendering.",
-      "Test access with a SharePoint admin account to determine if the issue is site-wide or permission-specific.",
-      "If the site collection is corrupted, initiate a restore from the most recent backup and notify affected users."
-    ]
-  },
-  {
-    "ticket_id": "INC-5042",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": true,
-    "missing_information": [
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Investigate TradeSettlement-API timeout on PROD-APPGW-East-02 \u2014 response times averaging 47s (threshold 30s), 34% error rate, 23 settlement requests at risk of missing the T+1 window. Escalate to Platform Engineering immediately.",
-    "remediation_steps": [
-      "Check application gateway and load balancer health for PROD-APPGW-East-02 in the Azure portal.",
-      "Review TradeSettlement-API application logs for the correlation ID a9f3c7e2-81d4-4b6a-bc0f-3e7d91a24c88.",
-      "Investigate downstream clearing house integration for connection pool exhaustion or certificate issues.",
-      "If the API is overloaded, scale out additional instances and drain the pending settlement queue.",
-      "Coordinate with the settlements operations team to manually process any trades at risk of missing T+1 cutoff."
-    ]
-  },
-  {
-    "ticket_id": "INC-5043",
-    "category": "Data & Storage",
-    "priority": "P2",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message",
-      "environment_details"
-    ],
-    "next_best_action": "Investigate production data warehouse query timeout for Henry Wong's daily P&L reconciliation report \u2014 previously ran in ~2 minutes, now exceeds the 30-minute timeout. Likely index fragmentation or statistics staleness after weekend maintenance.",
-    "remediation_steps": [
-      "Check the data warehouse for any maintenance jobs or schema changes that ran over the weekend.",
-      "Review the query execution plan for missing or fragmented indexes on the trades, positions, and fx_rates tables.",
-      "Rebuild or reorganize indexes on high-traffic tables if fragmentation exceeds 30%.",
-      "Update table statistics for the affected tables and verify the query plan improves.",
-      "If the issue is data volume growth, work with the user to optimize the query or add appropriate covering indexes."
-    ]
-  },
-  {
-    "ticket_id": "INC-5044",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message"
-    ],
-    "next_best_action": "Investigate Teams-Outlook calendar sync failure for Amara Osei after Teams Desktop Client v24.7.1 update. Meetings created in Outlook do not appear in Teams calendar. User has already cleared cache and restarted.",
-    "remediation_steps": [
-      "Verify the Exchange-Teams interop prerequisites are met for the user's mailbox (Exchange Online, not on-prem).",
-      "Check the Teams admin center for known issues with client version 24.7.1 and calendar sync.",
-      "Re-register the Teams Outlook add-in by running the Teams meeting add-in troubleshooter.",
-      "If the add-in is missing, repair the Office installation from Programs and Features.",
-      "As a fallback, approve and perform a clean reinstall of the Teams desktop client."
-    ]
-  },
-  {
-    "ticket_id": "INC-5045",
-    "category": "Network & Connectivity",
-    "priority": "P3",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "network_location",
-      "business_impact"
-    ],
-    "next_best_action": "Provision VPN access to the APAC regional network (10.42.0.0/16) for Lukas Brenner for the Cross-Border Settlements project. Verify manager approval from Isabelle Fontaine and process by end of week.",
-    "remediation_steps": [
-      "Verify the access request approval from Isabelle Fontaine in the access governance portal.",
-      "Create a VPN access profile for the APAC regional network subnet 10.42.0.0/16 in the GlobalProtect admin console.",
-      "Assign the profile to Lukas Brenner's AD account and add him to the Cross-Border Settlements security group.",
-      "Send the user VPN configuration instructions and test connectivity to an APAC host.",
-      "Set a review date for the access in 90 days per the temporary project access policy."
-    ]
-  },
-  {
-    "ticket_id": "INC-5046",
-    "category": "Data & Storage",
-    "priority": "P2",
-    "assigned_team": "Data Platform",
-    "needs_escalation": true,
-    "missing_information": [
-      "previous_ticket_id"
-    ],
-    "next_best_action": "Address critical disk space on PROD-SQL-NODE-03 (E: drive at 95% \u2014 ~8 days until full). The AuditLog retention job failed on March 16, leaving old records unpurged. This is the most likely cause of accelerated growth. Fix the retention job first, then evaluate capacity expansion.",
-    "remediation_steps": [
-      "Investigate and fix the failed AuditLog retention job from March 16 \u2014 old records are not being purged.",
-      "Manually run the AuditLog purge to reclaim space from records past the retention window.",
-      "Review TempDB sizing and shrink if the 105 GB allocation is excessive for current workload.",
-      "Request an emergency capacity expansion for the E: drive if free space drops below 5% before the retention fix takes effect.",
-      "Set up a recurring disk space trend report and adjust the growth_rate alert threshold to trigger earlier."
-    ]
-  },
-  {
-    "ticket_id": "INC-5047",
-    "category": "Hardware & Peripherals",
-    "priority": "P3",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Dispatch a technician to inspect the HP LaserJet Pro MFP M428fdn on the 6th floor near conference room B, Building 1 \u2014 persistent false paper jam error. User has a client presentation at 3 PM today.",
-    "remediation_steps": [
-      "Dispatch a technician to the 6th floor, Building 1, to physically inspect the HP LaserJet Pro MFP M428fdn.",
-      "Check the paper path sensors for debris, torn paper fragments, or sensor misalignment causing the false jam.",
-      "Perform a full power cycle with the rear access panel open and inspect the fuser area for obstructions.",
-      "If the sensor is faulty, replace the paper path sensor assembly or swap in a loaner printer before the 3 PM deadline.",
-      "Update the printer asset record with any parts replaced and schedule preventive maintenance."
-    ]
-  },
-  {
-    "ticket_id": "INC-5048",
-    "category": "Access & Authentication",
-    "priority": "P2",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": true,
-    "missing_information": [
-      "authentication_method",
-      "timestamp"
-    ],
-    "next_best_action": "Immediately investigate account lockout for Marcus Adeyemi \u2014 unsolicited MFA prompts at 11 PM suggest a possible credential compromise attempt. Unlock the account, force a password reset, review Azure AD sign-in logs, and revoke active sessions before the 10 AM compliance audit.",
-    "remediation_steps": [
-      "Review Azure AD sign-in logs for Marcus Adeyemi's account for failed attempts and the unsolicited MFA prompts from 11 PM.",
-      "Check if the account triggered any Impossible Travel or Unfamiliar Sign-In Properties risk detections in Azure AD Identity Protection.",
-      "Unlock the account in Active Directory and force an immediate password reset via a secure channel (phone verification).",
-      "Revoke all active refresh tokens and sessions (Revoke-AzureADUserAllRefreshToken) to invalidate any compromised sessions.",
-      "If credential compromise is confirmed, escalate to the Security Operations team for a full incident investigation."
-    ]
-  },
-  {
-    "ticket_id": "INC-5049",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "network_location",
-      "application_version"
-    ],
-    "next_best_action": "Investigate recurring Teams meeting drops affecting the daily stand-up for Platform Engineering \u2014 12 participants across New York and London offices are getting kicked out after ~15 minutes.",
-    "remediation_steps": [
-      "Check Teams admin center call analytics for the recurring meeting to identify packet loss or jitter patterns.",
-      "Review network quality for cross-region calls between New York and London offices during the 09:30 ET window.",
-      "Verify that the Teams client version is current for all participants.",
-      "Check if the meeting exceeds any tenant policy limits (participant count, duration, bandwidth).",
-      "If network quality is the cause, work with Network Operations to investigate QoS policies for Teams media traffic on the cross-Atlantic link."
-    ]
-  },
-  {
-    "ticket_id": "INC-5050",
-    "category": "Data & Storage",
-    "priority": "P2",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message",
-      "environment_details"
-    ],
-    "next_best_action": "Investigate corrupted Excel file on \\\\NYC-FS-01\\Finance\\Q1-Reports \u2014 ZIP header appears partially zeroed out. Check the ETL process on PROD-ETL-03 and restore from Volume Shadow Copy or backup.",
-    "remediation_steps": [
-      "Attempt to restore the file from Volume Shadow Copy on NYC-FS-01 using a snapshot from before 4:47 PM yesterday.",
-      "If no shadow copy is available, restore from the nightly backup.",
-      "Investigate the PROD-ETL-03 ETL process logs for errors during yesterday's 4:47 PM run that may have caused partial write or corruption.",
-      "Check disk health on NYC-FS-01 for I/O errors or SMART warnings.",
-      "Once restored, verify file integrity by opening in Excel and validating the ZIP structure with a tool like 7-Zip."
-    ]
-  },
-  {
-    "ticket_id": "INC-5051",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version",
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Investigate double-encoded HTML entities on the internal portal login page at portal.contoso.com \u2014 the authentication endpoint is also returning errors. Likely a deployment issue with the template rendering engine.",
-    "remediation_steps": [
-      "Check the most recent deployment to portal.contoso.com for template rendering changes that may be double-encoding HTML entities.",
-      "Verify the web application's content-type headers and character encoding settings (UTF-8 vs ISO-8859-1).",
-      "Check the authentication token endpoint for errors \u2014 the 'invalid token' error may be related to the encoding issue corrupting CSRF tokens.",
-      "Roll back to the previous known-good deployment if the issue is confirmed to be a recent change.",
-      "Test the portal from multiple browsers and networks to confirm the fix resolves the rendering and authentication issues."
-    ]
-  },
-  {
-    "ticket_id": "INC-5052",
-    "category": "Hardware & Peripherals",
-    "priority": "P2",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info",
-      "error_message"
-    ],
-    "next_best_action": "Run SSD and hardware diagnostics on Jennifer Walsh's Lenovo ThinkPad X1 Carbon Gen 11 \u2014 recurring KERNEL_DATA_INPAGE_ERROR blue screens 2-3 times daily suggest possible SSD failure.",
-    "remediation_steps": [
-      "Run Lenovo Vantage hardware diagnostics focusing on SSD health (SMART status, read/write error rates, reallocated sector count).",
-      "Check Windows Event Viewer for disk-related errors (Event IDs 7, 11, 51, 153) around the times of the blue screens.",
-      "If SSD is degrading, immediately back up user data and arrange a replacement drive or laptop swap.",
-      "As a temporary measure, reduce Chrome tab count and consider moving large Excel workbooks to OneDrive streaming to reduce disk I/O.",
-      "Once hardware is confirmed healthy or replaced, monitor for recurrence over the next 48 hours."
-    ]
-  },
-  {
-    "ticket_id": "INC-5053",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "configuration_details"
-    ],
-    "next_best_action": "Investigate Group Policy Object overriding Outlook email signature setting \u2014 registry shows 'Contoso_Corporate_2024' being pushed over user's updated 'Contoso_Corporate_2026' signature on every restart.",
-    "remediation_steps": [
-      "Check the Group Policy Object (GPO) linked to the user's OU for Outlook signature settings that may be enforcing the old signature name.",
-      "Run 'gpresult /H gpresult.html' on the user's machine to confirm which GPO is applying the signature preference.",
-      "Update the GPO to reference 'Contoso_Corporate_2026' or remove the forced signature setting if individual choice is now permitted.",
-      "Run 'gpupdate /force' on the user's machine after the GPO change.",
-      "Verify the signature persists across an Outlook restart and confirm with the user."
-    ]
-  },
-  {
-    "ticket_id": "INC-5054",
-    "category": "Software & Applications",
-    "priority": "P1",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": true,
-    "missing_information": [
-      "environment_details"
-    ],
-    "next_best_action": "Investigate 502 Bad Gateway on pricing-api.contoso.internal \u2014 all three upstream backend nodes (10.30.2.15-17:8080) are timing out at 30s. Trading desk is blocked from real-time equity pricing.",
-    "remediation_steps": [
-      "Check health and resource utilization (CPU, memory, disk I/O) on all three upstream backend nodes (10.30.2.15, .16, .17).",
-      "Review application logs on the pricing API service for errors or connection pool exhaustion.",
-      "Check the nginx reverse proxy configuration and upstream timeout settings.",
-      "Verify the downstream data provider (market data feed) is responding and not causing the backend to hang.",
-      "If a backend restart is needed, perform a rolling restart to maintain partial availability during recovery."
-    ]
-  },
-  {
-    "ticket_id": "INC-5055",
-    "category": "Software & Applications",
-    "priority": "P4",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version",
-      "device_info"
-    ],
-    "next_best_action": "Investigate desktop icon rearrangement and icon cache corruption on Windows 11 Enterprise \u2014 icons scramble after every reboot. Low priority cosmetic issue but may indicate a profile or Group Policy conflict.",
-    "remediation_steps": [
-      "Check if a Group Policy or profile management tool (e.g., FSLogix) is resetting the desktop layout on logon.",
-      "Clear and rebuild the icon cache by deleting the IconCache.db file and restarting Explorer.",
-      "Verify the desktop icon layout is not being managed by a mandatory profile or a desktop management GPO.",
-      "Check if the Windows Update that triggered the reboot included a shell or Explorer update that could cause layout resets.",
-      "If the issue persists, save the layout using a DesktopOK-style utility or a logon script workaround."
-    ]
-  },
-  {
-    "ticket_id": "INC-5056",
-    "category": "Data & Storage",
-    "priority": "P1",
-    "assigned_team": "Data Platform",
-    "needs_escalation": true,
-    "missing_information": [
-      "affected_system",
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Investigate null transaction_id values in dbo.RawTransactions causing the compliance ETL pipeline (compliance-etl-v2) on Azure Data Factory to fail \u2014 regulatory filing deadline is 5 PM today.",
-    "remediation_steps": [
-      "Query dbo.RawTransactions for records with NULL transaction_id in batch BATCH-20260317-0923 to assess the scope of the data quality issue.",
-      "Check the upstream data source that feeds RawTransactions for changes in schema or NULL handling that may have introduced the bad records.",
-      "Manually patch or exclude the NULL transaction_id records to unblock the current batch and allow the ETL pipeline to complete.",
-      "Add a NOT NULL constraint or pre-validation step in the ADF pipeline to catch these issues at ingestion time.",
-      "Re-trigger the compliance-etl-v2 pipeline for batch BATCH-20260317-0923 after the data is corrected, and verify the regulatory report generates."
-    ]
-  },
-  {
-    "ticket_id": "INC-5057",
-    "category": "Access & Authentication",
-    "priority": "P2",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": false,
-    "missing_information": [
-      "authentication_method",
-      "configuration_details"
-    ],
-    "next_best_action": "Investigate mass VPN account lockouts for 5 remote users that correlate with last night's password policy change \u2014 users cannot work remotely.",
-    "remediation_steps": [
-      "Unlock the 5 affected accounts (mchen02, bwilson04, dkimura06, fjohansson08, iali11) in Active Directory immediately.",
-      "Review the password policy GPO change from last night to determine if it invalidated existing credentials or changed lockout thresholds.",
-      "Check Azure AD sign-in logs for the locked accounts to confirm the lockout was caused by repeated failed authentication, not an attack.",
-      "If the policy change caused the lockouts, communicate to all remote users that they may need to update their cached credentials.",
-      "Consider a phased rollout for future password policy changes with advance notice to remote workers."
-    ]
-  },
-  {
-    "ticket_id": "INC-5058",
-    "category": "Hardware & Peripherals",
-    "priority": "P3",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Investigate access card CF-2026-8841 not being recognized by the Floor 8 badge reader in Building 2 \u2014 card works on ground floor and parking but not Floor 8. Likely a provisioning issue with the replacement card's floor access permissions.",
-    "remediation_steps": [
-      "Check the physical access control system (PACS) to verify badge CF-2026-8841 has Floor 8, Building 2 access permissions.",
-      "Compare the new badge's access group assignments with the old badge to identify any missing floor-level permissions.",
-      "Add Floor 8 access to the new badge if it was not provisioned during the replacement process.",
-      "Test the badge on the Floor 8 reader after updating permissions.",
-      "Audit the badge replacement workflow to ensure floor-level permissions are copied from old badges to replacements."
-    ]
-  },
-  {
-    "ticket_id": "INC-5059",
-    "category": "Data & Storage",
-    "priority": "P2",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "environment_details",
-      "configuration_details"
-    ],
-    "next_best_action": "Investigate dbo.sp_RiskExposure stored procedure timeout on PROD-SQL-03 causing overnight batch report failures for 3 consecutive nights \u2014 Risk Exposure and 4 downstream reports are not being generated.",
-    "remediation_steps": [
-      "Check PROD-SQL-03 for long-running queries, blocking sessions, or resource exhaustion around the 02:00 AM window.",
-      "Review the execution plan for dbo.sp_RiskExposure \u2014 it may need index tuning or statistics updates after recent data growth.",
-      "Check if the timeout is caused by a lock conflict with another overnight process (e.g., a maintenance or ETL job).",
-      "Increase the command timeout for the report generation script as a temporary measure while the stored procedure is optimized.",
-      "Manually trigger the report generation for the missed dates (2026-03-15, 16, 17) once the issue is resolved."
-    ]
-  },
-  {
-    "ticket_id": "INC-5060",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_system",
-      "affected_users",
-      "business_impact"
-    ],
-    "next_best_action": "This ticket contains 5 separate issues from the London office bundled into one submission. The highest-impact items are the settlement app crash (OutOfMemoryException) and the Bloomberg Terminal data feed drops. Split into individual tickets and triage each with the appropriate team.",
-    "remediation_steps": [
-      "Create separate tickets for each of the 5 reported issues and assign to the appropriate teams: Enterprise Apps (Issue 1), Network Ops (Issue 2), IAM (Issue 3), Enterprise Apps (Issue 4), Enterprise Apps (Issue 5).",
-      "Prioritize Issue 1 (settlement app crash) and Issue 4 (Bloomberg data feed) as they directly impact trading and settlement operations.",
-      "For Issue 1: Investigate the OutOfMemoryException in the settlement reconciliation app after Friday's update \u2014 likely a memory leak in the CSV export code path.",
-      "For Issue 2: Coordinate with Network Ops to assess WiFi coverage changes after the new partition installation on the 3rd floor.",
-      "For Issue 5: Increase the HR shared mailbox quota or implement an auto-archive policy to prevent the 50 GB limit from being hit again."
-    ]
-  },
-  {
-    "ticket_id": "INC-5061",
-    "category": "Network & Connectivity",
-    "priority": "P3",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version",
-      "error_message"
-    ],
-    "next_best_action": "Diagnose GlobalProtect VPN 'gateway not reachable' error for a single user on Floor 4, Building 2 NYC \u2014 colleague on same floor is unaffected, suggesting a client-side or profile configuration issue.",
-    "remediation_steps": [
-      "Verify the user's GlobalProtect client version and update if outdated.",
-      "Check the VPN gateway address configured on the client \u2014 it may have been corrupted after an update.",
-      "Run 'netsh winsock reset' and flush DNS to rule out local networking stack issues.",
-      "If the issue persists, remove and reinstall the GlobalProtect VPN client.",
-      "Confirm network connectivity to the VPN gateway IP directly using ping and traceroute."
-    ]
-  },
-  {
-    "ticket_id": "INC-5062",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "configuration_details"
-    ],
-    "next_best_action": "Coordinate Bloomberg Terminal license renewal for key BBGTERM-QA-2026-0047 expiring March 31 \u2014 PO already submitted via Ariba (PO-2026-11847). Verify renewal status with Bloomberg rep.",
-    "remediation_steps": [
-      "Confirm the Ariba PO (PO-2026-11847) has been approved and transmitted to Bloomberg.",
-      "Contact the Bloomberg account representative to verify the renewal is in progress.",
-      "If the renewal cannot be completed before March 31, request a temporary extension from Bloomberg.",
-      "Verify the B-PIPE data feed configuration will survive the license rollover without reconfiguration.",
-      "Notify the quant team of the renewal timeline and any expected downtime window."
-    ]
-  },
-  {
-    "ticket_id": "INC-5063",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "environment_details"
-    ],
-    "next_best_action": "Investigate OOMKilled crash in risk-calc-service v3.2.1 \u2014 the pod is in CrashLoopBackOff with Java heap OOM during VaR calculation. Likely a memory regression introduced in the v3.2.1 deployment.",
-    "remediation_steps": [
-      "Roll back risk-calc-service from v3.2.1 to v3.2.0 to restore production stability immediately.",
-      "Compare heap usage profiles between v3.2.0 and v3.2.1 to identify the memory regression.",
-      "Investigate the VaR calculation path for portfolio PF-2847 \u2014 it may involve unusually large datasets.",
-      "Consider increasing the pod memory limit from 4Gi to 8Gi as a temporary measure if rollback is not feasible.",
-      "Add memory usage alerts at 70% threshold to catch future regressions before OOMKill."
-    ]
-  },
-  {
-    "ticket_id": "INC-5064",
-    "category": "Hardware & Peripherals",
-    "priority": "P4",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message",
-      "device_info"
-    ],
-    "next_best_action": "Investigate HP Color LaserJet error on Floor 6 near room 6.12 \u2014 blinking red/yellow LEDs and display showing 'Error'. Multiple users affected.",
-    "remediation_steps": [
-      "Check the printer's LCD display for a specific error code or message.",
-      "Open the printer and check for paper jams, low toner, or imaging drum issues.",
-      "Power-cycle the printer and check if the error clears on reboot.",
-      "If LEDs continue blinking red/yellow, consult the HP service manual for the specific LED pattern meaning.",
-      "If hardware failure is confirmed, open a warranty or service request with HP."
-    ]
-  },
-  {
-    "ticket_id": "INC-5065",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_users"
-    ],
-    "next_best_action": "Grant 'Log on as a service' right to svc-intune-deploy so the CyberArk Agent MSI can start its Windows service during Intune deployment.",
-    "remediation_steps": [
-      "Add CONTOSO\\svc-intune-deploy to the 'Log on as a service' local security policy via GPO or secpol.msc.",
-      "Verify the service account has the correct permissions on the target machines.",
-      "Re-run the Intune Win32 app deployment after the policy change propagates.",
-      "Validate the installation completes successfully on a test machine before fleet-wide deployment.",
-      "Update the Intune deployment documentation to include the 'Log on as a service' prerequisite."
-    ]
-  },
-  {
-    "ticket_id": "INC-5066",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Investigate 500 error on the expense portal \u2014 stack trace shows SQL connection pool exhaustion on PROD-WEB-04. Likely a connection leak or traffic spike.",
-    "remediation_steps": [
-      "Check PROD-WEB-04 for SQL connection pool exhaustion \u2014 review active and idle connection counts.",
-      "Recycle the application pool on PROD-WEB-04 as an immediate mitigation.",
-      "Review the ExpenseController.Submit() code path for connection leaks or missing Dispose() calls.",
-      "Check if there was a traffic spike or slow query causing connections to be held longer than usual.",
-      "Increase the connection pool MaxPoolSize if legitimate traffic growth is the root cause."
-    ]
-  },
-  {
-    "ticket_id": "INC-5067",
-    "category": "Data & Storage",
-    "priority": "P3",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "authentication_method"
-    ],
-    "next_best_action": "Grant SharePoint access to reg-docs-emea site for Omar Hassan \u2014 ServiceNow request REQ-2026-04821 already approved by manager Fatima Al-Ali.",
-    "remediation_steps": [
-      "Verify ServiceNow request REQ-2026-04821 is approved and includes the correct site URL.",
-      "Add Omar Hassan to the appropriate SharePoint security group for reg-docs-emea.",
-      "Confirm the user can access the site after permission changes propagate (up to 24 hours).",
-      "If access is still denied, check for any Conditional Access policies blocking the London office IP range.",
-      "Update the ServiceNow request to 'Fulfilled' once access is confirmed."
-    ]
-  },
-  {
-    "ticket_id": "INC-5068",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message",
-      "environment_details"
-    ],
-    "next_best_action": "Investigate timeout error on the expense report portal during form submission \u2014 likely a backend API issue since the user gets consistent 30s timeouts.",
-    "remediation_steps": [
-      "Check the expense portal API logs for timeout errors on the /api/v2/expenses/submit endpoint.",
-      "Verify backend service health and database connectivity for the expense processing system.",
-      "Check if there is a known issue with the expense portal deployment or recent changes.",
-      "As a workaround, ask the user to submit the expense via the mobile app or email to expenses@contoso.com.",
-      "Monitor the portal for recurring timeout issues and escalate if systemic."
-    ]
-  },
-  {
-    "ticket_id": "INC-5069",
-    "category": "Hardware & Peripherals",
-    "priority": "P2",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version"
-    ],
-    "next_best_action": "Investigate recurring BSOD with KERNEL_MODE_HEAP_CORRUPTION on NYC-WS-3847 \u2014 bugcheck code 209 suggests a kernel-mode driver is corrupting the heap. Correlates with Excel + Bloomberg concurrent usage.",
-    "remediation_steps": [
-      "Collect the MEMORY.DMP from C:\\Windows and analyze with WinDbg to identify the faulting driver.",
-      "Check for updated drivers for the Dell Latitude 5540, especially display and chipset drivers.",
-      "Verify the Bloomberg Terminal driver/plugin is compatible with Windows 11 23H2.",
-      "Run Windows Memory Diagnostic to rule out faulty RAM.",
-      "If driver analysis is inconclusive, replace the workstation with a fresh image and reinstall applications incrementally to isolate the cause."
-    ]
-  },
-  {
-    "ticket_id": "INC-5070",
-    "category": "Network & Connectivity",
-    "priority": "P2",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "network_location"
-    ],
-    "next_best_action": "Investigate recurring TCP connection resets to Singapore data center (10.30.1.50) after ~8 min of normal traffic \u2014 likely a stateful firewall or NAT table timeout issue.",
-    "remediation_steps": [
-      "Check firewall session timeout settings on the path between NYC and Singapore \u2014 8-minute drops suggest a session table expiry.",
-      "Verify TCP keepalive settings on both endpoints to ensure sessions stay active.",
-      "Check the WAN link utilization and packet loss between NYC and Singapore offices.",
-      "Review recent firewall or network configuration changes that may have reduced session timeouts.",
-      "If firewall timeouts are the cause, increase the TCP session timeout or enable TCP keepalive passthrough."
-    ]
-  },
-  {
-    "ticket_id": "INC-5071",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "environment_details"
-    ],
-    "next_best_action": "Investigate failing test in client-reporting-api CI pipeline \u2014 report.test.ts:47 returns 500 instead of 200 for large portfolios. Likely caused by Monday's database schema migration.",
-    "remediation_steps": [
-      "Review the database schema migration that ran Monday and check for breaking changes to the report generation query.",
-      "Run the failing test locally with verbose output to get the full error stack trace.",
-      "Check if the report generation endpoint handles the new schema correctly, especially for large portfolio datasets.",
-      "If the migration introduced a new column or changed a type, update the report service code to match.",
-      "Once fixed, re-run the CI pipeline and verify all 24 tests pass."
-    ]
-  },
-  {
-    "ticket_id": "INC-5072",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message"
-    ],
-    "next_best_action": "Investigate broken SAP Fiori approval link from email notification \u2014 URL contains excessive tracking parameters that may be causing parsing issues. User needs to approve PO-2026-11892.",
-    "remediation_steps": [
-      "Provide the user with a clean direct link to the SAP approval page without the tracking parameters.",
-      "Verify the SAP Fiori Launchpad is accessible at the base URL and the approval workflow is active.",
-      "Check if the email notification template is generating malformed URLs with excessive query parameters.",
-      "Report the URL truncation issue to the SAP notification team for template correction.",
-      "As a workaround, have the user navigate to the SAP portal directly and find the pending approval in their inbox."
-    ]
-  },
-  {
-    "ticket_id": "INC-5073",
-    "category": "Software & Applications",
-    "priority": "P4",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version",
-      "affected_users"
-    ],
-    "next_best_action": "Investigate Outlook duplicate calendar event issue affecting the Finance department after the latest M365 update \u2014 accepted meetings appear twice and cancelled events persist.",
-    "remediation_steps": [
-      "Check the M365 admin center for known issues with the latest Outlook update affecting calendar sync.",
-      "Verify the Exchange calendar processing settings for affected mailboxes.",
-      "Run 'outlook.exe /cleanreminders' and '/resetnavpane' on an affected machine to clear corrupted calendar cache.",
-      "If the issue is widespread, consider rolling back the M365 update for the Finance department.",
-      "Report the issue to Microsoft support if no known fix exists."
-    ]
-  },
-  {
-    "ticket_id": "INC-5074",
-    "category": "Data & Storage",
-    "priority": "P2",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "timestamp"
-    ],
-    "next_best_action": "Investigate overnight reconciliation ETL failure causing portfolio data mismatches \u2014 2 accounts missing entirely and 3 with quantity discrepancies. Blocking daily NAV calculation.",
-    "remediation_steps": [
-      "Check the overnight reconciliation ETL job logs for errors or incomplete runs.",
-      "Investigate PF-2849 (missing from local DB) and PF-2852 (missing from custodian feed) \u2014 may be new accounts not yet mapped.",
-      "For the quantity mismatches (PF-2848, PF-2851, PF-2855), check if Friday's settlement transactions were fully processed.",
-      "Re-run the reconciliation ETL with the latest custodian data feed.",
-      "Provide the corrected data to Fund Admin so the NAV calculation can proceed."
-    ]
-  },
-  {
-    "ticket_id": "INC-5075",
-    "category": "Network & Connectivity",
-    "priority": "P3",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "timestamp"
-    ],
-    "next_best_action": "Investigate prod-web-04 down alert \u2014 100% packet loss and HTTP/HTTPS connection refused. Also check prod-db-02 for 12% packet loss and slow MySQL queries.",
-    "remediation_steps": [
-      "Check physical/virtual status of prod-web-04 \u2014 verify it is powered on and reachable from the management network.",
-      "If the server is responsive via console, check for OS-level issues (disk full, kernel panic, hung processes).",
-      "Restart the HTTP/HTTPS services on prod-web-04 if the OS is healthy.",
-      "For prod-db-02, investigate the slow queries and 12% packet loss \u2014 check network interface errors and query execution plans.",
-      "Update the Nagios monitoring team on findings and any remediation actions taken."
-    ]
-  }
+    {
+        "ticket_id": "INC-5001",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version"
+        ],
+        "next_best_action": "Investigate recurring VPN tunnel drops correlated with 09:30 ET market-open traffic spike for user on 5th floor Wi-Fi, Building 3 NYC.",
+        "remediation_steps": [
+            "Check GlobalProtect VPN gateway logs for Marco's session drops between 09:25-09:35 ET.",
+            "Correlate with wireless controller data for Building 3, 5th floor AP utilization.",
+            "Verify VPN split-tunnel configuration and MTU settings on the client.",
+            "If Wi-Fi congestion confirmed, consider moving user to Ethernet or a less congested AP.",
+            "Provide user with updated GlobalProtect client if version is outdated."
+        ]
+    },
+    {
+        "ticket_id": "INC-5002",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Troubleshoot Dell U2722D monitor flickering after Windows Update — likely a display driver regression via WD19S dock.",
+        "remediation_steps": [
+            "Roll back the most recent Intel/NVIDIA display driver update from Windows Update.",
+            "Check Dell WD19S firmware version and update if behind current release.",
+            "Test monitor on a different docking station to isolate dock vs. driver issue.",
+            "If driver rollback resolves, add the driver to the WSUS deferral list."
+        ]
+    },
+    {
+        "ticket_id": "INC-5003",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Investigate 403 Forbidden on SharePoint Compliance Policy Library for user — likely a permission mapping gap from Friday's migration.",
+        "remediation_steps": [
+            "Check SharePoint admin center for the Compliance Policy Library site permissions.",
+            "Verify user's Azure AD group memberships against the migrated site's access list.",
+            "Re-grant access to the site collection if permissions were lost during migration.",
+            "Confirm user can access the site after permission fix and clear any cached 403."
+        ]
+    },
+    {
+        "ticket_id": "INC-5004",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Investigate HP LaserJet MFP M634 on 3rd floor producing garbled output — likely a corrupt print driver or PCL/PostScript mismatch.",
+        "remediation_steps": [
+            "Check the print server for driver version and compare against HP's latest release.",
+            "Reinstall or update the printer driver on the print server.",
+            "Verify PCL vs PostScript language setting matches the printer's configuration.",
+            "Print a test page from the server to confirm the fix before notifying the user."
+        ]
+    },
+    {
+        "ticket_id": "INC-5005",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": true,
+        "missing_information": [
+            "timestamp",
+            "error_message"
+        ],
+        "next_best_action": "Investigate Slack-Jira integration returning 502 errors in #trading-incidents — blocking incident tracking workflow for Institutional Trading.",
+        "remediation_steps": [
+            "Check the Jira Cloud status page and Slack API status for ongoing incidents.",
+            "Verify the Jira for Slack app OAuth tokens have not expired or been revoked.",
+            "Review Jira webhook logs for 502 errors and identify the failing endpoint.",
+            "If the integration app needs reauthorization, walk the channel admin through it.",
+            "Test /jira create from the channel to confirm resolution."
+        ]
+    },
+    {
+        "ticket_id": "INC-5006",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Diagnose Outlook crash (0xc0000005 in mso40uiwin32client.dll) triggered by a specific email — likely a corrupted message or embedded object.",
+        "remediation_steps": [
+            "Identify the specific email causing the crash from the user's mailbox.",
+            "Attempt to open the email in Outlook Web App to confirm it is message-specific.",
+            "Run Outlook in safe mode to rule out add-in conflicts.",
+            "If OWA works, repair the Office installation or update to the latest build.",
+            "If the email is corrupted, remove it via MFCMAPI or an admin mailbox tool."
+        ]
+    },
+    {
+        "ticket_id": "INC-5007",
+        "category": "Access & Authentication",
+        "priority": "P3",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Reactivate or replace badge for user unable to enter Building 6 main entrance turnstile.",
+        "remediation_steps": [
+            "Look up the user's badge ID in the physical access control system.",
+            "Check if the badge was deactivated, expired, or flagged for any reason.",
+            "Reactivate the badge or issue a replacement if the physical card is damaged.",
+            "Test badge at the Building 6 turnstile before confirming with the user."
+        ]
+    },
+    {
+        "ticket_id": "INC-5008",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "network_location",
+            "environment_details"
+        ],
+        "next_best_action": "Investigate VDI session freezes when user connects to Singapore and London pools — likely WAN latency or VMware Horizon blast protocol issue.",
+        "remediation_steps": [
+            "Review VMware Horizon connection server logs for the user's sessions in SG and LDN.",
+            "Measure round-trip latency and packet loss from the user's NYC location to SG/LDN.",
+            "Check if the Blast Extreme protocol is tuned for high-latency WAN links.",
+            "Consider enabling the Horizon Performance Tracker on the client for diagnostics.",
+            "If WAN quality is the root cause, evaluate SD-WAN or dedicated VDI circuit options."
+        ]
+    },
+    {
+        "ticket_id": "INC-5009",
+        "category": "Data & Storage",
+        "priority": "P1",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [
+            "environment_details"
+        ],
+        "next_best_action": "Urgently resolve SQL Server replication lag on SQLREPLICA-NYC-03 before 16:00 ET EOD NAV calculation — 45-minute data staleness affecting 30 PMs.",
+        "remediation_steps": [
+            "Check disk subsystem on SQLREPLICA-NYC-03 for I/O bottleneck (48ms write latency).",
+            "Review SQL Server replication monitor for error states or suspended subscriptions.",
+            "If disk I/O is the bottleneck, identify competing workloads and throttle or stop them.",
+            "Consider reinitializing replication from a snapshot if the lag cannot be recovered.",
+            "Notify portfolio management leads of potential data staleness and EOD NAV risk."
+        ]
+    },
+    {
+        "ticket_id": "INC-5010",
+        "category": "Access & Authentication",
+        "priority": "P1",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": true,
+        "missing_information": [
+            "authentication_method"
+        ],
+        "next_best_action": "Restore CTP access for trader locked out after maintenance window — session token or account state likely not migrated correctly.",
+        "remediation_steps": [
+            "Check CTP identity provider logs for Kenji's failed authentication attempts.",
+            "Verify the user's account was not disabled or locked during maintenance.",
+            "Clear stale session tokens in the CTP session store for this user.",
+            "If SAML/OIDC tokens were rotated during maintenance, ensure the user's IdP mapping is current.",
+            "Confirm login works and monitor for recurrence over the next trading session."
+        ]
+    },
+    {
+        "ticket_id": "INC-5011",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Restore connectivity to integration test database sqltest-nyc-02:1433 — CI/CD pipeline for risk-engine repo blocked since 06:15 AM.",
+        "remediation_steps": [
+            "Check if sqltest-nyc-02 SQL Server service is running and accepting connections.",
+            "Verify network connectivity from the Jenkins agent to 10.42.8.15:1433.",
+            "Check if there was a maintenance or patching event on sqltest-nyc-02 overnight.",
+            "Restart the SQL Server service if it is stopped, and verify integration tests pass.",
+            "Notify the Backend Engineering team once the pipeline is green."
+        ]
+    },
+    {
+        "ticket_id": "INC-5012",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version"
+        ],
+        "next_best_action": "Troubleshoot Zoom Phone call routing for ext 5-2201 — incoming calls going directly to voicemail despite available status.",
+        "remediation_steps": [
+            "Check Zoom Phone admin portal for call routing rules on extension 5-2201.",
+            "Verify there is no call forwarding or after-hours rule overriding the user's status.",
+            "Check if the Zoom Phone license is active and properly assigned to the user.",
+            "Test inbound call to the user's direct number while monitoring the admin dashboard.",
+            "Update the Zoom desktop client if the version is outdated."
+        ]
+    },
+    {
+        "ticket_id": "INC-5013",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Replace Dell TB16 dock with WD19S for user on Building 4, 8th floor — known USB-C video dropout issue with Latitude 5550 and TB16 docks.",
+        "remediation_steps": [
+            "Confirm the user's laptop model and current dock firmware version.",
+            "Check if a TB16 firmware update resolves the intermittent video dropout.",
+            "If the firmware update does not resolve, issue a WD19S replacement dock.",
+            "Verify both external monitors work reliably on the replacement dock.",
+            "Log the TB16 compatibility issue in the endpoint refresh tracker for reporting."
+        ]
+    },
+    {
+        "ticket_id": "INC-5014",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Investigate badge reader 'Card Read Error' at Building 6 south entrance turnstile — badge works at north entrance, suggesting a reader hardware fault.",
+        "remediation_steps": [
+            "Dispatch a facilities technician to inspect the Building 6 south entrance badge reader.",
+            "Check the badge reader logs for error patterns and failed card reads.",
+            "Test the reader with a known-good badge to confirm it is a reader-side issue.",
+            "Replace or recalibrate the reader if it is confirmed faulty.",
+            "Verify the user's badge works at the south entrance after the fix."
+        ]
+    },
+    {
+        "ticket_id": "INC-5015",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_users",
+            "business_impact"
+        ],
+        "next_best_action": "Investigate sqlprod-nyc-04 resource exhaustion — CPU at 100%, memory at 99%, and query queue growing to 400+ since 08:00. Likely a runaway query or batch job.",
+        "remediation_steps": [
+            "Identify the top resource-consuming queries on sqlprod-nyc-04 using sys.dm_exec_requests.",
+            "Check if a scheduled batch job or report is causing the CPU and memory spike.",
+            "Kill or throttle the runaway query if identified, and notify the owning team.",
+            "Monitor the server for recovery and verify the query queue is draining.",
+            "Review Resource Governor settings to prevent a single workload from saturating the server."
+        ]
+    },
+    {
+        "ticket_id": "INC-5016",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": true,
+        "missing_information": [
+            "timestamp"
+        ],
+        "next_best_action": "Investigate broken links on the compliance intranet site — 12 of 15 links returning errors, likely caused by a content migration or site restructure. Urgent due to upcoming regulatory exam.",
+        "remediation_steps": [
+            "Check the SharePoint or IIS logs for the compliance site to identify the error pattern.",
+            "Verify if a recent content migration or URL restructure moved or renamed the documents.",
+            "Restore or redirect the broken document links to their new locations.",
+            "Test all 12 broken links after the fix to confirm they resolve correctly.",
+            "Notify the Regulatory Affairs team once all links are restored."
+        ]
+    },
+    {
+        "ticket_id": "INC-5017",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_users"
+        ],
+        "next_best_action": "Investigate 2-hour mail delivery delay between edge01 and EX01 for inbound external email — likely a mail queue bottleneck or transport rule processing delay.",
+        "remediation_steps": [
+            "Check the mail queue on edge01.contoso.com for message backlog or throttling.",
+            "Review Exchange transport rule processing times for inbound external messages.",
+            "Check Forefront/EOP content filtering for latency spikes on edge01.",
+            "Verify network connectivity and DNS resolution between edge01 and EX01.",
+            "If a queue backlog is confirmed, increase transport capacity or clear stuck messages."
+        ]
+    },
+    {
+        "ticket_id": "INC-5018",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version"
+        ],
+        "next_best_action": "Investigate SharePoint upload failure caused by invisible Unicode characters (zero-width spaces, RTL/LTR marks) in the file name — user needs to strip hidden characters from the filename.",
+        "remediation_steps": [
+            "Identify the zero-width and bidirectional Unicode characters in the file name.",
+            "Rename the file using only ASCII characters and re-attempt the upload.",
+            "Check if the original Arabic filename triggered SharePoint's invalid character filter.",
+            "Verify the SharePoint site does not have a custom file naming policy blocking the upload.",
+            "Confirm the upload succeeds after the file is renamed with clean characters."
+        ]
+    },
+    {
+        "ticket_id": "INC-5019",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Investigate intermittent 502 errors on appgw-prod-eus2-01 during morning traffic peak — backend pool timeout of 30s may be too low for the API tier under load.",
+        "remediation_steps": [
+            "Check Application Gateway access logs for 502 errors and correlate with backend health probe results.",
+            "Review backend pool member (10.42.1.10-13) health status during the 09:00-09:30 window.",
+            "Increase the API backend HTTP settings request timeout from 30s to 60s.",
+            "Check if the backend VMs are hitting CPU or memory limits during the traffic spike.",
+            "Consider enabling connection draining and auto-scaling on the Application Gateway."
+        ]
+    },
+    {
+        "ticket_id": "INC-5020",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Re-provision expired RSA SecurID soft token for employee E-28491 — token shows 'Disabled' and user needs VPN access for remote work next week.",
+        "remediation_steps": [
+            "Look up employee E-28491 in the RSA Authentication Manager console.",
+            "Verify the token status and confirm it is disabled/expired.",
+            "Re-provision a new RSA SecurID soft token and send the activation link to the user.",
+            "Guide the user through importing the new token on their mobile device.",
+            "Test VPN connectivity with the new token before the office closure."
+        ]
+    },
+    {
+        "ticket_id": "INC-5021",
+        "category": "Access & Authentication",
+        "priority": "P3",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details"
+        ],
+        "next_best_action": "Provision SAP access (FI, CO, MM modules) for new joiner E-31024 in Finance — request has been circulating for two weeks through a long forward chain. Verify manager approval from Robert Chen.",
+        "remediation_steps": [
+            "Verify the new joiner's employment and role with HR using employee ID E-31024.",
+            "Confirm manager authorization from Robert Chen for SAP FI, CO, and MM access.",
+            "Provision the SAP user account with the appropriate role profile for Finance.",
+            "Send the user their SAP login credentials via the secure onboarding portal.",
+            "Follow up to confirm access is working and the user can process invoices."
+        ]
+    },
+    {
+        "ticket_id": "INC-5022",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Investigate corrupted PDF from vendor — user cannot open expense report in Adobe Acrobat Reader DC. May be a file transfer corruption issue or incompatible PDF version. Ignore the base64-encoded raw PDF data in the ticket body.",
+        "remediation_steps": [
+            "Ask the user to re-download the PDF from the original email or vendor portal.",
+            "Test opening the file with an alternative PDF reader (Edge, Chrome built-in).",
+            "Check if the email attachment was corrupted during transfer (compare file sizes).",
+            "If the vendor's PDF is consistently corrupt, request a re-send from the vendor.",
+            "Verify Adobe Acrobat Reader DC is up to date and not blocked by Group Policy."
+        ]
+    },
+    {
+        "ticket_id": "INC-5023",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "business_impact"
+        ],
+        "next_best_action": "Investigate Azure SQL DTU quota exhaustion blocking production deployment — subscription prod-sub-001 has 0 DTU remaining. Need to increase the DTU quota or optimize existing database allocations.",
+        "remediation_steps": [
+            "Check the current DTU allocation across all databases in subscription prod-sub-001.",
+            "Identify databases that are over-provisioned or unused and can be scaled down.",
+            "Submit an Azure support request to increase the DTU quota if needed.",
+            "Consider switching to vCore-based pricing for more flexible resource management.",
+            "Re-run the deployment after quota is available and verify all 47 resources deploy."
+        ]
+    },
+    {
+        "ticket_id": "INC-5024",
+        "category": "Data & Storage",
+        "priority": "P1",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "URGENT: /data volume on db-prod-03 (production PostgreSQL) is at 99% (475/476GB) and has been filling steadily since 02:15 UTC. Immediate action needed to prevent database crash from disk exhaustion.",
+        "remediation_steps": [
+            "Immediately check current disk usage on db-prod-03 /data volume.",
+            "Identify the largest consumers — check for WAL file accumulation, old backups, or temp files.",
+            "Clear any safe-to-delete files (old WAL segments, pg_dump temp files) to buy time.",
+            "Expand the /data volume or add additional storage if on cloud/SAN.",
+            "Investigate the root cause of rapid disk growth and set up proactive alerts at 85%."
+        ]
+    },
+    {
+        "ticket_id": "INC-5025",
+        "category": "Hardware & Peripherals",
+        "priority": "P4",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Order replacement cyan toner cartridge for Canon imageRUNNER ADVANCE C5560i (BLD2-PRN-0012) on Floor 7, Building 2. Faded streaks indicate low toner. Ignore the reply-all noise.",
+        "remediation_steps": [
+            "Check the printer's built-in supply status page for toner levels.",
+            "Order a replacement Canon C-EXV51 cyan toner cartridge.",
+            "Dispatch a technician to replace the toner and clean the drum unit if needed.",
+            "Print a test page after replacement to verify streak-free output.",
+            "Advise the original sender to use targeted distribution lists in the future."
+        ]
+    },
+    {
+        "ticket_id": "INC-5026",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Investigate BSOD (IRQL_NOT_LESS_OR_EQUAL) on lobby visitor check-in kiosk in Building 1 — likely a driver or memory issue. Kiosk is blocking all guest sign-ins.",
+        "remediation_steps": [
+            "Dispatch a technician to the lobby kiosk to perform a hard restart.",
+            "Check the Windows Event Viewer for the IRQL_NOT_LESS_OR_EQUAL crash dump.",
+            "Inspect recently installed drivers or updates that may have caused the BSOD.",
+            "Run Windows Memory Diagnostic to check for faulty RAM.",
+            "If recurring, re-image the kiosk from the standard kiosk deployment image."
+        ]
+    },
+    {
+        "ticket_id": "INC-5027",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details"
+        ],
+        "next_best_action": "Investigate benefits portal blank page — the /api/benefits endpoint returns empty body (200 OK), causing a TypeError when the frontend tries to map over undefined benefits array. Likely a backend deployment or database connectivity issue from last night's maintenance.",
+        "remediation_steps": [
+            "Check the backend service for /api/benefits — verify database connectivity.",
+            "Review last night's maintenance changes for anything affecting the benefits API.",
+            "Check application logs for errors in the benefits data retrieval path.",
+            "If the database is accessible, verify the benefits table has data and is not truncated.",
+            "Roll back the maintenance change if it caused the API regression."
+        ]
+    },
+    {
+        "ticket_id": "INC-5028",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Dispatch technician to repair badge reader BDG-PK-0044 at Building 4 parking garage Gate B — LED showing solid red since 7:30 AM, causing 20-minute entry delays. Reader may need power cycle or replacement.",
+        "remediation_steps": [
+            "Dispatch facilities/endpoint technician to Gate B, Building 4 parking garage.",
+            "Attempt a power cycle of badge reader BDG-PK-0044.",
+            "Check the reader's network connection to the access control server.",
+            "If power cycle fails, replace the reader unit with a spare from inventory.",
+            "Verify badge access works after repair and clear any entry queue."
+        ]
+    },
+    {
+        "ticket_id": "INC-5029",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Urgent: Lenovo ThinkPad X1 Carbon Gen 11 completely unresponsive for employee E-20145 on 4th floor, Building 2, London. User has client presentation in 2 hours with locally-stored slides. Prioritize loaner device and data recovery.",
+        "remediation_steps": [
+            "Immediately dispatch a loaner laptop to the user's location (4th floor, Building 2, London).",
+            "Attempt to recover the dead ThinkPad — try a full battery disconnect/reconnect reset.",
+            "If the laptop powers on, help the user sync the presentation files to OneDrive.",
+            "If unrecoverable, pull the NVMe SSD and mount it externally to retrieve the slides.",
+            "Log a warranty claim for the ThinkPad X1 Carbon if it is confirmed dead."
+        ]
+    },
+    {
+        "ticket_id": "INC-5030",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Troubleshoot triple-monitor setup with Lenovo ThinkPad USB-C Dock Gen 2 — Monitor 2 (HDMI) shows no signal, Monitor 3 (USB-C adapter) is flickering. Likely a dock bandwidth or DisplayLink driver limitation with three 2560x1440 monitors.",
+        "remediation_steps": [
+            "Check if the dock firmware supports three simultaneous displays at 2560x1440.",
+            "Verify the HDMI port on the dock is functional by testing with a known-good cable/monitor.",
+            "Replace the USB-C to DisplayPort adapter for Monitor 3 with a certified one.",
+            "Check if MST (Multi-Stream Transport) daisy-chaining could reduce dock port usage.",
+            "If the dock cannot support three QHD monitors, consider a DisplayLink USB adapter for the third."
+        ]
+    },
+    {
+        "ticket_id": "INC-5031",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "error_message"
+        ],
+        "next_best_action": "Investigate network drive mapping failure for \\\\fs-compliance-01\\shared — user receives a timeout after 30 seconds despite the server responding to ping.  Strip RTF formatting noise to extract the core issue, then check SMB connectivity and credential cache state.",
+        "remediation_steps": [
+            "Verify SMB connectivity to fs-compliance-01 on port 445 from the user's subnet.",
+            "Check if the user's AD computer account has valid Kerberos tickets for the file server.",
+            "Confirm the shared folder permissions on fs-compliance-01 include the Compliance group.",
+            "Review recent Group Policy changes that may have altered drive-mapping logon scripts.",
+            "If SMB signing or encryption policies changed, ensure client and server negotiate the same version."
+        ]
+    },
+    {
+        "ticket_id": "INC-5032",
+        "category": "Access & Authentication",
+        "priority": "P3",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "authentication_method"
+        ],
+        "next_best_action": "Process password reset for treyes — user reports that the self-service password reset MFA challenge (SMS and Authenticator push) is not arriving, and the current password expires tomorrow.  Ignore earlier VPN and printer issues which the user confirmed are resolved.",
+        "remediation_steps": [
+            "Verify the user's MFA registration in Azure AD — confirm phone number and Authenticator device.",
+            "Check Azure MFA service health for any delivery delays on SMS or push notifications.",
+            "If MFA is unreachable, perform an admin-assisted password reset with temp password; force change.",
+            "Re-register the user's MFA methods if the Authenticator token has drifted or phone number changed.",
+            "Extend the password expiry by 48 hours if the reset cannot be completed before end of day."
+        ]
+    },
+    {
+        "ticket_id": "INC-5033",
+        "category": "Data & Storage",
+        "priority": "P1",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_users",
+            "business_impact"
+        ],
+        "next_best_action": "URGENT — db-analytics-07 /data volume is nearly full (~10 MB free of 1 TB).  Expand the volume or purge stale data before the 02:00 UTC batch job.  Ignore the large Prometheus metrics dump and focus on the disk-space issue.",
+        "remediation_steps": [
+            "SSH into db-analytics-07 and confirm current disk usage with df -h /data.",
+            "Identify and remove or archive old analytics temp files under /data/tmp and /data/staging.",
+            "If immediate space cannot be freed, expand the /dev/sdb1 volume via the storage array or cloud.",
+            "Notify the Data Engineering team to delay the 02:00 UTC batch job until disk space is safe.",
+            "Set up a Prometheus alert for node_filesystem_avail_bytes < 5% to catch this earlier in future."
+        ]
+    },
+    {
+        "ticket_id": "INC-5034",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version"
+        ],
+        "next_best_action": "Renew Bloomberg Terminal B-PIPE license (contract BB-ENT-2024-04871) before April 15, 2026 — expand from 8 to 12 concurrent seats.  Contact Bloomberg account manager Sarah Chen.  Ignore PDF-to-text conversion artifacts (broken ligatures, repeated headers/footers, page numbers).",
+        "remediation_steps": [
+            "Contact Bloomberg account manager Sarah Chen to initiate renewal of contract BB-ENT-2024-04871.",
+            "Confirm the seat count increase from 8 to 12 with the Risk Management budget owner.",
+            "Obtain purchase approval for cost center CC-4420-RM and submit the PO before April 10.",
+            "Coordinate with Enterprise Apps to provision the 4 additional B-PIPE seats once license is active.",
+            "Update the software asset inventory with the new seat count and expiry date."
+        ]
+    },
+    {
+        "ticket_id": "INC-5035",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "timestamp",
+            "affected_users"
+        ],
+        "next_best_action": "Investigate why the shared mailbox clientservices@contoso.com is rejecting external inbound email with '550 5.7.1 Unable to relay'.  Check Exchange transport rules and inbound connectors.  Ignore the large CC list and concatenated out-of-office auto-replies.",
+        "remediation_steps": [
+            "Check Exchange Online message trace for emails sent to clientservices@contoso.com in the last 7 days.",
+            "Review inbound mail-flow connectors for changes that may block external relay to shared mailboxes.",
+            "Inspect Exchange transport rules for any rule rejecting mail based on recipient type or origin.",
+            "Verify that the shared mailbox has not exceeded its storage quota, which can cause inbound rejection.",
+            "Once resolved, ask Nadia's team to confirm receipt of a test email from an external address."
+        ]
+    },
+    {
+        "ticket_id": "INC-5036",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Investigate SAP error M7 021 for material 400-117 in plant 2100 — the material master record may have been modified or deleted during the weekend maintenance window.  Restore or re-extend the material to plant 2100 so sales order creation in VA01 works again.",
+        "remediation_steps": [
+            "Check material master for 400-117 in SAP transaction MM03 — verify plant 2100 view exists.",
+            "Review the change log (CDHDR/CDPOS) for material 400-117 to identify recent modifications.",
+            "If plant 2100 view was deleted, re-extend material using MM01 with sales, MRP, and purchasing views.",
+            "Test sales order creation in VA01 with material 400-117 and plant 2100 to confirm the fix.",
+            "Notify SAP Basis team to review weekend maintenance scripts that may have altered material masters."
+        ]
+    },
+    {
+        "ticket_id": "INC-5037",
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Increase the SharePoint upload size limit for the Legal/FilingArchive site collection from 250 MB to at least 500 MB, or guide the user to upload via the SharePoint migration tool / OneDrive sync client.  Ignore the inline base64-encoded file contents.",
+        "remediation_steps": [
+            "Verify the current max upload size for the Legal site collection in the SharePoint admin center.",
+            "Increase the file upload limit to 500 MB via Set-SPOSite -MaxUploadSize or the admin UI.",
+            "If the tenant-wide limit is below 500 MB, raise it at the tenant level after IT governance approval.",
+            "Advise the user to upload large bundles via the OneDrive sync client or SharePoint Migration Tool.",
+            "Confirm the user can successfully upload the 380 MB ZIP file after the limit change."
+        ]
+    },
+    {
+        "ticket_id": "INC-5038",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info",
+            "environment_details"
+        ],
+        "next_best_action": "Investigate rapid battery drain and overheating on Jin-Ho Park's laptop — battery goes from 100% to 15% by midday, 'System Interrupts' process at ~30% CPU.  Likely a driver issue introduced by a recent Windows security patch.  Schedule a desk-side visit or ask user to bring the device to the help desk on the 4th floor.",
+        "remediation_steps": [
+            "Run powercfg /batteryreport and check design capacity vs. full-charge capacity for cell degradation.",
+            "Review recently installed Windows updates and cross-reference with known battery-drain issues.",
+            "Investigate high 'System Interrupts' CPU — run LatencyMon or xperf to find the offending driver.",
+            "If a specific driver is the cause, roll it back or install the latest version from the manufacturer.",
+            "If battery health shows significant degradation (>20% loss), initiate a warranty battery replacement."
+        ]
+    },
+    {
+        "ticket_id": "INC-5039",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version",
+            "error_message"
+        ],
+        "next_best_action": "Investigate Outlook crashes when opening calendar invites for Sophie Tremblay — started the previous day. Likely a corrupt calendar cache or an add-in conflict after a recent update. Ignore the forwarded newsletter content.",
+        "remediation_steps": [
+            "Ask the user to confirm the Outlook version (File > Office Account) and whether they are using desktop or New Outlook.",
+            "Launch Outlook in safe mode (outlook.exe /safe) to rule out add-in conflicts.",
+            "Clear the Outlook calendar cache by renaming the local .ost file and letting it rebuild.",
+            "If the issue persists, run the Microsoft Support and Recovery Assistant (SaRA) calendar diagnostic.",
+            "Check for pending Office updates and apply them if available."
+        ]
+    },
+    {
+        "ticket_id": "INC-5040",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version"
+        ],
+        "next_best_action": "Process Bloomberg Terminal license renewal for seat ID BT-4471 assigned to Rachel Moreno before the March 31 expiration. Manager approval from David Kowalski is referenced. Discard the inline base64 PDF content and request a clean copy of the approval form.",
+        "remediation_steps": [
+            "Request Rachel resend the manager approval PDF as a proper email attachment.",
+            "Verify the Bloomberg seat ID BT-4471 in the license management portal and confirm the current expiration date.",
+            "Submit the renewal request through the enterprise software procurement workflow with manager approval attached.",
+            "Confirm with Bloomberg vendor support that the renewal will be processed before month-end cutoff.",
+            "Notify Rachel once the renewal is confirmed and verify terminal connectivity."
+        ]
+    },
+    {
+        "ticket_id": "INC-5041",
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "timestamp"
+        ],
+        "next_best_action": "Investigate the Regulatory Filings SharePoint site failing to load for multiple users — Gregory, Nadia, and Tom in Regulatory Affairs are all affected. Filing deadline on Thursday makes this time-sensitive. Ignore the CSS/style block noise in the ticket.",
+        "remediation_steps": [
+            "Check the SharePoint admin center for service health alerts affecting the Regulatory Filings site collection.",
+            "Verify site collection storage quota — a full quota can cause infinite loading spinners.",
+            "Review recent changes to site permissions or page customizations that may have broken rendering.",
+            "Test access with a SharePoint admin account to determine if the issue is site-wide or permission-specific.",
+            "If the site collection is corrupted, initiate a restore from the most recent backup and notify affected users."
+        ]
+    },
+    {
+        "ticket_id": "INC-5042",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": true,
+        "missing_information": [
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Investigate TradeSettlement-API timeout on PROD-APPGW-East-02 — response times averaging 47s (threshold 30s), 34% error rate, 23 settlement requests at risk of missing the T+1 window. Escalate to Platform Engineering immediately.",
+        "remediation_steps": [
+            "Check application gateway and load balancer health for PROD-APPGW-East-02 in the Azure portal.",
+            "Review TradeSettlement-API application logs for the correlation ID a9f3c7e2-81d4-4b6a-bc0f-3e7d91a24c88.",
+            "Investigate downstream clearing house integration for connection pool exhaustion or certificate issues.",
+            "If the API is overloaded, scale out additional instances and drain the pending settlement queue.",
+            "Coordinate with the settlements operations team to manually process any trades at risk of missing T+1 cutoff."
+        ]
+    },
+    {
+        "ticket_id": "INC-5043",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "environment_details"
+        ],
+        "next_best_action": "Investigate production data warehouse query timeout for Henry Wong's daily P&L reconciliation report — previously ran in ~2 minutes, now exceeds the 30-minute timeout. Likely index fragmentation or statistics staleness after weekend maintenance.",
+        "remediation_steps": [
+            "Check the data warehouse for any maintenance jobs or schema changes that ran over the weekend.",
+            "Review the query execution plan for missing or fragmented indexes on the trades, positions, and fx_rates tables.",
+            "Rebuild or reorganize indexes on high-traffic tables if fragmentation exceeds 30%.",
+            "Update table statistics for the affected tables and verify the query plan improves.",
+            "If the issue is data volume growth, work with the user to optimize the query or add appropriate covering indexes."
+        ]
+    },
+    {
+        "ticket_id": "INC-5044",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Investigate Teams-Outlook calendar sync failure for Amara Osei after Teams Desktop Client v24.7.1 update. Meetings created in Outlook do not appear in Teams calendar. User has already cleared cache and restarted.",
+        "remediation_steps": [
+            "Verify the Exchange-Teams interop prerequisites are met for the user's mailbox (Exchange Online, not on-prem).",
+            "Check the Teams admin center for known issues with client version 24.7.1 and calendar sync.",
+            "Re-register the Teams Outlook add-in by running the Teams meeting add-in troubleshooter.",
+            "If the add-in is missing, repair the Office installation from Programs and Features.",
+            "As a fallback, approve and perform a clean reinstall of the Teams desktop client."
+        ]
+    },
+    {
+        "ticket_id": "INC-5045",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "network_location",
+            "business_impact"
+        ],
+        "next_best_action": "Provision VPN access to the APAC regional network (10.42.0.0/16) for Lukas Brenner for the Cross-Border Settlements project. Verify manager approval from Isabelle Fontaine and process by end of week.",
+        "remediation_steps": [
+            "Verify the access request approval from Isabelle Fontaine in the access governance portal.",
+            "Create a VPN access profile for the APAC regional network subnet 10.42.0.0/16 in the GlobalProtect admin console.",
+            "Assign the profile to Lukas Brenner's AD account and add him to the Cross-Border Settlements security group.",
+            "Send the user VPN configuration instructions and test connectivity to an APAC host.",
+            "Set a review date for the access in 90 days per the temporary project access policy."
+        ]
+    },
+    {
+        "ticket_id": "INC-5046",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [
+            "previous_ticket_id"
+        ],
+        "next_best_action": "Address critical disk space on PROD-SQL-NODE-03 (E: drive at 95% — ~8 days until full). The AuditLog retention job failed on March 16, leaving old records unpurged. This is the most likely cause of accelerated growth. Fix the retention job first, then evaluate capacity expansion.",
+        "remediation_steps": [
+            "Investigate and fix the failed AuditLog retention job from March 16 — old records are not being purged.",
+            "Manually run the AuditLog purge to reclaim space from records past the retention window.",
+            "Review TempDB sizing and shrink if the 105 GB allocation is excessive for current workload.",
+            "Request an emergency capacity expansion for the E: drive if free space drops below 5% before the retention fix takes effect.",
+            "Set up a recurring disk space trend report and adjust the growth_rate alert threshold to trigger earlier."
+        ]
+    },
+    {
+        "ticket_id": "INC-5047",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Dispatch a technician to inspect the HP LaserJet Pro MFP M428fdn on the 6th floor near conference room B, Building 1 — persistent false paper jam error. User has a client presentation at 3 PM today.",
+        "remediation_steps": [
+            "Dispatch a technician to the 6th floor, Building 1, to physically inspect the HP LaserJet Pro MFP M428fdn.",
+            "Check the paper path sensors for debris, torn paper fragments, or sensor misalignment causing the false jam.",
+            "Perform a full power cycle with the rear access panel open and inspect the fuser area for obstructions.",
+            "If the sensor is faulty, replace the paper path sensor assembly or swap in a loaner printer before the 3 PM deadline.",
+            "Update the printer asset record with any parts replaced and schedule preventive maintenance."
+        ]
+    },
+    {
+        "ticket_id": "INC-5048",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": true,
+        "missing_information": [
+            "authentication_method",
+            "timestamp"
+        ],
+        "next_best_action": "Immediately investigate account lockout for Marcus Adeyemi — unsolicited MFA prompts at 11 PM suggest a possible credential compromise attempt. Unlock the account, force a password reset, review Azure AD sign-in logs, and revoke active sessions before the 10 AM compliance audit.",
+        "remediation_steps": [
+            "Review Azure AD sign-in logs for Marcus Adeyemi's account for failed attempts and the unsolicited MFA prompts from 11 PM.",
+            "Check if the account triggered any Impossible Travel or Unfamiliar Sign-In Properties risk detections in Azure AD Identity Protection.",
+            "Unlock the account in Active Directory and force an immediate password reset via a secure channel (phone verification).",
+            "Revoke all active refresh tokens and sessions (Revoke-AzureADUserAllRefreshToken) to invalidate any compromised sessions.",
+            "If credential compromise is confirmed, escalate to the Security Operations team for a full incident investigation."
+        ]
+    },
+    {
+        "ticket_id": "INC-5049",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "network_location",
+            "application_version"
+        ],
+        "next_best_action": "Investigate recurring Teams meeting drops affecting the daily stand-up for Platform Engineering — 12 participants across New York and London offices are getting kicked out after ~15 minutes.",
+        "remediation_steps": [
+            "Check Teams admin center call analytics for the recurring meeting to identify packet loss or jitter patterns.",
+            "Review network quality for cross-region calls between New York and London offices during the 09:30 ET window.",
+            "Verify that the Teams client version is current for all participants.",
+            "Check if the meeting exceeds any tenant policy limits (participant count, duration, bandwidth).",
+            "If network quality is the cause, work with Network Operations to investigate QoS policies for Teams media traffic on the cross-Atlantic link."
+        ]
+    },
+    {
+        "ticket_id": "INC-5050",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "environment_details"
+        ],
+        "next_best_action": "Investigate corrupted Excel file on \\\\NYC-FS-01\\Finance\\Q1-Reports — ZIP header appears partially zeroed out. Check the ETL process on PROD-ETL-03 and restore from Volume Shadow Copy or backup.",
+        "remediation_steps": [
+            "Attempt to restore the file from Volume Shadow Copy on NYC-FS-01 using a snapshot from before 4:47 PM yesterday.",
+            "If no shadow copy is available, restore from the nightly backup.",
+            "Investigate the PROD-ETL-03 ETL process logs for errors during yesterday's 4:47 PM run that may have caused partial write or corruption.",
+            "Check disk health on NYC-FS-01 for I/O errors or SMART warnings.",
+            "Once restored, verify file integrity by opening in Excel and validating the ZIP structure with a tool like 7-Zip."
+        ]
+    },
+    {
+        "ticket_id": "INC-5051",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Investigate double-encoded HTML entities on the internal portal login page at portal.contoso.com — the authentication endpoint is also returning errors. Likely a deployment issue with the template rendering engine.",
+        "remediation_steps": [
+            "Check the most recent deployment to portal.contoso.com for template rendering changes that may be double-encoding HTML entities.",
+            "Verify the web application's content-type headers and character encoding settings (UTF-8 vs ISO-8859-1).",
+            "Check the authentication token endpoint for errors — the 'invalid token' error may be related to the encoding issue corrupting CSRF tokens.",
+            "Roll back to the previous known-good deployment if the issue is confirmed to be a recent change.",
+            "Test the portal from multiple browsers and networks to confirm the fix resolves the rendering and authentication issues."
+        ]
+    },
+    {
+        "ticket_id": "INC-5052",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info",
+            "error_message"
+        ],
+        "next_best_action": "Run SSD and hardware diagnostics on Jennifer Walsh's Lenovo ThinkPad X1 Carbon Gen 11 — recurring KERNEL_DATA_INPAGE_ERROR blue screens 2-3 times daily suggest possible SSD failure.",
+        "remediation_steps": [
+            "Run Lenovo Vantage hardware diagnostics focusing on SSD health (SMART status, read/write error rates, reallocated sector count).",
+            "Check Windows Event Viewer for disk-related errors (Event IDs 7, 11, 51, 153) around the times of the blue screens.",
+            "If SSD is degrading, immediately back up user data and arrange a replacement drive or laptop swap.",
+            "As a temporary measure, reduce Chrome tab count and consider moving large Excel workbooks to OneDrive streaming to reduce disk I/O.",
+            "Once hardware is confirmed healthy or replaced, monitor for recurrence over the next 48 hours."
+        ]
+    },
+    {
+        "ticket_id": "INC-5053",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "configuration_details"
+        ],
+        "next_best_action": "Investigate Group Policy Object overriding Outlook email signature setting — registry shows 'Contoso_Corporate_2024' being pushed over user's updated 'Contoso_Corporate_2026' signature on every restart.",
+        "remediation_steps": [
+            "Check the Group Policy Object (GPO) linked to the user's OU for Outlook signature settings that may be enforcing the old signature name.",
+            "Run 'gpresult /H gpresult.html' on the user's machine to confirm which GPO is applying the signature preference.",
+            "Update the GPO to reference 'Contoso_Corporate_2026' or remove the forced signature setting if individual choice is now permitted.",
+            "Run 'gpupdate /force' on the user's machine after the GPO change.",
+            "Verify the signature persists across an Outlook restart and confirm with the user."
+        ]
+    },
+    {
+        "ticket_id": "INC-5054",
+        "category": "Software & Applications",
+        "priority": "P1",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": true,
+        "missing_information": [
+            "environment_details"
+        ],
+        "next_best_action": "Investigate 502 Bad Gateway on pricing-api.contoso.internal — all three upstream backend nodes (10.30.2.15-17:8080) are timing out at 30s. Trading desk is blocked from real-time equity pricing.",
+        "remediation_steps": [
+            "Check health and resource utilization (CPU, memory, disk I/O) on all three upstream backend nodes (10.30.2.15, .16, .17).",
+            "Review application logs on the pricing API service for errors or connection pool exhaustion.",
+            "Check the nginx reverse proxy configuration and upstream timeout settings.",
+            "Verify the downstream data provider (market data feed) is responding and not causing the backend to hang.",
+            "If a backend restart is needed, perform a rolling restart to maintain partial availability during recovery."
+        ]
+    },
+    {
+        "ticket_id": "INC-5055",
+        "category": "Software & Applications",
+        "priority": "P4",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version",
+            "device_info"
+        ],
+        "next_best_action": "Investigate desktop icon rearrangement and icon cache corruption on Windows 11 Enterprise — icons scramble after every reboot. Low priority cosmetic issue but may indicate a profile or Group Policy conflict.",
+        "remediation_steps": [
+            "Check if a Group Policy or profile management tool (e.g., FSLogix) is resetting the desktop layout on logon.",
+            "Clear and rebuild the icon cache by deleting the IconCache.db file and restarting Explorer.",
+            "Verify the desktop icon layout is not being managed by a mandatory profile or a desktop management GPO.",
+            "Check if the Windows Update that triggered the reboot included a shell or Explorer update that could cause layout resets.",
+            "If the issue persists, save the layout using a DesktopOK-style utility or a logon script workaround."
+        ]
+    },
+    {
+        "ticket_id": "INC-5056",
+        "category": "Data & Storage",
+        "priority": "P1",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_system",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Investigate null transaction_id values in dbo.RawTransactions causing the compliance ETL pipeline (compliance-etl-v2) on Azure Data Factory to fail — regulatory filing deadline is 5 PM today.",
+        "remediation_steps": [
+            "Query dbo.RawTransactions for records with NULL transaction_id in batch BATCH-20260317-0923 to assess the scope of the data quality issue.",
+            "Check the upstream data source that feeds RawTransactions for changes in schema or NULL handling that may have introduced the bad records.",
+            "Manually patch or exclude the NULL transaction_id records to unblock the current batch and allow the ETL pipeline to complete.",
+            "Add a NOT NULL constraint or pre-validation step in the ADF pipeline to catch these issues at ingestion time.",
+            "Re-trigger the compliance-etl-v2 pipeline for batch BATCH-20260317-0923 after the data is corrected, and verify the regulatory report generates."
+        ]
+    },
+    {
+        "ticket_id": "INC-5057",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "authentication_method",
+            "configuration_details"
+        ],
+        "next_best_action": "Investigate mass VPN account lockouts for 5 remote users that correlate with last night's password policy change — users cannot work remotely.",
+        "remediation_steps": [
+            "Unlock the 5 affected accounts (mchen02, bwilson04, dkimura06, fjohansson08, iali11) in Active Directory immediately.",
+            "Review the password policy GPO change from last night to determine if it invalidated existing credentials or changed lockout thresholds.",
+            "Check Azure AD sign-in logs for the locked accounts to confirm the lockout was caused by repeated failed authentication, not an attack.",
+            "If the policy change caused the lockouts, communicate to all remote users that they may need to update their cached credentials.",
+            "Consider a phased rollout for future password policy changes with advance notice to remote workers."
+        ]
+    },
+    {
+        "ticket_id": "INC-5058",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Investigate access card CF-2026-8841 not being recognized by the Floor 8 badge reader in Building 2 — card works on ground floor and parking but not Floor 8. Likely a provisioning issue with the replacement card's floor access permissions.",
+        "remediation_steps": [
+            "Check the physical access control system (PACS) to verify badge CF-2026-8841 has Floor 8, Building 2 access permissions.",
+            "Compare the new badge's access group assignments with the old badge to identify any missing floor-level permissions.",
+            "Add Floor 8 access to the new badge if it was not provisioned during the replacement process.",
+            "Test the badge on the Floor 8 reader after updating permissions.",
+            "Audit the badge replacement workflow to ensure floor-level permissions are copied from old badges to replacements."
+        ]
+    },
+    {
+        "ticket_id": "INC-5059",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details",
+            "configuration_details"
+        ],
+        "next_best_action": "Investigate dbo.sp_RiskExposure stored procedure timeout on PROD-SQL-03 causing overnight batch report failures for 3 consecutive nights — Risk Exposure and 4 downstream reports are not being generated.",
+        "remediation_steps": [
+            "Check PROD-SQL-03 for long-running queries, blocking sessions, or resource exhaustion around the 02:00 AM window.",
+            "Review the execution plan for dbo.sp_RiskExposure — it may need index tuning or statistics updates after recent data growth.",
+            "Check if the timeout is caused by a lock conflict with another overnight process (e.g., a maintenance or ETL job).",
+            "Increase the command timeout for the report generation script as a temporary measure while the stored procedure is optimized.",
+            "Manually trigger the report generation for the missed dates (2026-03-15, 16, 17) once the issue is resolved."
+        ]
+    },
+    {
+        "ticket_id": "INC-5060",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "affected_users",
+            "business_impact"
+        ],
+        "next_best_action": "This ticket contains 5 separate issues from the London office bundled into one submission. The highest-impact items are the settlement app crash (OutOfMemoryException) and the Bloomberg Terminal data feed drops. Split into individual tickets and triage each with the appropriate team.",
+        "remediation_steps": [
+            "Create separate tickets for each of the 5 reported issues and assign to the appropriate teams: Enterprise Apps (Issue 1), Network Ops (Issue 2), IAM (Issue 3), Enterprise Apps (Issue 4), Enterprise Apps (Issue 5).",
+            "Prioritize Issue 1 (settlement app crash) and Issue 4 (Bloomberg data feed) as they directly impact trading and settlement operations.",
+            "For Issue 1: Investigate the OutOfMemoryException in the settlement reconciliation app after Friday's update — likely a memory leak in the CSV export code path.",
+            "For Issue 2: Coordinate with Network Ops to assess WiFi coverage changes after the new partition installation on the 3rd floor.",
+            "For Issue 5: Increase the HR shared mailbox quota or implement an auto-archive policy to prevent the 50 GB limit from being hit again."
+        ]
+    },
+    {
+        "ticket_id": "INC-5061",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version",
+            "error_message"
+        ],
+        "next_best_action": "Diagnose GlobalProtect VPN 'gateway not reachable' error for a single user on Floor 4, Building 2 NYC — colleague on same floor is unaffected, suggesting a client-side or profile configuration issue.",
+        "remediation_steps": [
+            "Verify the user's GlobalProtect client version and update if outdated.",
+            "Check the VPN gateway address configured on the client — it may have been corrupted after an update.",
+            "Run 'netsh winsock reset' and flush DNS to rule out local networking stack issues.",
+            "If the issue persists, remove and reinstall the GlobalProtect VPN client.",
+            "Confirm network connectivity to the VPN gateway IP directly using ping and traceroute."
+        ]
+    },
+    {
+        "ticket_id": "INC-5062",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "configuration_details"
+        ],
+        "next_best_action": "Coordinate Bloomberg Terminal license renewal for key BBGTERM-QA-2026-0047 expiring March 31 — PO already submitted via Ariba (PO-2026-11847). Verify renewal status with Bloomberg rep.",
+        "remediation_steps": [
+            "Confirm the Ariba PO (PO-2026-11847) has been approved and transmitted to Bloomberg.",
+            "Contact the Bloomberg account representative to verify the renewal is in progress.",
+            "If the renewal cannot be completed before March 31, request a temporary extension from Bloomberg.",
+            "Verify the B-PIPE data feed configuration will survive the license rollover without reconfiguration.",
+            "Notify the quant team of the renewal timeline and any expected downtime window."
+        ]
+    },
+    {
+        "ticket_id": "INC-5063",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details"
+        ],
+        "next_best_action": "Investigate OOMKilled crash in risk-calc-service v3.2.1 — the pod is in CrashLoopBackOff with Java heap OOM during VaR calculation. Likely a memory regression introduced in the v3.2.1 deployment.",
+        "remediation_steps": [
+            "Roll back risk-calc-service from v3.2.1 to v3.2.0 to restore production stability immediately.",
+            "Compare heap usage profiles between v3.2.0 and v3.2.1 to identify the memory regression.",
+            "Investigate the VaR calculation path for portfolio PF-2847 — it may involve unusually large datasets.",
+            "Consider increasing the pod memory limit from 4Gi to 8Gi as a temporary measure if rollback is not feasible.",
+            "Add memory usage alerts at 70% threshold to catch future regressions before OOMKill."
+        ]
+    },
+    {
+        "ticket_id": "INC-5064",
+        "category": "Hardware & Peripherals",
+        "priority": "P4",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "device_info"
+        ],
+        "next_best_action": "Investigate HP Color LaserJet error on Floor 6 near room 6.12 — blinking red/yellow LEDs and display showing 'Error'. Multiple users affected.",
+        "remediation_steps": [
+            "Check the printer's LCD display for a specific error code or message.",
+            "Open the printer and check for paper jams, low toner, or imaging drum issues.",
+            "Power-cycle the printer and check if the error clears on reboot.",
+            "If LEDs continue blinking red/yellow, consult the HP service manual for the specific LED pattern meaning.",
+            "If hardware failure is confirmed, open a warranty or service request with HP."
+        ]
+    },
+    {
+        "ticket_id": "INC-5065",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_users"
+        ],
+        "next_best_action": "Grant 'Log on as a service' right to svc-intune-deploy so the CyberArk Agent MSI can start its Windows service during Intune deployment.",
+        "remediation_steps": [
+            "Add CONTOSO\\svc-intune-deploy to the 'Log on as a service' local security policy via GPO or secpol.msc.",
+            "Verify the service account has the correct permissions on the target machines.",
+            "Re-run the Intune Win32 app deployment after the policy change propagates.",
+            "Validate the installation completes successfully on a test machine before fleet-wide deployment.",
+            "Update the Intune deployment documentation to include the 'Log on as a service' prerequisite."
+        ]
+    },
+    {
+        "ticket_id": "INC-5066",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Investigate 500 error on the expense portal — stack trace shows SQL connection pool exhaustion on PROD-WEB-04. Likely a connection leak or traffic spike.",
+        "remediation_steps": [
+            "Check PROD-WEB-04 for SQL connection pool exhaustion — review active and idle connection counts.",
+            "Recycle the application pool on PROD-WEB-04 as an immediate mitigation.",
+            "Review the ExpenseController.Submit() code path for connection leaks or missing Dispose() calls.",
+            "Check if there was a traffic spike or slow query causing connections to be held longer than usual.",
+            "Increase the connection pool MaxPoolSize if legitimate traffic growth is the root cause."
+        ]
+    },
+    {
+        "ticket_id": "INC-5067",
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "authentication_method"
+        ],
+        "next_best_action": "Grant SharePoint access to reg-docs-emea site for Omar Hassan — ServiceNow request REQ-2026-04821 already approved by manager Fatima Al-Ali.",
+        "remediation_steps": [
+            "Verify ServiceNow request REQ-2026-04821 is approved and includes the correct site URL.",
+            "Add Omar Hassan to the appropriate SharePoint security group for reg-docs-emea.",
+            "Confirm the user can access the site after permission changes propagate (up to 24 hours).",
+            "If access is still denied, check for any Conditional Access policies blocking the London office IP range.",
+            "Update the ServiceNow request to 'Fulfilled' once access is confirmed."
+        ]
+    },
+    {
+        "ticket_id": "INC-5068",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "environment_details"
+        ],
+        "next_best_action": "Investigate timeout error on the expense report portal during form submission — likely a backend API issue since the user gets consistent 30s timeouts.",
+        "remediation_steps": [
+            "Check the expense portal API logs for timeout errors on the /api/v2/expenses/submit endpoint.",
+            "Verify backend service health and database connectivity for the expense processing system.",
+            "Check if there is a known issue with the expense portal deployment or recent changes.",
+            "As a workaround, ask the user to submit the expense via the mobile app or email to expenses@contoso.com.",
+            "Monitor the portal for recurring timeout issues and escalate if systemic."
+        ]
+    },
+    {
+        "ticket_id": "INC-5069",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version"
+        ],
+        "next_best_action": "Investigate recurring BSOD with KERNEL_MODE_HEAP_CORRUPTION on NYC-WS-3847 — bugcheck code 209 suggests a kernel-mode driver is corrupting the heap. Correlates with Excel + Bloomberg concurrent usage.",
+        "remediation_steps": [
+            "Collect the MEMORY.DMP from C:\\Windows and analyze with WinDbg to identify the faulting driver.",
+            "Check for updated drivers for the Dell Latitude 5540, especially display and chipset drivers.",
+            "Verify the Bloomberg Terminal driver/plugin is compatible with Windows 11 23H2.",
+            "Run Windows Memory Diagnostic to rule out faulty RAM.",
+            "If driver analysis is inconclusive, replace the workstation with a fresh image and reinstall applications incrementally to isolate the cause."
+        ]
+    },
+    {
+        "ticket_id": "INC-5070",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "network_location"
+        ],
+        "next_best_action": "Investigate recurring TCP connection resets to Singapore data center (10.30.1.50) after ~8 min of normal traffic — likely a stateful firewall or NAT table timeout issue.",
+        "remediation_steps": [
+            "Check firewall session timeout settings on the path between NYC and Singapore — 8-minute drops suggest a session table expiry.",
+            "Verify TCP keepalive settings on both endpoints to ensure sessions stay active.",
+            "Check the WAN link utilization and packet loss between NYC and Singapore offices.",
+            "Review recent firewall or network configuration changes that may have reduced session timeouts.",
+            "If firewall timeouts are the cause, increase the TCP session timeout or enable TCP keepalive passthrough."
+        ]
+    },
+    {
+        "ticket_id": "INC-5071",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details"
+        ],
+        "next_best_action": "Investigate failing test in client-reporting-api CI pipeline — report.test.ts:47 returns 500 instead of 200 for large portfolios. Likely caused by Monday's database schema migration.",
+        "remediation_steps": [
+            "Review the database schema migration that ran Monday and check for breaking changes to the report generation query.",
+            "Run the failing test locally with verbose output to get the full error stack trace.",
+            "Check if the report generation endpoint handles the new schema correctly, especially for large portfolio datasets.",
+            "If the migration introduced a new column or changed a type, update the report service code to match.",
+            "Once fixed, re-run the CI pipeline and verify all 24 tests pass."
+        ]
+    },
+    {
+        "ticket_id": "INC-5072",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Investigate broken SAP Fiori approval link from email notification — URL contains excessive tracking parameters that may be causing parsing issues. User needs to approve PO-2026-11892.",
+        "remediation_steps": [
+            "Provide the user with a clean direct link to the SAP approval page without the tracking parameters.",
+            "Verify the SAP Fiori Launchpad is accessible at the base URL and the approval workflow is active.",
+            "Check if the email notification template is generating malformed URLs with excessive query parameters.",
+            "Report the URL truncation issue to the SAP notification team for template correction.",
+            "As a workaround, have the user navigate to the SAP portal directly and find the pending approval in their inbox."
+        ]
+    },
+    {
+        "ticket_id": "INC-5073",
+        "category": "Software & Applications",
+        "priority": "P4",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version",
+            "affected_users"
+        ],
+        "next_best_action": "Investigate Outlook duplicate calendar event issue affecting the Finance department after the latest M365 update — accepted meetings appear twice and cancelled events persist.",
+        "remediation_steps": [
+            "Check the M365 admin center for known issues with the latest Outlook update affecting calendar sync.",
+            "Verify the Exchange calendar processing settings for affected mailboxes.",
+            "Run 'outlook.exe /cleanreminders' and '/resetnavpane' on an affected machine to clear corrupted calendar cache.",
+            "If the issue is widespread, consider rolling back the M365 update for the Finance department.",
+            "Report the issue to Microsoft support if no known fix exists."
+        ]
+    },
+    {
+        "ticket_id": "INC-5074",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "timestamp"
+        ],
+        "next_best_action": "Investigate overnight reconciliation ETL failure causing portfolio data mismatches — 2 accounts missing entirely and 3 with quantity discrepancies. Blocking daily NAV calculation.",
+        "remediation_steps": [
+            "Check the overnight reconciliation ETL job logs for errors or incomplete runs.",
+            "Investigate PF-2849 (missing from local DB) and PF-2852 (missing from custodian feed) — may be new accounts not yet mapped.",
+            "For the quantity mismatches (PF-2848, PF-2851, PF-2855), check if Friday's settlement transactions were fully processed.",
+            "Re-run the reconciliation ETL with the latest custodian data feed.",
+            "Provide the corrected data to Fund Admin so the NAV calculation can proceed."
+        ]
+    },
+    {
+        "ticket_id": "INC-5075",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "timestamp"
+        ],
+        "next_best_action": "Investigate prod-web-04 down alert — 100% packet loss and HTTP/HTTPS connection refused. Also check prod-db-02 for 12% packet loss and slow MySQL queries.",
+        "remediation_steps": [
+            "Check physical/virtual status of prod-web-04 — verify it is powered on and reachable from the management network.",
+            "If the server is responsive via console, check for OS-level issues (disk full, kernel panic, hung processes).",
+            "Restart the HTTP/HTTPS services on prod-web-04 if the OS is healthy.",
+            "For prod-db-02, investigate the slow queries and 12% packet loss — check network interface errors and query execution plans.",
+            "Update the Nagios monitoring team on findings and any remediation actions taken."
+        ]
+    }
 ]
