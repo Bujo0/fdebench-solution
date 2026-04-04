@@ -2482,7 +2482,7 @@ SCENARIOS: list[Scenario] = [
         descriptions=[
             "Th1s t1cket was cr3ated fron an 0CR scan of a screenshot:\n\n"
             "Err0r Mess@ge on Scr33n:\n"
-            "\"Disp1ay driv3r stopp3d resp0nding and h@s rec0vered\"\n"
+            '"Disp1ay driv3r stopp3d resp0nding and h@s rec0vered"\n'
             "Driv3r: NVID1A GeF0rce RTX 3070 v537.42\n"
             "0S: Wind0ws 11 Pr0 22H2\n"
             "Ev3nt V1ewer Err0r C0de: LiveKerne1Event 1d 141\n\n"
@@ -3516,12 +3516,9 @@ SCENARIOS: list[Scenario] = [
         ],
         remediation_steps=[
             [
-                "Check the contoso.local DNS zone on the domain controllers for the "
-                "riskportal host record",
-                "If the record is missing, re-create the A record pointing to the correct "
-                "server IP",
-                "If the record exists, check for replication issues between DNS servers "
-                "10.10.1.53 and 10.10.2.53",
+                "Check the contoso.local DNS zone on the domain controllers for the riskportal host record",
+                "If the record is missing, re-create the A record pointing to the correct server IP",
+                "If the record exists, check for replication issues between DNS servers 10.10.1.53 and 10.10.2.53",
                 "Flush DNS caches on the affected workstations with ipconfig /flushdns",
                 "Verify resolution from the trading floor and confirm access to the risk portal",
             ],
@@ -3563,7 +3560,7 @@ SCENARIOS: list[Scenario] = [
             '"unit":"megabytes","timestamp":"2024-11-15T07:24:15Z",'
             '"tags":["env:production","team:finservices","app:risk-api","runtime:jvm"],'
             '"message":"JVM heap usage at 3891 MB out of 4096 MB max. Heap is not '
-            'being reclaimed — possible memory leak in the Contoso Financial Services '
+            "being reclaimed — possible memory leak in the Contoso Financial Services "
             'risk calculation API."}\n\n'
             "The above alerts were auto-forwarded from Datadog. The risk-api service on "
             "contosofinapp-prod-web-03 appears to have a memory leak that is causing "
@@ -3600,10 +3597,8 @@ SCENARIOS: list[Scenario] = [
         ],
         remediation_steps=[
             [
-                "Immediately restart the risk-api service on contosofinapp-prod-web-03 "
-                "to restore service",
-                "Investigate the v3.8.2 deployment's position calculator cache for missing "
-                "eviction policy",
+                "Immediately restart the risk-api service on contosofinapp-prod-web-03 to restore service",
+                "Investigate the v3.8.2 deployment's position calculator cache for missing eviction policy",
                 "Roll back to v3.8.1 if the leak cannot be quickly patched",
                 "Add a bounded cache with TTL eviction to the position calculator module",
                 "Monitor JVM heap metrics after the fix to confirm memory is stable",
@@ -3870,4 +3865,3 @@ SCENARIOS: list[Scenario] = [
         tags=["data-cleanup", "interleaved-conversations"],
     ),
 ]
-
