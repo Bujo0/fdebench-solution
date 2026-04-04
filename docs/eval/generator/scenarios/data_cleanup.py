@@ -1690,8 +1690,8 @@ SCENARIOS: list[Scenario] = [
             "Content-Transfer-Encoding: quoted-printable\n\n"
             "Hi team, please find the Q3 budget report attached.\n\n"
             "------=_Part_12345_67890.1720000000000\n"
-            "Content-Type: application/pdf; name=\"Q3_Budget.pdf\"\n"
-            "Content-Disposition: attachment; filename=\"Q3_Budget.pdf\"\n"
+            'Content-Type: application/pdf; name="Q3_Budget.pdf"\n'
+            'Content-Disposition: attachment; filename="Q3_Budget.pdf"\n'
             "Content-Transfer-Encoding: base64\n\n"
             "JVBERi0xLjQKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKFAKE...\n\n"
             "------=_Part_12345_67890.1720000000000--\n\n"
@@ -1703,7 +1703,7 @@ SCENARIOS: list[Scenario] = [
             "lines like:\n\n"
             "------=_NextPart_000_0042_01DA2B3C.F7A08E90\n"
             "Content-Type: multipart/alternative;\n"
-            "\tboundary=\"----=_NextPart_001_0043_01DA2B3C.F7A08E90\"\n\n"
+            '\tboundary="----=_NextPart_001_0043_01DA2B3C.F7A08E90"\n\n'
             "The underlying request is simple: the vendor sent a follow-up about a "
             "contract renewal and attached a signed PDF. But the email renders as raw "
             "MIME source. I suspect the email gateway is stripping the Content-Type "
@@ -1718,8 +1718,7 @@ SCENARIOS: list[Scenario] = [
         ],
         remediation_steps=[
             [
-                "Check the email gateway logs for MIME parsing errors on messages "
-                "from the vendor's domain",
+                "Check the email gateway logs for MIME parsing errors on messages from the vendor's domain",
                 "Review recent email gateway configuration or firmware updates that "
                 "may have introduced MIME handling regressions",
                 "Verify the vendor's mail server is sending properly formatted "
@@ -1784,10 +1783,8 @@ SCENARIOS: list[Scenario] = [
                 "compliance need or a default setting that can be relaxed",
                 "If PDF/A is required, add a Ghostscript or similar conversion step to "
                 "the ingest pipeline to convert PDF 1.7 to PDF/A-1b",
-                "If PDF/A is not mandatory, update the validation rule to accept "
-                "standard PDF 1.4 through 2.0",
-                "Manually convert the blocked PDF for the client's Friday deadline "
-                "while the pipeline fix is deployed",
+                "If PDF/A is not mandatory, update the validation rule to accept standard PDF 1.4 through 2.0",
+                "Manually convert the blocked PDF for the client's Friday deadline while the pipeline fix is deployed",
                 "Notify the client about supported document formats to prevent recurrence",
             ],
         ],
@@ -1848,8 +1845,7 @@ SCENARIOS: list[Scenario] = [
         ],
         remediation_steps=[
             [
-                "Verify the network switch serving Building 7 floor 3 for port errors "
-                "or recent configuration changes",
+                "Verify the network switch serving Building 7 floor 3 for port errors or recent configuration changes",
                 "Check the firewall rules for changes made during the weekend maintenance "
                 "window that may block TLS traffic on VPN ports",
                 "Review the GlobalProtect gateway logs for TLS handshake failure details",
@@ -1922,12 +1918,9 @@ SCENARIOS: list[Scenario] = [
         ],
         remediation_steps=[
             [
-                "Verify the room booking system version and confirm it was recently "
-                "updated to v4.2",
-                "Check the system's email sending configuration for the Content-Type "
-                "header on calendar invitations",
-                "Update the Content-Type from text/plain to text/calendar; method=REQUEST "
-                "for outgoing ICS attachments",
+                "Verify the room booking system version and confirm it was recently updated to v4.2",
+                "Check the system's email sending configuration for the Content-Type header on calendar invitations",
+                "Update the Content-Type from text/plain to text/calendar; method=REQUEST for outgoing ICS attachments",
                 "Send a test invitation and confirm it renders correctly in Outlook",
                 "Notify affected users that the issue has been resolved and ask them "
                 "to re-send any pending room booking requests",
@@ -2014,8 +2007,7 @@ SCENARIOS: list[Scenario] = [
                 "Change the database password and update the connection string in the "
                 "secrets manager (not in environment variables)",
                 "Restrict Jenkins build log access to authenticated users only",
-                "Audit CloudTrail and database access logs for unauthorized usage during "
-                "the 3-month exposure window",
+                "Audit CloudTrail and database access logs for unauthorized usage during the 3-month exposure window",
                 "Migrate all secrets from CI/CD environment variables to a vault solution "
                 "such as HashiCorp Vault or AWS Secrets Manager",
                 "Conduct a broader review of all CI/CD pipelines for hardcoded secrets",
@@ -2089,14 +2081,12 @@ SCENARIOS: list[Scenario] = [
         ],
         remediation_steps=[
             [
-                "Provide a loaner laptop or external USB keyboard immediately for "
-                "the user's client presentations",
+                "Provide a loaner laptop or external USB keyboard immediately for the user's client presentations",
                 "Submit a hardware repair ticket for keyboard replacement on "
                 "ThinkPad X1 Carbon Gen 11 (asset LAPTOP-4821)",
                 "Advise the user to power off the laptop and not attempt further "
                 "use until the keyboard is inspected for liquid damage",
-                "Schedule a technician to inspect for internal liquid damage "
-                "beyond the keyboard",
+                "Schedule a technician to inspect for internal liquid damage beyond the keyboard",
                 "If under warranty, process the keyboard replacement through Lenovo; "
                 "otherwise arrange third-party repair",
             ],
@@ -2163,10 +2153,8 @@ SCENARIOS: list[Scenario] = [
         ],
         remediation_steps=[
             [
-                "Dispatch a network technician to the 2nd floor IDF closet to inspect "
-                "the switch showing amber LEDs",
-                "Check the switch for power issues, failed uplinks, or spanning-tree "
-                "topology changes",
+                "Dispatch a network technician to the 2nd floor IDF closet to inspect the switch showing amber LEDs",
+                "Check the switch for power issues, failed uplinks, or spanning-tree topology changes",
                 "If the switch is faulty, replace it with a spare and restore connectivity",
                 "Set up a mail redirect from helpdesk-old@contoso.com to the current "
                 "help desk address to prevent future lost tickets",
@@ -2196,8 +2184,8 @@ SCENARIOS: list[Scenario] = [
             "uses it so you can see the issue:\n\n"
             "Pattern:\n"
             "^(?:(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`"
-            "{|}~-]+)*)|(?:\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b"
-            "\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\"))@(?:(?:[a-zA"
+            '{|}~-]+)*)|(?:"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b'
+            '\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*"))@(?:(?:[a-zA'
             "-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}|\\[(?:(?:25[0-5]"
             "|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9]"
             "[0-9]?)\\])$\n\n"
@@ -2303,10 +2291,8 @@ SCENARIOS: list[Scenario] = [
         ],
         remediation_steps=[
             [
-                "Check Dell support for known issues with the latest WD22TB4 Thunderbolt "
-                "dock firmware update",
-                "If a hotfix is available, apply it; otherwise roll back to the "
-                "previous firmware version",
+                "Check Dell support for known issues with the latest WD22TB4 Thunderbolt dock firmware update",
+                "If a hotfix is available, apply it; otherwise roll back to the previous firmware version",
                 "Update the Dell Latitude 5540's Thunderbolt controller driver and "
                 "Intel graphics driver to the latest versions",
                 "Test with a different Thunderbolt dock to isolate whether the issue "
@@ -2373,14 +2359,11 @@ SCENARIOS: list[Scenario] = [
         ],
         remediation_steps=[
             [
-                "Unlock the account for sarah.mitchell@contoso.com and force a password "
-                "reset on next login",
+                "Unlock the account for sarah.mitchell@contoso.com and force a password reset on next login",
                 "Review the authentication logs to determine the source of failed login "
                 "attempts (IP address, user agent, timestamps)",
-                "Check for service accounts or devices using stale cached credentials "
-                "for this user",
-                "Investigate the self-service recovery portal error to ensure it is "
-                "functioning correctly",
+                "Check for service accounts or devices using stale cached credentials for this user",
+                "Investigate the self-service recovery portal error to ensure it is functioning correctly",
                 "Redact the PII (SSN, date of birth, home address, personal phone) from "
                 "this ticket record per the data handling policy",
                 "Remind the user not to include sensitive personal information in support "

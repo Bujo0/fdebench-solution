@@ -8853,51 +8853,51 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "the output:\n\n"
                 "Terraform will perform the following actions:\n\n"
                 "  # azurerm_linux_virtual_machine.trading_api will be created\n"
-                "  + resource \"azurerm_linux_virtual_machine\" \"trading_api\" {\n"
-                "      + admin_username                  = \"azureuser\"\n"
+                '  + resource "azurerm_linux_virtual_machine" "trading_api" {\n'
+                '      + admin_username                  = "azureuser"\n'
                 "      + allow_extension_operations      = true\n"
                 "      + computer_name                   = (known after apply)\n"
                 "      + disable_password_authentication = true\n"
-                "      + extensions_time_budget           = \"PT1H30M\"\n"
+                '      + extensions_time_budget           = "PT1H30M"\n'
                 "      + id                              = (known after apply)\n"
-                "      + location                        = \"eastus2\"\n"
+                '      + location                        = "eastus2"\n'
                 "      + max_bid_price                   = -1\n"
-                "      + name                            = \"vm-trading-api-prod-001\"\n"
+                '      + name                            = "vm-trading-api-prod-001"\n'
                 "      + network_interface_ids            = (known after apply)\n"
-                "      + patch_assessment_mode            = \"ImageDefault\"\n"
-                "      + patch_mode                       = \"ImageDefault\"\n"
+                '      + patch_assessment_mode            = "ImageDefault"\n'
+                '      + patch_mode                       = "ImageDefault"\n'
                 "      + platform_fault_domain            = -1\n"
-                "      + priority                         = \"Regular\"\n"
+                '      + priority                         = "Regular"\n'
                 "      + private_ip_address               = (known after apply)\n"
                 "      + provision_vm_agent               = true\n"
                 "      + public_ip_address                = (known after apply)\n"
-                "      + resource_group_name              = \"rg-trading-prod-eastus2\"\n"
-                "      + size                             = \"Standard_D4s_v5\"\n"
+                '      + resource_group_name              = "rg-trading-prod-eastus2"\n'
+                '      + size                             = "Standard_D4s_v5"\n'
                 "      + virtual_machine_id               = (known after apply)\n"
                 "      + os_disk {\n"
-                "          + caching              = \"ReadWrite\"\n"
-                "          + storage_account_type = \"Premium_LRS\"\n"
+                '          + caching              = "ReadWrite"\n'
+                '          + storage_account_type = "Premium_LRS"\n'
                 "          + disk_size_gb         = 128\n"
                 "        }\n"
                 "    }\n\n"
                 "  # azurerm_network_security_group.trading_nsg will be updated in-place\n"
-                "  ~ resource \"azurerm_network_security_group\" \"trading_nsg\" {\n"
-                "        id   = \"/subscriptions/a1b2c3d4/resourceGroups/rg-trading-prod\"\n"
+                '  ~ resource "azurerm_network_security_group" "trading_nsg" {\n'
+                '        id   = "/subscriptions/a1b2c3d4/resourceGroups/rg-trading-prod"\n'
                 "      ~ tags = {\n"
-                "          + \"environment\" = \"production\"\n"
+                '          + "environment" = "production"\n'
                 "        }\n"
                 "    }\n\n"
                 "  # azurerm_subnet.trading_subnet will be destroyed\n"
-                "  - resource \"azurerm_subnet\" \"old_trading_subnet\" {\n"
-                "      - address_prefixes = [\"10.0.1.0/24\"] -> null\n"
-                "      - id              = \"/subscriptions/a1b2c3d4/...\" -> null\n"
+                '  - resource "azurerm_subnet" "old_trading_subnet" {\n'
+                '      - address_prefixes = ["10.0.1.0/24"] -> null\n'
+                '      - id              = "/subscriptions/a1b2c3d4/..." -> null\n'
                 "    }\n\n"
                 "Plan: 1 to add, 1 to change, 1 to destroy.\n\n"
                 "When I run terraform apply it fails with:\n"
                 "Error: creating Linux Virtual Machine: compute.VirtualMachinesClient#CreateOrUpdate: "
-                "Failure sending request: StatusCode=409 -- Original Error: Code=\"OperationNotAllowed\" "
-                "Message=\"Operation could not be completed as it results in exceeding approved "
-                "Total Regional Cores quota.\"\n\n"
+                'Failure sending request: StatusCode=409 -- Original Error: Code="OperationNotAllowed" '
+                'Message="Operation could not be completed as it results in exceeding approved '
+                'Total Regional Cores quota."\n\n'
                 "We need the core quota increased for eastus2 or we need to resize the VM. "
                 "Can you help?\n\n"
                 "Thanks,\nDaniel Osei\nCloud Infrastructure"
@@ -8937,29 +8937,29 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "[HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services"
                 "\\Tcpip\\Parameters\\Interfaces"
                 "\\{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}]\n"
-                "\"EnableDHCP\"=dword:00000000\n"
-                "\"IPAddress\"=hex(7):31,00,30,00,2e,00,30,00,2e,00,34,00,2e,00,"
+                '"EnableDHCP"=dword:00000000\n'
+                '"IPAddress"=hex(7):31,00,30,00,2e,00,30,00,2e,00,34,00,2e,00,'
                 "31,00,35,00,00,00,00,00\n"
-                "\"SubnetMask\"=hex(7):32,00,35,00,35,00,2e,00,32,00,35,00,35,00,"
+                '"SubnetMask"=hex(7):32,00,35,00,35,00,2e,00,32,00,35,00,35,00,'
                 "2e,00,32,00,35,00,35,00,2e,00,30,00,00,00,00,00\n"
-                "\"DefaultGateway\"=hex(7):31,00,30,00,2e,00,30,00,2e,00,34,00,"
+                '"DefaultGateway"=hex(7):31,00,30,00,2e,00,30,00,2e,00,34,00,'
                 "2e,00,31,00,00,00,00,00\n"
-                "\"NameServer\"=\"10.0.4.10,10.0.4.11\"\n"
-                "\"Domain\"=\"contoso.local\"\n"
-                "\"RegistrationEnabled\"=dword:00000001\n"
-                "\"RegisterAdapterName\"=dword:00000000\n\n"
+                '"NameServer"="10.0.4.10,10.0.4.11"\n'
+                '"Domain"="contoso.local"\n'
+                '"RegistrationEnabled"=dword:00000001\n'
+                '"RegisterAdapterName"=dword:00000000\n\n'
                 "[HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services"
                 "\\Tcpip\\Parameters]\n"
-                "\"Hostname\"=\"WKSTN-FI-3421\"\n"
-                "\"Domain\"=\"contoso.local\"\n"
-                "\"SearchList\"=\"contoso.local,contoso.com\"\n"
-                "\"UseDomainNameDevolution\"=dword:00000001\n"
-                "\"EnableICMPRedirect\"=dword:00000001\n"
-                "\"DeadGWDetectDefault\"=dword:00000001\n"
-                "\"DontAddDefaultGatewayDefault\"=dword:00000000\n\n"
+                '"Hostname"="WKSTN-FI-3421"\n'
+                '"Domain"="contoso.local"\n'
+                '"SearchList"="contoso.local,contoso.com"\n'
+                '"UseDomainNameDevolution"=dword:00000001\n'
+                '"EnableICMPRedirect"=dword:00000001\n'
+                '"DeadGWDetectDefault"=dword:00000001\n'
+                '"DontAddDefaultGatewayDefault"=dword:00000000\n\n'
                 "[HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services"
                 "\\NDIS\\Parameters]\n"
-                "\"TraceLevel\"=dword:00000001\n\n"
+                '"TraceLevel"=dword:00000001\n\n'
                 "The static IP is 10.0.4.15 but after reboot it falls back to DHCP "
                 "and gets 10.0.4.107 instead. This breaks my mapped drives and the "
                 "Bloomberg terminal connection.\n\n"
@@ -9056,40 +9056,40 @@ def get_scenarios() -> list[ScenarioDefinition]:
             description=(
                 "My Azure VM stopped responding. I ran az vm show and got:\n\n"
                 "{\n"
-                "  \"id\": \"/subscriptions/a1b2c3d4-e5f6-7890/resourceGroups/"
+                '  "id": "/subscriptions/a1b2c3d4-e5f6-7890/resourceGroups/'
                 "rg-analytics-prod/providers/Microsoft.Compute/virtualMachines/"
-                "vm-analytics-01\",\n"
-                "  \"location\": \"eastus\",\n"
-                "  \"name\": \"vm-analytics-01\",\n"
-                "  \"hardwareProfile\": { \"vmSize\": \"Standard_E8s_v5\" },\n"
-                "  \"storageProfile\": {\n"
-                "    \"osDisk\": {\n"
-                "      \"osType\": \"Linux\",\n"
-                "      \"name\": \"osdisk-analytics-01\",\n"
-                "      \"diskSizeGb\": 128,\n"
-                "      \"managedDisk\": { \"storageAccountType\": \"Premium_LRS\" }\n"
+                'vm-analytics-01",\n'
+                '  "location": "eastus",\n'
+                '  "name": "vm-analytics-01",\n'
+                '  "hardwareProfile": { "vmSize": "Standard_E8s_v5" },\n'
+                '  "storageProfile": {\n'
+                '    "osDisk": {\n'
+                '      "osType": "Linux",\n'
+                '      "name": "osdisk-analytics-01",\n'
+                '      "diskSizeGb": 128,\n'
+                '      "managedDisk": { "storageAccountType": "Premium_LRS" }\n'
                 "    },\n"
-                "    \"dataDisks\": [{\n"
-                "      \"lun\": 0,\n"
-                "      \"name\": \"datadisk-analytics-01\",\n"
-                "      \"diskSizeGb\": 1024,\n"
-                "      \"managedDisk\": { \"storageAccountType\": \"Premium_LRS\" }\n"
+                '    "dataDisks": [{\n'
+                '      "lun": 0,\n'
+                '      "name": "datadisk-analytics-01",\n'
+                '      "diskSizeGb": 1024,\n'
+                '      "managedDisk": { "storageAccountType": "Premium_LRS" }\n'
                 "    }]\n"
                 "  },\n"
-                "  \"osProfile\": {\n"
-                "    \"computerName\": \"vm-analytics-01\",\n"
-                "    \"adminUsername\": \"azureadmin\"\n"
+                '  "osProfile": {\n'
+                '    "computerName": "vm-analytics-01",\n'
+                '    "adminUsername": "azureadmin"\n'
                 "  },\n"
-                "  \"networkProfile\": {\n"
-                "    \"networkInterfaces\": [{\n"
-                "      \"id\": \"/subscriptions/a1b2c3d4/.../nic-analytics-01\"\n"
+                '  "networkProfile": {\n'
+                '    "networkInterfaces": [{\n'
+                '      "id": "/subscriptions/a1b2c3d4/.../nic-analytics-01"\n'
                 "    }]\n"
                 "  },\n"
-                "  \"provisioningState\": \"Succeeded\",\n"
-                "  \"instanceView\": {\n"
-                "    \"statuses\": [{\n"
-                "      \"code\": \"PowerState/stopped\",\n"
-                "      \"displayStatus\": \"VM stopped\"\n"
+                '  "provisioningState": "Succeeded",\n'
+                '  "instanceView": {\n'
+                '    "statuses": [{\n'
+                '      "code": "PowerState/stopped",\n'
+                '      "displayStatus": "VM stopped"\n'
                 "    }]\n"
                 "  }\n"
                 "}\n\n"
@@ -9302,27 +9302,27 @@ def get_scenarios() -> list[ScenarioDefinition]:
             description=(
                 "The daily settlement reconciliation query is taking 45 minutes instead "
                 "of the usual 3 minutes. I exported the execution plan from SSMS:\n\n"
-                "<?xml version=\"1.0\"?>\n"
-                "<ShowPlanXML xmlns=\"http://schemas.microsoft.com/sqlserver/2004/"
-                "07/showplan\" Version=\"1.6\" Build=\"16.0.4085.2\">\n"
+                '<?xml version="1.0"?>\n'
+                '<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/'
+                '07/showplan" Version="1.6" Build="16.0.4085.2">\n'
                 "  <BatchSequence>\n"
                 "    <Batch>\n"
                 "      <Statements>\n"
-                "        <StmtSimple StatementText=\"SELECT t.TradeID, t.Amount..."
-                "\" StatementId=\"1\" StatementType=\"SELECT\"\n"
-                "          StatementSubTreeCost=\"847234.2\" StatementEstRows=\"3400000\">\n"
-                "          <QueryPlan CachedPlanSize=\"128\" CompileTime=\"4521\"\n"
-                "            CompileCPU=\"4521\" CompileMemory=\"65536\">\n"
-                "            <RelOp NodeId=\"0\" PhysicalOp=\"Hash Match\"\n"
-                "              LogicalOp=\"Inner Join\" EstimateRows=\"3400000\"\n"
-                "              EstimatedTotalSubtreeCost=\"847234.2\">\n"
+                '        <StmtSimple StatementText="SELECT t.TradeID, t.Amount...'
+                '" StatementId="1" StatementType="SELECT"\n'
+                '          StatementSubTreeCost="847234.2" StatementEstRows="3400000">\n'
+                '          <QueryPlan CachedPlanSize="128" CompileTime="4521"\n'
+                '            CompileCPU="4521" CompileMemory="65536">\n'
+                '            <RelOp NodeId="0" PhysicalOp="Hash Match"\n'
+                '              LogicalOp="Inner Join" EstimateRows="3400000"\n'
+                '              EstimatedTotalSubtreeCost="847234.2">\n'
                 "              <OutputList>\n"
-                "                <ColumnReference Table=\"[trades]\" Column=\"TradeID\"/>\n"
+                '                <ColumnReference Table="[trades]" Column="TradeID"/>\n'
                 "              </OutputList>\n"
                 "              <Hash>\n"
-                "                <RelOp PhysicalOp=\"Table Scan\"\n"
-                "                  LogicalOp=\"Table Scan\" EstimateRows=\"15000000\"\n"
-                "                  TableCardinality=\"15000000\">\n"
+                '                <RelOp PhysicalOp="Table Scan"\n'
+                '                  LogicalOp="Table Scan" EstimateRows="15000000"\n'
+                '                  TableCardinality="15000000">\n'
                 "                </RelOp>\n"
                 "              </Hash>\n"
                 "            </RelOp>\n"
@@ -9433,22 +9433,22 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "npm ERR! While resolving: @contoso/dashboard-widgets@3.2.1\n"
                 "npm ERR! Found: react@18.2.0\n"
                 "npm ERR! node_modules/react\n"
-                "npm ERR!   react@\"^18.2.0\" from the root project\n"
-                "npm ERR!   peer react@\"^18.0.0\" from @contoso/ui-kit@5.1.0\n"
+                'npm ERR!   react@"^18.2.0" from the root project\n'
+                'npm ERR!   peer react@"^18.0.0" from @contoso/ui-kit@5.1.0\n'
                 "npm ERR!   node_modules/@contoso/ui-kit\n"
-                "npm ERR!     @contoso/ui-kit@\"^5.0.0\" from the root project\n"
+                'npm ERR!     @contoso/ui-kit@"^5.0.0" from the root project\n'
                 "npm ERR!\n"
                 "npm ERR! Could not resolve dependency:\n"
-                "npm ERR! peer react@\"^17.0.0\" from @contoso/legacy-charts@2.8.4\n"
+                'npm ERR! peer react@"^17.0.0" from @contoso/legacy-charts@2.8.4\n'
                 "npm ERR! node_modules/@contoso/legacy-charts\n"
-                "npm ERR!   @contoso/legacy-charts@\"^2.8.0\" from "
+                'npm ERR!   @contoso/legacy-charts@"^2.8.0" from '
                 "@contoso/dashboard-widgets@3.2.1\n"
                 "npm ERR!   node_modules/@contoso/dashboard-widgets\n"
-                "npm ERR!     @contoso/dashboard-widgets@\"^3.2.0\" from the root project\n"
+                'npm ERR!     @contoso/dashboard-widgets@"^3.2.0" from the root project\n'
                 "npm ERR!\n"
                 "npm ERR! Conflicting peer dependency: react@17.0.2\n"
                 "npm ERR! node_modules/react\n"
-                "npm ERR!   peer react@\"^17.0.0\" from @contoso/legacy-charts@2.8.4\n"
+                'npm ERR!   peer react@"^17.0.0" from @contoso/legacy-charts@2.8.4\n'
                 "npm ERR!   node_modules/@contoso/legacy-charts\n\n"
                 "npm ERR! Fix the upstream dependency conflict, or retry\n"
                 "npm ERR! this command with --force or --legacy-peer-deps\n\n"
