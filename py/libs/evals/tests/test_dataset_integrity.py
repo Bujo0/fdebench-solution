@@ -201,8 +201,8 @@ class TestDataCleanupSpecific:
 class TestResponsibleAISpecific:
     """Responsible AI dataset-specific validations."""
 
-    def test_has_60_cases(self) -> None:
-        assert len(RESPONSIBLE_AI_DATASET.cases) == 120
+    def test_has_expected_case_count(self) -> None:
+        assert len(RESPONSIBLE_AI_DATASET.cases) == 140
 
     def test_covers_expected_scenarios(self) -> None:
         all_tags = set()

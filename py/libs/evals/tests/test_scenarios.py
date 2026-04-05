@@ -14,10 +14,10 @@ class TestDefaultRegistryPopulation:
 
     def test_responsible_ai_scenarios_registered(self) -> None:
         rai = default_registry.by_category(ScenarioCategory.RESPONSIBLE_AI)
-        assert len(rai) == 110
+        assert len(rai) == 130
 
     def test_total_scenarios(self) -> None:
-        assert default_registry.count == 170
+        assert default_registry.count == 190
 
 
 class TestScenarioWellFormedness:
