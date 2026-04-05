@@ -33,7 +33,7 @@
         "ticket_id": "INC-9006",
         "tag": "data_cleanup",
         "test_name": "unicode_special_chars",
-        "test_description": "Tests handling of heavy Unicode content: emojis, accented characters (\u00e9, \u00fc, \u00f8), French text mixed with English, special quotation marks. Validates the model handles multi-script input correctly."
+        "test_description": "Tests handling of heavy Unicode content: emojis, accented characters (é, ü, ø), French text mixed with English, special quotation marks. Validates the model handles multi-script input correctly."
     },
     {
         "ticket_id": "INC-9007",
@@ -45,7 +45,7 @@
         "ticket_id": "INC-9008",
         "tag": "data_cleanup",
         "test_name": "encoding_artifacts",
-        "test_description": "Tests handling of mojibake/encoding artifacts (Windows-1252 \u2192 UTF-8 misinterpretation). Common in email-to-ticket systems: \u00e2\u20ac\u2122 instead of ', \u00e2\u20ac\u0153 instead of \", etc."
+        "test_description": "Tests handling of mojibake/encoding artifacts (Windows-1252 → UTF-8 misinterpretation). Common in email-to-ticket systems: â€™ instead of ', â€œ instead of \", etc."
     },
     {
         "ticket_id": "INC-9009",
