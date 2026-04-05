@@ -12447,4 +12447,928 @@ def get_scenarios() -> list[ScenarioDefinition]:
             tags=["data-cleanup", "machine-generated", "servicenow-audit-trail", "no-details", "blank-lines"],
             difficulty="medium",
         ),
+        ScenarioDefinition(
+            scenario_id="DC-181",
+            subject="Re: Docking station not working — see signed msg",
+            description=(
+                "-----BEGIN PGP SIGNED MESSAGE-----\n"
+                "Hash: SHA256\n"
+                "\n"
+                "Content-Type: multipart/signed;\n"
+                '  protocol="application/pgp-signature";\n'
+                "  micalg=pgp-sha256;\n"
+                '  boundary="----=_NextPart_PGP_001"\n'
+                "\n"
+                "------=_NextPart_PGP_001\n"
+                "Content-Type: text/plain; charset=utf-8\n"
+                "Content-Transfer-Encoding: quoted-printable\n"
+                "\n"
+                "Hi IT Support,\n"
+                "\n"
+                "My Lenovo ThinkPad USB-C dock (model 40AY0090US) stopped "
+                "outputting video to my two external monitors after last "
+                "weekend's Windows update. Power delivery and USB ports "
+                "still work fine, but both DisplayPort outputs show "
+                "'No Signal'. I've tried three different USB-C cables "
+                "and two different monitors. The dock firmware is "
+                "v1.0.38 and the Lenovo Dock Manager shows no updates "
+                "available. I need the dual-monitor setup for my "
+                "trading-floor dashboards.\n"
+                "\n"
+                "Thanks,\n"
+                "Priya Sharma\n"
+                "------=_NextPart_PGP_001\n"
+                "Content-Type: application/pgp-signature;\n"
+                '  name="signature.asc"\n'
+                "\n"
+                "-----BEGIN PGP SIGNATURE-----\n"
+                "iQIzBAEBCAAdFiEE7xGKR+bVqm8Gh+kLP1KX\n"
+                "Y3FtYU0FAmdSfG0ACgkQP1KXY3FtYU0BAA//\n"
+                "dZX3Bh8P3R6TqKfV5hR5JgGv2qR8QHyLkD9l\n"
+                "xY9kPnLm0vF6sW1NhTqJwAY4FrB1SuLkD7Gt\n"
+                "zV4+V2xV3p8kU0EhR7qG1bH5Rn1mW3yT6oF8\n"
+                "=kL7z\n"
+                "-----END PGP SIGNATURE-----\n"
+                "------=_NextPart_PGP_001--"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Investigate the Lenovo ThinkPad USB-C dock "
+                "(40AY0090US) video output failure on both "
+                "DisplayPort outputs following a recent Windows "
+                "update. The PGP signature wrapping is irrelevant "
+                "noise — the actual issue is the dock's inability "
+                "to drive external monitors."
+            ),
+            remediation_steps=[
+                "Check the Windows Update history for recent "
+                "display-driver or USB-C host-controller updates "
+                "that coincide with the failure.",
+                "Roll back the most recent Intel or Realtek "
+                "display-adapter driver to the prior version and "
+                "retest monitor output.",
+                "Reflash the dock firmware using the Lenovo Dock "
+                "Manager offline installer even if no new version "
+                "is listed — a corrupt firmware image can cause "
+                "video loss.",
+                "Test the dock on a different laptop to isolate whether the fault is dock-side or host-side.",
+                "If the dock is confirmed faulty, initiate an RMA through Lenovo's enterprise support portal.",
+            ],
+            reporter_name="Priya Sharma",
+            reporter_email="priya.sharma@contoso.com",
+            reporter_department="Capital Markets",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "pgp-signature",
+                "mime-noise",
+                "docking-station",
+            ],
+            difficulty="hard",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-182",
+            subject=("FW: Outlook keeps crashing — URGENT"),
+            description=(
+                "From: helpdesk-relay@contoso.com\n"
+                "To: it-support@contoso.com\n"
+                "CC: adam.jones@contoso.com; betty.liu@contoso.com; "
+                "carl.nguyen@contoso.com; diana.rao@contoso.com; "
+                "evan.murphy@contoso.com; fiona.chen@contoso.com; "
+                "george.kim@contoso.com; hana.patel@contoso.com; "
+                "ivan.torres@contoso.com; julia.watts@contoso.com; "
+                "kevin.brown@contoso.com; laura.scott@contoso.com; "
+                "mike.zhang@contoso.com; nina.okafor@contoso.com; "
+                "oliver.dunn@contoso.com; paula.reyes@contoso.com; "
+                "quinn.hall@contoso.com; rachel.green@contoso.com; "
+                "sam.fischer@contoso.com; tina.yamada@contoso.com; "
+                "uma.bhat@contoso.com; victor.lee@contoso.com; "
+                "wendy.park@contoso.com; xander.cole@contoso.com; "
+                "yara.hassan@contoso.com; zach.reed@contoso.com; "
+                "amber.long@contoso.com; brian.diaz@contoso.com; "
+                "carla.smith@contoso.com; derek.wu@contoso.com; "
+                "elena.ross@contoso.com; frank.page@contoso.com; "
+                "gina.bell@contoso.com; harry.fox@contoso.com; "
+                "irene.grant@contoso.com; jake.lin@contoso.com; "
+                "karen.davis@contoso.com; liam.price@contoso.com; "
+                "maria.gomez@contoso.com; nate.young@contoso.com; "
+                "olivia.king@contoso.com; peter.cruz@contoso.com; "
+                "rosa.webb@contoso.com; steve.tang@contoso.com; "
+                "tracy.hunt@contoso.com; ursula.vega@contoso.com; "
+                "vince.ford@contoso.com; wilma.cho@contoso.com; "
+                "xena.blake@contoso.com; yusuf.ali@contoso.com; "
+                "zara.mills@contoso.com\n"
+                "BCC: compliance-archive@contoso.com\n"
+                "Subject: FW: Outlook keeps crashing — URGENT\n"
+                "Date: Mon, 24 Mar 2026 09:14:22 -0500\n"
+                "X-Mailer: Microsoft Outlook 16.0\n"
+                "Thread-Index: AQHbR3mF...\n"
+                "MIME-Version: 1.0\n"
+                "\n"
+                "Hi IT,\n"
+                "\n"
+                "Outlook (Microsoft 365 Apps, Version 2402 Build "
+                "17328.20162, 64-bit) crashes every time I open a "
+                "calendar invite that has more than 50 attendees. "
+                "It freezes for about 10 seconds, shows 'Not "
+                "Responding', then generates a crash dump in "
+                "%LOCALAPPDATA%\\Microsoft\\Outlook\\Diagnostics. "
+                "The event log shows an APPCRASH with fault module "
+                "OUTLOOK.EXE at offset 0x0012FA3C. This started "
+                "after last week's Patch Tuesday update. I can "
+                "open all other emails and smaller meetings fine.\n"
+                "\n"
+                "Thanks,\n"
+                "Ricardo Mendes\n"
+                "Finance — FP&A Team"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.APPLICATION_VERSION],
+            next_best_action=(
+                "Investigate the Outlook crash triggered by "
+                "opening calendar invites with 50+ attendees. "
+                "The long CC/BCC header list is cosmetic noise "
+                "from the forwarding chain. Focus on the "
+                "APPCRASH in OUTLOOK.EXE at offset 0x0012FA3C "
+                "introduced after Patch Tuesday."
+            ),
+            remediation_steps=[
+                "Collect the crash dump from the Diagnostics "
+                "folder and review the APPCRASH fault module "
+                "and offset for known issues.",
+                "Check Microsoft 365 release notes for known calendar-rendering bugs in Build 17328.20162.",
+                "Roll back the Patch Tuesday update via "
+                "'Programs and Features > View installed "
+                "updates' and verify the crash no longer "
+                "occurs.",
+                "Run Outlook in safe mode (outlook.exe /safe) and attempt to open the same calendar invite.",
+                "If safe mode resolves it, disable add-ins one by one to isolate the conflict.",
+            ],
+            reporter_name="Ricardo Mendes",
+            reporter_email="ricardo.mendes@contoso.com",
+            reporter_department="Finance",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "excessive-headers",
+                "cc-bcc-noise",
+                "outlook-crash",
+            ],
+            difficulty="hard",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-183",
+            subject="SAP data sync failure — SOAP fault attached",
+            description=(
+                '<?xml version="1.0" encoding="UTF-8"?>\n'
+                "<soap:Envelope\n"
+                '  xmlns:soap="http://schemas.xmlsoap.org/'
+                'soap/envelope/"\n'
+                '  xmlns:xsi="http://www.w3.org/2001/'
+                'XMLSchema-instance">\n'
+                "  <soap:Body>\n"
+                "    <soap:Fault>\n"
+                "      <faultcode>soap:Server</faultcode>\n"
+                "      <faultstring>\n"
+                "        System.Exception: RFC_ERROR_SYSTEM_"
+                "FAILURE —\n"
+                "        SAP Gateway returned code 504 during\n"
+                "        BAPI_MATERIAL_GETLIST call.\n"
+                "        Transaction SM21 log excerpt:\n"
+                "        2026-03-23 22:15:01 — DIA WP #14 "
+                "terminated\n"
+                "        2026-03-23 22:15:02 — Short dump "
+                "DBIF_RSQL_SQL_ERROR\n"
+                "        2026-03-23 22:15:02 — Table MARA "
+                "read timeout (lock wait 120s)\n"
+                "      </faultstring>\n"
+                "      <detail>\n"
+                "        <maxRetries>3</maxRetries>\n"
+                "        <lastRetryAt>2026-03-23T22:16:44Z"
+                "</lastRetryAt>\n"
+                "        <correlationId>a9f3e7c1-44b2-4d18"
+                "-bf06-0dc938ab71e3</correlationId>\n"
+                "      </detail>\n"
+                "    </soap:Fault>\n"
+                "  </soap:Body>\n"
+                "</soap:Envelope>\n"
+                "\n"
+                "Hi team,\n"
+                "\n"
+                "Our nightly SAP material-master sync job has "
+                "been failing for three consecutive nights with "
+                "the SOAP fault shown above. The middleware "
+                "(MuleSoft Anypoint 4.4) retries three times and "
+                "then gives up. Downstream inventory dashboards "
+                "in Power BI are now three days stale. The SAP "
+                "Basis team says table MARA is not locked on "
+                "their side and blames the middleware. Can you "
+                "help coordinate?\n"
+                "\n"
+                "— Anil Kapoor, Supply Chain Systems"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=True,
+            missing_info=[
+                MissingInfo.ERROR_MESSAGE,
+                MissingInfo.ENVIRONMENT_DETAILS,
+            ],
+            next_best_action=(
+                "Investigate the recurring SAP material-master "
+                "sync failure caused by BAPI_MATERIAL_GETLIST "
+                "returning a 504 via SAP Gateway, resulting in "
+                "a DBIF_RSQL_SQL_ERROR short dump. The XML SOAP "
+                "envelope is the raw error payload — focus on "
+                "the table MARA read timeout and coordinate "
+                "between the SAP Basis team and MuleSoft "
+                "middleware team."
+            ),
+            remediation_steps=[
+                "Review SAP transaction SM21 and ST22 for the DBIF_RSQL_SQL_ERROR short dump details on table MARA.",
+                "Check SAP transaction SM12 for lingering lock "
+                "entries on MARA during the nightly sync window "
+                "(22:00–23:00 UTC).",
+                "Increase the MuleSoft HTTP connector timeout "
+                "from the default 30 s to 180 s for the SAP "
+                "Gateway endpoint.",
+                "Coordinate with the SAP Basis team to schedule "
+                "the MARA table statistics update (SE14) outside "
+                "the sync window.",
+                "Add an alerting rule in MuleSoft Anypoint "
+                "Monitoring to fire on the first SOAP fault "
+                "instead of waiting for three retries.",
+            ],
+            reporter_name="Anil Kapoor",
+            reporter_email="anil.kapoor@contoso.com",
+            reporter_department="Supply Chain",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "xml-soap-fault",
+                "sap-sync",
+                "middleware",
+            ],
+            difficulty="hard",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-184",
+            subject=("Pod stuck in CrashLoopBackOff — kubectl output pasted"),
+            description=(
+                "Name:         invoice-svc-7f8b9c6d4-xk2lm\n"
+                "Namespace:    prod-finance\n"
+                "Priority:     0\n"
+                "Node:         aks-nodepool1-31587249-vmss000012/"
+                "10.240.0.37\n"
+                "Start Time:   Mon, 24 Mar 2026 06:10:33 +0000\n"
+                "Labels:       app=invoice-svc\n"
+                "              pod-template-hash=7f8b9c6d4\n"
+                "Annotations:  kubernetes.io/psp: restricted\n"
+                "Status:       Running\n"
+                "IP:           10.244.3.118\n"
+                "Containers:\n"
+                "  invoice-svc:\n"
+                "    Container ID:  containerd://a8e3f...\n"
+                "    Image:         contosoacr.azurecr.io/"
+                "invoice-svc:2.14.0-rc3\n"
+                "    Image ID:      sha256:9f3a1b2c...\n"
+                "    Port:          8080/TCP\n"
+                "    State:         Waiting\n"
+                "      Reason:      CrashLoopBackOff\n"
+                "    Last State:    Terminated\n"
+                "      Reason:      OOMKilled\n"
+                "      Exit Code:   137\n"
+                "      Started:     Mon, 24 Mar 2026 06:18:02\n"
+                "      Finished:    Mon, 24 Mar 2026 06:18:47\n"
+                "    Ready:         False\n"
+                "    Restart Count: 14\n"
+                "    Limits:\n"
+                "      cpu:     500m\n"
+                "      memory:  256Mi\n"
+                "    Requests:\n"
+                "      cpu:     250m\n"
+                "      memory:  128Mi\n"
+                "    Liveness:  http-get http://:8080/healthz "
+                "delay=10s timeout=3s period=15s\n"
+                "    Readiness: http-get http://:8080/readyz "
+                "delay=5s timeout=3s period=10s\n"
+                "    Environment:\n"
+                "      DB_HOST:     sql-prod-finance.database"
+                ".windows.net\n"
+                "      DB_NAME:     invoicedb\n"
+                "      APP_ENV:     production\n"
+                "    Mounts:\n"
+                "      /var/run/secrets/kubernetes.io/serviceacc"
+                "ount from kube-api-access-7xq2z (ro)\n"
+                "Conditions:\n"
+                "  Type              Status\n"
+                "  Initialized       True\n"
+                "  Ready             False\n"
+                "  ContainersReady   False\n"
+                "  PodScheduled      True\n"
+                "Events:\n"
+                "  Type     Reason     Age   Message\n"
+                "  ----     ------     ----  -------\n"
+                "  Normal   Pulled     12m   Container image "
+                "pulled\n"
+                "  Warning  BackOff    2m    Back-off restarting "
+                "failed container\n"
+                "\n"
+                "Hey, the invoice service in prod keeps crashing. "
+                "Pasted the kubectl describe output above. "
+                "Customers can't download invoices. Can someone "
+                "look ASAP?"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=True,
+            missing_info=[
+                MissingInfo.ENVIRONMENT_DETAILS,
+                MissingInfo.BUSINESS_IMPACT,
+            ],
+            next_best_action=(
+                "Address the CrashLoopBackOff on pod "
+                "invoice-svc-7f8b9c6d4-xk2lm in prod-finance "
+                "caused by OOMKilled (exit code 137). The "
+                "container memory limit is set to 256 Mi which "
+                "is likely insufficient for the invoice-svc "
+                "2.14.0-rc3 release candidate."
+            ),
+            remediation_steps=[
+                "Increase the container memory limit from "
+                "256 Mi to at least 512 Mi in the deployment "
+                "manifest and redeploy.",
+                "Review recent changes in invoice-svc 2.14.0-rc3 "
+                "for memory-intensive code paths such as large "
+                "PDF generation or unbounded caching.",
+                "Check Azure Monitor container insights for the pod's memory working-set trend over the last 24 hours.",
+                "Consider rolling back to the last stable image "
+                "tag (2.13.x) to restore service while "
+                "investigating the memory regression.",
+                "Add a Vertical Pod Autoscaler recommendation "
+                "policy for the invoice-svc workload to "
+                "right-size resource limits going forward.",
+            ],
+            reporter_name="Derek Olsen",
+            reporter_email="derek.olsen@contoso.com",
+            reporter_department="Platform Engineering",
+            channel=Channel.CHAT,
+            tags=[
+                "data-cleanup",
+                "kubectl-output",
+                "kubernetes",
+                "crashloopbackoff",
+            ],
+            difficulty="hard",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-185",
+            subject="TLS handshake failures — hex dump from Wireshark",
+            description=(
+                "0000  00 1a 2b 3c 4d 5e 00 0c  29 5a 3b 7f 08 00 45 00\n"
+                "0010  00 3c 1c 46 40 00 40 06  a2 f1 0a 00 01 0f ac 10\n"
+                "0020  01 64 c0 a8 01 bb 00 50  1f 90 ab cd ef 01 00 00\n"
+                "0030  00 00 a0 02 ff ff fe 30  00 00 02 04 05 b4 04 02\n"
+                "0040  08 0a 00 0b 2f 89 00 00  00 00 01 03 03 07 16 03\n"
+                "0050  01 02 00 01 00 01 fc 03  03 d4 e8 a1 3b 7c f2 60\n"
+                "0060  4e 9b 1a 2d 5c 73 8f 01  22 c3 e4 f5 67 89 ab cd\n"
+                "0070  ef 00 11 22 33 44 55 66  77 88 99 aa 20 bb cc dd\n"
+                "0080  ee ff 00 11 22 33 44 55  66 77 88 99 aa bb cc dd\n"
+                "0090  ee ff 00 3e 13 02 13 03  13 01 c0 2c c0 30 00 9f\n"
+                "00a0  cc a9 cc a8 cc aa c0 2b  c0 2f 00 9e c0 24 c0 28\n"
+                "00b0  00 6b c0 23 c0 27 00 67  c0 0a c0 14 00 39 c0 09\n"
+                "00c0  c0 13 00 33 00 9d 00 9c  00 3d 00 3c 00 35 00 2f\n"
+                "00d0  00 ff 01 00 01 75 00 00  00 13 00 11 00 00 0e 70\n"
+                "00e0  61 79 2e 63 6f 6e 74 6f  73 6f 2e 63 6f 6d 00 0b\n"
+                "--- (truncated, 4800 more bytes) ---\n"
+                "\n"
+                "Hi network team,\n"
+                "\n"
+                "Our payment gateway at pay.contoso.com has been "
+                "failing TLS handshakes intermittently since "
+                "2026-03-22 around 14:00 UTC. About 30% of "
+                "connections from the 10.0.1.0/24 subnet get a "
+                "TCP RST right after ClientHello. The hex dump "
+                "above is from a Wireshark capture on the client "
+                "side. We suspect the F5 load balancer's SSL "
+                "profile may have been changed during last "
+                "Friday's maintenance window. Customers are "
+                "seeing 'Connection Reset' errors at checkout.\n"
+                "\n"
+                "Lena Vogt\n"
+                "Payment Systems Engineering"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=True,
+            missing_info=[
+                MissingInfo.NETWORK_LOCATION,
+                MissingInfo.CONFIGURATION_DETAILS,
+            ],
+            next_best_action=(
+                "Investigate intermittent TLS handshake failures "
+                "to pay.contoso.com from the 10.0.1.0/24 subnet. "
+                "The raw hex dump is a Wireshark capture showing "
+                "a ClientHello followed by a RST. Focus on the "
+                "F5 load balancer SSL profile changes made during "
+                "last Friday's maintenance window."
+            ),
+            remediation_steps=[
+                "Review the F5 BIG-IP SSL profile change log for "
+                "the pay.contoso.com virtual server from the "
+                "Friday maintenance window.",
+                "Compare the current SSL cipher suite list on the "
+                "F5 with the client-supported ciphers visible in "
+                "the ClientHello (TLS 1.3 suites 0x1302, 0x1303, "
+                "0x1301 plus legacy).",
+                "Run 'openssl s_client -connect pay.contoso.com"
+                ":443 -servername pay.contoso.com' from a host on "
+                "the 10.0.1.0/24 subnet to reproduce the failure.",
+                "Check the F5 LTM logs (/var/log/ltm) for SSL handshake error counters around the failure timeframe.",
+                "If the SSL profile was modified, revert to the "
+                "previous profile snapshot and confirm handshakes "
+                "succeed.",
+            ],
+            reporter_name="Lena Vogt",
+            reporter_email="lena.vogt@contoso.com",
+            reporter_department="Payment Systems",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "hex-dump",
+                "wireshark",
+                "tls-handshake",
+            ],
+            difficulty="hard",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-186",
+            subject=("WiFi keeps dropping \u2014 re: \ufffd\ufffd\ufffd probl\u00e8me r\u00e9seau"),
+            description=(
+                "De\u00a0: Marc-Andr\u00e9 B\u00e9langer "
+                "<marc-andre.belanger@contoso.com>\n"
+                "\u00c0\u00a0: it-support@contoso.com\n"
+                "Objet\u00a0: probl\u00e8me r\u00e9seau \u2014 "
+                "WiFi instable\n"
+                "Date\u00a0: 2026-03-24T08:42:17-0400\n"
+                "\n"
+                "Bonjour l\u2019\u00e9quipe IT,\n"
+                "\n"
+                "Mon portable se d\u00e9connecte du WiFi "
+                "\u00ab\u00a0CorpNet-5G\u00a0\u00bb toutes les "
+                "10\u00a0minutes environ depuis lundi matin. "
+                "Quand \u00e7a arrive, l\u2019ic\u00f4ne WiFi "
+                "montre \ufffd\ufffd\ufffd (carr\u00e9s de "
+                "remplacement \u2014 mon client mail a "
+                "corrompu l\u2019encodage). Je suis au "
+                "3e\u00a0\u00e9tage, bureau\u00a0312.\n"
+                "\n"
+                "D\u00e9tails techniques\u00a0:\n"
+                "- Laptop\u00a0: Dell Latitude 5540\n"
+                "- Carte WiFi\u00a0: Intel AX211 160\u00a0MHz\n"
+                "- Driver\u00a0: 22.260.0.6 (derni\u00e8re "
+                "version)\n"
+                "- OS\u00a0: Windows 11 23H2\n"
+                "- SSID\u00a0: CorpNet-5G (WPA3-Enterprise)\n"
+                "- Sympt\u00f4me\u00a0: d\u00e9connexion "
+                "toutes les ~10\u00a0min, reconnexion auto "
+                "apr\u00e8s ~30\u00a0s\n"
+                "- Pas de probl\u00e8me sur le r\u00e9seau "
+                "filaire Ethernet\n"
+                "\n"
+                "J\u2019ai aussi essay\u00e9 \u00ab\u00a0Oublier "
+                "le r\u00e9seau\u00a0\u00bb et me reconnecter, "
+                "sans succ\u00e8s.\n"
+                "\n"
+                "Merci,\n"
+                "Marc-Andr\u00e9\n"
+                "\n"
+                "---\n"
+                "This email was converted from ISO-8859-1 to "
+                "UTF-8. Some characters may display as \ufffd."
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P3,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.NETWORK_LOCATION],
+            next_best_action=(
+                "Investigate recurring WiFi disconnections on "
+                "CorpNet-5G for a Dell Latitude 5540 with Intel "
+                "AX211 adapter on floor 3, office 312. The mixed "
+                "encoding (ISO-8859-1/UTF-8) and replacement "
+                "characters are email-conversion artifacts — the "
+                "real issue is the 10-minute WiFi drop cycle."
+            ),
+            remediation_steps=[
+                "Check the wireless LAN controller for the "
+                "access point serving floor 3 office 312 and "
+                "review client roaming and disassociation events "
+                "for the reporter's MAC address.",
+                "Verify that the Intel AX211 driver 22.260.0.6 "
+                "is on the corporate approved-driver list; test "
+                "with the previous driver version if available.",
+                "Run a Wi-Fi site survey on floor 3 to check "
+                "for co-channel interference or coverage gaps "
+                "near office 312.",
+                "Confirm the WPA3-Enterprise RADIUS certificate "
+                "chain is valid — an expiring intermediate cert "
+                "can cause periodic reauthentication failures.",
+                "As a workaround, configure the laptop to prefer "
+                "the 2.4 GHz SSID to test whether the issue is "
+                "specific to the 5 GHz / 6 GHz radio.",
+            ],
+            reporter_name="Marc-Andr\u00e9 B\u00e9langer",
+            reporter_email="marc-andre.belanger@contoso.com",
+            reporter_department="Risk Management",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "mixed-encoding",
+                "replacement-chars",
+                "wifi-disconnect",
+            ],
+            difficulty="hard",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-187",
+            subject=("Data corruption in client_transactions table"),
+            description=(
+                "Query: SELECT id, client_id, txn_date, amount, "
+                "currency, status FROM client_transactions WHERE "
+                "status = 'SETTLED' AND txn_date >= '2026-03-01' "
+                "ORDER BY txn_date DESC LIMIT 40;\n"
+                "\n"
+                "id\tclient_id\ttxn_date\tamount\tcurrency"
+                "\tstatus\n"
+                "99410\tC-8812\t2026-03-23\t15420.00\tUSD"
+                "\tSETTLED\n"
+                "99409\tC-7731\t2026-03-23\t-842.50\tUSD"
+                "\tSETTLED\n"
+                "99408\tC-0019\t2026-03-22\t999999999.99\tUSD"
+                "\tSETTLED\n"
+                "99407\tC-8812\t2026-03-22\t7200.00\tEUR"
+                "\tSETTLED\n"
+                "99406\tC-0019\t2026-03-22\t-999999999.99\tUSD"
+                "\tSETTLED\n"
+                "99405\tC-5543\t2026-03-21\t3300.00\tGBP"
+                "\tSETTLED\n"
+                "99404\tC-2210\t2026-03-21\t12750.00\tUSD"
+                "\tSETTLED\n"
+                "99403\tC-0019\t2026-03-20\t0.01\tUSD"
+                "\tSETTLED\n"
+                "99402\tC-4478\t2026-03-20\t6800.00\tUSD"
+                "\tSETTLED\n"
+                "99401\tC-6690\t2026-03-19\tNULL\tNULL"
+                "\tSETTLED\n"
+                "(40 rows, truncated for brevity)\n"
+                "\n"
+                "Hi Data Platform team,\n"
+                "\n"
+                "I ran the query above and found multiple data "
+                "integrity issues in the client_transactions "
+                "table: row 99408 shows an impossible amount of "
+                "999,999,999.99, row 99406 has a matching "
+                "negative reversal that was never flagged, row "
+                "99401 has NULL amount and currency for a SETTLED "
+                "transaction, and row 99409 shows a negative "
+                "amount that should have status REVERSED not "
+                "SETTLED. These anomalies started appearing "
+                "after the ETL pipeline migration on 2026-03-18. "
+                "Our reconciliation report for March is blocked.\n"
+                "\n"
+                "Nadia Petrov\n"
+                "Financial Reporting"
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=True,
+            missing_info=[
+                MissingInfo.ENVIRONMENT_DETAILS,
+                MissingInfo.TIMESTAMP,
+            ],
+            next_best_action=(
+                "Investigate data integrity anomalies in the "
+                "client_transactions table introduced after the "
+                "ETL pipeline migration on 2026-03-18. The SQL "
+                "output shows impossible amounts, orphaned "
+                "reversals, NULL fields on settled rows, and "
+                "incorrect status values."
+            ),
+            remediation_steps=[
+                "Query for all rows inserted or updated after "
+                "2026-03-18 with amount > 1,000,000 or amount "
+                "IS NULL to determine the full scope of corrupt "
+                "records.",
+                "Review the ETL pipeline migration changeset "
+                "from 2026-03-18 for changes to data-type "
+                "mappings, NULL-handling, or constraint "
+                "enforcement.",
+                "Restore the affected rows from the pre-migration "
+                "backup and run a diff against the current data "
+                "to identify all discrepancies.",
+                "Add CHECK constraints to the table to prevent "
+                "NULL amounts on SETTLED transactions and amounts "
+                "exceeding a configurable threshold.",
+                "Re-run the March reconciliation report against "
+                "the corrected data and confirm totals match the "
+                "source ledger.",
+            ],
+            reporter_name="Nadia Petrov",
+            reporter_email="nadia.petrov@contoso.com",
+            reporter_department="Financial Reporting",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "sql-output",
+                "data-corruption",
+                "etl-migration",
+            ],
+            difficulty="hard",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-188",
+            subject="Password reset not working",
+            description=(
+                "CONFIDENTIALITY NOTICE / AVIS DE "
+                "CONFIDENTIALIT\u00c9 / VERTRAULICHKEITSHINWEIS\n"
+                "This email and any attachments are confidential "
+                "and intended solely for the named recipient(s). "
+                "If you have received this email in error, please "
+                "notify the sender immediately and delete it.\n"
+                "\n"
+                "Ce courriel et toute pi\u00e8ce jointe sont "
+                "confidentiels et destin\u00e9s uniquement au(x) "
+                "destinataire(s) nomm\u00e9(s). Si vous avez "
+                "re\u00e7u ce courriel par erreur, veuillez en "
+                "aviser l\u2019exp\u00e9diteur imm\u00e9diatement "
+                "et le supprimer.\n"
+                "\n"
+                "Diese E-Mail und alle Anh\u00e4nge sind "
+                "vertraulich und ausschlie\u00dflich f\u00fcr "
+                "den/die genannten Empf\u00e4nger bestimmt. "
+                "Sollten Sie diese E-Mail irrt\u00fcmlich "
+                "erhalten haben, benachrichtigen Sie bitte "
+                "umgehend den Absender und l\u00f6schen Sie "
+                "die Nachricht.\n"
+                "\n"
+                "\u6a5f\u5bc6\u4fdd\u6301\u306e\u304a\u77e5"
+                "\u3089\u305b\uff1a\u3053\u306e\u30e1\u30fc"
+                "\u30eb\u304a\u3088\u3073\u6dfb\u4ed8\u30d5"
+                "\u30a1\u30a4\u30eb\u306f\u6a5f\u5bc6\u60c5"
+                "\u5831\u3067\u3042\u308a\u3001\u6307\u5b9a"
+                "\u3055\u308c\u305f\u53d7\u4fe1\u8005\u306e"
+                "\u307f\u3092\u5bfe\u8c61\u3068\u3057\u3066"
+                "\u3044\u307e\u3059\u3002\n"
+                "\n"
+                "\u4fdd\u5bc6\u58f0\u660e\uff1a\u672c\u90ae"
+                "\u4ef6\u53ca\u5176\u9644\u4ef6\u5747\u4e3a"
+                "\u673a\u5bc6\u4fe1\u606f\uff0c\u4ec5\u4f9b"
+                "\u6307\u5b9a\u6536\u4ef6\u4eba\u4f7f\u7528"
+                "\u3002\n"
+                "\n"
+                "--- Actual message below / Message ci-dessous "
+                "/ Nachricht unten ---\n"
+                "\n"
+                "Hi,\n"
+                "\n"
+                "I can't reset my password on the Contoso IAM "
+                "self-service portal (https://iam.contoso.com/"
+                "reset). When I click 'Reset Password' after "
+                "entering my email, the page spins for about "
+                "20 seconds and then shows 'An unexpected error "
+                "occurred. Please try again later.' I've tried "
+                "Chrome 123, Edge 123, and Firefox 124 — same "
+                "result on all three. My account is "
+                "tomoko.hayashi@contoso.com and I need access "
+                "restored before my 10:00 AM ET client call.\n"
+                "\n"
+                "Thanks,\n"
+                "Tomoko Hayashi\n"
+                "Client Advisory"
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P3,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[
+                MissingInfo.ERROR_MESSAGE,
+                MissingInfo.AUTHENTICATION_METHOD,
+            ],
+            next_best_action=(
+                "Investigate the IAM self-service password reset "
+                "failure at https://iam.contoso.com/reset for "
+                "user tomoko.hayashi@contoso.com. The multilingual "
+                "legal disclaimer is boilerplate noise. The real "
+                "issue is a server-side error during the password "
+                "reset flow across all browsers."
+            ),
+            remediation_steps=[
+                "Check the IAM portal application logs for "
+                "errors associated with tomoko.hayashi@contoso"
+                ".com around the reported timeframe.",
+                "Verify the SMTP relay used by the password "
+                "reset flow is operational — a failed email "
+                "send can surface as a generic error.",
+                "Manually reset the user's password via the "
+                "admin console and send temporary credentials "
+                "to restore access before the 10:00 AM call.",
+                "Test the self-service reset flow with a test "
+                "account to determine whether the issue is "
+                "user-specific or portal-wide.",
+                "Review recent deployments to the IAM portal for regressions in the password reset controller.",
+            ],
+            reporter_name="Tomoko Hayashi",
+            reporter_email="tomoko.hayashi@contoso.com",
+            reporter_department="Client Advisory",
+            channel=Channel.EMAIL,
+            tags=[
+                "data-cleanup",
+                "multilingual-disclaimer",
+                "legal-boilerplate",
+                "password-reset",
+            ],
+            difficulty="hard",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-189",
+            subject="Monitor not working — see attached screenshot",
+            description=("See attached screenshot."),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[
+                MissingInfo.DEVICE_INFO,
+                MissingInfo.SCREENSHOT_OR_ATTACHMENT,
+                MissingInfo.ERROR_MESSAGE,
+                MissingInfo.STEPS_TO_REPRODUCE,
+            ],
+            next_best_action=(
+                "The ticket contains no actionable detail — only "
+                "'See attached screenshot' with no attachment "
+                "present. Contact the reporter to obtain the "
+                "monitor make/model, connection type, symptoms, "
+                "and the missing screenshot."
+            ),
+            remediation_steps=[
+                "Reply to the reporter requesting the monitor "
+                "make, model, and connection type (HDMI, "
+                "DisplayPort, USB-C).",
+                "Ask whether the monitor shows no signal, a blank screen, flickering, or an error message.",
+                "Request the screenshot that was referenced but not attached to the ticket.",
+                "Once details are provided, check whether the "
+                "issue matches any known fleet-wide display "
+                "driver problems.",
+                "If the reporter does not respond within 24 "
+                "hours, set the ticket to 'Pending Caller' "
+                "and schedule a follow-up.",
+            ],
+            reporter_name="Jordan Blake",
+            reporter_email="jordan.blake@contoso.com",
+            reporter_department="Marketing",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "near-empty",
+                "missing-attachment",
+                "no-details",
+            ],
+            difficulty="medium",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-190",
+            subject=("Nessus scan results — critical findings for prod cluster"),
+            description=(
+                "Nessus Professional 10.7.2 — Scan Report\n"
+                "Policy: Contoso-PCI-Quarterly\n"
+                "Scanner: nessus-prod-01.contoso.com\n"
+                "Scan Start: 2026-03-23 02:00:00 UTC\n"
+                "Scan End:   2026-03-23 04:47:33 UTC\n"
+                "Hosts Scanned: 48\n"
+                "Vulnerabilities Found: 312\n"
+                "\n"
+                "--- Critical (CVSS >= 9.0) ---\n"
+                "Plugin 51192 | SSL Certificate Cannot Be "
+                "Trusted\n"
+                "  Host: pay.contoso.com (10.1.4.21)\n"
+                "  Port: 443/tcp\n"
+                "  CVSS: 6.5 (re-scored to Critical per "
+                "Contoso policy — payment tier)\n"
+                "  Synopsis: The SSL certificate for this "
+                "service is not signed by a known CA.\n"
+                "  Description: The X.509 certificate chain "
+                "for pay.contoso.com:443 terminates at a self-"
+                "signed root that is not in the scanner's trust "
+                "store. Certificate details: Subject: "
+                "CN=pay.contoso.com, O=Contoso Ltd; Issuer: "
+                "CN=Contoso Internal CA G3; Not After: "
+                "2026-04-01T23:59:59Z (EXPIRES IN 8 DAYS).\n"
+                "\n"
+                "Plugin 15901 | SSL Certificate Expiry\n"
+                "  Host: pay.contoso.com (10.1.4.21)\n"
+                "  Port: 443/tcp\n"
+                "  CVSS: 5.3 (re-scored Critical — PCI scope)\n"
+                "  Synopsis: The remote server's SSL certificate "
+                "will expire within 30 days.\n"
+                "  Description: Not After = 2026-04-01. Days "
+                "remaining: 8.\n"
+                "\n"
+                "Plugin 20007 | SSL Version 2 and 3 Detection\n"
+                "  Host: legacy-api.contoso.com (10.1.4.35)\n"
+                "  Port: 8443/tcp\n"
+                "  CVSS: 9.1\n"
+                "  Synopsis: SSLv3 is enabled on this host.\n"
+                "\n"
+                "Plugin 104743 | TLS 1.0 Enabled\n"
+                "  Host: legacy-api.contoso.com (10.1.4.35)\n"
+                "  Port: 8443/tcp\n"
+                "  CVSS: 7.5 (Critical per PCI-DSS 3.2.1)\n"
+                "\n"
+                "--- High (CVSS 7.0–8.9) ---\n"
+                "(87 findings omitted for brevity)\n"
+                "\n"
+                "--- Medium (CVSS 4.0–6.9) ---\n"
+                "(143 findings omitted for brevity)\n"
+                "\n"
+                "--- Low / Info ---\n"
+                "(82 findings omitted for brevity)\n"
+                "\n"
+                "Hi Security team,\n"
+                "\n"
+                "The quarterly PCI Nessus scan finished this "
+                "morning. The most urgent finding is that the "
+                "TLS certificate on pay.contoso.com expires in "
+                "8 days (2026-04-01). If it lapses we'll fail "
+                "PCI-DSS compliance and the payment gateway "
+                "will show cert warnings to customers. Can we "
+                "get the renewal expedited?\n"
+                "\n"
+                "Also flagging SSLv3 and TLS 1.0 still enabled "
+                "on legacy-api.contoso.com — that's been an "
+                "open finding for two quarters.\n"
+                "\n"
+                "Regards,\n"
+                "Fatima Al-Rashid\n"
+                "Information Security — GRC"
+            ),
+            category=Category.SECURITY,
+            priority=Priority.P2,
+            team=Team.SECURITY_OPS,
+            needs_escalation=True,
+            missing_info=[
+                MissingInfo.CONFIGURATION_DETAILS,
+                MissingInfo.BUSINESS_IMPACT,
+            ],
+            next_best_action=(
+                "Expedite the TLS certificate renewal for "
+                "pay.contoso.com before the 2026-04-01 expiry "
+                "to maintain PCI-DSS compliance. The Nessus "
+                "scan dump is supporting evidence — the "
+                "critical action item is the 8-day certificate "
+                "countdown and the legacy TLS versions on "
+                "legacy-api.contoso.com."
+            ),
+            remediation_steps=[
+                "Submit an expedited certificate signing request "
+                "(CSR) for pay.contoso.com to the Contoso "
+                "Internal CA G3 or the public CA used for "
+                "payment services.",
+                "Install the renewed certificate on the payment "
+                "gateway and validate the full chain with "
+                "'openssl s_client -connect pay.contoso.com:443'.",
+                "Disable SSLv3 and TLS 1.0 on legacy-api."
+                "contoso.com:8443 by updating the server's TLS "
+                "configuration to require TLS 1.2 or higher.",
+                "Coordinate with the legacy-api application owner "
+                "to verify that all clients support TLS 1.2+ "
+                "before disabling older protocols.",
+                "Set up automated certificate-expiry monitoring "
+                "in the security tooling to alert at 30, 14, and "
+                "7 days before expiry for all PCI-scoped hosts.",
+            ],
+            reporter_name="Fatima Al-Rashid",
+            reporter_email="fatima.al-rashid@contoso.com",
+            reporter_department="Information Security",
+            channel=Channel.PORTAL,
+            tags=[
+                "data-cleanup",
+                "vulnerability-scanner",
+                "nessus-output",
+                "tls-certificate",
+                "pci-compliance",
+            ],
+            difficulty="hard",
+        ),
     ]
