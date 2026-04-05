@@ -8308,13 +8308,700 @@ def _dc125_zero_width_unicode() -> EvalCase:
     )
 
 
+def _dc126_extremely_long_subject() -> EvalCase:
+    """Extremely long subject line (200+ chars) that may break subject-line parsers."""
+    long_subject = (
+        "URGENT VPN connectivity failure on all Windows 11 laptops across Building 7 floors 3-5 "
+        "affecting approximately 120 users since this morning 9:15 AM EST with error code "
+        "VPN_TIMEOUT_0x800704CF and we need immediate resolution before the board meeting at 2 PM"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-126",
+            subject=long_subject,
+            description=(
+                "Hi Support,\n\n"
+                "As noted in the very long subject line above, we are experiencing a widespread "
+                "VPN connectivity failure across Building 7, floors 3 through 5. Approximately "
+                "120 users are impacted and none of them can establish a tunnel to the corporate "
+                "network using GlobalProtect v6.1.2 on Windows 11 23H2.\n\n"
+                "The issue started at approximately 09:15 AM EST today. Users see error code "
+                "VPN_TIMEOUT_0x800704CF after the client spins for about 45 seconds. We have "
+                "verified that the users' internet connections are working fine — they can browse "
+                "external sites without issue. The problem appears limited to the VPN tunnel "
+                "establishment phase.\n\n"
+                "We have already tried:\n"
+                "- Restarting the GlobalProtect service on several machines\n"
+                "- Flushing DNS caches\n"
+                "- Connecting from a different SSID\n"
+                "- Rebooting laptops entirely\n\n"
+                "None of these steps resolved the issue. The board meeting is at 2 PM and several "
+                "executives in Building 7 need VPN access to present financial dashboards hosted "
+                "on the internal BI server.\n\n"
+                "Please escalate immediately.\n\n"
+                "Thanks,\nRachel Simmons\nIT Liaison — Building 7\n"
+                "rachel.simmons@contoso.com"
+            ),
+            reporter=_reporter("Rachel Simmons", "rachel.simmons@contoso.com", "Facilities IT"),
+            created_at="2026-04-07T09:20:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-126",
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            assigned_team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE, MissingInfoField.NETWORK_LOCATION],
+            next_best_action=(
+                "Investigate the GlobalProtect VPN tunnel failure (error VPN_TIMEOUT_0x800704CF) "
+                "affecting Building 7 users and check the VPN concentrator logs for the relevant "
+                "gateway."
+            ),
+            remediation_steps=[
+                "Review GlobalProtect gateway and portal logs for connection attempts from Building 7 subnets.",
+                "Check if a recent firewall policy change is blocking tunnel establishment on the relevant ports.",
+                "Verify that the VPN concentrator serving Building 7 is healthy and not resource-exhausted.",
+                "Test VPN connectivity from a known-good machine on the same network segment.",
+            ],
+        ),
+        tags=["data-cleanup", "extremely_long_subject", "truncation"],
+        description="Extremely long subject line (200+ chars) that may break subject-line parsing or truncation logic.",
+    )
+
+
+def _dc127_svg_data_uri() -> EvalCase:
+    """SVG data URIs pasted inline, adding vector-graphic noise to a hardware monitor issue."""
+    svg_blob_1 = (
+        'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZp'
+        'ZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0icmVk'
+        'Ii8+PC9zdmc+'
+    )
+    svg_blob_2 = (
+        'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22'
+        '200%22%20height%3D%22200%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill'
+        '%3D%22%23ccc%22/%3E%3C/svg%3E'
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-127",
+            subject="External monitor flickering and losing signal intermittently",
+            description=(
+                "My external monitor (Dell U2723QE) keeps flickering and dropping signal every "
+                "few minutes. I'm connected via USB-C to my ThinkPad T14s Gen 4. The issue "
+                "started after last week's docking station firmware update.\n\n"
+                "I tried to capture what the screen looks like when it flickers. Here are the "
+                "diagrams I drew in our SVG editor to illustrate the problem:\n\n"
+                f"[Flicker pattern diagram]: {svg_blob_1}\n\n"
+                f"[Signal loss timing chart]: {svg_blob_2}\n\n"
+                "As shown in the diagrams above, the flicker occurs in a roughly 3-second cycle "
+                "— the monitor goes black for about 0.5 seconds, then comes back. The USB-C "
+                "connection indicator on the monitor blinks amber during the dropout.\n\n"
+                "I also noticed that the issue does not occur when I connect via HDMI directly, "
+                "bypassing the docking station. This makes me think it is related to the USB-C "
+                "DisplayPort alt-mode negotiation or the docking station firmware.\n\n"
+                "This is really impacting my productivity as I rely on the external monitor for "
+                "code reviews and design work.\n\n"
+                "— Jorge Medina, Engineering\njorge.medina@contoso.com"
+            ),
+            reporter=_reporter("Jorge Medina", "jorge.medina@contoso.com", "Engineering"),
+            created_at="2026-04-07T10:15:00Z",
+            channel=Channel.PORTAL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-127",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.DEVICE_INFO, MissingInfoField.APPLICATION_VERSION],
+            next_best_action=(
+                "Investigate the USB-C DisplayPort alt-mode signal dropout on the Dell U2723QE "
+                "connected through the docking station after the recent firmware update."
+            ),
+            remediation_steps=[
+                "Check the docking station firmware version and compare with the previous working version.",
+                "Roll back the docking station firmware if a previous version is available.",
+                "Test with a different USB-C cable to rule out cable quality issues.",
+                "Update the ThinkPad T14s USB-C/Thunderbolt drivers to the latest version.",
+            ],
+        ),
+        tags=["data-cleanup", "svg_data_uri", "inline_vector"],
+        description="SVG data URIs embedded inline add vector-graphic noise to a hardware monitor ticket.",
+    )
+
+
+def _dc128_prometheus_metrics_flood() -> EvalCase:
+    """Prometheus metrics exposition format pasted into a database performance ticket."""
+    prom_metrics = (
+        "# HELP pg_stat_activity_count Number of connections in each state\n"
+        "# TYPE pg_stat_activity_count gauge\n"
+        'pg_stat_activity_count{datname="proddb",state="active"} 47\n'
+        'pg_stat_activity_count{datname="proddb",state="idle"} 312\n'
+        'pg_stat_activity_count{datname="proddb",state="idle in transaction"} 8\n'
+        "# HELP pg_database_size_bytes Database size in bytes\n"
+        "# TYPE pg_database_size_bytes gauge\n"
+        'pg_database_size_bytes{datname="proddb"} 1.284739481e+11\n'
+        'pg_database_size_bytes{datname="analyticsdb"} 5.83920384e+10\n'
+        "# HELP pg_locks_count Number of locks\n"
+        "# TYPE pg_locks_count gauge\n"
+        'pg_locks_count{datname="proddb",mode="AccessShareLock"} 89\n'
+        'pg_locks_count{datname="proddb",mode="RowExclusiveLock"} 23\n'
+        'pg_locks_count{datname="proddb",mode="ExclusiveLock"} 2\n'
+        "# HELP pg_replication_lag_seconds Replication lag in seconds\n"
+        "# TYPE pg_replication_lag_seconds gauge\n"
+        "pg_replication_lag_seconds 4.572\n"
+        "# HELP node_cpu_seconds_total CPU seconds total\n"
+        "# TYPE node_cpu_seconds_total counter\n"
+        'node_cpu_seconds_total{cpu="0",mode="idle"} 2.839471293e+06\n'
+        'node_cpu_seconds_total{cpu="0",mode="system"} 148293.47\n'
+        'node_cpu_seconds_total{cpu="0",mode="user"} 529381.82\n'
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-128",
+            subject="Production database slow queries and connection pool exhaustion",
+            description=(
+                "We are seeing severe performance degradation on our production PostgreSQL "
+                "cluster (pg-prod-east-01). Query response times have increased from ~50ms to "
+                "over 3 seconds for simple SELECT statements, and our application is throwing "
+                "connection pool exhaustion errors.\n\n"
+                "I pulled the following Prometheus metrics from our monitoring stack to help "
+                "diagnose:\n\n"
+                f"{prom_metrics}\n"
+                "As you can see, we have 312 idle connections and the replication lag is at "
+                "4.5 seconds, which is way above our 1-second SLA threshold. The lock count "
+                "also shows 2 exclusive locks which might be causing the bottleneck.\n\n"
+                "The issue started around 06:00 UTC this morning, which coincides with our "
+                "nightly ETL batch job window. We suspect the ETL process is holding long-running "
+                "transactions that are blocking other queries.\n\n"
+                "This is impacting our customer-facing API — error rates have spiked to 12% "
+                "on the order service.\n\n"
+                "— Priya Chandrasekaran, Data Engineering\npriya.c@contoso.com"
+            ),
+            reporter=_reporter("Priya Chandrasekaran", "priya.c@contoso.com", "Data Engineering"),
+            created_at="2026-04-07T06:45:00Z",
+            channel=Channel.CHAT,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-128",
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            assigned_team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE, MissingInfoField.TIMESTAMP],
+            next_best_action=(
+                "Investigate PostgreSQL connection pool exhaustion and long-running transactions "
+                "on pg-prod-east-01 that coincide with the nightly ETL window."
+            ),
+            remediation_steps=[
+                "Identify and terminate any long-running transactions from the ETL batch job using pg_stat_activity.",
+                "Review the ETL process for missing COMMIT statements or excessively large transactions.",
+                "Increase the connection pool max size temporarily to restore API availability.",
+                "Set a statement_timeout for the ETL user role to prevent future runaway queries.",
+            ],
+        ),
+        tags=["data-cleanup", "prometheus_metrics", "monitoring_flood"],
+        description="Prometheus metrics exposition block pasted into a database performance ticket.",
+    )
+
+
+def _dc129_systeminfo_dump() -> EvalCase:
+    """Windows systeminfo command output pasted into a hardware issue ticket."""
+    sysinfo = (
+        "Host Name:                 WS-DMARTIN-PC\n"
+        "OS Name:                   Microsoft Windows 11 Enterprise\n"
+        "OS Version:                10.0.22631 N/A Build 22631\n"
+        "OS Manufacturer:           Microsoft Corporation\n"
+        "OS Configuration:          Member Workstation\n"
+        "OS Build Type:             Multiprocessor Free\n"
+        "Registered Owner:          Contoso Ltd\n"
+        "System Manufacturer:       Dell Inc.\n"
+        "System Model:              Latitude 5540\n"
+        "System Type:               x64-based PC\n"
+        "Processor(s):              1 Processor(s) Installed.\n"
+        "                           [01]: Intel64 Family 6 Model 186 Stepping 3 ~2400 Mhz\n"
+        "BIOS Version:              Dell Inc. 1.18.0, 2/14/2026\n"
+        "Total Physical Memory:     16,148 MB\n"
+        "Available Physical Memory: 3,241 MB\n"
+        "Virtual Memory: Max Size:  18,708 MB\n"
+        "Virtual Memory: In Use:    14,892 MB\n"
+        "Page File Location(s):     C:\\pagefile.sys\n"
+        "Network Card(s):           3 NIC(s) Installed.\n"
+        "                           [01]: Intel(R) Ethernet Connection I219-LM\n"
+        "                           [02]: Intel(R) Wi-Fi 6E AX211 160MHz\n"
+        "                           [03]: Bluetooth Device (Personal Area Network)\n"
+        "Hyper-V Requirements:      VM Monitor Mode Extensions: Yes\n"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-129",
+            subject="Laptop overheating and fans running at max speed constantly",
+            description=(
+                "My Dell Latitude 5540 has been overheating badly for the past three days. "
+                "The fans are running at maximum speed constantly, even when I'm just reading "
+                "email in Outlook. The bottom of the laptop is too hot to touch and I'm worried "
+                "about hardware damage.\n\n"
+                "I ran systeminfo so you can see my machine details:\n\n"
+                f"{sysinfo}\n"
+                "As you can see from the memory figures, I only have about 3 GB of RAM free "
+                "out of 16 GB, and the virtual memory usage is very high. I don't know if that's "
+                "related to the overheating or not.\n\n"
+                "I checked Task Manager and the top CPU consumers are:\n"
+                "- Microsoft Teams: 18-25% CPU\n"
+                "- Windows Search Indexer: 12-15% CPU\n"
+                "- System (ntoskrnl.exe): 8-10% CPU\n\n"
+                "The laptop is about 14 months old so just outside the 1-year warranty. I've "
+                "already tried cleaning the vents with compressed air but it didn't help.\n\n"
+                "— Derek Martin, Marketing\nderek.martin@contoso.com"
+            ),
+            reporter=_reporter("Derek Martin", "derek.martin@contoso.com", "Marketing"),
+            created_at="2026-04-07T11:30:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-129",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.DEVICE_INFO],
+            next_best_action=(
+                "Diagnose the sustained overheating on the Dell Latitude 5540 — determine "
+                "whether the root cause is a thermal paste issue, blocked airflow, or excessive "
+                "background CPU load."
+            ),
+            remediation_steps=[
+                "Run Dell SupportAssist hardware diagnostics to check for thermal sensor or fan faults.",
+                "Review startup programs and disable unnecessary background processes consuming CPU.",
+                "Check for pending BIOS and thermal management firmware updates from Dell.",
+                "If diagnostics pass, schedule a physical inspection to clean or replace thermal paste.",
+            ],
+        ),
+        tags=["data-cleanup", "systeminfo_dump", "command_paste"],
+        description="Windows systeminfo output pasted into a laptop overheating ticket adds command noise.",
+    )
+
+
+def _dc130_splunk_search_results() -> EvalCase:
+    """Splunk search results table pasted into a security incident ticket."""
+    splunk_output = (
+        "| _time                  | src_ip         | dest_ip       | action  | signature              | severity |\n"
+        "|------------------------|----------------|---------------|---------|------------------------|----------|\n"
+        "| 2026-04-06T23:14:02Z   | 10.42.7.19     | 10.50.1.100   | blocked | ET SCAN Nmap SYN       | high     |\n"
+        "| 2026-04-06T23:14:03Z   | 10.42.7.19     | 10.50.1.101   | blocked | ET SCAN Nmap SYN       | high     |\n"
+        "| 2026-04-06T23:14:03Z   | 10.42.7.19     | 10.50.1.102   | blocked | ET SCAN Nmap SYN       | high     |\n"
+        "| 2026-04-06T23:14:04Z   | 10.42.7.19     | 10.50.1.103   | blocked | ET SCAN Nmap SYN       | high     |\n"
+        "| 2026-04-06T23:14:05Z   | 10.42.7.19     | 10.50.1.104   | allowed | ET SCAN Nmap SYN       | high     |\n"
+        "| 2026-04-06T23:14:07Z   | 10.42.7.19     | 10.50.1.104   | allowed | ET POLICY SSH conn     | medium   |\n"
+        "| 2026-04-06T23:14:09Z   | 10.42.7.19     | 10.50.1.104   | allowed | ET POLICY SSH brute    | critical |\n"
+        "| 2026-04-06T23:15:22Z   | 10.42.7.19     | 10.50.1.104   | allowed | ET TROJAN Callback     | critical |\n"
+        "| 2026-04-06T23:17:45Z   | 10.50.1.104    | 203.0.113.42  | allowed | ET POLICY DNS Exfil    | critical |\n"
+        "| 2026-04-06T23:18:01Z   | 10.50.1.104    | 203.0.113.42  | blocked | ET TROJAN C2 Beacon    | critical |\n"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-130",
+            subject="Potential lateral movement and C2 beacon detected from internal host",
+            description=(
+                "Our SIEM flagged suspicious activity originating from 10.42.7.19, which appears "
+                "to be conducting port scanning followed by SSH brute-force attacks against our "
+                "internal server subnet (10.50.1.0/24). One host (10.50.1.104) was successfully "
+                "compromised and has started communicating with an external IP (203.0.113.42) "
+                "that matches known C2 infrastructure.\n\n"
+                "Here are the relevant Splunk search results:\n\n"
+                f"{splunk_output}\n"
+                "The timeline shows a clear attack chain: SYN scan → SSH brute force → callback → "
+                "DNS exfiltration → C2 beacon. The IDS blocked most of the initial scans but "
+                "10.50.1.104 was reached and compromised.\n\n"
+                "I have already isolated 10.50.1.104 from the network via the switch port. "
+                "However, 10.42.7.19 is still active and may be an already-compromised internal "
+                "machine being used as a pivot point.\n\n"
+                "Need immediate assistance from the security team to investigate the full scope "
+                "of the breach.\n\n"
+                "— Kwame Asante, SOC Analyst\nkwame.asante@contoso.com"
+            ),
+            reporter=_reporter("Kwame Asante", "kwame.asante@contoso.com", "Security Operations"),
+            created_at="2026-04-06T23:25:00Z",
+            channel=Channel.PORTAL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-130",
+            category=Category.SECURITY,
+            priority=Priority.P2,
+            assigned_team=Team.SECURITY_OPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.AFFECTED_SYSTEM, MissingInfoField.BUSINESS_IMPACT],
+            next_best_action=(
+                "Investigate the lateral movement chain from 10.42.7.19 and the potential "
+                "compromise of 10.50.1.104 including any data exfiltration to 203.0.113.42."
+            ),
+            remediation_steps=[
+                "Isolate 10.42.7.19 from the network immediately and image the disk for forensics.",
+                "Perform a full forensic analysis of 10.50.1.104 to determine the scope of compromise.",
+                "Block 203.0.113.42 at the perimeter firewall and check historical logs for prior communication.",
+                "Reset credentials for all accounts that had sessions on either compromised host.",
+            ],
+        ),
+        tags=["data-cleanup", "splunk_results", "siem_paste"],
+        description="Splunk search results table pasted into a security incident ticket.",
+    )
+
+
+def _dc131_arm_bicep_template() -> EvalCase:
+    """ARM/Bicep Infrastructure-as-Code template dump in a deployment failure ticket."""
+    bicep_snippet = (
+        "// main.bicep - Production App Service deployment\n"
+        "param location string = resourceGroup().location\n"
+        "param appName string = 'contoso-orders-api'\n"
+        "param skuName string = 'P1v3'\n\n"
+        "resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {\n"
+        "  name: '${appName}-plan'\n"
+        "  location: location\n"
+        "  sku: {\n"
+        "    name: skuName\n"
+        "    tier: 'PremiumV3'\n"
+        "    size: 'P1v3'\n"
+        "    capacity: 3\n"
+        "  }\n"
+        "  kind: 'linux'\n"
+        "  properties: {\n"
+        "    reserved: true\n"
+        "  }\n"
+        "}\n\n"
+        "resource webApp 'Microsoft.Web/sites@2022-09-01' = {\n"
+        "  name: appName\n"
+        "  location: location\n"
+        "  properties: {\n"
+        "    serverFarmId: appServicePlan.id\n"
+        "    siteConfig: {\n"
+        "      linuxFxVersion: 'PYTHON|3.11'\n"
+        "      alwaysOn: true\n"
+        "      ftpsState: 'Disabled'\n"
+        "      minTlsVersion: '1.2'\n"
+        "      appSettings: [\n"
+        "        { name: 'DB_CONNECTION', value: '@Microsoft.KeyVault(...)' }\n"
+        "        { name: 'REDIS_URL', value: '@Microsoft.KeyVault(...)' }\n"
+        "      ]\n"
+        "    }\n"
+        "  }\n"
+        "}\n"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-131",
+            subject="Azure App Service deployment failing with SkuNotAvailable error",
+            description=(
+                "Our CI/CD pipeline is failing to deploy the Orders API to Azure App Service. "
+                "The deployment started failing yesterday after we changed the SKU from S1 to "
+                "P1v3 in our Bicep template. The error from the ARM deployment is:\n\n"
+                "\"Code: SkuNotAvailable, Message: The requested size for resource "
+                "'contoso-orders-api-plan' is currently not available in location 'eastus2' "
+                "for subscription '...' . Please try another size or deploy to a different "
+                "region.\"\n\n"
+                "Here is the Bicep template we are using:\n\n"
+                f"{bicep_snippet}\n"
+                "We need the P1v3 SKU for the performance requirements of the Orders API — "
+                "the S1 tier was causing timeout issues under load. The deployment must target "
+                "eastus2 because that's where our SQL and Redis instances are located.\n\n"
+                "Can someone help us find an alternative approach? Perhaps a different availability "
+                "zone within eastus2, or a comparable SKU that is available?\n\n"
+                "— Tomás Rivera, Platform Engineering\ntomas.rivera@contoso.com"
+            ),
+            reporter=_reporter("Tomás Rivera", "tomas.rivera@contoso.com", "Platform Engineering"),
+            created_at="2026-04-07T08:00:00Z",
+            channel=Channel.CHAT,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-131",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ENVIRONMENT_DETAILS, MissingInfoField.ERROR_MESSAGE],
+            next_best_action=(
+                "Resolve the SkuNotAvailable error for P1v3 in eastus2 by checking SKU "
+                "availability and identifying an alternative SKU or availability zone."
+            ),
+            remediation_steps=[
+                "Run 'az appservice list-locations --sku P1v3' to check P1v3 availability in eastus2.",
+                "If P1v3 is unavailable, try P2v3 or P1mv3 as alternative premium SKUs.",
+                "Open an Azure support request to check if P1v3 capacity can be reserved in eastus2.",
+                "As a temporary workaround, deploy to a paired region (centralus) with VNet peering.",
+            ],
+        ),
+        tags=["data-cleanup", "arm_template", "iac_noise"],
+        description="ARM/Bicep IaC template dump adds infrastructure-as-code noise to a deployment failure ticket.",
+    )
+
+
+def _dc132_csv_bulk_paste() -> EvalCase:
+    """Bulk CSV rows pasted into a data import failure ticket."""
+    csv_rows = (
+        "order_id,customer_id,product_sku,quantity,unit_price,order_date,ship_date,status\n"
+        "ORD-90001,CUST-4421,SKU-BK-7812,2,29.99,2026-04-01,2026-04-03,shipped\n"
+        "ORD-90002,CUST-1190,SKU-EL-0034,1,549.00,2026-04-01,2026-04-04,shipped\n"
+        "ORD-90003,CUST-8827,SKU-BK-7812,5,29.99,2026-04-01,,processing\n"
+        "ORD-90004,CUST-3356,SKU-HW-1120,1,1299.00,2026-04-02,2026-04-03,shipped\n"
+        "ORD-90005,CUST-7741,SKU-EL-0034,3,549.00,2026-04-02,,failed\n"
+        "ORD-90006,CUST-2218,SKU-OF-4450,10,12.50,2026-04-02,2026-04-04,shipped\n"
+        "ORD-90007,CUST-9903,SKU-BK-7812,1,29.99,2026-04-02,,failed\n"
+        "ORD-90008,CUST-5564,SKU-HW-1120,2,1299.00,2026-04-03,,processing\n"
+        "ORD-90009,CUST-1190,SKU-OF-4450,25,12.50,2026-04-03,2026-04-05,shipped\n"
+        "ORD-90010,CUST-6632,SKU-EL-0034,1,549.00,2026-04-03,,failed\n"
+        "ORD-90011,CUST-4421,SKU-HW-1120,1,1299.00,2026-04-03,,failed\n"
+        "ORD-90012,CUST-8827,SKU-OF-4450,50,12.50,2026-04-04,,processing\n"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-132",
+            subject="Bulk order import failing — 4 out of 12 rows stuck in 'failed' status",
+            description=(
+                "We are running the weekly bulk order import into our fulfillment system and "
+                "4 out of 12 rows are ending up in 'failed' status with no clear error message "
+                "in the import log. The import job ID is IMPORT-2026-04-06-001.\n\n"
+                "Here is the full CSV that was submitted for import:\n\n"
+                f"{csv_rows}\n"
+                "The failed rows are ORD-90005, ORD-90007, ORD-90010, and ORD-90011. I notice "
+                "they all have empty ship_date fields, but so do the 'processing' rows (ORD-90003, "
+                "ORD-90008, ORD-90012) which imported fine. So the empty ship_date alone isn't "
+                "the issue.\n\n"
+                "Looking more carefully, the failed rows seem to involve higher-value items "
+                "(SKU-EL-0034 at $549 and SKU-HW-1120 at $1299). Could there be a value threshold "
+                "validation that's rejecting them?\n\n"
+                "We need these orders processed by end of business today to meet our SLA.\n\n"
+                "— Lin Chen, Order Operations\nlin.chen@contoso.com"
+            ),
+            reporter=_reporter("Lin Chen", "lin.chen@contoso.com", "Order Operations"),
+            created_at="2026-04-06T14:20:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-132",
+            category=Category.DATA_STORAGE,
+            priority=Priority.P3,
+            assigned_team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE, MissingInfoField.APPLICATION_VERSION],
+            next_best_action=(
+                "Investigate why the bulk order import job IMPORT-2026-04-06-001 is marking "
+                "high-value orders as failed — check for value-threshold validation rules."
+            ),
+            remediation_steps=[
+                "Query the import job logs for IMPORT-2026-04-06-001 to extract the exact failure reason per row.",
+                "Check if a recently added order-value validation rule is rejecting items above a dollar threshold.",
+                "Manually re-import the 4 failed rows with verbose logging enabled to capture the root cause.",
+                "If a threshold rule is confirmed, adjust it or add an override for bulk imports.",
+            ],
+        ),
+        tags=["data-cleanup", "csv_flood", "bulk_data_paste"],
+        description="Bulk CSV rows pasted inline flood a data import failure ticket.",
+    )
+
+
+def _dc133_codepage_mojibake() -> EvalCase:
+    """CP-1252/UTF-8 mojibake corruption in a printer configuration ticket."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-133",
+            subject="Printer outputting garbled characters on all documents",
+            description=(
+                "Our department printer (HP LaserJet Pro MFP 4101fdw) has been printing garbled "
+                "text on every document since Monday morning. Here\u00e2\u0080\u0099s what a "
+                "typical page looks like \u00e2\u0080\u0094 the word \u00e2\u0080\u009cInvoice"
+                "\u00e2\u0080\u009d prints as \u00e2\u0080\u009cInvoiÃ§Ã©\u00e2\u0080\u009d "
+                "and accented characters like Ã©, Ã¨, and Ã¼ appear throughout.\n\n"
+                "The issue affects all users printing from Windows, not just one machine. "
+                "Printing from a Mac works fine, which is strange. We\u00e2\u0080\u0099ve tried:\n"
+                "\u00e2\u0080\u00a2 Reinstalling the printer driver (v49.4.4578)\n"
+                "\u00e2\u0080\u00a2 Changing the default character set in printer settings\n"
+                "\u00e2\u0080\u00a2 Printing a test page from the printer\u00e2\u0080\u0099s "
+                "own menu (this prints fine)\n"
+                "\u00e2\u0080\u00a2 Using a different USB cable\n\n"
+                "The test page from the printer itself is perfect, so the hardware seems fine. "
+                "It\u00e2\u0080\u0099s only when printing from Windows that we get the mojibake. "
+                "I suspect it\u00e2\u0080\u0099s a character encoding mismatch between the "
+                "Windows print spooler and the printer\u00e2\u0080\u0099s PCL interpreter.\n\n"
+                "This is affecting our entire Finance floor (about 30 people) who need to "
+                "print invoices daily.\n\n"
+                "\u00e2\u0080\u0094 Svetlana Novak, Finance\nsvetlana.novak@contoso.com"
+            ),
+            reporter=_reporter("Svetlana Novak", "svetlana.novak@contoso.com", "Finance"),
+            created_at="2026-04-07T08:45:00Z",
+            channel=Channel.PHONE,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-133",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ENVIRONMENT_DETAILS, MissingInfoField.DEVICE_INFO],
+            next_best_action=(
+                "Investigate the character encoding mismatch between Windows print spooler "
+                "and the HP LaserJet Pro MFP 4101fdw PCL interpreter causing mojibake output."
+            ),
+            remediation_steps=[
+                "Check the Windows print spooler language setting — switch from PCL to PostScript driver if available.",
+                "Verify the printer firmware version and update to the latest release from HP.",
+                "Check if a recent Windows Update changed the default codepage or font substitution table.",
+                "Test printing with the Universal Print Driver (UPD) as an alternative.",
+            ],
+        ),
+        tags=["data-cleanup", "codepage_mojibake", "encoding_corruption"],
+        description="CP-1252/UTF-8 mojibake corruption scattered throughout a printer issue ticket.",
+    )
+
+
+def _dc134_recursive_email_forward() -> EvalCase:
+    """10+ levels of email forwarding headers creating a deeply nested forward chain."""
+    forward_chain = (
+        "---------- Forwarded message ----------\n"
+        "From: helpdesk@contoso.com\nTo: l2.support@contoso.com\n"
+        "Date: Mon, 7 Apr 2026 07:00:00 -0400\nSubject: FW: FW: FW: Outlook calendar sync broken\n\n"
+        "---------- Forwarded message ----------\n"
+        "From: l2.support@contoso.com\nTo: exchange.team@contoso.com\n"
+        "Date: Mon, 7 Apr 2026 07:15:00 -0400\nSubject: FW: FW: FW: FW: Outlook calendar sync broken\n\n"
+        "---------- Forwarded message ----------\n"
+        "From: exchange.team@contoso.com\nTo: m365.ops@contoso.com\n"
+        "Date: Mon, 7 Apr 2026 07:32:00 -0400\nSubject: FW: FW: FW: FW: FW: Outlook calendar sync broken\n\n"
+        "---------- Forwarded message ----------\n"
+        "From: m365.ops@contoso.com\nTo: vendor.escalation@contoso.com\n"
+        "Date: Mon, 7 Apr 2026 08:01:00 -0400\nSubject: FW: FW: FW: FW: FW: FW: Outlook calendar sync broken\n\n"
+        "---------- Forwarded message ----------\n"
+        "From: vendor.escalation@contoso.com\nTo: m365.ops@contoso.com\n"
+        "Date: Mon, 7 Apr 2026 09:45:00 -0400\nSubject: RE: FW: FW: FW: FW: FW: FW: Outlook calendar sync broken\n"
+        "Body: We cannot reproduce. Please collect Outlook ETL traces.\n\n"
+        "---------- Forwarded message ----------\n"
+        "From: m365.ops@contoso.com\nTo: exchange.team@contoso.com\n"
+        "Date: Mon, 7 Apr 2026 10:10:00 -0400\nSubject: FW: RE: FW: FW: FW: FW: FW: FW: Outlook calendar sync broken\n\n"
+        "---------- Forwarded message ----------\n"
+        "From: exchange.team@contoso.com\nTo: l2.support@contoso.com\n"
+        "Date: Mon, 7 Apr 2026 10:30:00 -0400\nSubject: FW: FW: RE: FW: FW: FW: FW: FW: FW: Outlook calendar sync broken\n\n"
+        "---------- Forwarded message ----------\n"
+        "From: l2.support@contoso.com\nTo: helpdesk@contoso.com\n"
+        "Date: Mon, 7 Apr 2026 10:45:00 -0400\nSubject: FW: FW: FW: RE: FW: FW: FW: FW: FW: FW: Outlook calendar sync broken\n\n"
+        "---------- Forwarded message ----------\n"
+        "From: helpdesk@contoso.com\nTo: enterprise.apps@contoso.com\n"
+        "Date: Mon, 7 Apr 2026 11:00:00 -0400\n"
+        "Subject: FW: FW: FW: FW: RE: FW: FW: FW: FW: FW: FW: Outlook calendar sync broken\n"
+        "Body: Reassigning to Enterprise Apps — the vendor says collect ETL traces.\n\n"
+        "---------- Forwarded message ----------\n"
+        "From: enterprise.apps@contoso.com\nTo: desktop.support@contoso.com\n"
+        "Date: Mon, 7 Apr 2026 11:20:00 -0400\n"
+        "Subject: FW: FW: FW: FW: FW: RE: FW: FW: FW: FW: FW: FW: Outlook calendar sync broken\n"
+        "Body: Desktop support — please collect Outlook ETL traces from the user.\n"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-134",
+            subject="Outlook calendar sync broken — meetings not appearing on mobile",
+            description=(
+                "My Outlook calendar on my iPhone 15 Pro stopped syncing with my desktop "
+                "Outlook (Microsoft 365 v2403, Build 17425.20176). New meetings created on "
+                "the desktop don't appear on my phone, and meetings I accept on my phone "
+                "don't show up on the desktop. This started last Thursday.\n\n"
+                "I've tried removing and re-adding my Exchange account on the iPhone, and I've "
+                "also tried resetting the Outlook mobile app data. Neither fixed the issue.\n\n"
+                "This ticket has been bounced around a lot — here is the forwarding history:\n\n"
+                f"{forward_chain}\n"
+                "As you can see, the vendor says they can't reproduce and wants ETL traces. "
+                "I just need someone to actually come to my desk and help me collect these "
+                "traces so we can move forward.\n\n"
+                "I'm missing meetings because of this and it's really disruptive.\n\n"
+                "— Angela Park, Legal\nangela.park@contoso.com"
+            ),
+            reporter=_reporter("Angela Park", "angela.park@contoso.com", "Legal"),
+            created_at="2026-04-07T11:30:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-134",
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.DEVICE_INFO, MissingInfoField.APPLICATION_VERSION],
+            next_best_action=(
+                "Collect Outlook ETL traces from the user's desktop as the vendor requested, "
+                "and verify Exchange ActiveSync profile on the iPhone."
+            ),
+            remediation_steps=[
+                "Schedule a desk visit to collect Outlook ETL traces during a calendar sync attempt.",
+                "Verify the Exchange ActiveSync partnership for the user's iPhone in the Exchange admin center.",
+                "Check if the user's mailbox has hit the ActiveSync device partnership limit.",
+                "Test calendar sync with the Outlook mobile app instead of the native iOS Mail app.",
+            ],
+        ),
+        tags=["data-cleanup", "recursive_forward", "deep_email_chain"],
+        description="10+ levels of email forward headers create a deeply nested chain of noise.",
+    )
+
+
+def _dc135_pii_noise() -> EvalCase:
+    """PII (names, SSNs, phone numbers, addresses) scattered throughout a network ticket."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-135",
+            subject="WiFi keeps dropping in conference rooms on 3rd floor",
+            description=(
+                "The WiFi in our 3rd-floor conference rooms (Rooms 301, 302, and 305) keeps "
+                "dropping during meetings. It affects all devices — laptops, phones, tablets. "
+                "The drops happen every 10-15 minutes and last about 30 seconds each time.\n\n"
+                "I gathered some info from affected users so you can follow up:\n\n"
+                "User 1: Maria Garcia, Employee ID: EMP-44291, Phone: (555) 012-3456, "
+                "SSN: 123-45-6789, Badge #: B-10042, Home: 742 Evergreen Terrace, Springfield, "
+                "IL 62704\n"
+                "User 2: Robert Kim, Employee ID: EMP-38812, Phone: (555) 098-7654, "
+                "SSN: 987-65-4321, Badge #: B-10187, Home: 1600 Pennsylvania Ave NW, "
+                "Washington, DC 20500\n"
+                "User 3: Fatima Al-Hassan, Employee ID: EMP-51003, Phone: (555) 234-5678, "
+                "SSN: 456-78-9012, Badge #: B-10301, Home: 221B Baker Street, London, "
+                "NW1 6XE\n"
+                "User 4: James O'Brien, Employee ID: EMP-29947, Phone: (555) 345-6789, "
+                "SSN: 234-56-7890, Badge #: B-10455, Credit Card: 4111-1111-1111-1111, "
+                "Home: 350 Fifth Avenue, New York, NY 10118\n\n"
+                "All four of these people were in Room 302 during the 10 AM standup when the "
+                "WiFi dropped twice. The access point in that room is AP-3F-02 and it's "
+                "mounted above the ceiling tiles.\n\n"
+                "We have an important client presentation in Room 305 tomorrow at 2 PM and "
+                "we absolutely cannot have WiFi drops during it.\n\n"
+                "— Nathan Brooks, Facilities\nnathan.brooks@contoso.com"
+            ),
+            reporter=_reporter("Nathan Brooks", "nathan.brooks@contoso.com", "Facilities"),
+            created_at="2026-04-07T14:00:00Z",
+            channel=Channel.PHONE,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-135",
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            assigned_team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.NETWORK_LOCATION, MissingInfoField.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate recurring WiFi drops on 3rd-floor access point AP-3F-02 and "
+                "ensure stable coverage before tomorrow's client presentation."
+            ),
+            remediation_steps=[
+                "Check AP-3F-02 logs for disassociation events and channel utilization during drop windows.",
+                "Run a wireless site survey on the 3rd floor to check for co-channel interference.",
+                "Verify the AP firmware is up to date and check for known bugs in the current version.",
+                "If the AP is faulty, deploy a temporary replacement AP before the 2 PM presentation.",
+            ],
+        ),
+        tags=["data-cleanup", "pii_noise", "sensitive_data"],
+        description="PII (SSNs, phone numbers, addresses) scattered in a WiFi issue ticket.",
+    )
+
+
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
 
 def build_dataset() -> EvalDataset:
-    """Build and return the data-cleanup evaluation dataset (110 cases)."""
+    """Build and return the data-cleanup evaluation dataset (135 cases)."""
     return EvalDataset(
         name="data_cleanup",
         description=(
@@ -8453,6 +9140,16 @@ def build_dataset() -> EvalDataset:
             _dc123_ansi_escape_codes(),
             _dc124_misaligned_spreadsheet_paste(),
             _dc125_zero_width_unicode(),
+            _dc126_extremely_long_subject(),
+            _dc127_svg_data_uri(),
+            _dc128_prometheus_metrics_flood(),
+            _dc129_systeminfo_dump(),
+            _dc130_splunk_search_results(),
+            _dc131_arm_bicep_template(),
+            _dc132_csv_bulk_paste(),
+            _dc133_codepage_mojibake(),
+            _dc134_recursive_email_forward(),
+            _dc135_pii_noise(),
         ],
     )
 
