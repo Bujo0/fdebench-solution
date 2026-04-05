@@ -31,4 +31,3 @@ ms-common-models = { workspace = true }
 [tool.uv.build-backend]
 module-name = "ms.evals_core"
 module-root = "src"
-

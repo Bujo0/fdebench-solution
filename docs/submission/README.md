@@ -96,4 +96,3 @@ See [challenge README: Engineering Review](../challenge/README.md#engineering-re
 - **Send the cost headers.** It's only 5% of the score, but it signals you actually read the spec.
 - **Treat the repo like part of the product.** The endpoint drives your functional score. The repo is what reviewers use to judge the engineering.
 - **Show engineering judgment.** Good submissions usually have explicit timeouts, validation, useful tests, clean config, and a believable story for scale, security, and operability.
-

@@ -4078,21 +4078,21 @@ SCENARIOS: list[Scenario] = [
             '    <TimeCreated SystemTime="2026-03-17T14:22:35.1234567Z"/>\n'
             "    <EventRecordID>98765</EventRecordID>\n"
             '    <Correlation ActivityID="{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"/>\n'
-            "    <Execution ProcessID=\"0\" ThreadID=\"0\"/>\n"
+            '    <Execution ProcessID="0" ThreadID="0"/>\n'
             "    <Channel>System</Channel>\n"
             "    <Computer>WS-B3-0742.contoso.com</Computer>\n"
             "  </System>\n"
             "  <EventData>\n"
-            "    <Data Name=\"BugcheckCode\">0x000000d1</Data>\n"
-            "    <Data Name=\"BugcheckParameter1\">0xfffff80012345678</Data>\n"
-            "    <Data Name=\"BugcheckParameter2\">0x0000000000000002</Data>\n"
-            "    <Data Name=\"BugcheckParameter3\">0x0000000000000000</Data>\n"
-            "    <Data Name=\"BugcheckParameter4\">0xfffff80087654321</Data>\n"
-            "    <Data Name=\"SleepInProgress\">0</Data>\n"
-            "    <Data Name=\"PowerButtonTimestamp\">0</Data>\n"
-            "    <Data Name=\"BootAppStatus\">0</Data>\n"
-            "    <Data Name=\"DumpFileSize\">1073741824</Data>\n"
-            "    <Data Name=\"DumpFile\">C:\\Windows\\MEMORY.DMP</Data>\n"
+            '    <Data Name="BugcheckCode">0x000000d1</Data>\n'
+            '    <Data Name="BugcheckParameter1">0xfffff80012345678</Data>\n'
+            '    <Data Name="BugcheckParameter2">0x0000000000000002</Data>\n'
+            '    <Data Name="BugcheckParameter3">0x0000000000000000</Data>\n'
+            '    <Data Name="BugcheckParameter4">0xfffff80087654321</Data>\n'
+            '    <Data Name="SleepInProgress">0</Data>\n'
+            '    <Data Name="PowerButtonTimestamp">0</Data>\n'
+            '    <Data Name="BootAppStatus">0</Data>\n'
+            '    <Data Name="DumpFileSize">1073741824</Data>\n'
+            '    <Data Name="DumpFile">C:\\Windows\\MEMORY.DMP</Data>\n'
             "  </EventData>\n"
             "</Event>\n\n"
             "The second crash produced a similar event. Both happened within 30 seconds of "
@@ -4350,8 +4350,7 @@ SCENARIOS: list[Scenario] = [
         next_best_actions=[
             "Investigate severe query performance degradation on SQLPROD03 trades table — "
             "likely a missing index on trade_date dropped during maintenance.",
-            "Recreate the trade_date index on the trades table and verify the execution "
-            "plan returns to index seek.",
+            "Recreate the trade_date index on the trades table and verify the execution plan returns to index seek.",
         ],
         remediation_steps=[
             [
@@ -4757,7 +4756,7 @@ SCENARIOS: list[Scenario] = [
             "Strict-Transport-Security: max-age=31536000; includeSubDomains\n"
             "Cache-Control: no-cache, no-store, must-revalidate\n"
             "Pragma: no-cache\n\n"
-            '<!DOCTYPE html><html><head><title>Runtime Error</title><style>body{font-family:'
+            "<!DOCTYPE html><html><head><title>Runtime Error</title><style>body{font-family:"
             "Arial;margin:50px}h2{color:#cc0000}</style></head><body><h2>Server Error in "
             "'/' Application</h2><hr><p><b>Runtime Error</b></p><p>Description: An "
             "exception occurred while processing your request.</p><p>Exception Details: "
@@ -4812,7 +4811,7 @@ SCENARIOS: list[Scenario] = [
             '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0CAYAAAD'
             "L1t+KAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAA"
             "AOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAABAAElEQVR42u3deXxU1"
-            'fn48c+5M5OFJBASwr4T9n0RBBQXFNe6V6u11qV1q7XW2mr9tta2Wm2r1tpaW5da6l'
+            "fn48c+5M5OFJBASwr4T9n0RBBQXFNe6V6u11qV1q7XW2mr9tta2Wm2r1tpaW5da6l"
             "K1WqtWRRBFRUABAdl32SEQlpB97vn9cSchIQECJGQwn/frlTczd+7ce+69w3nOec"
             '65V4EA" width="800" />\n\n'
             "Error dialog screenshot:\n"
@@ -5030,14 +5029,14 @@ SCENARIOS: list[Scenario] = [
             "The nightly payroll sync to ADP failed last night and returned a SOAP fault. "
             "Here's the full XML response from the integration server logs:\n\n"
             '<?xml version="1.0" encoding="UTF-8"?>\n'
-            "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n"
+            '<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\n'
             "  <soap:Body>\n"
             "    <soap:Fault>\n"
             "      <faultcode>soap:Server</faultcode>\n"
             "      <faultstring>Authentication token expired. Please request a new "
             "security token from the STS endpoint.</faultstring>\n"
             "      <detail>\n"
-            "        <ErrorResponse xmlns=\"http://api.adp.com/errors/v1\">\n"
+            '        <ErrorResponse xmlns="http://api.adp.com/errors/v1">\n'
             "          <ErrorCode>AUTH-4012</ErrorCode>\n"
             "          <ErrorMessage>The SAML assertion has expired. Token lifetime: "
             "3600 seconds. Token age: 86427 seconds.</ErrorMessage>\n"
@@ -5220,7 +5219,7 @@ SCENARIOS: list[Scenario] = [
             "Please see the attached forwarded email chain.\n\n"
             "------=_Part_OUTER_001\n"
             "Content-Type: message/rfc822\n"
-            "Content-Disposition: attachment; filename=\"original_request.eml\"\n\n"
+            'Content-Disposition: attachment; filename="original_request.eml"\n\n'
             "From: vendor@partner.com\n"
             "To: procurement@contoso.com\n"
             "Subject: RE: Purchase Order 4501\n"
@@ -5230,9 +5229,9 @@ SCENARIOS: list[Scenario] = [
             "Content-Type: text/plain; charset=UTF-8\n\n"
             "Attached is the signed PO for your records.\n\n"
             "------=_Part_INNER_002\n"
-            "Content-Type: application/pdf; name=\"PO_4501_signed.pdf\"\n"
+            'Content-Type: application/pdf; name="PO_4501_signed.pdf"\n'
             "Content-Transfer-Encoding: base64\n"
-            "Content-Disposition: attachment; filename=\"PO_4501_signed.pdf\"\n\n"
+            'Content-Disposition: attachment; filename="PO_4501_signed.pdf"\n\n'
             "JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwo+PgplbmRv\n"
             "YmoKMiAwIG9iago8PAovVHlwZSAvUGFnZXMKL0tpZHMgWzMgMCBSXQo+PgplbmRv\n"
             "...[truncated]...\n\n"
@@ -5394,4 +5393,3 @@ SCENARIOS: list[Scenario] = [
         tags=["data-cleanup", "winrm-transcript"],
     ),
 ]
-

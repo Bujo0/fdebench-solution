@@ -64,4 +64,3 @@ ban-relative-imports = "all"
 # Prevent sys.path manipulation
 "sys.path.insert".msg = "do not use sys.path.insert. use proper package structure and imports instead."
 "sys.path.append".msg = "do not use sys.path.append. use proper package structure and imports instead."
-

@@ -17,4 +17,3 @@ applyTo: "**/py/**"
 ## Serialization
 
 <!-- How do you handle serialization/deserialization? JSON, camelCase/snake_case conventions? -->
-

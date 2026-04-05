@@ -110,4 +110,3 @@ When a ticket comes in, identify the **issue type** from the table below and rou
 2. **Security incidents** — Always route to SecOps. If it also affects another team's domain (e.g., compromised account = IAM + SecOps), route to SecOps as primary and IAM as secondary.
 3. **VIP tickets** — C-suite and SVP+ tickets are auto-flagged. Treat as one priority level higher than normal assessment.
 4. **Repeat tickets** — If the same reporter has filed 3+ tickets in 7 days for the same issue, escalate to the team lead for root cause investigation.
-

@@ -15,4 +15,3 @@
         "ts-install": "cd ts && pnpm install"
     }
 }
-

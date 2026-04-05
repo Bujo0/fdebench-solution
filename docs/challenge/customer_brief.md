@@ -70,4 +70,3 @@ If you can show me this working on even 50 of our real tickets, I can make the b
 I don't need a chatbot. I don't need a dashboard. I need **an API I can plug into our existing ServiceNow workflow** that returns a JSON decision for each ticket. Fast, reliable, and right most of the time. If it's not sure, it should say so.
 
 — Priya
-

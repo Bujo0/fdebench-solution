@@ -1,2 +1,1 @@
 """Scenario definitions package."""
-

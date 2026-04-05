@@ -39,4 +39,3 @@ uvx pre-commit install
 ## Port Forwarding
 
 When working in a cloud-hosted environment, `localhost` ports are automatically forwarded so that you can view them in the browser.
-
