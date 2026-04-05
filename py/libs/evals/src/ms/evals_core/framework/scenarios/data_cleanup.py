@@ -4710,3 +4710,1018 @@ default_registry.register(
         ),
     )
 )
+
+# ---------------------------------------------------------------------------
+# dc-091: Extremely long subject line (500+ chars) with truncated VPN issue
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-091",
+        name="Extremely long subject with truncated VPN issue",
+        description=(
+            "Ticket whose subject line exceeds 500 characters "
+            "with repeated text, auto-generated breadcrumbs, "
+            "and forwarding prefixes. The real VPN connectivity "
+            "issue is buried at the end of the subject and "
+            "restated briefly in the body."
+        ),
+        category=_CATEGORY,
+        tags=["extremely_long_subject", "truncation"],
+        ticket=EvalTicket(
+            ticket_id="INC-5091",
+            subject=(
+                "RE: FW: RE: FW: RE: FW: RE: FW: Urgent - "
+                "GlobalProtect VPN disconnects every 10 minutes "
+                "on Windows 11 laptops across the Chicago office "
+                "- affecting 23 users in the trading floor - "
+                "originally reported by Marcus on Monday but "
+                "escalated through regional IT then to central "
+                "service desk then back to regional IT and now "
+                "forwarded to network operations for root cause "
+                "analysis - reference previous incidents INC-4022 "
+                "INC-4055 INC-4071 which may or may not be "
+                "related - see also change request CHG-8834 for "
+                "the firewall rule update last Thursday which "
+                "coincides with the start of the symptoms - "
+                "please advise on next steps and provide an ETA "
+                "for resolution as the trading desk cannot "
+                "function without stable VPN connectivity to the "
+                "New York pricing engines"
+            ),
+            description=(
+                "Hi team,\n\n"
+                "As per the very long subject above, our "
+                "Chicago trading floor users are experiencing "
+                "GlobalProtect VPN drops roughly every 10 "
+                "minutes. The tunnel establishes fine but then "
+                "silently disconnects. Users have to manually "
+                "reconnect. This started last Thursday after "
+                "CHG-8834 was applied to the PA-5260 cluster.\n\n"
+                "Affected users: 23 on the 14th floor.\n"
+                "Client version: GlobalProtect 6.1.3-c45\n"
+                "OS: Windows 11 23H2\n"
+                "Gateway: vpn-chi-01.contoso.com\n\n"
+                "Please investigate urgently.\n"
+                "Marcus Bell, Trading Technology"
+            ),
+            reporter=_reporter(
+                "Marcus Bell",
+                "m.bell@contoso.com",
+                "Trading Technology",
+            ),
+            created_at="2026-03-18T09:15:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Network & Connectivity",
+            priority="P2",
+            assigned_team="Network Operations",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-092: SVG data URI embedded in monitor flickering report
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-092",
+        name="SVG data URI noise in monitor flickering ticket",
+        description=(
+            "Ticket about monitor flickering where the user "
+            "pasted an SVG data URI (inline vector graphic) "
+            "they found in the display driver debug log. The "
+            "SVG markup is hundreds of characters of base64 "
+            "and path data that obscures the real hardware "
+            "complaint."
+        ),
+        category=_CATEGORY,
+        tags=["svg_data_uri", "inline_vector"],
+        ticket=EvalTicket(
+            ticket_id="INC-5092",
+            subject="Monitor flickering and color banding on Dell U2723QE",
+            description=(
+                "My Dell U2723QE monitor has been flickering "
+                "intermittently since the firmware update pushed "
+                "last Tuesday. The flickering is worst when "
+                "displaying dark backgrounds, and I also see "
+                "horizontal color banding on gradients.\n\n"
+                "I ran the display diagnostics and it dumped "
+                "this SVG from the driver overlay test:\n\n"
+                "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0"
+                "cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MD"
+                "AiIGhlaWdodD0iNDAwIj48cmVjdCB3aWR0aD0iMTAwJSIg"
+                "aGVpZ2h0PSIxMDAlIiBmaWxsPSIjMWExYTJlIi8+PGNpcm"
+                "NsZSBjeD0iMjAwIiBjeT0iMjAwIiByPSIxNTAiIGZpbGw9"
+                "IiNmZjYzNDciIG9wYWNpdHk9IjAuOCIvPjxsaW5lIHgxPS"
+                "IwIiB5MT0iMCIgeDI9IjQwMCIgeTI9IjQwMCIgc3Ryb2tl"
+                "PSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48dGV4dCB4PS"
+                "IyMDAiIHk9IjIwMCIgZm9udC1zaXplPSIxNnB4IiBmaWxs"
+                "PSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5EaWFnbm"
+                "9zdGljIFBhdHRlcm4gMTwvdGV4dD48L3N2Zz4=\n\n"
+                "<svg xmlns='http://www.w3.org/2000/svg' "
+                "width='400' height='400'><defs><linearGradient "
+                "id='g1' x1='0%' y1='0%' x2='100%' y2='100%'>"
+                "<stop offset='0%' style='stop-color:#1a1a2e'/>"
+                "<stop offset='100%' style='stop-color:#16213e'/>"
+                "</linearGradient></defs><rect width='100%' "
+                "height='100%' fill='url(#g1)'/><circle cx='200' "
+                "cy='200' r='80' fill='none' stroke='#e94560' "
+                "stroke-width='3'><animate attributeName='r' "
+                "values='80;150;80' dur='2s' "
+                "repeatCount='indefinite'/></circle><path "
+                "d='M50,350 Q200,50 350,350' fill='none' "
+                "stroke='#0f3460' stroke-width='2'/></svg>\n\n"
+                "The flickering happens about 3-4 times per "
+                "minute. DisplayPort cable was swapped, same "
+                "issue. Tried a different port on the dock "
+                "(Dell WD19TBS) - still flickers. Second "
+                "monitor (same model) on the same dock is fine. "
+                "I think the panel or the scaler board is "
+                "failing.\n\n"
+                "Asset tag: MON-2723-0458\n"
+                "Firmware: M2T104 (updated from M2T101)\n"
+                "Dock firmware: 01.00.26\n"
+                "Workstation: YOURPC-CHI-4412"
+            ),
+            reporter=_reporter(
+                "Elena Vasquez",
+                "e.vasquez@contoso.com",
+                "Design",
+            ),
+            created_at="2026-03-18T10:30:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-093: MIME multipart with garbled boundaries in password reset request
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-093",
+        name="MIME multipart garbled noise in password reset",
+        description=(
+            "Ticket ingested from an email gateway where MIME "
+            "multipart boundaries were not properly stripped, "
+            "leaving raw Content-Type headers, boundary markers, "
+            "and base64-encoded alternative parts scattered "
+            "throughout a simple password reset request."
+        ),
+        category=_CATEGORY,
+        tags=["mime_garbled", "multipart_noise"],
+        ticket=EvalTicket(
+            ticket_id="INC-5093",
+            subject="Password reset needed - account locked",
+            description=(
+                "------=_Part_44819_1032576774.1710748800000\n"
+                "Content-Type: multipart/alternative; "
+                "boundary=\"----=_Part_44820_893241.1710748800001\"\n\n"
+                "------=_Part_44820_893241.1710748800001\n"
+                "Content-Type: text/plain; charset=UTF-8\n"
+                "Content-Transfer-Encoding: quoted-printable\n\n"
+                "Hi Service Desk,\n\n"
+                "My account (j.nakamura@contoso.com) got locked "
+                "this morning after I mistyped my password a few "
+                "times. I also need my password reset because I "
+                "genuinely cannot remember it after the forced "
+                "rotation last Friday. I am completely blocked "
+                "from accessing Outlook, Teams, SharePoint, and "
+                "the VPN. I have a client presentation at 2pm "
+                "and need access restored before then.\n\n"
+                "My manager Priya Sharma can verify my identity "
+                "if needed.\n\n"
+                "Thanks,\nJun Nakamura\nSenior Consultant\n"
+                "Ext. 4781\n\n"
+                "------=_Part_44820_893241.1710748800001\n"
+                "Content-Type: text/html; charset=UTF-8\n"
+                "Content-Transfer-Encoding: quoted-printable\n\n"
+                "<html><head><meta http-equiv=3D\"Content-Type\" "
+                "content=3D\"text/html; charset=3DUTF-8\">"
+                "</head><body><div style=3D\"font-family: "
+                "Calibri, sans-serif; font-size: 11pt;\">"
+                "<p>Hi Service Desk,</p><p>My account "
+                "(j.nakamura@contoso.com) got locked this "
+                "morning after I mistyped my password a few "
+                "times.=20I also need my password reset because "
+                "I genuinely cannot remember it after the forced "
+                "rotation last Friday.=20I am completely blocked "
+                "from accessing Outlook, Teams, SharePoint, and "
+                "the VPN.=20I have a client presentation at 2pm "
+                "and need access restored before then.</p>"
+                "<p>My manager Priya Sharma can verify my "
+                "identity if needed.</p><p>Thanks,<br>"
+                "Jun Nakamura<br>Senior Consultant<br>"
+                "Ext. 4781</p></div></body></html>\n"
+                "------=_Part_44820_893241.1710748800001--\n"
+                "------=_Part_44819_1032576774.1710748800000\n"
+                "Content-Type: image/png; name=\"signature_logo.png\"\n"
+                "Content-Transfer-Encoding: base64\n"
+                "Content-ID: <logo_img_001>\n"
+                "Content-Disposition: inline; "
+                "filename=\"signature_logo.png\"\n\n"
+                "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAA"
+                "DUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\n"
+                "------=_Part_44819_1032576774.1710748800000--"
+            ),
+            reporter=_reporter(
+                "Jun Nakamura",
+                "j.nakamura@contoso.com",
+                "Consulting",
+            ),
+            created_at="2026-03-18T08:45:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Access & Authentication",
+            priority="P2",
+            assigned_team="Identity & Access Management",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-094: Prometheus metrics flood in database performance ticket
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-094",
+        name="Prometheus metrics dump in slow-query ticket",
+        description=(
+            "Ticket about database performance degradation where "
+            "the DBA pasted hundreds of lines of raw Prometheus "
+            "metric output. The actual complaint about slow "
+            "queries on the orders table is sandwiched between "
+            "walls of metric samples."
+        ),
+        category=_CATEGORY,
+        tags=["prometheus_metrics", "monitoring_flood"],
+        ticket=EvalTicket(
+            ticket_id="INC-5094",
+            subject="PROD SQL cluster - query latency spike on orders DB",
+            description=(
+                "We are seeing severe latency spikes on the "
+                "orders database cluster (sql-prod-03). Queries "
+                "that normally return in <50ms are taking 8-12 "
+                "seconds. This started around 06:30 UTC today.\n\n"
+                "Here are the Prometheus metrics from the last "
+                "hour:\n\n"
+                "# HELP mysql_global_status_queries Total number "
+                "of queries\n"
+                "# TYPE mysql_global_status_queries counter\n"
+                "mysql_global_status_queries 4.829371e+08\n"
+                "# HELP mysql_global_status_threads_connected "
+                "Current connected threads\n"
+                "# TYPE mysql_global_status_threads_connected "
+                "gauge\n"
+                "mysql_global_status_threads_connected 347\n"
+                "# HELP mysql_global_status_threads_running "
+                "Currently running threads\n"
+                "# TYPE mysql_global_status_threads_running "
+                "gauge\n"
+                "mysql_global_status_threads_running 89\n"
+                "# HELP mysql_global_status_slow_queries "
+                "Number of slow queries\n"
+                "# TYPE mysql_global_status_slow_queries counter\n"
+                "mysql_global_status_slow_queries 14832\n"
+                "# HELP mysql_global_status_innodb_buffer_pool_reads "
+                "InnoDB buffer pool reads\n"
+                "# TYPE mysql_global_status_innodb_buffer_pool_reads "
+                "counter\n"
+                "mysql_global_status_innodb_buffer_pool_reads "
+                "2.91847e+07\n"
+                "# HELP mysql_global_status_innodb_row_lock_waits "
+                "InnoDB row lock waits\n"
+                "# TYPE mysql_global_status_innodb_row_lock_waits "
+                "counter\n"
+                "mysql_global_status_innodb_row_lock_waits 58291\n"
+                "# HELP mysql_global_status_innodb_row_lock_time "
+                "InnoDB row lock time (ms)\n"
+                "# TYPE mysql_global_status_innodb_row_lock_time "
+                "counter\n"
+                "mysql_global_status_innodb_row_lock_time 8.47291e+06\n"
+                "# HELP mysql_info_schema_table_size Table sizes\n"
+                "# TYPE mysql_info_schema_table_size gauge\n"
+                "mysql_info_schema_table_size{schema=\"orders\","
+                "table=\"order_items\"} 4.827e+09\n"
+                "mysql_info_schema_table_size{schema=\"orders\","
+                "table=\"order_headers\"} 2.134e+09\n"
+                "mysql_info_schema_table_size{schema=\"orders\","
+                "table=\"order_audit_log\"} 1.892e+10\n"
+                "mysql_info_schema_table_size{schema=\"orders\","
+                "table=\"shipments\"} 1.247e+09\n\n"
+                "The order_audit_log table has grown to ~19 GB "
+                "and I suspect a missing index or a full table "
+                "scan on the nightly reconciliation job. The "
+                "InnoDB buffer pool hit ratio has dropped to "
+                "~73%. Can the Data Platform team review the "
+                "slow query log and the execution plan for the "
+                "reconciliation stored procedure "
+                "(sp_nightly_reconcile)?\n\n"
+                "Cluster: sql-prod-03 (primary)\n"
+                "Database: orders\n"
+                "Impact: Order processing pipeline is backing up."
+            ),
+            reporter=_reporter(
+                "Dmitri Volkov",
+                "d.volkov@contoso.com",
+                "Database Administration",
+            ),
+            created_at="2026-03-18T07:10:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Data & Storage",
+            priority="P2",
+            assigned_team="Data Platform",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-095: Windows systeminfo output dump in laptop overheating ticket
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-095",
+        name="Systeminfo dump pasted in overheating laptop ticket",
+        description=(
+            "User reporting a laptop overheating issue pasted "
+            "the entire output of the Windows systeminfo command "
+            "into the ticket body. The actual thermal complaint "
+            "is a few lines before and after the massive "
+            "system information block."
+        ),
+        category=_CATEGORY,
+        tags=["systeminfo_dump", "command_paste"],
+        ticket=EvalTicket(
+            ticket_id="INC-5095",
+            subject="Laptop running extremely hot and throttling",
+            description=(
+                "My laptop has been overheating badly for the "
+                "past week. The fans run at full speed constantly "
+                "and the bottom gets too hot to keep on my lap. "
+                "Performance drops significantly after about 20 "
+                "minutes - I think it is thermal throttling.\n\n"
+                "IT chat told me to run systeminfo and paste it "
+                "here:\n\n"
+                "Host Name:                 WS-LON-7823\n"
+                "OS Name:                   Microsoft Windows 11 "
+                "Enterprise\n"
+                "OS Version:                10.0.22631 N/A "
+                "Build 22631\n"
+                "OS Manufacturer:           Microsoft Corporation\n"
+                "OS Configuration:          Member Workstation\n"
+                "OS Build Type:             Multiprocessor Free\n"
+                "Registered Organization:   Contoso Ltd\n"
+                "Product ID:                00329-00000-00003-AA194\n"
+                "Original Install Date:     6/14/2025, 9:02:31 AM\n"
+                "System Boot Time:          3/17/2026, 8:01:12 AM\n"
+                "System Manufacturer:       LENOVO\n"
+                "System Model:              21HN005DUS\n"
+                "System Type:               x64-based PC\n"
+                "Processor(s):              1 Processor(s) "
+                "Installed.\n"
+                "                           [01]: Intel64 Family 6 "
+                "Model 186 Stepping 3 GenuineIntel ~2900 Mhz\n"
+                "BIOS Version:              LENOVO N3IET82W "
+                "(1.52), 1/15/2026\n"
+                "Windows Directory:         C:\\Windows\n"
+                "System Directory:          C:\\Windows\\system32\n"
+                "Boot Device:               \\Device\\"
+                "HarddiskVolume1\n"
+                "System Locale:             en-gb;English "
+                "(United Kingdom)\n"
+                "Input Locale:              en-gb;English "
+                "(United Kingdom)\n"
+                "Time Zone:                 (UTC+00:00) Dublin, "
+                "Edinburgh, Lisbon, London\n"
+                "Total Physical Memory:     32,456 MB\n"
+                "Available Physical Memory:  4,218 MB\n"
+                "Virtual Memory: Max Size:  37,456 MB\n"
+                "Virtual Memory: Available: 6,812 MB\n"
+                "Virtual Memory: In Use:    30,644 MB\n"
+                "Page File Location(s):     C:\\pagefile.sys\n"
+                "Domain:                    contoso.com\n"
+                "Logon Server:              \\\\DC-LON-03\n"
+                "Hotfix(s):                 14 Hotfix(s) "
+                "Installed.\n"
+                "                           [01]: KB5034765\n"
+                "                           [02]: KB5035853\n"
+                "                           [03]: KB5036212\n"
+                "                           [04]: KB5036894\n"
+                "                           [05]: KB5037591\n"
+                "                           [06]: KB5038201\n"
+                "                           [07]: KB5039107\n"
+                "                           [08]: KB5039894\n"
+                "                           [09]: KB5040612\n"
+                "                           [10]: KB5041384\n"
+                "                           [11]: KB5042108\n"
+                "                           [12]: KB5042879\n"
+                "                           [13]: KB5043601\n"
+                "                           [14]: KB5044293\n"
+                "Network Card(s):           3 NIC(s) Installed.\n"
+                "                           [01]: Intel Wi-Fi 6E "
+                "AX211 160MHz\n"
+                "                           [02]: Bluetooth Device "
+                "(Personal Area Network)\n"
+                "                           [03]: Lenovo USB-C "
+                "Ethernet Adapter\n"
+                "Hyper-V Requirements:      A hypervisor has "
+                "been detected.\n\n"
+                "As you can see it is a ThinkPad X1 Carbon Gen 11. "
+                "The BIOS was updated in January but the issue "
+                "started after the March cumulative update "
+                "(KB5044293). I have tried repasting the thermal "
+                "compound myself but it did not help. I suspect "
+                "the fan assembly may be failing or a BIOS "
+                "setting is misconfigured.\n\n"
+                "Asset tag: LT-LON-7823\n"
+                "User: Fiona MacLeod, Legal Department"
+            ),
+            reporter=_reporter(
+                "Fiona MacLeod",
+                "f.macleod@contoso.com",
+                "Legal",
+            ),
+            created_at="2026-03-18T11:00:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-096: Splunk search results pasted in security alert review
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-096",
+        name="Splunk search results in suspicious login alert",
+        description=(
+            "Security analyst pasted raw Splunk search results "
+            "including SPL queries and tabular event data into a "
+            "ticket requesting review of suspicious login "
+            "activity. The actionable finding is hidden among "
+            "dozens of log entries."
+        ),
+        category=_CATEGORY,
+        tags=["splunk_results", "siem_paste"],
+        ticket=EvalTicket(
+            ticket_id="INC-5096",
+            subject="Suspicious login activity - svc_backup account",
+            description=(
+                "SIEM Alert: Possible credential misuse detected "
+                "for service account svc_backup@contoso.com.\n\n"
+                "I ran the following Splunk query to investigate:\n\n"
+                "index=auth sourcetype=azure:aad:signin "
+                "userPrincipalName=\"svc_backup@contoso.com\" "
+                "earliest=-24h latest=now\n"
+                "| table _time, userPrincipalName, appDisplayName, "
+                "ipAddress, location.city, location.countryOrRegion, "
+                "status.errorCode, status.failureReason, "
+                "conditionalAccessStatus\n"
+                "| sort -_time\n\n"
+                "Results (40 events, showing first 20):\n\n"
+                "_time                | app              | IP        "
+                "     | city          | country | error | reason  "
+                "     | CA status\n"
+                "2026-03-18T06:58:12Z | Azure Backup     | 10.0.4.22 "
+                "     | Seattle       | US      | 0     | -       "
+                "     | success\n"
+                "2026-03-18T06:45:01Z | Azure Backup     | 10.0.4.22 "
+                "     | Seattle       | US      | 0     | -       "
+                "     | success\n"
+                "2026-03-18T06:30:00Z | Azure Backup     | 10.0.4.22 "
+                "     | Seattle       | US      | 0     | -       "
+                "     | success\n"
+                "2026-03-18T05:22:47Z | Microsoft Graph  | 185.243.41.12"
+                "  | Moscow        | RU      | 0     | -       "
+                "     | notApplied\n"
+                "2026-03-18T05:21:33Z | Microsoft Graph  | 185.243.41.12"
+                "  | Moscow        | RU      | 50074 | MFA req "
+                "     | failure\n"
+                "2026-03-18T05:20:58Z | Microsoft Graph  | 185.243.41.12"
+                "  | Moscow        | RU      | 50074 | MFA req "
+                "     | failure\n"
+                "2026-03-18T05:20:11Z | Microsoft Graph  | 185.243.41.12"
+                "  | Moscow        | RU      | 50126 | Invalid pw"
+                "    | failure\n"
+                "2026-03-18T05:19:44Z | Microsoft Graph  | 185.243.41.12"
+                "  | Moscow        | RU      | 50126 | Invalid pw"
+                "    | failure\n"
+                "2026-03-18T04:15:00Z | Azure Backup     | 10.0.4.22 "
+                "     | Seattle       | US      | 0     | -       "
+                "     | success\n"
+                "2026-03-18T04:00:00Z | Azure Backup     | 10.0.4.22 "
+                "     | Seattle       | US      | 0     | -       "
+                "     | success\n"
+                "2026-03-18T03:45:00Z | Azure Backup     | 10.0.4.22 "
+                "     | Seattle       | US      | 0     | -       "
+                "     | success\n"
+                "2026-03-18T03:30:00Z | Azure Backup     | 10.0.4.22 "
+                "     | Seattle       | US      | 0     | -       "
+                "     | success\n"
+                "2026-03-18T03:15:00Z | Azure Backup     | 10.0.4.22 "
+                "     | Seattle       | US      | 0     | -       "
+                "     | success\n"
+                "2026-03-18T03:00:00Z | Azure Backup     | 10.0.4.22 "
+                "     | Seattle       | US      | 0     | -       "
+                "     | success\n"
+                "2026-03-18T02:45:00Z | Azure Backup     | 10.0.4.22 "
+                "     | Seattle       | US      | 0     | -       "
+                "     | success\n\n"
+                "Key finding: Between 05:19 and 05:22 UTC there "
+                "were 4 failed logins from 185.243.41.12 (Moscow, "
+                "RU) against Microsoft Graph API. Two were invalid "
+                "password attempts, two hit MFA. Then at 05:22:47 "
+                "a SUCCESSFUL sign-in from the same IP to Graph "
+                "with conditional access 'notApplied'. This service "
+                "account should never authenticate from outside our "
+                "corporate IP ranges.\n\n"
+                "Requesting SecOps review. Recommend immediate "
+                "password rotation and token revocation for "
+                "svc_backup. Also need to check if any data was "
+                "exfiltrated via Graph API between 05:22 and now."
+            ),
+            reporter=_reporter(
+                "Rachel Kim",
+                "r.kim@contoso.com",
+                "Information Security",
+            ),
+            created_at="2026-03-18T07:30:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Security & Compliance",
+            priority="P2",
+            assigned_team="Security Operations",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-097: ARM/Bicep IaC template dump in deployment failure
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-097",
+        name="ARM template dump in failed deployment ticket",
+        description=(
+            "Developer pasted an entire ARM/Bicep JSON template "
+            "into a ticket about a failed Azure deployment. The "
+            "actual error message and the ask for help are "
+            "buried before and after hundreds of lines of "
+            "infrastructure-as-code JSON."
+        ),
+        category=_CATEGORY,
+        tags=["arm_template_dump", "iac_noise"],
+        ticket=EvalTicket(
+            ticket_id="INC-5097",
+            subject="Azure deployment failed - app-gateway-prod",
+            description=(
+                "Our production Application Gateway deployment "
+                "failed this morning during the scheduled release. "
+                "Error from the deployment log:\n\n"
+                "ERROR: {\"status\":\"Failed\",\"error\":{\"code\":"
+                "\"DeploymentFailed\",\"message\":\"At least one "
+                "resource deployment operation failed.\"}}\n\n"
+                "Here is the full ARM template we are deploying:\n\n"
+                "{\n"
+                "  \"$schema\": \"https://schema.management.azure.com/"
+                "schemas/2019-04-01/deploymentTemplate.json#\",\n"
+                "  \"contentVersion\": \"1.0.0.0\",\n"
+                "  \"parameters\": {\n"
+                "    \"appGatewayName\": {\n"
+                "      \"type\": \"string\",\n"
+                "      \"defaultValue\": \"appgw-prod-eastus2\"\n"
+                "    },\n"
+                "    \"vnetName\": {\n"
+                "      \"type\": \"string\",\n"
+                "      \"defaultValue\": \"vnet-prod-eastus2\"\n"
+                "    },\n"
+                "    \"subnetName\": {\n"
+                "      \"type\": \"string\",\n"
+                "      \"defaultValue\": \"snet-appgw\"\n"
+                "    },\n"
+                "    \"skuName\": {\n"
+                "      \"type\": \"string\",\n"
+                "      \"defaultValue\": \"WAF_v2\"\n"
+                "    },\n"
+                "    \"skuTier\": {\n"
+                "      \"type\": \"string\",\n"
+                "      \"defaultValue\": \"WAF_v2\"\n"
+                "    },\n"
+                "    \"capacity\": {\n"
+                "      \"type\": \"int\",\n"
+                "      \"defaultValue\": 2\n"
+                "    },\n"
+                "    \"backendPoolFqdn\": {\n"
+                "      \"type\": \"string\",\n"
+                "      \"defaultValue\": "
+                "\"app-prod.azurewebsites.net\"\n"
+                "    },\n"
+                "    \"certificateSecretId\": {\n"
+                "      \"type\": \"string\",\n"
+                "      \"defaultValue\": "
+                "\"https://kv-prod.vault.azure.net/secrets/"
+                "appgw-ssl-cert\"\n"
+                "    }\n"
+                "  },\n"
+                "  \"resources\": [\n"
+                "    {\n"
+                "      \"type\": \"Microsoft.Network/"
+                "applicationGateways\",\n"
+                "      \"apiVersion\": \"2023-09-01\",\n"
+                "      \"name\": "
+                "\"[parameters('appGatewayName')]\",\n"
+                "      \"location\": "
+                "\"[resourceGroup().location]\",\n"
+                "      \"properties\": {\n"
+                "        \"sku\": {\n"
+                "          \"name\": "
+                "\"[parameters('skuName')]\",\n"
+                "          \"tier\": "
+                "\"[parameters('skuTier')]\",\n"
+                "          \"capacity\": "
+                "\"[parameters('capacity')]\"\n"
+                "        },\n"
+                "        \"gatewayIPConfigurations\": [{\n"
+                "          \"name\": \"appGatewayIpConfig\",\n"
+                "          \"properties\": {\n"
+                "            \"subnet\": {\n"
+                "              \"id\": "
+                "\"[resourceId('Microsoft.Network/"
+                "virtualNetworks/subnets', "
+                "parameters('vnetName'), "
+                "parameters('subnetName'))]\"\n"
+                "            }\n"
+                "          }\n"
+                "        }]\n"
+                "      }\n"
+                "    }\n"
+                "  ]\n"
+                "}\n\n"
+                "The inner error says the subnet "
+                "snet-appgw does not have enough free IP "
+                "addresses. We need the Enterprise Applications "
+                "team to either resize the subnet from /28 to "
+                "/26 or clean up stale private endpoints. This "
+                "is blocking our v2.14 production release."
+            ),
+            reporter=_reporter(
+                "Omar Hassan",
+                "o.hassan@contoso.com",
+                "Cloud Engineering",
+            ),
+            created_at="2026-03-18T06:20:00Z",
+            channel="chat",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-098: CSV with hundreds of rows in data import failure
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-098",
+        name="CSV data flood in data import failure ticket",
+        description=(
+            "User pasted hundreds of CSV rows from a failed "
+            "data import directly into the ticket description. "
+            "The import error and request for help are buried "
+            "among the raw comma-separated data."
+        ),
+        category=_CATEGORY,
+        tags=["csv_data_flood", "bulk_paste"],
+        ticket=EvalTicket(
+            ticket_id="INC-5098",
+            subject="Data import failed - Q1 inventory reconciliation",
+            description=(
+                "Our Q1 inventory reconciliation import into the "
+                "data warehouse keeps failing at row 847 of 12,400. "
+                "The ETL pipeline (ADF pipeline: pl_inventory_load) "
+                "throws a type mismatch error.\n\n"
+                "Here is a sample of the CSV data around the "
+                "failing rows:\n\n"
+                "sku,warehouse,qty_on_hand,qty_reserved,"
+                "unit_cost,last_counted,status\n"
+                "SKU-100841,WH-EAST-01,250,12,34.99,"
+                "2026-03-01,active\n"
+                "SKU-100842,WH-EAST-01,0,0,22.50,"
+                "2026-03-01,discontinued\n"
+                "SKU-100843,WH-EAST-02,1830,45,8.75,"
+                "2026-02-28,active\n"
+                "SKU-100844,WH-WEST-01,94,94,142.00,"
+                "2026-03-01,active\n"
+                "SKU-100845,WH-EAST-01,417,30,55.25,"
+                "2026-03-01,active\n"
+                "SKU-100846,WH-CENTRAL,12,0,899.99,"
+                "2026-02-15,active\n"
+                "SKU-100847,WH-EAST-02,N/A,0,34.99,"
+                "2026-03-01,active\n"
+                "SKU-100848,WH-WEST-01,330,28,67.50,"
+                "2026-03-01,active\n"
+                "SKU-100849,WH-EAST-01,89,7,12.25,"
+                "2026-03-01,active\n"
+                "SKU-100850,WH-CENTRAL,2100,150,4.99,"
+                "2026-02-28,active\n"
+                "SKU-100851,WH-WEST-02,44,3,234.00,"
+                "2026-03-01,active\n"
+                "SKU-100852,WH-EAST-01,671,52,18.75,"
+                "2026-03-01,active\n"
+                "SKU-100853,WH-EAST-02,0,0,45.00,"
+                "2026-03-01,obsolete\n"
+                "SKU-100854,WH-WEST-01,128,11,78.25,"
+                "2026-02-28,active\n"
+                "SKU-100855,WH-CENTRAL,3200,200,2.50,"
+                "2026-03-01,active\n"
+                "SKU-100856,WH-EAST-01,56,0,567.00,"
+                "2026-03-01,active\n"
+                "SKU-100857,WH-WEST-02,12,12,1249.99,"
+                "2026-02-15,backordered\n"
+                "SKU-100858,WH-EAST-02,890,65,9.99,"
+                "2026-03-01,active\n"
+                "SKU-100859,WH-CENTRAL,0,0,33.75,"
+                "2026-01-30,discontinued\n"
+                "SKU-100860,WH-WEST-01,214,19,88.50,"
+                "2026-03-01,active\n\n"
+                "Row 847 is SKU-100847 - notice the qty_on_hand "
+                "field is 'N/A' instead of a numeric value. The "
+                "source system (SAP) sometimes exports non-numeric "
+                "placeholders when the physical count is pending. "
+                "We need the Data Platform team to either add a "
+                "NULL coalesce in the ADF mapping data flow or "
+                "set up a pre-validation step to catch these.\n\n"
+                "This is blocking the monthly inventory close for "
+                "Finance. Please prioritize.\n\n"
+                "Pipeline: pl_inventory_load\n"
+                "Source: blob/raw/inventory/2026-Q1-full.csv\n"
+                "Sink: dw-prod.inventory_fact\n"
+                "Error: \"Type mismatch: cannot convert 'N/A' to "
+                "Int32 for column qty_on_hand at row 847\""
+            ),
+            reporter=_reporter(
+                "Aisha Patel",
+                "a.patel@contoso.com",
+                "Supply Chain Analytics",
+            ),
+            created_at="2026-03-18T13:45:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Data & Storage",
+            priority="P3",
+            assigned_team="Data Platform",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-099: Legacy codepage mojibake (CP-1252 as UTF-8) in printer issue
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-099",
+        name="Codepage mojibake corruption in printer ticket",
+        description=(
+            "Ticket about a printer issue where the email was "
+            "composed in a legacy Windows CP-1252 client but "
+            "ingested as UTF-8, causing widespread mojibake "
+            "throughout the message. The real issue (printer "
+            "paper jam and driver crash) must be extracted from "
+            "garbled text."
+        ),
+        category=_CATEGORY,
+        tags=["codepage_mojibake", "encoding_corruption"],
+        ticket=EvalTicket(
+            ticket_id="INC-5099",
+            subject=(
+                "Printer on 3rd floor \u00e2\u0080\u0093 "
+                "paper jam and driver crash"
+            ),
+            description=(
+                "Hi IT,\n\n"
+                "The printer on the 3rd floor (HP LaserJet "
+                "Enterprise M612) keeps jamming and the driver "
+                "crashes every time I try to print.\n\n"
+                "I\u00e2\u0080\u0099ve tried the following "
+                "steps already:\n"
+                "1. Cleared the paper jam from Tray\u00c2\u00a02 "
+                "and the duplexer\n"
+                "2. Restarted the printer using the power "
+                "button\n"
+                "3. Removed and re-added the printer in "
+                "Settings \u00e2\u0086\u0092 Printers & "
+                "Scanners\n"
+                "4. Updated the driver from HP\u00e2\u0080\u0099s "
+                "website (v61.280.11.x)\n"
+                "5. Ran the Windows printer troubleshooter "
+                "\u00e2\u0080\u0093 it said "
+                "\u00e2\u0080\u009cNo issues "
+                "found\u00e2\u0080\u009d\n\n"
+                "Every time I send a print job (even a simple "
+                "1-page document), the job sits in the queue "
+                "for about 30\u00c2\u00a0seconds, then the "
+                "printer shows \u00e2\u0080\u009c49.4C02 "
+                "ERROR\u00e2\u0080\u009d on the front panel "
+                "and the Windows spooler crashes with event "
+                "ID\u00c2\u00a01000 in the Application log.\n\n"
+                "Other people on the floor say they can print "
+                "fine, so it might be specific to my machine "
+                "or my user profile. The issue started after "
+                "last week\u00e2\u0080\u0099s Group Policy "
+                "update pushed new printer defaults.\n\n"
+                "Error details from Event Viewer:\n"
+                "Faulting application: spoolsv.exe, version "
+                "10.0.22631.2506\n"
+                "Faulting module: hpzpp612.dll\n"
+                "Exception code: 0xc0000005\n"
+                "Offset: 0x000000000004A1C8\n\n"
+                "Machine: WS-LON-3344\n"
+                "Printer: PRT-LON-3F-01 (IP: 10.40.3.50)\n"
+                "User: Tom\u00c3\u00a1\u00c5\u00a1 "
+                "Novotn\u00c3\u00bd, Accounts Payable\n\n"
+                "Please fix \u00e2\u0080\u0093 I have 200+ "
+                "invoices to print by end of day Friday."
+            ),
+            reporter=_reporter(
+                "Tom\u00e1\u0161 Novotn\u00fd",
+                "t.novotny@contoso.com",
+                "Accounts Payable",
+            ),
+            created_at="2026-03-18T14:20:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-100: Recursive email forward chain (10+ levels) with SharePoint issue
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-100",
+        name="Recursive forward chain hiding SharePoint issue",
+        description=(
+            "Ticket created from an email forwarded 10+ times "
+            "through various departments. Each forwarding layer "
+            "adds headers, signatures, and commentary. The "
+            "original SharePoint permissions issue is buried at "
+            "the very bottom of the chain."
+        ),
+        category=_CATEGORY,
+        tags=["recursive_forward_chain", "deep_email_nesting"],
+        ticket=EvalTicket(
+            ticket_id="INC-5100",
+            subject=(
+                "FW: FW: FW: FW: FW: FW: FW: FW: FW: FW: "
+                "SharePoint access issue"
+            ),
+            description=(
+                "Please handle.\n"
+                "- Dana\n\n"
+                "-----Original Message-----\n"
+                "From: Craig Phillips\n"
+                "Sent: 2026-03-18 12:48\n"
+                "To: Dana Wright\n"
+                "Subject: FW: FW: FW: FW: FW: FW: FW: FW: FW: "
+                "SharePoint access issue\n\n"
+                "Dana, this one's for your team I think.\n"
+                "- Craig\n\n"
+                "-----Original Message-----\n"
+                "From: Beatrice Dumont\n"
+                "Sent: 2026-03-18 12:31\n"
+                "To: Craig Phillips\n"
+                "Subject: FW: FW: FW: FW: FW: FW: FW: FW: "
+                "SharePoint access issue\n\n"
+                "Craig, not my area - maybe Enterprise Apps?\n"
+                "- Bea\n\n"
+                "-----Original Message-----\n"
+                "From: Amir Ghorbani\n"
+                "Sent: 2026-03-18 12:15\n"
+                "To: Beatrice Dumont\n"
+                "Subject: FW: FW: FW: FW: FW: FW: FW: "
+                "SharePoint access issue\n\n"
+                "Bea, can you look into this? I don't have "
+                "SP admin rights.\n"
+                "- Amir\n\n"
+                "-----Original Message-----\n"
+                "From: Yuki Tanaka\n"
+                "Sent: 2026-03-18 11:58\n"
+                "To: Amir Ghorbani\n"
+                "Subject: FW: FW: FW: FW: FW: FW: "
+                "SharePoint access issue\n\n"
+                "Amir, this is about SharePoint, not Teams. "
+                "Forwarding to you.\n"
+                "- Yuki\n\n"
+                "-----Original Message-----\n"
+                "From: Liam O'Brien\n"
+                "Sent: 2026-03-18 11:40\n"
+                "To: Yuki Tanaka\n"
+                "Subject: FW: FW: FW: FW: FW: "
+                "SharePoint access issue\n\n"
+                "Yuki - this came to me by mistake, it's "
+                "a permissions thing.\n"
+                "- Liam\n\n"
+                "-----Original Message-----\n"
+                "From: Petra Johansson\n"
+                "Sent: 2026-03-18 11:22\n"
+                "To: Liam O'Brien\n"
+                "Subject: FW: FW: FW: FW: "
+                "SharePoint access issue\n\n"
+                "Liam, no idea who owns this site. Can you "
+                "check?\n"
+                "- Petra\n\n"
+                "-----Original Message-----\n"
+                "From: Samuel Okafor\n"
+                "Sent: 2026-03-18 11:05\n"
+                "To: Petra Johansson\n"
+                "Subject: FW: FW: FW: "
+                "SharePoint access issue\n\n"
+                "Petra, I tried but the site collection admin "
+                "page won't load for me either. Help?\n"
+                "- Sam\n\n"
+                "-----Original Message-----\n"
+                "From: Nina Petrovic\n"
+                "Sent: 2026-03-18 10:48\n"
+                "To: Samuel Okafor\n"
+                "Subject: FW: FW: SharePoint access issue\n\n"
+                "Sam, see below - Maria can't access the "
+                "Project Atlas site. Can you grant her "
+                "access?\n"
+                "- Nina\n\n"
+                "-----Original Message-----\n"
+                "From: Raj Mehta\n"
+                "Sent: 2026-03-18 10:30\n"
+                "To: Nina Petrovic\n"
+                "Subject: FW: SharePoint access issue\n\n"
+                "Nina, forwarding from Maria. She says she "
+                "can't open documents on the Project Atlas "
+                "SharePoint site. Looks like a permissions "
+                "issue.\n"
+                "- Raj\n\n"
+                "-----Original Message-----\n"
+                "From: Maria Costa\n"
+                "Sent: 2026-03-18 10:12\n"
+                "To: Raj Mehta\n"
+                "Subject: SharePoint access issue\n\n"
+                "Hi Raj,\n\n"
+                "I cannot access the Project Atlas SharePoint "
+                "site (https://contoso.sharepoint.com/sites/"
+                "ProjectAtlas). When I click on any document "
+                "in the Shared Documents library, I get:\n\n"
+                "\"Access Denied. You do not have permission "
+                "to access this resource. Contact the site "
+                "owner for access.\"\n\n"
+                "I was added to the project last Monday by my "
+                "manager Helen Torres and I'm supposed to be "
+                "in the 'Atlas Contributors' SharePoint group. "
+                "I can see the site homepage but cannot open "
+                "or download any files. I have a deliverable "
+                "due Wednesday and all the requirements docs "
+                "are on this site.\n\n"
+                "My account: m.costa@contoso.com\n"
+                "Site: https://contoso.sharepoint.com/sites/"
+                "ProjectAtlas\n"
+                "Expected group: Atlas Contributors\n\n"
+                "Thanks,\n"
+                "Maria Costa\n"
+                "Business Analyst, PMO"
+            ),
+            reporter=_reporter(
+                "Dana Wright",
+                "d.wright@contoso.com",
+                "IT Service Desk",
+            ),
+            created_at="2026-03-18T13:00:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
