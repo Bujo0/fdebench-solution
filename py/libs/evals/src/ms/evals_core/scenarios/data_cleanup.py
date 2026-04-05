@@ -13395,8 +13395,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
             needs_escalation=False,
             missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.ERROR_MESSAGE],
             next_best_action=(
-                "Strip the base64 PDF content from the ticket, "
-                "check duplex unit configuration on the printer."
+                "Strip the base64 PDF content from the ticket, check duplex unit configuration on the printer."
             ),
             remediation_steps=[
                 "Remove the embedded base64 PDF content from the ticket.",
@@ -14020,27 +14019,27 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "=== Token Exchange ===\n"
                 "POST /oauth2/token\n"
                 "Response: {\n"
-                "  \"access_token\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik"
+                '  "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik'
                 "1UQXhOVVF5TmpJeE5EWTJOVFkzTlRoRk5VRXlRakU0UkRVeU16TTBOVEF4T0RVNU"
                 "9UTXpNQSJ9.eyJpc3MiOiJodHRwczovL2NvbnRvc28uYXV0aDAuY29tLyIsInN1YiI"
                 "6ImF1dGgwfDY1YjJjM2Q0ZTVmNmE3YjhjOWQwZTFmMiIsImF1ZCI6WyJodHRwczov"
                 "L2FwaS5jb250b3NvLmNvbSIsImh0dHBzOi8vY29udG9zby5hdXRoMC5jb20vdXNlc"
-                "mluZm8iXSwiYXpwIjoiM01WRzlkOC4uTGhTdVEifQ.signature_here\",\n"
-                "  \"id_token\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIx"
+                'mluZm8iXSwiYXpwIjoiM01WRzlkOC4uTGhTdVEifQ.signature_here",\n'
+                '  "id_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIx'
                 "MjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI"
                 "6MTUxNjIzOTAyMn0.POstGetfAytaZS82wHcjoTyoqhMyxXiWdR7Nn7A29DNSl0E"
                 "iXLdwJ6xC6AfgZWF1bOsS_TuYI3OG85AmiExREkrS6tDfTQ2B3WXlrr-wp5AokiR"
                 "bz3_oB4OxG-W9KcEEbDRcZc0nH3L7LzYptiy1PtAylQGxHTWZXtGz4ht0bAecBgm"
-                "S0\",\n"
-                "  \"token_type\": \"Bearer\",\n"
-                "  \"expires_in\": 86400,\n"
-                "  \"refresh_token\": \"v1.MjQ1NjM4OTAtZjIxOS00YjZiLWE2NDMtYTIzYjRhZ"
-                "jU4OGQwOjp4dDNkZ3pxYw\"\n"
+                'S0",\n'
+                '  "token_type": "Bearer",\n'
+                '  "expires_in": 86400,\n'
+                '  "refresh_token": "v1.MjQ1NjM4OTAtZjIxOS00YjZiLWE2NDMtYTIzYjRhZ'
+                'jU4OGQwOjp4dDNkZ3pxYw"\n'
                 "}\n\n"
                 "=== Token Refresh Attempt (FAILED) ===\n"
                 "POST /oauth2/token grant_type=refresh_token\n"
-                "Error: {\"error\": \"invalid_grant\", \"error_description\": "
-                "\"Unknown or invalid refresh token.\"}\n\n"
+                'Error: {"error": "invalid_grant", "error_description": '
+                '"Unknown or invalid refresh token."}\n\n'
                 "The login works initially but after the access token expires, the "
                 "refresh fails and users are kicked out of Salesforce. This only "
                 "affects the EMEA Azure AD tenant (contoso-emea.onmicrosoft.com). "
@@ -14153,8 +14152,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
             needs_escalation=False,
             missing_info=[MissingInfo.CONFIGURATION_DETAILS, MissingInfo.STEPS_TO_REPRODUCE],
             next_best_action=(
-                "Clean up the misaligned TSV data and fix the ETL import "
-                "job to handle the new source format."
+                "Clean up the misaligned TSV data and fix the ETL import job to handle the new source format."
             ),
             remediation_steps=[
                 "Parse the misaligned tab-separated data to identify column shift patterns.",
