@@ -13371,4 +13371,848 @@ def get_scenarios() -> list[ScenarioDefinition]:
             ],
             difficulty="hard",
         ),
+        ScenarioDefinition(
+            scenario_id="DC-191",
+            subject="Printer not printing duplex - URGENT",
+            description=(
+                "Hi support, I need help with my printer. Here is a copy of the "
+                "document I was trying to print (I pasted it so you can see): "
+                "JVBERi0xLjQKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMiAw "
+                "IFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL1R5cGUgL1BhZ2VzCi9LaWRzIFsz "
+                "IDAgUl0KL0NvdW50IDEKL01lZGlhQm94IFswIDAgNjEyIDc5Ml0KPj4KZW5k "
+                "b2JqCjMgMCBvYmoKPDwKL1R5cGUgL1BhZ2UKL1BhcmVudCAyIDAgUgovUmVz "
+                "b3VyY2VzIDw8Ci9Gb250IDw8Ci9GMSAxMCAwIFIKPj4KPj4KL0NvbnRlbnRz "
+                "IDQgMCBSCj4+CmVuZG9iagpzdHJlYW0KICBCVCB... [truncated] "
+                "So that's the document. Anyway my ACTUAL problem is that my HP "
+                "LaserJet Pro MFP M428fdw on the 5th floor will not print duplex. "
+                "I select double-sided printing in the print dialog but it only "
+                "prints on one side. I've tried from Word and Chrome, same result. "
+                "The printer was working fine until last Tuesday."
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Strip the base64 PDF content from the ticket, "
+                "check duplex unit configuration on the printer."
+            ),
+            remediation_steps=[
+                "Remove the embedded base64 PDF content from the ticket.",
+                "Verify the duplex unit is properly seated on the HP LaserJet Pro MFP M428fdw.",
+                "Check the printer driver settings and ensure duplex is enabled at the driver level.",
+                "Print a configuration page from the printer panel to confirm duplex hardware status.",
+            ],
+            reporter_name="Greg Holloway",
+            reporter_email="greg.holloway@contoso.com",
+            reporter_department="Finance",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "base64-pdf-inline", "embedded-document"],
+            difficulty="medium",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-192",
+            subject="VPN keeps disconnecting PLEASE HELP",
+            description=(
+                "Dear IT Support, Let me start by telling you about my experience. "
+                "I have been with this company for 14 years. I started using computers "
+                "in 1997 when we had Windows 95. I remember those days fondly. My first "
+                "PC had a Pentium II processor and 64 MB of RAM. We used dial-up internet "
+                "and it was very slow. Then we upgraded to DSL and I thought that was "
+                "amazing. My daily routine involves waking up at 6:30 AM, making coffee "
+                "(French press, not drip), feeding my two cats (Whiskers and Mr. Boots), "
+                "and then sitting down at my desk. I usually check email first, then open "
+                "the spreadsheets I work on. I have been doing expense reports for 14 years "
+                "and I think I am very good at it. My manager Janet agrees. Before I get to "
+                "my issue let me also say that the cafeteria changed their menu and I am not "
+                "happy about it - the chicken wrap was perfect and now they replaced it with "
+                "some kind of quinoa bowl. Also the parking situation has gotten worse since "
+                "they started construction on Building C. I used to park in spot 247 but now "
+                "I have to park in the overflow lot which is a 10 minute walk. In the rain. "
+                "Speaking of weather, it has been raining a lot here in Portland and I think "
+                "that might be affecting the internet somehow? My neighbor said rain can affect "
+                "signals. My home setup is a Netgear Nighthawk router that I bought in 2019. "
+                "I also have a mesh extender in the hallway. My ISP is Comcast and I pay $89.99 "
+                "per month for 200 Mbps. I ran a speed test yesterday and got 187 Mbps down and "
+                "23 Mbps up which seems fine. But here is the thing - when I connect to the "
+                "corporate VPN (GlobalProtect) it connects fine for about 15-20 minutes and "
+                "then just drops. The icon in the system tray goes from connected (green) to "
+                "disconnected (red). Sometimes it reconnects automatically, sometimes I have to "
+                "manually click connect again. This happens 8-10 times per day and it is very "
+                "frustrating especially when I am on a Teams call because the call drops too. "
+                "I have tried restarting my computer, restarting my router, unplugging the mesh "
+                "extender, and even connecting directly with an ethernet cable. Same issue with "
+                "ethernet. I also want to mention that my keyboard has a sticky spacebar and "
+                "sometimes the letter 'e' does not register but that is a separate issue. Also "
+                "my monitor flickers sometimes but only on Tuesdays for some reason. Anyway the "
+                "VPN thing is my main problem. Please help. Thank you so much. Best regards, "
+                "Patricia. P.S. Can you also look into why my Outlook is slow? P.P.S. I forgot "
+                "to mention I am running Windows 11 on a Dell Latitude 5530."
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE, MissingInfo.NETWORK_LOCATION],
+            next_best_action=(
+                "Extract the VPN disconnection issue from the verbose email "
+                "and check GlobalProtect logs for disconnect reasons."
+            ),
+            remediation_steps=[
+                "Extract the core issue: GlobalProtect VPN disconnects every 15-20 minutes.",
+                "Collect GlobalProtect client logs from the user's Dell Latitude 5530.",
+                "Check the VPN gateway logs for session timeout or keepalive failures.",
+                "Verify the VPN split-tunnel configuration and MTU settings.",
+                "File separate tickets for the keyboard, monitor, and Outlook issues mentioned.",
+            ],
+            reporter_name="Patricia Langford",
+            reporter_email="patricia.langford@contoso.com",
+            reporter_department="Finance",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "very-long-email", "extreme-verbosity"],
+            difficulty="medium",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-193",
+            subject="Docking station display issue - see attached screenshots",
+            description=(
+                "Hello, my docking station is not working properly with my external "
+                "monitors. Here are screenshots of the problem:\n\n"
+                "Screenshot 1 (display settings):\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfF"
+                "cSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+"
+                "9AAAAFUlEQVR42mNk+M9QzwAEjDAGEGIAmkEF9QZKBbkAAAAASUVORK5CYII=\n\n"
+                "Screenshot 2 (device manager):\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNby"
+                "blAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5E"
+                "rkJggg==\n\n"
+                "Screenshot 3 (error popup):\n"
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSn"
+                "cAAAADklEQVQI12P4z8BQDwAEgAF/QualIQAAAABJRU5ErkJggg==\n\n"
+                "As you can see from the screenshots, my Dell WD19TB Thunderbolt "
+                "docking station only outputs to one of my two Dell U2722D monitors. "
+                "The second monitor shows 'No Signal'. This started after the Windows "
+                "update last Friday. I have tried different DisplayPort cables and "
+                "different ports on the dock. The dock firmware is version 01.00.28."
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Remove inline base64 image data and investigate the docking "
+                "station display output failure on the second monitor."
+            ),
+            remediation_steps=[
+                "Strip the base64-encoded image blocks from the ticket description.",
+                "Check for docking station firmware updates beyond version 01.00.28.",
+                "Roll back or verify the recent Windows update that preceded the failure.",
+                "Test the second monitor directly connected to the laptop to isolate the dock.",
+            ],
+            reporter_name="Aiden Nakamura",
+            reporter_email="aiden.nakamura@contoso.com",
+            reporter_department="Engineering",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "base64-image-flood", "multiple-screenshots"],
+            difficulty="medium",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-194",
+            subject="Canâ€™t install software on my laptop",
+            description=(
+                "Hi IT team,\n\n"
+                "Iâ€™m having trouble installing software on my laptop. When I try to "
+                "run the installer for Adobe Acrobat Pro, I get an error that says "
+                "â€œInstallation failed: insufficient privilegesâ€\x9d. Iâ€™ve tried "
+                "right-clicking and selecting â€œRun as administratorâ€\x9d but it "
+                "doesnâ€™t help. My colleague JosÃ© said he had the same issue last "
+                "week and the IT team fixed it for him. Iâ€™m in the MÃ¼nchen office "
+                "on the 3rd floor. My laptop is a LenovoÂ\xa0ThinkPad T14s running "
+                "WindowsÂ\xa0â€™11 Pro. The software center doesnâ€™t show Adobe in "
+                "the available applications either. Can you please help? I need this "
+                "for a client presentation on FrÃ¬day. My managerâ€™s name is "
+                "FranÃ§ois DubÃ© and he approved the license. Thank you, "
+                "RenÃ©e Ã"â€™Brien"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE, MissingInfo.APPLICATION_VERSION],
+            next_best_action=(
+                "Decode the mojibake-corrupted text to recover the real message "
+                "and investigate the Adobe Acrobat Pro installation privilege error."
+            ),
+            remediation_steps=[
+                "Decode the UTF-8/Windows-1252 mojibake to recover the original text.",
+                "Check if the user's device is managed by Intune/SCCM and has local admin rights.",
+                "Verify Adobe Acrobat Pro license availability and add it to the Software Center.",
+                "Grant temporary elevation or deploy the application via endpoint management.",
+            ],
+            reporter_name="Renée O'Brien",
+            reporter_email="renee.obrien@contoso.com",
+            reporter_department="Client Services",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "mojibake-severe", "encoding-corruption"],
+            difficulty="hard",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-195",
+            subject="Re: Re: Re: Re: Re: Re: Re: Re: Re: Re: Password reset",
+            description=(
+                ">>>>>>>>>> Original message from helpdesk@contoso.com:\n"
+                ">>>>>>>>>> Hello, your password reset request has been received.\n"
+                ">>>>>>>>> Thanks, but I haven't received the reset link yet.\n"
+                ">>>>>>>> Forwarding to Tier 2 for investigation.\n"
+                ">>>>>>> Tier 2 here. Can you confirm your employee ID?\n"
+                ">>>>>> My employee ID is EMP-44821.\n"
+                ">>>>> Thank you. We are looking into it.\n"
+                ">>>> Any update? It has been 2 days.\n"
+                ">>> We apologize for the delay. There was a system issue.\n"
+                ">> The system issue should be resolved now. Can you try again?\n"
+                "> I tried again and still no reset email. I have checked spam.\n\n"
+                "I STILL cannot reset my password. It has now been 5 days. I am "
+                "locked out of my account (username: dthompson@contoso.com) and "
+                "cannot access any systems including email (using colleague's "
+                "computer to send this). I need my Active Directory password reset "
+                "manually. My manager is Sarah Chen (sarah.chen@contoso.com) who "
+                "can verify my identity. Please call me at ext. 4821."
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P3,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.AUTHENTICATION_METHOD],
+            next_best_action=(
+                "Extract the password reset request from the deep reply chain "
+                "and perform a manual AD password reset after identity verification."
+            ),
+            remediation_steps=[
+                "Strip the 10+ levels of email quoting to extract the current request.",
+                "Verify the user's identity through their manager Sarah Chen or employee ID EMP-44821.",
+                "Perform a manual Active Directory password reset for dthompson@contoso.com.",
+                "Investigate why the self-service password reset emails are not being delivered.",
+            ],
+            reporter_name="Derek Thompson",
+            reporter_email="derek.thompson@contoso.com",
+            reporter_department="Operations",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "deep-quoting", "excessive-reply-chain"],
+            difficulty="medium",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-196",
+            subject="Bluetooth headset won't pair",
+            description=(
+                "My Jabra Evolve2 75 headset won't pair with my laptop via Bluetooth. "
+                "I've tried resetting the headset and removing it from Bluetooth settings "
+                "but it just shows 'Pairing failed' every time. I'm on a Dell Latitude "
+                "5540 with Windows 11. The headset works fine with my phone.\n\n"
+                "Best regards,\n"
+                "Monica Estrada\n"
+                "Senior Compliance Analyst\n"
+                "Enterprise Risk & Compliance Division\n"
+                "Contoso International Holdings, Ltd.\n"
+                "Floor 23, Tower B | 1 Contoso Plaza | New York, NY 10001\n"
+                "Tel: +1 (212) 555-0147 | Fax: +1 (212) 555-0148 | Ext: 7291\n"
+                "Mobile: +1 (917) 555-0396\n"
+                "Email: monica.estrada@contoso.com\n"
+                "Web: https://www.contoso.com | LinkedIn: /in/monica-estrada\n"
+                "Twitter: @ContosoCompliance | YouTube: /ContosoOfficial\n\n"
+                "  ██████╗ ██████╗ ███╗   ██╗████████╗ ██████╗ ███████╗ ██████╗\n"
+                " ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔═══██╗██╔════╝██╔═══██╗\n"
+                " ██║     ██║   ██║██╔██╗ ██║   ██║   ██║   ██║███████╗██║   ██║\n"
+                " ██║     ██║   ██║██║╚██╗██║   ██║   ██║   ██║╚════██║██║   ██║\n"
+                " ╚██████╗╚██████╔╝██║ ╚████║   ██║   ╚██████╔╝███████║╚██████╔╝\n"
+                "  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚══════╝ ╚═════╝\n\n"
+                "CONFIDENTIALITY NOTICE: This e-mail message, including any attachments, "
+                "is for the sole use of the intended recipient(s) and may contain "
+                "confidential and privileged information. Any unauthorized review, use, "
+                "disclosure or distribution is prohibited. If you are not the intended "
+                "recipient, please contact the sender by reply e-mail and destroy all "
+                "copies of the original message.\n\n"
+                "AVIS DE CONFIDENTIALITÉ: Ce message électronique, y compris les pièces "
+                "jointes, est destiné exclusivement au(x) destinataire(s) prévu(s) et peut "
+                "contenir des informations confidentielles et privilégiées.\n\n"
+                "VERTRAULICHKEITSHINWEIS: Diese E-Mail-Nachricht, einschließlich aller "
+                "Anhänge, ist ausschließlich für den/die beabsichtigten Empfänger bestimmt.\n\n"
+                "🌿 Please consider the environment before printing this email. 🌿\n"
+                "♻️ Think Green - Reduce, Reuse, Recycle ♻️"
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO, MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Strip the massive email signature and focus on the Bluetooth "
+                "pairing failure between the Jabra headset and Dell laptop."
+            ),
+            remediation_steps=[
+                "Remove the 2KB+ signature block including ASCII art, multilingual disclaimers.",
+                "Update or reinstall the Bluetooth driver on the Dell Latitude 5540.",
+                "Check if the Jabra Evolve2 75 firmware is up to date via Jabra Direct.",
+                "Try pairing using the Jabra USB dongle as an alternative to native Bluetooth.",
+            ],
+            reporter_name="Monica Estrada",
+            reporter_email="monica.estrada@contoso.com",
+            reporter_department="Compliance",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "giant-signature", "email-noise"],
+            difficulty="easy",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-197",
+            subject="Teams calls dropping - collected some links",
+            description=(
+                "Hey IT, Teams calls keep dropping for me and my team. I gathered "
+                "some links that might help:\n\n"
+                "Our Teams admin page: https://admin.teams.microsoft.com/dashboard?"
+                "utm_source=internal&utm_medium=email&utm_campaign=it_support_2024"
+                "&utm_content=admin_link&session_id=a8f3e2b1-4c7d-4e9a-b5f6-1234567890ab"
+                "&tracking_id=TRK-9847261&ref=helpdesk\n\n"
+                "Network test results: https://connectivity.office.com/results?"
+                "utm_source=teams_client&utm_medium=diagnostic&utm_campaign=network_test"
+                "&session=s_7f8a9b2c3d4e&token=eyJhbGciOiJSUzI1NiJ9.dGVzdA"
+                "&click_id=CLK-2847193&ab_test=variant_b\n\n"
+                "Related MS article: https://learn.microsoft.com/en-us/microsoftteams/"
+                "troubleshoot/meetings/teams-call-quality?utm_source=google"
+                "&utm_medium=cpc&utm_campaign=teams_support_q4&gclid=Cj0KCQiA7YqE"
+                "BhDnARIsAMbUpWkxyz123&msclkid=abc123def456&utm_term=teams+call+drop\n\n"
+                "Speed test: https://www.speedtest.net/result/15678901234?"
+                "utm_source=result_share&utm_medium=social&campaign_id=CMPN-8374651\n\n"
+                "Our VPN portal: https://vpn.contoso.com/portal/login?"
+                "redirect=https%3A%2F%2Fvpn.contoso.com%2Fdashboard&session_token="
+                "st_9a8b7c6d5e4f&analytics_id=AN-1928374650&source=email_link"
+                "&utm_source=it_notify&utm_medium=email&utm_campaign=vpn_access\n\n"
+                "The calls drop after about 10 minutes, always mid-sentence. Audio "
+                "cuts out first, then video freezes, then the call ends. This happens "
+                "on both Wi-Fi and ethernet. About 6 people in our team on Floor 3 "
+                "are affected. Started Monday after the network maintenance window."
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.NETWORK_LOCATION, MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Strip tracking parameters from URLs and investigate Teams "
+                "call quality degradation on Floor 3 post-maintenance."
+            ),
+            remediation_steps=[
+                "Remove UTM/tracking parameters from all URLs to extract clean references.",
+                "Check the network maintenance change log for Floor 3 switch or QoS changes.",
+                "Run Teams network assessment tool on affected Floor 3 workstations.",
+                "Verify QoS policies are correctly prioritizing Teams media traffic post-maintenance.",
+                "Check for packet loss or jitter on the Floor 3 network segment.",
+            ],
+            reporter_name="Jason Okafor",
+            reporter_email="jason.okafor@contoso.com",
+            reporter_department="Sales",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "url-spam", "tracking-urls"],
+            difficulty="medium",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-198",
+            subject="keyboard not working properly",
+            description=(
+                "Received: from mail-gateway-03.contoso.com (10.50.2.13) by "
+                "mail-hub-01.contoso.com (10.50.1.5) with ESMTP; Mon, 18 Nov 2024 "
+                "09:14:32 -0500\n"
+                "Received: from edge-transport.contoso.com (10.50.3.7) by "
+                "mail-gateway-03.contoso.com (10.50.2.13) with ESMTPS "
+                "(TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384); Mon, 18 Nov 2024 09:14:31 -0500\n"
+                "DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=contoso.com; "
+                "s=selector1; h=from:to:subject:date:message-id; "
+                "bh=2jUSOH9NhtVGCQWNr9BrIAPreKQjO6Sn7XIkfJVOzv8=; "
+                "b=AuUoFEfDxTDkHlLXSZEpZj79LICEps6eda7W3deTVFOk2pFXo...\n"
+                "X-Mailer: Microsoft Outlook 16.0\n"
+                "X-MS-Exchange-Organization-AuthSource: mail-hub-01.contoso.com\n"
+                "X-MS-Exchange-Organization-SCL: -1\n"
+                "X-MS-Exchange-Organization-AVStamp-Enterprise: 1.0\n"
+                "X-Originating-IP: [10.22.45.189]\n"
+                "MIME-Version: 1.0\n"
+                "Content-Type: text/plain; charset=utf-8\n"
+                "Message-ID: <5a3f8b2c-9d1e-4f7a-b6c8-3e2a1d4f5b6c@contoso.com>\n"
+                "Date: Mon, 18 Nov 2024 09:14:30 -0500\n"
+                "From: hiroshi.tanaka@contoso.com\n"
+                "To: helpdesk@contoso.com\n"
+                "Subject: keyboard not working properly\n\n"
+                "--- Actual message begins ---\n"
+                "Several keys on my Logitech MX Keys keyboard have stopped responding. "
+                "The 'A', 'S', and 'D' keys do not register when pressed. The keyboard "
+                "is connected via the Unifying USB receiver. I have tried a different "
+                "USB port and replacing the batteries. The keyboard is about 8 months "
+                "old. I need a replacement or repair. Asset tag: KBD-2024-00891."
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.DEVICE_INFO],
+            next_best_action=(
+                "Strip the email headers and SMTP metadata, then process the "
+                "keyboard replacement request for the Logitech MX Keys."
+            ),
+            remediation_steps=[
+                "Remove the SMTP headers and email metadata from the ticket.",
+                "Verify the asset tag KBD-2024-00891 in the inventory system.",
+                "Issue a replacement Logitech MX Keys keyboard from inventory.",
+                "Arrange collection of the defective keyboard for warranty return.",
+            ],
+            reporter_name="Hiroshi Tanaka",
+            reporter_email="hiroshi.tanaka@contoso.com",
+            reporter_department="Engineering",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "email-metadata", "smtp-headers"],
+            difficulty="easy",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-199",
+            subject="Deployment failed - here's what changed",
+            description=(
+                "The production deployment for order-service failed at 3:47 AM. "
+                "Here is the diff of what we were trying to deploy:\n\n"
+                "diff --git a/src/services/order-service/config.py "
+                "b/src/services/order-service/config.py\n"
+                "index 4a2b8c1..7d3f9e2 100644\n"
+                "--- a/src/services/order-service/config.py\n"
+                "+++ b/src/services/order-service/config.py\n"
+                "@@ -14,7 +14,7 @@ class OrderServiceConfig:\n"
+                "     DATABASE_HOST = os.environ.get('DB_HOST', 'localhost')\n"
+                "     DATABASE_PORT = int(os.environ.get('DB_PORT', '5432'))\n"
+                "-    DATABASE_POOL_SIZE = 10\n"
+                "+    DATABASE_POOL_SIZE = 50\n"
+                "     DATABASE_TIMEOUT = 30\n"
+                "@@ -28,6 +28,8 @@ class OrderServiceConfig:\n"
+                "     CACHE_TTL = 300\n"
+                "+    REDIS_CLUSTER_MODE = True\n"
+                "+    REDIS_SENTINEL_ENABLED = False\n"
+                "     \n"
+                "diff --git a/src/services/order-service/handlers/checkout.py "
+                "b/src/services/order-service/handlers/checkout.py\n"
+                "index 8f1c2d3..9a4b5e6 100644\n"
+                "--- a/src/services/order-service/handlers/checkout.py\n"
+                "+++ b/src/services/order-service/handlers/checkout.py\n"
+                "@@ -45,10 +45,15 @@ async def process_checkout(order_id: str):\n"
+                "-    async with db.acquire() as conn:\n"
+                "-        result = await conn.execute(query)\n"
+                "+    pool = await get_connection_pool()\n"
+                "+    async with pool.acquire() as conn:\n"
+                "+        try:\n"
+                "+            result = await conn.execute(query)\n"
+                "+        except asyncpg.PoolAcquireTimeoutError:\n"
+                "+            logger.error('Pool exhausted for order %s', order_id)\n"
+                "+            raise ServiceUnavailableError()\n\n"
+                "The deployment pipeline (Jenkins job #4821) threw an error during "
+                "the database migration step. The error in the Jenkins console was: "
+                "'ERROR: relation \"order_items_v2\" already exists'. We need to roll "
+                "back and fix the migration script before retrying."
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ENVIRONMENT_DETAILS, MissingInfo.ERROR_MESSAGE],
+            next_best_action=(
+                "Extract the deployment error from the git diff noise "
+                "and investigate the duplicate migration for order_items_v2."
+            ),
+            remediation_steps=[
+                "Separate the git diff from the actual error description.",
+                "Roll back the failed deployment via Jenkins job rollback procedure.",
+                "Fix the migration script that attempts to create 'order_items_v2' when it already exists.",
+                "Add an IF NOT EXISTS guard to the migration or correct the migration version tracking.",
+                "Re-run the deployment pipeline after migration fix is verified in staging.",
+            ],
+            reporter_name="Carlos Medina",
+            reporter_email="carlos.medina@contoso.com",
+            reporter_department="Engineering",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "git-diff", "code-paste"],
+            difficulty="medium",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-200",
+            subject="Service connectivity issue - pod details attached",
+            description=(
+                "The payment-gateway service can't reach the fraud-detection service "
+                "in the prod-east cluster. Here is the pod describe output:\n\n"
+                "Name:             fraud-detection-7b8c9d4e5f-x2k9m\n"
+                "Namespace:        prod-east\n"
+                "Priority:         0\n"
+                "Service Account:  fraud-detection-sa\n"
+                "Node:             aks-nodepool1-12345678-vmss000003/10.240.0.6\n"
+                "Start Time:       Mon, 18 Nov 2024 02:14:00 +0000\n"
+                "Labels:           app=fraud-detection\n"
+                "                  pod-template-hash=7b8c9d4e5f\n"
+                "                  version=v2.3.1\n"
+                "Status:           Running\n"
+                "IP:               10.244.3.47\n"
+                "Controlled By:    ReplicaSet/fraud-detection-7b8c9d4e5f\n"
+                "Containers:\n"
+                "  fraud-detection:\n"
+                "    Image:          contoso.azurecr.io/fraud-detection:v2.3.1\n"
+                "    Port:           8080/TCP\n"
+                "    State:          Running\n"
+                "      Started:      Mon, 18 Nov 2024 02:14:05 +0000\n"
+                "    Ready:          True\n"
+                "    Limits:\n"
+                "      cpu:     500m\n"
+                "      memory:  512Mi\n"
+                "    Requests:\n"
+                "      cpu:     250m\n"
+                "      memory:  256Mi\n"
+                "    Liveness:   http-get http://:8080/healthz delay=10s timeout=3s\n"
+                "    Readiness:  http-get http://:8080/readyz delay=5s timeout=3s\n"
+                "Conditions:\n"
+                "  Type              Status\n"
+                "  Initialized       True\n"
+                "  Ready             True\n"
+                "  ContainersReady   True\n"
+                "  PodScheduled      True\n"
+                "Events:\n"
+                "  Type    Reason   Age   From     Message\n"
+                "  Normal  Pulled   47m   kubelet  Container image already present\n"
+                "  Normal  Created  47m   kubelet  Created container fraud-detection\n"
+                "  Normal  Started  47m   kubelet  Started container fraud-detection\n\n"
+                "The pod looks healthy but payment-gateway gets connection refused "
+                "on port 8080 when calling fraud-detection.prod-east.svc.cluster.local. "
+                "Suspect a NetworkPolicy or service mesh (Istio) misconfiguration after "
+                "yesterday's Istio upgrade to 1.20."
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE, MissingInfo.CONFIGURATION_DETAILS],
+            next_best_action=(
+                "Extract the connectivity error from the kubectl output and "
+                "check Istio sidecar and NetworkPolicy configurations."
+            ),
+            remediation_steps=[
+                "Separate the kubectl describe output from the actual connectivity issue.",
+                "Verify the Kubernetes Service and Endpoints for fraud-detection in prod-east.",
+                "Check NetworkPolicy rules that may be blocking traffic from payment-gateway.",
+                "Review Istio 1.20 upgrade changes, particularly PeerAuthentication and AuthorizationPolicy.",
+                "Test connectivity with kubectl exec from payment-gateway pod to fraud-detection:8080.",
+            ],
+            reporter_name="Priya Sharma",
+            reporter_email="priya.sharma@contoso.com",
+            reporter_department="Engineering",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "k8s-output", "container-logs"],
+            difficulty="hard",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-201",
+            subject="Container networking issue - compose file for reference",
+            description=(
+                "We have a container networking issue in our staging environment. "
+                "The api-gateway container cannot resolve the internal DNS names of "
+                "backend services. Here is our docker-compose.yml for reference:\n\n"
+                "version: '3.8'\n"
+                "services:\n"
+                "  api-gateway:\n"
+                "    image: contoso/api-gateway:2.1.0\n"
+                "    ports:\n"
+                "      - '8080:8080'\n"
+                "    networks:\n"
+                "      - frontend\n"
+                "    depends_on:\n"
+                "      - auth-service\n"
+                "      - user-service\n"
+                "  auth-service:\n"
+                "    image: contoso/auth-service:1.5.2\n"
+                "    networks:\n"
+                "      - frontend\n"
+                "      - backend\n"
+                "  user-service:\n"
+                "    image: contoso/user-service:3.0.1\n"
+                "    networks:\n"
+                "      - backend\n"
+                "  order-service:\n"
+                "    image: contoso/order-service:2.8.0\n"
+                "    networks:\n"
+                "      - backend\n"
+                "  payment-service:\n"
+                "    image: contoso/payment-service:1.2.3\n"
+                "    networks:\n"
+                "      - backend\n"
+                "  notification-service:\n"
+                "    image: contoso/notification-service:1.0.7\n"
+                "    networks:\n"
+                "      - backend\n"
+                "  inventory-service:\n"
+                "    image: contoso/inventory-service:2.4.1\n"
+                "    networks:\n"
+                "      - backend\n"
+                "  shipping-service:\n"
+                "    image: contoso/shipping-service:1.3.5\n"
+                "    networks:\n"
+                "      - backend\n"
+                "  analytics-service:\n"
+                "    image: contoso/analytics-service:3.1.0\n"
+                "    networks:\n"
+                "      - backend\n"
+                "  cache:\n"
+                "    image: redis:7.2-alpine\n"
+                "    networks:\n"
+                "      - backend\n"
+                "  db:\n"
+                "    image: postgres:16-alpine\n"
+                "    networks:\n"
+                "      - backend\n"
+                "  rabbitmq:\n"
+                "    image: rabbitmq:3.12-management\n"
+                "    networks:\n"
+                "      - backend\n"
+                "networks:\n"
+                "  frontend:\n"
+                "    driver: bridge\n"
+                "  backend:\n"
+                "    driver: bridge\n\n"
+                "As you can see, api-gateway is on the 'frontend' network but "
+                "user-service and order-service are only on 'backend'. The api-gateway "
+                "can reach auth-service (which is on both networks) but not the others. "
+                "We need to fix the network topology so api-gateway can reach all services."
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.CONFIGURATION_DETAILS],
+            next_best_action=(
+                "Analyze the Docker Compose network topology and correct "
+                "the network assignments for cross-network service communication."
+            ),
+            remediation_steps=[
+                "Extract the networking issue from the full docker-compose.yml dump.",
+                "Add the 'frontend' network to services that api-gateway needs to reach directly.",
+                "Alternatively, place api-gateway on both 'frontend' and 'backend' networks.",
+                "Restart the compose stack and verify DNS resolution from api-gateway to all services.",
+            ],
+            reporter_name="Lin Wei",
+            reporter_email="lin.wei@contoso.com",
+            reporter_department="Engineering",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "docker-compose", "yaml-config"],
+            difficulty="medium",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-202",
+            subject="SSO login failing - auth trace attached",
+            description=(
+                "Our SSO login to Salesforce is failing for users in the EMEA region. "
+                "I captured the auth flow trace:\n\n"
+                "=== OAuth Authorization Request ===\n"
+                "GET /authorize?client_id=3MVG9d8..LhSuQ&response_type=code"
+                "&redirect_uri=https%3A%2F%2Flogin.contoso.com%2Fcallback"
+                "&scope=openid%20profile%20email&state=abc123xyz\n\n"
+                "=== Token Exchange ===\n"
+                "POST /oauth2/token\n"
+                "Response: {\n"
+                "  \"access_token\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik"
+                "1UQXhOVVF5TmpJeE5EWTJOVFkzTlRoRk5VRXlRakU0UkRVeU16TTBOVEF4T0RVNU"
+                "9UTXpNQSJ9.eyJpc3MiOiJodHRwczovL2NvbnRvc28uYXV0aDAuY29tLyIsInN1YiI"
+                "6ImF1dGgwfDY1YjJjM2Q0ZTVmNmE3YjhjOWQwZTFmMiIsImF1ZCI6WyJodHRwczov"
+                "L2FwaS5jb250b3NvLmNvbSIsImh0dHBzOi8vY29udG9zby5hdXRoMC5jb20vdXNlc"
+                "mluZm8iXSwiYXpwIjoiM01WRzlkOC4uTGhTdVEifQ.signature_here\",\n"
+                "  \"id_token\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIx"
+                "MjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI"
+                "6MTUxNjIzOTAyMn0.POstGetfAytaZS82wHcjoTyoqhMyxXiWdR7Nn7A29DNSl0E"
+                "iXLdwJ6xC6AfgZWF1bOsS_TuYI3OG85AmiExREkrS6tDfTQ2B3WXlrr-wp5AokiR"
+                "bz3_oB4OxG-W9KcEEbDRcZc0nH3L7LzYptiy1PtAylQGxHTWZXtGz4ht0bAecBgm"
+                "S0\",\n"
+                "  \"token_type\": \"Bearer\",\n"
+                "  \"expires_in\": 86400,\n"
+                "  \"refresh_token\": \"v1.MjQ1NjM4OTAtZjIxOS00YjZiLWE2NDMtYTIzYjRhZ"
+                "jU4OGQwOjp4dDNkZ3pxYw\"\n"
+                "}\n\n"
+                "=== Token Refresh Attempt (FAILED) ===\n"
+                "POST /oauth2/token grant_type=refresh_token\n"
+                "Error: {\"error\": \"invalid_grant\", \"error_description\": "
+                "\"Unknown or invalid refresh token.\"}\n\n"
+                "The login works initially but after the access token expires, the "
+                "refresh fails and users are kicked out of Salesforce. This only "
+                "affects the EMEA Azure AD tenant (contoso-emea.onmicrosoft.com). "
+                "US tenant works fine."
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P2,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.CONFIGURATION_DETAILS, MissingInfo.AFFECTED_USERS],
+            next_best_action=(
+                "Redact the exposed tokens and investigate the refresh token "
+                "invalidation issue on the EMEA Azure AD tenant."
+            ),
+            remediation_steps=[
+                "Immediately flag the exposed JWT tokens and refresh tokens for revocation.",
+                "Redact all token values from the ticket before further processing.",
+                "Compare the OAuth app registration settings between US and EMEA tenants.",
+                "Check if the EMEA tenant has different token lifetime policies causing refresh failures.",
+                "Verify the Salesforce connected app refresh token policy for the EMEA configuration.",
+            ],
+            reporter_name="Emma Van Der Berg",
+            reporter_email="emma.vanderberg@contoso.com",
+            reporter_department="IT Security",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "jwt-token", "oauth-dump", "auth-trace"],
+            difficulty="hard",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-203",
+            subject="CI/CD pipeline failing - build output attached",
+            description=(
+                "Our CI/CD pipeline for the frontend-app has been failing since this "
+                "morning. Here is the build output:\n\n"
+                "\033[1m\033[34m> frontend-app@3.2.1 build\033[0m\n"
+                "\033[1m\033[34m> next build\033[0m\n\n"
+                "\033[36minfo\033[0m  - Linting and checking validity of types...\n"
+                "\033[31m\033[1mFailed to compile.\033[0m\n\n"
+                "\033[31m./src/components/Dashboard/MetricsPanel.tsx:47:23\033[0m\n"
+                "\033[31mType error\033[0m: Property \033[33m'metrics'\033[0m does not "
+                "exist on type \033[33m'DashboardProps'\033[0m.\n\n"
+                "\033[90m  45 |\033[0m   const { data, loading } = useQuery(METRICS_QUERY);\n"
+                "\033[90m  46 |\033[0m   return (\n"
+                "\033[31m> 47 |\033[0m     <MetricsGrid \033[31m\033[1mmetrics\033[0m"
+                "={data.dashboard.\033[31m\033[1mmetrics\033[0m} />\n"
+                "\033[90m     |\033[0m                       \033[31m^\033[0m\n"
+                "\033[90m  48 |\033[0m   );\n"
+                "\033[90m  49 |\033[0m };\n\n"
+                "\033[31merror\033[0m Command failed with exit code 1.\n"
+                "\033[34minfo\033[0m Visit \033[34mhttps://yarnpkg.com/en/docs/cli/run"
+                "\033[0m for documentation.\n\n"
+                "The pipeline is on Jenkins (job frontend-app-main #892). The build "
+                "was green yesterday on commit abc1234. Today's commit def5678 added "
+                "a new dashboard component that references a 'metrics' property that "
+                "doesn't exist in the DashboardProps type definition."
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Strip ANSI escape codes from the build output and address "
+                "the TypeScript compilation error in MetricsPanel.tsx."
+            ),
+            remediation_steps=[
+                "Remove ANSI terminal escape codes to extract readable build output.",
+                "Identify the type error: 'metrics' property missing from DashboardProps interface.",
+                "Update the DashboardProps type definition to include the 'metrics' field.",
+                "Alternatively, revert commit def5678 if the type change requires broader refactoring.",
+                "Re-run Jenkins job frontend-app-main after the fix is merged.",
+            ],
+            reporter_name="Sanjay Patel",
+            reporter_email="sanjay.patel@contoso.com",
+            reporter_department="Engineering",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "ansi-codes", "terminal-output"],
+            difficulty="medium",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-204",
+            subject="Data import failure - spreadsheet data included",
+            description=(
+                "The nightly data import job for the customer database failed. "
+                "Here is a sample of the data that failed to import (copied from Excel):\n\n"
+                "CustomerID\tFirstName\tLastName\tEmail\tPhone\tRegion\tStatus\n"
+                "10482\tJohn\tSmith\tjohn.smith@example.com\t+1-555-0101\tNorth America"
+                "\tActive\n"
+                "10483\tMaria\tGarcia\t\tmaria.garcia@example.com\t+34-555-0202"
+                "\tEurope\tActive\n"
+                "10484\tYuki\tTanaka\tyuki.tanaka@example.com\t\t+81-555-0303"
+                "\tAPAC\tActive\n"
+                "10485\tAhmed\tHassan\tahmed.hassan@example.com\t+20-555-0404"
+                "\t\tMEA\tPending\n"
+                "10486\tSophie\tDubois\tsophie.dubois@example.com\t+33-555-0505\tEurope"
+                "\tActive\tExtra_Column_Data\n"
+                "10487\tRaj Patel\traj.patel@example.com\t+91-555-0606\tAPAC\tActive\n"
+                "10488\t\tLi Wei\tli.wei@example.com\t+86-555-0707\tAPAC\tActive\n\n"
+                "As you can see, the columns are misaligned starting from row 10483. "
+                "Some rows have extra tabs, missing fields, or shifted columns. The "
+                "import job (ETL-CUST-NIGHTLY, run ID #7891) fails with 'Column count "
+                "mismatch at row 2'. The source Excel file is on the shared drive at "
+                "\\\\fileshare\\data\\imports\\customers_20241118.xlsx. The import "
+                "was working fine until the source team changed their export format "
+                "last week."
+            ),
+            category=Category.DATA_STORAGE,
+            priority=Priority.P3,
+            team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.CONFIGURATION_DETAILS, MissingInfo.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Clean up the misaligned TSV data and fix the ETL import "
+                "job to handle the new source format."
+            ),
+            remediation_steps=[
+                "Parse the misaligned tab-separated data to identify column shift patterns.",
+                "Contact the source team to confirm the new export format specification.",
+                "Update the ETL-CUST-NIGHTLY job to handle the revised column layout.",
+                "Add column count validation and error handling to the import pipeline.",
+                "Re-run the import with the corrected parser against the source file.",
+            ],
+            reporter_name="Natasha Romanov",
+            reporter_email="natasha.romanov@contoso.com",
+            reporter_department="Data Operations",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "spreadsheet-paste", "misaligned-columns", "tabular-data"],
+            difficulty="medium",
+        ),
+        ScenarioDefinition(
+            scenario_id="DC-205",
+            subject="Application crashes on startup",
+            description=(
+                "Hi\u200b support\u200b team\u200b,\u200b\n\n"
+                "Our\u200b internal\u200b CRM\u200b application\u200b "
+                "(Contoso\u200b Sales\u200b Tracker\u200b v4\u200b.2\u200b.1\u200b) "
+                "crashes\u200b immediately\u200b on\u200b startup\u200b.\u200b "
+                "When\u200b I\u200b double\u200b-\u200bclick\u200b the\u200b "
+                "icon\u200b,\u200b the\u200b splash\u200b screen\u200b appears\u200b "
+                "for\u200b about\u200b 2\u200b seconds\u200b and\u200b then\u200b "
+                "the\u200b application\u200b closes\u200b.\u200b "
+                "No\u200b error\u200b message\u200b is\u200b displayed\u200b.\u200b "
+                "I\u200b checked\u200b the\u200b Windows\u200b Event\u200b Viewer\u200b "
+                "and\u200b found\u200b this\u200b:\u200b "
+                "'Faulting\u200b application\u200b name\u200b:\u200b "
+                "ContosoSalesTracker\u200b.\u200bexe\u200b,\u200b "
+                "version\u200b:\u200b 4\u200b.\u200b2\u200b.\u200b1\u200b.\u200b0"
+                "\u200b,\u200b Exception\u200b code\u200b:\u200b "
+                "0xc0000005\u200b'\u200b.\u200b "
+                "This\u200b started\u200b after\u200b the\u200b .NET\u200b "
+                "runtime\u200b update\u200b last\u200b Friday\u200b.\u200b "
+                "Three\u200b other\u200b people\u200b\ufeff on\u200b my\u200b "
+                "team\u200b\u200d have\u200b the\u200b same\u200b issue\u200b.\u200b "
+                "Please\u200b help\u200b!\u200b"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE, MissingInfo.APPLICATION_VERSION],
+            next_best_action=(
+                "Strip zero-width Unicode characters from the text and investigate "
+                "the .NET runtime compatibility crash in ContosoSalesTracker.exe."
+            ),
+            remediation_steps=[
+                "Remove zero-width spaces (U+200B), zero-width joiners (U+200D), and BOM (U+FEFF) characters.",
+                "Investigate the access violation (0xc0000005) in ContosoSalesTracker.exe v4.2.1.0.",
+                "Check .NET runtime version compatibility after last Friday's update.",
+                "Roll back the .NET runtime or update the CRM application to a compatible version.",
+                "Verify fix across all three affected team members' workstations.",
+            ],
+            reporter_name="Kwame Asante",
+            reporter_email="kwame.asante@contoso.com",
+            reporter_department="Sales",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "zero-width-chars", "invisible-unicode"],
+            difficulty="hard",
+        ),
     ]
