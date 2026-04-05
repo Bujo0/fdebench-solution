@@ -1974,7 +1974,7 @@ def _slack_webhook_payload() -> EvalScenario:
     )
 
 
-def _registry_export_dump() -> EvalScenario:
+def _registry_export() -> EvalScenario:
     """Windows Registry export pasted in a desktop issue."""
     return EvalScenario(
         ticket=Ticket(
@@ -2023,7 +2023,7 @@ def _registry_export_dump() -> EvalScenario:
             ],
         ),
         tag=_TAG,
-        test_name="registry_export_dump",
+        test_name="registry_export",
         test_description=(
             "Tests handling of Windows Registry .reg export format with hex values and "
             "deeply nested HKEY paths. Must identify the Outlook profile corruption issue."
@@ -2095,7 +2095,7 @@ def _xml_config_dump() -> EvalScenario:
     )
 
 
-def _base64_pdf_inline() -> EvalScenario:
+def _base64_pdf_attachment() -> EvalScenario:
     """Base64-encoded PDF content inline in description."""
     _b64_fragment = "JVBERi0xLjcKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAw" * 8
     return EvalScenario(
@@ -2138,7 +2138,7 @@ def _base64_pdf_inline() -> EvalScenario:
             ],
         ),
         tag=_TAG,
-        test_name="base64_pdf_inline",
+        test_name="base64_pdf_attachment",
         test_description=(
             "Tests handling of base64-encoded PDF data pasted inline. The model must "
             "look past the binary noise and identify the SharePoint PDF rendering issue."
@@ -2508,115 +2508,151 @@ def _jira_import_artifacts() -> EvalScenario:
     )
 
 
-def _kubernetes_events_dump() -> EvalScenario:
-    """kubectl get events output pasted in ticket."""
+def _binary_log_corruption() -> EvalScenario:
+    """Binary MySQL binlog data leaking into text."""
+    binlog_noise = (
+        "\x00\x00\x00\x00\xfe\x62\x69\x6e\x00\x00\x00"
+        "\\x9a\\x4f\\x66\\x01\\x0f\\x01\\x00\\x00\\x00\\x77\\x00\\x00\\x00"
+        "\\x7b\\x00\\x00\\x00\\x00\\x00\\x04\\x00\\x38\\x2e\\x30\\x2e\\x33"
+        "\\x36\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00"
+        "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00"
+        "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x13\\x00\\x0d\\x00\\x08"
+        "\\x00\\x00\\x00\\x00\\x08\\x00\\x12\\x00\\x04\\x04\\x04\\x04\\x12"
+    )
+    description = (
+        "MySQL replication between our primary (mysql-prod-01) and replica "
+        "(mysql-replica-02) is broken. The replica is stuck and the relay log "
+        "seems corrupted. When I tried to inspect the binlog I got garbled output:\n\n"
+        f"mysqlbinlog --read-from-remote-server --host=mysql-prod-01 binlog.000847:\n{binlog_noise}\n"
+        f"{binlog_noise}\n"
+        "# at 4\n"
+        "#260318  9:00:00 server id 1  end_log_pos 126  Format_desc\n"
+        "# Server ver: 8.0.36, Binlog ver: 4\n"
+        "ERROR: Error in Log_event::read_log_event(): 'Event too big', "
+        "data_len: 1347420867, event_type: 35\n"
+        "ERROR: Could not read entry at offset 4: Error in log event.\n\n"
+        "Replication has been down for ~4 hours. The replica serves all read "
+        "queries for our reporting dashboards so this is impacting the BI team. "
+        "Replica status shows: Slave_SQL_Running: No, Last_Error: Could not "
+        "parse relay log event entry.\n\n"
+        "Primary: mysql-prod-01.contoso.com (8.0.36)\n"
+        "Replica: mysql-replica-02.contoso.com (8.0.36)\n"
+        "Affected database: contoso_analytics"
+    )
+
     return EvalScenario(
         ticket=Ticket(
             ticket_id="INC-9224",
-            subject="Pods in CrashLoopBackOff for payment-service",
-            description=(
-                "kubectl get events -n payments --sort-by='.lastTimestamp' output:\n\n"
-                "LAST SEEN   TYPE      REASON              OBJECT                           MESSAGE\n"
-                "2m          Warning   BackOff             pod/payment-svc-7f8b9c6d5-x2k4j  "
-                "Back-off restarting failed container\n"
-                "2m          Warning   Failed              pod/payment-svc-7f8b9c6d5-x2k4j  "
-                "Error: CrashLoopBackOff\n"
-                "3m          Normal    Pulled              pod/payment-svc-7f8b9c6d5-x2k4j  "
-                'Container image "contoso.azurecr.io/payment-svc:2.4.1" already present\n'
-                "3m          Normal    Created             pod/payment-svc-7f8b9c6d5-x2k4j  "
-                "Created container payment-svc\n"
-                "3m          Warning   Unhealthy           pod/payment-svc-7f8b9c6d5-x2k4j  "
-                "Readiness probe failed: HTTP probe failed with statuscode: 503\n"
-                "5m          Normal    Scheduled           pod/payment-svc-7f8b9c6d5-x2k4j  "
-                "Successfully assigned payments/payment-svc-7f8b9c6d5-x2k4j to aks-nodepool1\n\n"
-                "All 3 replicas are in this state. Started after the 2.4.1 image was deployed "
-                "30 minutes ago. Rolling back to 2.4.0 would restore service."
-            ),
+            subject="MySQL replication broken — binlog corruption on replica",
+            description=description,
             reporter=Reporter(
-                name="Yuki Tanaka",
-                email="yuki.tanaka@contoso.com",
-                department="Backend Engineering",
+                name="Raj Patel",
+                email="raj.patel@contoso.com",
+                department="Data Engineering",
             ),
-            created_at="2026-03-18T09:15:00Z",
-            channel=TicketChannel.CHAT,
-            attachments=[],
+            created_at="2026-03-18T13:00:00Z",
+            channel=TicketChannel.PORTAL,
+            attachments=["binlog_error_output.txt"],
         ),
         gold=TriageDecision(
             ticket_id="INC-9224",
-            category=TicketCategory.SOFTWARE,
-            priority=Priority.P1,
-            assigned_team=AssignedTeam.ENTERPRISE_APPS,
-            needs_escalation=True,
+            category=TicketCategory.DATA_STORAGE,
+            priority=Priority.P2,
+            assigned_team=AssignedTeam.DATA_PLATFORM,
+            needs_escalation=False,
             missing_information=[],
             next_best_action=(
-                "Rollback payment-service from 2.4.1 to 2.4.0 to restore service. All 3 replicas "
-                "are in CrashLoopBackOff with readiness probe returning 503."
+                "Restore MySQL replication between mysql-prod-01 and mysql-replica-02. "
+                "The relay log on the replica is corrupted, causing replication to halt. "
+                "BI reporting dashboards depend on the replica for read queries."
             ),
             remediation_steps=[
-                "Immediately rollback: kubectl rollout undo deployment/payment-svc -n payments",
-                "Check container logs from the 2.4.1 pods for the root cause",
-                "Investigate what changed between 2.4.0 and 2.4.1 that causes the 503",
+                "Stop replication on the replica and reset the relay logs with RESET SLAVE",
+                "Re-initialize replication from the primary's current binlog position",
+                "Verify the binlog on the primary is intact by running mysqlbinlog locally",
+                "Monitor replication lag after restoration to ensure it catches up",
+                "Investigate root cause of relay log corruption (disk issues, network errors)",
             ],
         ),
         tag=_TAG,
-        test_name="kubernetes_events_dump",
+        test_name="binary_log_corruption",
         test_description=(
-            "Tests handling of kubectl events output with tabular formatting and Kubernetes "
-            "event types. Must identify the CrashLoopBackOff after a bad deployment."
+            "Tests handling of binary MySQL binlog data mixed into ticket text. The "
+            "description contains hex escape sequences and binary fragments from a "
+            "corrupted relay log. The model must identify the MySQL replication failure."
         ),
     )
 
 
-def _calendar_invite_noise() -> EvalScenario:
-    """ICS/vCalendar data mixed with support request."""
+def _markdown_rendering_noise() -> EvalScenario:
+    """Rendered markdown with HTML artifacts mixed in."""
+    description = (
+        "Our internal wiki at wiki.contoso.com is rendering pages incorrectly. "
+        "Here's what the page source looks like when I view it:\n\n"
+        '<div class="markdown-body">\n'
+        "<h1>Onboarding Guide</h1>\n"
+        '<p>Welcome to <strong class="highlight">Contoso Financial</strong>.</p>\n'
+        "<!-- confluence-macro: {toc} -->\n"
+        '<span data-macro-name="toc" data-macro-id="abc123"></span>\n'
+        "<h2>Step 1: Access Setup</h2>\n"
+        '<p>Request access via <a href="javascript:void(0)" '
+        'data-linktype="internal">ServiceNow portal</a></p>\n'
+        "<ul>\n"
+        "  <li>&#x2610; VPN configuration</li>\n"
+        "  <li>&#x2610; Email setup</li>\n"
+        "  <li>&#x2611; Badge access (auto-provisioned)</li>\n"
+        "</ul>\n"
+        '<div class="aui-message warning">\n'
+        "  <p>Note: HTML entities &amp;amp; &amp;lt; &amp;gt; are not rendering</p>\n"
+        "</div>\n"
+        "<!-- JIRA: WIKI-4521 -->\n"
+        '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUg..." '
+        'alt="broken-image" onerror="this.style.display=\'none\'">\n'
+        '<p style="color: undefined; font-size: NaNpx;">Footer text</p>\n\n'
+        "All pages in the Engineering space are showing raw HTML instead of "
+        "rendered content. Started after the wiki platform update last night. "
+        "About 200 engineers use this wiki daily for runbooks and documentation."
+    )
+
     return EvalScenario(
         ticket=Ticket(
             ticket_id="INC-9225",
-            subject="Conference room display showing wrong calendar",
-            description=(
-                "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Microsoft Corporation//Outlook 16.0\n"
-                "BEGIN:VEVENT\nDTSTART:20260318T140000Z\nDTEND:20260318T150000Z\n"
-                "SUMMARY:Q1 Portfolio Review\nLOCATION:Boardroom A - NYC 24F\n"
-                "ORGANIZER;CN=Sarah Mitchell:mailto:s.mitchell@contoso.com\n"
-                "ATTENDEE;RSVP=TRUE;CN=Trading Desk:mailto:trading@contoso.com\n"
-                "ATTENDEE;RSVP=TRUE;CN=Risk Team:mailto:risk@contoso.com\n"
-                "END:VEVENT\nEND:VCALENDAR\n\n"
-                "The above calendar invite is for the boardroom but the Crestron display "
-                "outside Boardroom A on the 24th floor is showing the calendar for "
-                "Boardroom B instead. It's been wrong since the room mailbox migration "
-                "last Thursday. Executives are walking into the wrong meetings."
-            ),
+            subject="Wiki pages showing raw HTML — rendering broken after update",
+            description=description,
             reporter=Reporter(
-                name="Patricia Gonzalez",
-                email="patricia.gonzalez@contoso.com",
-                department="Executive Operations",
+                name="Tom Bradley",
+                email="tom.bradley@contoso.com",
+                department="Engineering",
             ),
-            created_at="2026-03-18T12:30:00Z",
-            channel=TicketChannel.PHONE,
-            attachments=[],
+            created_at="2026-03-18T10:45:00Z",
+            channel=TicketChannel.PORTAL,
+            attachments=["wiki_screenshot.png"],
         ),
         gold=TriageDecision(
             ticket_id="INC-9225",
-            category=TicketCategory.HARDWARE,
+            category=TicketCategory.SOFTWARE,
             priority=Priority.P2,
-            assigned_team=AssignedTeam.ENDPOINT_ENG,
+            assigned_team=AssignedTeam.ENTERPRISE_APPS,
             needs_escalation=False,
             missing_information=[],
             next_best_action=(
-                "Reconfigure the Crestron display outside Boardroom A to point to the correct "
-                "room mailbox after last Thursday's migration. Currently showing Boardroom B's calendar."
+                "Investigate wiki rendering failure affecting the Engineering space after "
+                "last night's platform update. Pages are showing raw HTML instead of "
+                "rendered markdown/content. Approximately 200 engineers are impacted."
             ),
             remediation_steps=[
-                "Update the Crestron display's Exchange calendar integration to the new Boardroom A mailbox",
-                "Verify the room mailbox for Boardroom A has the correct email address post-migration",
-                "Test by creating a test meeting in Boardroom A and confirming it appears on the display",
+                "Check the wiki platform's recent update logs for rendering engine changes",
+                "Rollback the wiki platform update if a quick fix is not available",
+                "Verify the markdown rendering pipeline and HTML sanitization settings",
+                "Test rendering on a single page after applying the fix before full rollout",
             ],
         ),
         tag=_TAG,
-        test_name="calendar_invite_noise",
+        test_name="markdown_rendering_noise",
         test_description=(
-            "Tests handling of ICS/vCalendar data mixed with a room display issue. "
-            "Must identify the Crestron display misconfiguration, not the calendar invite content."
+            "Tests handling of mixed HTML and markdown artifacts including Confluence macros, "
+            "HTML entities, inline base64 images, and broken CSS values. The model must "
+            "identify the wiki rendering failure as the core issue."
         ),
     )
 
@@ -2653,15 +2689,15 @@ def get_data_cleanup_scenarios() -> list[EvalScenario]:
         _graphql_query_paste(),
         _azure_devops_pipeline_output(),
         _slack_webhook_payload(),
-        _registry_export_dump(),
+        _registry_export(),
         _xml_config_dump(),
-        _base64_pdf_inline(),
+        _base64_pdf_attachment(),
         _duplicate_forward_chain(),
         _rtf_format_codes(),
         _teams_chat_export(),
         _postman_collection_paste(),
         _cron_job_output(),
         _jira_import_artifacts(),
-        _kubernetes_events_dump(),
-        _calendar_invite_noise(),
+        _binary_log_corruption(),
+        _markdown_rendering_noise(),
     ]
