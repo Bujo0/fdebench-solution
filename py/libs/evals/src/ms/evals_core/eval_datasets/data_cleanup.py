@@ -7271,6 +7271,1043 @@ def _dc110_vuln_scanner_tls_cert_expiry() -> EvalCase:
     )
 
 
+def _dc111_base64_pdf_inline() -> EvalCase:
+    """Base64-encoded PDF pasted inline with a real printer issue."""
+    b64_block = "JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5k" * 40
+    description = (
+        "Hi support,\n\n"
+        "I tried to print a document but the printer just shows 'PCL XL error' and "
+        "spits out blank pages. Here is the PDF I was trying to print (base64):\n\n"
+        f"{b64_block}\n\n"
+        "The printer is an HP LaserJet 4250 on the 3rd floor near room 312. It has "
+        "been doing this since Monday morning. Other people on the floor are affected "
+        "too. We tried restarting the printer twice but the error keeps coming back.\n\n"
+        "Thanks,\nMaria Santos\nAccounting"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-111",
+            subject="Printer showing PCL XL error - PDF attached inline",
+            description=description,
+            reporter=Reporter(
+                name="Maria Santos",
+                email="m.santos@contoso.com",
+                department="Accounting",
+            ),
+            created_at="2026-03-18T09:00:00Z",
+            channel=Channel.EMAIL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-111",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Investigate the PCL XL error on the HP LaserJet 4250 near room 312. "
+                "The inline base64 PDF is noise and should be ignored."
+            ),
+            remediation_steps=[
+                "Check the HP LaserJet 4250 PCL XL error log on the printer display.",
+                "Update or reinstall the PCL6 printer driver on affected workstations.",
+                "Clear the print queue and perform a cold restart of the printer.",
+                "Test printing a simple document to confirm resolution.",
+            ],
+        ),
+        tags=["data-cleanup", "base64-pdf", "printer"],
+        description="Base64-encoded PDF pasted inline obscuring a real printer issue.",
+    )
+
+
+def _dc112_extremely_long_email() -> EvalCase:
+    """Extremely long verbose email with a VPN issue buried inside."""
+    padding = (
+        "I want to start by saying that I have been a loyal employee at Contoso for "
+        "over fifteen years and I have always taken great pride in my work. Back in "
+        "2011 when I first joined the company, we used to have a completely different "
+        "IT setup and things were so much simpler. I remember when we had just a single "
+        "server room and everyone used desktop computers. Those were the good old days. "
+        "Anyway, I digress. Let me tell you about my morning routine because it is "
+        "relevant to understanding the problem I am about to describe. Every day I wake "
+        "up at 6:30 AM and I make myself a cup of coffee — usually a dark roast from "
+        "the local roaster on 5th Avenue. Then I sit down at my home office desk which "
+        "is an IKEA BEKANT standing desk, in case that matters. I open my laptop, which "
+        "is a Dell Latitude 5520 running Windows 11 Pro build 22631. I then try to "
+        "connect to the corporate VPN. Now, here is where the trouble begins, but first "
+        "let me explain my entire home network setup in excruciating detail. "
+    )
+    repeated_padding = padding * 8
+    description = (
+        f"{repeated_padding}\n\n"
+        "OK so the actual problem: when I connect to GlobalProtect VPN, it authenticates "
+        "successfully but then drops the connection after exactly 47 seconds every single "
+        "time. The error in the GP client log says 'ESP tunnel teardown - keep-alive timeout'. "
+        "This started happening after the firewall maintenance window last Friday night. "
+        "Other people on my team (Finance - AP group) are having the same issue.\n\n"
+        "Thanks,\nRobert Chen\nFinance"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-112",
+            subject="VPN keeps disconnecting - URGENT please help",
+            description=description,
+            reporter=Reporter(
+                name="Robert Chen",
+                email="r.chen@contoso.com",
+                department="Finance",
+            ),
+            created_at="2026-03-18T09:15:00Z",
+            channel=Channel.EMAIL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-112",
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            assigned_team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Investigate the GlobalProtect VPN ESP tunnel keep-alive timeout "
+                "that started after last Friday's firewall maintenance window."
+            ),
+            remediation_steps=[
+                "Review firewall change records from the Friday maintenance window.",
+                "Check GlobalProtect gateway ESP keep-alive and timeout settings.",
+                "Compare current firewall rules with pre-maintenance configuration.",
+                "Restore ESP tunnel parameters if misconfigured during maintenance.",
+                "Test VPN connectivity with affected Finance AP group users.",
+            ],
+        ),
+        tags=["data-cleanup", "extremely-long-email", "vpn"],
+        description="Extremely verbose 10K+ char email with a VPN issue buried in padding.",
+    )
+
+
+def _dc113_multiple_base64_images_flood() -> EvalCase:
+    """Three inline base64 images obscuring a monitor flickering issue."""
+    fake_img = "data:image/png;base64," + "iVBORw0KGgoAAAANSUhEUgAAAAUA" * 60
+    description = (
+        "My monitor keeps flickering every few seconds. Here are screenshots:\n\n"
+        f"Screenshot 1 (normal state):\n{fake_img}\n\n"
+        f"Screenshot 2 (during flicker):\n{fake_img}\n\n"
+        f"Screenshot 3 (after flicker):\n{fake_img}\n\n"
+        "The monitor is a Dell U2722D connected via DisplayPort to my docking station "
+        "(Dell WD19S). The flickering happens about every 10-15 seconds and has been "
+        "going on for three days. I tried a different DisplayPort cable but the issue "
+        "persists. My colleague in the next cubicle does not have this problem.\n\n"
+        "— Priya Sharma, Engineering"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-113",
+            subject="Monitor flickering - screenshots attached inline",
+            description=description,
+            reporter=Reporter(
+                name="Priya Sharma",
+                email="p.sharma@contoso.com",
+                department="Engineering",
+            ),
+            created_at="2026-03-18T09:30:00Z",
+            channel=Channel.EMAIL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-113",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Diagnose the Dell U2722D monitor flickering via DisplayPort on the "
+                "WD19S docking station. Inline base64 images are noise."
+            ),
+            remediation_steps=[
+                "Test the monitor with a direct HDMI or USB-C connection bypassing the dock.",
+                "Update the Dell WD19S docking station firmware.",
+                "Check DisplayPort cable and try a certified DP 1.4 cable.",
+                "If flickering persists, swap the monitor with a known-good unit.",
+            ],
+        ),
+        tags=["data-cleanup", "base64-image-flood", "monitor-flicker"],
+        description="Three inline base64 images flooding the ticket with a monitor flickering issue.",
+    )
+
+
+def _dc114_severe_mojibake() -> EvalCase:
+    """Severe mojibake corruption hiding a software installation failure."""
+    description = (
+        "Subject: Software installation failure\n\n"
+        "I tried to install the new version of our CRM application "
+        "(Dynamics 365 v9.2.24013.109) but it failed with an error. "
+        "Here is the error message from the installer log:\n\n"
+        'ERROR: Ã¢â‚¬Å"Unable to initialize componentÃ¢â‚¬Â\n'
+        'Module: Ã¢â‚¬Å"Microsoft.Dynamics.CRM.CoreÃ¢â‚¬Â\n'
+        "Details: LÃ¢â‚¬â„¢initialisation du composant a Ã©chouÃ©. "
+        "Le fichier de configuration nÃ¢â‚¬â„¢est pas valide. "
+        "VÃ©rifiez que le chemin dÃ¢â‚¬â„¢accÃ¨s est correct.\n"
+        "Error Code: 0x80073712 Ã¢â‚¬â€œ Component store corruption\n"
+        "ÃƒÂ©chec de lÃ¢â‚¬â„¢installation Ã  lÃ¢â‚¬â„¢Ã©tape 3 de 7\n"
+        "Timestamp: 2026-03-17T16:42:11Ã¢â‚¬â€œ05:00\n\n"
+        "I have tried running sfc /scannow but it also shows corrupted files. "
+        "This is blocking our quarterly update rollout for the sales team.\n\n"
+        "Thanks,\nDavid Okafor\nSales Operations"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-114",
+            subject="CRM install fails Ã¢â‚¬â€œ error 0x80073712",
+            description=description,
+            reporter=Reporter(
+                name="David Okafor",
+                email="d.okafor@contoso.com",
+                department="Sales Operations",
+            ),
+            created_at="2026-03-18T10:00:00Z",
+            channel=Channel.PORTAL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-114",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.DEVICE_INFO],
+            next_best_action=(
+                "Resolve the Dynamics 365 installation failure caused by component "
+                "store corruption (0x80073712). Mojibake in the log is an encoding artifact."
+            ),
+            remediation_steps=[
+                "Run DISM /Online /Cleanup-Image /RestoreHealth to repair the component store.",
+                "Re-run sfc /scannow after DISM repair completes.",
+                "Retry the Dynamics 365 v9.2 installer.",
+                "If installation still fails, collect CBS logs and escalate to Microsoft support.",
+            ],
+        ),
+        tags=["data-cleanup", "severe-mojibake", "software-install"],
+        description="Severe mojibake encoding corruption in a CRM installation failure ticket.",
+    )
+
+
+def _dc115_deep_email_quoting() -> EvalCase:
+    """Password reset issue buried under 10+ levels of email quoting."""
+    quoting_layers = ""
+    for i in range(12, 0, -1):
+        prefix = ">" * i + " "
+        quoting_layers += (
+            f"{prefix}On 2026-03-{5 + i}T{8 + i}:00:00Z, Person{i}@contoso.com wrote:\n"
+            f"{prefix}Thanks for the update. Let me loop in someone else.\n"
+            f"{prefix}\n"
+        )
+    description = (
+        "FW: FW: FW: RE: RE: RE: FW: RE: RE: RE: FW: RE: Password Reset Request\n\n"
+        f"{quoting_layers}\n"
+        "ORIGINAL REQUEST:\n"
+        "Hi IT Support,\n\n"
+        "I have been locked out of my Active Directory account (username: jthompson) "
+        "after too many failed login attempts. I need a password reset urgently because "
+        "I have a client presentation at 2 PM today and all my files are on SharePoint. "
+        "I am in the Chicago office, 14th floor. My manager is Lisa Park.\n\n"
+        "Thanks,\nJennifer Thompson\nClient Services"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-115",
+            subject="FW: FW: FW: RE: RE: RE: FW: RE: RE: RE: FW: RE: Password Reset Request",
+            description=description,
+            reporter=Reporter(
+                name="Jennifer Thompson",
+                email="j.thompson@contoso.com",
+                department="Client Services",
+            ),
+            created_at="2026-03-18T10:15:00Z",
+            channel=Channel.EMAIL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-115",
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P2,
+            assigned_team=Team.IAM,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Reset the Active Directory password for jthompson and unlock the account. "
+                "The deep quoting chain is forwarding noise."
+            ),
+            remediation_steps=[
+                "Unlock the AD account for jthompson.",
+                "Reset the password and send temporary credentials securely.",
+                "Verify the user can access SharePoint and their files.",
+                "Remind the user about the self-service password reset portal.",
+            ],
+        ),
+        tags=["data-cleanup", "deep-quoting", "password-reset"],
+        description="Password reset request buried under 12 levels of email quoting and forwarding.",
+    )
+
+
+def _dc116_giant_signature_block() -> EvalCase:
+    """Bluetooth headset issue followed by a giant corporate signature block."""
+    ascii_logo = (
+        "  ██████╗ ██████╗ ███╗   ██╗████████╗ ██████╗ ███████╗ ██████╗ \n"
+        " ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔═══██╗██╔════╝██╔═══██╗\n"
+        " ██║     ██║   ██║██╔██╗ ██║   ██║   ██║   ██║███████╗██║   ██║\n"
+        " ██║     ██║   ██║██║╚██╗██║   ██║   ██║   ██║╚════██║██║   ██║\n"
+        " ╚██████╗╚██████╔╝██║ ╚████║   ██║   ╚██████╔╝███████║╚██████╔╝\n"
+        "  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚══════╝ ╚═════╝ \n"
+    )
+    signature = (
+        "\n--\n"
+        f"{ascii_logo}\n"
+        "Marcus Williams | Senior Vice President of Strategic Initiatives\n"
+        "Contoso Corporation | Global Headquarters\n"
+        "1234 Innovation Drive, Suite 5600 | Redmond, WA 98052\n"
+        "Office: +1 (425) 555-0198 | Mobile: +1 (425) 555-0199\n"
+        "Fax: +1 (425) 555-0200 | Internal Ext: 55198\n"
+        "Email: m.williams@contoso.com\n"
+        "LinkedIn: linkedin.com/in/marcuswilliams-contoso\n"
+        "Twitter: @MWilliamsContoso\n"
+        "Web: https://www.contoso.com/leadership/marcus-williams\n\n"
+        "CONFIDENTIALITY NOTICE: This email and any attachments are for the exclusive "
+        "and confidential use of the intended recipient. If you are not the intended "
+        "recipient, please do not read, distribute, or take action based on this message. "
+        "If you have received this in error, please notify the sender immediately by return "
+        "email and delete this message from your system. Contoso Corporation accepts no "
+        "liability for any damage caused by any virus transmitted by this email. The views "
+        "expressed in this communication do not necessarily reflect the official policy or "
+        "position of Contoso Corporation or any of its subsidiaries, affiliates, or partners. "
+        "For more information about our privacy practices, visit https://www.contoso.com/privacy\n\n"
+        "🌿 Please consider the environment before printing this email.\n"
+        "🏆 Contoso: Named #1 Best Place to Work 2025 by Fortune Magazine\n"
+        "📊 Q4 2025 Earnings: Revenue up 23% YoY — see investor.contoso.com\n"
+    )
+    description = (
+        "My Jabra Evolve2 85 Bluetooth headset pairs with my laptop but the audio "
+        "keeps cutting out during Teams calls. The headset firmware is up to date "
+        "(v2.6.0). It works fine with my phone so I think it's a laptop issue.\n"
+        f"{signature}"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-116",
+            subject="Bluetooth headset audio cutting out on Teams calls",
+            description=description,
+            reporter=Reporter(
+                name="Marcus Williams",
+                email="m.williams@contoso.com",
+                department="Strategic Initiatives",
+            ),
+            created_at="2026-03-18T10:30:00Z",
+            channel=Channel.EMAIL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-116",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.DEVICE_INFO],
+            next_best_action=(
+                "Troubleshoot the Jabra Evolve2 85 Bluetooth audio dropout on Teams. "
+                "The giant signature block is cosmetic noise."
+            ),
+            remediation_steps=[
+                "Check the laptop Bluetooth driver version and update if needed.",
+                "Remove and re-pair the Jabra Evolve2 85 headset.",
+                "Ensure the Jabra Direct software is installed for optimal codec selection.",
+                "Test with another Bluetooth headset to isolate the issue.",
+            ],
+        ),
+        tags=["data-cleanup", "giant-signature", "bluetooth-headset"],
+        description="Bluetooth headset issue followed by a 2KB corporate signature with ASCII art.",
+    )
+
+
+def _dc117_url_spam_tracking_params() -> EvalCase:
+    """Teams meeting issue buried in URLs with UTM tracking parameters."""
+    urls = "\n".join(
+        [
+            "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzQ4OGRiMzEtYzRiMi00Y2Q2LWJhMGEtYjZlMTQ3MTBkMTYw%40thread.v2/0?context=%7b%22Tid%22%3a%2272f988bf-86f1-41af-91ab-2d7cd011db47%22%2c%22Oid%22%3a%2249a60b09-0c75-45c1-b3b2-5c4b28f7a5cd%22%7d&utm_source=outlook&utm_medium=email&utm_campaign=weekly_standup&utm_content=join_button&utm_term=2026Q1&referrer=calendar_invite&session_id=a3f8b2c1-d4e5-6f7a-8b9c-0d1e2f3a4b5c",
+            "https://contoso.sharepoint.com/sites/engineering/Shared%20Documents/Meeting%20Recordings/2026-03-17_standup.mp4?csf=1&web=1&e=AbCdEf&utm_source=teams&utm_medium=notification&utm_campaign=recording_ready&tracking_id=rec-2026-03-17-001&click_id=7f8a9b0c&referral_token=xYz123AbC",
+            "https://contoso.sharepoint.com/sites/engineering/_layouts/15/Doc.aspx?sourcedoc=%7bGUID-HERE%7d&file=standup_notes.docx&action=default&mobileredirect=true&utm_source=teams&utm_medium=chat&utm_campaign=file_share&click_tracking=enabled&session=s3ss10n",
+            "https://teams.microsoft.com/l/channel/19%3ae59bbfe1-c5f1-4cd6-b3a9-7a1b2c3d4e5f%40thread.tacv2/General?groupId=a1b2c3d4-e5f6-7890-abcd-ef1234567890&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47&utm_source=deeplink&utm_medium=app&utm_campaign=channel_nav",
+        ]
+    )
+    description = (
+        "I cannot join our daily standup Teams meeting. When I click the join link "
+        "below, it opens the browser but then shows 'Something went wrong' with error "
+        "code CAA20004. Here are all the links I have been trying:\n\n"
+        f"{urls}\n\n"
+        "I have tried clearing my browser cache, using the desktop app, and using "
+        "incognito mode. None of them work. This has been happening since yesterday.\n\n"
+        "— Kevin Park, Engineering"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-117",
+            subject="Cannot join Teams meetings - error CAA20004",
+            description=description,
+            reporter=Reporter(
+                name="Kevin Park",
+                email="k.park@contoso.com",
+                department="Engineering",
+            ),
+            created_at="2026-03-18T10:45:00Z",
+            channel=Channel.PORTAL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-117",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.DEVICE_INFO],
+            next_best_action=(
+                "Troubleshoot Teams error CAA20004 for the user. The long URLs with "
+                "UTM tracking parameters are noise and should be ignored."
+            ),
+            remediation_steps=[
+                "Clear the Teams desktop app cache (AppData/Roaming/Microsoft/Teams).",
+                "Check Azure AD conditional access policies for the user.",
+                "Verify the user's Office 365 license includes Teams.",
+                "Re-authenticate the user's Azure AD session.",
+            ],
+        ),
+        tags=["data-cleanup", "url-spam", "tracking-params", "teams"],
+        description="Teams meeting issue buried in URLs with excessive UTM tracking parameters.",
+    )
+
+
+def _dc118_email_metadata_flood() -> EvalCase:
+    """SMTP headers and DKIM signatures flooding the ticket before a keyboard issue."""
+    headers = (
+        "Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])\n"
+        "        by mx.contoso.com (Postfix) with ESMTPS id 4F5B23A0001\n"
+        "        for <support@contoso.com>; Mon, 17 Mar 2026 14:32:11 -0700 (PDT)\n"
+        "Received: by mail-yw1-f182.google.com with SMTP id a1b2c3d4e5.0\n"
+        "        for <support@contoso.com>; Mon, 17 Mar 2026 14:32:10 -0700 (PDT)\n"
+        "DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;\n"
+        "        d=contoso.com; s=selector1;\n"
+        "        h=from:to:subject:date:message-id:content-type;\n"
+        "        bh=abcdefghijklmnopqrstuvwxyz0123456789ABCDEFG=;\n"
+        "        b=VeryLongDKIMSignatureStringThatGoesOnForever\n"
+        "          AndContinuesOnTheNextLineWithMoreBase64Data\n"
+        "          AndEvenMoreDataBecauseDKIMSignaturesAreLong=\n"
+        "Authentication-Results: mx.contoso.com;\n"
+        "       dkim=pass (2048-bit key) header.d=contoso.com header.i=@contoso.com;\n"
+        "       spf=pass (mx.contoso.com: domain of t.nguyen@contoso.com designates "
+        "10.0.0.50 as permitted sender) smtp.mailfrom=t.nguyen@contoso.com;\n"
+        "       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=contoso.com\n"
+        "ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=contoso.com; cv=none;\n"
+        "ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=contoso.com;\n"
+        "X-MS-Exchange-Organization-AuthSource: CO1PR01MB1234.prod.exchangelabs.com\n"
+        "X-MS-Exchange-Organization-SCL: 1\n"
+        "X-MS-Exchange-Organization-Network-Message-Id: 9a8b7c6d-5e4f-3a2b-1c0d-ef9876543210\n"
+        "X-Forefront-Antispam-Report: CIP:209.85.128.182;CTRY:US;LANG:en;SCL:1;SRV:;\n"
+        "Return-Path: t.nguyen@contoso.com\n"
+        "Message-ID: <CABx+XJ+abc123@mail.contoso.com>\n\n"
+    )
+    description = (
+        f"{headers}"
+        "Hi IT,\n\n"
+        "My wireless keyboard (Logitech MX Keys) stopped working this morning. The "
+        "USB receiver is plugged in, the keyboard has battery, and the green light "
+        "blinks when I press keys, but nothing appears on screen. I tried the keyboard "
+        "on my colleague's machine and it works fine, so I think it's something with "
+        "my laptop (ThinkPad T14 Gen 3). I am in Building B, desk 4-210.\n\n"
+        "Thanks,\nTony Nguyen\nLegal"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-118",
+            subject="Wireless keyboard not working",
+            description=description,
+            reporter=Reporter(
+                name="Tony Nguyen",
+                email="t.nguyen@contoso.com",
+                department="Legal",
+            ),
+            created_at="2026-03-18T11:00:00Z",
+            channel=Channel.EMAIL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-118",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Troubleshoot the Logitech MX Keys wireless keyboard on the ThinkPad T14. "
+                "The exposed SMTP headers and DKIM signatures are email metadata noise."
+            ),
+            remediation_steps=[
+                "Check USB receiver connection and try a different USB port.",
+                "Uninstall and reinstall the Logitech Unifying receiver driver.",
+                "Re-pair the keyboard using Logitech Options software.",
+                "If unresolved, test with a wired keyboard to confirm laptop input works.",
+            ],
+        ),
+        tags=["data-cleanup", "email-metadata", "smtp-headers", "keyboard"],
+        description="Email SMTP headers, DKIM signatures, and SPF records flooding the description.",
+    )
+
+
+def _dc119_git_diff_inline() -> EvalCase:
+    """Full git diff pasted inline with a deployment failure report."""
+    git_diff = (
+        "diff --git a/src/api/routes/deployment.py b/src/api/routes/deployment.py\n"
+        "index 3a4b5c6..7d8e9f0 100644\n"
+        "--- a/src/api/routes/deployment.py\n"
+        "+++ b/src/api/routes/deployment.py\n"
+        "@@ -42,7 +42,7 @@ def deploy_service(config: DeployConfig):\n"
+        "-    timeout = config.get('timeout', 300)\n"
+        "+    timeout = config.get('timeout', 30)\n"
+        "     retries = config.get('retries', 3)\n"
+        "     health_check_path = config.get('health_check', '/healthz')\n"
+        " \n"
+        "diff --git a/src/api/routes/health.py b/src/api/routes/health.py\n"
+        "index 1a2b3c4..5d6e7f8 100644\n"
+        "--- a/src/api/routes/health.py\n"
+        "+++ b/src/api/routes/health.py\n"
+        "@@ -15,10 +15,12 @@ class HealthCheck:\n"
+        "-    def check_database(self):\n"
+        "-        return self.db.ping()\n"
+        "+    def check_database(self, timeout=5):\n"
+        "+        try:\n"
+        "+            return self.db.ping(timeout=timeout)\n"
+        "+        except TimeoutError:\n"
+        "+            return False\n"
+        " \n"
+        "diff --git a/config/production.yaml b/config/production.yaml\n"
+        "index 9a8b7c6..5d4e3f2 100644\n"
+        "--- a/config/production.yaml\n"
+        "+++ b/config/production.yaml\n"
+        "@@ -8,6 +8,8 @@ deployment:\n"
+        "+  canary:\n"
+        "+    enabled: true\n"
+        "+    weight: 10\n"
+        "   replicas: 3\n"
+        "   resources:\n"
+        "     memory: 512Mi\n"
+    )
+    description = (
+        "Our production deployment pipeline failed at 2:47 AM during the scheduled "
+        "release of API v2.14.0. The Azure DevOps pipeline shows the deployment timed "
+        "out waiting for health checks. Here is the git diff of the changes in this "
+        "release that I think might be relevant:\n\n"
+        f"```\n{git_diff}```\n\n"
+        "The health check endpoint /healthz returns 503 after the deployment but the "
+        "pods are running. I suspect the timeout change from 300 to 30 seconds is the "
+        "culprit. We need to roll back or fix this ASAP because the canary is serving "
+        "10% of production traffic.\n\n"
+        "— Amir Hassan, DevOps"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-119",
+            subject="PROD deployment failure - API v2.14.0 health check timeout",
+            description=description,
+            reporter=Reporter(
+                name="Amir Hassan",
+                email="a.hassan@contoso.com",
+                department="DevOps",
+            ),
+            created_at="2026-03-18T03:00:00Z",
+            channel=Channel.PORTAL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-119",
+            category=Category.SOFTWARE,
+            priority=Priority.P1,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=True,
+            missing_information=[],
+            next_best_action=(
+                "Roll back or fix the API v2.14.0 deployment. The timeout change from "
+                "300s to 30s likely caused health check failures. Git diff is diagnostic context."
+            ),
+            remediation_steps=[
+                "Immediately roll back the canary deployment to API v2.13.x.",
+                "Revert the timeout change from 30 seconds back to 300 seconds.",
+                "Validate health checks pass with corrected timeout in staging.",
+                "Redeploy with the fix after staging validation.",
+            ],
+        ),
+        tags=["data-cleanup", "git-diff", "deployment-failure"],
+        description="Full git diff pasted inline obscuring a production deployment failure.",
+    )
+
+
+def _dc120_kubectl_describe_pod() -> EvalCase:
+    """kubectl describe pod output dumped for a service connectivity issue."""
+    kubectl_output = (
+        "Name:             api-gateway-5b8f9c7d6e-x2k4m\n"
+        "Namespace:        production\n"
+        "Priority:         0\n"
+        "Service Account:  api-gateway-sa\n"
+        "Node:             aks-nodepool1-12345678-vmss000003/10.240.0.7\n"
+        "Start Time:       Mon, 17 Mar 2026 22:15:00 +0000\n"
+        "Labels:           app=api-gateway\n"
+        "                  pod-template-hash=5b8f9c7d6e\n"
+        "                  version=v2.13.1\n"
+        "Annotations:      kubernetes.io/psp: restricted\n"
+        "Status:           Running\n"
+        "IP:               10.244.3.42\n"
+        "IPs:\n"
+        "  IP:             10.244.3.42\n"
+        "Controlled By:    ReplicaSet/api-gateway-5b8f9c7d6e\n"
+        "Containers:\n"
+        "  api-gateway:\n"
+        "    Container ID:   containerd://a1b2c3d4e5f6\n"
+        "    Image:          contoso.azurecr.io/api-gateway:v2.13.1\n"
+        "    Port:           8080/TCP\n"
+        "    Host Port:      0/TCP\n"
+        "    State:          Running\n"
+        "      Started:      Mon, 17 Mar 2026 22:15:05 +0000\n"
+        "    Ready:          True\n"
+        "    Restart Count:  0\n"
+        "    Limits:\n"
+        "      cpu:     500m\n"
+        "      memory:  512Mi\n"
+        "    Requests:\n"
+        "      cpu:     250m\n"
+        "      memory:  256Mi\n"
+        "    Liveness:   http-get http://:8080/healthz delay=30s timeout=5s period=10s\n"
+        "    Readiness:  http-get http://:8080/ready delay=10s timeout=3s period=5s\n"
+        "    Environment:\n"
+        "      DB_HOST:       <set to the key 'host' in secret 'db-credentials'>\n"
+        "      DB_PORT:       5432\n"
+        "      REDIS_URL:     redis://redis-master:6379\n"
+        "      LOG_LEVEL:     info\n"
+        "Events:\n"
+        "  Type    Reason     Age   From               Message\n"
+        "  ----    ------     ----  ----               -------\n"
+        "  Normal  Scheduled  8h    default-scheduler  Successfully assigned production/api-gateway\n"
+        "  Normal  Pulled     8h    kubelet            Container image already present\n"
+        "  Normal  Created    8h    kubelet            Created container api-gateway\n"
+        "  Normal  Started    8h    kubelet            Started container api-gateway\n"
+    )
+    description = (
+        "The internal billing service cannot reach the API gateway. Connections are "
+        "timing out on port 8080. I ran kubectl describe on the pod and everything "
+        "looks healthy, but the service mesh sidecar might be misconfigured. Here is "
+        "the full pod describe output:\n\n"
+        f"{kubectl_output}\n"
+        "The billing team says this is blocking invoice processing. We need connectivity "
+        "restored between billing-service and api-gateway in the production namespace.\n\n"
+        "— Sarah Lee, Platform Engineering"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-120",
+            subject="Billing service cannot reach API gateway - connection timeout",
+            description=description,
+            reporter=Reporter(
+                name="Sarah Lee",
+                email="s.lee@contoso.com",
+                department="Platform Engineering",
+            ),
+            created_at="2026-03-18T06:30:00Z",
+            channel=Channel.PORTAL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-120",
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            assigned_team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate service mesh connectivity between billing-service and "
+                "api-gateway in the production namespace. The kubectl describe output "
+                "is diagnostic context."
+            ),
+            remediation_steps=[
+                "Check the service mesh sidecar configuration for both pods.",
+                "Verify Kubernetes network policies allow traffic on port 8080.",
+                "Test connectivity with kubectl exec and curl between pods.",
+                "Review recent changes to the service mesh or network policies.",
+            ],
+        ),
+        tags=["data-cleanup", "kubectl-describe", "service-connectivity"],
+        description="kubectl describe pod output dumped for a service connectivity issue.",
+    )
+
+
+def _dc121_docker_compose_yaml_dump() -> EvalCase:
+    """Full docker-compose.yml pasted inline with a container networking issue."""
+    compose_yaml = (
+        "version: '3.8'\n"
+        "services:\n"
+        "  web:\n"
+        "    image: contoso/web-frontend:latest\n"
+        "    ports:\n"
+        "      - '3000:3000'\n"
+        "    environment:\n"
+        "      - API_URL=http://api:8080\n"
+        "      - REDIS_URL=redis://cache:6379\n"
+        "      - NODE_ENV=production\n"
+        "    depends_on:\n"
+        "      - api\n"
+        "      - cache\n"
+        "    networks:\n"
+        "      - frontend\n"
+        "      - backend\n"
+        "    deploy:\n"
+        "      replicas: 2\n"
+        "      resources:\n"
+        "        limits:\n"
+        "          cpus: '0.5'\n"
+        "          memory: 256M\n"
+        "  api:\n"
+        "    image: contoso/api-service:v3.2.1\n"
+        "    ports:\n"
+        "      - '8080:8080'\n"
+        "    environment:\n"
+        "      - DATABASE_URL=postgres://db:5432/appdb\n"
+        "      - JWT_SECRET=${JWT_SECRET}\n"
+        "      - LOG_LEVEL=debug\n"
+        "    depends_on:\n"
+        "      - db\n"
+        "      - cache\n"
+        "    networks:\n"
+        "      - backend\n"
+        "  db:\n"
+        "    image: postgres:15-alpine\n"
+        "    volumes:\n"
+        "      - pgdata:/var/lib/postgresql/data\n"
+        "    environment:\n"
+        "      - POSTGRES_DB=appdb\n"
+        "      - POSTGRES_USER=appuser\n"
+        "      - POSTGRES_PASSWORD=${DB_PASSWORD}\n"
+        "    networks:\n"
+        "      - backend\n"
+        "  cache:\n"
+        "    image: redis:7-alpine\n"
+        "    networks:\n"
+        "      - backend\n"
+        "networks:\n"
+        "  frontend:\n"
+        "    driver: bridge\n"
+        "  backend:\n"
+        "    driver: bridge\n"
+        "    internal: true\n"
+        "volumes:\n"
+        "  pgdata:\n"
+    )
+    description = (
+        "The web frontend container cannot connect to the API service. I get "
+        "'ECONNREFUSED 172.18.0.3:8080' in the browser console. Here is our full "
+        "docker-compose.yml:\n\n"
+        f"```yaml\n{compose_yaml}```\n\n"
+        "I think the problem might be that the web service is on both 'frontend' and "
+        "'backend' networks but the API is only on 'backend' with internal:true. This "
+        "was working fine until someone changed the backend network to internal last week.\n\n"
+        "— Carlos Mendez, Development"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-121",
+            subject="Docker container networking - web cannot reach API",
+            description=description,
+            reporter=Reporter(
+                name="Carlos Mendez",
+                email="c.mendez@contoso.com",
+                department="Development",
+            ),
+            created_at="2026-03-18T11:30:00Z",
+            channel=Channel.PORTAL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-121",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Fix the Docker Compose network configuration. The backend network's "
+                "internal:true setting is likely blocking web-to-API connectivity."
+            ),
+            remediation_steps=[
+                "Review the backend network internal:true setting added last week.",
+                "Either remove internal:true or add the web service to a shared network with API.",
+                "Run docker-compose down && docker-compose up -d to apply changes.",
+                "Verify web-to-API connectivity with docker exec curl tests.",
+            ],
+        ),
+        tags=["data-cleanup", "docker-compose", "container-networking"],
+        description="Full docker-compose.yml pasted inline with a container networking issue.",
+    )
+
+
+def _dc122_jwt_oauth_token_dump() -> EvalCase:
+    """Auth trace with JWT and OAuth tokens pasted inline for an SSO issue."""
+    jwt_token = (
+        "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjFiYjk2MDVjLTIzN"
+        "jktNGMzMC04NDFhLTZjNzc4MjhjMDIxYyJ9.eyJhdWQiOiIwMDAwMDAwMy0wM"
+        "DAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy5"
+        "3aW5kb3dzLm5ldC83MmY5ODhiZi04NmYxLTQxYWYtOTFhYi0yZDdjZDAxMWRi"
+        "NDcvIiwiaWF0IjoxNzEwNjk0NDAwLCJuYmYiOjE3MTA2OTQ0MDAsImV4cCI6MT"
+        "cxMDY5ODMwMH0.FAKE_SIGNATURE_DATA_HERE"
+    )
+    oauth_response = (
+        '{"access_token": "' + jwt_token + '", '
+        '"token_type": "Bearer", '
+        '"expires_in": 3600, '
+        '"refresh_token": "0.AVYAv4j5ci..FAKE_REFRESH_TOKEN", '
+        '"scope": "openid profile email User.Read", '
+        '"id_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.FAKE_ID_TOKEN"}'
+    )
+    description = (
+        "SSO is not working for our Salesforce integration. When users click the "
+        "Salesforce tile in the Azure AD My Apps portal, they get redirected back to "
+        "the login page in a loop. I captured the auth flow and here are the tokens:\n\n"
+        f"OAuth Response:\n{oauth_response}\n\n"
+        f"Decoded JWT claims show the audience is Microsoft Graph but it should be the "
+        "Salesforce app ID (2f4a7b8c-1d3e-5f6a-9b0c-8d7e6f5a4b3c). I think the app "
+        "registration in Azure AD has the wrong redirect URI or the wrong audience "
+        "configured.\n\n"
+        "This is affecting all 45 sales team members.\n\n"
+        "— Lisa Park, IT Operations"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-122",
+            subject="SSO broken for Salesforce - redirect loop",
+            description=description,
+            reporter=Reporter(
+                name="Lisa Park",
+                email="l.park@contoso.com",
+                department="IT Operations",
+            ),
+            created_at="2026-03-18T11:45:00Z",
+            channel=Channel.PORTAL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-122",
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P2,
+            assigned_team=Team.IAM,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Fix the Azure AD app registration for the Salesforce SSO integration. "
+                "The JWT/OAuth tokens are diagnostic evidence showing a misconfigured audience."
+            ),
+            remediation_steps=[
+                "Check the Azure AD app registration for Salesforce and correct the audience.",
+                "Verify the redirect URI matches Salesforce's expected callback URL.",
+                "Update the token configuration to target the Salesforce app ID.",
+                "Test SSO login flow with a test account before rolling out.",
+            ],
+        ),
+        tags=["data-cleanup", "jwt-token", "oauth-dump", "sso"],
+        description="JWT and OAuth token dumps pasted inline for an SSO redirect loop issue.",
+    )
+
+
+def _dc123_ansi_escape_codes() -> EvalCase:
+    """Terminal output with ANSI color codes from a build failure."""
+    ansi_output = (
+        "\033[1m\033[31mERROR\033[0m in \033[36m./src/components/Dashboard.tsx\033[0m"
+        ":\033[33m42\033[0m:\033[33m17\033[0m\n"
+        "\033[31m  TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.\033[0m\n"
+        "\n"
+        "\033[1m\033[31mERROR\033[0m in \033[36m./src/services/api.ts\033[0m:\033[33m128\033[0m:\033[33m5\033[0m\n"
+        "\033[31m  TS2307: Cannot find module '@contoso/shared-types' or its corresponding type declarations.\033[0m\n"
+        "\n"
+        "\033[1m\033[33mWARNING\033[0m in \033[36m./src/utils/format.ts\033[0m:\033[33m15\033[0m:\033[33m1\033[0m\n"
+        "\033[33m  TS6133: 'lodash' is declared but its value is never read.\033[0m\n"
+        "\n"
+        "\033[1m\033[31mERROR\033[0m in \033[36m./src/hooks/useAuth.ts\033[0m:\033[33m67\033[0m:\033[33m22\033[0m\n"
+        "\033[31m  TS2739: Type '{}' is missing the following properties"
+        " from type 'AuthContext': user, token, refresh\033[0m\n"
+        "\n"
+        "\033[1m\033[37m\033[41m FAIL \033[0m \033[1mBuild failed with 3 errors and 1 warning\033[0m\n"
+        "\033[2mTime: 47.2s\033[0m\n"
+    )
+    description = (
+        "Our frontend CI/CD build is failing on the develop branch. Here is the "
+        "build output from the terminal:\n\n"
+        f"{ansi_output}\n"
+        "The main issue seems to be the missing @contoso/shared-types package. "
+        "I think someone removed it from package.json in the last merge. The build "
+        "was green on Friday and started failing Monday morning.\n\n"
+        "— Emily Zhang, Frontend Engineering"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-123",
+            subject="Frontend CI build failing - TypeScript errors",
+            description=description,
+            reporter=Reporter(
+                name="Emily Zhang",
+                email="e.zhang@contoso.com",
+                department="Frontend Engineering",
+            ),
+            created_at="2026-03-18T08:00:00Z",
+            channel=Channel.CHAT,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-123",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Restore the missing @contoso/shared-types dependency in the develop branch. "
+                "The ANSI escape codes are terminal rendering artifacts."
+            ),
+            remediation_steps=[
+                "Check recent commits on develop for changes to package.json.",
+                "Restore @contoso/shared-types to package.json dependencies.",
+                "Run npm install and verify TypeScript compilation succeeds.",
+                "Fix the remaining TS2345 and TS2739 type errors in Dashboard.tsx and useAuth.ts.",
+            ],
+        ),
+        tags=["data-cleanup", "ansi-escape-codes", "build-failure"],
+        description="Terminal output with ANSI color escape codes from a CI build failure.",
+    )
+
+
+def _dc124_misaligned_spreadsheet_paste() -> EvalCase:
+    """Misaligned TSV data from Excel pasted inline with a data import issue."""
+    tsv_data = (
+        "Employee ID\tName\tDepartment\tStart Date\tSalary\tLocation\tManager\n"
+        "10001\tSmith, John A.\tEngineering\t2021-03-15\t95000\tRedmond\tJane Doe\n"
+        "10002\tGarcia, Maria\t\tSales\t2020-07-22\t87000\tChicago\tBob Wilson\n"
+        "10003\tKim, David\tMarketing\t2022-01-10\t\t78000\tNew York\tAlice Chen\n"
+        "\t10004\tPatel, Priya\tHR\t2019-11-05\t92000\tRedmond\n"
+        "10005\tJohnson, Robert\tFinance\t2023-04-18\t81000\tAustin\tTom Brown\n"
+        "10006\tWilliams, Sarah\tEngineering\t2021-09-30\t99000\tRedmond\tJane Doe\t\textra_col\n"
+        "10007\tBrown,\tThomas\tLegal\t2020-02-14\t88000\tChicago\tEva Martinez\n"
+        "10008\tLee, Jennifer\tOperations\t2022-06-01\t76000\tNew York\tAlice Chen\n"
+        "10009\tNguyen\tTony\tIT\t2018-08-20\t105000\tRedmond\tMike Johnson\n"
+        "10010\tMartinez, Eva\tLegal\t2017-12-01\t115000\tChicago\t\n"
+    )
+    description = (
+        "I am trying to import employee data into the new HR system but the bulk "
+        "import keeps failing with 'column mismatch' errors. Here is the data I "
+        "copied from the Excel spreadsheet:\n\n"
+        f"{tsv_data}\n"
+        "As you can see, some rows have shifted columns (10002 has an empty department "
+        "pushing everything right, 10004 has a leading tab, 10007 has the name split "
+        "across two columns). The Excel file has 2,400 rows and about 30% of them "
+        "have similar alignment issues from a previous CSV import.\n\n"
+        "Can you help fix the import template or clean the data?\n\n"
+        "— Rachel Kim, HR Systems"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-124",
+            subject="HR bulk import failing - column mismatch errors",
+            description=description,
+            reporter=Reporter(
+                name="Rachel Kim",
+                email="r.kim@contoso.com",
+                department="HR Systems",
+            ),
+            created_at="2026-03-18T13:00:00Z",
+            channel=Channel.PORTAL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-124",
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.APPLICATION_VERSION],
+            next_best_action=(
+                "Help clean the misaligned employee data for bulk import. The pasted "
+                "TSV data demonstrates the column alignment issues."
+            ),
+            remediation_steps=[
+                "Export a clean CSV template from the HR system with fixed headers.",
+                "Write a data cleaning script to fix misaligned columns in the source data.",
+                "Validate the cleaned data against the import schema before reimporting.",
+                "Perform a test import with a small subset before the full 2,400 row import.",
+            ],
+        ),
+        tags=["data-cleanup", "misaligned-spreadsheet", "data-import"],
+        description="Misaligned TSV data from Excel paste causing a data import failure.",
+    )
+
+
+def _dc125_zero_width_unicode() -> EvalCase:
+    """Zero-width Unicode characters scattered throughout a software crash ticket."""
+    zwsp = "\u200b"
+    zwj = "\u200d"
+    zwnj = "\u200c"
+    description = (
+        f"The{zwsp} accounting{zwj} software{zwsp} (SAP{zwnj} Business{zwsp} One "
+        f"v10.0{zwj} FP{zwsp}2304) keeps{zwsp} crashing{zwj} when{zwsp} I{zwnj} try "
+        f"to{zwsp} generate{zwj} the{zwsp} quarterly{zwnj} financial{zwsp} report. "
+        f"It{zwj} crashes{zwsp} with{zwnj} error{zwsp} code{zwj} 0xC0000005{zwsp} "
+        f"(access{zwnj} violation){zwj} about{zwsp} 30{zwnj} seconds{zwsp} into{zwj} "
+        f"the{zwsp} report{zwnj} generation{zwj} process.{zwsp}\n\n"
+        f"Steps{zwsp} to{zwj} reproduce:{zwnj}\n"
+        f"1.{zwsp} Open{zwj} SAP{zwsp} Business{zwnj} One{zwsp}\n"
+        f"2.{zwj} Go{zwsp} to{zwnj} Financial{zwsp} Reports{zwj} >{zwsp} Quarterly{zwnj}\n"
+        f"3.{zwsp} Select{zwj} Q1{zwsp} 2026{zwnj} and{zwsp} click{zwj} Generate{zwsp}\n"
+        f"4.{zwnj} Application{zwsp} freezes{zwj} for{zwsp} 30s{zwnj} then{zwsp} crashes{zwj}\n\n"
+        f"This{zwsp} is{zwnj} blocking{zwj} our{zwsp} quarterly{zwnj} close{zwsp} process.{zwj} "
+        f"The{zwsp} deadline{zwnj} is{zwj} this{zwsp} Friday.{zwnj}\n\n"
+        f"—{zwsp} Ahmed{zwj} El-Sayed,{zwsp} Accounting{zwnj}"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-125",
+            subject="SAP Business One crashing on quarterly report generation",
+            description=description,
+            reporter=Reporter(
+                name="Ahmed El-Sayed",
+                email="a.elsayed@contoso.com",
+                department="Accounting",
+            ),
+            created_at="2026-03-18T14:00:00Z",
+            channel=Channel.PORTAL,
+            attachments=[],
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-125",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.DEVICE_INFO],
+            next_best_action=(
+                "Investigate the SAP Business One crash (0xC0000005) during quarterly "
+                "report generation. Zero-width Unicode characters in the ticket are noise."
+            ),
+            remediation_steps=[
+                "Collect the SAP Business One crash dump from the user's machine.",
+                "Check if SAP FP2304 has known issues with the quarterly report module.",
+                "Test report generation on a clean machine with the same SAP version.",
+                "Apply any available SAP hotfixes for the access violation error.",
+            ],
+        ),
+        tags=["data-cleanup", "zero-width-unicode", "software-crash"],
+        description="Zero-width Unicode characters scattered throughout a software crash report.",
+    )
+
+
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
@@ -7401,6 +8438,21 @@ def build_dataset() -> EvalDataset:
             _dc108_multilingual_disclaimer_password(),
             _dc109_near_empty_monitor_issue(),
             _dc110_vuln_scanner_tls_cert_expiry(),
+            _dc111_base64_pdf_inline(),
+            _dc112_extremely_long_email(),
+            _dc113_multiple_base64_images_flood(),
+            _dc114_severe_mojibake(),
+            _dc115_deep_email_quoting(),
+            _dc116_giant_signature_block(),
+            _dc117_url_spam_tracking_params(),
+            _dc118_email_metadata_flood(),
+            _dc119_git_diff_inline(),
+            _dc120_kubectl_describe_pod(),
+            _dc121_docker_compose_yaml_dump(),
+            _dc122_jwt_oauth_token_dump(),
+            _dc123_ansi_escape_codes(),
+            _dc124_misaligned_spreadsheet_paste(),
+            _dc125_zero_width_unicode(),
         ],
     )
 
