@@ -1,0 +1,254 @@
+[
+    {
+        "ticket_id": "INC-5001",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate GlobalProtect VPN error code GP-4017 on the primary gateway following the weekend maintenance window, and verify whether the alternate gateway vpn2.contoso.com resolves the disconnection issue.",
+        "remediation_steps": [
+            "Check VPN gateway logs for error code GP-4017 events since the weekend maintenance window",
+            "Verify GlobalProtect client version 6.1.3 compatibility with current gateway configuration",
+            "Test connectivity to both primary and alternate (vpn2.contoso.com) VPN gateways",
+            "Review weekend maintenance change records for any gateway configuration changes",
+            "If issue persists, escalate to network engineering for VPN infrastructure review"
+        ]
+    },
+    {
+        "ticket_id": "INC-5002",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Dispatch endpoint engineering to desk 14-227 to diagnose the Dell U2722D monitor (asset tag CT-MN-08834) displaying vertical lines and flickering, and determine if the issue is the monitor, cable, or docking station.",
+        "remediation_steps": [
+            "Test the monitor with a different laptop to isolate whether the issue is monitor or source device",
+            "Try a known-good USB-C and DisplayPort cable",
+            "Check monitor firmware version and apply any available updates",
+            "If lines persist with different cables and source, initiate RMA for Dell U2722D (asset CT-MN-08834)",
+            "Provide a loaner monitor while replacement is processed"
+        ]
+    },
+    {
+        "ticket_id": "INC-5003",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate Entra ID error AADSTS700016 indicating the Finance Reporting Portal application registration is missing from the contoso.com directory, as this is blocking the month-end close process.",
+        "remediation_steps": [
+            "Check Entra ID for application registration with identifier a3f8c92-1d4e-4b6a-9c87-2e5f1a3b7d90",
+            "Verify the Finance Reporting Portal app registration was not accidentally deleted or modified",
+            "If missing, recreate the app registration with the correct redirect URIs and permissions",
+            "Test SSO authentication flow after restoring the application registration",
+            "Confirm with Rachel Goldstein that access to the Finance Reporting Portal is restored"
+        ]
+    },
+    {
+        "ticket_id": "INC-5004",
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "affected_system"
+        ],
+        "next_best_action": "Investigate the SharePoint Legal Library upload failure for files larger than 5MB, checking for storage quota limits, file type restrictions, or SharePoint site collection settings that may be blocking large uploads.",
+        "remediation_steps": [
+            "Check SharePoint Legal Library site collection storage quota and current usage",
+            "Verify maximum file upload size settings for the site (default is 250MB but may be restricted)",
+            "Check if there are any file type restrictions or DLP policies blocking the upload",
+            "Test uploading a 5MB+ file as a site admin to determine if the issue is user-specific",
+            "Review SharePoint ULS logs for the specific error during upload failure"
+        ]
+    },
+    {
+        "ticket_id": "INC-5005",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Review and update Karen Whitfield's SAP authorization profile to grant access to transaction SE16N (authorization object S_TCODE), noting this is a separate issue from the previously resolved licensing limitation.",
+        "remediation_steps": [
+            "Check Karen Whitfield's SAP user profile and assigned roles in transaction SU01",
+            "Verify authorization object S_TCODE includes transaction SE16N in her role",
+            "If missing, add SE16N authorization through the appropriate role in PFCG",
+            "Transport the role change through the approval workflow",
+            "Confirm Karen can access SE16N and query the BSEG table after the role update"
+        ]
+    },
+    {
+        "ticket_id": "INC-5006",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Dispatch a network technician to Floor 3, Zone B to inspect the Cisco Meraki access point showing amber LED near conference room 3B, and investigate the elevated temperature in the server closet on that floor.",
+        "remediation_steps": [
+            "Check the Meraki dashboard for the access point near conference room 3B for error status",
+            "Inspect the server closet on Floor 3 for cooling issues if temperature is elevated",
+            "Reboot or replace the access point if it is showing degraded status",
+            "Verify WiFi connectivity on Floor 3 after AP remediation",
+            "Ensure stable connectivity is confirmed before the 2:00 PM client presentation"
+        ]
+    },
+    {
+        "ticket_id": "INC-5007",
+        "category": "Data & Storage",
+        "priority": "P1",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Urgently investigate SQLSERVER01 and SQLSERVER02 for connection pool exhaustion, deadlocks, and the service broker failure that are causing ETL pipeline failures and blocking C-suite morning reports.",
+        "remediation_steps": [
+            "Check SQL Server resource utilization (CPU, memory, disk I/O) on SQLSERVER01 and SQLSERVER02",
+            "Investigate deadlocks on RID resources and identify the blocking queries",
+            "Review connection pool configuration (max=200) and consider increasing if justified",
+            "Restart the service broker endpoint on SQLSERVER01",
+            "Re-run failed ETL pipelines once SQL Server connectivity is restored",
+            "Monitor for recurrence and implement alerting for connection pool exhaustion"
+        ]
+    },
+    {
+        "ticket_id": "INC-5008",
+        "category": "General Inquiry",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Direct Jessica Park to the room booking system and grant her the necessary permissions to book conference rooms, noting the room booking request itself is not an IT support issue.",
+        "remediation_steps": [
+            "Verify Jessica Park's access to the room booking system",
+            "Grant room booking permissions if missing",
+            "Provide instructions for booking the 12th floor meeting room with A/V and Teams video conferencing",
+            "Advise that catering requests should go through the facilities or office management team, not IT"
+        ]
+    },
+    {
+        "ticket_id": "INC-5009",
+        "category": "Security & Compliance",
+        "priority": "P2",
+        "assigned_team": "Security Operations",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate the phishing email impersonating the CEO from ceo@contos0.com targeting payroll direct deposit changes, block the malicious domain, and issue a company-wide alert.",
+        "remediation_steps": [
+            "Block the sender domain contos0.com and the URL contoso-hr-update.suspicious-domain.xyz at the email gateway",
+            "Search email logs for other recipients of this phishing campaign",
+            "Send a company-wide phishing alert about this specific campaign",
+            "Analyze the Payroll_Update_March_2026.pdf attachment in a sandbox environment",
+            "Verify no employees clicked the link or opened the attachment by checking web proxy logs"
+        ]
+    },
+    {
+        "ticket_id": "INC-5010",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate memory utilization at 91.2% and disk D: at 94.1% on PROD-APP-047 hosting the ContosoCoreAPI service, which is in DEGRADED health status.",
+        "remediation_steps": [
+            "Connect to PROD-APP-047 and identify processes consuming excessive memory",
+            "Check D: drive for large or unnecessary files that can be cleaned up or archived",
+            "Review ContosoCoreAPI application logs for memory leaks or abnormal behavior",
+            "Consider restarting the ContosoCoreAPI service if memory is not released",
+            "Evaluate whether the m5.2xlarge instance needs to be scaled up for the workload"
+        ]
+    },
+    {
+        "ticket_id": "INC-5011",
+        "category": "Security & Compliance",
+        "priority": "P2",
+        "assigned_team": "Security Operations",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Block all suspicious domains from the forwarded phishing email, investigate whether any employees clicked the malicious links, and issue a security advisory about this credential-harvesting campaign.",
+        "remediation_steps": [
+            "Block all identified malicious domains at the email gateway and web proxy",
+            "Search email logs for other recipients of emails from it-security@contos0.com",
+            "Check web proxy logs for any employee visits to the suspicious URLs",
+            "Add the tracking pixel domains to the blocklist",
+            "Issue a company-wide security advisory about this phishing campaign",
+            "Report the phishing domains to relevant abuse contacts"
+        ]
+    },
+    {
+        "ticket_id": "INC-5012",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate the Microsoft Teams crash on Carlos Mendoza's Surface Pro 9 (CT-LT-31205) that occurs during video calls with 5+ participants, and check if colleague Joao has the same issue indicating a broader problem.",
+        "remediation_steps": [
+            "Collect Teams crash logs from the Surface Pro 9 (asset tag CT-LT-31205)",
+            "Check if Teams version 24360.1303.3160.5765 has known issues with video calls",
+            "Verify GPU drivers are up to date on the Surface Pro 9",
+            "Try the new Teams client if still on classic Teams",
+            "If issue persists, check whether hardware acceleration is causing the crash and disable if needed",
+            "Investigate whether colleague Joao's device has the same issue to determine if it's device-specific or broader"
+        ]
+    },
+    {
+        "ticket_id": "INC-5013",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "device_info",
+            "steps_to_reproduce",
+            "affected_system"
+        ],
+        "next_best_action": "Contact Jordan Blake to gather details about the laptop issue including the specific symptoms, device model, asset tag, and what 'broken' means (won't power on, screen issue, physical damage, etc.).",
+        "remediation_steps": [
+            "Contact the reporter to determine the specific nature of the laptop problem",
+            "Identify the laptop model and asset tag",
+            "Based on symptoms, either schedule a desk-side visit or arrange a replacement device",
+            "If physical damage, initiate warranty claim or replacement process"
+        ]
+    },
+    {
+        "ticket_id": "INC-5014",
+        "category": "Data & Storage",
+        "priority": "P1",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate the SQL Server connectivity failure causing the ADF pipeline PL_IngestDailyTransactions to fail after 3 retries, as downstream analytics dashboards are showing stale data.",
+        "remediation_steps": [
+            "Check connectivity to sqlserver-prod-east.database.windows.net from the ADF integration runtime",
+            "Verify SQL Server firewall rules and network security group configurations",
+            "Check SQL Server resource health in the Azure portal for any ongoing issues",
+            "Re-run the PL_IngestDailyTransactions pipeline once connectivity is restored",
+            "Verify downstream analytics dashboards refresh with current data",
+            "Set up monitoring alerts for pipeline failures to catch issues earlier"
+        ]
+    },
+    {
+        "ticket_id": "INC-5015",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Reset MFA registration for Lisa Chang (l.chang@contoso.com) who is locked out of all systems due to Microsoft Authenticator verification failures, likely caused by time synchronization issues on her phone.",
+        "remediation_steps": [
+            "Reset MFA registration for l.chang@contoso.com in Entra ID",
+            "Provide Lisa with a temporary access pass to re-register MFA",
+            "Guide her through re-enrolling Microsoft Authenticator",
+            "Advise her to verify automatic date/time is enabled on her phone",
+            "Confirm she can successfully authenticate to all systems after re-enrollment"
+        ]
+    }
+]

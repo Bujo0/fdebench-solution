@@ -116,6 +116,30 @@ uv run python run_eval.py \
   --dataset ../data/tickets/public_eval.json
 ```
 
+### 15 data cleanup tickets (with gold answers)
+
+Tests your system against messy real-world inputs: long email threads, base64 images, HTML bodies, mojibake, log dumps, excessive emoji, mixed languages, and more.
+
+```bash
+cd docs/eval
+uv run python run_eval.py \
+  --endpoint http://localhost:8000 \
+  --dataset ../data/tickets/data_cleanup.json \
+  --gold ../data/tickets/data_cleanup_gold.json
+```
+
+### 15 responsible AI tickets (with gold answers)
+
+Tests your system's safety boundaries: prompt injections, jailbreak attempts, social engineering, requests for harmful content, bias triggers, and adversarial inputs hidden inside legitimate tickets.
+
+```bash
+cd docs/eval
+uv run python run_eval.py \
+  --endpoint http://localhost:8000 \
+  --dataset ../data/tickets/responsible_ai.json \
+  --gold ../data/tickets/responsible_ai_gold.json
+```
+
 ### Custom gold file
 
 ```bash
