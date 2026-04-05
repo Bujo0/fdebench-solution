@@ -5719,3 +5719,871 @@ default_registry.register(
         ),
     )
 )
+
+# ---------------------------------------------------------------------------
+# dc-101: CSV injection patterns in ticket description
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-101",
+        name="CSV injection formulas pasted in ticket description",
+        description=(
+            "Ticket description contains CSV injection formulas "
+            "like =CMD and =HYPERLINK that could be dangerous if "
+            "rendered in a spreadsheet application. The underlying "
+            "issue is a legitimate data export problem."
+        ),
+        category=_CATEGORY,
+        tags=["csv_injection", "formula_injection"],
+        ticket=EvalTicket(
+            ticket_id="INC-5101",
+            subject="Data export from CRM contains corrupt formulas",
+            description=(
+                "Hi team,\n\n"
+                "I exported our Q1 client data from the CRM portal "
+                "and the CSV file has some weird entries. Here's a "
+                "sample of what I see when I open it in Notepad:\n\n"
+                'Name,Email,Revenue,Notes\n'
+                '"Johnson & Co","j.co@example.com","$1.2M","=CMD(\'calc\')!A0"\n'
+                '"Acme Corp","acme@example.com","$850K","=HYPERLINK(\\"http://evil.example.com\\")"\n'
+                '"Beta Inc","beta@example.com","$2.1M","=1+1"\n'
+                '"Gamma LLC","gamma@example.com","$500K","+THUNK(\'-o evil.bat\')"\n'
+                '"Delta Partners","delta@example.com","$3.4M","@SUM(A1:A100)"\n\n'
+                "When I open this in Excel it tries to run "
+                "something and I get a security warning. The "
+                "export used to work fine last month. I think "
+                "something changed in the CRM export module.\n\n"
+                "I need this data for the quarterly board report "
+                "due Friday.\n\n"
+                "Priya Sharma\nWealth Management\n"
+                "priya.sharma@contoso.com"
+            ),
+            reporter=_reporter(
+                "Priya Sharma",
+                "priya.sharma@contoso.com",
+                "Wealth Management",
+            ),
+            created_at="2026-03-18T10:30:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-102: GPG/PGP signed email with ASCII armor blocks
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-102",
+        name="GPG/PGP signed email wrapping a hardware issue",
+        description=(
+            "Ticket submitted via email with a PGP digital "
+            "signature. The ASCII armor blocks add noise to "
+            "the actual hardware support request."
+        ),
+        category=_CATEGORY,
+        tags=["gpg_signed", "pgp_armor"],
+        ticket=EvalTicket(
+            ticket_id="INC-5102",
+            subject="Docking station not detecting external monitors",
+            description=(
+                "-----BEGIN PGP SIGNED MESSAGE-----\n"
+                "Hash: SHA256\n\n"
+                "Hi IT Support,\n\n"
+                "My Dell WD19TBS Thunderbolt docking station stopped "
+                "detecting both of my external monitors (Dell U2722D) "
+                "after the latest Windows Update (KB5034441). The dock "
+                "power light is on and USB peripherals work, but the "
+                "DisplayPort outputs show no signal.\n\n"
+                "I've tried:\n"
+                "- Unplugging and replugging the Thunderbolt cable\n"
+                "- Restarting the laptop (ThinkPad X1 Carbon Gen 11)\n"
+                "- Using different DP cables\n"
+                "- Connecting monitors directly to laptop HDMI (works)\n\n"
+                "So the monitors themselves are fine. It seems like a "
+                "driver or firmware issue with the dock after the update.\n\n"
+                "Thanks,\n"
+                "Viktor Andersen\n"
+                "Quantitative Analysis\n\n"
+                "-----BEGIN PGP SIGNATURE-----\n\n"
+                "iQIzBAEBCAAdFiEEaBC2K3FW1DqSNk5RVd4q+UCY\n"
+                "cRQFAmXfL+gACgkQVd4q+UCYcRTMVA/+JX5GBHKP\n"
+                "3dZ9c2Xq+FRnR5h8CJKL0M2WQx9fB3kPvTU6eYd\n"
+                "Hy5T4vG1w8jN0mKl2sBf7R9xPqA3YcDhW4zJ6nMr\n"
+                "q+LpS5bVhE2cW0FgT9Dn3xKyU8m4Z7jRv6HsB1kX\n"
+                "aQw2P5nY3cL4eF8gD0hJ9iK7mR6tU1vW5xY2zA3bC\n"
+                "=dK9f\n"
+                "-----END PGP SIGNATURE-----"
+            ),
+            reporter=_reporter(
+                "Viktor Andersen",
+                "v.andersen@contoso.com",
+                "Quantitative Analysis",
+            ),
+            created_at="2026-03-18T11:15:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-103: Zalgo text with excessive combining Unicode diacritics
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-103",
+        name="Zalgo/combining diacritics corrupting ticket text",
+        description=(
+            "Ticket text contains Zalgo-style combining Unicode "
+            "characters that make the text visually garbled. The "
+            "underlying software issue must be extracted."
+        ),
+        category=_CATEGORY,
+        tags=["zalgo_text", "combining_diacritics"],
+        ticket=EvalTicket(
+            ticket_id="INC-5103",
+            subject="O\u0336\u0317\u0353u\u0337\u031e\u0326t\u0334\u0318\u032dl\u0335\u031f\u0329o\u0337\u0316\u032ao\u0336\u0320\u0324k crashes on startup",
+            description=(
+                "E\u0336\u0319\u032dv\u0335\u031d\u0325e\u0334\u031e\u0328r\u0336\u0320\u032by "
+                "t\u0337\u031f\u0326i\u0335\u0317\u0329m\u0336\u031e\u032ae "
+                "I open Outlook it freezes for about 30 seconds "
+                "then shows 'Microsoft Outlook is not responding' "
+                "and crashes. This started after T\u0336\u031d\u0324u\u0337\u031f\u0325e\u0334\u0320\u0328s\u0335\u031e\u032bd\u0336\u0317\u032ea\u0337\u0319\u0326y's "
+                "update.\n\n"
+                "I\u0335\u031d\u0324'\u0336\u031f\u0325v\u0334\u0320\u0328e tried:\n"
+                "- R\u0337\u031e\u032be\u0335\u0317\u032ep\u0336\u0319\u0326a\u0337\u031d\u0324i\u0334\u031f\u0325r from Control Panel\n"
+                "- Starting in safe mode (same issue)\n"
+                "- Deleting my .ost file\n\n"
+                "Version: Microsoft 365 Apps v2402\n"
+                "OS: Windows 11 23H2\n\n"
+                "I think the update corrupted something. My "
+                "mailbox is about 12 GB. I need Outlook for "
+                "client communications and it's really urgent.\n\n"
+                "H\u0336\u031e\u032ae\u0335\u031d\u0324l\u0337\u031f\u0325e\u0334\u0320\u0328n "
+                "M\u0336\u031e\u032bc\u0335\u0317\u032eG\u0337\u0319\u0326r\u0334\u031d\u0324a\u0335\u031f\u0325t\u0336\u0320\u0328h\n"
+                "Trading\n"
+                "h.mcgrath@contoso.com"
+            ),
+            reporter=_reporter(
+                "Helen McGrath",
+                "h.mcgrath@contoso.com",
+                "Trading",
+            ),
+            created_at="2026-03-18T08:45:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-104: Deeply nested JSON (50+ levels) pasted in description
+# ---------------------------------------------------------------------------
+_NESTED_JSON = "{" * 60 + '"error": "connection_timeout"' + "}" * 60
+
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-104",
+        name="Deeply nested JSON payload pasted in ticket",
+        description=(
+            "User pasted a deeply nested JSON response "
+            "(60+ nesting levels) that caused an API error. "
+            "The actual issue is a database connection timeout."
+        ),
+        category=_CATEGORY,
+        tags=["nested_json", "deep_nesting"],
+        ticket=EvalTicket(
+            ticket_id="INC-5104",
+            subject="Database API returning errors — pasting response",
+            description=(
+                "Hi Data Platform team,\n\n"
+                "Our reporting API is returning errors when I "
+                "query the analytics database. Here's the full "
+                "JSON response I'm getting:\n\n"
+                + _NESTED_JSON
+                + "\n\n"
+                "This started about 2 hours ago. The API endpoint "
+                "is https://api.internal.contoso.com/v2/analytics/"
+                "quarterly-revenue. We need this for the CFO's "
+                "dashboard which refreshes every 15 minutes.\n\n"
+                "Raj Patel\nData Engineering\n"
+                "raj.patel@contoso.com"
+            ),
+            reporter=_reporter(
+                "Raj Patel",
+                "raj.patel@contoso.com",
+                "Data Engineering",
+            ),
+            created_at="2026-03-18T14:20:00Z",
+            channel="chat",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Data & Storage",
+            priority="P2",
+            assigned_team="Data Platform",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-105: Raw SQL query output with ASCII table formatting
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-105",
+        name="Raw SQL query output pasted as ticket body",
+        description=(
+            "Ticket body is mostly a raw SQL result set with "
+            "ASCII table borders. The user is reporting data "
+            "corruption they discovered via the query."
+        ),
+        category=_CATEGORY,
+        tags=["sql_output", "tabular_ascii"],
+        ticket=EvalTicket(
+            ticket_id="INC-5105",
+            subject="Data corruption in client_accounts table",
+            description=(
+                "I ran this query and the results show corrupted data:\n\n"
+                "SELECT account_id, client_name, balance, last_updated\n"
+                "FROM client_accounts WHERE region = 'EMEA'\n"
+                "ORDER BY last_updated DESC LIMIT 20;\n\n"
+                "+------------+----------------------+------------+---------------------+\n"
+                "| account_id | client_name          | balance    | last_updated        |\n"
+                "+------------+----------------------+------------+---------------------+\n"
+                "| ACC-10042  | Müller GmbH          | $1,234.56  | 2026-03-18 09:14:00 |\n"
+                "| ACC-10043  | Société Générale     | $-999999.99| 2026-03-18 09:14:00 |\n"
+                "| ACC-10044  | Barclays PLC         | $0.00      | 2026-03-18 09:14:00 |\n"
+                "| ACC-10045  | Deutsche Bank        | NULL       | NULL                |\n"
+                "| ACC-10046  | BNP Paribas          | $########  | 2026-03-17 23:59:59 |\n"
+                "| ACC-10047  | HSBC Holdings        | $5,678.90  | 2026-03-17 18:30:00 |\n"
+                "| ACC-10048  | Credit Suisse        | $-1.00     | 1970-01-01 00:00:00 |\n"
+                "| ACC-10049  | UBS Group            | $45,000.12 | 2026-03-17 16:45:00 |\n"
+                "| ACC-10050  | Zurich Insurance     | $12,345.00 | 2026-03-17 14:20:00 |\n"
+                "+------------+----------------------+------------+---------------------+\n"
+                "9 rows in set (0.23 sec)\n\n"
+                "Notice ACC-10043 has a negative balance, ACC-10045 is "
+                "NULL, ACC-10046 shows overflow, and ACC-10048 has an "
+                "epoch timestamp. Something went wrong during last "
+                "night's ETL batch.\n\n"
+                "— Claudia Fernandez, Data Engineering"
+            ),
+            reporter=_reporter(
+                "Claudia Fernandez",
+                "c.fernandez@contoso.com",
+                "Data Engineering",
+            ),
+            created_at="2026-03-18T09:30:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Data & Storage",
+            priority="P2",
+            assigned_team="Data Platform",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-106: S/MIME digital signature block in access ticket
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-106",
+        name="S/MIME signature certificate data in email body",
+        description=(
+            "Email includes S/MIME PKCS#7 signature data, "
+            "adding significant noise to a straightforward "
+            "MFA enrollment request."
+        ),
+        category=_CATEGORY,
+        tags=["smime_signature", "pkcs7_noise"],
+        ticket=EvalTicket(
+            ticket_id="INC-5106",
+            subject="Need to re-enroll MFA — lost my phone",
+            description=(
+                "Content-Type: multipart/signed; "
+                "protocol=\"application/pkcs7-signature\"; "
+                "micalg=sha-256; "
+                "boundary=\"----=_Part_12345_6789.1234567890\"\n\n"
+                "------=_Part_12345_6789.1234567890\n"
+                "Content-Type: text/plain; charset=utf-8\n\n"
+                "Hi IAM team,\n\n"
+                "I lost my phone over the weekend and I can't "
+                "complete MFA challenges to sign into anything. "
+                "I need my authenticator app re-enrolled on my "
+                "new device. My username is t.nakamura and I'm "
+                "in the Singapore office.\n\n"
+                "Thanks,\nTakeshi Nakamura\nFixed Income\n\n"
+                "------=_Part_12345_6789.1234567890\n"
+                "Content-Type: application/pkcs7-signature; "
+                "name=\"smime.p7s\"\n"
+                "Content-Transfer-Encoding: base64\n"
+                "Content-Disposition: attachment; "
+                "filename=\"smime.p7s\"\n\n"
+                "MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEF\n"
+                "ADALBgkqhkiG9w0BBwGggDCCA1IwggI6oAMCAQICEBwPsvMp\n"
+                "Lx3Gq5fv2TdUZG8wDQYJKoZIhvcNAQELBQAwSTELMAkGA1UE\n"
+                "BhMCVVMxEzARBgNVBAoTCkNvbnRvc28gTHRkMSUwIwYDVQQD\n"
+                "ExxDb250b3NvIEVtYWlsIFNpZ25pbmcgQ0EgdjIw\n"
+                "------=_Part_12345_6789.1234567890--"
+            ),
+            reporter=_reporter(
+                "Takeshi Nakamura",
+                "t.nakamura@contoso.com",
+                "Fixed Income",
+            ),
+            created_at="2026-03-18T07:30:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Access & Authentication",
+            priority="P2",
+            assigned_team="Identity & Access Management",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-107: Near-empty body ("Sent from my iPhone")
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-107",
+        name="Near-empty ticket body with only mobile signature",
+        description=(
+            "Ticket description is nearly empty — just a "
+            "mobile signature. The actual issue must be "
+            "inferred from the subject line."
+        ),
+        category=_CATEGORY,
+        tags=["near_empty", "mobile_signature"],
+        ticket=EvalTicket(
+            ticket_id="INC-5107",
+            subject="Can't connect to VPN from home — URGENT",
+            description="Sent from my iPhone",
+            reporter=_reporter(
+                "James O'Connell",
+                "j.oconnell@contoso.com",
+                "Portfolio Management",
+            ),
+            created_at="2026-03-18T06:15:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Network & Connectivity",
+            priority="P3",
+            assigned_team="Network Operations",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-108: Auto-generated JIRA notification with transition history
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-108",
+        name="JIRA notification email with full transition history",
+        description=(
+            "Ticket body is an auto-generated JIRA notification "
+            "containing issue transitions, comments, and metadata. "
+            "The real issue is a deployment failure."
+        ),
+        category=_CATEGORY,
+        tags=["jira_notification", "itsm_noise"],
+        ticket=EvalTicket(
+            ticket_id="INC-5108",
+            subject="[JIRA] (DEPLOY-4521) Production deployment failed",
+            description=(
+                "Jira <noreply@jira.contoso.com>\n"
+                "This message was sent automatically by Jira.\n\n"
+                "DEPLOY-4521 — Production deployment failed\n"
+                "Status: Open → In Progress → Blocked → Reopened → In Progress\n"
+                "Priority: Critical → Major → Critical\n"
+                "Assignee: DevOps Team → Alice Chen → Unassigned → Bob Kim\n"
+                "Reporter: CI/CD Pipeline\n"
+                "Labels: deployment, production, p1, rollback-needed\n"
+                "Components: payment-service, api-gateway\n"
+                "Sprint: Sprint 47 (Mar 11-25)\n\n"
+                "--- Change History ---\n"
+                "18/Mar/26 08:01 - CI Pipeline: Status changed (Open → In Progress)\n"
+                "18/Mar/26 08:15 - CI Pipeline: Build #4521 passed\n"
+                "18/Mar/26 08:22 - CI Pipeline: Deployment to prod-east failed\n"
+                "18/Mar/26 08:22 - CI Pipeline: Status changed (In Progress → Blocked)\n"
+                "18/Mar/26 08:30 - Alice Chen: Investigating. Looks like a DB migration issue.\n"
+                "18/Mar/26 09:00 - Alice Chen: Reassigning to Bob — this is infra related.\n"
+                "18/Mar/26 09:05 - Bob Kim: Status changed (Blocked → Reopened → In Progress)\n"
+                "18/Mar/26 09:10 - Bob Kim: The Kubernetes deployment in prod-east-1 failed "
+                "because the payment-service pod couldn't connect to the PostgreSQL RDS "
+                "instance. Connection string env var PAYMENT_DB_URL is pointing to the "
+                "staging database. Looks like the Helm chart values weren't updated for "
+                "the production overlay.\n\n"
+                "--- Comments ---\n"
+                "[~alice.chen] Can you check the Helm values file?\n"
+                "[~bob.kim] Will fix the overlay and re-deploy.\n\n"
+                "If you do not wish to receive these notifications, "
+                "update your JIRA notification preferences."
+            ),
+            reporter=_reporter(
+                "Bob Kim",
+                "b.kim@contoso.com",
+                "DevOps",
+            ),
+            created_at="2026-03-18T09:15:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P1",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-109: Windows registry export pasted as description
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-109",
+        name="Windows registry export (.reg) pasted in ticket",
+        description=(
+            "User pasted a Windows registry export file "
+            "to show a software configuration problem."
+        ),
+        category=_CATEGORY,
+        tags=["registry_export", "windows_config"],
+        ticket=EvalTicket(
+            ticket_id="INC-5109",
+            subject="Bloomberg Terminal not launching — registry issue?",
+            description=(
+                "The Bloomberg Terminal app won't start. I exported "
+                "the relevant registry keys:\n\n"
+                "Windows Registry Editor Version 5.00\n\n"
+                "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Bloomberg L.P.\\Terminal]\n"
+                '"InstallPath"="C:\\\\blp\\\\API"\n'
+                '"Version"="2024.1.45.3"\n'
+                '"LicenseKey"="XXXX-XXXX-XXXX-XXXX"\n'
+                '"AutoUpdate"=dword:00000001\n'
+                '"LastRun"="2026-03-15T14:30:00"\n'
+                '"CrashCount"=dword:00000007\n\n'
+                "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Bloomberg L.P.\\Terminal\\Network]\n"
+                '"ProxyEnabled"=dword:00000001\n'
+                '"ProxyServer"="proxy.contoso.com:8080"\n'
+                '"ProxyBypass"="*.bloomberg.com;*.bbterminal.com"\n'
+                '"ConnectionTimeout"=dword:0000001e\n\n'
+                "[HKEY_CURRENT_USER\\Software\\Bloomberg L.P.\\Preferences]\n"
+                '"WindowState"=dword:00000003\n'
+                '"DefaultWorkspace"="trading-desk-4"\n'
+                '"Theme"="dark"\n\n'
+                "Notice the CrashCount is 7. It started crashing "
+                "after our proxy config changed last week.\n\n"
+                "Marcus Webb, Equity Trading\n"
+                "marcus.webb@contoso.com"
+            ),
+            reporter=_reporter(
+                "Marcus Webb",
+                "marcus.webb@contoso.com",
+                "Equity Trading",
+            ),
+            created_at="2026-03-18T07:00:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-110: Python traceback with deep stack (50+ frames)
+# ---------------------------------------------------------------------------
+_DEEP_FRAMES = "\n".join(
+    f'  File "/app/services/layer_{i}/handler.py", line {10 + i}, in process_request\n'
+    f"    return next_layer.process_request(ctx)"
+    for i in range(55)
+)
+
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-110",
+        name="Python traceback with 55-frame deep stack",
+        description=(
+            "Ticket contains an extremely deep Python traceback "
+            "from a middleware chain. The actual error is a "
+            "database connection timeout at the bottom."
+        ),
+        category=_CATEGORY,
+        tags=["deep_traceback", "python_stack"],
+        ticket=EvalTicket(
+            ticket_id="INC-5110",
+            subject="Internal API returning 500 errors — traceback attached",
+            description=(
+                "Our portfolio analytics API started returning 500 "
+                "errors at about 2 PM. Here's the traceback from "
+                "the logs:\n\n"
+                "Traceback (most recent call last):\n"
+                + _DEEP_FRAMES
+                + "\n"
+                '  File "/app/db/pool.py", line 42, in acquire_connection\n'
+                "    raise ConnectionError(\n"
+                "ConnectionError: Timed out waiting for a database connection "
+                "after 30s. Pool exhausted (max_size=20, in_use=20, "
+                "waiting=47).\n\n"
+                "The connection pool is exhausted. This started after "
+                "we deployed v2.14.3 this afternoon.\n\n"
+                "— Operations Team"
+            ),
+            reporter=_reporter(
+                "Operations Team",
+                "ops.team@contoso.com",
+                "Cloud Infrastructure",
+            ),
+            created_at="2026-03-18T14:30:00Z",
+            channel="chat",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P1",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-111: URLs with extremely long tracking parameters
+# ---------------------------------------------------------------------------
+_LONG_URL = (
+    "https://contoso.sharepoint.com/sites/ProjectAtlas/"
+    "_layouts/15/Doc.aspx?sourcedoc=%7B4a5b6c7d-8e9f-0a1b-2c3d-4e5f6a7b8c9d%7D"
+    "&action=edit&wdOrigin=OFFICECOM-WEB.START.REC"
+    "&ct=" + "a" * 200
+    + "&utm_source=internal_newsletter&utm_medium=email"
+    + "&utm_campaign=q1_2026_project_atlas_update_newsletter_march_edition"
+    + "&utm_content=document_link_cta_button_primary"
+    + "&sdata=" + "x" * 300
+    + "&reserved=0&wdNewAndOpenCt=2&wdOriginTriggered=1"
+)
+
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-111",
+        name="URLs with extremely long tracking parameters",
+        description=(
+            "Ticket contains URLs with 2000+ character tracking "
+            "parameters that bloat the ticket body. The user is "
+            "reporting a SharePoint access issue."
+        ),
+        category=_CATEGORY,
+        tags=["long_url", "tracking_params"],
+        ticket=EvalTicket(
+            ticket_id="INC-5111",
+            subject="Can't edit document in SharePoint — permission error",
+            description=(
+                "When I click on this link I get a permission error:\n\n"
+                + _LONG_URL
+                + "\n\n"
+                "The error says 'You need permission to access this "
+                "item.' I was added to the Project Atlas team last "
+                "week by my manager. I can see the site but can't "
+                "edit any documents.\n\n"
+                "Full URL from the second attempt:\n"
+                + _LONG_URL.replace("Atlas", "Atlas2")
+                + "\n\n"
+                "Sonia Martinez\nProduct Management"
+            ),
+            reporter=_reporter(
+                "Sonia Martinez",
+                "s.martinez@contoso.com",
+                "Product Management",
+            ),
+            created_at="2026-03-18T11:00:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-112: Multiple conflicting auto-reply/OOO chains
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-112",
+        name="Multiple conflicting out-of-office auto-reply chains",
+        description=(
+            "Ticket description is a chain of auto-reply and "
+            "out-of-office messages from several people, burying "
+            "the original network connectivity issue."
+        ),
+        category=_CATEGORY,
+        tags=["auto_reply_chain", "ooo_noise"],
+        ticket=EvalTicket(
+            ticket_id="INC-5112",
+            subject="RE: RE: RE: Network printer offline on 4th floor",
+            description=(
+                "I am currently out of the office with limited "
+                "access to email. I will return on March 25. For "
+                "urgent matters, please contact Dana Wright at "
+                "d.wright@contoso.com.\n"
+                "— Tomasz Kowalski\n\n"
+                "---\n"
+                "Thank you for your message. I am on PTO until "
+                "March 22. If this is an IT emergency, please "
+                "call the help desk at ext. 4357.\n"
+                "— Lisa Chen\n\n"
+                "---\n"
+                "Auto-reply: I am attending a conference this "
+                "week (March 18-22) and will have intermittent "
+                "email access. For immediate assistance with IT "
+                "issues, please submit a ticket through the "
+                "portal.\n"
+                "— Kevin O'Brien\n\n"
+                "---\n"
+                "Original message from Aisha Rahman:\n\n"
+                "Hi team, the network printer on the 4th floor "
+                "(HP LaserJet M507, asset tag PRN-4F-01) has been "
+                "offline since this morning. The LCD panel shows "
+                "'Network Error - Check Cable'. I've verified the "
+                "Ethernet cable is plugged in. Other devices on "
+                "the same wall jack work fine. Could be a switch "
+                "port issue.\n\n"
+                "Aisha Rahman\nCompliance\n"
+                "a.rahman@contoso.com"
+            ),
+            reporter=_reporter(
+                "Aisha Rahman",
+                "a.rahman@contoso.com",
+                "Compliance",
+            ),
+            created_at="2026-03-18T10:00:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-113: Base64-encoded Excel binary data inlined
+# ---------------------------------------------------------------------------
+_B64_EXCEL = (
+    "UEsDBBQAAAAIAAAAAEAAAAAAAAAAAA"
+    "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" * 40
+)
+
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-113",
+        name="Base64-encoded Excel data pasted in ticket body",
+        description=(
+            "User pasted base64-encoded Excel file content "
+            "inline. The actual issue is a corrupted Excel file "
+            "that won't open."
+        ),
+        category=_CATEGORY,
+        tags=["base64_excel", "inline_binary"],
+        ticket=EvalTicket(
+            ticket_id="INC-5113",
+            subject="Excel file corrupted — can't open Q1 financials",
+            description=(
+                "The Q1 financial model Excel file on our shared "
+                "drive (\\\\fs01\\Finance\\Models\\Q1-2026.xlsx) is "
+                "corrupted. Excel says 'The file is corrupt and "
+                "cannot be opened.' I tried the base64 content "
+                "below to see if it helps you recover it:\n\n"
+                + _B64_EXCEL
+                + "\n\n"
+                "This file has 47 sheets and 3 years of financial "
+                "projections. We have a board meeting Thursday and "
+                "this is the primary model. Last good backup was "
+                "from March 10.\n\n"
+                "Chen Wei, Finance\n"
+                "c.wei@contoso.com"
+            ),
+            reporter=_reporter(
+                "Chen Wei",
+                "c.wei@contoso.com",
+                "Finance",
+            ),
+            created_at="2026-03-18T08:00:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Data & Storage",
+            priority="P2",
+            assigned_team="Data Platform",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-114: Terraform/Bicep IaC template pasted as description
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-114",
+        name="Terraform template pasted as ticket description",
+        description=(
+            "User pasted a Terraform configuration file showing "
+            "a cloud provisioning failure."
+        ),
+        category=_CATEGORY,
+        tags=["terraform_template", "iac_dump"],
+        ticket=EvalTicket(
+            ticket_id="INC-5114",
+            subject="Azure VM provisioning failing — Terraform error",
+            description=(
+                "Our Terraform apply is failing when provisioning "
+                "VMs in the prod-east resource group. Here's the "
+                "relevant config:\n\n"
+                "```hcl\n"
+                'resource "azurerm_resource_group" "prod_east" {\n'
+                '  name     = "rg-prod-east-001"\n'
+                '  location = "eastus"\n'
+                "}\n\n"
+                'resource "azurerm_virtual_network" "main" {\n'
+                '  name                = "vnet-prod-east"\n'
+                '  address_space       = ["10.1.0.0/16"]\n'
+                "  location            = azurerm_resource_group.prod_east.location\n"
+                "  resource_group_name = azurerm_resource_group.prod_east.name\n"
+                "}\n\n"
+                'resource "azurerm_subnet" "app" {\n'
+                '  name                 = "snet-app"\n'
+                "  resource_group_name  = azurerm_resource_group.prod_east.name\n"
+                "  virtual_network_name = azurerm_virtual_network.main.name\n"
+                '  address_prefixes     = ["10.1.1.0/24"]\n'
+                "}\n\n"
+                'resource "azurerm_linux_virtual_machine" "app_server" {\n'
+                '  count               = 3\n'
+                '  name                = "vm-app-${count.index + 1}"\n'
+                "  resource_group_name = azurerm_resource_group.prod_east.name\n"
+                "  location            = azurerm_resource_group.prod_east.location\n"
+                '  size                = "Standard_D4s_v5"\n'
+                '  admin_username      = "azureadmin"\n'
+                "  network_interface_ids = [azurerm_network_interface.app[count.index].id]\n\n"
+                "  os_disk {\n"
+                '    caching              = "ReadWrite"\n'
+                '    storage_account_type = "Premium_LRS"\n'
+                "  }\n\n"
+                "  source_image_reference {\n"
+                '    publisher = "Canonical"\n'
+                '    offer     = "0001-com-ubuntu-server-jammy"\n'
+                '    sku       = "22_04-lts-gen2"\n'
+                '    version   = "latest"\n'
+                "  }\n"
+                "}\n"
+                "```\n\n"
+                "Error:\n"
+                "Error: creating Linux Virtual Machine: "
+                "compute.VirtualMachinesClient#CreateOrUpdate: "
+                "Failure sending request: StatusCode=409 — "
+                "OverconstrainedAllocationRequest: The requested "
+                "VM size Standard_D4s_v5 is not available in "
+                "location eastus for subscription.\n\n"
+                "We need these VMs for the new trading platform "
+                "going live next week.\n\n"
+                "— DevOps Team"
+            ),
+            reporter=_reporter(
+                "DevOps Team",
+                "devops@contoso.com",
+                "Cloud Infrastructure",
+            ),
+            created_at="2026-03-18T15:00:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-115: Git blame output pasted as ticket description
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-115",
+        name="Git blame output pasted as ticket body",
+        description=(
+            "User pasted git blame output to identify who "
+            "introduced a bug. The actual issue is a broken "
+            "calculation in the trading application."
+        ),
+        category=_CATEGORY,
+        tags=["git_blame", "code_paste"],
+        ticket=EvalTicket(
+            ticket_id="INC-5115",
+            subject="Wrong P&L calculation in trading dashboard",
+            description=(
+                "The P&L calculation on the trading dashboard is "
+                "showing incorrect values since yesterday's deploy. "
+                "I ran git blame to find the change:\n\n"
+                "$ git blame src/calculations/pnl.py\n\n"
+                "a1b2c3d4 (Alice Chen  2026-03-10 14:22:31 +0000  1) import decimal\n"
+                "a1b2c3d4 (Alice Chen  2026-03-10 14:22:31 +0000  2) from typing import Final\n"
+                "a1b2c3d4 (Alice Chen  2026-03-10 14:22:31 +0000  3) \n"
+                "e5f6a7b8 (Bob Kim     2026-03-17 09:15:42 +0000  4) ROUNDING: Final = decimal.ROUND_HALF_UP\n"
+                "a1b2c3d4 (Alice Chen  2026-03-10 14:22:31 +0000  5) \n"
+                "a1b2c3d4 (Alice Chen  2026-03-10 14:22:31 +0000  6) def calc_daily_pnl(\n"
+                "a1b2c3d4 (Alice Chen  2026-03-10 14:22:31 +0000  7)     positions: list,\n"
+                "e5f6a7b8 (Bob Kim     2026-03-17 09:15:42 +0000  8)     prices: dict,\n"
+                "e5f6a7b8 (Bob Kim     2026-03-17 09:15:42 +0000  9)     fx_rates: dict | None = None,\n"
+                "a1b2c3d4 (Alice Chen  2026-03-10 14:22:31 +0000 10) ) -> decimal.Decimal:\n"
+                "a1b2c3d4 (Alice Chen  2026-03-10 14:22:31 +0000 11)     total = decimal.Decimal(0)\n"
+                "a1b2c3d4 (Alice Chen  2026-03-10 14:22:31 +0000 12)     for pos in positions:\n"
+                "e5f6a7b8 (Bob Kim     2026-03-17 09:15:42 +0000 13)         price = prices.get(pos.symbol, pos.cost_basis)\n"
+                "e5f6a7b8 (Bob Kim     2026-03-17 09:15:42 +0000 14)         # BUG: should multiply by quantity, not divide\n"
+                "e5f6a7b8 (Bob Kim     2026-03-17 09:15:42 +0000 15)         pnl = (price - pos.cost_basis) / pos.quantity\n"
+                "a1b2c3d4 (Alice Chen  2026-03-10 14:22:31 +0000 16)         total += pnl\n"
+                "a1b2c3d4 (Alice Chen  2026-03-10 14:22:31 +0000 17)     return total.quantize(\n"
+                "e5f6a7b8 (Bob Kim     2026-03-17 09:15:42 +0000 18)         decimal.Decimal('0.01'), rounding=ROUNDING\n"
+                "a1b2c3d4 (Alice Chen  2026-03-10 14:22:31 +0000 19)     )\n\n"
+                "Line 15 is dividing instead of multiplying. This "
+                "was introduced by Bob Kim's commit e5f6a7b8 from "
+                "March 17. The P&L figures shown to traders are "
+                "completely wrong.\n\n"
+                "Nadia Petrov\nRisk Management\n"
+                "n.petrov@contoso.com"
+            ),
+            reporter=_reporter(
+                "Nadia Petrov",
+                "n.petrov@contoso.com",
+                "Risk Management",
+            ),
+            created_at="2026-03-18T10:45:00Z",
+            channel="chat",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P1",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)

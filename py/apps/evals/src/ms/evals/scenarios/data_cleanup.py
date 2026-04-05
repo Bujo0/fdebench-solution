@@ -9988,3 +9988,661 @@ register(
         ],
     )
 )
+
+# ---------------------------------------------------------------------------
+# dc-151  CSV injection formulas in ticket description
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-151",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.APPLICATION_VERSION],
+        subjects=[
+            "CRM export contains dangerous formula cells",
+            "CSV export from CRM has =CMD and =HYPERLINK entries",
+            "Data export broken — Excel shows security warnings",
+        ],
+        descriptions=[
+            "I exported client data from the CRM and the CSV has entries like:\n\n"
+            'Name,Email,Revenue,Notes\n'
+            '"Johnson & Co","j.co@example.com","$1.2M","=CMD(\'calc\')!A0"\n'
+            '"Acme Corp","acme@example.com","$850K","=HYPERLINK(\\"http://evil.example.com\\")"\n'
+            '"Beta Inc","beta@example.com","$2.1M","+THUNK(\'-o evil.bat\')"\n\n'
+            "When I open it in Excel it triggers security warnings. "
+            "The export worked fine last month.\n\n{name}, {department}",
+            "The CRM data export module is producing CSV files with "
+            "formula injection patterns. Cells contain =CMD, =HYPERLINK, "
+            "and @SUM entries that aren't real data. Excel blocks the file "
+            "with a security warning. We need this data for the quarterly "
+            "board report due Friday.\n\n{name}, {department}",
+        ],
+        next_best_actions=[
+            "Investigate the CRM export module for formula injection "
+            "in CSV output — likely unsanitized user input in the Notes field.",
+        ],
+        remediation_steps=[
+            [
+                "Check the CRM export code for proper CSV sanitization of user-supplied fields",
+                "Ensure all cells starting with =, +, -, @ are prefixed with a single quote",
+                "Re-export the data after applying the fix and verify in Excel",
+                "Deliver the clean export for the board report deadline",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-152  GPG/PGP signed email wrapping hardware issue
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-152",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO],
+        subjects=[
+            "Docking station not detecting monitors",
+            "External displays not working via dock",
+            "Thunderbolt dock — no video output",
+        ],
+        descriptions=[
+            "-----BEGIN PGP SIGNED MESSAGE-----\n"
+            "Hash: SHA256\n\n"
+            "My Dell WD19TBS docking station stopped detecting both monitors "
+            "(Dell U2722D) after the latest Windows Update (KB5034441). The dock "
+            "power light is on and USB devices work, but DisplayPort shows no signal.\n\n"
+            "Tried: unplugging Thunderbolt cable, restarting laptop, different DP cables, "
+            "connecting monitors directly to HDMI (works). Seems like a dock driver issue.\n\n"
+            "{name}, {department}\n\n"
+            "-----BEGIN PGP SIGNATURE-----\n\n"
+            "iQIzBAEBCAAdFiEEaBC2K3FW1DqSNk5RVd4q+UCYcRQF\n"
+            "AmXfL+gACgkQVd4q+UCYcRTMVA/+JX5GBHKP3dZ9c2Xq\n"
+            "=dK9f\n"
+            "-----END PGP SIGNATURE-----",
+            "-----BEGIN PGP SIGNED MESSAGE-----\n"
+            "Hash: SHA512\n\n"
+            "Thunderbolt dock stopped working after update. USB peripherals are fine "
+            "but both external monitors show 'No Signal'. Laptop is a ThinkPad X1 "
+            "Carbon Gen 11 running Windows 11 23H2.\n\n"
+            "{name}, {department}\n\n"
+            "-----BEGIN PGP SIGNATURE-----\n"
+            "iQEzBAEBCAAdFiEE5R1om3qlCq8AAAAAAAAAAAAAAA\n"
+            "=abc1\n"
+            "-----END PGP SIGNATURE-----",
+        ],
+        next_best_actions=[
+            "Troubleshoot dock video output — likely a Thunderbolt/DisplayPort driver "
+            "regression from the recent Windows Update. Ignore PGP signature noise.",
+        ],
+        remediation_steps=[
+            [
+                "Check for updated Thunderbolt and DisplayPort drivers from Dell and Lenovo",
+                "Roll back KB5034441 if the driver update doesn't resolve the issue",
+                "Test with a different dock to rule out hardware failure",
+                "Verify display output works with a direct HDMI connection as a workaround",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-153  Zalgo text with combining Unicode diacritics
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-153",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "O\u0336\u0317u\u0337\u031et\u0334\u0318l\u0335\u031fo\u0337\u0316o\u0336\u0320k crashes on startup",
+            "Outlook not responding after update",
+            "Email client crashing — Z\u0336\u0319a\u0335\u031dl\u0337\u031fg\u0334\u0320o text in display",
+        ],
+        descriptions=[
+            "E\u0336\u0319v\u0335\u031de\u0334\u031er\u0336\u0320y time I open Outlook it freezes "
+            "for 30 seconds then shows 'Not responding' and crashes. Started after "
+            "T\u0336\u031du\u0337\u031fe\u0334\u0320s\u0335\u031ed\u0336\u0317a\u0337\u0319y's update.\n\n"
+            "Tried: Repair from Control Panel, safe mode, deleting .ost file.\n"
+            "Version: Microsoft 365 v2402, OS: Windows 11 23H2\n"
+            "Mailbox: ~12 GB\n\n{name}, {department}",
+            "Outlook 365 desktop c\u0336\u031dr\u0337\u031fa\u0334\u0320s\u0335\u031eh\u0336\u0317e\u0337\u0319s "
+            "within 30 seconds of opening. The text in error dialogs has garbled "
+            "combining characters. M\u0336\u031dy mailbox is about 14 GB. This is "
+            "blocking all email communication.\n\n{name}, {department}",
+        ],
+        next_best_actions=[
+            "Diagnose Outlook crash — likely a corrupt profile or oversized mailbox "
+            "after the recent update. Ignore Zalgo text artifacts in the description.",
+        ],
+        remediation_steps=[
+            [
+                "Create a new Outlook profile and re-add the email account",
+                "If the crash persists, reduce mailbox size by archiving old emails",
+                "Check for and install the latest Office update to patch known crash bugs",
+                "If all else fails, uninstall and reinstall Microsoft 365 Apps",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-154  Deeply nested JSON payload pasted in description
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-154",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ENVIRONMENT_DETAILS],
+        subjects=[
+            "API returning deeply nested JSON errors",
+            "Database API timeout — pasting response payload",
+            "Analytics endpoint returning malformed JSON",
+        ],
+        descriptions=[
+            "The reporting API returns this response:\n\n"
+            + "{" * 55 + '"error":"connection_timeout"' + "}" * 55
+            + "\n\nThis started about 2 hours ago. The endpoint is "
+            "https://api.internal.contoso.com/v2/analytics/quarterly-revenue.\n\n"
+            "{name}, {department}",
+            "Our analytics database API is timing out. Here's the JSON:\n\n"
+            + "{" * 60 + '"status":"pool_exhausted"' + "}" * 60
+            + "\n\nThe CFO's dashboard depends on this refreshing every 15 minutes.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "Investigate the analytics API timeout — the deeply nested JSON "
+            "is likely an error response wrapping. Check database connection pool.",
+        ],
+        remediation_steps=[
+            [
+                "Check the database connection pool for the analytics API",
+                "Review recent configuration changes to the API or database",
+                "Increase pool size or investigate slow queries causing pool exhaustion",
+                "Restart the API service if the pool is in a bad state",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-155  Raw SQL query output with ASCII table formatting
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-155",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.TIMESTAMP],
+        subjects=[
+            "Data corruption in client_accounts table",
+            "SQL query shows corrupted balance data after ETL",
+            "Database records have NULL and overflow values",
+        ],
+        descriptions=[
+            "Ran this query and found corrupted data:\n\n"
+            "SELECT account_id, client_name, balance FROM client_accounts "
+            "WHERE region = 'EMEA' ORDER BY last_updated DESC;\n\n"
+            "+------------+-------------------+-------------+\n"
+            "| account_id | client_name       | balance     |\n"
+            "+------------+-------------------+-------------+\n"
+            "| ACC-10042  | Müller GmbH       | $1,234.56   |\n"
+            "| ACC-10043  | Société Générale  | $-999999.99 |\n"
+            "| ACC-10044  | Barclays PLC      | $0.00       |\n"
+            "| ACC-10045  | Deutsche Bank     | NULL        |\n"
+            "| ACC-10046  | BNP Paribas       | $########   |\n"
+            "+------------+-------------------+-------------+\n\n"
+            "Negative balances, NULLs, and overflow characters. "
+            "The ETL batch ran last night.\n\n{name}, {department}",
+        ],
+        next_best_actions=[
+            "Investigate data corruption from the overnight ETL batch — "
+            "ACC-10043 through ACC-10046 have invalid balance values.",
+        ],
+        remediation_steps=[
+            [
+                "Identify the ETL job that ran last night and check its logs for errors",
+                "Compare the corrupted records with the source data to find the transformation bug",
+                "Restore the affected records from the last good backup",
+                "Fix the ETL pipeline and add validation checks for negative/NULL/overflow values",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-156  S/MIME digital signature block in access ticket
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-156",
+        category=Category.ACCESS_AUTH,
+        priority=Priority.P2,
+        assigned_team=Team.IAM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AUTHENTICATION_METHOD],
+        subjects=[
+            "Need MFA re-enrollment — lost my phone",
+            "Can't complete MFA — authenticator app gone",
+            "MFA reset needed after phone replacement",
+        ],
+        descriptions=[
+            "Content-Type: multipart/signed; protocol=\"application/pkcs7-signature\"; "
+            "micalg=sha-256; boundary=\"----=_Part_12345\"\n\n"
+            "------=_Part_12345\nContent-Type: text/plain\n\n"
+            "I lost my phone and can't do MFA. Need my authenticator re-enrolled "
+            "on my new device. Username: {name1}, {office} office.\n\n"
+            "{name}, {department}\n\n"
+            "------=_Part_12345\nContent-Type: application/pkcs7-signature\n"
+            "Content-Transfer-Encoding: base64\n\n"
+            "MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQME\n"
+            "AgEFADALBgkqhkiG9w0BBwGggDCCA1IwggI6oAMCAQIC\n"
+            "------=_Part_12345--",
+        ],
+        next_best_actions=[
+            "Process MFA re-enrollment request after identity verification. "
+            "Ignore S/MIME signature noise in the email.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the user's identity through an alternate channel (manager approval or in-person)",
+                "Reset the MFA registration for the user's account in Azure AD",
+                "Guide the user through re-enrolling their new device in the Authenticator app",
+                "Confirm the user can sign in successfully with the new MFA method",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-157  Near-empty body ("Sent from my iPhone")
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-157",
+        category=Category.NETWORK,
+        priority=Priority.P3,
+        assigned_team=Team.NETWORK,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.ERROR_MESSAGE,
+            MissingInfo.DEVICE_INFO,
+            MissingInfo.STEPS_TO_REPRODUCE,
+        ],
+        subjects=[
+            "Can't connect to VPN from home — URGENT",
+            "VPN broken from remote — please help",
+            "GlobalProtect won't connect — working from home",
+        ],
+        descriptions=[
+            "Sent from my iPhone",
+            "\n\nSent from my iPhone\n",
+            "Sent from my Samsung Galaxy",
+        ],
+        next_best_actions=[
+            "Contact the user for details — the ticket body is empty except "
+            "for a mobile email signature. The subject suggests a VPN issue.",
+        ],
+        remediation_steps=[
+            [
+                "Reach out to the user by phone or chat to gather more details",
+                "Once details are collected, troubleshoot the VPN connection",
+                "Check if the VPN gateway is reachable from the user's network",
+                "Verify the user's VPN client version and credentials are current",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-158  Auto-generated JIRA notification with transition history
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-158",
+        category=Category.SOFTWARE,
+        priority=Priority.P1,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=True,
+        missing_information=[MissingInfo.ENVIRONMENT_DETAILS],
+        subjects=[
+            "[JIRA] (DEPLOY-4521) Production deployment failed",
+            "[JIRA] (DEPLOY-4522) Deploy to prod-east blocked",
+            "[JIRA] Production release pipeline failed — critical",
+        ],
+        descriptions=[
+            "This message was sent automatically by Jira.\n\n"
+            "DEPLOY-4521 — Production deployment failed\n"
+            "Status: Open → In Progress → Blocked → Reopened → In Progress\n"
+            "Priority: Critical → Major → Critical\n"
+            "Assignee: DevOps → {name1} → Unassigned → {name}\n"
+            "Reporter: CI/CD Pipeline\n\n"
+            "--- Change History ---\n"
+            "18/Mar/26 08:01 - Pipeline: Status Open → In Progress\n"
+            "18/Mar/26 08:15 - Pipeline: Build #4521 passed\n"
+            "18/Mar/26 08:22 - Pipeline: Deployment to prod-east FAILED\n"
+            "18/Mar/26 09:10 - {name}: The payment-service pod can't connect "
+            "to PostgreSQL RDS. Connection string PAYMENT_DB_URL points to "
+            "staging. Helm chart values not updated for prod overlay.\n\n"
+            "If you do not wish to receive notifications, update JIRA preferences.",
+        ],
+        next_best_actions=[
+            "Extract the real issue from the JIRA noise: production deployment "
+            "failed because the Helm chart values point to the staging database.",
+        ],
+        remediation_steps=[
+            [
+                "Fix the Helm chart production overlay to use the correct database connection string",
+                "Redeploy the payment-service to the prod-east cluster",
+                "Verify database connectivity in the production environment",
+                "Add a CI/CD gate that validates environment-specific configuration before deployment",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-159  Windows registry export pasted as description
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-159",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE],
+        subjects=[
+            "Bloomberg Terminal won't launch — registry dump attached",
+            "Bloomberg app crashing on startup — reg export below",
+            "Trading terminal not starting — registry issue?",
+        ],
+        descriptions=[
+            "Bloomberg Terminal won't start. Exported the registry keys:\n\n"
+            "Windows Registry Editor Version 5.00\n\n"
+            "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Bloomberg L.P.\\Terminal]\n"
+            '"InstallPath"="C:\\\\blp\\\\API"\n'
+            '"Version"="2024.1.45.3"\n'
+            '"CrashCount"=dword:00000007\n\n'
+            "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Bloomberg L.P.\\Terminal\\Network]\n"
+            '"ProxyEnabled"=dword:00000001\n'
+            '"ProxyServer"="proxy.contoso.com:8080"\n\n'
+            "CrashCount is 7. Started after proxy config changed last week.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "Bloomberg Terminal crashing due to proxy configuration change. "
+            "Update the proxy settings or add proxy bypass rules.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the new proxy configuration is compatible with Bloomberg's requirements",
+                "Add *.bloomberg.com and *.bbterminal.com to the proxy bypass list",
+                "Clear the CrashCount registry value and restart the Bloomberg Terminal",
+                "If the issue persists, reinstall the Bloomberg Terminal client",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-160  Python traceback with very deep stack
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-160",
+        category=Category.SOFTWARE,
+        priority=Priority.P1,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=True,
+        missing_information=[MissingInfo.ENVIRONMENT_DETAILS],
+        subjects=[
+            "Internal API returning 500 — deep traceback",
+            "Portfolio analytics API down — pasting stack trace",
+            "API 500 errors after deploy — traceback below",
+        ],
+        descriptions=[
+            "Our portfolio analytics API started returning 500s. Traceback:\n\n"
+            "Traceback (most recent call last):\n"
+            + "\n".join(
+                f'  File "/app/services/layer_{i}/handler.py", line {10+i}, in process\n'
+                f"    return next_layer.process(ctx)"
+                for i in range(40)
+            )
+            + '\n  File "/app/db/pool.py", line 42, in acquire\n'
+            "    raise ConnectionError(\n"
+            "ConnectionError: Pool exhausted (max=20, in_use=20, waiting=47)\n\n"
+            "Started after deploying v2.14.3 this afternoon.\n\n{name}, {department}",
+        ],
+        next_best_actions=[
+            "Database connection pool exhausted after deploy v2.14.3 — "
+            "investigate the middleware chain for connection leaks.",
+        ],
+        remediation_steps=[
+            [
+                "Roll back to v2.14.2 if the connection leak is confirmed",
+                "Investigate the new code in v2.14.3 for unclosed database connections",
+                "Increase the connection pool size as a temporary workaround",
+                "Add connection pool monitoring and alerting",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-161  URLs with extremely long tracking parameters
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-161",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AFFECTED_SYSTEM],
+        subjects=[
+            "Can't edit document in SharePoint — permission error",
+            "SharePoint document access denied",
+            "Permission error on SharePoint link",
+        ],
+        descriptions=[
+            "When I click this link I get a permission error:\n\n"
+            "https://contoso.sharepoint.com/sites/ProjectAtlas/_layouts/15/Doc.aspx?"
+            "sourcedoc=%7B4a5b6c7d%7D&action=edit" + "&utm_source=" + "a" * 200
+            + "&utm_campaign=" + "b" * 200 + "&sdata=" + "x" * 300
+            + "\n\nI was added to the team last week but can't edit documents.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "Check SharePoint site permissions for the user — ignore the "
+            "extremely long tracking URLs in the ticket description.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the user is a member of the correct SharePoint group",
+                "Check if the user has Edit permissions on the document library",
+                "If not, add the user to the appropriate SharePoint group",
+                "Test that the user can access and edit documents after the change",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-162  Multiple conflicting auto-reply/OOO chains
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-162",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.NETWORK_LOCATION],
+        subjects=[
+            "RE: RE: RE: Network printer offline on 4th floor",
+            "FW: RE: FW: Printer down — auto-replies attached",
+            "RE: RE: Printer issue — OOO replies flooding thread",
+        ],
+        descriptions=[
+            "I am currently out of the office until March 25. For urgent matters, "
+            "contact Dana Wright at d.wright@contoso.com.\n— Tomasz Kowalski\n\n---\n"
+            "Thank you for your message. I am on PTO until March 22.\n— Lisa Chen\n\n---\n"
+            "Auto-reply: Attending a conference this week.\n— Kevin O'Brien\n\n---\n"
+            "Original from {name}:\n\nThe network printer on the 4th floor "
+            "(HP LaserJet M507, PRN-4F-01) has been offline since this morning. "
+            "LCD shows 'Network Error - Check Cable'. Ethernet cable is plugged in. "
+            "Other devices on the same wall jack work fine.\n\n{name}, {department}",
+        ],
+        next_best_actions=[
+            "Ignore the OOO auto-reply chain. The real issue: network printer "
+            "PRN-4F-01 is offline with a 'Network Error' — check the switch port.",
+        ],
+        remediation_steps=[
+            [
+                "Check the switch port status for the printer's Ethernet connection",
+                "Try a different wall jack or patch cable to isolate the issue",
+                "Restart the printer's network interface from its control panel",
+                "If the switch port is dead, have networking patch the printer to a working port",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-163  Base64-encoded Excel binary data inlined
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-163",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.TIMESTAMP],
+        subjects=[
+            "Excel file corrupted — can't open Q1 financials",
+            "Corrupted .xlsx on shared drive — base64 below",
+            "Financial model file won't open — data recovery needed",
+        ],
+        descriptions=[
+            "The Q1 financial model (\\\\fs01\\Finance\\Models\\Q1-2026.xlsx) is "
+            "corrupted. Excel says 'The file is corrupt and cannot be opened.' "
+            "Here's the base64:\n\n"
+            + "UEsDBBQAAAAIAAAAAAAAAAAAAAAA" * 50
+            + "\n\nThis file has 47 sheets. Board meeting Thursday. Last good "
+            "backup: March 10.\n\n{name}, {department}",
+        ],
+        next_best_actions=[
+            "Restore the corrupted Excel file from backup — ignore the base64 "
+            "dump in the ticket body and recover from the March 10 backup.",
+        ],
+        remediation_steps=[
+            [
+                "Restore Q1-2026.xlsx from the March 10 backup",
+                "Verify the restored file opens correctly and contains all 47 sheets",
+                "Investigate the root cause of the corruption (disk errors, network file locks)",
+                "Set up more frequent automated backups for critical financial models",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-164  Terraform/Bicep IaC template pasted as description
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-164",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ENVIRONMENT_DETAILS],
+        subjects=[
+            "Azure VM provisioning failing — Terraform error",
+            "Terraform apply fails for prod-east VMs",
+            "Cloud VM allocation error — IaC config attached",
+        ],
+        descriptions=[
+            "Terraform apply is failing:\n\n"
+            "```hcl\n"
+            'resource "azurerm_linux_virtual_machine" "app_server" {\n'
+            '  count    = 3\n'
+            '  name     = "vm-app-${count.index + 1}"\n'
+            '  size     = "Standard_D4s_v5"\n'
+            '  location = "eastus"\n'
+            "}\n```\n\n"
+            "Error: OverconstrainedAllocationRequest — Standard_D4s_v5 "
+            "not available in eastus for our subscription.\n\n"
+            "Need these VMs for the trading platform going live next week.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "The VM SKU Standard_D4s_v5 is unavailable in eastus. Switch to an "
+            "alternate SKU or region for the production deployment.",
+        ],
+        remediation_steps=[
+            [
+                "Check Azure VM SKU availability in eastus using az vm list-skus",
+                "Switch to an available equivalent SKU (e.g., Standard_D4s_v4 or Standard_D4as_v5)",
+                "Alternatively, deploy to an alternate region (eastus2) if the SKU is available there",
+                "Update the Terraform configuration and re-run terraform apply",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-165  Git blame output pasted as ticket description
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-165",
+        category=Category.SOFTWARE,
+        priority=Priority.P1,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=True,
+        missing_information=[MissingInfo.AFFECTED_USERS],
+        subjects=[
+            "Wrong P&L calculation in trading dashboard",
+            "Git blame shows bug in pnl.py — P&L values wrong",
+            "Trading dashboard showing incorrect profit/loss numbers",
+        ],
+        descriptions=[
+            "The P&L calculation is wrong since yesterday. Git blame:\n\n"
+            "$ git blame src/calculations/pnl.py\n"
+            "a1b2c3d4 (Alice Chen  2026-03-10 14:22 +0000  1) import decimal\n"
+            "e5f6a7b8 (Bob Kim     2026-03-17 09:15 +0000 14) # BUG: divides instead of multiplies\n"
+            "e5f6a7b8 (Bob Kim     2026-03-17 09:15 +0000 15) pnl = (price - cost_basis) / quantity\n\n"
+            "Line 15 divides instead of multiplying. Commit e5f6a7b8 from "
+            "March 17. P&L figures shown to traders are completely wrong.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "Critical bug in P&L calculation — line 15 divides by quantity "
+            "instead of multiplying. Fix and redeploy immediately.",
+        ],
+        remediation_steps=[
+            [
+                "Fix the P&L calculation bug on line 15 (change / to *)",
+                "Write a unit test to prevent regression",
+                "Deploy the hotfix to production immediately",
+                "Recalculate and correct any P&L figures shown to traders since March 17",
+                "Notify affected traders and compliance about the incorrect figures",
+            ],
+        ],
+    )
+)
