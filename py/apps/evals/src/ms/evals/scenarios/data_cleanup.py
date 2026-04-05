@@ -10978,7 +10978,7 @@ register(
             "<System>"
             '<Provider Name="Microsoft-Windows-Kernel-Power" '
             'Guid="{331C3B3A-2005-44C2-AC5E-77220C37D6B4}"/>'
-            '<EventID>41</EventID>'
+            "<EventID>41</EventID>"
             "<Version>6</Version>"
             "<Level>1</Level>"
             "<Task>63</Task>"
@@ -11840,11 +11840,11 @@ register(
         descriptions=[
             "Charts in Q1 Summary are wrong. Screenshots:\n\n"
             '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA'
-            "UFAKEBASE64BLOCK1FORINLINESCREENSHOT==\" />\n\n"
+            'UFAKEBASE64BLOCK1FORINLINESCREENSHOT==" />\n\n'
             '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA'
-            "oFAKEBASE64BLOCK2MOREDATA==\" />\n\n"
+            'oFAKEBASE64BLOCK2MOREDATA==" />\n\n'
             '<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQAB'
-            "FAKEBASE64BLOCK3SCREENSHOT==\" />\n\n"
+            'FAKEBASE64BLOCK3SCREENSHOT==" />\n\n'
             "Bar charts show incorrect Y-axis scaling, pie charts "
             "missing legend labels. Excel 365 on {os}. {name}",
             "Excel chart rendering is broken since the update. I tried "
@@ -12055,9 +12055,9 @@ register(
         ],
         descriptions=[
             "Trade reconciliation returns errors. Full response:\n\n"
-            "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-            "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/"
-            "soap/envelope/\">\n"
+            '<?xml version="1.0" encoding="utf-8"?>\n'
+            '<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/'
+            'soap/envelope/">\n'
             "  <soap:Body>\n"
             "    <soap:Fault>\n"
             "      <faultcode>soap:Server</faultcode>\n"
@@ -12082,8 +12082,7 @@ register(
             "Fix the SQL timeout (RECON-5001) in the trade "
             "reconciliation service on TRADESRV-02. The SOAP XML "
             "dump shows TradeReconDB timing out during EOD batch.",
-            "Resolve the database timeout blocking end-of-day "
-            "reconciliation. Ignore the XML formatting noise.",
+            "Resolve the database timeout blocking end-of-day reconciliation. Ignore the XML formatting noise.",
         ],
         remediation_steps=[
             [
@@ -12115,10 +12114,10 @@ register(
         descriptions=[
             "I received the org chart email from HR but when I print "
             "it, the printer outputs raw HTML. The email contains:\n\n"
-            "<table style=\"border-collapse:collapse;width:100%\">\n"
-            "<tr style=\"background:#1F4E79;color:white\">\n"
-            "<td colspan=\"4\">Contoso Organization Chart</td></tr>\n"
-            "<tr><td style=\"border:1px solid #9BC2E6\">Executive</td>\n"
+            '<table style="border-collapse:collapse;width:100%">\n'
+            '<tr style="background:#1F4E79;color:white">\n'
+            '<td colspan="4">Contoso Organization Chart</td></tr>\n'
+            '<tr><td style="border:1px solid #9BC2E6">Executive</td>\n'
             "<td>James Harrison - CEO</td></tr>\n"
             "</table>\n\n"
             "Renders fine on screen but HP LaserJet on {floor} prints "
@@ -12131,8 +12130,7 @@ register(
         next_best_actions=[
             "Investigate the HP LaserJet printing raw HTML instead of "
             "rendered content. Likely a print driver rendering issue.",
-            "Fix the print driver or rendering pipeline for HTML "
-            "emails on the HP LaserJet M507.",
+            "Fix the print driver or rendering pipeline for HTML emails on the HP LaserJet M507.",
         ],
         remediation_steps=[
             [
@@ -12235,7 +12233,7 @@ register(
             "To: settlements@contoso.com\n"
             "Subject: Daily Settlement Confirmation\n"
             "MIME-Version: 1.0\n"
-            "Content-Type: multipart/mixed; boundary=\"----=_Part_123\"\n\n"
+            'Content-Type: multipart/mixed; boundary="----=_Part_123"\n\n'
             "Rejection: 550 5.7.1 Content policy violation.\n\n"
             "We need daily settlement emails from partner.com to arrive. "
             "Stopped 3 days ago. Team is manually reconciling. {name}",
@@ -12302,8 +12300,7 @@ register(
             "Fix TradeLedgerDB backup failure on SQLSRV-01 due to "
             "insufficient disk space (45 GB available, 1.2 TB needed). "
             "The OCR text has recognition errors but the issue is clear.",
-            "Resolve the backup volume space shortage for TradeLedgerDB. "
-            "Ignore OCR noise in the scanned text.",
+            "Resolve the backup volume space shortage for TradeLedgerDB. Ignore OCR noise in the scanned text.",
         ],
         remediation_steps=[
             [

@@ -6268,8 +6268,7 @@ DATA_CLEANUP_SCENARIOS: list[ScenarioDefinition] = [
                 "Roll back the NVIDIA driver from v560.94 to the"
                 " previous known-good version and verify if colors restore",
                 "Re-apply the correct sRGB or factory ICC profile for the external monitor",
-                "If the issue persists, reset the monitor's"
-                " hardware color settings to factory defaults",
+                "If the issue persists, reset the monitor's hardware color settings to factory defaults",
                 "Test with a calibrated color reference to confirm the profile is accurate",
             ),
         ),
@@ -6326,14 +6325,10 @@ DATA_CLEANUP_SCENARIOS: list[ScenarioDefinition] = [
                 "Check the switch port and spanning tree topology"
                 " for VLAN 412 to identify the source of 30-second"
                 " periodic drops",
-                "Review interface error counters and CRC errors on"
-                " the uplink ports serving the trading floor",
-                "Verify that the switch firmware is current and"
-                " check for known bugs related to periodic packet loss",
-                "If a flapping link is found, replace the cable or"
-                " SFP and re-test with continuous ping",
-                "Coordinate with the trading desk to confirm the"
-                " issue is resolved before closing",
+                "Review interface error counters and CRC errors on the uplink ports serving the trading floor",
+                "Verify that the switch firmware is current and check for known bugs related to periodic packet loss",
+                "If a flapping link is found, replace the cable or SFP and re-test with continuous ping",
+                "Coordinate with the trading desk to confirm the issue is resolved before closing",
             ),
         ),
         tags=("data-cleanup", "hex-dump"),
@@ -6398,14 +6393,10 @@ DATA_CLEANUP_SCENARIOS: list[ScenarioDefinition] = [
             remediation_steps=(
                 "Collect the full memory dump from C:\\Windows\\MEMORY.DMP"
                 " and analyze with WinDbg to confirm the faulting stack",
-                "Update the UcmUcsiCx.sys driver and Lenovo USB-C"
-                " dock firmware to the latest available versions",
-                "Check Lenovo support for known issues with ThinkPad"
-                " X1 Carbon Gen 11 and ThinkPad USB-C Dock Gen 2",
-                "If the updated driver does not resolve the issue,"
-                " roll back to the previous known-good driver version",
-                "Test undocking multiple times to confirm the BSOD"
-                " no longer occurs before closing",
+                "Update the UcmUcsiCx.sys driver and Lenovo USB-C dock firmware to the latest available versions",
+                "Check Lenovo support for known issues with ThinkPad X1 Carbon Gen 11 and ThinkPad USB-C Dock Gen 2",
+                "If the updated driver does not resolve the issue, roll back to the previous known-good driver version",
+                "Test undocking multiple times to confirm the BSOD no longer occurs before closing",
             ),
         ),
         tags=("data-cleanup", "event-log-xml"),
@@ -6484,13 +6475,11 @@ DATA_CLEANUP_SCENARIOS: list[ScenarioDefinition] = [
                 "Shrink or truncate transaction logs if safe to"
                 " do so without data loss after verifying the"
                 " backup chain is intact",
-                "Extend the E: volume or add additional disk"
-                " capacity if the underlying storage allows it",
+                "Extend the E: volume or add additional disk capacity if the underlying storage allows it",
                 "Investigate the root cause of rapid disk"
                 " consumption — check for runaway queries,"
                 " index rebuilds, or unexpected data growth",
-                "Configure proactive alerting at 15% and 10%"
-                " thresholds so the team has earlier warning",
+                "Configure proactive alerting at 15% and 10% thresholds so the team has earlier warning",
             ),
         ),
         tags=("data-cleanup", "scom-alert-flood"),
@@ -6550,8 +6539,7 @@ DATA_CLEANUP_SCENARIOS: list[ScenarioDefinition] = [
                 "If 0x800F0214 persists, check that the driver"
                 " package is signed and that driver signature"
                 " enforcement is not blocking installation",
-                "Verify that the Windows print subsystem is healthy"
-                " by running the Print Management troubleshooter",
+                "Verify that the Windows print subsystem is healthy by running the Print Management troubleshooter",
             ),
         ),
         tags=("data-cleanup", "mojibake-encoding"),
@@ -6699,8 +6687,7 @@ DATA_CLEANUP_SCENARIOS: list[ScenarioDefinition] = [
                 "If the plan regressed to a table scan, verify"
                 " that the composite index on (client_id, txn_date)"
                 " still exists and is not fragmented",
-                "Monitor the next nightly run to confirm the"
-                " query returns to ~10-second execution time",
+                "Monitor the next nightly run to confirm the query returns to ~10-second execution time",
             ),
         ),
         tags=("data-cleanup", "query-result-dump"),
@@ -6844,8 +6831,7 @@ DATA_CLEANUP_SCENARIOS: list[ScenarioDefinition] = [
                 "If the client certificate has expired, re-enroll"
                 " the device through the MDM or certificate"
                 " authority portal",
-                "Confirm VPN connectivity is restored and the"
-                " user can access internal systems before closing",
+                "Confirm VPN connectivity is restored and the user can access internal systems before closing",
             ),
         ),
         tags=("data-cleanup", "no-line-breaks"),

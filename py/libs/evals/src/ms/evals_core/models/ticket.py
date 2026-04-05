@@ -1,9 +1,8 @@
 # Copyright (c) Microsoft. All rights reserved.
 """Input ticket model matching docs/data/schemas/input.json."""
 
-from typing import Literal
-
 from ms.common.models.base import FrozenBaseModel
+from ms.evals_core.constants import Channel
 
 
 class Reporter(FrozenBaseModel):
@@ -25,5 +24,5 @@ class Ticket(FrozenBaseModel):
     description: str
     reporter: Reporter
     created_at: str
-    channel: Literal["email", "chat", "portal", "phone"]
+    channel: Channel
     attachments: list[str] = []

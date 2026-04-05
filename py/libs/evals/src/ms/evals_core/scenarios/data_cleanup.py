@@ -16121,7 +16121,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "0010  01 a2 1c 48 40 00 40 06 b0 7e c0 a8 01 64 ac 10  ...H@.@..~...d..\n"
                 "0020  01 01 c0 23 01 bb a3 4f 7d 8f 5f 2a 1e 91 50 18  ...#...O}._*..P.\n"
                 "0030  fa f0 d7 3a 00 00 16 03 01 01 75 01 00 01 71 03  ...:......u...q.\n"
-                "0040  03 e7 b2 4a 91 c5 38 22 df 8a 9e 16 ab 7c 3e f1  ...J..8\"....|>.\n"
+                '0040  03 e7 b2 4a 91 c5 38 22 df 8a 9e 16 ab 7c 3e f1  ...J..8"....|>.\n'
                 "0050  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................\n\n"
                 "[... 847 more packets omitted for brevity ...]\n\n"
                 "Every day between 14:00 and 14:15 UTC we see 5-8% packet loss on the "
@@ -16389,10 +16389,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
         # ── DC-242  Cascading out-of-office auto-reply loop ─────────────────────
         ScenarioDefinition(
             scenario_id="DC-242",
-            subject=(
-                "RE: RE: RE: RE: Automatic reply: RE: Automatic reply: "
-                "Meeting room booking system down"
-            ),
+            subject=("RE: RE: RE: RE: Automatic reply: RE: Automatic reply: Meeting room booking system down"),
             description=(
                 "--- Automatic Reply ---\n"
                 "Thank you for your email. I am currently out of the office from March "
@@ -16547,7 +16544,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 09:15:20 UTC\n"
                 "X-MS-Exchange-CrossTenant-FromEntityHeader: Internet\n"
                 "MIME-Version: 1.0\n"
-                "Content-Type: multipart/mixed; boundary=\"----=_Part_12345_6789.1234\"\n"
+                'Content-Type: multipart/mixed; boundary="----=_Part_12345_6789.1234"\n'
                 "Message-ID: <20260317091518.ABC123@internal-mta.partner.com>\n"
                 "From: john.smith@partner.com\n"
                 "To: emily.nakamura@contoso.com\n"
@@ -16928,7 +16925,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "Pragma: no-cache\n"
                 "Content-Type: text/html; charset=utf-8\n"
                 "Content-Length: 4832\n\n"
-                '<!DOCTYPE html><html><head><title>Runtime Error</title></head>'
+                "<!DOCTYPE html><html><head><title>Runtime Error</title></head>"
                 "<body><h2>Server Error in '/ExpensePortal' Application.</h2>"
                 "<h3>Object reference not set to an instance of an object.</h3>"
                 "<p><b>Description:</b> An unhandled exception occurred during the "
@@ -17348,7 +17345,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "I'm forwarding the original failed email for IT to investigate. "
                 "When I forward it, my client includes the raw headers:\n\n"
                 "Content-Type: message/rfc822\n"
-                "Content-Disposition: attachment; filename=\"original_message.eml\"\n\n"
+                'Content-Disposition: attachment; filename="original_message.eml"\n\n'
                 "Return-Path: <noreply@contoso.com>\n"
                 "Received: from mail-gw01.contoso.com (10.0.1.25) by "
                 "mail-hub02.contoso.com (10.0.1.30) with Microsoft SMTP Server "
@@ -17360,13 +17357,13 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "DKIM-Signature: v=1; a=rsa-sha256; d=partner.com; s=selector1;\n"
                 " h=from:to:subject:date:message-id;\n"
                 " bh=abcdefg123456789=; b=LONGSIGNATUREDATA==\n"
-                "From: \"Partner Systems\" <alerts@partner.com>\n"
-                "To: \"Settlement Team\" <settlements@contoso.com>\n"
+                'From: "Partner Systems" <alerts@partner.com>\n'
+                'To: "Settlement Team" <settlements@contoso.com>\n'
                 "Subject: Daily Settlement Confirmation — 2026-03-17\n"
                 "Date: Mon, 17 Mar 2026 13:14:55 +0000\n"
                 "Message-ID: <20260317131455.12345@partner.com>\n"
                 "MIME-Version: 1.0\n"
-                "Content-Type: multipart/mixed; boundary=\"----=_Part_12345\"\n\n"
+                'Content-Type: multipart/mixed; boundary="----=_Part_12345"\n\n'
                 "------=_Part_12345\n"
                 "Content-Type: text/plain; charset=UTF-8\n\n"
                 "This message was rejected by the Contoso email gateway with error: "
