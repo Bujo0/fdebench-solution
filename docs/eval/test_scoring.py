@@ -572,3 +572,4 @@ if __name__ == "__main__":
             print(f"  ✗ {t.__name__}: {e}")
     print(f"\n{passed} passed, {failed} failed")
     sys.exit(1 if failed else 0)
+

@@ -59,3 +59,4 @@ repos:
         language: fail
         entry: Usage of yarn.lock is not allowed; use pnpm to manage dependencies.
         files: yarn.lock
+

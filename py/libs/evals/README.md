@@ -93,3 +93,4 @@ uv run pytest tests/ -v
 ```
 
 Tests cover models, scoring, datasets, scenarios, and the evaluation runner.
+

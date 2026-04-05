@@ -99,3 +99,4 @@ def compute(input_model: InputModel) -> OutputModel:
 
 assert compute({"x": 3.0, "y": 4.0}) == {"sum": 7.0, "product": 12.0}
 ```
+

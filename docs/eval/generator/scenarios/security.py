@@ -1251,3 +1251,4 @@ SCENARIOS: list[Scenario] = [
         tags=["defender", "false_positive", "trading"],
     ),
 ]
+

@@ -652,3 +652,4 @@ def apply_form_template(text: str, reporter_name: str, rng: random.Random) -> st
         restart=rng.choice(["Yes", "No", "N/A", "multiple times"]),
         error=rng.choice(["none", "N/A", "0x800whatever", "unknown"]),
     )
+

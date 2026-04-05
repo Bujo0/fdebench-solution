@@ -476,3 +476,4 @@ This pattern:
 - **Prevents data leaks**: Only necessary fields are exposed to clients
 - **Enables independent evolution**: Domain models and API models can change independently
 - **Improves security**: Sensitive fields or fields irrelevant to the client stay internal
+
