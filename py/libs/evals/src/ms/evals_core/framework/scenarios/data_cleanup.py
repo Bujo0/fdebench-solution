@@ -2537,7 +2537,7 @@ default_registry.register(
         category=_CATEGORY,
         tags=["forwarded_chain", "email_thread", "vpn", "noise"],
         ticket=EvalTicket(
-            ticket_id="INC-6051",
+            ticket_id="INC-5051",
             subject="Fwd: Fwd: Fwd: Fwd: Fwd: Network problems",
             description=_FORWARDED_CHAIN_BODY,
             reporter=_reporter("Angela Rivera", "a.rivera@contoso.com", "Compliance"),
@@ -2581,7 +2581,7 @@ default_registry.register(
         category=_CATEGORY,
         tags=["base64", "image_blob", "printer", "noise"],
         ticket=EvalTicket(
-            ticket_id="INC-6052",
+            ticket_id="INC-5052",
             subject="Floor 12 printer jamming and printing garbled pages — photo attached",
             description=(
                 "Hi IT,\n\n"
@@ -2667,7 +2667,7 @@ default_registry.register(
         category=_CATEGORY,
         tags=["html", "css", "table", "software_update"],
         ticket=EvalTicket(
-            ticket_id="INC-6053",
+            ticket_id="INC-5053",
             subject="Bloomberg Terminal update needed — crashing on FICC analytics",
             description=_HTML_TABLE_BODY,
             reporter=_reporter("Naomi Whitfield", "n.whitfield@contoso.com", "Fixed Income Trading"),
@@ -2725,7 +2725,7 @@ default_registry.register(
         category=_CATEGORY,
         tags=["mojibake", "encoding", "hardware", "docking_station"],
         ticket=EvalTicket(
-            ticket_id="INC-6054",
+            ticket_id="INC-5054",
             subject="Docking station completely dead \u00e2\u0080\u0094 no devices detected",
             description=_MOJIBAKE_BODY,
             reporter=_reporter("Yuki Tanaka", "y.tanaka@contoso.com", "Risk Analytics"),
@@ -2782,7 +2782,7 @@ default_registry.register(
         category=_CATEGORY,
         tags=["base64", "attachments", "vpn", "multi_blob"],
         ticket=EvalTicket(
-            ticket_id="INC-6055",
+            ticket_id="INC-5055",
             subject="VPN keeps dropping — logs and diagnostics attached inline",
             description=(
                 "IT team,\n\n"
@@ -2863,7 +2863,7 @@ default_registry.register(
         category=_CATEGORY,
         tags=["ansi_codes", "terminal", "container_logs", "kafka"],
         ticket=EvalTicket(
-            ticket_id="INC-6056",
+            ticket_id="INC-5056",
             subject="Risk engine failing — Kafka broker unreachable in prod",
             description=(
                 "URGENT: The morning risk calculation batch is failing because the "
@@ -2947,7 +2947,7 @@ default_registry.register(
         category=_CATEGORY,
         tags=["xml", "soap", "envelope", "settlement_service"],
         ticket=EvalTicket(
-            ticket_id="INC-6057",
+            ticket_id="INC-5057",
             subject="Trade reconciliation failing — settlement service down",
             description=(
                 "The trade reconciliation batch has been failing since 07:45 UTC. "
@@ -2962,9 +2962,7 @@ default_registry.register(
                 "immediately — we have a regulatory deadline at 11:00 ET.\n\n"
                 "— Patricia Okonkwo, Trade Operations"
             ),
-            reporter=_reporter(
-                "Patricia Okonkwo", "p.okonkwo@contoso.com", "Trade Operations"
-            ),
+            reporter=_reporter("Patricia Okonkwo", "p.okonkwo@contoso.com", "Trade Operations"),
             created_at="2026-03-18T08:00:00Z",
             channel="portal",
         ),
@@ -3034,7 +3032,7 @@ default_registry.register(
         category=_CATEGORY,
         tags=["ics", "calendar", "av_equipment", "meeting_room"],
         ticket=EvalTicket(
-            ticket_id="INC-6058",
+            ticket_id="INC-5058",
             subject="Boardroom A (Floor 40) — projector and video conferencing not working",
             description=(
                 "URGENT — The Q1 Board Review meeting is at 2:00 PM today in Boardroom A "
@@ -3113,7 +3111,7 @@ default_registry.register(
         category=_CATEGORY,
         tags=["bsod", "minidump", "driver_crash", "gpu"],
         ticket=EvalTicket(
-            ticket_id="INC-6059",
+            ticket_id="INC-5059",
             subject="Workstation blue-screening daily — NVIDIA driver crash",
             description=(
                 "My workstation has been blue-screening every morning since the NVIDIA "
@@ -3130,9 +3128,7 @@ default_registry.register(
                 "to the previous version or get a hotfix from NVIDIA?\n\n"
                 "— Dr. Henrik Lindqvist, Quantitative Research"
             ),
-            reporter=_reporter(
-                "Henrik Lindqvist", "h.lindqvist@contoso.com", "Quantitative Research"
-            ),
+            reporter=_reporter("Henrik Lindqvist", "h.lindqvist@contoso.com", "Quantitative Research"),
             created_at="2026-03-18T07:50:00Z",
             channel="portal",
         ),
@@ -3207,7 +3203,7 @@ default_registry.register(
         category=_CATEGORY,
         tags=["json", "api_response", "http_headers", "integration"],
         ticket=EvalTicket(
-            ticket_id="INC-6060",
+            ticket_id="INC-5060",
             subject="Portfolio analytics API returning 502 — all risk dashboards down",
             description=(
                 "All our risk attribution dashboards are broken since about 06:45 UTC. "
@@ -3225,9 +3221,7 @@ default_registry.register(
                 "the contoso-analytics-prod namespace on AKS cluster aks-east-prod-01.\n\n"
                 "— Thomas Brennan, Platform Engineering"
             ),
-            reporter=_reporter(
-                "Thomas Brennan", "t.brennan@contoso.com", "Platform Engineering"
-            ),
+            reporter=_reporter("Thomas Brennan", "t.brennan@contoso.com", "Platform Engineering"),
             created_at="2026-03-18T08:25:00Z",
             channel="portal",
         ),
