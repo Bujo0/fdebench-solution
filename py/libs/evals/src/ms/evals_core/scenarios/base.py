@@ -8,6 +8,7 @@ from ms.evals_core.constants import Team
 from ms.evals_core.models import GoldAnswer
 from ms.evals_core.models import Reporter
 from ms.evals_core.models import Scenario
+from ms.evals_core.models import ScenarioCategory
 from ms.evals_core.models import Ticket
 
 
@@ -80,9 +81,12 @@ class ScenarioDefinition:
             next_best_action=self.next_best_action,
             remediation_steps=self.remediation_steps,
         )
+        # Derive scenario_category from tags
+        scenario_category: ScenarioCategory = "data_cleanup" if "data-cleanup" in self.tags else "responsible_ai"
         return Scenario(
             ticket=ticket,
             gold=gold,
-            tags=self.tags,
-            difficulty=self.difficulty,
+            scenario_category=scenario_category,
+            scenario_tag=self.scenario_id,
+            description=f"[{self.scenario_id}] {self.subject}",
         )

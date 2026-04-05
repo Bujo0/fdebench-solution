@@ -6580,3 +6580,732 @@ default_registry.register(
         ),
     )
 )
+
+
+# ---------------------------------------------------------------------------
+# dc-116: Very long email with 10+ forwarding levels
+# ---------------------------------------------------------------------------
+_DEEP_FWD_BODY = (
+    "From: Rebecca Chen <r.chen@contoso.com>\n"
+    "To: IT Help Desk <helpdesk@contoso.com>\n"
+    "Date: Thu, 19 Mar 2026 07:12:00 +0000\n"
+    "Subject: RE: RE: RE: FW: FW: RE: RE: FW: RE: FW: VPN drops during market open\n\n"
+    "Team — I am forwarding this AGAIN. Nobody has responded in over a week.\n\n"
+    "Best regards,\nRebecca Chen\nSenior Trader | Equities Desk\n"
+    "Contoso Financial Services\nPhone: +1 (212) 555-0198\n"
+    "CONFIDENTIALITY: This email is for the intended recipient only.\n\n"
+    "---\n\n"
+    "> From: James Park <j.park@contoso.com>\n"
+    "> Date: Wed, 18 Mar 2026 16:00:00 +0000\n"
+    "> Subject: RE: RE: FW: FW: RE: RE: FW: RE: FW: VPN drops during market open\n>\n"
+    "> Rebecca — I looped in network ops last Friday. Still no update?\n>\n"
+    "> James Park | Trading Floor Manager\n"
+    "> Contoso Financial Services | +1 (212) 555-0201\n\n"
+    "---\n\n"
+    "> > From: Network Operations <netops@contoso.com>\n"
+    "> > Date: Fri, 14 Mar 2026 09:30:00 +0000\n"
+    "> > We are investigating. Ticket NETOPS-4421 opened.\n>\n"
+    "---\n\n"
+    "> > > From: Rebecca Chen <r.chen@contoso.com>\n"
+    "> > > Date: Thu, 13 Mar 2026 08:45:00 +0000\n"
+    "> > > The VPN drops every morning at 9:30 ET when the US equity market opens.\n"
+    "> > > It disconnects for 60–90 seconds and I lose my Bloomberg terminal session.\n"
+    "> > > This has been happening for two weeks. I am on the Cisco AnyConnect client\n"
+    "> > > version 4.10.07073, Windows 11, connected to vpn-us-east.contoso.com.\n"
+    "> > > My colleague on the same floor does NOT have the issue so it might be\n"
+    "> > > my laptop specifically.\n"
+    "> > >\n"
+    "> > > — Rebecca Chen\n"
+    "> > > Trading | Equities Desk | Floor 24\n\n"
+    "---\n\n"
+    "> > > > From: IT Help Desk <helpdesk@contoso.com>\n"
+    "> > > > Date: Thu, 13 Mar 2026 09:00:00 +0000\n"
+    "> > > > Thank you for contacting IT. Your request has been received.\n"
+    "> > > > Reference: INC-AUTO-33021\n\n"
+    "---\n\n"
+    "> > > > > From: Rebecca Chen <r.chen@contoso.com>\n"
+    "> > > > > Date: Wed, 12 Mar 2026 17:30:00 +0000\n"
+    "> > > > > Forwarding my original email from last week. PLEASE HELP.\n\n"
+    "---\n\n"
+    "> > > > > > From: Rebecca Chen <r.chen@contoso.com>\n"
+    "> > > > > > Date: Fri, 7 Mar 2026 09:45:00 +0000\n"
+    "> > > > > > Subject: VPN drops during market open\n"
+    "> > > > > > Hi, my VPN keeps disconnecting right when the market opens at 9:30 AM.\n"
+    "> > > > > > Can someone look into this? It is costing me real money.\n"
+)
+
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-116",
+        name="Very long email with 10+ forwarding levels",
+        description=(
+            "Legitimate VPN issue buried under 10+ levels of RE:/FW: headers with full signatures and quoted replies."
+        ),
+        category=_CATEGORY,
+        tags=["very_long_email", "deep_forwarding"],
+        ticket=EvalTicket(
+            ticket_id="INC-5116",
+            subject="RE: RE: RE: FW: FW: RE: RE: FW: RE: FW: VPN drops during market open",
+            description=_DEEP_FWD_BODY,
+            reporter=_reporter("Rebecca Chen", "r.chen@contoso.com", "Trading"),
+            created_at="2026-03-19T07:12:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Network & Connectivity",
+            priority="P2",
+            assigned_team="Network Operations",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-117: Base64 encoded spreadsheet data inline
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-117",
+        name="Base64 encoded spreadsheet data inline in email",
+        description=(
+            "User pasted base64-encoded Excel data trying to show error rates from a report generation service."
+        ),
+        category=_CATEGORY,
+        tags=["base64_spreadsheet", "inline_binary"],
+        ticket=EvalTicket(
+            ticket_id="INC-5117",
+            subject="Report generation service failing — error data attached",
+            description=(
+                "Hi IT,\n\n"
+                "The quarterly report generation service has been failing since "
+                "yesterday. I exported the error log to a spreadsheet and I'm "
+                "pasting it here because the portal won't accept attachments "
+                "over 5 MB:\n\n"
+                "UEsDBBQAAAAIAOxtYFkAAAAAAAAAAAAAAAAYAAAAeGwvd29ya3NoZWV0cy9zaGVl\n"
+                "dDEueG1snZRNbhsxDIWvMtC+Gv2MZASoUbgukEUXXRTo3pZmJpauRcqknDi3\n"
+                "71j+aZp2ESzI4XtD8pHSaPJuG9eM5/YfPrV0yS2R8c4nDh0nNbGUY8ghYFXS\n"
+                "RAFSGDmFEpSXkHOiMUVcgjfE0kkTekY5tswXJwfXNKQPqEVDFCJ+HCNxZ0nc\n"
+                "RExIyAKcjzfWrz/47ZlZ7dqxZZ5SN2aNj/ZfdNt/dBTWcRRsBc5v4uJgN5Hv\n"
+                "/FAKEBASE64DATAFORSPREADSHEETTHISISNOTREAL/AAAAAAAAAAAAAAAAAAAA\n"
+                "bGVuZXJhdGVkQnlNaWNyb3NvZnQgU3ByZWFkc2hlZXQgRW5naW5lIHYxLjAu\n"
+                "MC4wUEsFBgAAAABBAEEABwsAALFIAAAAAA==\n\n"
+                "The service runs on report-gen-prod-01 and generates PDFs from "
+                "the data warehouse. Error rate jumped from 0.1% to 35% starting "
+                "March 17. The app pool keeps recycling and the Windows Event Log "
+                "shows OutOfMemoryException in the .NET runtime.\n\n"
+                "Marcus Thompson\nRisk Management\nm.thompson@contoso.com"
+            ),
+            reporter=_reporter("Marcus Thompson", "m.thompson@contoso.com", "Risk Management"),
+            created_at="2026-03-18T14:30:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-118: Extremely long tracking URLs
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-118",
+        name="Extremely long tracking URLs embedded in ticket",
+        description=(
+            "SharePoint permissions issue with 500+ character tracking "
+            "URLs from notification emails interspersed in the description."
+        ),
+        category=_CATEGORY,
+        tags=["long_urls", "tracking_parameters"],
+        ticket=EvalTicket(
+            ticket_id="INC-5118",
+            subject="SharePoint site permissions broken after migration",
+            description=(
+                "I can no longer access the Compliance team's SharePoint site "
+                "after last week's migration to SharePoint Online. When I click "
+                "the link from my notification email:\n\n"
+                "https://contoso.sharepoint.com/sites/compliance-docs/_layouts/15/"
+                "AccessDenied.aspx?Source=https%3A%2F%2Fcontoso%2Esharepoint%2Ecom"
+                "%2Fsites%2Fcompliance%2Ddocs%2FShared%2520Documents%2FQ1%2D2026"
+                "%2FRegulatory%2DFilings%2FSEC%2D10K%2DFinal%2Epdf&correlationId="
+                "a1b2c3d4-e5f6-7890-abcd-ef1234567890&Type=item&name="
+                "SEC-10K-Final.pdf&listItemId=4281&utm_source=sharepoint&"
+                "utm_medium=email&utm_campaign=shared_doc_notification\n\n"
+                "I get 'Access Denied — You need permission to access this site.' "
+                "Other team members can still access it. My account is "
+                "y.tanaka@contoso.com and I'm in the Compliance AD group.\n\n"
+                "Yuki Tanaka\nCompliance"
+            ),
+            reporter=_reporter("Yuki Tanaka", "y.tanaka@contoso.com", "Compliance"),
+            created_at="2026-03-18T09:15:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-119: Corrupted HTML with mixed encoding
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-119",
+        name="Corrupted HTML with mixed encoding and mojibake",
+        description=(
+            "Email body with unclosed HTML tags, CSS fragments, and UTF-8 mojibake from encoding conversion errors."
+        ),
+        category=_CATEGORY,
+        tags=["corrupted_html", "mixed_encoding", "mojibake"],
+        ticket=EvalTicket(
+            ticket_id="INC-5119",
+            subject="Email client crash on specific messages",
+            description=(
+                '<div style="font-family: Calibri, sans-serif; font-size: 11pt;">'
+                '<span style="color: #1f497d;">Bonjour Ã©quipe IT,<br><br>'
+                "Mon client Outlook plante syst&eacute;matiquement quand j'essaie "
+                "d&rsquo;ouvrir certains emails de nos partenaires fran\u00c3\u00a7ais."
+                "\n\n</span><div><p style='margin: 0; padding: 0'>"
+                "I switched to English: The Outlook desktop client (Version 2402, "
+                "Build 17328.20162) crashes every time I try to open emails that "
+                "contain Fran\u00c3\u00a7ais characters like \u00c3\u00a9, "
+                "\u00c3\u00a8, \u00c3\u00a0. The crash happens when I click on the "
+                "email in the preview pane. </p>\n"
+                "\n\nThe emails render fine in Outlook Web but crash the desktop "
+                "app. I have tried repairing the Office installation.\n\n"
+                "Fran\u00c3\u00a7ois Dubois\nOperations\nf.dubois@contoso.com"
+            ),
+            reporter=_reporter("François Dubois", "f.dubois@contoso.com", "Operations"),
+            created_at="2026-03-18T11:20:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-120: Massive multilingual disclaimer
+# ---------------------------------------------------------------------------
+_MULTILINGUAL_DISCLAIMER = (
+    "\n\n"
+    "CONFIDENTIALITY NOTICE (English): This email and any attachments are "
+    "confidential and intended solely for the use of the individual to whom "
+    "they are addressed. If you have received this in error, please notify "
+    "the sender immediately and delete the message.\n\n"
+    "AVIS DE CONFIDENTIALIT\u00c9 (Fran\u00e7ais): Ce courriel et ses "
+    "pi\u00e8ces jointes sont confidentiels et destin\u00e9s uniquement "
+    "\u00e0 la personne \u00e0 laquelle ils sont adress\u00e9s.\n\n"
+    "VERTRAULICHKEITSHINWEIS (Deutsch): Diese E-Mail und alle Anh\u00e4nge "
+    "sind vertraulich und f\u00fcr den Gebrauch der Person bestimmt, an die "
+    "sie gerichtet sind.\n\n"
+    "AVISO DE CONFIDENCIALIDAD (Espa\u00f1ol): Este correo electr\u00f3nico "
+    "y cualquier archivo adjunto son confidenciales y est\u00e1n destinados "
+    "\u00fanicamente al uso del individuo a quien se dirigen.\n\n"
+    "\u6a5f\u5bc6\u4fdd\u6301\u901a\u77e5\uff08\u65e5\u672c\u8a9e\uff09"
+    "\uff1a\u3053\u306e\u30e1\u30fc\u30eb\u304a\u3088\u3073\u6dfb\u4ed8"
+    "\u30d5\u30a1\u30a4\u30eb\u306f\u6a5f\u5bc6\u60c5\u5831\u3067\u3042"
+    "\u308a\u3001\u5b9b\u5148\u306e\u500b\u4eba\u307e\u305f\u306f\u56e3"
+    "\u4f53\u306e\u307f\u3092\u5bfe\u8c61\u3068\u3057\u3066\u3044\u307e"
+    "\u3059\u3002"
+)
+
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-120",
+        name="Massive multilingual disclaimer appended to short ticket",
+        description=("Brief printer issue followed by a 1500+ character legal disclaimer in five languages."),
+        category=_CATEGORY,
+        tags=["multilingual_disclaimer", "legal_boilerplate"],
+        ticket=EvalTicket(
+            ticket_id="INC-5120",
+            subject="Printer on Floor 7 not printing",
+            description=(
+                "The shared printer on Floor 7 near room 712 (HP LaserJet Pro "
+                "M428fdn, asset tag WM-PRN-0712) is not printing. Print jobs "
+                "sit in the queue and eventually time out. The LCD shows 'Ready' "
+                "but nothing comes out. Other printers on the floor work fine." + _MULTILINGUAL_DISCLAIMER
+            ),
+            reporter=_reporter("Ana Garc\u00eda", "a.garcia@contoso.com", "Legal"),
+            created_at="2026-03-18T15:45:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-121: Monitoring alert flood
+# ---------------------------------------------------------------------------
+_ALERT_LINES = "\n".join(
+    f"[CRITICAL] 2026-03-18T{6 + i // 30:02d}:{(i * 2) % 60:02d}:00Z "
+    f"disk-monitor: /dev/sda1 on db-prod-03 usage at {92 + i % 7}% "
+    f"— threshold 90% — check_id=CHK-{44100 + i}"
+    for i in range(35)
+)
+
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-121",
+        name="Monitoring alert flood with 35 identical alerts",
+        description=(
+            "Auto-forwarded monitoring email containing 35 consecutive "
+            "disk-space alerts before the human-written context."
+        ),
+        category=_CATEGORY,
+        tags=["alert_flood", "monitoring_noise"],
+        ticket=EvalTicket(
+            ticket_id="INC-5121",
+            subject="CRITICAL: db-prod-03 disk space alerts",
+            description=(
+                "Forwarded from monitoring system:\n\n" + _ALERT_LINES + "\n\n---\n\n"
+                "The database server db-prod-03 is running out of disk space. "
+                "The /dev/sda1 partition holds transaction logs and is at 96%. "
+                "We need to either archive old logs or expand the volume. This "
+                "server hosts the trade settlement database.\n\n"
+                "— DevOps Alerts\nIT Operations"
+            ),
+            reporter=_reporter("DevOps Alerts", "alerts@monitoring.contoso.com", "IT Operations"),
+            created_at="2026-03-18T09:45:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Data & Storage",
+            priority="P2",
+            assigned_team="Data Platform",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-122: Quoted-printable encoded body
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-122",
+        name="Quoted-printable encoding artifacts in forwarded email",
+        description=(
+            "Email body with raw quoted-printable artifacts: =0D=0A, =20, =3D, and soft line breaks from forwarding."
+        ),
+        category=_CATEGORY,
+        tags=["quoted_printable", "email_encoding"],
+        ticket=EvalTicket(
+            ticket_id="INC-5122",
+            subject="FW: VPN certificate expired — cannot connect",
+            description=(
+                "Content-Transfer-Encoding: quoted-printable\n\n"
+                "Hi IT team,=0D=0A=0D=0A"
+                "My VPN client certificate has expired and I can=E2=80=99t "
+                "connect=0D=0Ato the corporate network from home. The Cisco "
+                "AnyConnect client=0D=0Ashows =E2=80=9CCertificate Validation "
+                "Failure=E2=80=9D when I try to=0D=0Aconnect to vpn.contoso.com."
+                "=0D=0A=0D=0A"
+                "The certificate details show:=0D=0A"
+                "  Issuer: CN=3DContoso-Internal-CA=0D=0A"
+                "  Subject: CN=3Dlpark@contoso.com=0D=0A"
+                "  Valid From: 2025-03-18=0D=0A"
+                "  Valid To: 2026-03-17  =3D=3D> EXPIRED=0D=0A=0D=0A"
+                "I need this renewed ASAP.=0D=0A=0D=0A"
+                "Linda Park=0D=0AWealth Management"
+            ),
+            reporter=_reporter("Linda Park", "l.park@contoso.com", "Wealth Management"),
+            created_at="2026-03-18T16:30:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Network & Connectivity",
+            priority="P2",
+            assigned_team="Network Operations",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-123: ANSI terminal color codes pasted
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-123",
+        name="ANSI terminal escape codes in deployment failure output",
+        description=(
+            "User pasted raw terminal output with ANSI color/formatting "
+            "escape sequences from a failed production deployment."
+        ),
+        category=_CATEGORY,
+        tags=["ansi_codes", "terminal_output"],
+        ticket=EvalTicket(
+            ticket_id="INC-5123",
+            subject="Production deployment failed — pipeline output attached",
+            description=(
+                "The latest deployment to production failed. Here is the output:\n\n"
+                "\x1b[36m[2026-03-18T08:15:32Z]\x1b[0m Starting deployment...\n"
+                "\x1b[32m[2026-03-18T08:15:45Z]\x1b[0m Image pulled successfully\n"
+                "\x1b[33m[2026-03-18T08:16:02Z] WARNING:\x1b[0m Migration 0047 "
+                "took 16s (threshold: 10s)\n"
+                "\x1b[31m[2026-03-18T08:16:15Z] ERROR:\x1b[0m Migration 0048 "
+                "failed: \x1b[1;31mColumn 'settlement_date' already exists\x1b[0m\n"
+                "\x1b[31m[2026-03-18T08:16:15Z] FATAL:\x1b[0m Deployment aborted. "
+                "Rolling back...\n"
+                "\x1b[32m[2026-03-18T08:16:30Z]\x1b[0m Rollback complete.\n\n"
+                "Migration 0048 is failing because the column already exists "
+                "from a partial run. Need help cleaning up the database state.\n\n"
+                "— Dev Team Lead\nEngineering"
+            ),
+            reporter=_reporter("Dev Team Lead", "devlead@contoso.com", "Engineering"),
+            created_at="2026-03-18T08:20:00Z",
+            channel="chat",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P1",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-124: vCard data interspersed with issue
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-124",
+        name="vCard contact data embedded in ticket body",
+        description=("Email with full vCard blocks mixed in with a shared mailbox delivery issue."),
+        category=_CATEGORY,
+        tags=["vcard_data", "contact_noise"],
+        ticket=EvalTicket(
+            ticket_id="INC-5124",
+            subject="Shared mailbox not receiving external emails",
+            description=(
+                "Hi IT,\n\n"
+                "The Client Services shared mailbox (clientservices@contoso.com) "
+                "stopped receiving external emails yesterday. Internal emails "
+                "still arrive fine.\n\n"
+                "Here is the contact card for our main external sender:\n\n"
+                "BEGIN:VCARD\nVERSION:3.0\nFN:Maria Rossi\n"
+                "N:Rossi;Maria;;;\nORG:Alpine Investment Partners\n"
+                "TITLE:Managing Director\nTEL;TYPE=WORK:+41 44 555 0123\n"
+                "EMAIL:m.rossi@alpine-invest.ch\n"
+                "ADR;TYPE=WORK:;;Bahnhofstrasse 42;Zurich;;8001;Switzerland\n"
+                "END:VCARD\n\n"
+                "She is getting a bounce back saying '550 5.4.1 Recipient "
+                "address rejected: Access denied'. We checked the mailbox "
+                "permissions in Exchange admin and everything looks correct.\n\n"
+                "Priya Sharma\nClient Services"
+            ),
+            reporter=_reporter("Priya Sharma", "p.sharma@contoso.com", "Client Services"),
+            created_at="2026-03-18T10:00:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-125: PowerShell verbose error trace
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-125",
+        name="PowerShell verbose error trace pasted in ticket",
+        description=(
+            "User provisioning script failure with full PowerShell "
+            "ErrorRecord including ScriptStackTrace and InvocationInfo."
+        ),
+        category=_CATEGORY,
+        tags=["powershell_trace", "verbose_error"],
+        ticket=EvalTicket(
+            ticket_id="INC-5125",
+            subject="Automated user provisioning script failing",
+            description=(
+                "The nightly user provisioning script failed. Error output:\n\n"
+                "Exception             : System.Management.Automation."
+                "RuntimeException: New-ADUser : The server is unwilling "
+                "to process the request\n"
+                "TargetObject          : CN=John Doe,OU=NewHires,DC=contoso,"
+                "DC=com\n"
+                "CategoryInfo          : NotSpecified: (:) [New-ADUser], "
+                "ADException\n"
+                "FullyQualifiedErrorId : ActiveDirectoryServer:8224,"
+                "Microsoft.ActiveDirectory.Management.Commands.NewADUser\n"
+                "ScriptStackTrace      : at New-CorpUser, "
+                "C:\\Scripts\\Provisioning\\New-CorpUser.ps1: line 142\n"
+                "                        at Process-NewHires, "
+                "C:\\Scripts\\Provisioning\\Process-NewHires.ps1: line 89\n\n"
+                "The script processed 12 of 15 accounts before failing. "
+                "The remaining 3 new hires start on Monday.\n\n"
+                "James Wilson\nIT Operations"
+            ),
+            reporter=_reporter("James Wilson", "j.wilson@contoso.com", "IT Operations"),
+            created_at="2026-03-18T07:00:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Access & Authentication",
+            priority="P2",
+            assigned_team="Identity & Access Management",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-126: Kubernetes pod describe output
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-126",
+        name="Kubernetes pod describe output pasted as ticket body",
+        description=("Full kubectl describe pod output for a web app returning 503s."),
+        category=_CATEGORY,
+        tags=["k8s_output", "pod_describe"],
+        ticket=EvalTicket(
+            ticket_id="INC-5126",
+            subject="Internal web app returning 503 — pods crashing",
+            description=(
+                "The trade-portal web app is returning 503 errors.\n\n"
+                "$ kubectl describe pod trade-portal-7d8f9b6c4-xk2mn "
+                "-n production\n\n"
+                "Name:         trade-portal-7d8f9b6c4-xk2mn\n"
+                "Namespace:    production\n"
+                "Node:         aks-nodepool1-12345678-vmss000003/10.240.0.7\n"
+                "Status:       Running\n"
+                "Containers:\n"
+                "  trade-portal:\n"
+                "    Image:          contoso.azurecr.io/trade-portal:v3.8.1\n"
+                "    State:          Running\n"
+                "    Last State:     Terminated (OOMKilled, Exit: 137)\n"
+                "    Ready:          False\n"
+                "    Restart Count:  14\n"
+                "    Limits:         cpu: 500m, memory: 512Mi\n"
+                "    Requests:       cpu: 250m, memory: 256Mi\n"
+                "Conditions:\n"
+                "  Ready             False\n"
+                "  ContainersReady   False\n"
+                "Events:\n"
+                "  Warning  OOMKilled  Container exceeded 512Mi memory limit\n"
+                "  Warning  BackOff    Back-off restarting failed container\n\n"
+                "Pods keep getting OOMKilled. Need to increase memory limit "
+                "or investigate the memory leak.\n\n"
+                "— Kai M\u00fcller\nPlatform Engineering"
+            ),
+            reporter=_reporter("Kai M\u00fcller", "k.mueller@contoso.com", "Platform Engineering"),
+            created_at="2026-03-18T09:00:00Z",
+            channel="chat",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P1",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-127: Auto-reply chain (out-of-office flood)
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-127",
+        name="Out-of-office auto-reply chain flooding the ticket",
+        description=(
+            "Email thread where 4 people's OOO auto-replies triggered "
+            "each other, burying the actual shared drive access issue."
+        ),
+        category=_CATEGORY,
+        tags=["auto_reply_chain", "ooo_flood"],
+        ticket=EvalTicket(
+            ticket_id="INC-5127",
+            subject="RE: RE: RE: Automatic reply: Shared drive access revoked",
+            description=(
+                "Automatic reply: I am out of the office March 15\u201322 with "
+                "limited email access. For urgent matters contact Sarah Kim. "
+                "\u2014 Tom Chen\n\n---\n\n"
+                "Automatic reply: I am currently on PTO and will return "
+                "March 20. \u2014 Sarah Kim\n\n---\n\n"
+                "Automatic reply: I will be out until March 19. Please reach "
+                "out to the Asset Management DL. \u2014 David Okonkwo\n\n---\n\n"
+                "Automatic reply: I am attending a conference in Singapore and "
+                "will respond March 21. \u2014 Lisa Park\n\n---\n\n"
+                "Original message from Robert Kim:\n\n"
+                "Hi team, after the file server migration last weekend, I can "
+                "no longer access \\\\fs-prod-02\\AssetMgmt. I get 'Access "
+                "Denied' when mapping the drive. My colleague on the same team "
+                "can still access it. I need this for the quarterly portfolio "
+                "review due Friday.\n\n"
+                "Robert Kim\nAsset Management"
+            ),
+            reporter=_reporter("Robert Kim", "r.kim@contoso.com", "Asset Management"),
+            created_at="2026-03-18T08:30:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Data & Storage",
+            priority="P3",
+            assigned_team="Data Platform",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-128: Mixed RTL and LTR text (Arabic + English)
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-128",
+        name="Mixed RTL/LTR text with Arabic and English",
+        description=(
+            "Bilingual ticket mixing Arabic (RTL) and English (LTR) text about a language pack installation failure."
+        ),
+        category=_CATEGORY,
+        tags=["rtl_ltr_mixed", "bidi_text", "arabic"],
+        ticket=EvalTicket(
+            ticket_id="INC-5128",
+            subject="Arabic language pack not installing on workstation",
+            description=(
+                "\u0645\u0631\u062d\u0628\u0627 \u0641\u0631\u064a\u0642 "
+                "\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627 "
+                "\u0627\u0644\u0645\u0639\u0644\u0648\u0645\u0627\u062a\u060c\n\n"
+                "I need the Arabic language pack installed on my workstation "
+                "(Windows 11 Enterprise, asset tag WM-WKS-1847).\n\n"
+                "\u0639\u0646\u062f\u0645\u0627 \u0623\u062d\u0627\u0648\u0644 "
+                "\u062a\u062b\u0628\u064a\u062a \u062d\u0632\u0645\u0629 "
+                "\u0627\u0644\u0644\u063a\u0629 \u0627\u0644\u0639\u0631\u0628"
+                "\u064a\u0629\u060c \u0623\u062d\u0635\u0644 \u0639\u0644\u0649 "
+                "\u062e\u0637\u0623: 'Installation failed - error 0x800F0950'\n\n"
+                "The error happens at the 'Installing language features' step. "
+                "I tried both Settings > Language and lpksetup.exe.\n\n"
+                "Ahmad Hassan\nInternational Markets"
+            ),
+            reporter=_reporter("Ahmad Hassan", "a.hassan@contoso.com", "International Markets"),
+            created_at="2026-03-18T13:15:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-129: Git merge conflict markers pasted
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-129",
+        name="Git merge conflict markers pasted as evidence",
+        description=(
+            "User pasted file content with unresolved git merge conflict markers thinking it shows the problem."
+        ),
+        category=_CATEGORY,
+        tags=["merge_conflict_markers", "git_artifacts"],
+        ticket=EvalTicket(
+            ticket_id="INC-5129",
+            subject="Config file causing application errors after merge",
+            description=(
+                "After merging the release branch, our app config has conflicts "
+                "that nobody resolved and the app crashes on startup:\n\n"
+                "```\n{\n"
+                '  "database": {\n'
+                '    "host": "db-prod-01.contoso.com",\n'
+                "<<<<<<< HEAD\n"
+                '    "port": 5432,\n'
+                '    "pool_size": 20\n'
+                "=======\n"
+                '    "port": 5433,\n'
+                '    "pool_size": 50\n'
+                ">>>>>>> release/v2.15\n"
+                "  }\n}\n```\n\n"
+                "The app throws a JSON parse error on startup because of the "
+                "conflict markers. This is blocking the release.\n\n"
+                "Elena Volkov\nDevelopment"
+            ),
+            reporter=_reporter("Elena Volkov", "e.volkov@contoso.com", "Development"),
+            created_at="2026-03-18T14:00:00Z",
+            channel="chat",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-130: Inline SVG images with CSS data
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-130",
+        name="Inline SVG images with CSS data in email body",
+        description=(
+            "Email body contains raw SVG elements with embedded CSS styles and path data from a report dashboard issue."
+        ),
+        category=_CATEGORY,
+        tags=["svg_inline", "css_noise", "xml_markup"],
+        ticket=EvalTicket(
+            ticket_id="INC-5130",
+            subject="Report dashboard not rendering charts",
+            description=(
+                "The BI dashboard stopped rendering charts. When I inspect the "
+                "page, the chart containers have broken SVG:\n\n"
+                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">\n'
+                "  <style>\n"
+                "    .bar { fill: #2196F3; }\n"
+                "    .axis { stroke: #666; stroke-width: 1; }\n"
+                "    .label { font-family: Segoe UI; font-size: 12px; }\n"
+                "  </style>\n"
+                '  <g transform="translate(60,20)">\n'
+                '    <rect class="bar" x="10" y="NaN" width="40" height="NaN"/>\n'
+                '    <rect class="bar" x="60" y="NaN" width="40" height="NaN"/>\n'
+                '    <text class="label" x="30" y="375">Q1</text>\n'
+                "  </g>\n"
+                "</svg>\n\n"
+                "Notice the 'NaN' values — the chart data API is returning null "
+                "values and the SVG renderer cannot handle it. This affects all "
+                "users on the trading floor.\n\n"
+                "David Okonkwo\nBusiness Intelligence"
+            ),
+            reporter=_reporter("David Okonkwo", "d.okonkwo@contoso.com", "Business Intelligence"),
+            created_at="2026-03-18T11:45:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
