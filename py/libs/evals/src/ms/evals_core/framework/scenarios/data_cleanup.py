@@ -3251,7 +3251,7 @@ default_registry.register(
             ticket_id="INC-5061",
             subject="Monitor flickering since docking station update",
             description=(
-                "Content-Type: multipart/mixed; boundary=\"----=_Part_BROKEN\"\n\n"
+                'Content-Type: multipart/mixed; boundary="----=_Part_BROKEN"\n\n'
                 "------=_Part_BROKEN\nContent-Type: text/plain; charset=UTF-8\n\n"
                 "Hi IT, my monitor keeps flickering every few seconds since the docking "
                 "station firmware update yesterday. Dell U2722D via USB-C on Latitude 5540.\n\n"
@@ -3279,8 +3279,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-062",
         name="Base64-encoded CSS stylesheet inline",
-        description="User pasted a base64-encoded CSS data URI while reporting "
-        "a portal styling issue.",
+        description="User pasted a base64-encoded CSS data URI while reporting a portal styling issue.",
         category=_CATEGORY,
         tags=["base64", "css", "data_uri"],
         ticket=EvalTicket(
@@ -3442,8 +3441,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-067",
         name="Grafana monitoring alert with JSON metrics payload",
-        description="Monitoring alert with extensive JSON metrics about a SQL "
-        "Server running out of memory.",
+        description="Monitoring alert with extensive JSON metrics about a SQL Server running out of memory.",
         category=_CATEGORY,
         tags=["monitoring", "json", "metrics", "alert"],
         ticket=EvalTicket(
@@ -3475,8 +3473,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-068",
         name="Email with PGP/GPG signature block",
-        description="PGP SIGNED MESSAGE with ASCII-armored signature wrapping "
-        "a TLS certificate renewal request.",
+        description="PGP SIGNED MESSAGE with ASCII-armored signature wrapping a TLS certificate renewal request.",
         category=_CATEGORY,
         tags=["pgp", "signature", "crypto"],
         ticket=EvalTicket(
@@ -3579,15 +3576,14 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-071",
         name="TNEF/winmail.dat artifacts in email",
-        description="Outlook Rich Text Format email with TNEF binary fragments "
-        "wrapping a battery safety issue.",
+        description="Outlook Rich Text Format email with TNEF binary fragments wrapping a battery safety issue.",
         category=_CATEGORY,
         tags=["tnef", "winmail", "outlook"],
         ticket=EvalTicket(
             ticket_id="INC-5071",
             subject="Laptop battery swelling — safety concern",
             description=(
-                "Content-Type: application/ms-tnef; name=\"winmail.dat\"\n\n"
+                'Content-Type: application/ms-tnef; name="winmail.dat"\n\n'
                 "MAPI_BODY_PLAIN:\nMy ThinkPad X1 Carbon Gen 11 (LT-NYC-3391) battery "
                 "is visibly swollen. Trackpad is raised, bottom cover bulging. Worried about "
                 "fire. Unplugged and moved away from papers. Floor 22.\nMAPI_END\n"
@@ -3674,8 +3670,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-074",
         name="kubectl describe pod output dump",
-        description="Full Kubernetes pod describe output with events, conditions, "
-        "and OOMKilled container state.",
+        description="Full Kubernetes pod describe output with events, conditions, and OOMKilled container state.",
         category=_CATEGORY,
         tags=["kubernetes", "kubectl", "pod_describe"],
         ticket=EvalTicket(
@@ -3708,8 +3703,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-075",
         name="Calendar invite ICS data mixed with support request",
-        description="ICS/vCalendar data pasted alongside a conference room "
-        "display synchronization issue.",
+        description="ICS/vCalendar data pasted alongside a conference room display synchronization issue.",
         category=_CATEGORY,
         tags=["ics", "calendar", "vcalendar"],
         ticket=EvalTicket(
@@ -3741,8 +3735,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-076",
         name="Mixed encoding corruption (Latin-1 + UTF-8)",
-        description="Text with encoding boundary issues producing mojibake "
-        "in a CRM data import issue.",
+        description="Text with encoding boundary issues producing mojibake in a CRM data import issue.",
         category=_CATEGORY,
         tags=["encoding", "mojibake", "mixed_charset"],
         ticket=EvalTicket(
@@ -3807,8 +3800,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-078",
         name="Multiple stacked email signatures from forwarding",
-        description="5+ email signatures stacked from multiple forwards "
-        "wrapping a guest Wi-Fi issue.",
+        description="5+ email signatures stacked from multiple forwards wrapping a guest Wi-Fi issue.",
         category=_CATEGORY,
         tags=["signatures", "forwarding", "noise"],
         ticket=EvalTicket(
@@ -3841,8 +3833,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-079",
         name="Terraform plan output as infrastructure issue",
-        description="Terraform plan diff showing a destructive change to "
-        "production load balancer.",
+        description="Terraform plan diff showing a destructive change to production load balancer.",
         category=_CATEGORY,
         tags=["terraform", "iac", "diff"],
         ticket=EvalTicket(
@@ -3851,9 +3842,9 @@ default_registry.register(
             description=(
                 "terraform plan output:\n"
                 "  # azurerm_lb.prod_lb will be destroyed\n"
-                "  - resource \"azurerm_lb\" \"prod_lb\" {\n"
-                "      - name = \"lb-prod\" - sku = \"Standard\" }\n"
-                "  + resource \"azurerm_lb\" \"prod_lb_v2\" { + name = \"lb-prod-v2\" }\n"
+                '  - resource "azurerm_lb" "prod_lb" {\n'
+                '      - name = "lb-prod" - sku = "Standard" }\n'
+                '  + resource "azurerm_lb" "prod_lb_v2" { + name = "lb-prod-v2" }\n'
                 "Plan: 1 to add, 0 to change, 1 to destroy.\n\n"
                 "Someone renamed the LB in config without terraform state mv. "
                 "Would cause 5-10 min outage. DO NOT APPLY."
@@ -3875,8 +3866,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-080",
         name="Outlook HTML table markup in email",
-        description="Complex HTML table from Outlook rendering wrapping "
-        "a SharePoint access permissions issue.",
+        description="Complex HTML table from Outlook rendering wrapping a SharePoint access permissions issue.",
         category=_CATEGORY,
         tags=["html", "outlook", "table_markup"],
         ticket=EvalTicket(
