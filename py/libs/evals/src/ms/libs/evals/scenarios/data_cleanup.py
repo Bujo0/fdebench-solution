@@ -1727,6 +1727,900 @@ def _browser_console_dump() -> EvalScenario:
     )
 
 
+def _terraform_state_dump() -> EvalScenario:
+    """Terraform state JSON pasted in a cloud provisioning issue."""
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9211",
+            subject="Azure VM provisioning stuck in pending state",
+            description=(
+                '{"version": 4, "terraform_version": "1.7.3", "serial": 42,\n'
+                '"lineage": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",\n'
+                '"outputs": {"vm_public_ip": {"value": "20.62.134.87", "type": "string"}},\n'
+                '"resources": [{"module": "module.compute", "mode": "managed",\n'
+                '"type": "azurerm_linux_virtual_machine", "name": "analytics_vm",\n'
+                '"provider": "provider[\\"registry.terraform.io/hashicorp/azurerm\\"]",\n'
+                '"instances": [{"schema_version": 0,\n'
+                '"attributes": {"id": "/subscriptions/xxxx/resourceGroups/rg-analytics-prod/'
+                'providers/Microsoft.Compute/virtualMachines/vm-analytics-01",\n'
+                '"name": "vm-analytics-01", "location": "eastus2",\n'
+                '"size": "Standard_D8s_v5", "admin_username": "azureadmin",\n'
+                '"network_interface_ids": ["/subscriptions/xxxx/..."],\n'
+                '"os_disk": {"caching": "ReadWrite", "storage_account_type": "Premium_LRS",\n'
+                '"disk_size_gb": 128}, "source_image_reference": {\n'
+                '"publisher": "Canonical", "offer": "0001-com-ubuntu-server-jammy",\n'
+                '"sku": "22_04-lts-gen2", "version": "latest"},\n'
+                '"provisioning_state": "Creating"}}]}]}\n\n'
+                "The Terraform state above shows vm-analytics-01 stuck in 'Creating' state "
+                "for over 2 hours. We need this VM for the quarterly analytics pipeline that "
+                "runs tomorrow. The provisioning seems to hang at the NIC attachment stage."
+            ),
+            reporter=Reporter(
+                name="Dmitri Volkov",
+                email="dmitri.volkov@contoso.com",
+                department="Cloud Infrastructure",
+            ),
+            created_at="2026-03-18T14:30:00Z",
+            channel=TicketChannel.PORTAL,
+            attachments=[],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9211",
+            category=TicketCategory.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=AssignedTeam.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate Azure VM provisioning stuck in 'Creating' state for vm-analytics-01 "
+                "in rg-analytics-prod. Check Azure Activity Log and NIC allocation for the stuck resource."
+            ),
+            remediation_steps=[
+                "Check Azure Activity Log for provisioning errors on vm-analytics-01",
+                "Verify subnet and NIC availability in the target VNet",
+                "If stuck, cancel and re-run the Terraform apply with -target flag for the VM resource",
+            ],
+        ),
+        tag=_TAG,
+        test_name="terraform_state_dump",
+        test_description=(
+            "Tests handling of Terraform state JSON pasted inline in a cloud provisioning issue. "
+            "The model must extract the real issue (VM stuck in Creating state) from the JSON noise."
+        ),
+    )
+
+
+def _graphql_query_paste() -> EvalScenario:
+    """GraphQL mutation pasted in an API issue."""
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9212",
+            subject="Portfolio API mutation returns 500 since deployment",
+            description=(
+                "Since this morning's release the updatePortfolioAllocation mutation is failing:\n\n"
+                "```graphql\n"
+                "mutation UpdateAllocation($input: AllocationInput!) {\n"
+                "  updatePortfolioAllocation(input: $input) {\n"
+                "    portfolio { id name allocations { assetClass weight targetWeight } }\n"
+                "    errors { field message code }\n"
+                "  }\n"
+                "}\n"
+                "```\n\n"
+                'Variables: {"input": {"portfolioId": "PF-88291", "allocations": [\n'
+                '  {"assetClass": "US_EQUITY", "weight": 0.45},\n'
+                '  {"assetClass": "INTL_EQUITY", "weight": 0.25},\n'
+                '  {"assetClass": "FIXED_INCOME", "weight": 0.20},\n'
+                '  {"assetClass": "ALTERNATIVES", "weight": 0.10}\n'
+                "]}}\n\n"
+                'Response: {"errors": [{"message": "Internal server error",\n'
+                '"extensions": {"code": "INTERNAL_SERVER_ERROR",\n'
+                '"exception": {"stacktrace": ["Error: Cannot read properties of null '
+                "(reading 'validateWeights')\",\n"
+                '"    at PortfolioResolver.updateAllocation (portfolio-resolver.ts:142:38)"]}}}]}\n\n'
+                "This affects all portfolio managers trying to rebalance after the March review."
+            ),
+            reporter=Reporter(
+                name="Aisha Patel",
+                email="aisha.patel@contoso.com",
+                department="Portfolio Management",
+            ),
+            created_at="2026-03-18T10:15:00Z",
+            channel=TicketChannel.EMAIL,
+            attachments=[],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9212",
+            category=TicketCategory.SOFTWARE,
+            priority=Priority.P1,
+            assigned_team=AssignedTeam.ENTERPRISE_APPS,
+            needs_escalation=True,
+            missing_information=[],
+            next_best_action=(
+                "Investigate updatePortfolioAllocation mutation returning 500 after this morning's "
+                "deployment. Null reference in validateWeights suggests a breaking schema change."
+            ),
+            remediation_steps=[
+                "Check the latest deployment diff for portfolio-resolver.ts changes",
+                "Verify the validateWeights method signature and null safety",
+                "If urgent, rollback the deployment to restore portfolio rebalancing",
+            ],
+        ),
+        tag=_TAG,
+        test_name="graphql_query_paste",
+        test_description=(
+            "Tests handling of GraphQL mutations, variables, and error responses pasted inline. "
+            "The model must identify the null reference error as the root cause."
+        ),
+    )
+
+
+def _azure_devops_pipeline_output() -> EvalScenario:
+    """Azure DevOps CI/CD pipeline log output."""
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9213",
+            subject="Build pipeline failing for compliance-service",
+            description=(
+                "##[section]Starting: Build compliance-service\n"
+                "##[command]/usr/bin/docker build -t compliance-service:20260318.1 .\n"
+                "Step 1/14 : FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build\n"
+                " ---> a8b2c3d4e5f6\n"
+                "Step 2/14 : WORKDIR /src\n"
+                "Step 3/14 : COPY *.csproj ./\n"
+                "Step 4/14 : RUN dotnet restore\n"
+                "  Determining projects to restore...\n"
+                "  Restored /src/ComplianceService.csproj (in 4.2 sec).\n"
+                "Step 5/14 : COPY . .\n"
+                "Step 6/14 : RUN dotnet build -c Release\n"
+                "  Microsoft (R) Build Engine version 17.9.0+abcdef\n"
+                "  Build started 03/18/2026 06:14:22.\n"
+                "  CSC : error CS8032: An instance of analyzer cannot be created [/src/"
+                "ComplianceService.csproj]\n"
+                "  error CS0246: The type or namespace name 'ComplianceRule' could not be "
+                "found (are you missing a using directive?)\n"
+                "##[error]Process completed with exit code 1.\n"
+                "##[section]Finishing: Build compliance-service\n\n"
+                "This has been blocking our release for 2 days. The ComplianceRule class was "
+                "moved to a shared library last sprint but the import wasn't updated."
+            ),
+            reporter=Reporter(
+                name="Chen Wei",
+                email="chen.wei@contoso.com",
+                department="Compliance",
+            ),
+            created_at="2026-03-18T06:30:00Z",
+            channel=TicketChannel.PORTAL,
+            attachments=[],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9213",
+            category=TicketCategory.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=AssignedTeam.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Fix the missing ComplianceRule import in ComplianceService.csproj after "
+                "the class was moved to a shared library. Build pipeline has been blocked for 2 days."
+            ),
+            remediation_steps=[
+                "Add the missing project reference to the shared library containing ComplianceRule",
+                "Update the using directive in the affected source files",
+                "Verify the build passes locally before pushing to the pipeline",
+            ],
+        ),
+        tag=_TAG,
+        test_name="azure_devops_pipeline_output",
+        test_description=(
+            "Tests handling of Azure DevOps CI/CD pipeline log output with Docker build steps, "
+            "MSBuild errors, and section markers. Must extract the CS0246 missing type error."
+        ),
+    )
+
+
+def _slack_webhook_payload() -> EvalScenario:
+    """Slack webhook JSON notification pasted as context."""
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9214",
+            subject="Slack integration not posting alerts to #incidents channel",
+            description=(
+                "Our PagerDuty-to-Slack integration stopped posting to #incidents. "
+                "Here's the webhook payload we're sending:\n\n"
+                '{"channel": "#incidents", "username": "PagerDuty Bot",\n'
+                '"icon_emoji": ":rotating_light:",\n'
+                '"attachments": [{"fallback": "P1 Alert: DB connection pool exhausted",\n'
+                '"color": "#FF0000", "title": "P1 — Database Connection Pool Exhausted",\n'
+                '"title_link": "https://contoso.pagerduty.com/incidents/Q1Z2A3",\n'
+                '"fields": [{"title": "Service", "value": "payment-gateway", "short": true},\n'
+                '{"title": "Severity", "value": "critical", "short": true},\n'
+                '{"title": "Triggered", "value": "2026-03-18T07:42:00Z", "short": true}],\n'
+                '"footer": "PagerDuty", "ts": 1742284920}]}\n\n'
+                "Slack API returns 403 Forbidden. The webhook URL hasn't changed. Suspect "
+                "the bot token was rotated during last week's Slack workspace migration."
+            ),
+            reporter=Reporter(
+                name="Marcus Johnson",
+                email="marcus.johnson@contoso.com",
+                department="DevOps",
+            ),
+            created_at="2026-03-18T08:00:00Z",
+            channel=TicketChannel.CHAT,
+            attachments=[],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9214",
+            category=TicketCategory.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=AssignedTeam.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Investigate Slack webhook returning 403 Forbidden for PagerDuty integration "
+                "to #incidents channel. Likely caused by bot token rotation during workspace migration."
+            ),
+            remediation_steps=[
+                "Verify the Slack bot token in PagerDuty webhook configuration",
+                "Re-authorize the PagerDuty Slack app if the token was rotated",
+                "Test the webhook with a manual POST to confirm the fix",
+            ],
+        ),
+        tag=_TAG,
+        test_name="slack_webhook_payload",
+        test_description=(
+            "Tests handling of Slack webhook JSON payloads with attachments, fields, "
+            "and emoji markup. Must identify the 403 token issue as the root cause."
+        ),
+    )
+
+
+def _registry_export_dump() -> EvalScenario:
+    """Windows Registry export pasted in a desktop issue."""
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9215",
+            subject="Outlook keeps crashing on startup after registry edit",
+            description=(
+                "I was trying to fix my Outlook profile and edited the registry. "
+                "Now Outlook crashes immediately on startup. Here's what I exported:\n\n"
+                "Windows Registry Editor Version 5.00\n\n"
+                "[HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\16.0\\Outlook\\Profiles"
+                "\\Default Outlook Profile]\n"
+                '"DefaultProfile"="Default Outlook Profile"\n'
+                '"LastChangeVer"="16.0.17928.20114"\n\n'
+                "[HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\16.0\\Outlook\\Profiles"
+                "\\Default Outlook Profile\\9375CFF0413111d3B88A00104B2A6676]\n"
+                '"01023d15"=hex:00,00,00,00\n'
+                '"01023d13"=hex:01,00,00,00\n'
+                '"0102664f"=hex:6d,73,70,73,74,2e,64,6c,6c,00\n\n'
+                "I think I may have deleted a key I shouldn't have. Outlook version "
+                "16.0.17928.20114 on Windows 11 Pro."
+            ),
+            reporter=Reporter(
+                name="Linda Park",
+                email="linda.park@contoso.com",
+                department="Marketing",
+            ),
+            created_at="2026-03-18T15:20:00Z",
+            channel=TicketChannel.PHONE,
+            attachments=[],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9215",
+            category=TicketCategory.SOFTWARE,
+            priority=Priority.P3,
+            assigned_team=AssignedTeam.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE],
+            next_best_action=(
+                "Restore Outlook profile after user's registry edit caused startup crash. "
+                "May need to recreate the Outlook profile or restore registry keys from backup."
+            ),
+            remediation_steps=[
+                "Try creating a new Outlook profile via Control Panel > Mail",
+                "If that fails, restore the registry keys from the user's last system restore point",
+                "Verify Outlook launches correctly with the new or restored profile",
+            ],
+        ),
+        tag=_TAG,
+        test_name="registry_export_dump",
+        test_description=(
+            "Tests handling of Windows Registry .reg export format with hex values and "
+            "deeply nested HKEY paths. Must identify the Outlook profile corruption issue."
+        ),
+    )
+
+
+def _xml_config_dump() -> EvalScenario:
+    """Apache/Nginx XML configuration pasted in a web server issue."""
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9216",
+            subject="Internal API gateway returning 502 after config change",
+            description=(
+                "After updating the nginx config, our API gateway returns 502 for all "
+                "/api/v2/* routes. Here's the relevant config:\n\n"
+                "server {\n"
+                "    listen 443 ssl http2;\n"
+                "    server_name api-gateway.contoso.internal;\n"
+                "    ssl_certificate /etc/nginx/certs/contoso-internal.crt;\n"
+                "    ssl_certificate_key /etc/nginx/certs/contoso-internal.key;\n\n"
+                "    location /api/v2/ {\n"
+                "        proxy_pass http://backend-v2;\n"
+                "        proxy_set_header Host $host;\n"
+                "        proxy_connect_timeout 5s;\n"
+                "        proxy_read_timeout 30s;\n"
+                "    }\n\n"
+                "    upstream backend-v2 {\n"
+                "        server 10.0.4.10:8080;\n"
+                "        server 10.0.4.11:8080;\n"
+                "        server 10.0.4.12:8080 down;\n"
+                "    }\n"
+                "}\n\n"
+                "The upstream block is defined inside the server block instead of outside — "
+                "I think that's the issue but I'm not sure how to fix it without downtime."
+            ),
+            reporter=Reporter(
+                name="Raj Krishnamurthy",
+                email="raj.krishnamurthy@contoso.com",
+                department="Backend Engineering",
+            ),
+            created_at="2026-03-18T11:45:00Z",
+            channel=TicketChannel.PORTAL,
+            attachments=[],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9216",
+            category=TicketCategory.NETWORK,
+            priority=Priority.P1,
+            assigned_team=AssignedTeam.NETWORK_OPS,
+            needs_escalation=True,
+            missing_information=[],
+            next_best_action=(
+                "Fix nginx configuration error causing 502 on all /api/v2/ routes. The upstream "
+                "block is incorrectly placed inside the server block."
+            ),
+            remediation_steps=[
+                "Move the upstream block outside the server block in the nginx config",
+                "Test the config with nginx -t before reloading",
+                "Reload nginx with zero-downtime: nginx -s reload",
+            ],
+        ),
+        tag=_TAG,
+        test_name="xml_config_dump",
+        test_description=(
+            "Tests handling of nginx configuration syntax pasted inline in a gateway issue. "
+            "Must identify the misconfigured upstream block placement."
+        ),
+    )
+
+
+def _base64_pdf_inline() -> EvalScenario:
+    """Base64-encoded PDF content inline in description."""
+    _b64_fragment = "JVBERi0xLjcKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAw" * 8
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9217",
+            subject="Cannot open compliance report PDF from SharePoint",
+            description=(
+                "When I try to download the Q1 compliance report from SharePoint, it opens "
+                "as raw data instead of a PDF. Here's what I see in my browser:\n\n"
+                f"data:application/pdf;base64,{_b64_fragment}...\n\n"
+                "(truncated — the full blob is about 2MB)\n\n"
+                "This happens with Chrome 122 and Edge 122. Firefox opens it correctly. "
+                "The file is stored in the Compliance team's SharePoint library at "
+                "contoso.sharepoint.com/sites/Compliance/Shared Documents/Q1-2026-Report.pdf"
+            ),
+            reporter=Reporter(
+                name="Sandra Okafor",
+                email="sandra.okafor@contoso.com",
+                department="Compliance",
+            ),
+            created_at="2026-03-18T13:10:00Z",
+            channel=TicketChannel.EMAIL,
+            attachments=["Q1-2026-Report.pdf"],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9217",
+            category=TicketCategory.SOFTWARE,
+            priority=Priority.P3,
+            assigned_team=AssignedTeam.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Investigate SharePoint PDF rendering issue in Chromium browsers. The MIME type "
+                "or Content-Disposition header may be incorrect for PDF downloads."
+            ),
+            remediation_steps=[
+                "Check the SharePoint library's MIME type settings for .pdf files",
+                "Verify Content-Disposition header is set to 'attachment' not 'inline'",
+                "Clear browser cache and test in an InPrivate/Incognito window",
+            ],
+        ),
+        tag=_TAG,
+        test_name="base64_pdf_inline",
+        test_description=(
+            "Tests handling of base64-encoded PDF data pasted inline. The model must "
+            "look past the binary noise and identify the SharePoint PDF rendering issue."
+        ),
+    )
+
+
+def _duplicate_forward_chain() -> EvalScenario:
+    """Same issue forwarded 4 times creating duplicate content."""
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9218",
+            subject="Fwd: Fwd: Fwd: Fwd: Printer on 5th floor not working",
+            description=(
+                "---------- Forwarded message ----------\n"
+                "From: Reception <reception@contoso.com>\n"
+                "Subject: Fwd: Fwd: Fwd: Printer on 5th floor not working\n\n"
+                "Hi IT, forwarding this again...\n\n"
+                "---------- Forwarded message ----------\n"
+                "From: Office Manager <office.mgr@contoso.com>\n"
+                "Subject: Fwd: Fwd: Printer on 5th floor not working\n\n"
+                "Please look into this.\n\n"
+                "---------- Forwarded message ----------\n"
+                "From: Floor Warden <floor5@contoso.com>\n"
+                "Subject: Fwd: Printer on 5th floor not working\n\n"
+                "Forwarding from Tom below.\n\n"
+                "---------- Forwarded message ----------\n"
+                "From: Tom Chen <tom.chen@contoso.com>\n"
+                "Subject: Printer on 5th floor not working\n\n"
+                "The HP LaserJet Pro M404dn on the 5th floor (near the kitchen) shows "
+                "'Paper Jam' but there's no paper stuck. I've opened all trays and checked. "
+                "Asset tag: PRN-5F-003. It's been like this since yesterday."
+            ),
+            reporter=Reporter(
+                name="Reception Desk",
+                email="reception@contoso.com",
+                department="Facilities",
+            ),
+            created_at="2026-03-18T09:45:00Z",
+            channel=TicketChannel.EMAIL,
+            attachments=[],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9218",
+            category=TicketCategory.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=AssignedTeam.ENDPOINT_ENG,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Investigate false paper jam error on HP LaserJet Pro M404dn (PRN-5F-003) "
+                "on the 5th floor. Sensor may need cleaning or replacement."
+            ),
+            remediation_steps=[
+                "Clean the paper path sensors with compressed air",
+                "Check for any small torn paper fragments in the sensor area",
+                "If the error persists, replace the paper jam sensor assembly",
+            ],
+        ),
+        tag=_TAG,
+        test_name="duplicate_forward_chain",
+        test_description=(
+            "Tests handling of a 4-level forward chain where the original issue is buried "
+            "at the bottom. Must identify the printer paper jam sensor issue."
+        ),
+    )
+
+
+def _rtf_format_codes() -> EvalScenario:
+    """Rich Text Format codes in description."""
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9219",
+            subject="Document formatting broken after migration",
+            description=(
+                "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033"
+                "{\\fonttbl{\\f0\\fswiss\\fprq2\\fcharset0 Calibri;}}\n"
+                "{\\colortbl ;\\red0\\green0\\blue0;\\red255\\green0\\blue0;}\n"
+                "\\viewkind4\\uc1\\pard\\f0\\fs22 "
+                "Help! After the SharePoint migration, all our Word templates show RTF codes "
+                "instead of formatted text. The investment proposal template "
+                "(TMPL-INV-2026-Q1) is the most critical — we have client presentations "
+                "this week.\\par\n"
+                "\\pard\\cf2\\b ERROR:\\cf0\\b0  The Quick Parts gallery is also empty. "
+                "All custom building blocks are gone.\\par\n"
+                "\\pard Normal.dotm seems corrupted. Location: "
+                "C:\\\\Users\\\\james.wright\\\\AppData\\\\Roaming\\\\Microsoft\\\\Templates"
+                "\\\\Normal.dotm\\par}"
+            ),
+            reporter=Reporter(
+                name="James Wright",
+                email="james.wright@contoso.com",
+                department="Wealth Management",
+            ),
+            created_at="2026-03-18T16:00:00Z",
+            channel=TicketChannel.EMAIL,
+            attachments=[],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9219",
+            category=TicketCategory.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=AssignedTeam.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Restore Word templates after SharePoint migration broke formatting. "
+                "Normal.dotm may be corrupted and Quick Parts gallery is empty."
+            ),
+            remediation_steps=[
+                "Rename the corrupted Normal.dotm to force Word to regenerate it",
+                "Restore the investment proposal template from the migration backup",
+                "Rebuild the Quick Parts gallery from the pre-migration backup",
+            ],
+        ),
+        tag=_TAG,
+        test_name="rtf_format_codes",
+        test_description=(
+            "Tests handling of raw RTF markup codes in the ticket description. Must extract "
+            "the real issue: corrupted Word templates after SharePoint migration."
+        ),
+    )
+
+
+def _teams_chat_export() -> EvalScenario:
+    """Microsoft Teams chat export with JSON metadata."""
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9220",
+            subject="Teams meeting recordings not saving to OneDrive",
+            description=(
+                '{"@odata.context": "https://graph.microsoft.com/v1.0/$metadata#chats/'
+                "messages\",\n"
+                '"value": [{"id": "1742284800000", "messageType": "message",\n'
+                '"createdDateTime": "2026-03-18T08:00:00Z",\n'
+                '"from": {"user": {"displayName": "Olivia Santos",\n'
+                '"id": "a1b2c3d4-e5f6-7890"}},\n'
+                '"body": {"content": "Has anyone else noticed that meeting recordings '
+                "aren't saving to OneDrive since Monday? I've recorded 3 meetings this week "
+                'and none of them show up in my OneDrive/Recordings folder."}},\n'
+                '{"id": "1742285400000", "messageType": "message",\n'
+                '"createdDateTime": "2026-03-18T08:10:00Z",\n'
+                '"from": {"user": {"displayName": "Kevin Nakamura"}},\n'
+                '"body": {"content": "Same here. The recording icon shows during the meeting '
+                "but afterwards it says 'Recording expired' in the chat. We're on Teams "
+                'Business Premium."}}]}\n\n'
+                "This export is from our team chat. Multiple people are affected. "
+                "Recordings show 'expired' immediately after the meeting ends."
+            ),
+            reporter=Reporter(
+                name="Olivia Santos",
+                email="olivia.santos@contoso.com",
+                department="Client Services",
+            ),
+            created_at="2026-03-18T08:30:00Z",
+            channel=TicketChannel.CHAT,
+            attachments=[],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9220",
+            category=TicketCategory.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=AssignedTeam.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.AFFECTED_USERS],
+            next_best_action=(
+                "Investigate Teams meeting recordings failing to save to OneDrive. "
+                "Multiple users affected since Monday. Recordings show 'expired' immediately."
+            ),
+            remediation_steps=[
+                "Check the Teams admin center for recording storage policy changes",
+                "Verify OneDrive storage quotas for affected users",
+                "Check if a recent Teams or OneDrive update changed recording behavior",
+            ],
+        ),
+        tag=_TAG,
+        test_name="teams_chat_export",
+        test_description=(
+            "Tests handling of Microsoft Graph API JSON chat export format with @odata.context, "
+            "nested user objects, and message bodies. Must identify the recording storage issue."
+        ),
+    )
+
+
+def _postman_collection_paste() -> EvalScenario:
+    """Postman collection JSON pasted in API issue."""
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9221",
+            subject="REST API returning 401 for all authenticated endpoints",
+            description=(
+                "Exporting my Postman collection for reference:\n\n"
+                '{"info": {"name": "Contoso Trading API", "schema": '
+                '"https://schema.getpostman.com/json/collection/v2.1.0/collection.json"},\n'
+                '"auth": {"type": "bearer", "bearer": [{"key": "token", "value": '
+                '"{{access_token}}"}]},\n'
+                '"item": [{"name": "Get Portfolio", "request": {"method": "GET",\n'
+                '"url": "{{base_url}}/api/v1/portfolios/{{portfolio_id}}",\n'
+                '"header": [{"key": "Authorization", "value": "Bearer {{access_token}}"},\n'
+                '{"key": "X-Request-ID", "value": "{{$guid}}"}]}},\n'
+                '{"name": "Place Order", "request": {"method": "POST",\n'
+                '"url": "{{base_url}}/api/v1/orders",\n'
+                '"body": {"mode": "raw", "raw": "{\\"symbol\\": \\"MSFT\\", '
+                '\\"quantity\\": 100, \\"side\\": \\"BUY\\"}"}}}]}\n\n'
+                "Every endpoint returns 401 Unauthorized since we switched from API keys to "
+                "OAuth2. The token endpoint works fine but the access tokens are rejected "
+                "by the API gateway."
+            ),
+            reporter=Reporter(
+                name="Ryan Fischer",
+                email="ryan.fischer@contoso.com",
+                department="Trading",
+            ),
+            created_at="2026-03-18T12:00:00Z",
+            channel=TicketChannel.PORTAL,
+            attachments=[],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9221",
+            category=TicketCategory.ACCESS_AUTH,
+            priority=Priority.P2,
+            assigned_team=AssignedTeam.IDENTITY_ACCESS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.CONFIGURATION_DETAILS],
+            next_best_action=(
+                "Investigate OAuth2 access tokens being rejected by API gateway after migration "
+                "from API keys. Token endpoint works but API gateway returns 401."
+            ),
+            remediation_steps=[
+                "Verify the API gateway's OAuth2 audience and issuer configuration matches the token endpoint",
+                "Check if the token signing algorithm matches what the gateway expects",
+                "Test with a manually decoded JWT to verify claims and expiry",
+            ],
+        ),
+        tag=_TAG,
+        test_name="postman_collection_paste",
+        test_description=(
+            "Tests handling of Postman collection JSON with auth config, request templates, "
+            "and variable placeholders. Must identify the OAuth2 token rejection issue."
+        ),
+    )
+
+
+def _cron_job_output() -> EvalScenario:
+    """Crontab and cron job execution output."""
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9222",
+            subject="Nightly backup cron job failing silently",
+            description=(
+                "Our nightly database backup cron isn't running. Here's the crontab:\n\n"
+                "# m h dom mon dow command\n"
+                "0 2 * * * /opt/backup/run_backup.sh >> /var/log/backup.log 2>&1\n"
+                "30 2 * * * /opt/backup/verify_backup.sh >> /var/log/backup_verify.log 2>&1\n"
+                "0 3 * * 0 /opt/backup/weekly_offsite.sh >> /var/log/offsite.log 2>&1\n\n"
+                "Last entries in /var/log/backup.log:\n"
+                "[2026-03-16 02:00:01] Starting backup of postgres-prod-01...\n"
+                "[2026-03-16 02:00:01] ERROR: pg_dump: connection to server at "
+                '"10.0.2.50", port 5432 failed: FATAL: password authentication '
+                "failed for user \"backup_svc\"\n"
+                "[2026-03-16 02:00:01] Backup FAILED. Exit code: 2\n"
+                "[2026-03-17 02:00:01] Starting backup of postgres-prod-01...\n"
+                "[2026-03-17 02:00:01] ERROR: pg_dump: same error as above\n\n"
+                "The backup service account password was rotated Friday but nobody "
+                "updated the cron job's .pgpass file."
+            ),
+            reporter=Reporter(
+                name="Ahmad Hassan",
+                email="ahmad.hassan@contoso.com",
+                department="Data Engineering",
+            ),
+            created_at="2026-03-18T07:00:00Z",
+            channel=TicketChannel.EMAIL,
+            attachments=[],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9222",
+            category=TicketCategory.DATA_STORAGE,
+            priority=Priority.P1,
+            assigned_team=AssignedTeam.DATA_PLATFORM,
+            needs_escalation=True,
+            missing_information=[],
+            next_best_action=(
+                "Update the .pgpass file for the backup_svc account on the backup server. "
+                "Nightly database backups have been failing for 2+ days due to password rotation."
+            ),
+            remediation_steps=[
+                "Update /root/.pgpass (or backup user's .pgpass) with the new backup_svc password",
+                "Run the backup script manually to verify it works",
+                "Verify the verify_backup.sh script also succeeds",
+            ],
+        ),
+        tag=_TAG,
+        test_name="cron_job_output",
+        test_description=(
+            "Tests handling of crontab entries and cron log output. Must identify the "
+            "backup failure due to password rotation and .pgpass not being updated."
+        ),
+    )
+
+
+def _jira_import_artifacts() -> EvalScenario:
+    """Jira ticket import with markup artifacts."""
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9223",
+            subject="[JIRA-MIG] OPS-4521: SSO login loop on trading platform",
+            description=(
+                "h2. Issue Description\n\n"
+                "Users are experiencing an infinite redirect loop when trying to log into "
+                "the trading platform via SSO. The login page redirects to Azure AD, which "
+                "redirects back to the login page, creating an endless loop.\n\n"
+                "h3. Steps to Reproduce\n"
+                "# Navigate to https://trading.contoso.internal\n"
+                "# Click 'Sign in with SSO'\n"
+                "# Observe the redirect loop (URL bar flickers between contoso.internal and "
+                "login.microsoftonline.com)\n\n"
+                "h3. Environment\n"
+                "||Component||Version||\n"
+                "|Trading Platform|4.2.1|\n"
+                "|Azure AD|N/A|\n"
+                "|Browser|Chrome 122, Edge 122|\n\n"
+                "{code:java}\n"
+                "// Browser console shows:\n"
+                "// [ERROR] OIDC: redirect_uri mismatch — expected "
+                "'https://trading.contoso.internal/auth/callback'\n"
+                "//   but received 'https://trading.contoso.internal/auth/callback/'\n"
+                "{code}\n\n"
+                "Reported by: [~john.doe] | Priority: {color:red}Blocker{color} | "
+                "Sprint: Sprint-42 | Labels: sso, auth, p1\n\n"
+                "This was imported from Jira OPS-4521. ~200 traders affected in NYC office."
+            ),
+            reporter=Reporter(
+                name="Migration Bot",
+                email="jira-migration@contoso.com",
+                department="IT",
+            ),
+            created_at="2026-03-18T07:30:00Z",
+            channel=TicketChannel.PORTAL,
+            attachments=[],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9223",
+            category=TicketCategory.ACCESS_AUTH,
+            priority=Priority.P1,
+            assigned_team=AssignedTeam.IDENTITY_ACCESS,
+            needs_escalation=True,
+            missing_information=[],
+            next_best_action=(
+                "Fix redirect_uri mismatch causing SSO login loop on trading platform. "
+                "The trailing slash difference between expected and actual callback URLs is "
+                "blocking ~200 traders."
+            ),
+            remediation_steps=[
+                "Update the Azure AD app registration redirect_uri to include the trailing slash variant",
+                "Alternatively, update the trading platform's auth config to remove the trailing slash",
+                "Clear browser cookies and test SSO login after the fix",
+            ],
+        ),
+        tag=_TAG,
+        test_name="jira_import_artifacts",
+        test_description=(
+            "Tests handling of Jira wiki markup (h2/h3 headers, tables, {code} blocks, "
+            "[~user] mentions, {color} macros) from a ticket migration. Must identify "
+            "the SSO redirect_uri mismatch issue."
+        ),
+    )
+
+
+def _kubernetes_events_dump() -> EvalScenario:
+    """kubectl get events output pasted in ticket."""
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9224",
+            subject="Pods in CrashLoopBackOff for payment-service",
+            description=(
+                "kubectl get events -n payments --sort-by='.lastTimestamp' output:\n\n"
+                "LAST SEEN   TYPE      REASON              OBJECT                           MESSAGE\n"
+                "2m          Warning   BackOff             pod/payment-svc-7f8b9c6d5-x2k4j  "
+                "Back-off restarting failed container\n"
+                "2m          Warning   Failed              pod/payment-svc-7f8b9c6d5-x2k4j  "
+                "Error: CrashLoopBackOff\n"
+                "3m          Normal    Pulled              pod/payment-svc-7f8b9c6d5-x2k4j  "
+                "Container image \"contoso.azurecr.io/payment-svc:2.4.1\" already present\n"
+                "3m          Normal    Created             pod/payment-svc-7f8b9c6d5-x2k4j  "
+                "Created container payment-svc\n"
+                "3m          Warning   Unhealthy           pod/payment-svc-7f8b9c6d5-x2k4j  "
+                "Readiness probe failed: HTTP probe failed with statuscode: 503\n"
+                "5m          Normal    Scheduled           pod/payment-svc-7f8b9c6d5-x2k4j  "
+                "Successfully assigned payments/payment-svc-7f8b9c6d5-x2k4j to aks-nodepool1\n\n"
+                "All 3 replicas are in this state. Started after the 2.4.1 image was deployed "
+                "30 minutes ago. Rolling back to 2.4.0 would restore service."
+            ),
+            reporter=Reporter(
+                name="Yuki Tanaka",
+                email="yuki.tanaka@contoso.com",
+                department="Backend Engineering",
+            ),
+            created_at="2026-03-18T09:15:00Z",
+            channel=TicketChannel.CHAT,
+            attachments=[],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9224",
+            category=TicketCategory.SOFTWARE,
+            priority=Priority.P1,
+            assigned_team=AssignedTeam.ENTERPRISE_APPS,
+            needs_escalation=True,
+            missing_information=[],
+            next_best_action=(
+                "Rollback payment-service from 2.4.1 to 2.4.0 to restore service. All 3 replicas "
+                "are in CrashLoopBackOff with readiness probe returning 503."
+            ),
+            remediation_steps=[
+                "Immediately rollback: kubectl rollout undo deployment/payment-svc -n payments",
+                "Check container logs from the 2.4.1 pods for the root cause",
+                "Investigate what changed between 2.4.0 and 2.4.1 that causes the 503",
+            ],
+        ),
+        tag=_TAG,
+        test_name="kubernetes_events_dump",
+        test_description=(
+            "Tests handling of kubectl events output with tabular formatting and Kubernetes "
+            "event types. Must identify the CrashLoopBackOff after a bad deployment."
+        ),
+    )
+
+
+def _calendar_invite_noise() -> EvalScenario:
+    """ICS/vCalendar data mixed with support request."""
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9225",
+            subject="Conference room display showing wrong calendar",
+            description=(
+                "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Microsoft Corporation//Outlook 16.0\n"
+                "BEGIN:VEVENT\nDTSTART:20260318T140000Z\nDTEND:20260318T150000Z\n"
+                "SUMMARY:Q1 Portfolio Review\nLOCATION:Boardroom A - NYC 24F\n"
+                "ORGANIZER;CN=Sarah Mitchell:mailto:s.mitchell@contoso.com\n"
+                "ATTENDEE;RSVP=TRUE;CN=Trading Desk:mailto:trading@contoso.com\n"
+                "ATTENDEE;RSVP=TRUE;CN=Risk Team:mailto:risk@contoso.com\n"
+                "END:VEVENT\nEND:VCALENDAR\n\n"
+                "The above calendar invite is for the boardroom but the Crestron display "
+                "outside Boardroom A on the 24th floor is showing the calendar for "
+                "Boardroom B instead. It's been wrong since the room mailbox migration "
+                "last Thursday. Executives are walking into the wrong meetings."
+            ),
+            reporter=Reporter(
+                name="Patricia Gonzalez",
+                email="patricia.gonzalez@contoso.com",
+                department="Executive Operations",
+            ),
+            created_at="2026-03-18T12:30:00Z",
+            channel=TicketChannel.PHONE,
+            attachments=[],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9225",
+            category=TicketCategory.HARDWARE,
+            priority=Priority.P2,
+            assigned_team=AssignedTeam.ENDPOINT_ENG,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Reconfigure the Crestron display outside Boardroom A to point to the correct "
+                "room mailbox after last Thursday's migration. Currently showing Boardroom B's calendar."
+            ),
+            remediation_steps=[
+                "Update the Crestron display's Exchange calendar integration to the new Boardroom A mailbox",
+                "Verify the room mailbox for Boardroom A has the correct email address post-migration",
+                "Test by creating a test meeting in Boardroom A and confirming it appears on the display",
+            ],
+        ),
+        tag=_TAG,
+        test_name="calendar_invite_noise",
+        test_description=(
+            "Tests handling of ICS/vCalendar data mixed with a room display issue. "
+            "Must identify the Crestron display misconfiguration, not the calendar invite content."
+        ),
+    )
+
+
 def get_data_cleanup_scenarios() -> list[EvalScenario]:
     """Return all data cleanup evaluation scenarios."""
     return [
@@ -1755,4 +2649,19 @@ def get_data_cleanup_scenarios() -> list[EvalScenario]:
         _webpack_build_output(),
         _macos_crash_report(),
         _browser_console_dump(),
+        _terraform_state_dump(),
+        _graphql_query_paste(),
+        _azure_devops_pipeline_output(),
+        _slack_webhook_payload(),
+        _registry_export_dump(),
+        _xml_config_dump(),
+        _base64_pdf_inline(),
+        _duplicate_forward_chain(),
+        _rtf_format_codes(),
+        _teams_chat_export(),
+        _postman_collection_paste(),
+        _cron_job_output(),
+        _jira_import_artifacts(),
+        _kubernetes_events_dump(),
+        _calendar_invite_noise(),
     ]
