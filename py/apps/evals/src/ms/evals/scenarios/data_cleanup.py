@@ -10656,3 +10656,847 @@ register(
         ],
     )
 )
+
+# ---------------------------------------------------------------------------
+# dc-166  Massive pasted document text
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-166",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE, MissingInfo.STEPS_TO_REPRODUCE],
+        subjects=[
+            "Cannot access Compliance Policy Library on SharePoint",
+            "SharePoint library returning 403 after migration",
+            "Compliance docs inaccessible since Friday migration",
+        ],
+        descriptions=[
+            "Hi, I need help accessing the Compliance Policy Library on "
+            "SharePoint. Here is the document I was trying to open when "
+            "the error occurred:\n\n"
+            "SECTION 1: DATA RETENTION POLICY\n"
+            "1.1 All financial records must be retained for a minimum of "
+            "seven (7) years from the date of creation. This includes but "
+            "is not limited to general ledger entries, accounts payable "
+            "and receivable records, bank statements, tax filings, and "
+            "all supporting documentation.\n"
+            "1.2 Electronic communications including emails instant messages "
+            "and chat logs must be archived in compliance with SEC Rule "
+            "17a-4 and FINRA Rule 4511. Retention period shall be no less "
+            "than six (6) years from creation date.\n"
+            "1.3 Trading records and order execution logs shall be maintained "
+            "for the lifetime of the account plus seven (7) years. This "
+            "encompasses order tickets, confirmations, allocation records, "
+            "and all related correspondence.\n"
+            "1.4 Client onboarding documentation including KYC and AML "
+            "verification records must be retained for a minimum of five "
+            "(5) years after the termination of the business relationship.\n"
+            "1.5 Board meeting minutes and corporate governance documents "
+            "shall be retained permanently in both electronic and physical "
+            "formats.\n\n"
+            "The actual problem is I get a 403 Forbidden error when I click "
+            "the Compliance Policy Library link.\n\n"
+            "SECTION 2: DATA CLASSIFICATION\n"
+            "2.1 All data assets shall be classified into one of four "
+            "categories: Public, Internal, Confidential, and Restricted.\n"
+            "2.2 Classification shall be performed by the data owner at "
+            "the time of creation and reviewed annually.\n"
+            "2.3 Restricted data includes personally identifiable information "
+            "(PII), protected health information (PHI), payment card data "
+            "(PCI), and material non-public information (MNPI).\n\n"
+            "Please help. {name}, {department}",
+            "I was trying to access the Compliance Policy Library and got "
+            "an error. Below is the policy I needed:\n\n"
+            "SECTION 1: DATA RETENTION POLICY\n"
+            "1.1 All financial records must be retained for a minimum of "
+            "seven (7) years from the date of creation including general "
+            "ledger entries accounts payable and receivable records bank "
+            "statements tax filings and all supporting documentation.\n"
+            "1.2 Electronic communications including emails instant messages "
+            "and chat logs must be archived per SEC Rule 17a-4 and FINRA "
+            "Rule 4511 for no less than six (6) years.\n"
+            "1.3 Trading records and order execution logs shall be maintained "
+            "for the lifetime of the account plus seven (7) years including "
+            "order tickets confirmations allocation records.\n"
+            "1.4 Client onboarding documentation including KYC and AML "
+            "verification records retained for five (5) years after "
+            "termination of the business relationship.\n"
+            "1.5 Board meeting minutes and corporate governance documents "
+            "retained permanently.\n"
+            "[continues for many sections]\n\n"
+            "The actual problem is I get a 403 Forbidden error when I click "
+            "the Compliance Policy Library link on SharePoint since the "
+            "Friday migration.\n\n"
+            "SECTION 3: ACCESS CONTROL\n"
+            "3.1 Access to classified data shall be granted on a need-to-know "
+            "basis following the principle of least privilege.\n"
+            "3.2 All access requests must be approved by the data owner "
+            "and documented in the access management system.\n\n"
+            "Thanks, {name}",
+        ],
+        next_best_actions=[
+            "Investigate the 403 Forbidden error on the SharePoint Compliance "
+            "Policy Library after the Friday migration. Ignore the pasted "
+            "document content — the user simply included the policy text they "
+            "were trying to reach.",
+            "The actual issue is a 403 error accessing a SharePoint library "
+            "post-migration. The extensive policy text is irrelevant noise. "
+            "Focus on SharePoint permissions troubleshooting.",
+        ],
+        remediation_steps=[
+            [
+                "Check SharePoint site permissions for the Compliance Policy Library",
+                "Verify the user's group membership was preserved during migration",
+                "Re-grant access to the library if permissions were lost in migration",
+                "Test access with the user and confirm the 403 error is resolved",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-167  Embedded SVG image data
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-167",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.APPLICATION_VERSION],
+        subjects=[
+            "Monitor color profile wrong after driver update",
+            "Display colors shifted blue after NVIDIA update",
+            "Color calibration off since GPU driver update",
+        ],
+        descriptions=[
+            "My monitor colors are completely off since the NVIDIA driver "
+            "update. The display is shifted blue and reds look washed out. "
+            "Here is the color gradient I see on screen as SVG:\n\n"
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">'
+            "<defs>"
+            '<linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">'
+            '<stop offset="0%" style="stop-color:rgb(255,0,0);stop-opacity:1"/>'
+            '<stop offset="25%" style="stop-color:rgb(255,165,0);stop-opacity:1"/>'
+            '<stop offset="50%" style="stop-color:rgb(255,255,0);stop-opacity:1"/>'
+            '<stop offset="75%" style="stop-color:rgb(0,128,0);stop-opacity:1"/>'
+            '<stop offset="100%" style="stop-color:rgb(0,0,255);stop-opacity:1"/>'
+            "</linearGradient>"
+            '<linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">'
+            '<stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:1"/>'
+            '<stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:1"/>'
+            "</linearGradient>"
+            "</defs>"
+            '<rect width="1920" height="540" fill="url(#grad1)"/>'
+            '<rect y="540" width="1920" height="540" fill="url(#grad2)"/>'
+            '<text x="960" y="300" text-anchor="middle" font-size="48" '
+            'fill="white">Expected: smooth gradient</text>'
+            '<text x="960" y="800" text-anchor="middle" font-size="48" '
+            'fill="white">Actual: banding visible</text>'
+            "</svg>\n\n"
+            "The actual issue: NVIDIA driver v550.67 broke the color profile "
+            "on my Dell U2722D monitor. The ICC profile is no longer being "
+            "applied. {name}, {department}",
+            "After updating my GPU driver to NVIDIA v550.67, my Dell monitor "
+            "colors are wrong. I tried to capture what I see as SVG data:\n\n"
+            '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">'
+            '<rect x="0" y="0" width="200" height="200" fill="#FF0000" '
+            'opacity="0.7"/>'
+            '<rect x="200" y="0" width="200" height="200" fill="#00FF00" '
+            'opacity="0.7"/>'
+            '<rect x="400" y="0" width="200" height="200" fill="#0000FF" '
+            'opacity="0.7"/>'
+            '<rect x="0" y="200" width="200" height="200" fill="#FF6600" '
+            'opacity="0.7"/>'
+            '<rect x="200" y="200" width="200" height="200" fill="#9900CC" '
+            'opacity="0.7"/>'
+            '<rect x="400" y="200" width="200" height="200" fill="#00CCFF" '
+            'opacity="0.7"/>'
+            '<text x="400" y="450" text-anchor="middle" font-size="24">'
+            "These colors are wrong on my screen</text>"
+            "</svg>\n\n"
+            "The ICC color profile stopped applying after the NVIDIA v550.67 "
+            "driver update. My Dell U2722D looks blue-shifted and washed out. "
+            "{name}",
+        ],
+        next_best_actions=[
+            "Reapply the Dell U2722D ICC color profile or rollback the NVIDIA "
+            "driver from v550.67 to the previous version. Ignore the embedded "
+            "SVG data — it is not actionable.",
+            "Investigate NVIDIA driver v550.67 breaking ICC profile application "
+            "on the Dell monitor. The SVG content is irrelevant diagnostic noise.",
+        ],
+        remediation_steps=[
+            [
+                "Reapply the ICC color profile for the Dell U2722D via Display Settings",
+                "If profile does not stick, rollback NVIDIA driver from v550.67 to previous version",
+                "Check NVIDIA Control Panel color settings for overrides",
+                "Test with a different display cable (DP vs HDMI) to rule out signal issues",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-168  Hex dump of network capture
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-168",
+        category=Category.NETWORK,
+        priority=Priority.P2,
+        assigned_team=Team.NETWORK,
+        needs_escalation=False,
+        missing_information=[MissingInfo.NETWORK_LOCATION, MissingInfo.AFFECTED_USERS],
+        subjects=[
+            "Intermittent packet loss on trading floor — capture included",
+            "5-8% packet loss daily on VLAN 210",
+            "Network drops during market open — hex dump attached",
+        ],
+        descriptions=[
+            "We are seeing 5-8% packet loss daily on the trading floor "
+            "between 14:00 and 14:15 UTC. Here is a hex dump from my "
+            "packet capture:\n\n"
+            "0000  00 1a 2b 3c 4d 5e 00 0c 29 8a 1b 2c 08 00 45 00  "
+            "..+<M^..)..,.E.\n"
+            "0010  00 3c 1c 46 40 00 40 06 b1 e6 c0 a8 01 64 ac 10  "
+            ".<.F@.@......d..\n"
+            "0020  01 0a 00 50 c3 58 a1 b2 c3 d4 00 00 00 00 a0 02  "
+            "...P.X..........\n"
+            "0030  ff ff 3e 2c 00 00 02 04 05 b4 04 02 08 0a 00 a3  "
+            "..>,...........\n"
+            "0040  2f 48 00 00 00 00 01 03 03 07 00 00 00 00 00 00  "
+            "/H..............\n"
+            "0050  00 1a 2b 3c 4d 5e 00 0c 29 8a 1b 2c 08 00 45 00  "
+            "..+<M^..)..,.E.\n"
+            "0060  00 3c 1c 47 40 00 40 06 b1 e5 c0 a8 01 64 ac 10  "
+            ".<.G@.@......d..\n"
+            "0070  01 0a 00 50 c3 59 a1 b2 c3 d5 00 00 00 00 a0 02  "
+            "...P.Y..........\n"
+            "0080  ff ff 3e 2b 00 00 02 04 05 b4 04 02 08 0a 00 a3  "
+            "..>+...........\n"
+            "0090  2f 49 00 00 00 00 01 03 03 07 00 00 00 00 00 00  "
+            "/I..............\n\n"
+            "The real issue is daily packet loss from 14:00 to 14:15 UTC "
+            "on VLAN 210 affecting FIX connections to the exchange. This "
+            "is causing order rejections. {name}, {department}",
+            "Packet loss on VLAN 210 is killing our FIX connections every "
+            "day at market open. Here is the capture data:\n\n"
+            "0000  00 0c 29 8a 1b 2c 00 1a 2b 3c 4d 5e 08 00 45 00  "
+            "..)..,.+<M^..E.\n"
+            "0010  00 28 3f a2 40 00 80 06 6d 9e ac 10 01 0a c0 a8  "
+            ".(?. @..m.......\n"
+            "0020  01 64 c3 58 00 50 00 00 00 00 a1 b2 c3 d5 50 12  "
+            ".d.X.P........P.\n"
+            "0030  ff ff a6 c2 00 00 00 00 00 00 00 00 00 00 00 00  "
+            "................\n"
+            "0040  00 0c 29 8a 1b 2c 00 1a 2b 3c 4d 5e 08 00 45 00  "
+            "..)..,.+<M^..E.\n"
+            "0050  01 f4 3f a3 40 00 80 06 6b d1 ac 10 01 0a c0 a8  "
+            "..?.@...k.......\n"
+            "0060  01 64 c3 58 00 50 00 00 00 01 a1 b2 c3 d5 50 18  "
+            ".d.X.P........P.\n"
+            "0070  ff ff 8b c7 00 00 38 3d 46 49 58 54 2e 31 2e 31  "
+            "......8=FIXT.1.1\n\n"
+            "We see 5-8% packet loss daily 14:00-14:15 UTC on VLAN 210. "
+            "FIX connections drop and orders get rejected. {name}",
+        ],
+        next_best_actions=[
+            "Investigate the scheduled congestion on VLAN 210 causing daily "
+            "packet loss between 14:00 and 14:15 UTC. The hex dump is raw "
+            "capture data and not directly useful for triage.",
+            "Focus on identifying what process or traffic spike occurs at "
+            "14:00 UTC on VLAN 210 that causes 5-8% packet loss affecting "
+            "FIX trading connections.",
+        ],
+        remediation_steps=[
+            [
+                "Review switch port logs and traffic counters on VLAN 210 during 14:00-14:15 UTC window",
+                "Check for scheduled jobs or batch processes that coincide with the packet loss window",
+                "Analyze QoS policies to ensure FIX protocol traffic has appropriate priority",
+                "Verify uplink capacity from the trading floor access switches to the core",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-169  Windows Event Log XML dump
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-169",
+        category=Category.HARDWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.REPRODUCTION_FREQUENCY],
+        subjects=[
+            "Blue screen twice today — Event Viewer export",
+            "BSOD DRIVER_IRQL_NOT_LESS_OR_EQUAL — event log attached",
+            "Laptop crashes when docking — XML export below",
+        ],
+        descriptions=[
+            "My laptop blue-screened twice today when I plugged into my "
+            "docking station. Here is the Event Viewer export:\n\n"
+            '<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">'
+            "<System>"
+            '<Provider Name="Microsoft-Windows-WER-SystemErrorReporting" '
+            'Guid="{ABCE23E7-DE45-4366-8631-84FA6C525952}"/>'
+            '<EventID Qualifiers="0">1001</EventID>'
+            "<Version>0</Version>"
+            "<Level>2</Level>"
+            "<Task>0</Task>"
+            "<Opcode>0</Opcode>"
+            "<Keywords>0x80000000000000</Keywords>"
+            '<TimeCreated SystemTime="2026-03-18T09:42:17.000000000Z"/>'
+            "<EventRecordID>45231</EventRecordID>"
+            '<Execution ProcessID="0" ThreadID="0"/>'
+            "<Channel>System</Channel>"
+            "<Computer>WKST-{name}.contoso.com</Computer>"
+            "</System>"
+            "<EventData>"
+            "<Data>0x000000d1 (DRIVER_IRQL_NOT_LESS_OR_EQUAL)</Data>"
+            "<Data>0x0000000000000028</Data>"
+            "<Data>0x0000000000000002</Data>"
+            "<Data>0x0000000000000000</Data>"
+            "<Data>fffff8024a3b1234</Data>"
+            "<Data>usbhub3.sys</Data>"
+            "<Data>10.0.19041.3636</Data>"
+            "</EventData>"
+            "</Event>\n\n"
+            "The BSOD happens when I connect my USB-C docking station. "
+            "The bugcheck is DRIVER_IRQL_NOT_LESS_OR_EQUAL and it points "
+            "to usbhub3.sys. {name}, {department}",
+            "Getting blue screens when I dock my laptop. Exported the "
+            "event log:\n\n"
+            '<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">'
+            "<System>"
+            '<Provider Name="Microsoft-Windows-Kernel-Power" '
+            'Guid="{331C3B3A-2005-44C2-AC5E-77220C37D6B4}"/>'
+            '<EventID>41</EventID>'
+            "<Version>6</Version>"
+            "<Level>1</Level>"
+            "<Task>63</Task>"
+            "<Opcode>0</Opcode>"
+            "<Keywords>0x8000400000000002</Keywords>"
+            '<TimeCreated SystemTime="2026-03-18T09:42:15.000000000Z"/>'
+            "<EventRecordID>45230</EventRecordID>"
+            "<Channel>System</Channel>"
+            "<Computer>WKST-{name}.contoso.com</Computer>"
+            "</System>"
+            "<EventData>"
+            "<Data Name='BugcheckCode'>209</Data>"
+            "<Data Name='BugcheckParameter1'>0x28</Data>"
+            "<Data Name='BugcheckParameter2'>0x2</Data>"
+            "<Data Name='SleepInProgress'>0</Data>"
+            "<Data Name='PowerButtonTimestamp'>0</Data>"
+            "</EventData>"
+            "</Event>\n\n"
+            "The crash is triggered specifically when plugging in the "
+            "USB-C dock. BSOD DRIVER_IRQL_NOT_LESS_OR_EQUAL pointing to "
+            "usbhub3.sys. Happened twice today. {name}",
+        ],
+        next_best_actions=[
+            "Investigate the dock-triggered BSOD. The bugcheck points to "
+            "usbhub3.sys — check the minidump for the exact faulting driver "
+            "and update or rollback accordingly.",
+            "The XML event logs confirm DRIVER_IRQL_NOT_LESS_OR_EQUAL caused "
+            "by usbhub3.sys during USB-C dock connection. Analyze minidump "
+            "for root cause driver.",
+        ],
+        remediation_steps=[
+            [
+                "Collect and analyze the minidump files from C:\\Windows\\Minidump",
+                "Update the USB-C docking station firmware to the latest version",
+                "Rollback the faulting driver (usbhub3.sys) if a recent update caused the regression",
+                "Test with a different docking station to isolate hardware vs driver issue",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-170  Concatenated SCOM monitoring alerts
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-170",
+        category=Category.DATA,
+        priority=Priority.P1,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=True,
+        missing_information=[MissingInfo.BUSINESS_IMPACT, MissingInfo.AFFECTED_SYSTEM],
+        subjects=[
+            "FW: FW: CRITICAL — disk space alerts from SCOM",
+            "SQLPROD01 disk space critical — {floor} alert emails forwarded",
+            "Production SQL Server running out of disk — alert flood",
+        ],
+        descriptions=[
+            "Forwarding these alerts from SCOM — please look at this ASAP!\n\n"
+            "--- Alert: Disk Free Space Low ---\n"
+            "Source: SQLPROD01.contoso.com\n"
+            "Severity: Critical\n"
+            "Generated: 2026-03-18 06:00:12 UTC\n"
+            "Disk C: 2.1 GB free (4.2%)\n"
+            "Threshold: 5%\n"
+            "--- End Alert ---\n\n"
+            "--- Alert: Disk Free Space Low ---\n"
+            "Source: SQLPROD01.contoso.com\n"
+            "Severity: Critical\n"
+            "Generated: 2026-03-18 06:15:14 UTC\n"
+            "Disk C: 1.8 GB free (3.6%)\n"
+            "Threshold: 5%\n"
+            "--- End Alert ---\n\n"
+            "--- Alert: Disk Free Space Low ---\n"
+            "Source: SQLPROD01.contoso.com\n"
+            "Severity: Critical\n"
+            "Generated: 2026-03-18 06:30:11 UTC\n"
+            "Disk C: 1.5 GB free (3.0%)\n"
+            "Threshold: 5%\n"
+            "--- End Alert ---\n\n"
+            "--- Alert: Disk Free Space Low ---\n"
+            "Source: SQLPROD01.contoso.com\n"
+            "Severity: Critical\n"
+            "Generated: 2026-03-18 06:45:09 UTC\n"
+            "Disk C: 1.2 GB free (2.4%)\n"
+            "Threshold: 5%\n"
+            "--- End Alert ---\n\n"
+            "The production SQL Server C: drive is running out of disk "
+            "space. It keeps dropping. {name}, {department}",
+            "Getting a flood of SCOM alerts for SQLPROD01:\n\n"
+            "--- Alert: Disk Free Space Low ---\n"
+            "Source: SQLPROD01.contoso.com\n"
+            "Severity: Critical\n"
+            "Generated: 2026-03-18 07:00:08 UTC\n"
+            "Disk C: 0.9 GB free (1.8%)\n"
+            "Threshold: 5%\n"
+            "--- End Alert ---\n\n"
+            "--- Alert: Disk Free Space Low ---\n"
+            "Source: SQLPROD01.contoso.com\n"
+            "Severity: Critical\n"
+            "Generated: 2026-03-18 07:15:06 UTC\n"
+            "Disk C: 0.7 GB free (1.4%)\n"
+            "Threshold: 5%\n"
+            "--- End Alert ---\n\n"
+            "--- Alert: Disk Free Space Low ---\n"
+            "Source: SQLPROD01.contoso.com\n"
+            "Severity: Warning\n"
+            "Generated: 2026-03-18 07:15:07 UTC\n"
+            "Disk D: 12.3 GB free (8.2%)\n"
+            "Threshold: 10%\n"
+            "--- End Alert ---\n\n"
+            "SQLPROD01 C: drive is critically low and still dropping. "
+            "This is a production database server. {name}",
+        ],
+        next_best_actions=[
+            "Immediately address the disk space crisis on SQLPROD01. The "
+            "C: drive is under 5% free and actively declining. This is a "
+            "production SQL Server requiring urgent intervention.",
+            "The SCOM alerts are redundant but the underlying issue is "
+            "critical: SQLPROD01 C: drive is nearly full. Take immediate "
+            "action to free space before the database crashes.",
+        ],
+        remediation_steps=[
+            [
+                "Free disk space on SQLPROD01 C: drive immediately — clear temp files, old backups, and log files",
+                "Check if tempdb is on C: and move it to the data volume if so",
+                "Move any user databases from C: to the dedicated data volume",
+                "Add additional disk capacity and set up proactive monitoring thresholds",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-171  Multi-encoding mojibake chain
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-171",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO, MissingInfo.APPLICATION_VERSION],
+        subjects=[
+            "Printer driver error — garbled characters in error",
+            "Cannot install printer driver — mojibake in error message",
+            "Driver installation fails with encoding-garbled error",
+        ],
+        descriptions=[
+            "I cannot install the printer driver and the error messages "
+            "are garbled. Here is what I see:\n\n"
+            "Error: \u00e2\u0080\u0098Druckertreiber konnte nicht installiert "
+            "werden\u00e2\u0080\u0099\n"
+            "Details: \u00c3\u00a2\u00e2\u201a\u00ac\u0178Cannot locate INF "
+            "file for printer model KonicaMinolta C308"
+            "\u00c3\u00a2\u00e2\u201a\u00ac\u0153\n"
+            "Status: \u00c3\u0083\u00c2\u00a2\u00c3\u00a2\u00e2\u0080\u009a"
+            "\u00c2\u00ac\u00c3\u0085\u00e2\u0080\u009cFailed with error "
+            "0x800F0214\u00c3\u0083\u00c2\u00a2\u00c3\u00a2\u00e2\u0080\u009a"
+            "\u00c2\u00ac\u00c3\u0082\u00c2\u009d\n\n"
+            "The actual problem: I am trying to install the Konica Minolta "
+            "C308 printer driver on {os} and it fails with error 0x800F0214. "
+            "The error dialog shows encoding-garbled text. {name}, {department}",
+            "Printer driver installation keeps failing. The error window "
+            "shows mojibake:\n\n"
+            "\u00c3\u00a2\u00e2\u201a\u00ac\u0178Installation des "
+            "Druckertreibers fehlgeschlagen\u00c3\u00a2\u00e2\u201a\u00ac"
+            "\u0153\n"
+            "Error code: 0x800F0214\n"
+            "Message: \u00e2\u0080\u009cThe third-party INF does not contain "
+            "digital signature information\u00e2\u0080\u009d\n"
+            "Additional: \u00c3\u0083\u00c2\u00a2\u00c3\u00a2\u00e2\u0080"
+            "\u009a\u00c2\u00ac\u00c3\u0085\u00e2\u0080\u009cKonica Minolta "
+            "Universal Print Driver\u00c3\u0083\u00c2\u00a2\u00c3\u00a2"
+            "\u00e2\u0080\u009a\u00c2\u00ac\u00c3\u0082\u00c2\u009d\n\n"
+            "The Konica Minolta C308 driver fails with 0x800F0214 on {os}. "
+            "I think it is a driver signing issue. {name}",
+        ],
+        next_best_actions=[
+            "Troubleshoot driver installation error 0x800F0214 for the "
+            "Konica Minolta C308. The mojibake text is a display artifact "
+            "from encoding issues and does not affect troubleshooting.",
+            "The error 0x800F0214 indicates the printer driver INF is not "
+            "digitally signed. Download the correct signed driver package "
+            "for the Konica Minolta C308.",
+        ],
+        remediation_steps=[
+            [
+                "Download the correct signed driver package for the Konica Minolta C308 from the manufacturer",
+                "Check that driver signing enforcement is not blocking a valid driver",
+                "Use the Add Printer wizard instead of the standalone installer",
+                "If needed, temporarily disable driver signature enforcement to install and then re-enable",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-172  Cascading auto-reply loop
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-172",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE, MissingInfo.AFFECTED_USERS],
+        subjects=[
+            "RE: RE: RE: Automatic reply: RE: Automatic reply: Room booking down",
+            "Auto-reply loop burying real issue — booking system offline",
+            "OOO reply chain with buried booking system outage",
+        ],
+        descriptions=[
+            "Subject: RE: RE: RE: Automatic reply: RE: Automatic reply: "
+            "Room booking system not working\n\n"
+            "--- Automatic Reply ---\n"
+            "Thank you for your email. I am out of the office until March "
+            "25th with limited access to email. For urgent matters please "
+            "contact Jane Smith.\n"
+            "--- End Automatic Reply ---\n\n"
+            "--- Automatic Reply ---\n"
+            "Hi, I am currently out of the office attending a conference. "
+            "I will respond to your email upon my return on March 24th. "
+            "For immediate assistance please contact the help desk.\n"
+            "--- End Automatic Reply ---\n\n"
+            "--- Automatic Reply ---\n"
+            "Thank you for your email. I am out of the office until March "
+            "25th with limited access to email. For urgent matters please "
+            "contact Jane Smith.\n"
+            "--- End Automatic Reply ---\n\n"
+            "--- Automatic Reply ---\n"
+            "Hi, I am currently out of the office attending a conference. "
+            "I will respond to your email upon my return on March 24th.\n"
+            "--- End Automatic Reply ---\n\n"
+            "--- Original Message ---\n"
+            "The meeting room booking system (RoomBook Pro) has been down "
+            "since 8 AM this morning. Nobody on {floor} floor can book "
+            "rooms. {name}, {department}",
+            "This email chain is a mess of auto-replies but the real issue "
+            "is buried at the bottom:\n\n"
+            "RE: RE: Automatic reply: RE: Automatic reply: RE: Booking "
+            "system offline\n\n"
+            "--- OOO ---\n"
+            "I am on PTO until 3/26. Contact helpdesk for urgent issues.\n"
+            "--- OOO ---\n\n"
+            "--- OOO ---\n"
+            "Thanks for your message. I am at an offsite event this week "
+            "and will have limited email access. Back March 25.\n"
+            "--- OOO ---\n\n"
+            "--- OOO ---\n"
+            "I am on PTO until 3/26. Contact helpdesk for urgent issues.\n"
+            "--- OOO ---\n\n"
+            "--- OOO ---\n"
+            "Thanks for your message. I am at an offsite event this week.\n"
+            "--- OOO ---\n\n"
+            "--- Original ---\n"
+            "RoomBook Pro is completely down since this morning. Nobody "
+            "can book meeting rooms. Please fix ASAP. {name}",
+        ],
+        next_best_actions=[
+            "Investigate the RoomBook Pro outage reported in the original "
+            "message buried under the auto-reply chain. Ignore all the "
+            "out-of-office replies.",
+            "The cascading auto-replies are noise. The actual issue: "
+            "RoomBook Pro meeting room booking system has been down since "
+            "morning affecting the entire floor.",
+        ],
+        remediation_steps=[
+            [
+                "Check the RoomBook Pro application server status and logs",
+                "Verify the Exchange integration for room mailboxes is functioning",
+                "Restart the RoomBook Pro service and verify rooms are bookable",
+                "Communicate status to affected users and break the auto-reply loop by disabling the looping rules",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-173  Tab-separated query result dump
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-173",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ENVIRONMENT_DETAILS, MissingInfo.TIMESTAMP],
+        subjects=[
+            "Database query taking 45 minutes — result set included",
+            "SELECT on trades table degraded from 10s to 45min",
+            "Possible missing index on SQLPROD03 trades table",
+        ],
+        descriptions=[
+            "A query on the trades table that used to take 10 seconds now "
+            "takes 45 minutes. I think an index was dropped during last "
+            "weekend's maintenance. Here is a sample of the result set:\n\n"
+            "TradeID\tSymbol\tSide\tQuantity\tPrice\tTimestamp\tStatus\n"
+            "T-20260318-001\tAAPL\tBUY\t500\t178.42\t2026-03-18 09:30:01\tFILLED\n"
+            "T-20260318-002\tMSFT\tSELL\t200\t412.87\t2026-03-18 09:30:02\tFILLED\n"
+            "T-20260318-003\tGOOG\tBUY\t100\t155.23\t2026-03-18 09:30:03\tFILLED\n"
+            "T-20260318-004\tAMZN\tBUY\t300\t185.64\t2026-03-18 09:30:05\tFILLED\n"
+            "T-20260318-005\tTSLA\tSELL\t150\t172.91\t2026-03-18 09:30:06\tFILLED\n"
+            "T-20260318-006\tNVDA\tBUY\t400\t892.15\t2026-03-18 09:30:08\tFILLED\n"
+            "T-20260318-007\tJPM\tSELL\t250\t198.33\t2026-03-18 09:30:10\tFILLED\n"
+            "T-20260318-008\tBAC\tBUY\t600\t37.82\t2026-03-18 09:30:11\tFILLED\n"
+            "T-20260318-009\tV\tSELL\t175\t278.45\t2026-03-18 09:30:13\tFILLED\n"
+            "T-20260318-010\tWMT\tBUY\t350\t168.29\t2026-03-18 09:30:15\tFILLED\n"
+            "[... 2.4 million more rows ...]\n\n"
+            "The query is SELECT * FROM trades WHERE trade_date = '2026-03-18' "
+            "and it used to return in 10 seconds. Now it does a full table "
+            "scan. {name}, {department}",
+            "Query performance on SQLPROD03 has tanked. Here is the output "
+            "I am seeing:\n\n"
+            "TradeID\tSymbol\tSide\tQty\tPrice\tTime\tAccount\tVenue\n"
+            "T-20260317-991\tMETA\tBUY\t200\t502.11\t09:31:22\tACCT-4421\tNYSE\n"
+            "T-20260317-992\tDIS\tSELL\t150\t112.43\t09:31:24\tACCT-7832\tNASDAQ\n"
+            "T-20260317-993\tNFLX\tBUY\t100\t623.87\t09:31:25\tACCT-1156\tARCA\n"
+            "T-20260317-994\tCRM\tSELL\t300\t298.54\t09:31:27\tACCT-3309\tNYSE\n"
+            "T-20260317-995\tADBE\tBUY\t175\t545.21\t09:31:29\tACCT-8844\tNASDAQ\n"
+            "T-20260317-996\tPYPL\tSELL\t225\t67.89\t09:31:30\tACCT-2210\tARCA\n"
+            "T-20260317-997\tINTC\tBUY\t500\t43.67\t09:31:32\tACCT-5567\tNYSE\n"
+            "T-20260317-998\tAMD\tSELL\t400\t178.92\t09:31:33\tACCT-9901\tNASDAQ\n"
+            "T-20260317-999\tORCL\tBUY\t350\t124.56\t09:31:35\tACCT-6643\tNYSE\n"
+            "[... millions more rows ...]\n\n"
+            "SELECT on trades table went from 10 seconds to 45 minutes. "
+            "Likely a missing index after weekend maintenance. {name}",
+        ],
+        next_best_actions=[
+            "Investigate the suspected index drop on the trades table in "
+            "SQLPROD03. The pasted result set data is irrelevant — the issue "
+            "is a query performance regression from 10s to 45min.",
+            "Check the index definitions on the trades table. A weekend "
+            "maintenance job likely dropped an index on trade_date, causing "
+            "full table scans instead of index seeks.",
+        ],
+        remediation_steps=[
+            [
+                "Check the current index definitions on the trades table and compare with expected indexes",
+                "Recreate the missing index on trade_date (and any other dropped indexes)",
+                "Review the maintenance scripts to prevent accidental index drops in the future",
+                "Monitor query execution plans to confirm the index is being used after recreation",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-174  Raw email headers flood
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-174",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.APPLICATION_VERSION, MissingInfo.DEVICE_INFO],
+        subjects=[
+            "Outlook freezes when opening external emails",
+            "{app} hangs for 30 seconds on external messages",
+            "Outlook delay opening emails from outside org",
+        ],
+        descriptions=[
+            "Outlook freezes for about 30 seconds every time I open an "
+            "email from outside the organization. This started after the "
+            "March patch. Here are the headers from one of the emails:\n\n"
+            "Received: from MX01.contoso.com (10.1.2.30) by\n"
+            " EXCH01.contoso.com (10.1.2.10) with Microsoft SMTP Server\n"
+            " (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)\n"
+            " id 15.1.2507.23; Mon, 18 Mar 2026 08:15:32 -0400\n"
+            "Received: from mail-yw1-f169.google.com (209.85.128.169) by\n"
+            " MX01.contoso.com (10.1.2.30) with Microsoft SMTP Server id\n"
+            " 15.1.2507.23 via Frontend Transport; Mon, 18 Mar 2026\n"
+            " 08:15:31 -0400\n"
+            "Authentication-Results: contoso.com; spf=pass\n"
+            " (sender IP is 209.85.128.169)\n"
+            " smtp.mailfrom=externalsender@gmail.com; dkim=pass\n"
+            " (signature was verified)\n"
+            " header.d=gmail.com;contoso.com; dmarc=pass\n"
+            " action=none header.from=gmail.com;\n"
+            "X-MS-Exchange-Organization-SCL: 1\n"
+            "X-MS-Exchange-Organization-AuthSource: MX01.contoso.com\n"
+            "X-MS-Exchange-Organization-AuthAs: Anonymous\n"
+            "X-MS-Has-Attach:\n"
+            "X-MS-Exchange-Transport-CrossTenantHeadersStamped: EXCH01\n"
+            "X-MS-Exchange-Organization-AVStamp-Enterprise: 1.0\n"
+            "X-DLP-Scanning-Result: Pending\n"
+            "X-DLP-Policy-Applied: External-Email-DLP-v3\n\n"
+            "I think the delay might be related to DLP scanning. The "
+            "X-DLP-Scanning-Result shows Pending. {name}, {department}",
+            "Since the March patch, {app} hangs for 30 seconds whenever "
+            "I open external emails. Headers from a slow message:\n\n"
+            "Received: from edge01.contoso.com (10.1.2.40) by\n"
+            " EXCH02.contoso.com (10.1.2.11) with Microsoft SMTP Server\n"
+            " (version=TLS1_2) id 15.1.2507.23; Mon, 18 Mar 2026\n"
+            " 08:22:45 -0400\n"
+            "Authentication-Results: contoso.com; spf=pass\n"
+            " smtp.mailfrom=vendor@partner.com; dkim=pass\n"
+            " header.d=partner.com; dmarc=pass\n"
+            "X-MS-Exchange-Organization-SCL: 0\n"
+            "X-MS-Exchange-Organization-AuthAs: Anonymous\n"
+            "X-MS-Exchange-CrossTenant-AuthSource: edge01.contoso.com\n"
+            "X-MS-Exchange-Transport-EndToEndLatency: 00:00:28.4521\n"
+            "X-DLP-Scanning-Result: Pending\n"
+            "X-DLP-Policy-Applied: External-Email-DLP-v3\n"
+            "X-DLP-Scan-Duration-Ms: 27842\n\n"
+            "The DLP scan is taking almost 28 seconds per message. This "
+            "is causing {app} to freeze while it waits. {name}",
+        ],
+        next_best_actions=[
+            "Investigate the Outlook external email delay caused by DLP "
+            "policy scanning. The raw headers show DLP scan taking ~28 "
+            "seconds per external message after the March patch.",
+            "The email headers confirm the delay is caused by the "
+            "External-Email-DLP-v3 policy scanning. Check DLP configuration "
+            "for a regression introduced in the March patch.",
+        ],
+        remediation_steps=[
+            [
+                "Check Outlook performance logging to confirm DLP scanning is the bottleneck",
+                "Review the External-Email-DLP-v3 policy configuration for recent changes or regressions",
+                "Test Outlook in safe mode to rule out add-in interference",
+                "Check if the March patch introduced DLP scanning changes and consider rollback if confirmed",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-175  Very long single paragraph no line breaks
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-175",
+        category=Category.NETWORK,
+        priority=Priority.P3,
+        assigned_team=Team.NETWORK,
+        needs_escalation=False,
+        missing_information=[MissingInfo.ERROR_MESSAGE, MissingInfo.DEVICE_INFO],
+        subjects=[
+            "VPN certificate expired cannot connect",
+            "GlobalProtect certificate error — remote work blocked",
+            "Cannot VPN in — certificate validation failure",
+        ],
+        descriptions=[
+            "Hi IT support I am writing to report an issue with my VPN "
+            "connection that has been affecting my ability to work remotely "
+            "since yesterday morning when I tried to connect using the "
+            "GlobalProtect VPN client on my laptop running {os} and I "
+            "received an error that said something about certificate "
+            "validation failed or certificate expired I am not exactly sure "
+            "of the wording because I was rushing to a meeting but I "
+            "remember it mentioned certificates and I tried clicking retry "
+            "multiple times and restarting my laptop and even switching "
+            "from WiFi to my phone hotspot but I got the same error on all "
+            "networks which tells me it is a certificate problem not a "
+            "network problem and my colleague {name} says her VPN works "
+            "fine so it is just my machine and I need this fixed today "
+            "because I am working from home all week and I cannot access "
+            "any internal resources without the VPN including SharePoint "
+            "and the trading applications and my manager is asking why I "
+            "am not responding to messages on Teams which I also cannot "
+            "access and I tried looking online for solutions and some "
+            "forums said to delete the certificate and reimport it but I "
+            "do not have admin rights to do that and another forum said "
+            "to check the date and time on my laptop which I did and it "
+            "is correct and I also tried uninstalling and reinstalling "
+            "GlobalProtect but the same error came back and I am running "
+            "out of things to try so please help me as soon as possible "
+            "because I have a critical deadline on Wednesday and I cannot "
+            "miss it and my department head is going to escalate this if "
+            "it is not fixed by end of day today thank you {name} from "
+            "{department} on {floor} floor",
+            "Hi I need help with my VPN I have been unable to connect to "
+            "GlobalProtect since yesterday and I keep getting a certificate "
+            "error and I have tried everything I can think of including "
+            "restarting my computer and reinstalling the VPN client and "
+            "checking my internet connection which works fine for everything "
+            "else like browsing the web and streaming video so it is "
+            "definitely not a network issue on my end and I asked my "
+            "colleague and his VPN works perfectly fine which makes me think "
+            "something is wrong with my specific certificate or profile and "
+            "I really need this fixed because I am remote all week and "
+            "cannot do any work without VPN access and my manager is asking "
+            "why deliverables are late and I cannot explain that I have been "
+            "locked out of all internal systems since yesterday morning and "
+            "I tried calling the help desk but was on hold for 45 minutes "
+            "and then got disconnected and I tried the self-service portal "
+            "but the certificate renewal page says I need to be on the "
+            "corporate network to access it which is a catch-22 because I "
+            "need the VPN to get on the corporate network and I need the "
+            "corporate network to fix the VPN and I am going in circles "
+            "and getting increasingly frustrated because this should be a "
+            "simple fix and I have already wasted an entire day on this and "
+            "I cannot afford to waste another day so please prioritize this "
+            "and get back to me as soon as possible thanks {name} "
+            "{department} {office}",
+        ],
+        next_best_actions=[
+            "Renew the expired VPN client certificate on the user's laptop. "
+            "The long unformatted message describes a GlobalProtect VPN "
+            "certificate validation failure preventing remote access.",
+            "The user's GlobalProtect VPN certificate has expired. Since "
+            "they cannot reach the corporate network to self-service renew, "
+            "push a new certificate remotely or provide an alternative "
+            "renewal method.",
+        ],
+        remediation_steps=[
+            [
+                "Check the expiration date of the user's VPN client certificate in the GlobalProtect portal",
+                "Reissue a new VPN certificate for the user via the certificate authority",
+                "Push the certificate to the user's device via MDM or provide a secure download link",
+                "Check if this is part of a batch certificate expiration affecting multiple users",
+            ],
+        ],
+    )
+)
