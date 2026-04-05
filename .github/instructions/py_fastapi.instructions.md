@@ -21,4 +21,3 @@ applyTo: "**/py/**"
 ## Request / Response Models
 
 <!-- How do you define request and response models? What validation patterns do you follow? -->
-

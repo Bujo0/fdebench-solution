@@ -1001,4 +1001,3 @@ Original 15 + 5 new: stack_trace, forwarded_email, passive_aggressive, auto_tran
 - Generate **7,500 tickets** with seed=42
 - Expected uniqueness: >96% unique subjects, >98% unique descriptions
 - All 16 missing_info values represented with better balance
-

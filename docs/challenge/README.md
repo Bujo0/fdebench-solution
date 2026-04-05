@@ -385,4 +385,3 @@ uv run python run_eval.py \
 ## Submission
 
 When you're ready, submit at **[aka.ms/fde/hackathon](https://aka.ms/fde/hackathon)**. Full checklist at [../submission/](../submission/).
-

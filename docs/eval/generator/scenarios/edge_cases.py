@@ -312,4 +312,3 @@ SCENARIOS: list[Scenario] = [
         tags=["ambiguous-routing", "inquiry-or-software"],
     ),
 ]
-

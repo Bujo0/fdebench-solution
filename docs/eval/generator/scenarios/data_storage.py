@@ -966,4 +966,3 @@ SCENARIOS: list[Scenario] = [
         ],
     ),
 ]
-

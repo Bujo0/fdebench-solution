@@ -141,4 +141,3 @@ REPORTERS: list[Reporter] = [
 
 VIP_REPORTERS = [r for r in REPORTERS if r.is_vip]
 REGULAR_REPORTERS = [r for r in REPORTERS if not r.is_vip]
-

@@ -104,4 +104,3 @@ class GoldAnswer:
     missing_information: list[str]
     next_best_action: str
     remediation_steps: list[str]
-

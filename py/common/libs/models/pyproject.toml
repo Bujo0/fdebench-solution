@@ -21,4 +21,3 @@ build-backend = "uv_build"
 [tool.uv.build-backend]
 module-name = "ms.common.models"
 module-root = "src"
-

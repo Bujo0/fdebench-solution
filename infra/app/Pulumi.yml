@@ -4,4 +4,3 @@ runtime:
   options:
     toolchain: uv
     typechecker: pyright
-

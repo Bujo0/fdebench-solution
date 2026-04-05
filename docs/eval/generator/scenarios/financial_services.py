@@ -325,4 +325,3 @@ SCENARIOS: list[Scenario] = [
         tags=["trading", "authentication", "hardware-token"],
     ),
 ]
-

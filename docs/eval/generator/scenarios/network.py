@@ -1514,4 +1514,3 @@ SCENARIOS: list[Scenario] = [
         tags=["sdwan", "failover"],
     ),
 ]
-

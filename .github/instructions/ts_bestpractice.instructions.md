@@ -25,4 +25,3 @@ applyTo: "**/ts/**"
 ## Accessibility
 
 <!-- What a11y standards do you follow? -->
-
