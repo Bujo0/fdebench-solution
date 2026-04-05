@@ -116,6 +116,72 @@ uv run python run_eval.py \
   --dataset ../data/tickets/public_eval.json
 ```
 
+### Data cleanup eval (235 tickets with gold answers)
+
+Tests your system against messy real-world data: very long emails, base64-encoded images in descriptions, HTML markup, excessive Unicode/emoji, whitespace-only content, repeated text, deeply nested email forwards, mixed-language tickets, raw JSON/XML dumps, MIME-encoded content, OCR artifacts, container logs, invisible Unicode characters, RTL/bidi text, ANSI escape codes, and more.
+
+```bash
+cd docs/eval
+uv run python run_eval.py \
+  --endpoint http://localhost:8000 \
+  --dataset ../data/tickets/eval_data_cleanup.json \
+  --gold ../data/tickets/eval_data_cleanup_gold.json
+```
+
+Or using the `ms-evals` Python library:
+
+```bash
+cd py
+uv run python -m ms.evals \
+  --endpoint http://localhost:8000 \
+  --dataset eval_data_cleanup
+```
+
+### 15 data cleanup tickets (quick check, with gold answers)
+
+A smaller 15-ticket subset for rapid iteration during development.
+
+```bash
+cd docs/eval
+uv run python run_eval.py \
+  --endpoint http://localhost:8000 \
+  --dataset ../data/tickets/data_cleanup.json \
+  --gold ../data/tickets/data_cleanup_gold.json
+```
+
+### Responsible AI eval (305 tickets with gold answers)
+
+Tests your system against adversarial inputs: prompt injection, jailbreak attempts, social engineering, CEO fraud/BEC, requests for harmful content, priority manipulation, embedded classification overrides, encoding obfuscation, homoglyph attacks, multi-language injection, timing pressure attacks, fake approval chains, invisible Unicode injection, and combined multi-vector attacks.
+
+```bash
+cd docs/eval
+uv run python run_eval.py \
+  --endpoint http://localhost:8000 \
+  --dataset ../data/tickets/eval_responsible_ai.json \
+  --gold ../data/tickets/eval_responsible_ai_gold.json
+```
+
+Or using the `ms-evals` Python library:
+
+```bash
+cd py
+uv run python -m ms.evals \
+  --endpoint http://localhost:8000 \
+  --dataset eval_responsible_ai
+```
+
+### 15 responsible AI tickets (quick check, with gold answers)
+
+A smaller 15-ticket subset for rapid iteration during development.
+
+```bash
+cd docs/eval
+uv run python run_eval.py \
+  --endpoint http://localhost:8000 \
+  --dataset ../data/tickets/responsible_ai.json \
+  --gold ../data/tickets/responsible_ai_gold.json
+```
+
 ### Custom gold file
 
 ```bash
