@@ -3864,4 +3864,635 @@ SCENARIOS: list[Scenario] = [
         ],
         tags=["data-cleanup", "interleaved-conversations"],
     ),
+    # ──────────────────────────────────────────────────────────────────
+    # Massive pasted document text burying the real issue
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-massive-pasted-document",
+        category="Software & Applications",
+        priority="P3",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["error_message", "steps_to_reproduce"],
+        subjects=[
+            "Cannot access Compliance Policy Library on SharePoint",
+            "SharePoint library returning 403 after migration — pasted doc for context",
+        ],
+        descriptions=[
+            "I keep getting a 403 Forbidden error when I click the Compliance Policy Library "
+            "link on SharePoint. It worked fine before the migration last Friday. Here is the "
+            "document I was trying to access, for context:\n\n"
+            "CONTOSO FINANCIAL SERVICES — DATA RETENTION POLICY v4.2\n"
+            "Effective Date: January 15, 2026\n"
+            "Classification: Internal — Confidential\n\n"
+            "SECTION 1: SCOPE AND APPLICABILITY\n"
+            "1.1 This policy applies to all employees, contractors, and third-party service "
+            "providers of Contoso Financial Services and its subsidiaries.\n"
+            "1.2 All financial records, including but not limited to trade confirmations, "
+            "settlement records, and account statements, must be retained for a minimum of "
+            "seven (7) years from the date of creation in accordance with SEC Rule 17a-4.\n"
+            "1.3 Electronic communications, including emails, instant messages, Bloomberg chat "
+            "logs, and recorded phone lines, must be archived in an immutable format for five "
+            "(5) years.\n"
+            "1.4 Client onboarding documentation including KYC and AML verification records "
+            "shall be maintained for the duration of the client relationship plus five (5) "
+            "years after termination.\n\n"
+            "SECTION 2: DATA CLASSIFICATION\n"
+            "2.1 All data shall be classified into one of four tiers:\n"
+            "  Tier 1 — Public: Annual reports, press releases, marketing materials\n"
+            "  Tier 2 — Internal: Operational procedures, org charts, internal memos\n"
+            "  Tier 3 — Confidential: Client PII, trading strategies, risk models\n"
+            "  Tier 4 — Restricted: M&A materials, regulatory submissions, board minutes\n"
+            "2.2 Tier 3 and Tier 4 data must be encrypted at rest and in transit.\n\n"
+            "SECTION 3: ACCESS CONTROLS\n"
+            "3.1 Access to Tier 3 and Tier 4 data requires manager approval and annual "
+            "recertification through the PAM system.\n"
+            "3.2 All access events must be logged and retained for audit for a minimum of "
+            "three (3) years.\n"
+            "3.3 Privileged access requires multi-factor authentication.\n\n"
+            "SECTION 4: AUDIT AND COMPLIANCE\n"
+            "4.1 Internal audits of data retention compliance shall be conducted quarterly.\n"
+            "4.2 Any identified gaps must be remediated within thirty (30) calendar days.\n\n"
+            "[Document continues for 43 more pages]\n\n"
+            "Anyway, the actual problem is the 403 Forbidden error. Can someone fix the "
+            "permissions on the migrated SharePoint site?",
+            "SharePoint Compliance Policy Library gives me Access Denied (403) since the "
+            "migration. I pasted the full text of the policy I need because I cannot download "
+            "it anymore. The document is 47 pages of data retention and classification policy "
+            "text. Please fix the permissions — I need to reference this for a regulatory "
+            "filing by end of week.",
+        ],
+        next_best_actions=[
+            "Investigate SharePoint 403 error for Compliance Policy Library after site "
+            "migration — likely a permissions issue. Ignore the pasted document content.",
+            "Check SharePoint site collection permissions that may not have been migrated "
+            "correctly when the library was moved to the new site.",
+        ],
+        remediation_steps=[
+            [
+                "Check SharePoint site permissions for the migrated Compliance Policy Library",
+                "Verify the user's group membership includes the new site collection",
+                "Re-grant access if permissions were not carried over during migration",
+                "Test access with the user's account after fixing permissions",
+            ],
+        ],
+        tags=["data-cleanup", "massive-pasted-document", "buried-issue"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # Embedded SVG image data with XML markup
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-embedded-svg-data",
+        category="Hardware & Peripherals",
+        priority="P3",
+        assigned_team="Endpoint Engineering",
+        needs_escalation=False,
+        missing_information=["device_info", "application_version"],
+        subjects=[
+            "Monitor color profile wrong after driver update — inline screenshot",
+            "Display colors shifted blue since NVIDIA update (see embedded image)",
+        ],
+        descriptions=[
+            "After updating the NVIDIA GPU driver to version 550.67, my Dell U2722D monitor "
+            "has a noticeable blue-ish tint. The sRGB mode looks washed out. I tried to paste "
+            "a screenshot of the color test pattern but it came through as raw image data:\n\n"
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" '
+            'height="1080"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" '
+            'y2="0%"><stop offset="0%" style="stop-color:rgb(255,0,0);stop-opacity:1"/>'
+            '<stop offset="50%" style="stop-color:rgb(0,255,0);stop-opacity:1"/><stop '
+            'offset="100%" style="stop-color:rgb(0,0,255);stop-opacity:1"/></linearGradient>'
+            '<linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" '
+            'style="stop-color:rgb(255,255,255);stop-opacity:1"/><stop offset="100%" '
+            'style="stop-color:rgb(0,0,0);stop-opacity:1"/></linearGradient></defs>'
+            '<rect width="1920" height="540" fill="url(#grad1)"/><rect y="540" width="1920" '
+            'height="540" fill="url(#grad2)"/><text x="50" y="50" font-family="Calibri" '
+            'font-size="24" fill="white">Color Calibration Test Pattern — Dell U2722D'
+            '</text><circle cx="960" cy="540" r="200" fill="none" stroke="white" '
+            'stroke-width="2"/></svg>\n\n'
+            "As you can see (if that renders), the gradient should be smooth but it looks "
+            "banded on my screen. The issue started immediately after the NVIDIA driver update.",
+            "My external monitor's colors are off since the GPU driver update. Everything has "
+            "a blue tint and the contrast looks wrong. The monitor is a Dell U2722D connected "
+            "via DisplayPort through a Lenovo ThinkPad USB-C dock. NVIDIA driver 550.67 was "
+            "pushed by SCCM last night.",
+        ],
+        next_best_actions=[
+            "Investigate monitor color profile shift after NVIDIA driver update to v550.67 — "
+            "likely need to reapply the ICC color profile or roll back the driver.",
+            "Check if the NVIDIA driver 550.67 push broke the ICC color profile on Dell "
+            "U2722D monitors — may affect multiple users if deployed via SCCM.",
+        ],
+        remediation_steps=[
+            [
+                "Reapply the Dell U2722D ICC/sRGB color profile in NVIDIA Control Panel",
+                "If that does not fix it, roll back the NVIDIA driver from 550.67 to the previous version",
+                "Verify display color settings in Windows Color Management and NVIDIA settings",
+                "If the issue affects multiple users, escalate to the SCCM team to halt the driver push",
+            ],
+        ],
+        tags=["data-cleanup", "embedded-svg", "xml-data-inline"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # Hex dump of network packet capture
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-hex-dump-network-capture",
+        category="Network & Connectivity",
+        priority="P2",
+        assigned_team="Network Operations",
+        needs_escalation=False,
+        missing_information=["network_location", "affected_users"],
+        subjects=[
+            "Intermittent packet loss on trading floor — packet capture attached",
+            "5-8% packet loss daily on VLAN 210 — hex dump below",
+        ],
+        descriptions=[
+            "Every day between 14:00 and 14:15 UTC we see 5-8% packet loss on the trading "
+            "floor VLAN 210. It's affecting FIX protocol connections to the exchange. I "
+            "captured some packets — here is the raw hex dump:\n\n"
+            "0000  00 1a 2b 3c 4d 5e 00 0c 29 8a 1b 2c 08 00 45 00  ..+<M^..)..,.E.\n"
+            "0010  00 3c 1c 46 40 00 40 06 b1 e6 c0 a8 01 64 ac 10  .<.F@.@......d..\n"
+            "0020  01 01 c0 23 01 bb a1 2b 3c 4d 00 00 00 00 a0 02  ...#...+<M......\n"
+            "0030  ff ff 1a 2b 00 00 02 04 05 b4 04 02 08 0a 00 05  ...+............\n"
+            "0040  8d 4a 00 00 00 00 01 03 03 07 00 00 00 00 00 00  .J..............\n"
+            "0050  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................\n"
+            "0060  45 00 00 3c 1c 47 40 00 40 06 b1 e5 c0 a8 01 64  E..<.G@.@......d\n"
+            "0070  ac 10 01 01 c0 24 01 bb a2 3c 4d 5e 00 00 00 00  .....$...<M^....\n"
+            "0080  a0 02 ff ff 2b 3c 00 00 02 04 05 b4 04 02 08 0a  ....+<..........\n"
+            "0090  00 05 8d 4b 00 00 00 00 01 03 03 07 00 00 00 00  ...K............\n"
+            "00a0  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................\n"
+            "00b0  45 00 00 28 1c 48 40 00 40 06 b1 f8 c0 a8 01 64  E..(.H@.@......d\n"
+            "00c0  ac 10 01 01 c0 23 01 bb a1 2b 3c 4e 5a 6b 7c 8d  .....#...+<NZk|.\n"
+            "[truncated — full capture is 12,847 packets]\n\n"
+            "The pattern is consistent: packet loss starts at exactly 14:00 and stops at "
+            "14:15. My guess is there's a backup job or batch process saturating the uplink.",
+            "VLAN 210 (trading floor, Building 3) is experiencing daily packet loss between "
+            "14:00-14:15 UTC. FIX connections to the exchange drop during this window. "
+            "I have a full pcap capture but it's too large to attach. The hex dump excerpt "
+            "above shows TCP SYN retransmissions during the affected period.",
+        ],
+        next_best_actions=[
+            "Investigate scheduled packet loss on VLAN 210 between 14:00-14:15 UTC — "
+            "correlate with network device logs and scheduled tasks on the trading floor.",
+            "Analyze QoS configuration for VLAN 210 to ensure FIX protocol traffic has "
+            "appropriate priority during the congestion window.",
+        ],
+        remediation_steps=[
+            [
+                "Review switch and router logs for VLAN 210 during the 14:00-14:15 UTC window",
+                "Check for scheduled backup jobs or batch processes that may saturate the uplink",
+                "Analyze QoS configuration to ensure FIX protocol traffic has appropriate priority",
+                "If congestion confirmed, verify uplink capacity and consider traffic engineering",
+            ],
+        ],
+        tags=["data-cleanup", "hex-dump", "network-capture"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # Windows Event Log XML dump
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-event-log-xml-dump",
+        category="Hardware & Peripherals",
+        priority="P2",
+        assigned_team="Endpoint Engineering",
+        needs_escalation=False,
+        missing_information=["device_info", "reproduction_frequency"],
+        subjects=[
+            "Blue screen on my laptop twice today — Event Viewer export",
+            "BSOD DRIVER_IRQL_NOT_LESS_OR_EQUAL — event log XML below",
+        ],
+        descriptions=[
+            "My laptop blue-screened twice today with DRIVER_IRQL_NOT_LESS_OR_EQUAL. Both "
+            "times it happened when I plugged in my USB-C docking station. I exported the "
+            "Event Viewer entries:\n\n"
+            '<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">\n'
+            "  <System>\n"
+            '    <Provider Name="Microsoft-Windows-WER-SystemErrorReporting" '
+            'Guid="{ABCE23E7-DE45-4366-8631-84FA6C525952}"/>\n'
+            "    <EventID>1001</EventID>\n"
+            "    <Version>0</Version>\n"
+            "    <Level>2</Level>\n"
+            "    <Task>0</Task>\n"
+            "    <Opcode>0</Opcode>\n"
+            "    <Keywords>0x8000000000000080</Keywords>\n"
+            '    <TimeCreated SystemTime="2026-03-17T14:22:35.1234567Z"/>\n'
+            "    <EventRecordID>98765</EventRecordID>\n"
+            '    <Correlation ActivityID="{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"/>\n'
+            "    <Execution ProcessID=\"0\" ThreadID=\"0\"/>\n"
+            "    <Channel>System</Channel>\n"
+            "    <Computer>WS-B3-0742.contoso.com</Computer>\n"
+            "  </System>\n"
+            "  <EventData>\n"
+            "    <Data Name=\"BugcheckCode\">0x000000d1</Data>\n"
+            "    <Data Name=\"BugcheckParameter1\">0xfffff80012345678</Data>\n"
+            "    <Data Name=\"BugcheckParameter2\">0x0000000000000002</Data>\n"
+            "    <Data Name=\"BugcheckParameter3\">0x0000000000000000</Data>\n"
+            "    <Data Name=\"BugcheckParameter4\">0xfffff80087654321</Data>\n"
+            "    <Data Name=\"SleepInProgress\">0</Data>\n"
+            "    <Data Name=\"PowerButtonTimestamp\">0</Data>\n"
+            "    <Data Name=\"BootAppStatus\">0</Data>\n"
+            "    <Data Name=\"DumpFileSize\">1073741824</Data>\n"
+            "    <Data Name=\"DumpFile\">C:\\Windows\\MEMORY.DMP</Data>\n"
+            "  </EventData>\n"
+            "</Event>\n\n"
+            "The second crash produced a similar event. Both happened within 30 seconds of "
+            "plugging in the dock. I'm on the 5th floor, Building 3.",
+            "Two BSODs today (DRIVER_IRQL_NOT_LESS_OR_EQUAL, bugcheck 0xD1) both triggered "
+            "when connecting my USB-C docking station. The full Event Viewer XML is pasted "
+            "above. The minidump points to an ndis.sys call — possibly the dock's Ethernet "
+            "adapter driver.",
+        ],
+        next_best_actions=[
+            "Investigate DRIVER_IRQL_NOT_LESS_OR_EQUAL BSOD triggered by USB-C dock — "
+            "likely a driver conflict with the dock's Ethernet or display adapter.",
+            "Check minidump files for the faulting driver and update or roll back.",
+        ],
+        remediation_steps=[
+            [
+                "Check the minidump files (C:\\Windows\\Minidump) for the faulting driver name",
+                "Update the docking station firmware and related USB-C/Ethernet drivers",
+                "If a specific driver is identified, roll it back to the previous version",
+                "Test with a different docking station to isolate whether it is dock-specific",
+            ],
+        ],
+        tags=["data-cleanup", "event-log-xml", "windows-diagnostic"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # Concatenated SCOM monitoring alerts
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-scom-alert-flood",
+        category="Data & Storage",
+        priority="P1",
+        assigned_team="Data Platform",
+        needs_escalation=True,
+        missing_information=["business_impact", "affected_system"],
+        subjects=[
+            "FW: FW: FW: CRITICAL ALERTS — disk space warnings from SCOM",
+            "Production SQL Server running out of disk — alert flood forwarded",
+        ],
+        descriptions=[
+            "Forwarding all the SCOM alerts we've gotten this morning:\n\n"
+            "--- Alert: Logical Disk Free Space is low ---\n"
+            "Source: SQLPROD01.contoso.com\n"
+            "Severity: Critical\n"
+            "Generated: 2026-03-17 08:15:03 UTC\n"
+            "Disk C: 2.1 GB free (4.2%) of 50 GB\n"
+            "Resolution State: New\n"
+            "Rule: Logical Disk Free Space (%) < 5%\n"
+            "---\n\n"
+            "--- Alert: Logical Disk Free Space is low ---\n"
+            "Source: SQLPROD01.contoso.com\n"
+            "Severity: Critical\n"
+            "Generated: 2026-03-17 08:30:04 UTC\n"
+            "Disk C: 1.9 GB free (3.8%) of 50 GB\n"
+            "Resolution State: New\n"
+            "---\n\n"
+            "--- Alert: Logical Disk Free Space is low ---\n"
+            "Source: SQLPROD01.contoso.com\n"
+            "Severity: Critical\n"
+            "Generated: 2026-03-17 08:45:05 UTC\n"
+            "Disk C: 1.7 GB free (3.4%) of 50 GB\n"
+            "Resolution State: New\n"
+            "---\n\n"
+            "--- Alert: Logical Disk Free Space is low ---\n"
+            "Source: SQLPROD01.contoso.com\n"
+            "Severity: Critical\n"
+            "Generated: 2026-03-17 09:00:06 UTC\n"
+            "Disk C: 1.5 GB free (3.0%) of 50 GB\n"
+            "Resolution State: New\n"
+            "---\n\n"
+            "--- Alert: Logical Disk Free Space is low ---\n"
+            "Source: SQLPROD01.contoso.com\n"
+            "Severity: Critical\n"
+            "Generated: 2026-03-17 09:15:07 UTC\n"
+            "Disk C: 1.3 GB free (2.6%) of 50 GB\n"
+            "Resolution State: New\n"
+            "---\n\n"
+            "The alerts are coming in every 15 minutes and the disk keeps shrinking. "
+            "SQLPROD01 is our production SQL Server for the trading platform. If it runs "
+            "out of disk space, trade execution will stop.",
+            "SQLPROD01 production SQL Server C: drive is critically low on space (under 5% "
+            "and falling). SCOM has been alerting every 15 minutes since 8 AM. I've "
+            "forwarded all 12 alerts above. Need immediate intervention before the server "
+            "runs out of space entirely.",
+        ],
+        next_best_actions=[
+            "Immediately address critically low disk space on SQLPROD01 C: drive — "
+            "production SQL Server is at risk of failing if disk reaches 0%.",
+            "Free disk space on SQLPROD01 urgently and investigate what is consuming the "
+            "C: drive. Check tempdb, error logs, and backup files.",
+        ],
+        remediation_steps=[
+            [
+                "Free immediate disk space by clearing temp files, IIS logs, and old backups on SQLPROD01",
+                "Check if SQL Server tempdb or error logs are consuming excessive C: drive space",
+                "Move any relocatable databases or logs to a dedicated data volume",
+                "Add disk capacity and update SCOM alert thresholds once resolved",
+            ],
+        ],
+        tags=["data-cleanup", "scom-alert-flood", "concatenated-alerts"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # Multi-encoding mojibake chain
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-mojibake-multi-encoding",
+        category="Hardware & Peripherals",
+        priority="P3",
+        assigned_team="Endpoint Engineering",
+        needs_escalation=False,
+        missing_information=["device_info", "application_version"],
+        subjects=[
+            "Printer driver error — weird characters in error message",
+            "Cannot install printer driver — garbled mojibake error text",
+        ],
+        descriptions=[
+            "I'm trying to install the driver for our Konica Minolta C308 printer and it "
+            "keeps failing. The error message got garbled through multiple encoding layers. "
+            "Here is what I see:\n\n"
+            "First the dialog showed: \u00e2\u20ac\u02dcDruckertreiber konnte nicht installiert "
+            "werden\u00e2\u20ac\u2122 \u00e2\u20ac\u201d Fehlercode 0x800F0214\n\n"
+            "Then I copied it to Notepad and it became: \u00c3\u00a2\u00e2\u201a\u00ac\u02dc"
+            "Cannot locate INF file\u00c3\u00a2\u00e2\u201a\u00ac\u2122\n\n"
+            "My colleague sent me the error in an email and it got even worse: "
+            "\u00c3\u00a3\u00c2\u00a2\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201cDriver "
+            "installation failed\u00c3\u00a3\u00c2\u00a2\u00c3\u00a2\u00e2\u201a\u00ac"
+            "\u00c2\u009d\n\n"
+            "The original error appears to be in German but got double or triple encoded "
+            "through our email system. The actual error code is 0x800F0214 and I'm on "
+            "Windows 11.",
+            "Konica Minolta C308 printer driver installation fails with error 0x800F0214 on "
+            "Windows 11. The error text has been garbled through multiple character encoding "
+            "conversions. The underlying error seems to be about a missing INF file in the "
+            "driver package.",
+        ],
+        next_best_actions=[
+            "Troubleshoot Konica Minolta C308 printer driver installation failure with error "
+            "0x800F0214 — likely a missing INF file or unsigned driver issue.",
+            "Download the correct Konica Minolta C308 driver package for Windows 11 and "
+            "install using the Add Printer wizard.",
+        ],
+        remediation_steps=[
+            [
+                "Download the correct Konica Minolta C308 driver package for Windows 11 from the manufacturer",
+                "Check if driver signing enforcement is blocking the installation",
+                "Try installing the driver through the Add Printer wizard with the Have Disk option",
+                "If 0x800F0214 persists, temporarily disable driver signature enforcement and retry",
+            ],
+        ],
+        tags=["data-cleanup", "mojibake", "multi-encoding"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # Cascading out-of-office auto-reply loop
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-auto-reply-cascade",
+        category="Software & Applications",
+        priority="P2",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["error_message", "affected_users"],
+        subjects=[
+            "RE: RE: RE: RE: Automatic reply: RE: Automatic reply: Room booking down",
+            "Auto-reply loop burying real issue — booking system offline",
+        ],
+        descriptions=[
+            "--- Automatic Reply ---\n"
+            "Thank you for your email. I am currently out of the office from March 15-20 "
+            "with limited access to email. For urgent matters please contact the IT Help "
+            "Desk at x5000.\n"
+            "Regards, Amanda Chen\n\n"
+            "--- Automatic Reply ---\n"
+            "Thank you for contacting IT Support. This is an automated acknowledgment. Your "
+            "request has been logged and assigned ticket number AUTO-REF-28491. A technician "
+            "will respond within 4 business hours.\n"
+            "IT Help Desk\n\n"
+            "--- Automatic Reply ---\n"
+            "Thank you for your email. I am currently out of the office from March 15-20 "
+            "with limited access to email. For urgent matters please contact the IT Help "
+            "Desk at x5000.\n"
+            "Regards, Amanda Chen\n\n"
+            "--- Automatic Reply ---\n"
+            "Thank you for contacting IT Support. This is an automated acknowledgment. Your "
+            "request has been logged and assigned ticket number AUTO-REF-28492. A technician "
+            "will respond within 4 business hours.\n"
+            "IT Help Desk\n\n"
+            "--- Automatic Reply ---\n"
+            "Thank you for your email. I am currently out of the office from March 15-20.\n"
+            "Regards, Amanda Chen\n\n"
+            "--- Original Message (buried at the bottom) ---\n"
+            "From: Amanda Chen\n"
+            "Sent: Monday 8:15 AM\n"
+            "To: IT Support\n"
+            "Subject: Meeting room booking system down\n\n"
+            "The meeting room booking system (RoomBook Pro) has been down since this morning. "
+            "Nobody on Floor 7 can reserve conference rooms. We have client meetings this "
+            "afternoon and need this fixed ASAP.",
+            "There is an out-of-office auto-reply loop between my mailbox and the IT Help "
+            "Desk auto-acknowledgment system. The real issue is at the bottom of the chain: "
+            "the RoomBook Pro meeting room booking system is down for Floor 7.",
+        ],
+        next_best_actions=[
+            "Investigate RoomBook Pro meeting room booking system outage on Floor 7 — ignore "
+            "the cascading auto-reply chain and focus on restoring the booking service.",
+            "Restore the RoomBook Pro booking system. Also fix the auto-reply loop between "
+            "the user's OOO and the help desk auto-acknowledgment.",
+        ],
+        remediation_steps=[
+            [
+                "Check the RoomBook Pro application server status and logs",
+                "Verify the Exchange room mailbox integration is functioning",
+                "Restart the RoomBook Pro service if it is hung or crashed",
+                "Communicate the estimated resolution time to affected users on Floor 7",
+            ],
+        ],
+        tags=["data-cleanup", "auto-reply-loop", "buried-issue"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # Tab-separated query result dump
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-tab-separated-query-results",
+        category="Data & Storage",
+        priority="P2",
+        assigned_team="Data Platform",
+        needs_escalation=False,
+        missing_information=["environment_details", "timestamp"],
+        subjects=[
+            "Database query taking 45 minutes — full result set included",
+            "SELECT on trades table degraded from 10s to 45min — data attached",
+        ],
+        descriptions=[
+            "SELECT * FROM trades WHERE trade_date = '2026-03-17' now takes 45 minutes "
+            "on SQLPROD03. It used to run in under 10 seconds. I think the index on "
+            "trade_date got dropped during last night's maintenance window. Here is a "
+            "sample of the result set to show it still returns correct data:\n\n"
+            "trade_id\ttimestamp\tsymbol\tquantity\tprice\tstatus\taccount_id\n"
+            "50001\t2026-03-17 09:30:01\tAAPL\t100\t178.42\tFILLED\tACCT-7890\n"
+            "50002\t2026-03-17 09:30:01\tMSFT\t250\t415.67\tFILLED\tACCT-7891\n"
+            "50003\t2026-03-17 09:30:02\tGOOG\t50\t168.23\tPARTIAL\tACCT-7892\n"
+            "50004\t2026-03-17 09:30:02\tAMZN\t75\t185.91\tFILLED\tACCT-7893\n"
+            "50005\t2026-03-17 09:30:03\tTSLA\t200\t242.58\tFILLED\tACCT-7894\n"
+            "50006\t2026-03-17 09:30:03\tNVDA\t150\t892.34\tFILLED\tACCT-7895\n"
+            "50007\t2026-03-17 09:30:04\tMETA\t300\t507.12\tREJECTED\tACCT-7896\n"
+            "50008\t2026-03-17 09:30:04\tJPM\t500\t198.76\tFILLED\tACCT-7897\n"
+            "50009\t2026-03-17 09:30:05\tBAC\t1000\t37.84\tFILLED\tACCT-7898\n"
+            "50010\t2026-03-17 09:30:05\tV\t125\t278.93\tFILLED\tACCT-7899\n"
+            "[... 47,832 more rows ...]\n\n"
+            "The query returns correct results, it's just incredibly slow now. Execution "
+            "plan shows a full table scan instead of an index seek.",
+            "Query performance on the trades table (SQLPROD03) degraded from 10 seconds to "
+            "45 minutes. The execution plan shows a full table scan — the clustered index "
+            "on trade_date appears to have been dropped during overnight maintenance. The "
+            "sample result set above shows the data is intact.",
+        ],
+        next_best_actions=[
+            "Investigate severe query performance degradation on SQLPROD03 trades table — "
+            "likely a missing index on trade_date dropped during maintenance.",
+            "Recreate the trade_date index on the trades table and verify the execution "
+            "plan returns to index seek.",
+        ],
+        remediation_steps=[
+            [
+                "Check the index definitions on the trades table to verify the trade_date index exists",
+                "If the index was dropped, recreate it with CREATE INDEX on trade_date",
+                "Review the maintenance window scripts to identify what caused the index drop",
+                "Monitor query execution plans before and after index rebuild to confirm resolution",
+            ],
+        ],
+        tags=["data-cleanup", "query-result-dump", "tabular-data"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # Raw SMTP email headers flood
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-raw-smtp-headers",
+        category="Software & Applications",
+        priority="P3",
+        assigned_team="Enterprise Applications",
+        needs_escalation=False,
+        missing_information=["application_version", "device_info"],
+        subjects=[
+            "Outlook freezes for 30 seconds when opening external emails",
+            "Outlook hangs on external messages since March patch — headers below",
+        ],
+        descriptions=[
+            "Outlook 365 on my Windows 11 laptop freezes for about 30 seconds every time I "
+            "open an email from external senders. Internal emails open instantly. I thought "
+            "the raw headers might help diagnose — here they are from one of the slow emails:\n\n"
+            "Received: from MX01.contoso.com (10.0.1.50) by\n"
+            " EX02.contoso.com (10.0.1.51) with Microsoft SMTP Server\n"
+            " (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id\n"
+            " 15.2.1118.40; Mon, 17 Mar 2026 09:15:22 +0000\n"
+            "Received: from mail-relay.partner.com (203.0.113.50) by\n"
+            " MX01.contoso.com (10.0.1.50) with ESMTPS id ABC123DEF456;\n"
+            " Mon, 17 Mar 2026 09:15:20 +0000\n"
+            "Authentication-Results: contoso.com; spf=pass\n"
+            " smtp.mailfrom=partner.com; dkim=pass (2048-bit key)\n"
+            " header.d=partner.com; dmarc=pass action=none\n"
+            " header.from=partner.com;\n"
+            "X-MS-Exchange-Organization-SCL: 1\n"
+            "X-MS-Exchange-Organization-AuthSource: MX01.contoso.com\n"
+            "X-MS-Exchange-Organization-AuthAs: Anonymous\n"
+            "X-MS-Has-Attach:\n"
+            "X-MS-TNEF-Correlator:\n"
+            "MIME-Version: 1.0\n"
+            "Content-Type: multipart/mixed;\n"
+            ' boundary="----=_Part_12345_6789.1710668120"\n'
+            "X-Originating-IP: [203.0.113.50]\n"
+            "X-MS-Exchange-CrossTenant-AuthAs: Anonymous\n"
+            "X-MS-Exchange-CrossTenant-Network-Message-Id:\n"
+            " a1b2c3d4-e5f6-7890-abcd-ef1234567890\n"
+            "X-MS-Exchange-Transport-CrossTenantHeadersStamped: EX02\n\n"
+            "The delay started after the March Outlook patch was pushed. I think something "
+            "in the DLP or compliance scanning pipeline is adding latency for external mail.",
+            "Every external email I open in Outlook takes 30 seconds before the content "
+            "appears. Internal emails are instant. This started after the March patch. "
+            "I've pasted the raw SMTP headers from one of the slow emails to help "
+            "troubleshoot the delay.",
+        ],
+        next_best_actions=[
+            "Investigate Outlook 365 freeze when opening external emails — likely a DLP or "
+            "compliance policy scanning delay introduced with the March patch.",
+            "Check Outlook performance logging for the delay source and review DLP "
+            "configuration for external mail scanning.",
+        ],
+        remediation_steps=[
+            [
+                "Check Outlook performance logging for the delay source when opening external emails",
+                "Review DLP and compliance policy configurations for external mail scanning latency",
+                "Test with Outlook safe mode to rule out add-in interference",
+                "Check if the March patch introduced known Outlook performance regressions",
+            ],
+        ],
+        tags=["data-cleanup", "raw-email-headers", "smtp-headers-dump"],
+    ),
+    # ──────────────────────────────────────────────────────────────────
+    # Very long single paragraph with no line breaks (wall of text)
+    # ──────────────────────────────────────────────────────────────────
+    Scenario(
+        scenario_id="cleanup-wall-of-text-no-breaks",
+        category="Network & Connectivity",
+        priority="P3",
+        assigned_team="Network Operations",
+        needs_escalation=False,
+        missing_information=["error_message", "device_info"],
+        subjects=[
+            "VPN certificate expired cannot connect",
+            "GlobalProtect certificate error — remote work blocked",
+        ],
+        descriptions=[
+            "Hi IT support I am writing to report an issue with my VPN connection that has "
+            "been affecting my ability to work remotely since yesterday morning when I tried "
+            "to connect to the corporate network from my home office using the GlobalProtect "
+            "VPN client on my Dell Latitude 5540 laptop running Windows 11 Pro version 23H2 "
+            "and I received an error message that said something like certificate validation "
+            "failed or certificate has expired I am not sure of the exact wording because I "
+            "was in a hurry to join a client call but I do remember it mentioned something "
+            "about the certificate and I tried clicking retry several times and it did not "
+            "work so I tried restarting my laptop and that did not help either and then I "
+            "tried connecting through my phone hotspot instead of my home WiFi thinking maybe "
+            "it was a network issue but I got the same error on both networks which makes me "
+            "think it is definitely a certificate problem and not a network problem and I "
+            "asked my colleague Jennifer Park who sits next to me in the office and she said "
+            "her VPN is working fine so it might just be my machine and I am supposed to work "
+            "from home for the rest of this week because of a plumber appointment on Wednesday "
+            "and a dentist on Thursday so I really need this fixed as soon as possible because "
+            "I have several important client calls and I cannot access the shared drives or "
+            "internal applications without VPN and I also tried uninstalling and reinstalling "
+            "the GlobalProtect client but that did not help either and I even tried using the "
+            "web portal VPN but that also gave a certificate error and I found an old KB "
+            "article that said to check the date and time on my computer which I did and they "
+            "are both correct so that is not the issue either please help",
+            "my vpn stopped working yesterday it says certificate error or something I need "
+            "to connect from home I tried everything restarting reinstalling the client using "
+            "different networks nothing works my colleague says hers works fine so its just my "
+            "laptop the GlobalProtect client shows a red X and when I hover over it it says "
+            "something about certificate not valid or expired I cannot remember the exact "
+            "message but it definitely mentions certificate and I need this fixed today "
+            "because I am working remotely all week and cannot access anything without the VPN "
+            "including email shared drives the internal wiki and our project management tool "
+            "and my manager is asking me to join calls that require screen sharing of internal "
+            "documents which I cannot do without the VPN connection so this is very urgent for "
+            "me even though I know it is probably just a certificate renewal thing but I "
+            "cannot do it myself because it requires admin access which I do not have on this "
+            "laptop please advise",
+        ],
+        next_best_actions=[
+            "Renew or reissue the expired VPN client certificate on the user's laptop — the "
+            "GlobalProtect certificate validation failure prevents remote connectivity.",
+            "Check the VPN client certificate expiration and reissue through the certificate "
+            "authority. The user needs remote access for the rest of the week.",
+        ],
+        remediation_steps=[
+            [
+                "Check the VPN client certificate expiration date on the user's laptop",
+                "Reissue a new VPN client certificate through the certificate authority",
+                "Install the renewed certificate and verify VPN connectivity",
+                "Check if other users have the same certificate batch that may be expiring soon",
+            ],
+        ],
+        tags=["data-cleanup", "no-line-breaks", "wall-of-text"],
+    ),
 ]

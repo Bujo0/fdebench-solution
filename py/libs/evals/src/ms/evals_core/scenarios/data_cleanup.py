@@ -16306,7 +16306,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "C: drive. It's been alerting every 15 minutes since 8 AM. Please help!\n\n"
                 "— David Park\nDatabase Administration"
             ),
-            category=Category.DATA,
+            category=Category.DATA_STORAGE,
             priority=Priority.P1,
             team=Team.DATA_PLATFORM,
             needs_escalation=True,
@@ -16494,7 +16494,7 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "trade_date got dropped during last night's maintenance window.\n\n"
                 "— Jason Rivera\nQuantitative Analysis"
             ),
-            category=Category.DATA,
+            category=Category.DATA_STORAGE,
             priority=Priority.P2,
             team=Team.DATA_PLATFORM,
             needs_escalation=False,
