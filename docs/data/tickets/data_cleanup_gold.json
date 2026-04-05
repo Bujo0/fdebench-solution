@@ -1,6 +1,7 @@
 [
     {
         "ticket_id": "INC-5001",
+<<<<<<< HEAD
         "category": "Network & Connectivity",
         "priority": "P2",
         "assigned_team": "Network Operations",
@@ -13,15 +14,195 @@
             "Test connectivity to both primary and alternate (vpn2.contoso.com) VPN gateways",
             "Review weekend maintenance change records for any gateway configuration changes",
             "If issue persists, escalate to network engineering for VPN infrastructure review"
+=======
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Check SharePoint site permissions for the Finance Q4 site. Verify whether the reporter's access was removed or modified during a recent migration or group membership change.",
+        "remediation_steps": [
+            "Check the Finance Q4 SharePoint site permissions and group membership",
+            "Verify if the reporter was removed from any security groups during recent changes",
+            "Re-grant access to the Finance Q4 SharePoint site if permissions were inadvertently removed",
+            "Confirm the reporter can access the site and upload the quarterly report",
+            "Review recent permission changes to prevent recurrence"
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         ]
     },
     {
         "ticket_id": "INC-5002",
+<<<<<<< HEAD
+=======
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version",
+            "environment_details"
+        ],
+        "next_best_action": "Investigate Outlook attachment size limit configuration after the recent update. Verify the actual attachment size limit policy and whether the recent update changed the default settings.",
+        "remediation_steps": [
+            "Check the Outlook version and confirm which update was applied",
+            "Verify the Exchange Online attachment size limit policy for the user's mailbox",
+            "Test sending a 15MB attachment from a reference machine to isolate the issue",
+            "If the update changed attachment handling behavior, roll back or apply a fix",
+            "Suggest using OneDrive sharing links as a workaround for large files in the interim"
+        ]
+    },
+    {
+        "ticket_id": "INC-5003",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Dispatch a technician to Floor 5 to diagnose the HP LaserJet Pro M404n false paper jam error. Time-sensitive: 200 pages of compliance reports needed by 3 PM for a board meeting.",
+        "remediation_steps": [
+            "Dispatch technician to Floor 5 to inspect the HP LaserJet Pro M404n",
+            "Check for paper dust, torn paper fragments, or sensor obstructions causing the false jam error",
+            "Clean or replace paper feed sensors if necessary",
+            "Run a printer self-test to verify the fix",
+            "If the printer cannot be repaired quickly, redirect the print job to an alternate printer on the same floor"
+        ]
+    },
+    {
+        "ticket_id": "INC-5004",
+        "category": "Hardware & Peripherals",
+        "priority": "P4",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "error_message",
+            "device_info",
+            "steps_to_reproduce",
+            "business_impact"
+        ],
+        "next_best_action": "Contact the reporter to gather basic details about the laptop issue: what is happening, what device model, what error messages are shown, and how it affects their work.",
+        "remediation_steps": [
+            "Contact Jake Morrison to gather specific details about the laptop issue",
+            "Determine the laptop model, the nature of the issue, and any error messages",
+            "Once the issue is understood, provide appropriate troubleshooting steps or schedule a repair",
+            "Update the ticket with the gathered information for proper triage"
+        ]
+    },
+    {
+        "ticket_id": "INC-5005",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Investigate VPN connectivity failure for the reporter. Check GlobalProtect client logs and VPN gateway status. Determine the specific error message being displayed.",
+        "remediation_steps": [
+            "Ask the reporter for the exact VPN error message or error code",
+            "Check the GlobalProtect VPN gateway status and recent changes",
+            "Verify the reporter's VPN credentials and certificate status",
+            "Test VPN connectivity from a reference Windows 11 machine with GlobalProtect",
+            "If the issue is server-side, escalate to network engineering for gateway investigation"
+        ]
+    },
+    {
+        "ticket_id": "INC-5006",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version",
+            "affected_users"
+        ],
+        "next_best_action": "Investigate Outlook crash after Windows update for multiple users on Floor 3 in the London office. Check if the update introduced a compatibility issue with the installed Outlook version.",
+        "remediation_steps": [
+            "Identify the specific Windows update that was applied and its compatibility with the current Outlook version",
+            "Check if other users in the London office Floor 3 are experiencing the same issue",
+            "If the update caused the issue, coordinate with Endpoint Engineering to roll back or patch",
+            "Clear the Outlook local cache and repair the Outlook installation as an immediate remediation",
+            "Confirm resolution with both affected users"
+        ]
+    },
+    {
+        "ticket_id": "INC-5007",
+        "category": "Access & Authentication",
+        "priority": "P3",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "authentication_method"
+        ],
+        "next_best_action": "Manually reset the user's password and verify their self-service password reset security questions. The SSPR portal may have stale or incorrectly configured security questions.",
+        "remediation_steps": [
+            "Verify the account lockout status in Entra ID",
+            "Manually reset the password for the user",
+            "Review and update the self-service password reset security questions",
+            "Confirm the user can log in and access their workstation",
+            "Investigate why SSPR security questions are failing to identify if it's a broader issue"
+        ]
+    },
+    {
+        "ticket_id": "INC-5008",
+        "category": "Software & Applications",
+        "priority": "P1",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate the shared mailbox email delivery failure immediately. This is a trading desk missing client orders, which has direct revenue impact. Check Exchange Online mail flow rules and transport logs for the apac-trading shared mailbox.",
+        "remediation_steps": [
+            "Check Exchange Online transport logs for the apac-trading@contoso.com mailbox",
+            "Verify mail flow rules and connectors that handle external email delivery",
+            "Check if any recent changes to mail flow rules or spam filters are blocking external mail",
+            "Restore external email delivery to the shared mailbox",
+            "Monitor for 30 minutes to confirm stable delivery of external emails"
+        ]
+    },
+    {
+        "ticket_id": "INC-5009",
+        "category": "Data & Storage",
+        "priority": "P1",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate the blocked sessions on the production SQL Server immediately. Kill or analyze the long-running transaction (SPID 89) causing lock contention. ~500 client portal users are affected with 500 errors.",
+        "remediation_steps": [
+            "Connect to sql-prod-east and investigate SPID 89 to determine the blocking query",
+            "If safe, kill the blocking session (SPID 89) to release locks",
+            "Monitor the connection pool and blocked session count after intervention",
+            "Verify client portal functionality is restored by checking Application Insights error rates",
+            "Investigate root cause of the long-running transaction to prevent recurrence",
+            "Consider implementing query timeout policies and alerting for long-running transactions"
+        ]
+    },
+    {
+        "ticket_id": "INC-5010",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details"
+        ],
+        "next_best_action": "Investigate VPN error code 812 for users in the Dubai office. Check if there are regional VPN gateway issues or configuration changes affecting the Dubai site.",
+        "remediation_steps": [
+            "Check VPN gateway logs for error code 812 from the Dubai office IP range",
+            "Verify the VPN configuration and NPS policies for the Dubai site",
+            "Check if any recent network or firewall changes affected VPN connectivity from that region",
+            "Test VPN connectivity from the Dubai office with a reference account",
+            "If the issue is regional, escalate to the network engineering team for gateway configuration review"
+        ]
+    },
+    {
+        "ticket_id": "INC-5011",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "category": "Hardware & Peripherals",
         "priority": "P3",
         "assigned_team": "Endpoint Engineering",
         "needs_escalation": false,
         "missing_information": [],
+<<<<<<< HEAD
         "next_best_action": "Dispatch endpoint engineering to desk 14-227 to diagnose the Dell U2722D monitor (asset tag CT-MN-08834) displaying vertical lines and flickering, and determine if the issue is the monitor, cable, or docking station.",
         "remediation_steps": [
             "Test the monitor with a different laptop to isolate whether the issue is monitor or source device",
@@ -84,11 +265,43 @@
     },
     {
         "ticket_id": "INC-5006",
+=======
+        "next_best_action": "Initiate a laptop screen replacement or full device replacement for the damaged ThinkPad X1 Carbon Gen 11. Check warranty status and begin RMA process if applicable.",
+        "remediation_steps": [
+            "Check the warranty status of the ThinkPad X1 Carbon Gen 11",
+            "If under warranty, initiate a Lenovo RMA for screen replacement",
+            "If out of warranty, assess whether screen replacement or full device replacement is more cost-effective",
+            "Ensure the user has a functional external monitor in the meantime",
+            "Schedule the repair or replacement and update the user on the timeline"
+        ]
+    },
+    {
+        "ticket_id": "INC-5012",
+        "category": "Access & Authentication",
+        "priority": "P3",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Investigate the Microsoft Authenticator app timeout issue on the new iPhone. This is likely related to device migration and re-registration of the authenticator account.",
+        "remediation_steps": [
+            "Verify the user's MFA registration status in Entra ID",
+            "Remove the existing Authenticator app registration for the old device",
+            "Guide the user through re-registering Microsoft Authenticator on the new iPhone 16",
+            "Test push notification approval to confirm the issue is resolved",
+            "If the issue persists, check for known iOS 18 compatibility issues with the Authenticator app"
+        ]
+    },
+    {
+        "ticket_id": "INC-5013",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "category": "Network & Connectivity",
         "priority": "P2",
         "assigned_team": "Network Operations",
         "needs_escalation": false,
         "missing_information": [],
+<<<<<<< HEAD
         "next_best_action": "Dispatch a network technician to Floor 3, Zone B to inspect the Cisco Meraki access point showing amber LED near conference room 3B, and investigate the elevated temperature in the server closet on that floor.",
         "remediation_steps": [
             "Check the Meraki dashboard for the access point near conference room 3B for error status",
@@ -214,10 +427,20 @@
             "Identify the laptop model and asset tag",
             "Based on symptoms, either schedule a desk-side visit or arrange a replacement device",
             "If physical damage, initiate warranty claim or replacement process"
+=======
+        "next_best_action": "Investigate the intermittent network drops on Building 2, Floor 7. The reporter has identified a potentially misconfigured device causing broadcast storms via ARP table flip-flopping. Prioritize locating and isolating the offending device.",
+        "remediation_steps": [
+            "Review the provided packet captures and switch logs to confirm the broadcast traffic source",
+            "Locate and isolate the device at MAC address AA:BB:CC:DD:EE:FF causing ARP table issues",
+            "Check the switch port configuration for the offending device and apply storm control if needed",
+            "Verify network stability on Floor 7 after isolating the device",
+            "Investigate root cause of the device misconfiguration to prevent recurrence"
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         ]
     },
     {
         "ticket_id": "INC-5014",
+<<<<<<< HEAD
         "category": "Data & Storage",
         "priority": "P1",
         "assigned_team": "Data Platform",
@@ -231,6 +454,22 @@
             "Re-run the PL_IngestDailyTransactions pipeline once connectivity is restored",
             "Verify downstream analytics dashboards refresh with current data",
             "Set up monitoring alerts for pipeline failures to catch issues earlier"
+=======
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "previous_ticket_id"
+        ],
+        "next_best_action": "Process the Visio Professional installation request (REQ-2341 approved). Address the OneDrive storage quota question. The printer complaint (INC-4100) should be followed up separately. The SharePoint access request for a colleague needs its own ticket.",
+        "remediation_steps": [
+            "Process the approved Visio Professional installation request for asset CT-L-4892",
+            "Check and potentially increase the user's OneDrive storage quota",
+            "Follow up on the existing printer issue ticket INC-4100 separately",
+            "Create a separate access request for sarah.chen@contoso.com for the Finance Reports SharePoint site",
+            "Redirect the coffee machine complaint to Facilities Management"
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         ]
     },
     {
@@ -239,6 +478,7 @@
         "priority": "P2",
         "assigned_team": "Identity & Access Management",
         "needs_escalation": false,
+<<<<<<< HEAD
         "missing_information": [
             "device_info"
         ],
@@ -252,3 +492,16 @@
         ]
     }
 ]
+=======
+        "missing_information": [],
+        "next_best_action": "Unlock the user's account immediately. The account was locked after 3 failed password attempts, and the user has a client call in 45 minutes. Verify no suspicious login activity before unlocking.",
+        "remediation_steps": [
+            "Check for any suspicious login activity associated with the failed password attempts",
+            "Unlock the user's account in Entra ID",
+            "If needed, initiate a password reset for the user",
+            "Verify VPN connectivity is restored and the user can access CRM and shared drives",
+            "Confirm resolution with the user before their client call"
+        ]
+    }
+]
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
