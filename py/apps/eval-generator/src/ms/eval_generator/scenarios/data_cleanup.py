@@ -4276,4 +4276,810 @@ DATA_CLEANUP_SCENARIOS: list[ScenarioDefinition] = [
         ),
         tags=("data-cleanup", "interleaved-threads"),
     ),
+    # ------------------------------------------------------------------
+    # dc-gen-072  PGP/S-MIME signed email block wrapping hardware issue
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-072",
+        subjects=(
+            "RE: Monitor flickering on dock - PGP signed",
+            "Digitally signed msg: external display issue",
+        ),
+        descriptions=(
+            "-----BEGIN PGP SIGNED MESSAGE-----\n"
+            "Hash: SHA256\n\n"
+            "Hi Support,\n\n"
+            "My Dell P2722H external monitor has been flickering"
+            " intermittently every 10-15 seconds since Monday"
+            " morning. I am connected through a Lenovo ThinkPad"
+            " USB-C Gen 2 dock (model 40AS). The flickering"
+            " occurs on both DisplayPort and HDMI outputs from"
+            " the dock. I have tried swapping cables and using"
+            " a different monitor port — same behaviour. Laptop"
+            " is a ThinkPad T14s Gen 3, Windows 11 22H2, Intel"
+            " Iris Xe graphics driver v31.0.101.4502. Asset tag:"
+            " DOCK-3378. This is impacting my ability to work —"
+            " the flicker triggers migraines.\n\n"
+            "Thanks,\nMarcus Tan\n"
+            "-----BEGIN PGP SIGNATURE-----\n\n"
+            "iQIzBAEBCAAdFiEEeL0mK9r2VghQGN0JR9Kp3gBcW0QFAm"
+            "V6Dn0ACgkQR9Kp3gBcW0TLqg//b1FD4UKRM4ByZ+8xP0Kw"
+            "XJfJVQR7Yp2NkWsGm4VfZ2Tc+JhFg0jM5vR3kL8uPz1UoKf"
+            "Y7Hq0sXbN+C9v2mD3gR5wP8kF6Lj7N1tQ4+3vH2oJmZ5xC8"
+            "Rf0KpL9nW6TyB1dQ+7hN4xE2sG3mA8fJkV0wR5uP3zY+1bN"
+            "qO6dF2cH7gL0xK4sW8jR9nT5vE3mA1yB+fJkP0wUuQ7iX6z"
+            "=a1B2\n"
+            "-----END PGP SIGNATURE-----",
+            "User Marcus Tan reports his Dell P2722H monitor"
+            " flickers every 10-15 seconds when connected via a"
+            " Lenovo ThinkPad USB-C Gen 2 dock (40AS). Both DP"
+            " and HDMI outputs affected. Cable and port swaps"
+            " did not help. Laptop: ThinkPad T14s Gen 3, Win 11"
+            " 22H2, Intel Iris Xe driver v31.0.101.4502. Asset:"
+            " DOCK-3378. Message was wrapped in a PGP SIGNED"
+            " MESSAGE block with SHA256 hash and detached"
+            " signature — the signature block is noise and"
+            " should be ignored for triage purposes.",
+        ),
+        gold=ScenarioGold(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+            needs_escalation=False,
+            missing_information=(
+                "device_info",
+                "reproduction_frequency",
+            ),
+            next_best_action=(
+                "Update the Lenovo dock firmware and Intel Iris"
+                " Xe graphics driver to the latest versions and"
+                " test whether the flickering persists"
+            ),
+            remediation_steps=(
+                "Strip the PGP signature block and extract the core hardware complaint from the signed body",
+                "Update the Lenovo ThinkPad USB-C Gen 2 dock firmware using Lenovo Vantage or LVFS",
+                "Update the Intel Iris Xe graphics driver beyond v31.0.101.4502 via Intel Driver Support Assistant",
+                "If flickering persists, test with a direct cable"
+                " connection bypassing the dock to isolate the"
+                " fault to dock vs. laptop GPU",
+            ),
+        ),
+        tags=("data-cleanup", "pgp-signed-email"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-073  Extremely long CC/BCC header list obscuring issue
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-073",
+        subjects=(
+            "RE: Urgent — SAP GUI login failures [ALL-HANDS]",
+            "FW: SAP login issue (large distro list)",
+        ),
+        descriptions=(
+            "From: janet.liu@contoso.com\n"
+            "To: itsupport@contoso.com\n"
+            "CC: alice.a@contoso.com; bob.b@contoso.com;"
+            " carol.c@contoso.com; dave.d@contoso.com;"
+            " eve.e@contoso.com; frank.f@contoso.com;"
+            " grace.g@contoso.com; hank.h@contoso.com;"
+            " iris.i@contoso.com; jack.j@contoso.com;"
+            " kate.k@contoso.com; leo.l@contoso.com;"
+            " mia.m@contoso.com; nate.n@contoso.com;"
+            " olivia.o@contoso.com; paul.p@contoso.com;"
+            " quinn.q@contoso.com; rose.r@contoso.com;"
+            " sam.s@contoso.com; tina.t@contoso.com;"
+            " uma.u@contoso.com; vince.v@contoso.com;"
+            " wendy.w@contoso.com; xander.x@contoso.com;"
+            " yara.y@contoso.com; zach.z@contoso.com;"
+            " a.alpha@contoso.com; b.bravo@contoso.com;"
+            " c.charlie@contoso.com; d.delta@contoso.com;"
+            " e.echo@contoso.com; f.foxtrot@contoso.com;"
+            " g.golf@contoso.com; h.hotel@contoso.com;"
+            " i.india@contoso.com; j.juliet@contoso.com;"
+            " k.kilo@contoso.com; l.lima@contoso.com;"
+            " m.mike@contoso.com; n.november@contoso.com;"
+            " o.oscar@contoso.com; p.papa@contoso.com;"
+            " q.quebec@contoso.com; r.romeo@contoso.com;"
+            " s.sierra@contoso.com; t.tango@contoso.com;"
+            " u.uniform@contoso.com; v.victor@contoso.com;"
+            " w.whiskey@contoso.com; x.xray@contoso.com;"
+            " y.yankee@contoso.com; z.zulu@contoso.com;"
+            " dept-finance@contoso.com;"
+            " dept-legal@contoso.com;"
+            " dept-hr@contoso.com;"
+            " dept-eng@contoso.com;"
+            " dept-sales@contoso.com;"
+            " dept-marketing@contoso.com;"
+            " exec-team@contoso.com\n"
+            "Subject: Urgent — SAP GUI login failures\n\n"
+            "Hi IT,\n\n"
+            "Since 8:15 AM today about 30 people on the finance"
+            " team cannot log in to SAP GUI 7.70. We get error"
+            " code 00:050 — 'No logon possible (no user master"
+            " record exists)'. This started right after the"
+            " weekend maintenance window. SAP system is ECC 6.0"
+            " EHP8 on the PRD client 100. We need this fixed"
+            " ASAP — month-end close is due tomorrow.\n\n"
+            "Thanks,\nJanet Liu\nFinance Operations",
+            "Janet Liu from Finance reports that ~30 users"
+            " cannot log in to SAP GUI 7.70 since 8:15 AM."
+            " Error 00:050 (no user master record). SAP ECC"
+            " 6.0 EHP8, PRD client 100. Started after weekend"
+            " maintenance. Month-end close deadline tomorrow."
+            " The original email was CC'd to 60+ recipients"
+            " including multiple department distribution lists"
+            " and the executive team — the massive CC header"
+            " list is noise and should be disregarded.",
+        ),
+        gold=ScenarioGold(
+            category="Software & Applications",
+            priority="P1",
+            assigned_team="Enterprise Applications",
+            needs_escalation=True,
+            missing_information=(
+                "affected_users",
+                "timestamp",
+            ),
+            next_best_action=(
+                "Verify whether the weekend maintenance window"
+                " included SAP user master record changes or"
+                " role assignments and restore affected accounts"
+                " in PRD client 100 immediately"
+            ),
+            remediation_steps=(
+                "Discard the oversized CC/BCC header list and focus on the SAP login failure reported by Janet Liu",
+                "Check SAP transaction SU01 in PRD client 100"
+                " to verify whether the ~30 finance user master"
+                " records were deleted or locked during the"
+                " weekend maintenance",
+                "Restore or unlock the affected user master records and verify login with SAP GUI 7.70",
+                "Collect the full list of affected user IDs from"
+                " Janet Liu and confirm each can log in after"
+                " remediation",
+                "Review the maintenance change record to prevent"
+                " accidental user master record deletion in"
+                " future windows",
+            ),
+        ),
+        tags=("data-cleanup", "excessive-cc-headers"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-074  XML SOAP Fault pasted as ticket body
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-074",
+        subjects=(
+            "Data sync failure — SOAP Fault from ERP connector",
+            "SOAPFault XML dump from middleware integration",
+        ),
+        descriptions=(
+            '<?xml version="1.0" encoding="UTF-8"?>\n'
+            "<soap:Envelope"
+            ' xmlns:soap="http://schemas.xmlsoap.org/soap/'
+            'envelope/">\n'
+            "  <soap:Body>\n"
+            "    <soap:Fault>\n"
+            "      <faultcode>"
+            "soap:Server</faultcode>\n"
+            "      <faultstring>"
+            "Data synchronization failed: unable to merge"
+            " customer record set CR-20250601-4455 from"
+            " source system ORACLE-FIN into target system"
+            " AZURE-SQL-DW. Conflict on primary key"
+            " CUST_ID=889201. Source last_modified="
+            "2025-06-01T03:22:18Z, target last_modified="
+            "2025-06-01T03:22:17Z. Row hash mismatch:"
+            " expected a4f8c0d3, got b7e2a119."
+            "</faultstring>\n"
+            "      <detail>\n"
+            "        <errorCode>SYNC-4455</errorCode>\n"
+            "        <component>"
+            "ERP-Middleware-Connector-v3.8.2"
+            "</component>\n"
+            "        <timestamp>"
+            "2025-06-01T04:00:03Z</timestamp>\n"
+            "        <retryCount>5</retryCount>\n"
+            "        <maxRetries>5</maxRetries>\n"
+            "      </detail>\n"
+            "    </soap:Fault>\n"
+            "  </soap:Body>\n"
+            "</soap:Envelope>\n\n"
+            "This keeps happening every night during the 3 AM"
+            " sync window. Customer master records are getting"
+            " out of sync between Oracle Financials and our"
+            " Azure SQL Data Warehouse. Five retries exhausted."
+            " The data platform team needs to look at this.",
+            "Nightly data sync between Oracle Financials and"
+            " Azure SQL Data Warehouse is failing at 3 AM for"
+            " customer record set CR-20250601-4455. SOAP Fault"
+            " indicates primary key conflict on CUST_ID=889201"
+            " with a row hash mismatch (expected a4f8c0d3, got"
+            " b7e2a119). ERP-Middleware-Connector v3.8.2 has"
+            " exhausted 5 retries. The raw XML SOAP envelope"
+            " was pasted as the ticket body — the actionable"
+            " issue is the data conflict, not the XML itself.",
+        ),
+        gold=ScenarioGold(
+            category="Data & Storage",
+            priority="P2",
+            assigned_team="Data Platform",
+            needs_escalation=False,
+            missing_information=(
+                "error_message",
+                "configuration_details",
+            ),
+            next_best_action=(
+                "Investigate the primary key conflict on"
+                " CUST_ID=889201 between Oracle Financials and"
+                " Azure SQL DW and implement a conflict"
+                " resolution strategy for the nightly sync"
+            ),
+            remediation_steps=(
+                "Parse the SOAP Fault XML to extract the"
+                " actionable error: SYNC-4455 conflict on"
+                " CUST_ID=889201 with row hash mismatch",
+                "Compare the source and target rows for"
+                " CUST_ID=889201 to determine which system"
+                " holds the authoritative record",
+                "Fix the conflict resolution logic in"
+                " ERP-Middleware-Connector v3.8.2 to handle"
+                " sub-second timestamp ties gracefully",
+                "Re-run the sync for record set CR-20250601-4455 and verify the row hash matches after merge",
+                "Add monitoring alerts for SYNC-* error codes so conflicts are caught before retries are exhausted",
+            ),
+        ),
+        tags=("data-cleanup", "soap-fault-xml"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-075  Kubernetes pod describe output pasted
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-075",
+        subjects=(
+            "Critical pod CrashLoopBackOff — payment service",
+            "kubectl describe pod dump: payment-svc down",
+        ),
+        descriptions=(
+            "Name:         payment-svc-7f8b9c6d4-xk2lp\n"
+            "Namespace:    prod-payments\n"
+            "Priority:     0\n"
+            "Node:         aks-nodepool1-31298752-vmss000003/"
+            "10.240.0.7\n"
+            "Start Time:   Sun, 01 Jun 2025 02:14:33 +0000\n"
+            "Labels:       app=payment-svc\n"
+            "              pod-template-hash=7f8b9c6d4\n"
+            "Status:       Running\n"
+            "IP:           10.244.1.56\n"
+            "Containers:\n"
+            "  payment-api:\n"
+            "    Image:          acr.contoso.io/payment-svc"
+            ":v2.14.0\n"
+            "    Port:           8443/TCP\n"
+            "    State:          Waiting\n"
+            "      Reason:       CrashLoopBackOff\n"
+            "    Last State:     Terminated\n"
+            "      Reason:       OOMKilled\n"
+            "      Exit Code:    137\n"
+            "    Restart Count:  47\n"
+            "    Limits:\n"
+            "      cpu:     500m\n"
+            "      memory:  256Mi\n"
+            "    Requests:\n"
+            "      cpu:     250m\n"
+            "      memory:  128Mi\n"
+            "    Liveness:  http-get http://:8443/healthz"
+            " delay=10s timeout=3s period=15s\n"
+            "Events:\n"
+            "  Warning  BackOff  2m (x47 over 3h)  kubelet"
+            "  Back-off restarting failed container\n\n"
+            "The payment service has been crash-looping for"
+            " 3 hours in the prod-payments namespace. This is"
+            " blocking all credit card transactions. We need"
+            " this escalated immediately. — DevOps On-Call",
+            "The payment-svc pod in the prod-payments namespace"
+            " on AKS has been in CrashLoopBackOff for 3+ hours"
+            " with 47 restarts. Container is OOMKilled (exit"
+            " code 137) with a 256Mi memory limit. Image:"
+            " payment-svc:v2.14.0. This is blocking all credit"
+            " card transactions in production. The kubectl"
+            " describe output was pasted verbatim as the ticket"
+            " body — the key issue is the OOMKilled crash loop"
+            " on a critical payment processing service.",
+        ),
+        gold=ScenarioGold(
+            category="Software & Applications",
+            priority="P1",
+            assigned_team="Enterprise Applications",
+            needs_escalation=True,
+            missing_information=(
+                "environment_details",
+                "business_impact",
+            ),
+            next_best_action=(
+                "Immediately increase the memory limit for the"
+                " payment-svc container above 256Mi and restart"
+                " the pod to restore credit card processing"
+            ),
+            remediation_steps=(
+                "Extract the OOMKilled root cause from the"
+                " kubectl describe output: container memory"
+                " limit of 256Mi is insufficient",
+                "Increase the memory limit for payment-svc to"
+                " at least 512Mi via a Helm values override or"
+                " kubectl patch and trigger a rolling restart",
+                "Verify the pod stabilizes without OOMKilled events and the /healthz liveness probe passes",
+                "Investigate why payment-svc v2.14.0 requires"
+                " more memory than previous versions — check"
+                " for memory leaks or increased payload sizes",
+                "Update the Helm chart defaults to reflect the"
+                " new memory baseline and add a vertical pod"
+                " autoscaler recommendation",
+            ),
+        ),
+        tags=("data-cleanup", "k8s-pod-describe"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-076  Raw hex dump of network packet
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-076",
+        subjects=(
+            "TLS handshake failures — hex packet capture",
+            "Pasted tcpdump hex output: TLS errors on LB",
+        ),
+        descriptions=(
+            "Here's the tcpdump capture showing the failure:\n\n"
+            "16:03:01 00 F1 01 03 03 00 85 01 00 00 81 03 03\n"
+            "5F 6A 2E 1C 9B 4D 77 A8 3C 0D 5E 72 F1 B3 44 60\n"
+            "E8 7A 01 33 C4 D2 9F 6B 00 2F 8E A7 1D 55 03 22\n"
+            "00 00 04 00 2F 00 35 01 00 00 54 00 00 00 18 00\n"
+            "16 00 00 13 61 70 69 2E 63 6F 6E 74 6F 73 6F 2E\n"
+            "63 6F 6D 00 0D 00 0E 00 0C 04 01 04 03 05 01 05\n"
+            "03 02 01 02 03 00 0A 00 08 00 06 00 17 00 18 00\n"
+            "19 00 0B 00 02 01 00 00 23 00 00 FF 01 00 01 00\n\n"
+            "15 03 03 00 02 02 28\n\n"
+            "That last line is a fatal alert (0x28 = "
+            "handshake_failure). This has been happening on the"
+            " F5 BIG-IP load balancer (vip: 10.50.1.100:443)"
+            " for all traffic to api.contoso.com since we"
+            " rotated the TLS certificate on Friday evening."
+            " The new cert is a DigiCert G2 SHA256 cert, and"
+            " we suspect the intermediate CA chain is"
+            " incomplete. About 40%% of external API clients"
+            " are failing. — NetOps On-Call, Sat 02:15 AM",
+            "TLS handshake failures on F5 BIG-IP load balancer"
+            " (VIP 10.50.1.100:443) for api.contoso.com since"
+            " Friday certificate rotation. The raw hex tcpdump"
+            " capture shows a ClientHello followed by a fatal"
+            " alert 0x28 (handshake_failure). New cert is"
+            " DigiCert G2 SHA256 — suspected incomplete"
+            " intermediate CA chain. ~40%% of external API"
+            " clients affected. The hex dump is noise for"
+            " triage; the real issue is broken TLS after"
+            " certificate rotation.",
+        ),
+        gold=ScenarioGold(
+            category="Network & Connectivity",
+            priority="P1",
+            assigned_team="Network Operations",
+            needs_escalation=True,
+            missing_information=(
+                "configuration_details",
+                "error_message",
+            ),
+            next_best_action=(
+                "Verify and install the complete intermediate"
+                " CA chain for the new DigiCert G2 SHA256"
+                " certificate on the F5 BIG-IP load balancer"
+            ),
+            remediation_steps=(
+                "Ignore the raw hex packet dump and focus on"
+                " the TLS handshake_failure alert after Friday"
+                " certificate rotation",
+                "Verify the intermediate CA chain on the F5"
+                " BIG-IP for api.contoso.com using openssl"
+                " s_client -connect 10.50.1.100:443 -showcerts",
+                "Download the correct DigiCert G2 intermediate"
+                " certificates and install the full chain on"
+                " the F5 SSL profile",
+                "Test TLS connectivity from multiple clients and confirm the handshake completes without fatal alerts",
+                "Set up certificate chain validation monitoring to catch incomplete chains after future rotations",
+            ),
+        ),
+        tags=("data-cleanup", "hex-packet-dump"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-077  Mixed encoding with replacement characters
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-077",
+        subjects=(
+            "VPN disconnect \u00e4\u00f6\u00fc\ufffd\ufffd garbled text",
+            "Network issue w/ encoding corruption \ufffd chars",
+        ),
+        descriptions=(
+            "Hallo IT-Support,\n\n"
+            "Seit gestern Nachmittag f\u00e4llt meine VPN-Verbindung"
+            " (Cisco AnyConnect 4.10.07061) alle 15\u201320 Minuten"
+            " aus. Ich bin im Home-Office in M\u00fcnchen und"
+            " verbinde mich \u00fcber das Profil\ufffd\ufffd\ufffd"
+            "CONTOSO-EMEA-SPLIT\ufffd\ufffd\ufffd. Mein ISP ist"
+            " Deutsche Telekom, 100\u00a0Mbit/s VDSL. Die"
+            " Verbindung bricht mit der Meldung \ufffdVPN"
+            " reconnect failed\ufffd\ufffd reason: connection"
+            " timed out\ufffd ab. Ich habe den AnyConnect-Client"
+            " bereits neu installiert und den DART-Report"
+            " exportiert. Laptop: Lenovo X1 Carbon Gen 10,"
+            " Windows 11 23H2, Asset-Nr. LTOP-DE-4412.\n\n"
+            "Mit freundlichen Gr\u00fc\u00dfen,\n"
+            "Sabine Wei\u00df\n"
+            "Finanzabteilung, M\u00fcnchen",
+            "Sabine Wei\u00df in Munich reports Cisco AnyConnect"
+            " 4.10.07061 VPN drops every 15-20 minutes from"
+            " her home office (Deutsche Telekom 100 Mbit VDSL)."
+            " Profile name is garbled with \ufffd replacement"
+            " characters but likely CONTOSO-EMEA-SPLIT. Error:"
+            " VPN reconnect failed, connection timed out."
+            " AnyConnect reinstalled, DART report available."
+            " Laptop: Lenovo X1 Carbon Gen 10, Win 11 23H2,"
+            " Asset LTOP-DE-4412. The ticket has mixed"
+            " encoding (UTF-8/Latin-1/Windows-1252) producing"
+            " U+FFFD replacement characters throughout.",
+        ),
+        gold=ScenarioGold(
+            category="Network & Connectivity",
+            priority="P3",
+            assigned_team="Network Operations",
+            needs_escalation=False,
+            missing_information=(
+                "network_location",
+                "error_message",
+            ),
+            next_best_action=(
+                "Retrieve the DART diagnostic report from"
+                " Sabine and analyze the AnyConnect logs for"
+                " the root cause of the recurring VPN timeouts"
+            ),
+            remediation_steps=(
+                "Normalize the ticket text to UTF-8 and replace"
+                " garbled U+FFFD sequences with the likely"
+                " original characters based on context",
+                "Collect the AnyConnect DART report from Sabine"
+                " and review the VPN session logs for disconnect"
+                " reasons during the 15-20 min intervals",
+                "Check the CONTOSO-EMEA-SPLIT tunnel profile for"
+                " idle-timeout or DPD (Dead Peer Detection)"
+                " settings that may be too aggressive for VDSL",
+                "Test with a full-tunnel profile to rule out split-tunnel routing issues on Deutsche Telekom VDSL",
+            ),
+        ),
+        tags=("data-cleanup", "mixed-encoding-fffd"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-078  SQL query results pasted as description
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-078",
+        subjects=(
+            "Data corruption in customer_orders table",
+            "Tab-separated SQL output: order data mismatch",
+        ),
+        descriptions=(
+            "I ran this query and the results show the problem:\n\n"
+            "SELECT order_id, customer_id, total_amount,"
+            " currency, created_at\n"
+            "FROM customer_orders\n"
+            "WHERE created_at >= '2025-05-28'\n"
+            "ORDER BY order_id;\n\n"
+            "order_id\tcustomer_id\ttotal_amount\tcurrency"
+            "\tcreated_at\n"
+            "990441\t\tC-28812\t\t149.99\t\tUSD\t\t"
+            "2025-05-28 01:12:03\n"
+            "990442\t\tC-28812\t\t149.99\t\tUSD\t\t"
+            "2025-05-28 01:12:03\n"
+            "990443\t\tC-28812\t\t149.99\t\tUSD\t\t"
+            "2025-05-28 01:12:03\n"
+            "990444\t\tC-31007\t\t0.00\t\tNULL\t\t"
+            "2025-05-28 02:44:18\n"
+            "990445\t\tC-31007\t\t-522.50\t\tEUR\t\t"
+            "2025-05-28 02:44:19\n"
+            "990446\t\tNULL\t\t8750.00\t\tGBP\t\t"
+            "2025-05-28 03:00:00\n"
+            "990447\t\tC-10203\t\t99999.99\t\tUSD\t\t"
+            "2025-05-28 03:00:01\n"
+            "(7 rows)\n\n"
+            "We have duplicate orders (990441-990443), a zero"
+            " amount with NULL currency (990444), a negative"
+            " total (990445), an order with no customer"
+            " (990446), and a suspiciously high amount (990447)."
+            " This data is feeding downstream BI dashboards and"
+            " the finance reconciliation report. Something went"
+            " wrong with the order ingestion pipeline after the"
+            " v3.2 deployment on May 27. — DataEng Team",
+            "The customer_orders table has corrupt data since"
+            " the v3.2 deployment on May 27: triplicate orders"
+            " (990441-990443), NULL currency with zero amount,"
+            " negative totals, orphaned orders with NULL"
+            " customer_id, and suspicious max-value amounts."
+            " Affects BI dashboards and finance reconciliation."
+            " The tab-separated SQL query output was pasted as"
+            " the ticket body — the real issue is a data"
+            " ingestion pipeline defect introduced in v3.2.",
+        ),
+        gold=ScenarioGold(
+            category="Data & Storage",
+            priority="P2",
+            assigned_team="Data Platform",
+            needs_escalation=False,
+            missing_information=(
+                "application_version",
+                "steps_to_reproduce",
+            ),
+            next_best_action=(
+                "Roll back or hotfix the v3.2 order ingestion"
+                " pipeline to stop further corrupt data from"
+                " entering the customer_orders table"
+            ),
+            remediation_steps=(
+                "Parse the pasted SQL output to catalogue the"
+                " data quality issues: duplicates, NULLs,"
+                " negatives, orphans, and outlier amounts",
+                "Halt the v3.2 order ingestion pipeline to"
+                " prevent additional corrupt records from being"
+                " written to customer_orders",
+                "Diff the v3.1 and v3.2 pipeline code to"
+                " identify the defect that removed deduplication"
+                " and validation checks",
+                "Clean up the affected rows: deduplicate"
+                " 990441-990443, fix NULL/negative records, and"
+                " quarantine 990446-990447 for review",
+                "Re-run the finance reconciliation report after cleanup and verify BI dashboard accuracy",
+            ),
+        ),
+        tags=("data-cleanup", "sql-query-paste"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-079  Massive multilingual legal disclaimer
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-079",
+        subjects=(
+            "Cannot access SharePoint site — permission denied",
+            "Access denied on SP site (multilingual disclaimer)",
+        ),
+        descriptions=(
+            "Hi,\n\n"
+            "I'm unable to access the Project Atlas SharePoint"
+            " site (https://contoso.sharepoint.com/sites/"
+            "ProjectAtlas). I get a 403 Forbidden error when I"
+            " click the link. I was added to the project last"
+            " week by my manager David Chen and I can see it"
+            " in my Teams channels. My account is"
+            " s.nakamura@contoso.com and I'm in the Tokyo"
+            " office. I need access by end of day for the"
+            " client deliverable.\n\n"
+            "---\n\n"
+            "CONFIDENTIALITY NOTICE: This email and any"
+            " attachments are for the exclusive and"
+            " confidential use of the intended recipient."
+            " If you are not the intended recipient, please"
+            " do not read, distribute, or take action based"
+            " on this message.\n\n"
+            "AVIS DE CONFIDENTIALIT\u00c9 : Ce courriel et"
+            " toute pi\u00e8ce jointe sont r\u00e9serv\u00e9s"
+            " \u00e0 l\u2019usage exclusif et confidentiel du"
+            " destinataire pr\u00e9vu. Si vous n\u2019\u00eates"
+            " pas le destinataire pr\u00e9vu, veuillez ne pas"
+            " lire, distribuer ou agir.\n\n"
+            "VERTRAULICHKEITSHINWEIS: Diese E-Mail und alle"
+            " Anh\u00e4nge sind ausschlie\u00dflich f\u00fcr"
+            " den vorgesehenen Empf\u00e4nger bestimmt. Wenn"
+            " Sie nicht der vorgesehene Empf\u00e4nger sind,"
+            " lesen, verteilen oder handeln Sie bitte nicht.\n\n"
+            "\u6a5f\u5bc6\u4fdd\u6301\u306e\u304a\u77e5\u3089"
+            "\u305b: \u3053\u306e\u30e1\u30fc\u30eb\u304a\u3088"
+            "\u3073\u6dfb\u4ed8\u30d5\u30a1\u30a4\u30eb\u306f"
+            "\u3001\u610f\u56f3\u3055\u308c\u305f\u53d7\u4fe1"
+            "\u8005\u306e\u307f\u306e\u4f7f\u7528\u3092\u76ee"
+            "\u7684\u3068\u3057\u3066\u3044\u307e\u3059\u3002"
+            "\u610f\u56f3\u3055\u308c\u305f\u53d7\u4fe1\u8005"
+            "\u3067\u306a\u3044\u5834\u5408\u306f\u3001\u8aad"
+            "\u3093\u3060\u308a\u914d\u5e03\u3057\u305f\u308a"
+            "\u3057\u306a\u3044\u3067\u304f\u3060\u3055\u3044"
+            "\u3002\n\n"
+            "\u4fdd\u5bc6\u58f0\u660e: \u672c\u7535\u5b50"
+            "\u90ae\u4ef6\u53ca\u5176\u9644\u4ef6\u4ec5\u4f9b"
+            "\u6307\u5b9a\u6536\u4ef6\u4eba\u4f7f\u7528\u3002"
+            "\u5982\u679c\u60a8\u4e0d\u662f\u6307\u5b9a\u6536"
+            "\u4ef6\u4eba\uff0c\u8bf7\u52ff\u9605\u8bfb\u3001"
+            "\u5206\u53d1\u6216\u91c7\u53d6\u884c\u52a8\u3002",
+            "Sana Nakamura (s.nakamura@contoso.com) in the"
+            " Tokyo office cannot access the Project Atlas"
+            " SharePoint site — gets 403 Forbidden. She was"
+            " added to the project last week by manager David"
+            " Chen and can see the Teams channel. Needs access"
+            " by EOD for a client deliverable. The email"
+            " included a massive legal disclaimer in five"
+            " languages (EN, FR, DE, JP, ZH) that constitutes"
+            " 80%% of the message body — should be stripped"
+            " during triage.",
+        ),
+        gold=ScenarioGold(
+            category="Access & Authentication",
+            priority="P3",
+            assigned_team="Identity & Access Management",
+            needs_escalation=False,
+            missing_information=(
+                "affected_system",
+                "authentication_method",
+            ),
+            next_best_action=(
+                "Grant Sana Nakamura member-level access to the"
+                " Project Atlas SharePoint site and verify the"
+                " 403 error is resolved"
+            ),
+            remediation_steps=(
+                "Strip the multilingual legal disclaimer and"
+                " extract the core access request from the"
+                " first paragraph of the email",
+                "Verify that s.nakamura@contoso.com does not"
+                " already have a pending access request for"
+                " the Project Atlas SharePoint site",
+                "Add s.nakamura@contoso.com to the Project"
+                " Atlas SharePoint Members group or the"
+                " appropriate Entra ID security group",
+                "Confirm with Sana that she can access"
+                " https://contoso.sharepoint.com/sites/"
+                "ProjectAtlas without a 403 error",
+            ),
+        ),
+        tags=("data-cleanup", "multilingual-disclaimer"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-080  Near-empty ticket with only attachment reference
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-080",
+        subjects=(
+            "Issue — see attached",
+            "Screenshot attached (no description)",
+        ),
+        descriptions=(
+            "See attached screenshot.",
+            "Please see the attached image for the error I am getting. Thanks.",
+        ),
+        gold=ScenarioGold(
+            category="General Inquiry",
+            priority="P4",
+            assigned_team="None",
+            needs_escalation=False,
+            missing_information=(
+                "error_message",
+                "affected_system",
+                "steps_to_reproduce",
+                "screenshot_or_attachment",
+            ),
+            next_best_action=(
+                "Reply to the submitter requesting a text"
+                " description of the issue including the"
+                " affected system, error message, and steps"
+                " to reproduce since the attachment is not"
+                " accessible for automated triage"
+            ),
+            remediation_steps=(
+                "Acknowledge the ticket and inform the user that the attachment alone is insufficient for triage",
+                "Request the user provide: the affected"
+                " application or system name, the full error"
+                " message text, and steps to reproduce the"
+                " issue",
+                "Once details are provided, re-triage the"
+                " ticket with the correct category, priority,"
+                " and team assignment",
+            ),
+        ),
+        tags=("data-cleanup", "empty-body-attachment-only"),
+    ),
+    # ------------------------------------------------------------------
+    # dc-gen-081  Automated vulnerability scanner report
+    # ------------------------------------------------------------------
+    ScenarioDefinition(
+        scenario_id="dc-gen-081",
+        subjects=(
+            "Nessus scan: critical TLS cert expiry on prod LB",
+            "Vuln scanner output — hundreds of findings",
+        ),
+        descriptions=(
+            "Nessus Professional 10.7.2 Scan Report\n"
+            "Scan Name: Weekly-External-Perimeter-2025-06-01\n"
+            "Target: 10.50.0.0/24\n"
+            "Start: 2025-06-01 01:00:03 UTC\n"
+            "End:   2025-06-01 02:47:19 UTC\n"
+            "Hosts Scanned: 48\n"
+            "Total Findings: 312\n\n"
+            "--- CRITICAL (3) ---\n"
+            "Plugin 15901 - SSL Certificate Expiry\n"
+            "  Host: 10.50.1.100 (api.contoso.com)\n"
+            "  Port: 443/tcp\n"
+            "  Synopsis: The SSL certificate on this host"
+            " expires in 6 days (2025-06-07).\n"
+            "  Description: The X.509 certificate for CN="
+            "api.contoso.com issued by DigiCert SHA2 Extended"
+            " Validation Server CA expires on Jun 07 2025 at"
+            " 23:59:59 GMT. After expiry, clients will receive"
+            " certificate validation errors.\n"
+            "  Solution: Renew the SSL certificate before the"
+            " expiration date.\n"
+            "  Risk Factor: Critical\n"
+            "  CVSS v3.0 Base: 10.0\n\n"
+            "Plugin 42873 - SSL Medium Strength Ciphers\n"
+            "  Host: 10.50.1.101 (web.contoso.com)\n"
+            "  Port: 443/tcp\n"
+            "  Synopsis: Medium-strength SSL ciphers supported.\n"
+            "  Risk Factor: Critical\n\n"
+            "Plugin 57582 - SSL Self-Signed Certificate\n"
+            "  Host: 10.50.1.105 (dev.contoso.com)\n"
+            "  Port: 8443/tcp\n"
+            "  Synopsis: Self-signed certificate in use.\n"
+            "  Risk Factor: Critical\n\n"
+            "--- HIGH (27) ---\n"
+            "[... 27 high-severity findings omitted ...]\n\n"
+            "--- MEDIUM (89) ---\n"
+            "[... 89 medium-severity findings omitted ...]\n\n"
+            "--- LOW (112) ---\n"
+            "[... 112 low-severity findings omitted ...]\n\n"
+            "--- INFO (81) ---\n"
+            "[... 81 informational findings omitted ...]\n\n"
+            "The cert on api.contoso.com (10.50.1.100) expires"
+            " in 6 days and this is our primary production API"
+            " endpoint handling all customer traffic. If it"
+            " expires, every client integration breaks. Please"
+            " prioritize renewal. — InfoSec Team",
+            "Nessus weekly scan of the external perimeter"
+            " (10.50.0.0/24) produced 312 findings across 48"
+            " hosts. The critical actionable item is Plugin"
+            " 15901: the TLS certificate for api.contoso.com"
+            " (10.50.1.100:443) expires in 6 days (2025-06-07)."
+            " This is the production API endpoint for all"
+            " customer traffic. The remaining 311 findings"
+            " (medium-strength ciphers, self-signed dev certs,"
+            " high/medium/low/info items) are secondary. The"
+            " full scanner dump was pasted as the ticket body.",
+        ),
+        gold=ScenarioGold(
+            category="Security & Compliance",
+            priority="P1",
+            assigned_team="Security Operations",
+            needs_escalation=True,
+            missing_information=(
+                "configuration_details",
+                "contact_info",
+            ),
+            next_best_action=(
+                "Initiate emergency renewal of the TLS"
+                " certificate for api.contoso.com before the"
+                " June 7 expiry to prevent production API"
+                " outage"
+            ),
+            remediation_steps=(
+                "Triage the 312-finding Nessus report and"
+                " isolate the critical actionable item: Plugin"
+                " 15901 TLS cert expiry on api.contoso.com",
+                "Generate a new CSR for CN=api.contoso.com and"
+                " submit it to DigiCert for expedited renewal"
+                " of the Extended Validation certificate",
+                "Install the renewed certificate and full"
+                " intermediate chain on the production load"
+                " balancer at 10.50.1.100:443",
+                "Verify the new certificate with openssl"
+                " s_client and confirm expiry date is extended"
+                " beyond the current 6-day window",
+                "Schedule follow-up tickets for the remaining"
+                " critical findings: medium-strength ciphers on"
+                " web.contoso.com and self-signed cert on"
+                " dev.contoso.com",
+                "Implement automated certificate expiry monitoring with alerting at 30, 14, and 7 days before expiry",
+            ),
+        ),
+        tags=("data-cleanup", "vuln-scanner-report"),
+    ),
 ]

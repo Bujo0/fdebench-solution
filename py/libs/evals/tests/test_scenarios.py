@@ -10,14 +10,14 @@ from ms.evals_core.framework.scenarios.registry import default_registry
 class TestDefaultRegistryPopulation:
     def test_data_cleanup_scenarios_registered(self) -> None:
         dc = default_registry.by_category(ScenarioCategory.DATA_CLEANUP)
-        assert len(dc) == 80
+        assert len(dc) == 90
 
     def test_responsible_ai_scenarios_registered(self) -> None:
         rai = default_registry.by_category(ScenarioCategory.RESPONSIBLE_AI)
-        assert len(rai) == 130
+        assert len(rai) == 140
 
     def test_total_scenarios(self) -> None:
-        assert default_registry.count == 210
+        assert default_registry.count == 230
 
 
 class TestScenarioWellFormedness:

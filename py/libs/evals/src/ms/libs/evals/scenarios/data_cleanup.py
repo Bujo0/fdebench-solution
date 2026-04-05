@@ -2657,6 +2657,701 @@ def _markdown_rendering_noise() -> EvalScenario:
     )
 
 
+def _pgp_signed_email() -> EvalScenario:
+    """PGP-signed email wrapping a docking station issue."""
+    description = (
+        "-----BEGIN PGP SIGNED MESSAGE-----\n"
+        "Hash: SHA256\n\n"
+        "Hi IT Support,\n\n"
+        "My docking station stopped working after the firmware "
+        "update pushed last Thursday. The model is a Dell WD19S "
+        "connected via USB-C. When I plug in, the external "
+        "monitors flicker for about two seconds then go black. "
+        "The laptop charges through the dock but no video output "
+        "and the USB peripherals attached to the dock are not "
+        "recognised either.\n\n"
+        "I have tried:\n"
+        "- Rebooting the laptop\n"
+        "- Using a different USB-C cable\n"
+        "- Connecting directly to HDMI (works fine)\n\n"
+        "Regards,\nSandra\n\n"
+        "-----BEGIN PGP SIGNATURE-----\n"
+        "iQIzBAEBCAAdFiEEuL4cyR0xN2P+dGhJqFsM0aL1r8E"
+        "FAmXmK5AACgkQqFsM0aL1r8HtPA//bH8kZiB+qOFIz8"
+        "gA4XG5Fj2rQmNOlVPGqkR/2wYOCh7RKxLP+1KWM5X4V"
+        "kW3C+nISAGx3fAqFH0dA6kQEaJY8mWpD9v+FGJkn3MZz"
+        "7RqFO5BoJfAHciPkX0F7b/0jLbD9G8WqI8jP=\n"
+        "=kX2q\n"
+        "-----END PGP SIGNATURE-----"
+    )
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9226",
+            subject="Docking station not working after update",
+            description=description,
+            reporter=Reporter(
+                name="Sandra Okafor",
+                email="sandra.okafor@contoso.com",
+                department="Finance",
+            ),
+            created_at="2026-04-07T09:00:00Z",
+            channel=TicketChannel.EMAIL,
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9226",
+            category=TicketCategory.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=AssignedTeam.ENDPOINT_ENG,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.DEVICE_INFO,
+            ],
+            next_best_action=(
+                "Investigate Dell WD19S docking station failure "
+                "after firmware update. External monitors and USB "
+                "peripherals unresponsive via dock. Direct HDMI "
+                "works, suggesting a dock-specific issue."
+            ),
+            remediation_steps=[
+                "Roll back dock firmware to previous version",
+                "Test with a known-good Dell WD19S from inventory",
+                "Update laptop USB-C and Thunderbolt drivers",
+            ],
+        ),
+        tag=_TAG,
+        test_name="pgp_signed_email",
+        test_description=(
+            "Tests handling of PGP-signed email wrapping a real IT issue about a docking station failure."
+        ),
+    )
+
+
+def _long_cc_bcc_headers() -> EvalScenario:
+    """Extremely long CC/BCC headers burying an Outlook crash."""
+    cc_list = ", ".join(f"user{i}@contoso.com" for i in range(1, 61))
+    description = (
+        f"CC: {cc_list}\n"
+        f"BCC: {cc_list}\n\n"
+        "--- Forwarded 14 times ---\n\n"
+        "Original issue: Outlook desktop client crashes every "
+        "time I try to open a calendar invite from the Legal "
+        "team. The error dialog says 'MAPI_E_CALL_FAILED'. "
+        "Version is Microsoft 365 Apps, build 16.0.17328. "
+        "Happens on both my laptop and desktop. Started after "
+        "yesterday's update. Other users on the Legal team "
+        "confirm the same behaviour."
+    )
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9227",
+            subject="FW: FW: FW: RE: Calendar issue",
+            description=description,
+            reporter=Reporter(
+                name="Derek Nguyen",
+                email="derek.nguyen@contoso.com",
+                department="Legal",
+            ),
+            created_at="2026-04-07T10:15:00Z",
+            channel=TicketChannel.EMAIL,
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9227",
+            category=TicketCategory.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=AssignedTeam.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.ERROR_MESSAGE,
+            ],
+            next_best_action=(
+                "Investigate Outlook crash with MAPI_E_CALL_FAILED "
+                "when opening Legal team calendar invites. Multiple "
+                "users affected since recent update on build "
+                "16.0.17328."
+            ),
+            remediation_steps=[
+                "Collect Outlook crash logs from affected machines",
+                "Test rolling back the recent Office update",
+                "Repair the Office installation via control panel",
+                "Recreate the Outlook mail profile if needed",
+            ],
+        ),
+        tag=_TAG,
+        test_name="long_cc_bcc_headers",
+        test_description=(
+            "Tests handling of extremely long CC/BCC header "
+            "lists and forwarding chains that obscure the "
+            "actual Outlook crash issue underneath."
+        ),
+    )
+
+
+def _xml_soap_fault() -> EvalScenario:
+    """XML SOAP Fault from SAP data sync failure."""
+    description = (
+        "Getting this error from our SAP integration:\n\n"
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        "<soap:Envelope "
+        'xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\n'
+        "  <soap:Body>\n"
+        "    <soap:Fault>\n"
+        "      <faultcode>"
+        "soap:Server.GeneralException</faultcode>\n"
+        "      <faultstring>"
+        "System exception in program CL_BAPI_MATERIAL "
+        "method CHANGE_MATERIAL: Row 4821 — field "
+        "MAKTX contains invalid character \\x0B "
+        "(vertical tab)</faultstring>\n"
+        "      <detail>\n"
+        "        <ns1:SystemFault "
+        'xmlns:ns1="urn:sap-com:document:sap:rfc">\n'
+        "          <Host>sapapp01.contoso.local</Host>\n"
+        "          <Component>BC-MID-RFC</Component>\n"
+        "          <MsgType>E</MsgType>\n"
+        "          <MsgClass>SY</MsgClass>\n"
+        "          <MsgNumber>002</MsgNumber>\n"
+        "        </ns1:SystemFault>\n"
+        "      </detail>\n"
+        "    </soap:Fault>\n"
+        "  </soap:Body>\n"
+        "</soap:Envelope>\n\n"
+        "The nightly data sync between SAP and our data "
+        "warehouse has been failing for the last three nights. "
+        "Finance closes the quarter next week and needs this "
+        "data reconciled."
+    )
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9228",
+            subject="SAP data sync SOAP fault — quarter close",
+            description=description,
+            reporter=Reporter(
+                name="Patricia Lehmann",
+                email="patricia.lehmann@contoso.com",
+                department="Finance",
+            ),
+            created_at="2026-04-07T07:30:00Z",
+            channel=TicketChannel.PORTAL,
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9228",
+            category=TicketCategory.DATA_STORAGE,
+            priority=Priority.P2,
+            assigned_team=AssignedTeam.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.TIMESTAMP,
+            ],
+            next_best_action=(
+                "Fix the invalid vertical-tab character in SAP "
+                "material master row 4821 field MAKTX, then "
+                "re-run the nightly data sync before quarter close."
+            ),
+            remediation_steps=[
+                "Sanitise the invalid character in MAKTX row 4821",
+                "Re-trigger the nightly SAP-to-warehouse sync job",
+                "Add input validation to prevent control characters",
+                "Verify data reconciliation with Finance team",
+            ],
+        ),
+        tag=_TAG,
+        test_name="xml_soap_fault",
+        test_description=(
+            "Tests extraction of the real data sync issue from a verbose XML SOAP Fault envelope returned by SAP."
+        ),
+    )
+
+
+def _kubernetes_pod_describe() -> EvalScenario:
+    """Kubernetes pod describe output with CrashLoopBackOff."""
+    description = (
+        "Our payments microservice keeps crashing. Here is the "
+        "pod describe output:\n\n"
+        "Name:         payments-api-6b8f9c4d77-xk2lp\n"
+        "Namespace:    prod-payments\n"
+        "Priority:     0\n"
+        "Node:         aks-nodepool1-38471925-vmss000004\n"
+        "Start Time:   Mon, 07 Apr 2026 03:12:44 +0000\n"
+        "Labels:       app=payments-api\n"
+        "              pod-template-hash=6b8f9c4d77\n"
+        "Status:       Running\n"
+        "IP:           10.244.3.42\n"
+        "Containers:\n"
+        "  payments-api:\n"
+        "    Image:        acr.contoso.com/payments:v2.14.1\n"
+        "    Port:         8080/TCP\n"
+        "    State:        Waiting\n"
+        "      Reason:     CrashLoopBackOff\n"
+        "    Last State:   Terminated\n"
+        "      Reason:     OOMKilled\n"
+        "      Exit Code:  137\n"
+        "    Ready:        False\n"
+        "    Restart Count: 47\n"
+        "    Limits:\n"
+        "      cpu:     500m\n"
+        "      memory:  256Mi\n"
+        "    Requests:\n"
+        "      cpu:     250m\n"
+        "      memory:  128Mi\n"
+        "Events:\n"
+        "  Type     Reason     Message\n"
+        "  ----     ------     -------\n"
+        "  Warning  BackOff    Back-off restarting container\n"
+        "  Warning  OOMKilled  Memory limit 256Mi exceeded\n\n"
+        "This is blocking customer payments in production."
+    )
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9229",
+            subject="Payments pod CrashLoopBackOff in prod",
+            description=description,
+            reporter=Reporter(
+                name="Ivan Petrov",
+                email="ivan.petrov@contoso.com",
+                department="Engineering",
+            ),
+            created_at="2026-04-07T03:45:00Z",
+            channel=TicketChannel.PORTAL,
+            attachments=["pod_describe.txt"],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9229",
+            category=TicketCategory.SOFTWARE,
+            priority=Priority.P1,
+            assigned_team=AssignedTeam.ENTERPRISE_APPS,
+            needs_escalation=True,
+            missing_information=[
+                MissingInfoField.APPLICATION_VERSION,
+            ],
+            next_best_action=(
+                "Payments pod is OOMKilled with 256Mi limit and "
+                "has restarted 47 times. Increase memory limit "
+                "immediately to restore customer payments."
+            ),
+            remediation_steps=[
+                "Increase pod memory limit from 256Mi to 512Mi",
+                "Investigate memory leak in payments-api v2.14.1",
+                "Review recent code changes for memory regressions",
+                "Set up memory usage alerting for this namespace",
+            ],
+        ),
+        tag=_TAG,
+        test_name="kubernetes_pod_describe",
+        test_description=(
+            "Tests extraction of the OOMKilled root cause from "
+            "verbose Kubernetes pod describe output in a "
+            "production CrashLoopBackOff scenario."
+        ),
+    )
+
+
+def _raw_hex_dump() -> EvalScenario:
+    """Raw hex dump from TLS handshake failure."""
+    description = (
+        "Our load balancer is dropping connections. Captured "
+        "this with tcpdump:\n\n"
+        "0000  16 03 01 02 00 01 00 01  fc 03 03 5a 8b 7e 2c 4d\n"
+        "0010  9a 3b 1f 6e 04 a3 d8 f1  22 c7 5b 91 0e 38 47 c6\n"
+        "0020  b2 d4 15 ee 9f 00 00 1c  c0 2b c0 2f c0 2c c0 30\n"
+        "0030  cc a9 cc a8 c0 09 c0 13  c0 0a c0 14 00 9c 00 9d\n"
+        "0040  00 2f 00 35 00 0a 01 00  01 97 00 00 00 12 00 10\n"
+        "0050  00 00 0d 61 70 69 2e 63  6f 6e 74 6f 73 6f 2e 63\n"
+        "0060  6f 6d ff 01 00 01 00 00  0a 00 08 00 06 00 1d 00\n"
+        "0070  17 00 18 00 0b 00 02 01  00 00 23 00 00 00 10 00\n\n"
+        "The TLS handshake fails at ServerHello. Clients get "
+        "ERR_SSL_VERSION_OR_CIPHER_MISMATCH. Affects the "
+        "api.contoso.com endpoint. Started after the security "
+        "team rotated certificates last night. About 40% of "
+        "external API traffic is failing."
+    )
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9230",
+            subject="TLS failures on api.contoso.com",
+            description=description,
+            reporter=Reporter(
+                name="Mei-Lin Chang",
+                email="mei-lin.chang@contoso.com",
+                department="Engineering",
+            ),
+            created_at="2026-04-07T04:20:00Z",
+            channel=TicketChannel.CHAT,
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9230",
+            category=TicketCategory.NETWORK,
+            priority=Priority.P1,
+            assigned_team=AssignedTeam.NETWORK_OPS,
+            needs_escalation=True,
+            missing_information=[
+                MissingInfoField.CONFIGURATION_DETAILS,
+            ],
+            next_best_action=(
+                "TLS handshake failures on api.contoso.com after "
+                "certificate rotation. 40 percent of external API "
+                "traffic is failing. Verify the new certificate "
+                "chain and cipher suite configuration immediately."
+            ),
+            remediation_steps=[
+                "Verify the new certificate chain is complete",
+                "Check cipher suite config on the load balancer",
+                "Roll back to the previous certificate if needed",
+                "Confirm TLS version compatibility with clients",
+            ],
+        ),
+        tag=_TAG,
+        test_name="raw_hex_dump",
+        test_description=(
+            "Tests extraction of a TLS handshake failure from "
+            "a raw hex dump captured via tcpdump. The model "
+            "must identify the cipher mismatch root cause."
+        ),
+    )
+
+
+def _mixed_encoding_wifi() -> EvalScenario:
+    """Mixed encoding artefacts around a Wi-Fi drop issue."""
+    description = (
+        "Iâ\u0080\u0099m having trouble with the Wi-Fi on floor 3. "
+        "It keeps disconnecting every 10â\u0080\u009315 minutes. "
+        "The SSID is â\u0080\u009cContoso-Corpâ\u0080\u009d and "
+        "Iâ\u0080\u0099ve tried forgetting the network and "
+        "reconnecting.\n\n"
+        "Error message says: â\u0080\u009cNetwork connection was "
+        "lost. Please check your Wi-Fi settings.â\u0080\u009d\n\n"
+        "Iâ\u0080\u0099m using a ThinkPad T14 Gen 3 with "
+        "Windows 11. The issue started Monday. Other people "
+        "on floor 3 are also affected â\u0080\u0094 at least "
+        "five of us.\n\n"
+        "My MAC address is 5C:EA:1D:67:3B:A2 if that helps. "
+        "Please fix ASAP â\u0080\u0094 we have client demos "
+        "this week."
+    )
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9231",
+            subject="WiFi keeps dropping on floor 3",
+            description=description,
+            reporter=Reporter(
+                name="Rachel Kim",
+                email="rachel.kim@contoso.com",
+                department="Sales",
+            ),
+            created_at="2026-04-07T11:00:00Z",
+            channel=TicketChannel.PORTAL,
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9231",
+            category=TicketCategory.NETWORK,
+            priority=Priority.P2,
+            assigned_team=AssignedTeam.NETWORK_OPS,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.NETWORK_LOCATION,
+            ],
+            next_best_action=(
+                "Investigate recurring Wi-Fi disconnections on "
+                "floor 3 affecting multiple users. Check access "
+                "point health and channel interference for the "
+                "Contoso-Corp SSID."
+            ),
+            remediation_steps=[
+                "Check floor-3 access point logs for client drops",
+                "Run a wireless site survey for interference",
+                "Restart or replace the affected access point",
+                "Confirm connectivity with reporter after fix",
+            ],
+        ),
+        tag=_TAG,
+        test_name="mixed_encoding_wifi",
+        test_description=(
+            "Tests handling of UTF-8 mojibake and mixed encoding "
+            "artefacts (curly quotes rendered as multi-byte "
+            "garbage) wrapping a Wi-Fi connectivity issue."
+        ),
+    )
+
+
+def _sql_query_data_corruption() -> EvalScenario:
+    """SQL query results pasted into a data corruption ticket."""
+    description = (
+        "We found data corruption in the customer table. "
+        "Here are the affected rows:\n\n"
+        "SELECT customer_id, name, email, balance,\n"
+        "       last_modified\n"
+        "  FROM dbo.Customers\n"
+        " WHERE balance < 0\n"
+        "   AND last_modified > '2026-04-01';\n\n"
+        "+-------------+------------------+-------+\n"
+        "| customer_id | name             |balance|\n"
+        "+-------------+------------------+-------+\n"
+        "| C-10042     | Acme Corp        | -4.2E7|\n"
+        "| C-10099     | NULL             |  -999 |\n"
+        "| C-10153     | Beta Ltd         |-1E+12 |\n"
+        "| C-10200     | \\x00\\x00\\x00 |     0 |\n"
+        "| C-10317     | Gamma Inc        | -0.01 |\n"
+        "+-------------+------------------+-------+\n"
+        "5 rows affected\n\n"
+        "Execution plan: Clustered Index Scan on PK_Customers "
+        "(cost 42.7, rows 5 of 2.4M)\n\n"
+        "Balance values went negative after the overnight ETL "
+        "job on April 1st. Finance noticed when monthly "
+        "statements showed impossible figures. One row has a "
+        "balance of negative 10 billion which is clearly wrong. "
+        "We need the ETL job audited and the data restored from "
+        "the last clean backup."
+    )
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9232",
+            subject="Negative balances in customer table after ETL",
+            description=description,
+            reporter=Reporter(
+                name="Carlos Rivera",
+                email="carlos.rivera@contoso.com",
+                department="Data Engineering",
+            ),
+            created_at="2026-04-07T08:00:00Z",
+            channel=TicketChannel.PORTAL,
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9232",
+            category=TicketCategory.DATA_STORAGE,
+            priority=Priority.P1,
+            assigned_team=AssignedTeam.DATA_PLATFORM,
+            needs_escalation=True,
+            missing_information=[
+                MissingInfoField.TIMESTAMP,
+                MissingInfoField.ENVIRONMENT_DETAILS,
+            ],
+            next_best_action=(
+                "Audit the overnight ETL job that corrupted "
+                "customer balance data on April 1st. Restore "
+                "affected rows from the last clean backup and "
+                "halt the ETL until the root cause is fixed."
+            ),
+            remediation_steps=[
+                "Pause the nightly ETL job to prevent further damage",
+                "Restore corrupted rows from the last clean backup",
+                "Audit the ETL transformation logic for the bug",
+                "Add validation checks to reject negative balances",
+                "Reconcile restored data with Finance team",
+            ],
+        ),
+        tag=_TAG,
+        test_name="sql_query_data_corruption",
+        test_description=(
+            "Tests extraction of a data corruption issue from "
+            "pasted SQL query results, execution plans, and "
+            "tabular output mixed into the ticket body."
+        ),
+    )
+
+
+def _multilingual_legal_disclaimer() -> EvalScenario:
+    """Multilingual legal disclaimers wrapping a password reset."""
+    description = (
+        "Hi, I need my password reset for the finance portal. "
+        "My username is p.fischer and I have been locked out "
+        "since this morning.\n\n"
+        "---\n"
+        "VERTRAULICHKEITSHINWEIS: Diese E-Mail und alle "
+        "Anhaenge sind vertraulich und ausschliesslich fuer "
+        "den bezeichneten Adressaten bestimmt. Sollten Sie "
+        "diese E-Mail irrtuemlich erhalten haben, informieren "
+        "Sie bitte sofort den Absender und loeschen Sie die "
+        "Nachricht.\n"
+        "---\n"
+        "AVIS DE CONFIDENTIALITE: Ce message electronique et "
+        "toutes les pieces jointes sont confidentiels et "
+        "destines exclusivement a lusage du destinataire "
+        "indique. Si vous avez recu ce message par erreur, "
+        "veuillez en informer lexpéditeur immediatement et "
+        "supprimer le message.\n"
+        "---\n"
+        "AVISO DE CONFIDENCIALIDAD: Este mensaje y cualquier "
+        "archivo adjunto son confidenciales y estan destinados "
+        "exclusivamente al uso del destinatario indicado. Si "
+        "usted ha recibido este mensaje por error, notifique "
+        "al remitente inmediatamente y elimine el mensaje.\n"
+        "---\n"
+        "This message may contain legally privileged or "
+        "confidential information of Contoso Financial Services "
+        "and its global subsidiaries. Unauthorized use is "
+        "strictly prohibited."
+    )
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9233",
+            subject="Password reset needed",
+            description=description,
+            reporter=Reporter(
+                name="Petra Fischer",
+                email="p.fischer@contoso.com",
+                department="Finance",
+            ),
+            created_at="2026-04-07T08:45:00Z",
+            channel=TicketChannel.EMAIL,
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9233",
+            category=TicketCategory.ACCESS_AUTH,
+            priority=Priority.P3,
+            assigned_team=AssignedTeam.IDENTITY_ACCESS,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.AUTHENTICATION_METHOD,
+            ],
+            next_best_action=(
+                "Reset password for user p.fischer on the "
+                "finance portal. Verify identity before reset "
+                "and confirm the account is not compromised."
+            ),
+            remediation_steps=[
+                "Verify reporter identity via standard process",
+                "Reset the finance portal password for p.fischer",
+                "Check for signs of account compromise or brute force",
+                "Confirm successful login with the reporter",
+            ],
+        ),
+        tag=_TAG,
+        test_name="multilingual_legal_disclaimer",
+        test_description=(
+            "Tests handling of multilingual legal disclaimers "
+            "in German, French, and Spanish that pad a simple "
+            "password-reset request."
+        ),
+    )
+
+
+def _near_empty_ticket() -> EvalScenario:
+    """Near-empty ticket with almost no useful information."""
+    description = "monitor not working"
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9234",
+            subject="issue",
+            description=description,
+            reporter=Reporter(
+                name="Jordan Blake",
+                email="jordan.blake@contoso.com",
+                department="Marketing",
+            ),
+            created_at="2026-04-07T14:00:00Z",
+            channel=TicketChannel.CHAT,
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9234",
+            category=TicketCategory.HARDWARE,
+            priority=Priority.P4,
+            assigned_team=AssignedTeam.ENDPOINT_ENG,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.DEVICE_INFO,
+                MissingInfoField.ERROR_MESSAGE,
+                MissingInfoField.STEPS_TO_REPRODUCE,
+                MissingInfoField.AFFECTED_SYSTEM,
+            ],
+            next_best_action=(
+                "Gather basic details from the reporter: which "
+                "monitor, what symptoms, and whether it is a "
+                "display, cable, or connection issue."
+            ),
+            remediation_steps=[
+                "Contact reporter for monitor model and symptoms",
+                "Ask whether the issue is no power or no signal",
+                "Schedule a desk visit if remote triage fails",
+            ],
+        ),
+        tag=_TAG,
+        test_name="near_empty_ticket",
+        test_description=(
+            "Tests triage of an extremely terse ticket with "
+            "almost no detail — only three words in the "
+            "description and a one-word subject."
+        ),
+    )
+
+
+def _vulnerability_scanner_dump() -> EvalScenario:
+    """Vulnerability scanner output hiding a TLS cert expiry."""
+    description = (
+        "Nessus scan results for prod-web-cluster:\n\n"
+        "Plugin 10863 - SSL Certificate Expiry\n"
+        "  Risk: High\n"
+        "  Host: 10.0.4.21 (web01.contoso.com)\n"
+        "  Port: 443/tcp\n"
+        "  Output: The SSL certificate will expire on "
+        "2026-04-09T23:59:59Z (in 2 days).\n"
+        "  CN=*.contoso.com  O=Contoso Ltd  "
+        "Issuer=DigiCert SHA2 Extended Validation\n\n"
+        "Plugin 42873 - SSL Medium Strength Ciphers\n"
+        "  Risk: Medium\n"
+        "  Host: 10.0.4.21\n"
+        "  Port: 443/tcp\n"
+        "  Cipher: TLS_RSA_WITH_AES_128_CBC_SHA\n\n"
+        "Plugin 11219 - Nessus SYN Scanner\n"
+        "  Risk: None\n"
+        "  Host: 10.0.4.21\n"
+        "  Open ports: 22, 80, 443, 8080\n\n"
+        "Plugin 19506 - Nessus Scan Information\n"
+        "  Scan Start: 2026-04-07T02:00:00Z\n"
+        "  Scan End:   2026-04-07T02:47:33Z\n"
+        "  Policy:     Contoso PCI Quarterly\n"
+        "  Scanner:    nessus-scanner-01.contoso.local\n\n"
+        "Plugin 33929 - PCI DSS Compliance Checks\n"
+        "  Risk: None\n"
+        "  Overall: 14 passed, 1 failed (SSL expiry)\n\n"
+        "Total: 247 plugins run, 2 high, 3 medium, "
+        "242 informational.\n\n"
+        "The wildcard cert for *.contoso.com expires in two "
+        "days. If it lapses our entire public web presence "
+        "goes down. Please renew ASAP."
+    )
+    return EvalScenario(
+        ticket=Ticket(
+            ticket_id="INC-9235",
+            subject="Nessus scan — critical cert expiry in 2 days",
+            description=description,
+            reporter=Reporter(
+                name="Amara Osei",
+                email="amara.osei@contoso.com",
+                department="Security",
+            ),
+            created_at="2026-04-07T06:00:00Z",
+            channel=TicketChannel.PORTAL,
+            attachments=["nessus_report.csv"],
+        ),
+        gold=TriageDecision(
+            ticket_id="INC-9235",
+            category=TicketCategory.SECURITY,
+            priority=Priority.P1,
+            assigned_team=AssignedTeam.SECURITY_OPS,
+            needs_escalation=True,
+            missing_information=[],
+            next_best_action=(
+                "Renew the wildcard TLS certificate for "
+                "*.contoso.com before it expires on April 9. "
+                "Failure to renew will cause outages across "
+                "the entire public web presence."
+            ),
+            remediation_steps=[
+                "Initiate emergency certificate renewal with DigiCert",
+                "Deploy the renewed cert to all prod web servers",
+                "Verify renewed cert across all affected endpoints",
+                "Set up automated certificate expiry alerting",
+            ],
+        ),
+        tag=_TAG,
+        test_name="vulnerability_scanner_dump",
+        test_description=(
+            "Tests extraction of an urgent TLS certificate "
+            "expiry from verbose Nessus vulnerability scanner "
+            "output containing hundreds of plugin results."
+        ),
+    )
+
+
 def get_data_cleanup_scenarios() -> list[EvalScenario]:
     """Return all data cleanup evaluation scenarios."""
     return [
@@ -2700,4 +3395,14 @@ def get_data_cleanup_scenarios() -> list[EvalScenario]:
         _jira_import_artifacts(),
         _binary_log_corruption(),
         _markdown_rendering_noise(),
+        _pgp_signed_email(),
+        _long_cc_bcc_headers(),
+        _xml_soap_fault(),
+        _kubernetes_pod_describe(),
+        _raw_hex_dump(),
+        _mixed_encoding_wifi(),
+        _sql_query_data_corruption(),
+        _multilingual_legal_disclaimer(),
+        _near_empty_ticket(),
+        _vulnerability_scanner_dump(),
     ]

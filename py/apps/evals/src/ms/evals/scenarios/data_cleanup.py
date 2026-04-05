@@ -9304,3 +9304,687 @@ register(
         ],
     )
 )
+
+# ---------------------------------------------------------------------------
+# dc-141  PGP/S-MIME signed email block
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-141",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[MissingInfo.DEVICE_INFO],
+        subjects=[
+            "Docking station not working — see signed email below",
+            "USB-C dock issue (PGP-signed message)",
+            "Re: Broken docking station — digitally signed",
+        ],
+        descriptions=[
+            "-----BEGIN PGP SIGNED MESSAGE-----\n"
+            "Hash: SHA256\n\n"
+            "Hi support,\n\n"
+            "My docking station stopped working this morning. "
+            "I plug my laptop ({os}) into the dock via USB-C "
+            "and nothing happens — no external monitors, no "
+            "keyboard, no mouse. The dock power light is on. "
+            "I'm on Floor {floor}, {office} office.\n\n"
+            "Thanks,\n{name}\n"
+            "-----BEGIN PGP SIGNATURE-----\n"
+            "iQEzBAEBCAAdFiEEe4rk3LAxS+l5DUMMY"
+            "PGPBLOCK0000000000000000000000000000"
+            "0000000000000000000000000000000000000"
+            "=ABCD\n"
+            "-----END PGP SIGNATURE-----",
+            "-----BEGIN PGP SIGNED MESSAGE-----\n"
+            "Hash: SHA512\n\n"
+            "Team,\n\n"
+            "Docking station appears dead. When I connect my "
+            "laptop, the dock LEDs flash once and then nothing "
+            "registers — no displays, peripherals, or charging. "
+            "I have tried two different USB-C cables. "
+            "Laptop model is Lenovo ThinkPad running {os}. "
+            "Location: {office}, Floor {floor}.\n\n"
+            "Regards,\n{name}\n"
+            "-----BEGIN PGP SIGNATURE-----\n"
+            "iHUEARYKAB0WIQRzDUMMYSIGBLOCK00000"
+            "0000000000000000000000000000000000000"
+            "0000000000000000000000000000000000000"
+            "=WXYZ\n"
+            "-----END PGP SIGNATURE-----",
+        ],
+        next_best_actions=[
+            "Ignore the PGP signature blocks — the real issue "
+            "is a non-functional USB-C docking station. Gather "
+            "dock make/model and test with a known-good dock.",
+            "Strip the PGP envelope. The user reports a dead "
+            "docking station (no video, peripherals, or charge "
+            "over USB-C). Confirm dock model and firmware level.",
+        ],
+        remediation_steps=[
+            [
+                "Confirm the dock make, model, and firmware version",
+                "Test the laptop with a different known-good dock",
+                "Update the dock firmware to the latest release",
+                "If the dock is still unresponsive, arrange a hardware replacement",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-142  Extremely long CC/BCC headers
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-142",
+        category=Category.SOFTWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.APPLICATION_VERSION],
+        subjects=[
+            "Outlook keeps crashing — email with 30+ CC list",
+            "{app} crash when opening large-CC email",
+            "Outlook freezes whenever I open a thread (huge CC)",
+        ],
+        descriptions=[
+            "From: {name}@contoso.com\n"
+            "To: helpdesk@contoso.com\n"
+            "CC: userA@contoso.com; userB@contoso.com; "
+            "userC@contoso.com; userD@contoso.com; "
+            "userE@contoso.com; userF@contoso.com; "
+            "userG@contoso.com; userH@contoso.com; "
+            "userI@contoso.com; userJ@contoso.com; "
+            "userK@contoso.com; userL@contoso.com; "
+            "userM@contoso.com; userN@contoso.com; "
+            "userO@contoso.com; userP@contoso.com; "
+            "userQ@contoso.com; userR@contoso.com; "
+            "userS@contoso.com; userT@contoso.com; "
+            "userU@contoso.com; userV@contoso.com; "
+            "userW@contoso.com; userX@contoso.com; "
+            "userY@contoso.com; userZ@contoso.com; "
+            "user27@contoso.com; user28@contoso.com; "
+            "user29@contoso.com; user30@contoso.com\n\n"
+            "Hi,\n\n"
+            "My {app} (Outlook) crashes every time I try to "
+            "open or reply to this email thread. It freezes "
+            "for about 10 seconds and then closes with an "
+            "error. I'm on {os}, Floor {floor}. This started "
+            "after the latest update.\n\n"
+            "Thanks,\n{name}",
+        ],
+        next_best_actions=[
+            "The long CC list is noise from the original email "
+            "headers. The real issue is {app} (Outlook) crashing "
+            "when opening a thread. Collect the Outlook version "
+            "and check for recent updates or known issues.",
+            "Ignore the CC header block. The user's Outlook is "
+            "crashing on a specific thread — possibly related "
+            "to a recent update. Gather version and crash logs.",
+        ],
+        remediation_steps=[
+            [
+                "Collect the {app} (Outlook) version and build number",
+                "Check for pending Office updates and apply them",
+                "Clear the Outlook cache and restart the client",
+                "If the crash persists, collect the crash dump and open a case with Microsoft support",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-143  XML SOAP Fault dump
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-143",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.ERROR_MESSAGE,
+            MissingInfo.ENVIRONMENT_DETAILS,
+        ],
+        subjects=[
+            "SAP data sync failure — SOAP fault attached",
+            "Integration error: SAP sync returns XML fault",
+            "SAP connector throwing SOAP errors since this AM",
+        ],
+        descriptions=[
+            "Hi team,\n\n"
+            "Our SAP data sync has been failing since 06:00 "
+            "this morning. Here is the fault we get:\n\n"
+            '<?xml version="1.0" encoding="UTF-8"?>\n'
+            "<soap:Envelope "
+            'xmlns:soap="http://schemas.xmlsoap.org/soap/'
+            'envelope/">\n'
+            "  <soap:Body>\n"
+            "    <soap:Fault>\n"
+            "      <faultcode>soap:Server</faultcode>\n"
+            "      <faultstring>System.Exception: "
+            "Data synchronization failed for module "
+            "FI-GL — timeout exceeded while waiting "
+            "for RFC destination "
+            "SAP_PROD_01</faultstring>\n"
+            "      <detail>\n"
+            "        <ErrorCode>SYNC_TIMEOUT_001"
+            "</ErrorCode>\n"
+            "        <Timestamp>2025-01-15T06:02:31Z"
+            "</Timestamp>\n"
+            "        <Module>FI-GL</Module>\n"
+            "      </detail>\n"
+            "    </soap:Fault>\n"
+            "  </soap:Body>\n"
+            "</soap:Envelope>\n\n"
+            "This is blocking month-end close. Please "
+            "prioritize.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "The SOAP fault XML is diagnostic context, not "
+            "the issue itself. The real problem is that the "
+            "SAP FI-GL data sync is timing out against RFC "
+            "destination SAP_PROD_01 — blocking month-end.",
+            "Extract the key error from the SOAP envelope: "
+            "sync timeout on module FI-GL to SAP_PROD_01. "
+            "Escalate to the SAP Basis / middleware team.",
+        ],
+        remediation_steps=[
+            [
+                "Verify connectivity to RFC destination SAP_PROD_01 from the middleware server",
+                "Check the SAP application server for resource saturation (CPU, memory, work processes)",
+                "Review the SAP sync job logs for additional error codes or timeouts",
+                "Increase the RFC timeout threshold if the server is healthy but slow under month-end load",
+                "Re-trigger the FI-GL sync job and monitor for successful completion",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-144  Kubernetes pod describe output
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-144",
+        category=Category.SOFTWARE,
+        priority=Priority.P2,
+        assigned_team=Team.ENTERPRISE_APPS,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.ERROR_MESSAGE,
+            MissingInfo.ENVIRONMENT_DETAILS,
+        ],
+        subjects=[
+            "Payment service pod in CrashLoopBackOff",
+            "K8s: payment-svc keeps crashing — kubectl output",
+            "CrashLoopBackOff on payment service — urgent",
+        ],
+        descriptions=[
+            "Hi,\n\n"
+            "The payment service is down. Here is the output "
+            "of kubectl describe pod:\n\n"
+            "Name:         payment-svc-6b8f9c7d4-xk2lq\n"
+            "Namespace:    prod-payments\n"
+            "Priority:     0\n"
+            "Node:         aks-nodepool1-12345678-vmss000003\n"
+            "Start Time:   Wed, 15 Jan 2025 07:12:04 +0000\n"
+            "Labels:       app=payment-svc\n"
+            "              pod-template-hash=6b8f9c7d4\n"
+            "Status:       Running\n"
+            "IP:           10.244.3.17\n"
+            "Containers:\n"
+            "  payment-api:\n"
+            "    Image:         acr.contoso.com/payment-"
+            "svc:v2.14.3\n"
+            "    Port:          8080/TCP\n"
+            "    State:         Waiting\n"
+            "      Reason:      CrashLoopBackOff\n"
+            "    Last State:    Terminated\n"
+            "      Reason:      OOMKilled\n"
+            "      Exit Code:   137\n"
+            "    Restart Count: 14\n"
+            "    Limits:\n"
+            "      cpu:     500m\n"
+            "      memory:  256Mi\n"
+            "    Requests:\n"
+            "      cpu:     250m\n"
+            "      memory:  128Mi\n"
+            "Events:\n"
+            "  Type     Reason     Message\n"
+            "  ----     ------     -------\n"
+            "  Warning  BackOff    Back-off restarting "
+            "failed container\n"
+            "  Warning  OOMKilling Memory limit exceeded\n\n"
+            "Please investigate ASAP. This is impacting "
+            "all customer transactions.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "The kubectl describe output shows the payment-svc "
+            "container is OOMKilled (exit code 137) with a "
+            "256Mi memory limit. The pod is in CrashLoopBackOff "
+            "after 14 restarts. Increase memory limits or "
+            "investigate the memory leak.",
+            "Strip the verbose pod description — the root cause "
+            "is OOMKilled on the payment service container. "
+            "Current limit is 256Mi which is insufficient.",
+        ],
+        remediation_steps=[
+            [
+                "Increase the memory limit for the payment-svc container (e.g., 512Mi or 1Gi) as a hot fix",
+                "Review recent deployments for memory-regression changes (image v2.14.3)",
+                "Collect heap dumps or memory profiles from a staging replica to find the leak",
+                "Apply the permanent fix and redeploy, then monitor pod memory usage for 24 hours",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-145  Raw hex dump (Wireshark capture)
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-145",
+        category=Category.NETWORK,
+        priority=Priority.P2,
+        assigned_team=Team.NETWORK,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.NETWORK_LOCATION,
+            MissingInfo.ERROR_MESSAGE,
+        ],
+        subjects=[
+            "TLS handshake failures — hex dump from Wireshark",
+            "Packet capture shows TLS errors on {app} traffic",
+            "Network: TLS issues — raw capture attached",
+        ],
+        descriptions=[
+            "Team,\n\n"
+            "We are seeing TLS handshake failures to "
+            "{app}.contoso.com. I captured traffic with "
+            "Wireshark — here is the hex dump of the "
+            "failing ClientHello / ServerHello:\n\n"
+            "0000  00 1c 42 00 00 08 00 1c  42 54 ab 19 08 00 45 00\n"
+            "0010  00 f4 a3 29 40 00 40 06  00 00 0a 00 01 64 ac 1f\n"
+            "0020  02 c8 c5 e0 01 bb 8e 1a  3b 4c 00 00 00 00 b0 02\n"
+            "0030  ff ff 2c 0e 00 00 02 04  05 b4 01 03 03 08 01 01\n"
+            "0040  04 02 16 03 01 00 bf 01  00 00 bb 03 03 64 1e 7d\n"
+            "0050  9c 2f aa 3e 71 DEAD BEEF  CA FE BA BE 00 00 00 00\n"
+            "0060  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00\n"
+            "0070  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00\n"
+            "0080  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00\n\n"
+            "The failure happens on every connection attempt "
+            "from our subnet. We suspect a cipher mismatch "
+            "after the load balancer upgrade last night. "
+            "Floor {floor}, building {office}.\n\n"
+            "{name}, Network Ops",
+        ],
+        next_best_actions=[
+            "The hex dump is raw packet data — the real issue "
+            "is TLS handshake failures to {app}.contoso.com "
+            "after a load balancer change. Check the LB cipher "
+            "suite configuration.",
+            "Ignore the hex payload. Focus on the TLS cipher "
+            "mismatch between the client subnet and the load "
+            "balancer that was upgraded last night.",
+        ],
+        remediation_steps=[
+            [
+                "Compare the load balancer's TLS cipher suite configuration before and after last night's upgrade",
+                "Verify the server certificate chain is valid and correctly installed on the new LB config",
+                "Test connectivity with openssl s_client from the affected subnet",
+                "Restore a compatible cipher suite or update client-side TLS settings as needed",
+                "Confirm TLS handshakes succeed and monitor for 24 hours",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-146  Mixed encoding with U+FFFD replacement characters
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-146",
+        category=Category.NETWORK,
+        priority=Priority.P3,
+        assigned_team=Team.NETWORK,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.DEVICE_INFO,
+            MissingInfo.NETWORK_LOCATION,
+        ],
+        subjects=[
+            "WiFi keeps dropping \ufffd\ufffd connection issue",
+            "Wireless disconnects \ufffd Floor {floor} \ufffd help",
+            "Wi-Fi drops every few minutes \ufffd\ufffd\ufffd",
+        ],
+        descriptions=[
+            "Hi IT,\n\n"
+            "My Wi-Fi keeps dropping. Every 10\ufffd\ufffd"
+            "15 minutes the connection dies and I have to "
+            "reconnect manually. I\ufffdm on Floor {floor}, "
+            "{office} office, using {os}.\n\n"
+            "The SSID is \ufffdContoso-Corp\ufffd and the "
+            "signal shows full bars right before it drops. "
+            "Other people on my floor are having the same "
+            "issue since Monday.\n\n"
+            "I\ufffdve tried forgetting the network and "
+            "re-joining, and I\ufffdve restarted my laptop "
+            "twice. Nothing helps.\n\n"
+            "Thanks,\n{name}\n\n"
+            "[Note: this email was converted from a Latin-1 "
+            "encoded source \ufffd some characters may appear "
+            "as replacement glyphs.]",
+        ],
+        next_best_actions=[
+            "The \ufffd characters are encoding artifacts "
+            "(Latin-1 to UTF-8 conversion), not part of the "
+            "issue. The real problem is intermittent WiFi "
+            "drops on Floor {floor} affecting multiple users "
+            "since Monday.",
+            "Ignore the replacement characters. Multiple users "
+            "on Floor {floor} are experiencing WiFi drops every "
+            "10-15 minutes — likely an AP or controller issue.",
+        ],
+        remediation_steps=[
+            [
+                "Check the wireless access point(s) on "
+                "Floor {floor} for firmware or configuration "
+                "changes made around Monday",
+                "Review the wireless controller logs for client disassociation events on that floor",
+                "Verify channel utilization and interference levels on the affected APs",
+                "Restart or replace the suspect access point and monitor connectivity for 24 hours",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-147  SQL query results pasted as tab-separated output
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-147",
+        category=Category.DATA,
+        priority=Priority.P2,
+        assigned_team=Team.DATA_PLATFORM,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.AFFECTED_SYSTEM,
+            MissingInfo.TIMESTAMP,
+        ],
+        subjects=[
+            "Data corruption in trading system — SQL output",
+            "Trade records showing wrong values — query results",
+            "Urgent: corrupted rows in trade_ledger table",
+        ],
+        descriptions=[
+            "Hi Data Platform team,\n\n"
+            "We found corrupted records in the trading "
+            "system. Here are the bad rows from our query:\n\n"
+            "trade_id\taccount\tamount\tcurrency\tstatus\n"
+            "T-992714\tACCT-001\t-999999.99\tUSD\tSETTLED\n"
+            "T-992715\tACCT-001\t0.00\tUSD\tSETTLED\n"
+            "T-992716\tACCT-002\t-999999.99\tEUR\tSETTLED\n"
+            "T-992717\tACCT-003\t0.01\tGBP\tPENDING\n"
+            "T-992718\tACCT-002\t-999999.99\tEUR\tSETTLED\n"
+            "T-992719\tACCT-004\t50000.00\tUSD\tSETTLED\n"
+            "T-992720\tACCT-001\t-999999.99\tUSD\tSETTLED\n"
+            "T-992721\tACCT-005\t0.00\tJPY\tSETTLED\n\n"
+            "The -999999.99 amounts appeared overnight and "
+            "do not correspond to any real trades. This is "
+            "impacting our reconciliation and P&L reports. "
+            "We need this fixed before market open.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "The SQL output is evidence of the problem, not "
+            "noise. The real issue is spurious -999999.99 "
+            "records appearing in the trade_ledger table "
+            "overnight — likely a batch job or ETL defect.",
+            "Corrupted trade records (sentinel value "
+            "-999999.99) are polluting the ledger. Identify "
+            "the process that inserted them and quarantine "
+            "the affected rows before market open.",
+        ],
+        remediation_steps=[
+            [
+                "Quarantine the affected rows by flagging them (do NOT delete — audit trail required)",
+                "Identify the ETL job or batch process that inserted the -999999.99 sentinel values",
+                "Review the job logs and source data for the overnight run to find the root cause",
+                "Fix the defective transformation logic and re-run the batch for the affected window",
+                "Validate reconciliation totals and confirm P&L reports are correct before market open",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-148  Massive multilingual legal disclaimer
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-148",
+        category=Category.ACCESS_AUTH,
+        priority=Priority.P3,
+        assigned_team=Team.IAM,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AUTHENTICATION_METHOD],
+        subjects=[
+            "Password reset needed — please help",
+            "Can't log in to {app} — password expired",
+            "Account locked out — need password reset ASAP",
+        ],
+        descriptions=[
+            "Hi,\n\n"
+            "I need a password reset for my account "
+            "({name}@contoso.com). I can't log in to "
+            "{app} — it says my password has expired.\n\n"
+            "Thanks,\n{name}\n\n"
+            "---\n"
+            "CONFIDENTIALITY NOTICE / AVIS DE "
+            "CONFIDENTIALIT\u00c9:\n"
+            "This email and any attachments are confidential "
+            "and intended solely for the addressee. If you "
+            "have received this in error, please notify the "
+            "sender immediately and delete the message.\n\n"
+            "VERTRAULICHKEITSHINWEIS:\n"
+            "Diese E-Mail und alle Anh\u00e4nge sind "
+            "vertraulich und ausschlie\u00dflich f\u00fcr den "
+            "Adressaten bestimmt. Sollten Sie diese "
+            "Nachricht irrt\u00fcmlich erhalten haben, "
+            "informieren Sie bitte umgehend den Absender "
+            "und l\u00f6schen Sie die Nachricht.\n\n"
+            "\u6a5f\u5bc6\u4fdd\u6301\u306e\u304a\u77e5"
+            "\u3089\u305b:\n"
+            "\u3053\u306e\u30e1\u30fc\u30eb\u304a\u3088\u3073"
+            "\u6dfb\u4ed8\u30d5\u30a1\u30a4\u30eb\u306f"
+            "\u6a5f\u5bc6\u60c5\u5831\u3067\u3042\u308a\u3001"
+            "\u540d\u5b9b\u4eba\u306e\u307f\u3092\u5bfe\u8c61"
+            "\u3068\u3057\u3066\u3044\u307e\u3059\u3002"
+            "\u8aa4\u3063\u3066\u53d7\u4fe1\u3055\u308c\u305f"
+            "\u5834\u5408\u306f\u3001\u76f4\u3061\u306b"
+            "\u9001\u4fe1\u8005\u306b\u3054\u9023\u7d61"
+            "\u304f\u3060\u3055\u3044\u3002\n\n"
+            "\u4fdd\u5bc6\u58f0\u660e:\n"
+            "\u672c\u90ae\u4ef6\u53ca\u5176\u9644\u4ef6"
+            "\u5747\u4e3a\u673a\u5bc6\u4fe1\u606f\uff0c"
+            "\u4ec5\u4f9b\u6536\u4ef6\u4eba\u4f7f\u7528"
+            "\u3002\u5982\u60a8\u8bef\u6536\u6b64\u90ae"
+            "\u4ef6\uff0c\u8bf7\u7acb\u5373\u901a\u77e5"
+            "\u53d1\u4ef6\u4eba\u5e76\u5220\u9664\u3002\n\n"
+            "AVIS DE CONFIDENTIALIT\u00c9 (FR):\n"
+            "Ce courriel et ses pi\u00e8ces jointes sont "
+            "confidentiels et destin\u00e9s uniquement "
+            "\u00e0 leur destinataire. Si vous avez re\u00e7u "
+            "ce message par erreur, veuillez en informer "
+            "l'exp\u00e9diteur imm\u00e9diatement et "
+            "supprimer le message.",
+        ],
+        next_best_actions=[
+            "The multilingual legal disclaimer (EN/DE/JP/ZH/"
+            "FR) is standard email boilerplate — ignore it. "
+            "The actual request is a simple password reset "
+            "for {name}@contoso.com.",
+            "Strip the five-language confidentiality footer. "
+            "The user needs a password reset — verify their "
+            "identity and process the reset.",
+        ],
+        remediation_steps=[
+            [
+                "Verify the user's identity using the organization's identity verification procedure",
+                "Check whether the account is locked out or merely has an expired password",
+                "Issue a temporary password or a self-service password reset link via the IAM portal",
+                "Confirm the user can log in to {app} with the new credentials",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-149  Near-empty ticket — "See attached screenshot"
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-149",
+        category=Category.HARDWARE,
+        priority=Priority.P3,
+        assigned_team=Team.ENDPOINT,
+        needs_escalation=False,
+        missing_information=[
+            MissingInfo.DEVICE_INFO,
+            MissingInfo.SCREENSHOT_OR_ATTACHMENT,
+            MissingInfo.STEPS_TO_REPRODUCE,
+        ],
+        subjects=[
+            "Monitor not working — see attachment",
+            "Display issue (screenshot attached)",
+            "External monitor problem",
+        ],
+        descriptions=[
+            "See attached screenshot.\n\nThanks,\n{name}",
+            "Hi, my monitor isn't working. I attached a "
+            "screenshot showing the problem.\n\n"
+            "(No further details provided.)\n\n"
+            "{name}, Floor {floor}",
+        ],
+        next_best_actions=[
+            "The ticket body is nearly empty — no device "
+            "info, no description of symptoms, and any "
+            "referenced screenshot is not available as text. "
+            "Reach out to {name} for monitor make/model, "
+            "connection type, and symptom details.",
+            "Insufficient information. The user says their "
+            "monitor is not working but provides no detail. "
+            "Request device info, connection type, and a "
+            "description of what they see (no signal, "
+            "flickering, black screen, etc.).",
+        ],
+        remediation_steps=[
+            [
+                "Contact {name} to collect monitor make/model, connection type (HDMI, USB-C, DP), and laptop model",
+                "Ask the user to describe the symptom: no signal, black screen, flickering, or distorted image",
+                "Once details are gathered, test with a different cable and port to isolate the issue",
+                "If hardware is faulty, initiate a replacement request for the monitor or cable",
+            ],
+        ],
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-150  Vulnerability scanner report dump (Nessus/Qualys)
+# ---------------------------------------------------------------------------
+register(
+    ScenarioTemplate(
+        scenario_id="dc-150",
+        category=Category.SECURITY,
+        priority=Priority.P2,
+        assigned_team=Team.SECOPS,
+        needs_escalation=False,
+        missing_information=[MissingInfo.AFFECTED_SYSTEM],
+        subjects=[
+            "TLS certificate expiring — vuln scan report",
+            "Cert expiry flagged by Nessus — action needed",
+            "Qualys scan: critical TLS cert about to expire",
+        ],
+        descriptions=[
+            "Hi SecOps,\n\n"
+            "Our weekly vulnerability scan flagged a bunch "
+            "of findings. Pasting the summary — the one we "
+            "care about is the TLS cert expiry.\n\n"
+            "Plugin 10863 | SSL Certificate Expiry | "
+            "Critical\n"
+            "  Host: app01.contoso.com:443\n"
+            "  Cert expires: 2025-02-01\n\n"
+            "Plugin 42873 | SSL Medium Strength Ciphers | "
+            "Medium\n"
+            "  Host: app02.contoso.com:443\n\n"
+            "Plugin 65821 | TLS 1.0 Enabled | Low\n"
+            "  Host: legacy.contoso.com:8443\n\n"
+            "Plugin 56984 | SSH Weak MAC Algorithms | Low\n"
+            "  Host: bastion.contoso.com:22\n\n"
+            "Plugin 11219 | Nessus SYN Scanner | Info\n"
+            "  Host: app01.contoso.com (multiple ports)\n\n"
+            "Plugin 10881 | SSH Protocol Version | Info\n"
+            "  Host: bastion.contoso.com:22\n\n"
+            "Plugin 22964 | Service Detection | Info\n"
+            "  Host: app01.contoso.com, app02.contoso.com\n\n"
+            "Plugin 10287 | Traceroute Information | Info\n"
+            "  Host: 10.0.0.0/24 (multiple)\n\n"
+            "Plugin 19506 | Nessus Scan Information | Info\n"
+            "  Scan completed: 2025-01-15 03:45 UTC\n\n"
+            "Plugin 10180 | Ping Host | Info\n"
+            "  Host: (all in-scope hosts)\n\n"
+            "Plugin 45590 | Common Platform Enum | Info\n"
+            "  Host: app01.contoso.com\n\n"
+            "Plugin 54615 | Device Type | Info\n"
+            "  Host: bastion.contoso.com\n\n"
+            "Plugin 25220 | TCP Timestamps | Info\n"
+            "  Host: app01.contoso.com, app02.contoso.com\n\n"
+            "Plugin 11936 | OS Identification | Info\n"
+            "  Host: bastion.contoso.com\n\n"
+            "Plugin 10114 | ICMP Timestamp Reply | Info\n"
+            "  Host: 10.0.0.0/24 (multiple)\n\n"
+            "Plugin 25221 | Remote listeners | Info\n"
+            "  Host: app01.contoso.com (8 services)\n\n"
+            "Plugin 33929 | PCI DSS Compliance | Info\n"
+            "  Status: Non-compliant (2 findings)\n\n"
+            "Plugin 84239 | TLS NPN Extensions | Info\n"
+            "  Host: app01.contoso.com:443\n\n"
+            "Plugin 56468 | Time of Last Reboot | Info\n"
+            "  Host: bastion.contoso.com (42 days)\n\n"
+            "The critical one is the cert on "
+            "app01.contoso.com — it expires Feb 1. "
+            "Everything else is lower priority.\n\n"
+            "{name}, {department}",
+        ],
+        next_best_actions=[
+            "The scan report lists 20+ findings, but only "
+            "one is critical: the TLS certificate on "
+            "app01.contoso.com:443 expires 2025-02-01. "
+            "Prioritize renewing that certificate.",
+            "Ignore the informational scanner noise. The "
+            "actionable item is the imminent TLS cert expiry "
+            "on app01.contoso.com. Renew and redeploy the "
+            "certificate before Feb 1.",
+        ],
+        remediation_steps=[
+            [
+                "Identify the certificate authority and the team that owns app01.contoso.com",
+                "Submit a certificate renewal request or generate a new CSR for the domain",
+                "Install the renewed certificate on app01.contoso.com and the associated load balancer",
+                "Verify the new certificate with openssl s_client and confirm the expiry date is extended",
+                "Schedule a follow-up to address the medium/"
+                "low findings (weak ciphers, TLS 1.0) in "
+                "the next maintenance window",
+            ],
+        ],
+    )
+)

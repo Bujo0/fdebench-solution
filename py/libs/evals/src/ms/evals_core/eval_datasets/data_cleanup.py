@@ -6696,13 +6696,588 @@ def _dc100_base64_woff_font() -> EvalCase:
     )
 
 
+def _dc101_pgp_signed_docking_station() -> EvalCase:
+    """PGP/S-MIME signed email wrapping a docking station issue."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-101",
+            subject="Docking station not detecting external monitors",
+            description=(
+                "-----BEGIN PGP SIGNED MESSAGE-----\n"
+                "Hash: SHA256\n\n"
+                "Hi IT,\n\n"
+                "My Lenovo ThinkPad USB-C dock (Gen 2) stopped "
+                "detecting both external monitors after the BIOS "
+                "update last Friday. Laptop screen works fine. "
+                "Tried two different USB-C cables and another "
+                "dock from a colleague — same result. Dock firmware "
+                "is v1.4.23. Monitors are Dell U2722D, connected "
+                "via DisplayPort.\n\n"
+                "Please help,\nRajan Mehta\nTrading\n\n"
+                "-----BEGIN PGP SIGNATURE-----\n"
+                "iQIzBAEBCAAdFiEE7xGh3hH8z4MdF7c+s7u4fH8s\n"
+                "K5UFAmR5F3wACgkQs7u4fH8sK5V1lg//bFiHt2VTb\n"
+                "-----END PGP SIGNATURE-----"
+            ),
+            reporter=Reporter(
+                name="Rajan Mehta",
+                email="r.mehta@contoso.com",
+                department="Trading",
+            ),
+            created_at="2026-04-07T09:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-101",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.DEVICE_INFO],
+            next_best_action=(
+                "Troubleshoot docking station display detection "
+                "after BIOS update. PGP signature is email "
+                "artefact noise."
+            ),
+            remediation_steps=[
+                "Check BIOS release notes for display output changes.",
+                "Roll back BIOS update on one machine to test.",
+                "Update dock firmware to latest version.",
+                "Test with a USB-C to DisplayPort direct cable.",
+            ],
+        ),
+        tags=["data-cleanup", "pgp-signature", "docking-station"],
+        description="PGP/S-MIME signed email wrapping a docking station issue.",
+    )
+
+
+def _dc102_long_cc_bcc_outlook_crash() -> EvalCase:
+    """Long CC/BCC headers causing Outlook crash."""
+    cc_list = "; ".join(f"user{i:03d}@contoso.com" for i in range(1, 81))
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-102",
+            subject="Outlook crashes when opening emails with large CC",
+            description=(
+                "Outlook 365 (v2402) crashes every time I open an "
+                "email from the Regulatory team that has a huge CC "
+                "list. The CC field contains:\n\n"
+                f"CC: {cc_list}\n\n"
+                "Crash happens within 2 seconds of opening. I can "
+                "read the same email in OWA without issues. About "
+                "5 people on my team are affected.\n\n"
+                "Thanks,\nElena Vasquez\nCompliance"
+            ),
+            reporter=Reporter(
+                name="Elena Vasquez",
+                email="e.vasquez@contoso.com",
+                department="Compliance",
+            ),
+            created_at="2026-04-07T10:15:00Z",
+            channel=Channel.PORTAL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-102",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.APPLICATION_VERSION,
+            ],
+            next_best_action=(
+                "Investigate Outlook crash triggered by large "
+                "CC/BCC header rendering. The CC list is context, "
+                "not noise."
+            ),
+            remediation_steps=[
+                "Reproduce crash with the same email in safe mode.",
+                "Collect Outlook crash dump from Event Viewer.",
+                "Check for known Office 365 bugs with large CC.",
+                "Apply latest Outlook cumulative update.",
+            ],
+        ),
+        tags=["data-cleanup", "cc-bcc-headers", "outlook-crash"],
+        description="Long CC/BCC headers in an Outlook crash report.",
+    )
+
+
+def _dc103_xml_soap_fault_sap_sync() -> EvalCase:
+    """XML SOAP Fault payload in an SAP sync failure ticket."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-103",
+            subject="SAP PI sync failing with SOAP fault since 6 AM",
+            description=(
+                "The SAP PI to Salesforce integration started "
+                "returning SOAP faults at 06:00 UTC today. All "
+                "outbound IDocs are stuck in status 03.\n\n"
+                "Error payload from SAP PI monitoring:\n"
+                '<?xml version="1.0" encoding="UTF-8"?>\n'
+                "<SOAP-ENV:Envelope "
+                'xmlns:SOAP-ENV="http://schemas.xmlsoap.org/'
+                'soap/envelope/">\n'
+                "  <SOAP-ENV:Body>\n"
+                "    <SOAP-ENV:Fault>\n"
+                "      <faultcode>"
+                "SOAP-ENV:Server</faultcode>\n"
+                "      <faultstring>"
+                "Authentication token expired"
+                "</faultstring>\n"
+                "      <detail>\n"
+                "        <errorCode>AUTH-4012</errorCode>\n"
+                "        <message>OAuth2 refresh token invalid"
+                "</message>\n"
+                "      </detail>\n"
+                "    </SOAP-ENV:Fault>\n"
+                "  </SOAP-ENV:Body>\n"
+                "</SOAP-ENV:Envelope>\n\n"
+                "~300 IDocs queued. Finance month-end close is "
+                "tomorrow.\n\nRegards,\nHiroshi Tanaka\nFinance"
+            ),
+            reporter=Reporter(
+                name="Hiroshi Tanaka",
+                email="h.tanaka@contoso.com",
+                department="Finance",
+            ),
+            created_at="2026-04-07T06:30:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-103",
+            category=Category.SOFTWARE,
+            priority=Priority.P1,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=True,
+            missing_information=[],
+            next_best_action=(
+                "Restore SAP PI to Salesforce integration by "
+                "renewing the expired OAuth2 refresh token. "
+                "SOAP XML is diagnostic evidence."
+            ),
+            remediation_steps=[
+                "Regenerate the OAuth2 refresh token in Salesforce.",
+                "Update SAP PI communication channel credentials.",
+                "Reprocess stuck IDocs in status 03.",
+                "Verify end-to-end sync with a test IDoc.",
+            ],
+        ),
+        tags=["data-cleanup", "xml-soap", "sap-sync"],
+        description="XML SOAP Fault payload in an SAP sync failure ticket.",
+    )
+
+
+def _dc104_k8s_pod_describe_crashloop() -> EvalCase:
+    """Kubernetes pod describe output in a CrashLoopBackOff ticket."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-104",
+            subject="Payment service pods in CrashLoopBackOff",
+            description=(
+                "payment-svc pods are crash-looping in the "
+                "prod-east cluster since the 02:00 deploy.\n\n"
+                "$ kubectl describe pod payment-svc-7b9f5-xk2lm "
+                "-n payments\n"
+                "Name:         payment-svc-7b9f5-xk2lm\n"
+                "Namespace:    payments\n"
+                "Status:       Running\n"
+                "Containers:\n"
+                "  payment-api:\n"
+                "    Image:   registry.contoso.com/payment:3.12\n"
+                "    State:   Waiting\n"
+                "      Reason: CrashLoopBackOff\n"
+                "    Last State: Terminated\n"
+                "      Reason: OOMKilled\n"
+                "      Exit Code: 137\n"
+                "    Limits:\n"
+                "      memory: 512Mi\n"
+                "    Requests:\n"
+                "      memory: 256Mi\n"
+                "Events:\n"
+                "  Warning  BackOff  pod/payment-svc-7b9f5-xk2lm "
+                " Back-off restarting failed container\n\n"
+                "3 of 5 replicas are affected. Customer payments "
+                "are failing.\n\n"
+                "— Amir Hossein, Cloud Infrastructure"
+            ),
+            reporter=Reporter(
+                name="Amir Hossein",
+                email="a.hossein@contoso.com",
+                department="Cloud Infrastructure",
+            ),
+            created_at="2026-04-07T02:45:00Z",
+            channel=Channel.CHAT,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-104",
+            category=Category.SOFTWARE,
+            priority=Priority.P1,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=True,
+            missing_information=[],
+            next_best_action=(
+                "Fix OOMKilled crash loop in payment service pods. "
+                "The kubectl output is diagnostic evidence, "
+                "not noise."
+            ),
+            remediation_steps=[
+                "Increase memory limits for payment-api container.",
+                "Check v3.12 release for memory regression.",
+                "Roll back to previous image tag if needed.",
+                "Monitor pod restarts after fix.",
+            ],
+        ),
+        tags=["data-cleanup", "kubernetes", "crashloopbackoff"],
+        description="Kubernetes pod describe output in a CrashLoopBackOff ticket.",
+    )
+
+
+def _dc105_hex_dump_tls_handshake() -> EvalCase:
+    """Raw hex dump from a TLS handshake failure investigation."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-105",
+            subject="TLS handshake failures to api.payments.contoso.com",
+            description=(
+                "Intermittent TLS handshake failures started this "
+                "morning when connecting to "
+                "api.payments.contoso.com:443 from the DMZ load "
+                "balancer. About 15 pct of requests fail.\n\n"
+                "Hex dump from tcpdump (first ClientHello):\n"
+                "0000  16 03 01 00 f1 01 00 00 ed 03 03 66 1a 2b 3c\n"
+                "0010  4d 5e 6f 70 81 92 a3 b4 c5 d6 e7 f8 09 1a 2b\n"
+                "0020  3c 4d 5e 6f 70 81 92 a3 b4 c5 d6 00 00 1c 13\n"
+                "0030  02 13 03 13 01 c0 2c c0 2b c0 30 c0 2f 00 9e\n"
+                "0040  00 9f cc a9 cc a8 c0 14 c0 0a 00 ff 01 00 00\n\n"
+                "ServerHello response is a fatal alert (0x28 = "
+                "handshake_failure).\n\n"
+                "Tomas Novak\nNetwork Ops"
+            ),
+            reporter=Reporter(
+                name="Tomas Novak",
+                email="t.novak@contoso.com",
+                department="Cloud Infrastructure",
+            ),
+            created_at="2026-04-07T08:10:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-105",
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            assigned_team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.ENVIRONMENT_DETAILS,
+            ],
+            next_best_action=(
+                "Diagnose TLS handshake failures between DMZ LB and payments API. Hex dump is diagnostic evidence."
+            ),
+            remediation_steps=[
+                "Compare cipher suites offered by client and server.",
+                "Check server certificate validity and chain.",
+                "Verify no recent TLS policy change on the LB.",
+                "Test with openssl s_client to isolate the cause.",
+            ],
+        ),
+        tags=["data-cleanup", "hex-dump", "tls-handshake"],
+        description="Raw hex dump from a TLS handshake failure investigation.",
+    )
+
+
+def _dc106_mixed_encoding_wifi_drops() -> EvalCase:
+    """Mixed encoding characters in a WiFi drop report."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-106",
+            subject="WiFi keeps dropping \u2014 Floor 3 \u00e8 un disastro",
+            description=(
+                "Wi-Fi drops every 10\u201315 minutes on Floor 3. "
+                "The SSID is \u201cContoso-Corp\u201d but sometimes shows as "
+                "Contoso\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153Corp or "
+                "Contoso\xc2\xadCorp in the "
+                "connection log.\n\n"
+                "Af\xc3\xa9cter\xc3\xa9d users: \u00e8\u00e9\u00ea\u00eb about "
+                "30 people on the east wing. The issue started "
+                "after the Aruba AP firmware push (v8.10.0.7). "
+                "Signal strength is fine (\u221272 dBm average).\n\n"
+                "R\u00e9mi Dub\u00e9\nFacilities"
+            ),
+            reporter=Reporter(
+                name="R\u00e9mi Dub\u00e9",
+                email="r.dube@contoso.com",
+                department="Facilities",
+            ),
+            created_at="2026-04-07T11:20:00Z",
+            channel=Channel.PORTAL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-106",
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            assigned_team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.NETWORK_LOCATION,
+            ],
+            next_best_action=(
+                "Investigate WiFi drops on Floor 3 after Aruba AP firmware update. Mojibake is encoding noise."
+            ),
+            remediation_steps=[
+                "Review Aruba AP firmware v8.10.0.7 release notes.",
+                "Check AP logs for disassociation events on Floor 3.",
+                "Roll back AP firmware on one unit to test.",
+                "Verify SSID broadcast encoding settings.",
+            ],
+        ),
+        tags=["data-cleanup", "mixed-encoding", "wifi-drops"],
+        description="Mixed encoding characters in a WiFi drop report.",
+    )
+
+
+def _dc107_sql_results_data_corruption() -> EvalCase:
+    """SQL query results pasted into a data corruption ticket."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-107",
+            subject="Client portfolio data corruption in PMS database",
+            description=(
+                "We found corrupted records in the portfolio "
+                "management system. Query output below:\n\n"
+                "SELECT client_id, portfolio_value, last_updated\n"
+                "FROM pms.client_portfolios\n"
+                "WHERE last_updated > '2026-04-01';\n\n"
+                "client_id | portfolio_value | last_updated\n"
+                "----------|-----------------|-------------------\n"
+                "C-10421   | -99999999.99    | 2026-04-03 00:00\n"
+                "C-10422   | NULL            | 2026-04-03 00:00\n"
+                "C-10423   | 0.00            | 1970-01-01 00:00\n"
+                "C-10424   | 8.472E+18       | 2026-04-03 00:00\n"
+                "C-10425   | -99999999.99    | 2026-04-03 00:00\n\n"
+                "5 out of ~1200 records affected. Looks like the "
+                "nightly ETL on April 3 went wrong.\n\n"
+                "Wei Chen, Data Engineering"
+            ),
+            reporter=Reporter(
+                name="Wei Chen",
+                email="w.chen@contoso.com",
+                department="Data Engineering",
+            ),
+            created_at="2026-04-07T07:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-107",
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            assigned_team=Team.DATA_PLATFORM,
+            needs_escalation=True,
+            missing_information=[
+                MissingInfoField.ERROR_MESSAGE,
+            ],
+            next_best_action=(
+                "Investigate and repair corrupted portfolio records "
+                "from the April 3 ETL run. SQL output is "
+                "diagnostic evidence."
+            ),
+            remediation_steps=[
+                "Identify the root cause in the nightly ETL job.",
+                "Restore affected records from the last good backup.",
+                "Add data validation checks to the ETL pipeline.",
+                "Verify all 1200 records after restoration.",
+            ],
+        ),
+        tags=["data-cleanup", "sql-results", "data-corruption"],
+        description="SQL query results pasted into a data corruption ticket.",
+    )
+
+
+def _dc108_multilingual_disclaimer_password() -> EvalCase:
+    """Multilingual legal disclaimer wrapping a password reset request."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-108",
+            subject="Cannot reset password \u2014 locked out",
+            description=(
+                "Hi, I have been locked out of my account "
+                "(jgarcia@contoso.com) after too many failed MFA "
+                "attempts. I need an urgent password reset and MFA "
+                "re-enrollment. I am presenting to the board in "
+                "90 minutes.\n\n"
+                "CONFIDENTIALITY NOTICE: This e-mail message, "
+                "including any attachments, is for the sole use "
+                "of the intended recipient(s).\n"
+                "AVIS DE CONFIDENTIALIT\u00c9 : Ce message "
+                "\u00e9lectronique, y compris les pi\u00e8ces "
+                "jointes, est destin\u00e9 exclusivement.\n"
+                "VERTRAULICHKEITSHINWEIS: Diese E-Mail-Nachricht "
+                "einschlie\u00dflich aller Anh\u00e4nge ist "
+                "ausschlie\u00dflich f\u00fcr den Gebrauch.\n"
+                "AVISO DE CONFIDENCIALIDAD: Este mensaje de "
+                "correo electr\u00f3nico, incluyendo los archivos "
+                "adjuntos.\n"
+                "\u6a5f\u5bc6\u4fdd\u6301\u306e\u304a\u77e5\u3089"
+                "\u305b: \u3053\u306e\u96fb\u5b50\u30e1\u30fc\u30eb"
+                "\u306f\u3001\u6dfb\u4ed8\u30d5\u30a1\u30a4\u30eb"
+                "\u3092\u542b\u3081\u3001\u610f\u56f3\u3055\u308c"
+                "\u305f\u53d7\u4fe1\u8005\u306e\u307f\u3002\n\n"
+                "Javier Garcia\nExecutive Operations"
+            ),
+            reporter=Reporter(
+                name="Javier Garcia",
+                email="j.garcia@contoso.com",
+                department="Executive Operations",
+            ),
+            created_at="2026-04-07T08:30:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-108",
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P1,
+            assigned_team=Team.IAM,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.AUTHENTICATION_METHOD,
+            ],
+            next_best_action=(
+                "Reset password and re-enroll MFA for locked-out "
+                "executive before board presentation. Multilingual "
+                "disclaimers are email noise."
+            ),
+            remediation_steps=[
+                "Verify user identity via out-of-band channel.",
+                "Reset password in Azure AD.",
+                "Clear MFA registration and re-enroll.",
+                "Confirm account access is restored.",
+            ],
+        ),
+        tags=[
+            "data-cleanup",
+            "multilingual-disclaimer",
+            "password-reset",
+        ],
+        description=("Multilingual legal disclaimer wrapping a password reset request."),
+    )
+
+
+def _dc109_near_empty_monitor_issue() -> EvalCase:
+    """Near-empty ticket about a monitor issue."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-109",
+            subject="monitor",
+            description="not working",
+            reporter=Reporter(
+                name="Pat Lee",
+                email="p.lee@contoso.com",
+                department="Marketing",
+            ),
+            created_at="2026-04-07T13:00:00Z",
+            channel=Channel.CHAT,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-109",
+            category=Category.HARDWARE,
+            priority=Priority.P4,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[
+                MissingInfoField.DEVICE_INFO,
+                MissingInfoField.ERROR_MESSAGE,
+                MissingInfoField.STEPS_TO_REPRODUCE,
+            ],
+            next_best_action=(
+                "Gather details from the reporter about which monitor, what is not working, and any error indicators."
+            ),
+            remediation_steps=[
+                "Contact reporter for monitor make and model.",
+                "Ask whether the issue is no display or flicker.",
+                "Determine if the monitor is internal or external.",
+                "Schedule on-site diagnosis once details received.",
+            ],
+        ),
+        tags=["data-cleanup", "near-empty", "monitor"],
+        description="Near-empty ticket with almost no context about a monitor issue.",
+    )
+
+
+def _dc110_vuln_scanner_tls_cert_expiry() -> EvalCase:
+    """Vulnerability scanner dump in a TLS certificate expiry ticket."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-110",
+            subject="Nessus scan flagged expiring TLS certs",
+            description=(
+                "The weekly Nessus vulnerability scan flagged "
+                "several hosts with expiring TLS certificates. "
+                "Scan output excerpt:\n\n"
+                "Plugin ID: 15901\n"
+                "Severity: Medium\n"
+                "Host: intranet.contoso.com (10.0.12.50)\n"
+                "Port: 443/tcp\n"
+                "Synopsis: SSL certificate expires within 14 days\n"
+                "Output:\n"
+                "  Subject: CN=intranet.contoso.com\n"
+                "  Issuer: CN=Contoso Internal CA\n"
+                "  Not After: Apr 21 23:59:59 2026 GMT\n\n"
+                "Plugin ID: 15901\n"
+                "Host: api-gw.contoso.com (10.0.12.55)\n"
+                "Port: 8443/tcp\n"
+                "Output:\n"
+                "  Subject: CN=api-gw.contoso.com\n"
+                "  Issuer: CN=Contoso Internal CA\n"
+                "  Not After: Apr 19 23:59:59 2026 GMT\n\n"
+                "Plugin ID: 42873\n"
+                "Host: 10.0.12.50\n"
+                "Synopsis: SSL medium strength cipher suites\n"
+                "Output: TLS_RSA_WITH_AES_128_CBC_SHA\n\n"
+                "Two certs expire within 14 days. Please renew.\n"
+                "\nSarah Kim\nIT Security"
+            ),
+            reporter=Reporter(
+                name="Sarah Kim",
+                email="s.kim@contoso.com",
+                department="IT Security",
+            ),
+            created_at="2026-04-07T14:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-110",
+            category=Category.SECURITY,
+            priority=Priority.P2,
+            assigned_team=Team.SECURITY_OPS,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Renew expiring TLS certificates on intranet and "
+                "api-gw hosts before April 19. Scanner output is "
+                "diagnostic evidence."
+            ),
+            remediation_steps=[
+                "Generate CSRs for intranet.contoso.com and api-gw.",
+                "Submit CSRs to Contoso Internal CA for renewal.",
+                "Install renewed certificates on both hosts.",
+                "Re-run Nessus scan to confirm remediation.",
+            ],
+        ),
+        tags=[
+            "data-cleanup",
+            "vulnerability-scanner",
+            "tls-cert-expiry",
+        ],
+        description=("Vulnerability scanner dump in a TLS certificate expiry ticket."),
+    )
+
+
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
 
 def build_dataset() -> EvalDataset:
-    """Build and return the data-cleanup evaluation dataset (100 cases)."""
+    """Build and return the data-cleanup evaluation dataset (110 cases)."""
     return EvalDataset(
         name="data_cleanup",
         description=(
@@ -6816,6 +7391,16 @@ def build_dataset() -> EvalDataset:
             _dc098_base64_css_data_uri(),
             _dc099_outlook_html_table(),
             _dc100_base64_woff_font(),
+            _dc101_pgp_signed_docking_station(),
+            _dc102_long_cc_bcc_outlook_crash(),
+            _dc103_xml_soap_fault_sap_sync(),
+            _dc104_k8s_pod_describe_crashloop(),
+            _dc105_hex_dump_tls_handshake(),
+            _dc106_mixed_encoding_wifi_drops(),
+            _dc107_sql_results_data_corruption(),
+            _dc108_multilingual_disclaimer_password(),
+            _dc109_near_empty_monitor_issue(),
+            _dc110_vuln_scanner_tls_cert_expiry(),
         ],
     )
 

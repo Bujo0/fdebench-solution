@@ -202,7 +202,7 @@ class TestResponsibleAISpecific:
     """Responsible AI dataset-specific validations."""
 
     def test_has_expected_case_count(self) -> None:
-        assert len(RESPONSIBLE_AI_DATASET.cases) == 140
+        assert len(RESPONSIBLE_AI_DATASET.cases) == 150
 
     def test_covers_expected_scenarios(self) -> None:
         all_tags = set()

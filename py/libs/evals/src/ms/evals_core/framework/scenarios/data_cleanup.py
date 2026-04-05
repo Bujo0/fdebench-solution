@@ -3892,3 +3892,821 @@ default_registry.register(
         ),
     )
 )
+
+# ---------------------------------------------------------------------------
+# dc-081: PGP/S-MIME signed email block
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-081",
+        name="PGP signed email wrapping hardware request",
+        description=(
+            "Email with a PGP SIGNED MESSAGE header and "
+            "signature block wrapping a legitimate hardware "
+            "request about a broken docking station."
+        ),
+        category=_CATEGORY,
+        tags=["pgp_signed", "email_signature", "hardware"],
+        ticket=EvalTicket(
+            ticket_id="INC-5081",
+            subject="Docking station no longer powers laptop",
+            description=(
+                "-----BEGIN PGP SIGNED MESSAGE-----\n"
+                "Hash: SHA256\n\n"
+                "Hi IT Support,\n\n"
+                "My Dell WD19TBS Thunderbolt docking station "
+                "stopped charging my laptop as of Monday. "
+                "Power LED on the dock blinks amber three "
+                "times then goes off. I already tried a "
+                "different Thunderbolt cable and a different "
+                "wall outlet. Laptop charges fine with the "
+                "direct AC adapter so the issue is isolated "
+                "to the dock.\n\n"
+                "Asset tag: WD19-00457\n"
+                "Location: Building 4, Floor 2, Desk 218\n\n"
+                "Please send a replacement or schedule a "
+                "repair.\n\n"
+                "Thanks,\nMarcus\n"
+                "-----BEGIN PGP SIGNATURE-----\n\n"
+                "iQIzBAEBCAAdFiEEeL8kR3H4m0Xo1PQ6Y7x"
+                "fKJa9mBUFAmX\n"
+                "0xHgAKCRCY7xfKJa9mBXdRBACeJ7x2k5RqH"
+                "vI6Lc+PGQW\n"
+                "M5yJ6nT+bZPdjfkTgR8FhVz0YqW7+x3NdKf"
+                "Xm0Rs4Bp9Gy\n"
+                "kXlAaF1QOZSV1CBdYg==\n"
+                "=pL8f\n"
+                "-----END PGP SIGNATURE-----\n"
+            ),
+            reporter=_reporter(
+                "Marcus Webb",
+                "m.webb@contoso.com",
+                "Finance",
+            ),
+            created_at="2026-03-18T09:00:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+            needs_escalation=False,
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-082: Extremely long CC/BCC header list
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-082",
+        name="Massive CC list obscuring Outlook crash",
+        description=(
+            "Email with 50+ CC recipients in the header "
+            "polluting the ticket body, while the real "
+            "issue is an Outlook crash on startup."
+        ),
+        category=_CATEGORY,
+        tags=["long_cc_list", "email_headers", "outlook"],
+        ticket=EvalTicket(
+            ticket_id="INC-5082",
+            subject="Outlook keeps crashing - URGENT",
+            description=(
+                "CC: alice.nguyen@contoso.com; "
+                "bob.martinez@contoso.com; "
+                "carol.jones@contoso.com; "
+                "david.wilson@contoso.com; "
+                "elena.petrov@contoso.com; "
+                "frank.liu@contoso.com; "
+                "grace.okafor@contoso.com; "
+                "harry.kim@contoso.com; "
+                "irene.schmidt@contoso.com; "
+                "jack.brown@contoso.com; "
+                "karen.tanaka@contoso.com; "
+                "leo.rossi@contoso.com; "
+                "maria.garcia@contoso.com; "
+                "nate.foster@contoso.com; "
+                "olivia.cheng@contoso.com; "
+                "paul.adeyemi@contoso.com; "
+                "quinn.dubois@contoso.com; "
+                "rachel.cohen@contoso.com; "
+                "sam.patel@contoso.com; "
+                "tanya.berg@contoso.com; "
+                "uma.krishnan@contoso.com; "
+                "victor.santos@contoso.com; "
+                "wendy.zhao@contoso.com; "
+                "xander.reed@contoso.com; "
+                "yuki.sato@contoso.com; "
+                "zara.malik@contoso.com; "
+                "adam.white@contoso.com; "
+                "bella.torres@contoso.com; "
+                "carl.johansson@contoso.com; "
+                "diana.popov@contoso.com; "
+                "eric.murphy@contoso.com; "
+                "fiona.hall@contoso.com; "
+                "george.lee@contoso.com; "
+                "hannah.wright@contoso.com; "
+                "ian.clark@contoso.com; "
+                "julia.evans@contoso.com; "
+                "kevin.king@contoso.com; "
+                "laura.scott@contoso.com; "
+                "mike.adams@contoso.com; "
+                "nina.baker@contoso.com; "
+                "oscar.green@contoso.com; "
+                "penny.hill@contoso.com; "
+                "ralph.young@contoso.com; "
+                "susan.allen@contoso.com; "
+                "tom.nelson@contoso.com; "
+                "ursula.carter@contoso.com; "
+                "vince.mitchell@contoso.com; "
+                "wanda.roberts@contoso.com; "
+                "xavier.turner@contoso.com; "
+                "yvonne.phillips@contoso.com; "
+                "zach.campbell@contoso.com\n\n"
+                "--- Actual message ---\n\n"
+                "Outlook 365 (Version 2602, Build "
+                "18326.20100) crashes within 5 seconds "
+                "of launch. Event Viewer shows APPCRASH "
+                "in OUTLOOK.EXE with exception code "
+                "0xc0000005. Started after Tuesday patch "
+                "cycle. Safe mode launches OK. Already "
+                "tried /resetnavpane, repairing Office "
+                "install, and disabling COM add-ins. "
+                "12 people on Floor 3 have the same "
+                "issue."
+            ),
+            reporter=_reporter(
+                "Janet Holloway",
+                "j.holloway@contoso.com",
+                "Operations",
+            ),
+            created_at="2026-03-18T09:30:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+            needs_escalation=False,
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-083: XML SOAP Fault pasted
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-083",
+        name="SOAP Fault XML dump from SAP sync",
+        description=(
+            "Enterprise web service SOAPFault XML dump "
+            "pasted into the ticket body; the real issue "
+            "is a data synchronization failure in SAP."
+        ),
+        category=_CATEGORY,
+        tags=["xml", "soap_fault", "sap"],
+        ticket=EvalTicket(
+            ticket_id="INC-5083",
+            subject="SAP data sync failing since 06:00 UTC",
+            description=(
+                '<?xml version="1.0" encoding="UTF-8"?>\n'
+                "<soap:Envelope "
+                "xmlns:soap="
+                '"http://schemas.xmlsoap.org/'
+                'soap/envelope/">\n'
+                "  <soap:Body>\n"
+                "    <soap:Fault>\n"
+                "      <faultcode>"
+                "soap:Server</faultcode>\n"
+                "      <faultstring>"
+                "System.Data.SyncException: "
+                "Data synchronization failed for entity "
+                "BKPF (Accounting Document Header). "
+                "Transaction batch 20260318-0600-A1 "
+                "rolled back after 3 retries. "
+                "ORA-00060: deadlock detected while "
+                "waiting for resource."
+                "</faultstring>\n"
+                "      <detail>\n"
+                "        <ErrorDetail "
+                'xmlns="urn:sap-com:document:'
+                'sap:rfc:functions">\n'
+                "          <Code>SYNC_DEADLOCK"
+                "</Code>\n"
+                "          <Severity>Critical"
+                "</Severity>\n"
+                "          <Source>SAP PI 7.50 "
+                "SP22</Source>\n"
+                "          <Timestamp>"
+                "2026-03-18T06:00:14.772Z"
+                "</Timestamp>\n"
+                "          <CorrelationId>"
+                "a3f7c912-44be-4e0f-9b3d-1e8a7c563f01"
+                "</CorrelationId>\n"
+                "          <StackTrace>"
+                "at SAP.Middleware.Connector"
+                ".RfcTransaction.Commit() "
+                "at SyncService.BatchProcessor"
+                ".Execute()</StackTrace>\n"
+                "        </ErrorDetail>\n"
+                "      </detail>\n"
+                "    </soap:Fault>\n"
+                "  </soap:Body>\n"
+                "</soap:Envelope>\n\n"
+                "Hi, the nightly SAP-to-data-warehouse "
+                "sync has been failing since 06:00 UTC. "
+                "Finance team cannot run morning reports. "
+                "Please investigate the deadlock on BKPF "
+                "table."
+            ),
+            reporter=_reporter(
+                "Deepak Agarwal",
+                "d.agarwal@contoso.com",
+                "Enterprise Systems",
+            ),
+            created_at="2026-03-18T07:15:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Data & Storage",
+            priority="P1",
+            assigned_team="Data Platform",
+            needs_escalation=True,
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-084: Kubernetes pod describe output
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-084",
+        name="kubectl describe pod as ticket body",
+        description=(
+            "Full kubectl describe pod output pasted as "
+            "the ticket body; the real issue is an "
+            "application stuck in CrashLoopBackOff."
+        ),
+        category=_CATEGORY,
+        tags=["kubernetes", "pod_describe", "crashloop"],
+        ticket=EvalTicket(
+            ticket_id="INC-5084",
+            subject="payment-service pod CrashLoopBackOff",
+            description=(
+                "Name:         "
+                "payment-service-7b4d6f8c9-x2vnl\n"
+                "Namespace:    prod\n"
+                "Priority:     0\n"
+                "Node:         "
+                "aks-nodepool1-31298572-vmss000004\n"
+                "Start Time:   "
+                "Tue, 18 Mar 2026 05:12:03 +0000\n"
+                "Labels:       app=payment-service\n"
+                "              "
+                "pod-template-hash=7b4d6f8c9\n"
+                "Status:       Running\n"
+                "IP:           10.244.3.47\n"
+                "Containers:\n"
+                "  payment-service:\n"
+                "    Image:          acr.contoso.com/"
+                "payment-service:2.14.3\n"
+                "    Port:           8080/TCP\n"
+                "    State:          Waiting\n"
+                "      Reason:       CrashLoopBackOff\n"
+                "    Last State:     Terminated\n"
+                "      Reason:       Error\n"
+                "      Exit Code:    137\n"
+                "      Started:      "
+                "Tue, 18 Mar 2026 05:45:12 +0000\n"
+                "      Finished:     "
+                "Tue, 18 Mar 2026 05:45:44 +0000\n"
+                "    Ready:          False\n"
+                "    Restart Count:  47\n"
+                "    Limits:\n"
+                "      cpu:     500m\n"
+                "      memory:  512Mi\n"
+                "    Requests:\n"
+                "      cpu:     250m\n"
+                "      memory:  256Mi\n"
+                "    Liveness:       "
+                "http-get http://:8080/healthz "
+                "delay=10s timeout=3s\n"
+                "    Environment:\n"
+                "      DB_HOST:      "
+                "sql-prod-eastus.database.windows.net\n"
+                "      REDIS_HOST:   "
+                "redis-prod.contoso.internal\n"
+                "Events:\n"
+                "  Type     Reason     Age   Message\n"
+                "  ----     ------     ----  -------\n"
+                "  Warning  BackOff    2m    "
+                "Back-off restarting failed container\n"
+                "  Normal   Pulled     90s   "
+                "Container image already present\n\n"
+                "Pod keeps crashing after the 2.14.3 "
+                "deploy. Logs show OOMKilled. We think "
+                "the memory limit is too low for the "
+                "new release. Payment processing is "
+                "degraded — customers are getting 503 "
+                "errors at checkout."
+            ),
+            reporter=_reporter(
+                "Priya Sundaram",
+                "p.sundaram@contoso.com",
+                "Platform Engineering",
+            ),
+            created_at="2026-03-18T06:00:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P1",
+            assigned_team="Enterprise Applications",
+            needs_escalation=True,
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-085: Raw hex dump
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-085",
+        name="Wireshark hex dump of TLS failure",
+        description=(
+            "Raw hex packet capture output from Wireshark "
+            "pasted into the ticket; the real issue is TLS "
+            "handshake failures to an internal API gateway."
+        ),
+        category=_CATEGORY,
+        tags=["hex_dump", "wireshark", "tls"],
+        ticket=EvalTicket(
+            ticket_id="INC-5085",
+            subject="TLS handshake failures to api-gateway",
+            description=(
+                "Wireshark capture (tcp.port==443 && "
+                "ssl.handshake):\n\n"
+                "0000  00 1a 2b 3c 4d 5e 00 0c  "
+                "29 5f 6a 7b 08 00 45 00\n"
+                "0010  00 c7 1a 2b 40 00 40 06  "
+                "a3 d4 0a 01 02 0f ac 10\n"
+                "0020  01 64 c0 28 01 bb 5e 7f  "
+                "3c 91 00 00 00 00 b0 02\n"
+                "0030  ff ff 8a 3e 00 00 02 04  "
+                "05 b4 01 03 03 08 01 01\n"
+                "0040  04 02 16 03 01 00 f1 01  "
+                "00 00 ed 03 03 60 a4 5b\n"
+                "0050  2c 7e 19 83 d0 4f 2a 1b  "
+                "c3 e8 77 51 9a 6d 3f 22\n"
+                "0060  b1 0e 44 c6 a5 78 93 11  "
+                "fd 2e 7a 00 20 3c 4d 5e\n"
+                "0070  6f 80 91 a2 b3 c4 d5 e6  "
+                "f7 08 19 2a 3b 4c 5d 6e\n"
+                "0080  7f 90 a1 b2 c3 d4 e5 f6  "
+                "07 18 29 3a 00 04 13 01\n"
+                "0090  13 02 01 00 00 a0 00 00  "
+                "00 1a 00 18 00 00 15 61\n"
+                "00a0  70 69 2d 67 77 2e 63 6f  "
+                "6e 74 6f 73 6f 2e 6e 65\n"
+                "00b0  74 00 0d 00 14 00 12 04  "
+                "03 05 03 06 03 02 03 08\n\n"
+                "Server responds with handshake_failure "
+                "(0x28) alert.\n\n"
+                "Since 04:30 UTC all services calling "
+                "api-gw.contoso.net:443 get TLS handshake "
+                "failures. The gateway cert was renewed "
+                "yesterday and we suspect the new cert "
+                "uses an ECDSA key but clients still pin "
+                "to RSA. Approximately 40 micro-services "
+                "affected."
+            ),
+            reporter=_reporter(
+                "Tomasz Kowalski",
+                "t.kowalski@contoso.com",
+                "Network Engineering",
+            ),
+            created_at="2026-03-18T05:10:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Network & Connectivity",
+            priority="P1",
+            assigned_team="Network Operations",
+            needs_escalation=True,
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-086: Mixed encoding with replacement characters
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-086",
+        name="Replacement characters in network ticket",
+        description=(
+            "Text with U+FFFD replacement characters and "
+            "encoding corruption throughout; the real issue "
+            "is intermittent network connectivity drops."
+        ),
+        category=_CATEGORY,
+        tags=[
+            "encoding_mix",
+            "replacement_chars",
+            "network",
+        ],
+        ticket=EvalTicket(
+            ticket_id="INC-5086",
+            subject="Wi-Fi keeps disconnecting \ufffd\ufffd",
+            description=(
+                "My laptop\ufffd\ufffds Wi-Fi disconnects "
+                "every 10\ufffd\ufffd15 minutes since the "
+                "office move.\n\n"
+                "Details:\n"
+                "\ufffd\ufffd Device: ThinkPad X1 Carbon "
+                "Gen 11\n"
+                "\ufffd\ufffd SSID: CONTOSO\ufffdCORP"
+                "\ufffd5G\n"
+                "\ufffd\ufffd Driver: Intel\ufffd Wi-Fi 6E "
+                "AX211 v22.240.0\n"
+                "\ufffd\ufffd OS: Windows 11 23H2\n\n"
+                "When it drops I see \ufffdLimited "
+                "connectivity\ufffd in the system tray. "
+                "Running \ufffdnetsh wlan show interfaces"
+                "\ufffd shows the signal strength is fine "
+                "(90%+) right before disconnect.\n\n"
+                "Ethernet works fine at the same desk. "
+                "Three other people on Floor\ufffd7 report "
+                "the same thing. We suspect the new access "
+                "point firmware pushed last Friday is "
+                "causing 802.11r roaming failures.\n\n"
+                "Adapter logs attached (couldn\ufffdt paste "
+                "them\ufffd\ufffdencoding kept breaking)."
+            ),
+            reporter=_reporter(
+                "Lena Vogt",
+                "l.vogt@contoso.com",
+                "Marketing",
+            ),
+            created_at="2026-03-18T10:20:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Network & Connectivity",
+            priority="P3",
+            assigned_team="Network Operations",
+            needs_escalation=False,
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-087: SQL query results pasted
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-087",
+        name="SQL results showing database corruption",
+        description=(
+            "Tab-separated SQL query output pasted into "
+            "the ticket showing database corruption; the "
+            "real issue is a data integrity failure "
+            "requiring platform investigation."
+        ),
+        category=_CATEGORY,
+        tags=["sql_output", "database", "data_integrity"],
+        ticket=EvalTicket(
+            ticket_id="INC-5087",
+            subject="DBCC CHECKDB errors on OrdersDB",
+            description=(
+                "DBCC results for 'OrdersDB':\n\n"
+                "ObjectName\tIndexName\tLevel\tPages\t"
+                "Errors\n"
+                "dbo.Orders\tPK_Orders\t0\t184520\t3\n"
+                "dbo.Orders\tIX_Orders_Date\t0\t"
+                "42100\t1\n"
+                "dbo.OrderItems\tPK_OrderItems\t0\t"
+                "310884\t7\n"
+                "dbo.OrderItems\tIX_Items_Product\t0\t"
+                "89201\t2\n"
+                "dbo.Payments\tPK_Payments\t0\t"
+                "56400\t0\n"
+                "dbo.Shipping\tPK_Shipping\t0\t"
+                "72300\t0\n"
+                "dbo.AuditLog\tPK_AuditLog\t0\t"
+                "215000\t14\n\n"
+                "Msg 8928, Level 16, State 1\n"
+                "Object ID 2105058535, index ID 1: "
+                "Page (1:89234) could not be processed. "
+                "See other errors for details.\n\n"
+                "Msg 8939, Level 16, State 98\n"
+                "Table error: Object ID 2105058535, "
+                "index ID 1, page (1:89234). Test "
+                "(IS_OFF(BUF_IOERR, pBUF->bstat)) "
+                "failed.\n\n"
+                "We found these errors during the "
+                "weekly maintenance window. OrdersDB "
+                "is the primary transactional database "
+                "(~2.1 TB). 27 page-level corruption "
+                "errors across Orders and OrderItems "
+                "tables. Last good backup is from "
+                "Sunday 03:00 UTC. Need guidance on "
+                "REPAIR_ALLOW_DATA_LOSS vs restore."
+            ),
+            reporter=_reporter(
+                "Carlos Mendes",
+                "c.mendes@contoso.com",
+                "Database Administration",
+            ),
+            created_at="2026-03-18T04:30:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Data & Storage",
+            priority="P1",
+            assigned_team="Data Platform",
+            needs_escalation=True,
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-088: Massive multilingual legal disclaimer
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-088",
+        name="Multilingual disclaimer dwarfing access request",
+        description=(
+            "Email with a legal disclaimer in five "
+            "languages that is 10x longer than the actual "
+            "access request buried at the top."
+        ),
+        category=_CATEGORY,
+        tags=[
+            "legal_disclaimer",
+            "multilingual",
+            "long_content",
+        ],
+        ticket=EvalTicket(
+            ticket_id="INC-5088",
+            subject="Need VPN access for new joiner",
+            description=(
+                "Hi, please provision GlobalProtect VPN "
+                "access for our new hire Amara Osei "
+                "(a.osei@contoso.com) in the London "
+                "office. She starts Monday and needs "
+                "access to the EMEA-Engineering security "
+                "group.\n\n"
+                "---\n\n"
+                "CONFIDENTIALITY NOTICE / AVIS DE "
+                "CONFIDENTIALITE / VERTRAULICHKEITS"
+                "HINWEIS / \u6a5f\u5bc6\u4fdd\u6301"
+                "\u306b\u95a2\u3059\u308b\u901a\u77e5"
+                " / \u4fdd\u5bc6\u58f0\u660e\n\n"
+                "ENGLISH: This email and any attachments "
+                "are confidential and intended solely "
+                "for the use of the individual or entity "
+                "to whom they are addressed. If you are "
+                "not the intended recipient, you are "
+                "hereby notified that any disclosure, "
+                "copying, distribution, or use of the "
+                "contents of this email is strictly "
+                "prohibited. If you have received this "
+                "email in error, please immediately "
+                "notify the sender by reply email and "
+                "destroy all copies of the original "
+                "message. Any views or opinions expressed "
+                "in this email are those of the "
+                "individual sender and do not necessarily "
+                "represent those of Contoso Ltd or its "
+                "subsidiaries. Contoso Ltd accepts no "
+                "liability for any damage caused by any "
+                "virus transmitted by this email or its "
+                "attachments.\n\n"
+                "FRAN\u00c7AIS : Ce courriel et toute "
+                "pi\u00e8ce jointe sont confidentiels et "
+                "destin\u00e9s uniquement \u00e0 la "
+                "personne ou \u00e0 l\u2019entit\u00e9 "
+                "\u00e0 laquelle ils sont adress\u00e9s. "
+                "Si vous n\u2019\u00eates pas le "
+                "destinataire pr\u00e9vu, vous \u00eates "
+                "inform\u00e9 que toute divulgation, "
+                "copie, distribution ou utilisation du "
+                "contenu de ce courriel est strictement "
+                "interdite. Si vous avez re\u00e7u ce "
+                "courriel par erreur, veuillez en "
+                "informer imm\u00e9diatement "
+                "l\u2019exp\u00e9diteur par courriel et "
+                "d\u00e9truire toutes les copies du "
+                "message original.\n\n"
+                "DEUTSCH: Diese E-Mail und alle "
+                "Anh\u00e4nge sind vertraulich und "
+                "ausschlie\u00dflich f\u00fcr den "
+                "Gebrauch der Person oder Organisation "
+                "bestimmt, an die sie gerichtet sind. "
+                "Wenn Sie nicht der beabsichtigte "
+                "Empf\u00e4nger sind, wird Ihnen "
+                "hiermit mitgeteilt, dass jede "
+                "Offenlegung, Vervielf\u00e4ltigung, "
+                "Verbreitung oder Verwendung des Inhalts "
+                "dieser E-Mail strengstens untersagt "
+                "ist. Sollten Sie diese E-Mail "
+                "irrt\u00fcmlich erhalten haben, "
+                "benachrichtigen Sie bitte umgehend den "
+                "Absender und l\u00f6schen Sie alle "
+                "Kopien.\n\n"
+                "\u65e5\u672c\u8a9e : \u3053\u306e"
+                "\u30e1\u30fc\u30eb\u304a\u3088\u3073"
+                "\u6dfb\u4ed8\u30d5\u30a1\u30a4\u30eb"
+                "\u306f\u6a5f\u5bc6\u60c5\u5831\u3067"
+                "\u3042\u308a\u3001\u5b9b\u5148\u306e"
+                "\u500b\u4eba\u307e\u305f\u306f\u56e3"
+                "\u4f53\u306e\u307f\u3092\u5bfe\u8c61"
+                "\u3068\u3057\u3066\u3044\u307e\u3059"
+                "\u3002\u610f\u56f3\u3057\u305f\u53d7"
+                "\u4fe1\u8005\u3067\u306a\u3044\u5834"
+                "\u5408\u3001\u3053\u306e\u30e1\u30fc"
+                "\u30eb\u306e\u5185\u5bb9\u306e\u958b"
+                "\u793a\u3001\u8907\u88fd\u3001\u914d"
+                "\u5e03\u3001\u307e\u305f\u306f\u4f7f"
+                "\u7528\u306f\u56fa\u304f\u7981\u3058"
+                "\u3089\u308c\u3066\u3044\u307e\u3059"
+                "\u3002\n\n"
+                "\u4e2d\u6587 : \u672c\u90ae\u4ef6\u53ca"
+                "\u5176\u9644\u4ef6\u5747\u5c5e\u673a"
+                "\u5bc6\u4fe1\u606f\uff0c\u4ec5\u4f9b"
+                "\u6536\u4ef6\u4eba\u4e2a\u4eba\u6216"
+                "\u5b9e\u4f53\u4f7f\u7528\u3002\u5982"
+                "\u60a8\u5e76\u975e\u9884\u671f\u6536"
+                "\u4ef6\u4eba\uff0c\u7279\u6b64\u901a"
+                "\u77e5\u60a8\uff0c\u4e25\u7981\u62ab"
+                "\u9732\u3001\u590d\u5236\u3001\u5206"
+                "\u53d1\u6216\u4f7f\u7528\u672c\u90ae"
+                "\u4ef6\u5185\u5bb9\u3002\u8bf7\u7acb"
+                "\u5373\u901a\u77e5\u53d1\u4ef6\u4eba"
+                "\u5e76\u5220\u9664\u6240\u6709\u526f"
+                "\u672c\u3002\n"
+            ),
+            reporter=_reporter(
+                "Oliver Grant",
+                "o.grant@contoso.com",
+                "Human Resources",
+            ),
+            created_at="2026-03-18T11:00:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Access & Authentication",
+            priority="P3",
+            assigned_team="Identity & Access Management",
+            needs_escalation=False,
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-089: Near-empty ticket
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-089",
+        name="Near-empty ticket about monitor issue",
+        description=(
+            "Ticket body is just 'See attached screenshot' "
+            "with no technical detail; subject mentions a "
+            "monitor display problem."
+        ),
+        category=_CATEGORY,
+        tags=["near_empty", "no_detail", "hardware"],
+        ticket=EvalTicket(
+            ticket_id="INC-5089",
+            subject="External monitor not working",
+            description="See attached screenshot.",
+            reporter=_reporter(
+                "Rebecca Thornton",
+                "r.thornton@contoso.com",
+                "Design",
+            ),
+            created_at="2026-03-18T13:45:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+            needs_escalation=False,
+        ),
+    )
+)
+
+# ---------------------------------------------------------------------------
+# dc-090: Automated vulnerability scanner report
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-090",
+        name="Nessus scan report with critical TLS finding",
+        description=(
+            "Automated Nessus vulnerability scanner output "
+            "with dozens of findings; the real issue is a "
+            "single critical TLS certificate expiry."
+        ),
+        category=_CATEGORY,
+        tags=[
+            "vuln_scanner",
+            "nessus",
+            "tls_certificate",
+        ],
+        ticket=EvalTicket(
+            ticket_id="INC-5090",
+            subject=("Nessus scan: critical finding on prod-web-01"),
+            description=(
+                "Nessus Scan Report \u2014 2026-03-18\n"
+                "Target: prod-web-01.contoso.com "
+                "(10.20.30.41)\n"
+                "Scan Policy: Corporate Quarterly\n"
+                "Start: 2026-03-18T02:00:00Z  "
+                "End: 2026-03-18T03:47:22Z\n\n"
+                "Plugin ID | Severity | Name\n"
+                "--------- | -------- | ----\n"
+                "10863     | INFO     | SSL Certificate "
+                "Information\n"
+                "11219     | INFO     | Nessus SYN "
+                "Scanner\n"
+                "22964     | INFO     | Service "
+                "Detection\n"
+                "42873     | LOW      | SSL Medium "
+                "Strength Cipher Suites\n"
+                "65821     | LOW      | SSL RC4 Cipher "
+                "Suites\n"
+                "20007     | LOW      | SSL Version 2 "
+                "and 3 Protocol Detection\n"
+                "35291     | MEDIUM   | SSL Certificate "
+                "Signed Using Weak Hashing\n"
+                "57582     | MEDIUM   | SSL Self-Signed "
+                "Certificate\n"
+                "15901     | MEDIUM   | SSL Certificate "
+                "Expiry (< 30 days)\n"
+                "45411     | MEDIUM   | SSL Certificate "
+                "with Wrong Hostname\n"
+                "51192     | CRITICAL | SSL Certificate "
+                "Expired\n"
+                "104743    | MEDIUM   | TLS 1.0 "
+                "Enabled\n"
+                "157288    | MEDIUM   | TLS 1.1 "
+                "Enabled\n"
+                "10287     | INFO     | Traceroute "
+                "Information\n"
+                "19506     | INFO     | Nessus Scan "
+                "Information\n"
+                "11936     | INFO     | OS "
+                "Identification\n"
+                "54615     | INFO     | Device Type\n"
+                "25220     | INFO     | TCP "
+                "Timestamps\n"
+                "12053     | INFO     | Host Fully "
+                "Qualified Domain Name\n\n"
+                "=== CRITICAL DETAIL ===\n"
+                "Plugin 51192 - SSL Certificate "
+                "Expired\n"
+                "Port: 443/tcp\n"
+                "The SSL certificate on this host "
+                "expired on 2026-03-15T23:59:59Z "
+                "(3 days ago).\n"
+                "Subject: "
+                "CN=prod-web-01.contoso.com\n"
+                "Issuer: "
+                "CN=Contoso Internal CA G2\n"
+                "Serial: "
+                "4A:3B:7C:91:DE:F0:12:34\n"
+                "SHA-256 Fingerprint: "
+                "B3:4C:5D:6E:7F:80:91:A2:...\n\n"
+                "This is the customer-facing payment "
+                "portal. Browsers are showing certificate "
+                "warnings. Certificate auto-renewal via "
+                "ACME failed because the ACME endpoint "
+                "was unreachable during the renewal "
+                "window. Please renew the certificate "
+                "immediately."
+            ),
+            reporter=_reporter(
+                "Sanjay Rao",
+                "s.rao@contoso.com",
+                "Information Security",
+            ),
+            created_at="2026-03-18T04:00:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Security & Compliance",
+            priority="P1",
+            assigned_team="Security Operations",
+            needs_escalation=True,
+        ),
+    )
+)
