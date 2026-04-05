@@ -1,0 +1,31 @@
+# Copyright (c) Microsoft. All rights reserved.
+[project]
+name = "ms-evals-core"
+version = "0.0.0"
+description = "Evaluation scenarios for IT ticket triage: data cleanup edge cases and responsible AI"
+requires-python = "==3.12.*"
+
+dependencies = [
+    "pydantic>=2.8.0",
+    "ms-common-models",
+]
+
+[tool.uv.sources]
+ms-common-models = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.407",
+    "pytest>=9.0.1",
+]
+
+[build-system]
+requires = ["uv_build>=0.10.10,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "ms.evals_core"
+module-root = "src"
+
+[tool.pyright]
+pythonVersion = "3.12"
