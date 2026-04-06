@@ -1,0 +1,242 @@
+[
+  {
+    "ticket_id": "INC-DCA001",
+    "category": "Data & Storage",
+    "priority": "P2",
+    "assigned_team": "Data Platform",
+    "needs_escalation": false,
+    "missing_information": ["affected_users", "business_impact"],
+    "next_best_action": "Investigate high CPU and memory on SQLPROD-01/02 — check for long-running queries, missing indexes, or parameter sniffing issues affecting billing reports.",
+    "remediation_steps": [
+      "Identify the top long-running queries on SQLPROD-01 and SQLPROD-02",
+      "Review execution plans for billing report stored procedures",
+      "Check for missing or fragmented indexes on billing tables",
+      "Verify no blocking or deadlocking is occurring",
+      "Consider temporarily scaling up resources during month-end"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCA002",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": ["environment_details", "steps_to_reproduce"],
+    "next_best_action": "Investigate SOAP timeout on vendor API integration — check network latency, connection pool exhaustion, and vendor API health.",
+    "remediation_steps": [
+      "Check vendor API status page and contact vendor support if down",
+      "Review WCF binding SendTimeout configuration",
+      "Check network latency between application server and vendor endpoint",
+      "Verify connection pool settings and look for leaked connections",
+      "Implement retry logic with exponential backoff if not already present"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCA003",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": ["environment_details", "application_version"],
+    "next_best_action": "Investigate failed database migration — column 'created_by' already exists, suggesting migration was partially applied previously. Fix the idempotent migration script.",
+    "remediation_steps": [
+      "Check if migration 0047 was partially applied in a previous run",
+      "Add IF NOT EXISTS guards to the migration DDL statements",
+      "Verify migration tracking table is in sync with actual schema",
+      "Re-run the pipeline after fixing the migration script",
+      "Add pre-deployment schema validation to prevent future conflicts"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCA004",
+    "category": "Network & Connectivity",
+    "priority": "P3",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": ["error_message", "device_info"],
+    "next_best_action": "Ignore auto-reply content — investigate VPN disconnection issue for David Kim using Cisco AnyConnect on Seattle profile.",
+    "remediation_steps": [
+      "Check Cisco AnyConnect client version and update if needed",
+      "Review VPN concentrator logs for session disconnect events",
+      "Verify Dead Peer Detection (DPD) and keepalive settings",
+      "Test with a different VPN profile to isolate the issue",
+      "Check for ISP-related packet loss or MTU issues"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCA005",
+    "category": "General Inquiry",
+    "priority": "P3",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": ["error_message", "device_info", "steps_to_reproduce"],
+    "next_best_action": "Create separate tickets for each issue — printer jam (Endpoint), Outlook crash (Enterprise Apps), WiFi performance (Network Ops). Triage each independently.",
+    "remediation_steps": [
+      "Create separate tickets for each distinct issue for proper routing",
+      "Route printer issue to Endpoint Engineering for hardware inspection",
+      "Route Outlook crash to Enterprise Applications for investigation",
+      "Route WiFi performance to Network Operations for AP analysis",
+      "Advise user to submit separate tickets for unrelated issues"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCA006",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": ["affected_users", "timestamp"],
+    "next_best_action": "Investigate 550 RESOLVER.ADR.RecipNotFound error — verify recipient address with client and check for DNS/MX record issues for clientcorp.com.",
+    "remediation_steps": [
+      "Verify the recipient email address is correct with the client",
+      "Check DNS resolution and MX records for clientcorp.com",
+      "Test email delivery to another address at clientcorp.com",
+      "Check if clientcorp.com has blocked contoso.com domain",
+      "If address is correct, contact clientcorp IT to verify mailbox exists"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCA007",
+    "category": "Access & Authentication",
+    "priority": "P3",
+    "assigned_team": "Identity & Access Management",
+    "needs_escalation": false,
+    "missing_information": ["error_message", "steps_to_reproduce"],
+    "next_best_action": "Investigate SharePoint authentication failure after password change — likely cached credentials or token refresh issue.",
+    "remediation_steps": [
+      "Clear cached credentials in Windows Credential Manager",
+      "Sign out and sign back in to all Microsoft 365 applications",
+      "Check if Azure AD password sync has completed",
+      "Verify the new password meets SharePoint access policy requirements",
+      "If issue persists, reset the user's Azure AD session tokens"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCA008",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": ["error_message", "environment_details"],
+    "next_best_action": "Investigate NullReferenceException in BatchProcessor.ProcessInvoice — decode the URL parameters to extract the trace ID and error details.",
+    "remediation_steps": [
+      "Decode the URL-encoded error details to identify the exact error",
+      "Look up trace_id 7f8a9b2c-3d4e-5f6a-8b9c-0d1e2f3a4b5c in application logs",
+      "Investigate NullReferenceException in BatchProcessor.ProcessInvoice",
+      "Check for differences between single and batch invoice code paths",
+      "Deploy a fix and verify batch submission works end-to-end"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCA009",
+    "category": "Network & Connectivity",
+    "priority": "P3",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": ["error_message", "steps_to_reproduce", "environment_details"],
+    "next_best_action": "Review firewall rule configuration — guest internet access rule may have incorrect port format or rule ordering issue blocking guest zone DNS.",
+    "remediation_steps": [
+      "Check rule 6 port format — '443,80' may need to be separate rules or use range syntax",
+      "Verify rule ordering — rule 5 deny may be blocking DNS lookups for guest zone",
+      "Ensure guest zone has DNS resolution allowed by adding a DNS rule",
+      "Check NAT rules — guest traffic may not have proper SNAT configured",
+      "Test guest WiFi after each change to identify the specific blocking rule"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCA010",
+    "category": "Hardware & Peripherals",
+    "priority": "P3",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": ["device_info", "error_message"],
+    "next_best_action": "Investigate docking station failure — amber LED indicates hardware or firmware issue. Check firmware version and power delivery.",
+    "remediation_steps": [
+      "Check docking station firmware version and update if available",
+      "Verify the dock power supply is delivering sufficient wattage",
+      "Test the laptop's USB-C port with a different peripheral",
+      "Try the dock with a different laptop to isolate the issue",
+      "If amber LED persists after firmware update, request dock replacement"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCA011",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": ["screenshot_or_attachment", "steps_to_reproduce"],
+    "next_best_action": "Investigate Dynamics 365 NullReferenceException in SalesForceAutomation module — decode OCR artifacts to extract actual error code CRM_EXC_0x80040265.",
+    "remediation_steps": [
+      "Identify actual error code from OCR text — likely CRM_EXC_0x80040265",
+      "Check Dynamics 365 server logs for the full stack trace",
+      "Investigate NullReferenceException in ProcessLead method",
+      "Verify lead record data integrity — check for corrupted records",
+      "Deploy plugin fix if a code defect is found"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCA012",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": ["steps_to_reproduce", "reproduction_frequency"],
+    "next_best_action": "Investigate timezone handling in meeting scheduler — API returns different date than calendar views, suggesting UTC/local conversion bug.",
+    "remediation_steps": [
+      "Audit timezone handling across all calendar display surfaces",
+      "Verify the API stores dates in UTC with proper timezone metadata",
+      "Check the iCal export for missing VTIMEZONE components",
+      "Test cross-timezone meeting creation and verify consistency",
+      "Fix any surfaces that render UTC as local time or vice versa"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCA013",
+    "category": "Network & Connectivity",
+    "priority": "P1",
+    "assigned_team": "Network Operations",
+    "needs_escalation": true,
+    "missing_information": ["affected_users", "business_impact"],
+    "next_best_action": "URGENT: Investigate US-EAST datacenter rack-level outage affecting R12-R14 — check power distribution and top-of-rack switches. Failover to US-WEST.",
+    "remediation_steps": [
+      "Contact datacenter operations for US-EAST R12-R14 status",
+      "Check power distribution unit (PDU) status for affected racks",
+      "Verify top-of-rack switch connectivity for R12, R13, R14",
+      "Failover customer traffic to US-WEST if not already done",
+      "Once root cause is identified, bring servers back online in priority order"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCA014",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": ["error_message", "environment_details"],
+    "next_best_action": "Fix v4.8.0 deployment manifest — add missing REDIS_URL environment variable and re-deploy the invoice-service.",
+    "remediation_steps": [
+      "Add REDIS_URL environment variable to v4.8.0 deployment manifest",
+      "Verify Redis connectivity from the production namespace",
+      "Add startup validation to check required environment variables before serving",
+      "Re-run the deployment pipeline for v4.8.0",
+      "Update the deployment runbook to include new Redis dependency"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCA015",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": ["device_info", "application_version"],
+    "next_best_action": "Investigate MIME rendering failure in Outlook Web App for external emails — likely a content-type handling or Exchange transport rule issue.",
+    "remediation_steps": [
+      "Check Exchange transport rules for modifications to external email content",
+      "Verify Outlook Web App rendering settings for MIME content",
+      "Test with a specific external sender to reproduce the issue",
+      "Check if any email security appliance is stripping MIME headers",
+      "If transport rules are clean, escalate to Microsoft support"
+    ]
+  }
+]
