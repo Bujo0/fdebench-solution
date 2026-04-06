@@ -1,0 +1,215 @@
+[
+    {
+        "ticket_id": "INC-5001",
+        "subject": "VPN drops when switching from Ethernet to Wi-Fi",
+        "description": "Every time I undock my laptop and move to Wi-Fi, the VPN disconnects and I have to reconnect manually. Started after last Tuesday's Windows update. Using GlobalProtect v3.2 on the NYC office Wi-Fi, Floor 4.\n\nI've been dealing with this issue for a while now and it's really frustrating. Let me give you more context about what's happening. When I'm connected to the Ethernet via my docking station at my desk, everything works fine. The VPN stays connected, I can access all internal resources, and my connection is stable. But the moment I undock my laptop — literally the second I pull the Ethernet cable or take it off the dock — the VPN drops immediately.\n\nI then have to manually reconnect to the Wi-Fi network (ContosoWiFi-5G on Floor 4), wait for it to authenticate, and then manually launch GlobalProtect again and reconnect to the VPN. The whole process takes about 2-3 minutes each time, and I switch between docked and undocked probably 6-8 times per day because I go to meetings, work from the cafe area, etc.\n\nHere's what I've tried so far:\n1. Restarting my laptop - didn't help\n2. Forgetting and re-adding the Wi-Fi network - didn't help\n3. Updating GlobalProtect client - it says v3.2 is the latest available\n4. Checking with colleagues on the same floor - at least 3 others have the same issue\n5. Tried using the 2.4GHz network instead of 5GHz - same problem\n\nSome additional technical details:\n- Laptop: Dell Latitude 5540, Windows 11 23H2\n- NIC: Intel AX211 Wi-Fi 6E\n- GlobalProtect version: 3.2.1-build4829\n- VPN Gateway: vpn-east.contoso.com\n- Last Windows Update: KB5034765 installed on March 12, 2026\n- Docking Station: Dell WD22TB4 Thunderbolt\n\nI noticed in the Event Viewer there are some warnings from the WLAN-Autoconfig service that say 'The wireless security for interface Wi-Fi was not started because of an internal failure' around the time of each disconnect. I can share the full event log if needed.\n\nThis is really impacting my productivity because I'm in back-to-back meetings most of the afternoon and need to maintain my connection to the internal dashboards and trading platforms. Yesterday I missed an important notification because my VPN was down for about 5 minutes between the dock and the conference room.\n\nPlease let me know if you need any more information. I'm available anytime to test or provide remote access.\n\nBest regards,\nSarah Chen\nEngineering Department\next. 4829\n\n---\n\nDisclaimer: This email and any attachments are confidential and intended solely for the use of the individual or entity to whom it is addressed. If you have received this communication in error, please notify the sender immediately and delete the message. Any unauthorized use, disclosure, or distribution is prohibited. Contoso Financial Services, 200 Park Avenue, New York, NY 10166.\n\n---\n\nSent from my Dell laptop\nContoso Financial Services - Think Forward\n\nP.S. I also want to mention that the same thing happened to my colleague James in Trading last week, and he was told it was a 'known issue' but nobody followed up. Can you please check if there's already a fix being worked on?\n\nP.P.S. One more thing - when the VPN drops and I reconnect, it sometimes puts me on a different VPN gateway (vpn-west.contoso.com instead of vpn-east.contoso.com) and then some internal sites don't load properly until I disconnect and reconnect to force it back to the east gateway.",
+        "reporter": {
+            "name": "Sarah Chen",
+            "email": "sarah.chen@contoso.com",
+            "department": "Engineering"
+        },
+        "created_at": "2026-03-17T09:14:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5002",
+        "subject": "Screen capture not working - see screenshot",
+        "description": "My screen capture tool stopped working after the update. Here is a screenshot of the error:\n\ndata:image/png;base64,3l5VkgeWjb4JSIyPYKqptaP3hDMcjasEBQXkYVQ87q+K7V+xtRZRlTo86hdn4xHrs6cDKg9Rc9yUegVq3EMlP/o+hnPoZcmIXULgZrEhcw4rC/7jSlOZfvEwKqH2rEWsVeqQYomVIK0wCKIzpNeZw4Z/9aGLQZt0x0368hlPHLnCD3S0wFTIYC8VMO74DEkydzUZa5Os61A1hA7QgjhiGiIYMyG86uITWQWeje9TM74mAmp9soL9H/yg5JKvc6bLonvy6NPNrzKhA7gZJcdsssY+srm12era5+UjQwyOOPxndJled52XroGz6XusRq4BhM3PmfBcI6qaedEvFX2jYs4+V4slyGa7Y4mXfNUfPu9ALwjJcxv8UOAoMs0aoUO/SGUD/rSR5qNYDaCc\n\nAlso the snipping tool shows this error too:\n\ndata:image/jpeg;base64,ZdyO5BoGJkF7XxiitbvuR9sWKu9fwHPGoZx9AbOGlTYZch4BqiGvQSj2HX9DMcDo7EEbNUm+fa3UTfx1+rilHmPP4BFNuDkU+HWmA2/ZV8Q86aRdOBU5xf2Os592GVR5wK3ptJ+v1iyvRl778bQizJW+QsipFiQRKh5/BwrHUw1XyrCUbdIkYRyd8qLQAskbf5Tkmmw244CJlACmqc94G1u4ndaeaq/aWnQN5+FpMJn5EXQ6Qmn9rJen9/qzr6zeNs6W57TTdzxNTTlD0Pa+XvfJZ4n80wVHckK4TBqpAm5ComDTnlHcKzB5o9mhoaQfVdhXPZQPjeq8kp36HSzKQFOnCLJ++uV885zMu8+awDzG+5bM83qKS38Aw/o05UKEz1MfCbfc8Y3AMEC37ESN+UitvBEBHJAscndAooYXiyvAlHM93BCecqEQG5CU3Jo0OWNYVzjhYZgWSF/3xVo237YJIVJoGDdPz9morDx3S8s8rsI5RVzQdMWcYsKSOLpbysEXCQof2JnNNYcp7t2S2GzkKDDUZje6pNQC7rISxfhZ0CY2M/QzNovHtIm+7167ZOpWtHghEmZPwC+pwgWxkEcwYsgrrj/QfYlU32vd8WcZXg5yny9AdOz2UXyz5qpXt11tmhqn0+u6GAFnVX9t8jF8x+0=\n\nPlease help, I need to take screenshots for compliance documentation that's due by end of week.",
+        "reporter": {
+            "name": "Tom Nguyen",
+            "email": "tom.nguyen@contoso.com",
+            "department": "Compliance"
+        },
+        "created_at": "2026-03-18T14:22:00Z",
+        "channel": "email",
+        "attachments": [
+            "error_screenshot.png"
+        ]
+    },
+    {
+        "ticket_id": "INC-5003",
+        "subject": "Calendar sync issue",
+        "description": "<html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n<style type=\"text/css\">\nbody { font-family: Calibri, Arial, sans-serif; font-size: 11pt; color: #000000; }\n.MsoNormal { margin: 0; padding: 0; }\np.MsoNormal, li.MsoNormal, div.MsoNormal { margin: 0in; font-size: 11.0pt; font-family: 'Calibri',sans-serif; }\n.email-signature { color: #666666; font-size: 9pt; border-top: 1px solid #cccccc; padding-top: 8px; margin-top: 16px; }\na:link { color: #0563C1; }\na:visited { color: #954F72; }\n</style>\n</head>\n<body>\n<div class=\"MsoNormal\">\n<p>Hi IT Support,</p>\n<p>&nbsp;</p>\n<p>My Outlook calendar is showing duplicate entries for all meetings from last week. Every single meeting appears twice, and when I delete one copy, both disappear. I&#39;ve tried the following:</p>\n<ul>\n<li>Restarting Outlook</li>\n<li>Clearing the offline data file (.ost)</li>\n<li>Removing and re-adding my Exchange account</li>\n</ul>\n<p>The issue started after I accepted a recurring meeting series from <a href=\"mailto:jennifer.wu@contoso.com\">Jennifer Wu</a> on Monday. Could that be related?</p>\n<p>&nbsp;</p>\n<p>I&#39;m on Outlook Version 2404 (Build 17531.20140) on Windows 11.</p>\n<p>&nbsp;</p>\n<div class=\"email-signature\">\n<p><b>Marcus Rodriguez</b><br>\nSenior Portfolio Manager | Wealth Management<br>\n<a href=\"mailto:marcus.rodriguez@contoso.com\">marcus.rodriguez@contoso.com</a><br>\nContoso Financial Services<br>\nDirect: +1 (212) 555-0147 | Mobile: +1 (917) 555-0283<br>\n<img src=\"cid:contoso_logo_footer\" width=\"120\" height=\"40\" alt=\"Contoso Financial Services\">\n</p>\n</div>\n</div>\n</body>\n</html>",
+        "reporter": {
+            "name": "Marcus Rodriguez",
+            "email": "marcus.rodriguez@contoso.com",
+            "department": "Wealth Management"
+        },
+        "created_at": "2026-03-18T08:45:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5004",
+        "subject": "Re: Re: Re: Re: Re: Fwd: Re: Re: Fwd: Re: Network printer not working on 3rd floor",
+        "description": "Still not fixed.\n\n-------- Original Message --------\nFrom: IT Support <support@contoso.com>\nTo: Lisa Park <lisa.park@contoso.com>\nDate: March 17, 2026 4:30 PM\nSubject: Re: Re: Re: Re: Fwd: Re: Re: Fwd: Re: Network printer not working on 3rd floor\n\nHi Lisa,\n\nWe've dispatched a technician to check the printer. Can you confirm the exact printer name or asset tag?\n\nThanks,\nIT Support Team\n\n-------- Original Message --------\nFrom: Lisa Park <lisa.park@contoso.com>\nTo: IT Support <support@contoso.com>\nDate: March 17, 2026 3:15 PM\nSubject: Re: Re: Re: Fwd: Re: Re: Fwd: Re: Network printer not working on 3rd floor\n\nIt's the one next to the kitchen area. The big one. I think it says HP on it.\n\n-------- Original Message --------\nFrom: IT Support <support@contoso.com>\nTo: Lisa Park <lisa.park@contoso.com>\nDate: March 17, 2026 2:00 PM\nSubject: Re: Re: Fwd: Re: Re: Fwd: Re: Network printer not working on 3rd floor\n\nHi Lisa,\n\nCould you try printing a test page from the printer's control panel?\n\nBest,\nIT Support\n\n-------- Original Message --------\nFrom: Lisa Park <lisa.park@contoso.com>\nTo: IT Support <support@contoso.com>\nDate: March 17, 2026 1:22 PM\nSubject: Re: Fwd: Re: Re: Fwd: Re: Network printer not working on 3rd floor\n\nI tried turning it off and on. Still doesn't work.\n\n-------- Original Message --------\nFrom: IT Support <support@contoso.com>\nTo: Lisa Park <lisa.park@contoso.com>\nDate: March 17, 2026 11:00 AM\nSubject: Fwd: Re: Re: Fwd: Re: Network printer not working on 3rd floor\n\nHi Lisa,\n\nWe received your escalation. Have you tried power cycling the printer?\n\nThanks,\nIT Support Team\n\n-------- Original Message --------\nFrom: Lisa Park <lisa.park@contoso.com>\nTo: helpdesk@contoso.com\nDate: March 17, 2026 10:30 AM\nSubject: Re: Re: Fwd: Re: Network printer not working on 3rd floor\n\nHello?? Is anyone looking at this? I submitted this ticket 2 days ago.\n\n-------- Original Message --------\nFrom: helpdesk@contoso.com\nTo: Lisa Park <lisa.park@contoso.com>\nDate: March 15, 2026 3:00 PM\nSubject: Re: Fwd: Re: Network printer not working on 3rd floor\n\nThank you for contacting Contoso IT. Your ticket INC-4201 has been created. A technician will respond within 24 hours.\n\n-------- Original Message --------\nFrom: Lisa Park <lisa.park@contoso.com>\nTo: helpdesk@contoso.com\nDate: March 15, 2026 2:45 PM\nSubject: Fwd: Re: Network printer not working on 3rd floor\n\nForwarding this again since nobody responded.\n\n-------- Original Message --------\nFrom: Lisa Park <lisa.park@contoso.com>\nTo: mike.chen@contoso.com\nDate: March 15, 2026 9:00 AM\nSubject: Re: Network printer not working on 3rd floor\n\nMike, IT hasn't responded. Can you escalate?\n\n-------- Original Message --------\nFrom: Lisa Park <lisa.park@contoso.com>\nTo: helpdesk@contoso.com\nDate: March 14, 2026 4:00 PM\nSubject: Network printer not working on 3rd floor\n\nThe network printer on the 3rd floor near the kitchen isn't printing. Jobs are sent but nothing comes out. Multiple people are affected. Please fix.",
+        "reporter": {
+            "name": "Lisa Park",
+            "email": "lisa.park@contoso.com",
+            "department": "Finance"
+        },
+        "created_at": "2026-03-18T09:12:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5005",
+        "subject": "Cant login to system 🔒💻😡😡😡 HELP!!!",
+        "description": "OMG 😱😱😱 I cannot login to ANYTHING today!!!! My password was working yesterday 🤷‍♀️ but now it says \"invalid credentials\" every single time I try 🔐❌\n\nI've tried:\n✅ Restarting my laptop\n✅ Using my phone hotspot instead of WiFi\n✅ Typing my password in Notepad first to make sure its right\n❌ Nothing works!!!!\n\nI have a SUPER important client presentation at 2pm 📊💼 and I literally cannot access the CRM, the shared drives, OR my email 📧\n\nPlease help ASAP!!! 🆘🆘🆘\n\nMy username is: jlee_contoso\nMy department is Marketing 🎨\n\n⚠️⚠️⚠️ UPDATE: My colleague Sarah just told me she heard there might be some account lockout thing happening??? Can someone confirm?? ⚠️⚠️⚠️\n\n🙏🙏🙏 Please hurry this is urgent 🙏🙏🙏\n\n— Sent from my iPhone 📱",
+        "reporter": {
+            "name": "Jordan Lee",
+            "email": "jordan.lee@contoso.com",
+            "department": "Marketing"
+        },
+        "created_at": "2026-03-18T11:23:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5006",
+        "subject": "Database connection timeout",
+        "description": "Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout\n\nSorry, my keyboard was stuck. Here's the actual issue:\n\nThe production analytics database (analytics-prod-east.database.windows.net) is returning connection timeouts intermittently. Started around 8:30 AM today. About 40% of queries are failing with:\n\n\"A connection was successfully established with the server, but then an error occurred during the pre-login handshake. (provider: TCP Provider, error: 0 - An existing connection was forcibly closed by the remote host.)\"\n\nDatabase connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout\n\nApologies, it happened again. Anyway, the remaining 60% of queries complete normally but are 3-4x slower than usual (p95 went from ~200ms to ~800ms). This is affecting the real-time trading dashboard and approximately 150 traders across all three offices are seeing stale data.\n\nDatabase connection timeout Database connection timeout Database connection timeout Database connection timeout Database connection timeout\n\nI really need a new keyboard. The connection pool is configured for max 100 connections and Azure Portal shows the DTU utilization is at 89% which is unusual for this time of day.",
+        "reporter": {
+            "name": "Kevin O'Brien",
+            "email": "kevin.obrien@contoso.com",
+            "department": "IT"
+        },
+        "created_at": "2026-03-18T09:02:00Z",
+        "channel": "portal",
+        "attachments": [
+            "connection_pool_metrics.png",
+            "dtu_dashboard.png"
+        ]
+    },
+    {
+        "ticket_id": "INC-5007",
+        "subject": "URGENT CRITICAL P0 EMERGENCY — COMPLETE SYSTEM FAILURE — ALL SYSTEMS DOWN — NEED IMMEDIATE HELP — PRODUCTION IS BROKEN — CLIENTS CANNOT ACCESS PORTAL — REVENUE IMPACT — PLEASE ESCALATE TO VP OF ENGINEERING — THIS IS THE THIRD TIME THIS MONTH — WE NEED A PERMANENT FIX — COMPLIANCE DEADLINE IN 2 HOURS — AUDITORS ARE WAITING — CEO IS ASKING FOR STATUS — BOARD MEETING TOMORROW — CANNOT DELAY — SLA BREACH IMMINENT — CUSTOMER IMPACT CRITICAL — DATA INTEGRITY AT RISK — BACKUP FAILED TOO — DISASTER RECOVERY NEEDED — ALL HANDS ON DECK",
+        "description": "My laptop is running slow today. Takes about 10 seconds to open Excel. Can you look into it when you get a chance? Not super urgent.",
+        "reporter": {
+            "name": "Derek Whitfield",
+            "email": "derek.whitfield@contoso.com",
+            "department": "Compliance"
+        },
+        "created_at": "2026-03-18T15:00:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5008",
+        "subject": "Need access to SharePoint site",
+        "description": "Hi team, I need access to the following SharePoint sites. Here are the URLs:\n\nhttps://contoso.sharepoint.com/sites/WealthMgmt-ClientData\nhttps://contoso.sharepoint.com/sites/WealthMgmt-Research\nhttps://contoso.sharepoint.com/sites/TradingFloor-Analytics\nhttps://contoso.sharepoint.com/sites/TradingFloor-RiskModels\nhttps://contoso.sharepoint.com/sites/Compliance-AuditTrail\nhttps://contoso.sharepoint.com/sites/Compliance-RegFilings\nhttps://contoso.sharepoint.com/sites/HR-Benefits\nhttps://contoso.sharepoint.com/sites/HR-Policies\nhttps://contoso.sharepoint.com/sites/Finance-BudgetPlanning\nhttps://contoso.sharepoint.com/sites/Finance-APReports\nhttps://contoso.sharepoint.com/sites/IT-ProjectTracker\nhttps://contoso.sharepoint.com/sites/IT-ChangeManagement\nhttps://contoso.sharepoint.com/sites/Legal-ContractReview\nhttps://contoso.sharepoint.com/sites/Legal-IPPortfolio\nhttps://contoso.sharepoint.com/sites/Executive-StrategicPlan\nhttps://contoso.sharepoint.com/sites/Executive-BoardDocs\nhttps://contoso.sharepoint.com/sites/Marketing-Campaigns\nhttps://contoso.sharepoint.com/sites/Marketing-BrandAssets\nhttps://contoso.sharepoint.com/sites/Operations-Facilities\nhttps://contoso.sharepoint.com/sites/Operations-Vendors\n\nI'm a new analyst starting in the Wealth Management team and my manager said I should request access to everything I might need. My manager is David Park (david.park@contoso.com) and he can approve. Please process ASAP as I need to start my onboarding reading.",
+        "reporter": {
+            "name": "Amy Watson",
+            "email": "amy.watson@contoso.com",
+            "department": "Wealth Management"
+        },
+        "created_at": "2026-03-19T08:15:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5009",
+        "subject": "Problème avec le logiciel de trading",
+        "description": "Bonjour l'équipe IT,\n\nJ'ai un problème avec le Bloomberg terminal depuis ce matin. L'application se fige complètement quand j'essaie d'ouvrir plusieurs charts en même temps. Normalement je peux en ouvrir 8-10 sans problème, mais maintenant ça plante après le 3ème.\n\nI'm writing in English now because I realize the portal might not support French. Sorry about that.\n\nThe Bloomberg Terminal application freezes when opening more than 3 charts simultaneously. This started this morning after a Windows update was applied overnight. I'm on the London trading floor and my colleagues here (Pierre, Amélie, and François) are experiencing the same issue.\n\nPouvez-vous vérifier si la mise à jour a causé un conflit? Nous avons besoin de cela pour le marché européen qui ouvre dans 30 minutes.\n\nMerci beaucoup,\nJean-Pierre\n\nP.S. Les logs sont dans C:\\Users\\jpduval\\AppData\\Local\\Bloomberg\\logs\\crash_2026-03-19.dmp",
+        "reporter": {
+            "name": "Jean-Pierre Duval",
+            "email": "jp.duval@contoso.com",
+            "department": "Trading"
+        },
+        "created_at": "2026-03-19T07:30:00Z",
+        "channel": "portal",
+        "attachments": [
+            "crash_2026-03-19.dmp"
+        ]
+    },
+    {
+        "ticket_id": "INC-5010",
+        "subject": "Application error - stack trace attached",
+        "description": "The risk calculation service is throwing errors. Here's the full stack trace:\n\njava.lang.OutOfMemoryError: Java heap space\n\tat java.base/java.util.Arrays.copyOf(Arrays.java:3512)\n\tat java.base/java.util.ArrayList.grow(ArrayList.java:237)\n\tat java.base/java.util.ArrayList.grow(ArrayList.java:244)\n\tat java.base/java.util.ArrayList.add(ArrayList.java:454)\n\tat java.base/java.util.ArrayList.add(ArrayList.java:467)\n\tat com.contoso.risk.engine.MonteCarloSimulator.runSimulation(MonteCarloSimulator.java:342)\n\tat com.contoso.risk.engine.MonteCarloSimulator.calculateVaR(MonteCarloSimulator.java:128)\n\tat com.contoso.risk.service.RiskCalculationService.computePortfolioRisk(RiskCalculationService.java:89)\n\tat com.contoso.risk.service.RiskCalculationService.lambda$processAll$0(RiskCalculationService.java:45)\n\tat java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)\n\tat java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)\n\tat java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)\n\tat java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)\n\tat java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:960)\n\tat java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:934)\n\tat java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)\n\tat java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:754)\n\tat java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:387)\n\tat java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1312)\n\tat java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1843)\n\tat java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1808)\n\tat java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:188)\n\nHeap usage at crash: 7.8GB / 8GB configured. This happens during the daily VaR computation around 6 AM but we didn't notice until traders started reporting stale risk numbers this morning. The service has been restarted but will likely crash again tomorrow at the same time. We need the heap increased or the batch job optimized. About 200 portfolios are affected.",
+        "reporter": {
+            "name": "Rachel Kim",
+            "email": "rachel.kim@contoso.com",
+            "department": "IT"
+        },
+        "created_at": "2026-03-19T08:45:00Z",
+        "channel": "portal",
+        "attachments": [
+            "heapdump_20260319_0600.hprof",
+            "gc_log.txt"
+        ]
+    },
+    {
+        "ticket_id": "INC-5011",
+        "subject": "Laptop won't boot",
+        "description": "See attached.",
+        "reporter": {
+            "name": "Brian Foster",
+            "email": "brian.foster@contoso.com",
+            "department": "HR"
+        },
+        "created_at": "2026-03-19T10:00:00Z",
+        "channel": "portal",
+        "attachments": [
+            "photo_of_screen.jpg"
+        ]
+    },
+    {
+        "ticket_id": "INC-5012",
+        "subject": "Outlok isuse",
+        "description": "Hi tehre, im haivng troubel with my otulook. it keeps shwoing me an erorr messgae wehn I try to sedn eamils. The erorr says \"Teh opertaion faild. An obejct coudl not be fuond.\" I thnik it strated aftre the updata last nihgt. My colleageus are aslo haivng the smae isuse. Plesae hlep, I have importnat eamils to sedn to our clints todya. Its afecting abuot 15 pepole in the Tarding depatment on the 5th flor. We treid restrating otulook and clearig the cahce but nohitng workd. Also the serach fucntion is vrey slow, taeks abuot 30 secnods to fidn any eamil.",
+        "reporter": {
+            "name": "Alex Petrova",
+            "email": "alex.petrova@contoso.com",
+            "department": "Trading"
+        },
+        "created_at": "2026-03-19T09:20:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5013",
+        "subject": "MFA authentication logs show anomaly",
+        "description": "While reviewing authentication logs, I found unusual MFA token validation patterns. The base64-encoded log extract is below:\n\nRVJST1IgMjAyNi0wMy0xOCAwOToxNToyMiBbQXV0aE1vZHVsZV0gRmFpbGVkIHRvIHZhbGlkYXRlIE1GQSB0b2tlbiBmb3IgdXNlciBzYXJhaC5jaGVuQGNvbnRvc28uY29tLiBUb2tlbiBleHBpcmVkIGF0IDIwMjYtMDMtMThUMDk6MTA6MDBaLiBSZXRyeSBjb3VudDogMy4gTW9kdWxlOiBBenVyZUFELk1GQS5WYWxpZGF0b3IuIENvcnJlbGF0aW9uSWQ6IGE4ZjNjMmUxLTRiNWQtNGY2YS04YzlkLTBlMWYyYTNiNGM1ZGNBdRVM6FDx2/sW33OIeLh8DG8vQpIB8WGumYZbW04hDCs1DXmWgketP07qWifhgu3OygIkC6N1rWz9nDheC4DA5ap5U/gdlJb5sUj+T3JdQS7ya1etZK9tyJ1B9vxDytuhaNT1qW+xWWiWQKPK3tbKjbKPA5A8bDEMCiUa9v+8kDsipa6uvzyS4fitsGSSR08JJwmh8Q==\n\nThe decoded portion shows MFA token validation failures for sarah.chen@contoso.com with expired tokens. However, the raw log also contains what appears to be binary data appended after the text portion, which shouldn't be there. This suggests the log file may have been tampered with or there's a buffer overflow issue in the logging module.\n\nAdditionally, here's a network capture snippet that shows unusual traffic patterns:\n\n3IGoXGQy7PxcaE6gOhzxRHf5AcotisOn7d2SZQbv5hkBSyluO9K2kbzlh9UISyz5DwgdKTjYDu/ns6nYeuGwyQpl1+qwx5ie3TmN3/i+Cf5U6chw+nBnf/JPX6P0D7nREDEUfQ+OWKoUYcE53MKSgf5ni1rfXeczvBEnwXPZAVyqjPZjwgTu6avzxFZNox0VlqMGpVpbxBq/6Kv2flat295Cv7+N5VncZ5FscawtkrhrZtfSx+0TWDAmY/UZ4x3MvnNSBpW7ttz7ajGVwIMds/eyB34XShI+8aumU33avwm67YOC2RmWXJ8ErkiNbVmg+KoKXiZEGnwpYQ==\n\nI believe this warrants immediate investigation. The failed MFA attempts might indicate a brute-force attack or a compromised authentication module.",
+        "reporter": {
+            "name": "Anil Deshmukh",
+            "email": "anil.deshmukh@contoso.com",
+            "department": "IT"
+        },
+        "created_at": "2026-03-19T06:45:00Z",
+        "channel": "portal",
+        "attachments": [
+            "auth_module_logs_20260318.log",
+            "network_capture.pcap"
+        ]
+    },
+    {
+        "ticket_id": "INC-5014",
+        "subject": "Deployment pipeline failure",
+        "description": "The CI/CD pipeline for the client-portal service failed. Here's the full build output:\n\n{\n  \"buildId\": \"20260319-1423\",\n  \"pipeline\": \"client-portal-deploy\",\n  \"status\": \"failed\",\n  \"stages\": [\n    {\n      \"name\": \"build\",\n      \"status\": \"succeeded\",\n      \"duration_ms\": 45230,\n      \"artifacts\": [\"client-portal:v2.14.3\"]\n    },\n    {\n      \"name\": \"unit-tests\",\n      \"status\": \"succeeded\",\n      \"duration_ms\": 123456,\n      \"tests_passed\": 1847,\n      \"tests_failed\": 0\n    },\n    {\n      \"name\": \"integration-tests\",\n      \"status\": \"failed\",\n      \"duration_ms\": 234567,\n      \"tests_passed\": 89,\n      \"tests_failed\": 3,\n      \"failures\": [\n        {\n          \"test\": \"test_portfolio_valuation_api\",\n          \"error\": \"ConnectionRefusedError: [Errno 111] Connection refused\",\n          \"details\": \"Could not connect to pricing-service:8443 during test setup\"\n        },\n        {\n          \"test\": \"test_trade_execution_flow\",\n          \"error\": \"AssertionError: Expected status 200, got 503\",\n          \"details\": \"Trade execution service returned 503 Service Unavailable\"\n        },\n        {\n          \"test\": \"test_compliance_check_integration\",\n          \"error\": \"TimeoutError: Read timed out after 30000ms\",\n          \"details\": \"Compliance check service did not respond within timeout\"\n        }\n      ]\n    },\n    {\n      \"name\": \"deploy-staging\",\n      \"status\": \"skipped\",\n      \"reason\": \"Previous stage failed\"\n    }\n  ],\n  \"environment\": {\n    \"cluster\": \"aks-east-staging\",\n    \"namespace\": \"client-portal\",\n    \"kubernetes_version\": \"1.28.5\",\n    \"node_count\": 6\n  },\n  \"triggered_by\": \"merge to main (PR #4827)\",\n  \"commit\": \"a3f8c2e1\"\n}\n\nThe integration test environment seems to have issues with dependent services. This is blocking the v2.14.3 release which includes critical security patches for the client portal. We need the staging environment's service mesh checked.",
+        "reporter": {
+            "name": "Miguel Santos",
+            "email": "miguel.santos@contoso.com",
+            "department": "IT"
+        },
+        "created_at": "2026-03-19T14:30:00Z",
+        "channel": "portal",
+        "attachments": [
+            "build_log_20260319.json",
+            "service_mesh_config.yaml"
+        ]
+    },
+    {
+        "ticket_id": "INC-5015",
+        "subject": "Email from helpdesk with headers",
+        "description": "X-Mailer: Microsoft Outlook 16.0\nMIME-Version: 1.0\nContent-Type: multipart/mixed; boundary=\"----=_Part_12345_67890.1234567890123\"\nX-MS-Exchange-Organization-AuthSource: EXCH01.contoso.local\nX-MS-Exchange-Organization-AuthAs: Internal\nX-MS-Exchange-Organization-AuthMechanism: 04\nX-MS-Has-Attach: yes\nX-MS-Exchange-Organization-SCL: -1\nX-MS-TNEF-Correlator: <auto-generated-id-12345@contoso.com>\nReturn-Path: <sarah.chen@contoso.com>\nReceived: from EXCH01.contoso.local (10.0.1.50) by EXCH02.contoso.local (10.0.1.51) with Microsoft SMTP Server id 15.2.1118.40; Tue, 18 Mar 2026 16:00:00 -0500\nReceived: from edge01.contoso.com (203.0.113.10) by EXCH01.contoso.local (10.0.1.50) with Microsoft SMTP Server id 15.2.1118.40 via Frontend Transport; Tue, 18 Mar 2026 15:59:58 -0500\n\nCC: helpdesk@contoso.com; manager-group@contoso.com; it-leadership@contoso.com; security-team@contoso.com; cto@contoso.com; vp-engineering@contoso.com; facilities@contoso.com; compliance@contoso.com; hr-notify@contoso.com; legal-team@contoso.com; procurement@contoso.com; vendor-management@contoso.com; change-advisory-board@contoso.com; incident-response@contoso.com; sre-team@contoso.com\n\nActual issue: My badge stopped working for the server room door (Room 4B-201). I need access restored for hardware maintenance scheduled for tomorrow morning. My previous access was working until the badge system update last Friday.",
+        "reporter": {
+            "name": "Patricia Morales",
+            "email": "patricia.morales@contoso.com",
+            "department": "IT"
+        },
+        "created_at": "2026-03-18T16:05:00Z",
+        "channel": "email",
+        "attachments": []
+    }
+]
