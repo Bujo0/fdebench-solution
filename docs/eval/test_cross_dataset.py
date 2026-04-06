@@ -53,7 +53,11 @@ def _load(name: str, has_gold: bool = True) -> None:
 
 _load("sample", has_gold=True)
 _load("data_cleanup_eval", has_gold=True)
+_load("data_cleanup_advanced_eval", has_gold=True)
+_load("data_cleanup_expert_eval", has_gold=True)
 _load("responsible_ai_eval", has_gold=True)
+_load("responsible_ai_advanced_eval", has_gold=True)
+_load("responsible_ai_expert_eval", has_gold=True)
 _load("eval_data_cleanup", has_gold=True)
 _load("eval_responsible_ai", has_gold=True)
 _load("public_eval", has_gold=False)
@@ -148,6 +152,42 @@ def test_handcrafted_rai_has_25_tickets():
     assert len(tickets) == 25
     assert gold is not None
     assert len(gold) == 25
+
+
+def test_advanced_dc_has_15_tickets():
+    if "data_cleanup_advanced_eval" not in _DATASETS:
+        return
+    tickets, gold = _DATASETS["data_cleanup_advanced_eval"]
+    assert len(tickets) == 15
+    assert gold is not None
+    assert len(gold) == 15
+
+
+def test_expert_dc_has_15_tickets():
+    if "data_cleanup_expert_eval" not in _DATASETS:
+        return
+    tickets, gold = _DATASETS["data_cleanup_expert_eval"]
+    assert len(tickets) == 15
+    assert gold is not None
+    assert len(gold) == 15
+
+
+def test_advanced_rai_has_20_tickets():
+    if "responsible_ai_advanced_eval" not in _DATASETS:
+        return
+    tickets, gold = _DATASETS["responsible_ai_advanced_eval"]
+    assert len(tickets) == 20
+    assert gold is not None
+    assert len(gold) == 20
+
+
+def test_expert_rai_has_20_tickets():
+    if "responsible_ai_expert_eval" not in _DATASETS:
+        return
+    tickets, gold = _DATASETS["responsible_ai_expert_eval"]
+    assert len(tickets) == 20
+    assert gold is not None
+    assert len(gold) == 20
 
 
 def test_public_eval_has_50_tickets():
