@@ -68,7 +68,7 @@
             "items": {
                 "type": "string"
             },
-            "description": "Filenames of attachments mentioned in the ticket. Actual files are not provided \u2014 only names."
+            "description": "Filenames of attachments mentioned in the ticket. Actual files are not provided — only names."
         }
     }
 }
