@@ -40,6 +40,7 @@ jobs:
         package:
           - py/common/libs/models
           - py/common/libs/fastapi
+          - py/libs/eval
           - py/libs/evals
           - py/apps/evals
           - py/apps/eval-generator
