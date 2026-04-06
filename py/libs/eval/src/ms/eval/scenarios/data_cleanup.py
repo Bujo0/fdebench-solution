@@ -529,6 +529,450 @@ def scenario_special_characters_and_encoding() -> tuple[TicketInput, TriageDecis
     )
 
 
+def scenario_csv_tabular_data() -> tuple[TicketInput, TriageDecision]:
+    """Ticket with raw CSV / spreadsheet data pasted into the description.
+
+    Users sometimes copy-paste entire spreadsheet ranges into ticket bodies.
+    The system must extract the actual issue from the tabular noise.
+    """
+    csv_rows = "\n".join(
+        f"Server{i:02d},10.0.1.{i},{status},{cpu}%,{mem}GB"
+        for i, (status, cpu, mem) in enumerate(
+            [
+                ("OK", 12, 4),
+                ("OK", 23, 6),
+                ("CRITICAL", 98, 15),
+                ("OK", 15, 3),
+                ("WARNING", 75, 12),
+                ("OK", 8, 2),
+                ("CRITICAL", 99, 16),
+                ("OK", 30, 5),
+                ("OK", 18, 4),
+                ("WARNING", 65, 10),
+            ],
+            start=1,
+        )
+    )
+    description = (
+        "Here is the server health report from this morning's check:\n\n"
+        "Hostname,IP,Status,CPU,Memory\n"
+        f"{csv_rows}\n\n"
+        "As you can see, Server03 and Server07 are showing CRITICAL status. "
+        "Both are in our production cluster running the trading platform. "
+        "CPU is pegged at ~99% and memory is over 15GB. "
+        "This started around 6 AM today. Needs immediate attention."
+    )
+
+    return (
+        _ticket(
+            "INC-DC-0013",
+            "Server health report — critical servers",
+            description,
+            channel="portal",
+            reporter=Reporter(
+                name="Michael Torres",
+                email="michael.torres@contoso.com",
+                department="Infrastructure",
+            ),
+        ),
+        _gold(
+            "INC-DC-0013",
+            category="Hardware & Peripherals",
+            priority="P1",
+            assigned_team="Endpoint Engineering",
+            needs_escalation=True,
+            missing_information=["error_message"],
+            next_best_action="Investigate critical CPU and memory usage on production trading servers.",
+            remediation_steps=[
+                "Check running processes on Server03 and Server07 for runaway tasks",
+                "Review application logs on both servers for errors starting around 6 AM",
+                "Assess impact to the trading platform and prepare failover if needed",
+                "Scale resources or restart affected services once root cause is identified",
+            ],
+        ),
+    )
+
+
+def scenario_massive_email_signature() -> tuple[TicketInput, TriageDecision]:
+    """Ticket where the actual issue is buried under a massive corporate signature.
+
+    Common when auto-forwarded emails include multiple nested signatures
+    with legal disclaimers, contact blocks, and social media links.
+    """
+    signature = (
+        "\n\n"
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "Patricia D. Henderson, CFA, MBA\n"
+        "Senior Vice President — Global Wealth Management\n"
+        "Contoso Financial Services, LLC\n"
+        "350 Park Avenue, 42nd Floor\n"
+        "New York, NY 10022\n"
+        "Office: +1 (212) 555-0142 | Mobile: +1 (917) 555-0198\n"
+        "Fax: +1 (212) 555-0199\n"
+        "Email: patricia.henderson@contoso.com\n"
+        "LinkedIn: linkedin.com/in/patriciahenderson\n"
+        "Website: www.contoso.com/wealth-management\n\n"
+        "🌟 Voted #1 Wealth Management Firm — Financial Times 2025\n"
+        "📈 Managing $42B in client assets\n\n"
+        "CONFIDENTIALITY NOTICE: This electronic message and any files "
+        "transmitted with it are intended exclusively for the individual or "
+        "entity to which it is addressed. This message may contain information "
+        "that is proprietary, privileged, confidential, or otherwise legally "
+        "exempt from disclosure. If you are not the named addressee, you should "
+        "not disseminate, distribute, or copy this email. Please notify the "
+        "sender immediately by email if you have received this email by mistake "
+        "and delete this email from your system. E-mail transmission cannot be "
+        "guaranteed to be secure or error-free, as information could be "
+        "intercepted, corrupted, lost, destroyed, arrive late or incomplete, "
+        "or contain viruses. The sender therefore does not accept liability for "
+        "any errors or omissions in the contents of this message which arise as "
+        "a result of email transmission.\n"
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+    )
+    description = (
+        "I can't open the Bloomberg Terminal app — it crashes on launch with "
+        "a license error."
+        + signature * 3
+    )
+
+    return (
+        _ticket(
+            "INC-DC-0014",
+            "Bloomberg Terminal not launching",
+            description,
+            reporter=Reporter(
+                name="Patricia Henderson",
+                email="patricia.henderson@contoso.com",
+                department="Wealth Management",
+            ),
+        ),
+        _gold(
+            "INC-DC-0014",
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+            missing_information=["error_message"],
+            next_best_action="Investigate Bloomberg Terminal license error preventing launch.",
+            remediation_steps=[
+                "Check Bloomberg Terminal license status and expiration",
+                "Verify the Bloomberg BLP API service is running",
+                "Reinstall Bloomberg Terminal if license is valid but app fails",
+                "Contact Bloomberg support if license issue persists",
+            ],
+        ),
+    )
+
+
+def scenario_url_heavy_description() -> tuple[TicketInput, TriageDecision]:
+    """Ticket description consisting mostly of URLs and hyperlinks.
+
+    Users sometimes paste a list of URLs to show which pages are broken.
+    The system must extract the actual issue from the URL soup.
+    """
+    urls = "\n".join(
+        f"- https://sharepoint.contoso.com/sites/finance/{page} → {error}"
+        for page, error in [
+            ("reports/q1-2026", "500 Internal Server Error"),
+            ("reports/q4-2025", "500 Internal Server Error"),
+            ("dashboards/revenue", "This page can't be reached"),
+            ("dashboards/expenses", "500 Internal Server Error"),
+            ("team/documents", "This page can't be reached"),
+            ("team/calendar", "OK"),
+            ("policies/travel", "500 Internal Server Error"),
+            ("forms/expense-report", "This page can't be reached"),
+            ("announcements", "OK"),
+            ("training/compliance-2026", "500 Internal Server Error"),
+        ]
+    )
+    description = (
+        "Multiple pages on Finance SharePoint are down. Tested each one:\n\n"
+        f"{urls}\n\n"
+        "8 out of 10 pages are broken. This is blocking the entire Finance "
+        "department from accessing Q1 reports. Started about an hour ago."
+    )
+
+    return (
+        _ticket(
+            "INC-DC-0015",
+            "Finance SharePoint — multiple pages returning 500 errors",
+            description,
+            channel="portal",
+        ),
+        _gold(
+            "INC-DC-0015",
+            category="Software & Applications",
+            priority="P1",
+            assigned_team="Enterprise Applications",
+            needs_escalation=True,
+            missing_information=[],
+            next_best_action="Investigate widespread 500 errors on Finance SharePoint site collection.",
+            remediation_steps=[
+                "Check SharePoint application pool health and IIS logs",
+                "Verify backend database connectivity for the Finance site collection",
+                "Review recent deployments or configuration changes to SharePoint",
+                "If server-side issue confirmed, restart application pool and monitor",
+            ],
+        ),
+    )
+
+
+def scenario_ansi_terminal_output() -> tuple[TicketInput, TriageDecision]:
+    """Ticket with raw terminal output containing ANSI escape sequences.
+
+    Developers sometimes paste terminal output with color codes directly
+    into tickets when reporting build or deployment failures.
+    """
+    description = (
+        "Deploy failed. Here's the output:\n\n"
+        "\x1b[32m[INFO]\x1b[0m Starting deployment pipeline v3.2.1\n"
+        "\x1b[32m[INFO]\x1b[0m Building container image...\n"
+        "\x1b[33m[WARN]\x1b[0m Deprecated API version in manifest\n"
+        "\x1b[32m[INFO]\x1b[0m Pushing to acr-prod.azurecr.io/trading-api:latest\n"
+        "\x1b[31m[ERROR]\x1b[0m Push failed: unauthorized: authentication required\n"
+        "\x1b[31m[ERROR]\x1b[0m Service principal token expired\n"
+        "\x1b[31m[FATAL]\x1b[0m Pipeline aborted at stage: push-image\n"
+        "\x1b[90m  exit code: 1\x1b[0m\n"
+        "\x1b[90m  duration: 4m 32s\x1b[0m\n\n"
+        "This is blocking our release to production."
+    )
+
+    return (
+        _ticket(
+            "INC-DC-0016",
+            "Deploy pipeline failed — auth error",
+            description,
+            channel="chat",
+            reporter=Reporter(
+                name="Dev Team Lead",
+                email="devlead@contoso.com",
+                department="Engineering",
+            ),
+        ),
+        _gold(
+            "INC-DC-0016",
+            category="Access & Authentication",
+            priority="P2",
+            assigned_team="Identity & Access Management",
+            missing_information=["affected_system"],
+            next_best_action="Renew expired service principal credentials for container registry access.",
+            remediation_steps=[
+                "Check and renew the service principal token for acr-prod.azurecr.io",
+                "Verify RBAC role assignments for the deployment pipeline identity",
+                "Re-run the failed deployment pipeline after credential renewal",
+                "Set up alerts for upcoming service principal expiration",
+            ],
+        ),
+    )
+
+
+def scenario_garbled_ocr_text() -> tuple[TicketInput, TriageDecision]:
+    """Ticket created from a badly scanned document via OCR.
+
+    OCR artifacts include misrecognized characters, merged words, and
+    random symbols replacing actual text. Common with scanned forms.
+    """
+    description = (
+        "Fr0m: Faci1ities Desk\n"
+        "Re: Netw0rk 0utage — B1dg 7, F1oor 3\n\n"
+        "A11 netw0rk p0rts 0n the th1rd f1oor 0f bui1ding 7 are d0wn.\n"
+        "Approx|mately 45 emp1oyees are affect3d and cann0t c0nnect t0\n"
+        "any netw0rk res0urces inc1uding Wi-Fi and wir3d c0nnecti0ns.\n"
+        "The 1ssue start3d at 2:30 PM t0day after a p0wer f1icker.\n"
+        "Sw1tch r00m 0n f1oor 3 may need phys1cal inspect10n.\n"
+        "Ple@se send s0me0ne ASAP — peop1e are 1eaving f0r the day."
+    )
+
+    return (
+        _ticket(
+            "INC-DC-0017",
+            "Netw0rk 0utage — B1dg 7 F1oor 3",
+            description,
+            channel="email",
+            reporter=Reporter(
+                name="Facilities Desk",
+                email="facilities@contoso.com",
+                department="Facilities",
+            ),
+        ),
+        _gold(
+            "INC-DC-0017",
+            category="Network & Connectivity",
+            priority="P1",
+            assigned_team="Network Operations",
+            needs_escalation=True,
+            missing_information=[],
+            next_best_action="Dispatch network technician to Building 7 Floor 3 switch room.",
+            remediation_steps=[
+                "Physically inspect network switch room on Floor 3 of Building 7",
+                "Check for tripped breakers or damaged equipment after power flicker",
+                "Test switch port connectivity and replace failed hardware if needed",
+                "Restore network service to all 45 affected employees",
+            ],
+        ),
+    )
+
+
+def scenario_multiple_issues_one_ticket() -> tuple[TicketInput, TriageDecision]:
+    """Ticket that reports multiple unrelated problems in a single submission.
+
+    Users sometimes bundle several issues into one ticket. The system must
+    identify the primary/most urgent issue for triage.
+    """
+    description = (
+        "Hi, I have a few things:\n\n"
+        "1) My Outlook keeps crashing every time I open an attachment. "
+        "This has been going on for 3 days and I've lost unsaved emails twice.\n\n"
+        "2) Also, the printer on Floor 8 is out of toner but that's not urgent.\n\n"
+        "3) Can someone reset the conference room Polycom in Room 410? "
+        "The display is frozen on the Contoso logo.\n\n"
+        "4) My parking badge stopped working last week for the underground garage. "
+        "I've been parking on the street.\n\n"
+        "5) Most importantly — I think my laptop has a virus. I'm getting random "
+        "pop-ups and my browser keeps redirecting to weird sites even when I'm "
+        "not browsing. The pop-ups started appearing on Monday."
+    )
+
+    return (
+        _ticket(
+            "INC-DC-0018",
+            "Several issues — Outlook, printer, badge, laptop",
+            description,
+            channel="email",
+            reporter=Reporter(
+                name="Jessica Wang",
+                email="jessica.wang@contoso.com",
+                department="Operations",
+            ),
+        ),
+        _gold(
+            "INC-DC-0018",
+            category="Security & Compliance",
+            priority="P2",
+            assigned_team="Security Operations",
+            needs_escalation=True,
+            missing_information=["device_info"],
+            next_best_action="Investigate potential malware on laptop — browser redirects and pop-ups.",
+            remediation_steps=[
+                "Isolate the laptop from the network to prevent potential spread",
+                "Run full antimalware scan using Microsoft Defender",
+                "Check browser extensions and installed programs for malicious entries",
+                "If malware confirmed, reimage the device and restore from clean backup",
+            ],
+        ),
+    )
+
+
+def scenario_markdown_formatted_ticket() -> tuple[TicketInput, TriageDecision]:
+    """Ticket written in full Markdown with headers, code blocks, and tables.
+
+    Common from developers who write tickets in Markdown-aware tools.
+    The system must extract content from the formatting noise.
+    """
+    description = (
+        "# VPN Split-Tunnel Configuration Error\n\n"
+        "## Environment\n"
+        "- **OS**: Windows 11 Enterprise 23H2\n"
+        "- **VPN Client**: GlobalProtect 6.2.1\n"
+        "- **Location**: Remote — home office\n\n"
+        "## Problem\n"
+        "After the latest GlobalProtect update, split tunneling is broken. "
+        "**ALL** traffic is now routed through the VPN tunnel, including personal "
+        "traffic and streaming services.\n\n"
+        "## Steps to Reproduce\n"
+        "1. Connect to VPN via GlobalProtect\n"
+        "2. Run `tracert 8.8.8.8`\n"
+        "3. Notice all hops go through `10.0.0.x` corporate range\n\n"
+        "## Expected Behavior\n"
+        "Only `*.contoso.com` and internal `10.x.x.x` traffic should route via VPN.\n\n"
+        "## Actual Behavior\n"
+        "```\n"
+        "C:\\> tracert 8.8.8.8\n"
+        " 1    <1 ms    <1 ms    <1 ms  10.0.0.1\n"
+        " 2     3 ms     2 ms     2 ms  10.0.0.254\n"
+        " 3    15 ms    14 ms    14 ms  172.16.1.1\n"
+        "```\n\n"
+        "## Impact\n"
+        "| Metric | Before | After |\n"
+        "|--------|--------|-------|\n"
+        "| Internet speed | 500 Mbps | 25 Mbps |\n"
+        "| Latency | 5ms | 120ms |\n"
+        "| Affected users | 0 | ~200 remote |\n"
+    )
+
+    return (
+        _ticket(
+            "INC-DC-0019",
+            "VPN split-tunnel broken after update",
+            description,
+            channel="portal",
+            reporter=Reporter(
+                name="Kevin Zhao",
+                email="kevin.zhao@contoso.com",
+                department="Engineering",
+            ),
+        ),
+        _gold(
+            "INC-DC-0019",
+            category="Network & Connectivity",
+            priority="P2",
+            assigned_team="Network Operations",
+            missing_information=[],
+            next_best_action="Investigate GlobalProtect split-tunnel misconfiguration affecting remote workers.",
+            remediation_steps=[
+                "Review GlobalProtect split-tunnel policy for recent changes",
+                "Compare current VPN configuration with the pre-update baseline",
+                "Restore correct split-tunnel rules for non-corporate traffic",
+                "Test and validate that only internal traffic routes through VPN",
+            ],
+        ),
+    )
+
+
+def scenario_subject_description_mismatch() -> tuple[TicketInput, TriageDecision]:
+    """Ticket where the subject line describes a completely different issue than the body.
+
+    Occurs when users reply to an old ticket thread with a new, unrelated issue.
+    The system must prioritize the description content over the misleading subject.
+    """
+    description = (
+        "Ignore the subject — this is a new issue.\n\n"
+        "Our entire Salesforce instance is down. Nobody in the Sales department "
+        "(about 120 people) can log in. We're getting 'Service Unavailable' errors. "
+        "This started 15 minutes ago and we have a major client demo at 2 PM. "
+        "Revenue pipeline worth $3M is at risk if we can't get in for this demo. "
+        "Please treat this as highest priority."
+    )
+
+    return (
+        _ticket(
+            "INC-DC-0020",
+            "Re: Re: Fwd: Old printer issue from January (RESOLVED)",
+            description,
+            channel="email",
+            reporter=Reporter(
+                name="Sales Operations",
+                email="sales.ops@contoso.com",
+                department="Sales",
+            ),
+        ),
+        _gold(
+            "INC-DC-0020",
+            category="Software & Applications",
+            priority="P1",
+            assigned_team="Enterprise Applications",
+            needs_escalation=True,
+            missing_information=[],
+            next_best_action="Investigate Salesforce outage blocking 120 users before client demo.",
+            remediation_steps=[
+                "Check Salesforce service status page and trust.salesforce.com",
+                "Verify SSO and identity provider connectivity to Salesforce",
+                "If Contoso-side issue, check network connectivity to Salesforce endpoints",
+                "If Salesforce-side issue, open a Severity 1 case with Salesforce support",
+            ],
+        ),
+    )
+
+
 def get_all_data_cleanup_scenarios() -> list[tuple[TicketInput, TriageDecision]]:
     """Return all data cleanup evaluation scenarios as (ticket, gold) pairs."""
     return [
@@ -544,4 +988,12 @@ def get_all_data_cleanup_scenarios() -> list[tuple[TicketInput, TriageDecision]]
         scenario_mixed_languages(),
         scenario_base64_attachment_flood(),
         scenario_special_characters_and_encoding(),
+        scenario_csv_tabular_data(),
+        scenario_massive_email_signature(),
+        scenario_url_heavy_description(),
+        scenario_ansi_terminal_output(),
+        scenario_garbled_ocr_text(),
+        scenario_multiple_issues_one_ticket(),
+        scenario_markdown_formatted_ticket(),
+        scenario_subject_description_mismatch(),
     ]

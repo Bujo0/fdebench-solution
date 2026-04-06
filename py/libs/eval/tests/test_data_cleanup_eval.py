@@ -16,17 +16,25 @@ import pytest
 from ms.eval.models import TicketInput
 from ms.eval.models import TriageDecision
 from ms.eval.scenarios.data_cleanup import get_all_data_cleanup_scenarios
+from ms.eval.scenarios.data_cleanup import scenario_ansi_terminal_output
 from ms.eval.scenarios.data_cleanup import scenario_base64_attachment_flood
 from ms.eval.scenarios.data_cleanup import scenario_base64_image_in_description
+from ms.eval.scenarios.data_cleanup import scenario_csv_tabular_data
 from ms.eval.scenarios.data_cleanup import scenario_email_thread_noise
 from ms.eval.scenarios.data_cleanup import scenario_empty_description
 from ms.eval.scenarios.data_cleanup import scenario_excessive_whitespace
 from ms.eval.scenarios.data_cleanup import scenario_extremely_long_subject
+from ms.eval.scenarios.data_cleanup import scenario_garbled_ocr_text
 from ms.eval.scenarios.data_cleanup import scenario_html_email_body
+from ms.eval.scenarios.data_cleanup import scenario_markdown_formatted_ticket
+from ms.eval.scenarios.data_cleanup import scenario_massive_email_signature
 from ms.eval.scenarios.data_cleanup import scenario_mixed_languages
+from ms.eval.scenarios.data_cleanup import scenario_multiple_issues_one_ticket
 from ms.eval.scenarios.data_cleanup import scenario_repeated_content
 from ms.eval.scenarios.data_cleanup import scenario_special_characters_and_encoding
+from ms.eval.scenarios.data_cleanup import scenario_subject_description_mismatch
 from ms.eval.scenarios.data_cleanup import scenario_unicode_rtl_and_homoglyphs
+from ms.eval.scenarios.data_cleanup import scenario_url_heavy_description
 from ms.eval.scenarios.data_cleanup import scenario_very_long_email
 
 # ── Schema validation for all scenarios ──────────────────────────────
@@ -86,7 +94,7 @@ class TestAllScenariosSchemaCompliance:
 
     def test_minimum_scenario_count(self) -> None:
         """Ensure we have a meaningful number of data cleanup scenarios."""
-        assert len(_ALL_SCENARIOS) >= 10
+        assert len(_ALL_SCENARIOS) >= 18
 
 
 # ── Scenario-specific tests ──────────────────────────────────────────
@@ -262,3 +270,156 @@ class TestSpecialCharactersAndEncoding:
     def test_classified_as_data_storage(self) -> None:
         _, gold = scenario_special_characters_and_encoding()
         assert gold.category == "Data & Storage"
+
+
+# ── New scenario-specific tests ──────────────────────────────────────
+
+
+class TestCsvTabularData:
+    """Verify CSV/tabular data scenario."""
+
+    def test_contains_csv_header(self) -> None:
+        ticket, _ = scenario_csv_tabular_data()
+        assert "Hostname,IP,Status,CPU,Memory" in ticket.description
+
+    def test_contains_critical_entries(self) -> None:
+        ticket, _ = scenario_csv_tabular_data()
+        assert "CRITICAL" in ticket.description
+
+    def test_classified_as_hardware(self) -> None:
+        _, gold = scenario_csv_tabular_data()
+        assert gold.category == "Hardware & Peripherals"
+        assert gold.priority == "P1"
+
+    def test_needs_escalation(self) -> None:
+        _, gold = scenario_csv_tabular_data()
+        assert gold.needs_escalation is True
+
+
+class TestMassiveEmailSignature:
+    """Verify massive email signature scenario."""
+
+    def test_signature_dominates_description(self) -> None:
+        ticket, _ = scenario_massive_email_signature()
+        # Signature block repeated 3 times should dwarf the one-line issue
+        assert len(ticket.description) > 2000
+
+    def test_contains_confidentiality_notice(self) -> None:
+        ticket, _ = scenario_massive_email_signature()
+        assert "CONFIDENTIALITY NOTICE" in ticket.description
+
+    def test_classified_as_software(self) -> None:
+        _, gold = scenario_massive_email_signature()
+        assert gold.category == "Software & Applications"
+
+
+class TestUrlHeavyDescription:
+    """Verify URL-heavy description scenario."""
+
+    def test_contains_many_urls(self) -> None:
+        ticket, _ = scenario_url_heavy_description()
+        url_count = ticket.description.count("https://sharepoint.contoso.com")
+        assert url_count >= 8
+
+    def test_contains_error_codes(self) -> None:
+        ticket, _ = scenario_url_heavy_description()
+        assert "500 Internal Server Error" in ticket.description
+
+    def test_classified_as_software_p1(self) -> None:
+        _, gold = scenario_url_heavy_description()
+        assert gold.category == "Software & Applications"
+        assert gold.priority == "P1"
+        assert gold.needs_escalation is True
+
+
+class TestAnsiTerminalOutput:
+    """Verify ANSI terminal output scenario."""
+
+    def test_contains_ansi_escape_codes(self) -> None:
+        ticket, _ = scenario_ansi_terminal_output()
+        assert "\x1b[" in ticket.description
+
+    def test_contains_error_info(self) -> None:
+        ticket, _ = scenario_ansi_terminal_output()
+        assert "authentication required" in ticket.description
+
+    def test_classified_as_access(self) -> None:
+        _, gold = scenario_ansi_terminal_output()
+        assert gold.category == "Access & Authentication"
+
+
+class TestGarbledOcrText:
+    """Verify garbled OCR text scenario."""
+
+    def test_contains_ocr_artifacts(self) -> None:
+        ticket, _ = scenario_garbled_ocr_text()
+        # OCR artifacts: 0 instead of o, 1 instead of l
+        assert "netw0rk" in ticket.description.lower()
+        assert "f1oor" in ticket.description.lower()
+
+    def test_classified_as_network(self) -> None:
+        _, gold = scenario_garbled_ocr_text()
+        assert gold.category == "Network & Connectivity"
+        assert gold.priority == "P1"
+
+    def test_needs_escalation(self) -> None:
+        _, gold = scenario_garbled_ocr_text()
+        assert gold.needs_escalation is True
+
+
+class TestMultipleIssuesOneTicket:
+    """Verify multiple-issues-in-one-ticket scenario."""
+
+    def test_contains_multiple_numbered_issues(self) -> None:
+        ticket, _ = scenario_multiple_issues_one_ticket()
+        assert "1)" in ticket.description
+        assert "5)" in ticket.description
+
+    def test_prioritizes_security_issue(self) -> None:
+        _, gold = scenario_multiple_issues_one_ticket()
+        assert gold.category == "Security & Compliance"
+        assert gold.assigned_team == "Security Operations"
+
+    def test_needs_escalation_for_malware(self) -> None:
+        _, gold = scenario_multiple_issues_one_ticket()
+        assert gold.needs_escalation is True
+
+
+class TestMarkdownFormattedTicket:
+    """Verify markdown formatted ticket scenario."""
+
+    def test_contains_markdown_headers(self) -> None:
+        ticket, _ = scenario_markdown_formatted_ticket()
+        assert "# " in ticket.description
+        assert "## " in ticket.description
+
+    def test_contains_code_block(self) -> None:
+        ticket, _ = scenario_markdown_formatted_ticket()
+        assert "```" in ticket.description
+
+    def test_contains_markdown_table(self) -> None:
+        ticket, _ = scenario_markdown_formatted_ticket()
+        assert "|--------|" in ticket.description
+
+    def test_classified_as_network(self) -> None:
+        _, gold = scenario_markdown_formatted_ticket()
+        assert gold.category == "Network & Connectivity"
+
+
+class TestSubjectDescriptionMismatch:
+    """Verify subject/description mismatch scenario."""
+
+    def test_subject_references_old_issue(self) -> None:
+        ticket, _ = scenario_subject_description_mismatch()
+        assert "RESOLVED" in ticket.subject
+        assert "printer" in ticket.subject.lower()
+
+    def test_description_has_different_issue(self) -> None:
+        ticket, _ = scenario_subject_description_mismatch()
+        assert "Salesforce" in ticket.description
+
+    def test_classified_on_description_not_subject(self) -> None:
+        _, gold = scenario_subject_description_mismatch()
+        assert gold.category == "Software & Applications"
+        assert gold.priority == "P1"
+        assert gold.needs_escalation is True
