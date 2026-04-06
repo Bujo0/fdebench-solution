@@ -1472,15 +1472,15 @@ def scenario_windows_event_log_dump() -> tuple[TicketInput, TriageDecision]:
         "    <EventID>41</EventID>\n"
         "    <Version>8</Version>\n"
         "    <Level>1</Level>\n"
-        '    <Task>63</Task>\n'
+        "    <Task>63</Task>\n"
         "    <Opcode>0</Opcode>\n"
-        '    <Keywords>0x8000400000000002</Keywords>\n'
+        "    <Keywords>0x8000400000000002</Keywords>\n"
         '    <TimeCreated SystemTime="2026-03-18T14:32:07.1234567Z" />\n'
-        '    <EventRecordID>98712</EventRecordID>\n'
-        '    <Correlation />\n'
+        "    <EventRecordID>98712</EventRecordID>\n"
+        "    <Correlation />\n"
         '    <Execution ProcessID="4" ThreadID="8" />\n'
-        '    <Channel>System</Channel>\n'
-        '    <Computer>WS-FIN-0147.contoso.local</Computer>\n'
+        "    <Channel>System</Channel>\n"
+        "    <Computer>WS-FIN-0147.contoso.local</Computer>\n"
         "  </System>\n"
         "  <EventData>\n"
         '    <Data Name="BugcheckCode">209</Data>\n'
@@ -1504,7 +1504,7 @@ def scenario_windows_event_log_dump() -> tuple[TicketInput, TriageDecision]:
         'Guid="{ABCE23E7-DE45-4366-8631-84FA6C525952}" />\n'
         "    <EventID>1001</EventID>\n"
         '    <TimeCreated SystemTime="2026-03-18T14:33:01.9876543Z" />\n'
-        '    <Computer>WS-FIN-0147.contoso.local</Computer>\n'
+        "    <Computer>WS-FIN-0147.contoso.local</Computer>\n"
         "  </System>\n"
         "  <EventData>\n"
         '    <Data Name="DumpFile">C:\\Windows\\MEMORY.DMP</Data>\n'
@@ -1575,7 +1575,7 @@ def scenario_soap_fault_xml() -> tuple[TicketInput, TriageDecision]:
         "TimeSpan timeout)\n"
         "   --- End of inner exception stack trace ---</faultstring>\n"
         "      <detail>\n"
-        "        <ExceptionDetail xmlns=\"http://schemas.datacontract.org/2004/07/System\">\n"
+        '        <ExceptionDetail xmlns="http://schemas.datacontract.org/2004/07/System">\n'
         "          <HelpLink />\n"
         "          <InnerException>\n"
         "            <HelpLink />\n"
@@ -1625,15 +1625,19 @@ def scenario_soap_fault_xml() -> tuple[TicketInput, TriageDecision]:
             assigned_team="Enterprise Applications",
             missing_information=["environment_details"],
             next_best_action=(
-                "Investigate SOAP timeout on CRM CustomerLookup service "
-                "affecting 35 sales-floor users since 09:15."
+                "Investigate SOAP timeout on CRM CustomerLookup service affecting 35 sales-floor users since 09:15."
             ),
             remediation_steps=[
                 "Check health and availability of the CRM backend service (crm-api.contoso.internal)",
                 "Review application and IIS logs on the CRM server around 09:15 for errors or resource exhaustion",
                 "Verify network connectivity between the web front-end and the CRM API tier",
+<<<<<<< HEAD
                 "If the backend service is healthy, increase the WCF SendTimeout "
                 "as a temporary workaround while root cause is investigated",
+=======
+                "If the backend service is healthy, increase the WCF SendTimeout as a temporary"
+                " workaround while root cause is investigated",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
             ],
         ),
     )
@@ -1656,9 +1660,7 @@ def scenario_syslog_flood() -> tuple[TicketInput, TriageDecision]:
             "auditd[982]: Audit daemon rotating log files",
             "CRON[29104]: (svc_etl) CMD (/opt/contoso/etl/run_nightly.sh)",
         ]
-        syslog_lines.append(
-            f"Mar 18 14:22:{ts_sec:02d} FS-PROD-01 {facility}: {messages[i % 5]}"
-        )
+        syslog_lines.append(f"Mar 18 14:22:{ts_sec:02d} FS-PROD-01 {facility}: {messages[i % 5]}")
     syslog_block = "\n".join(syslog_lines)
 
     description = (
@@ -1745,12 +1747,7 @@ def scenario_duplicate_ticket_concatenation() -> tuple[TicketInput, TriageDecisi
         "Ext. 4821\n"
     )
     description = (
-        "--- Merged duplicate submissions ---\n\n"
-        + submission_1
-        + "---\n\n"
-        + submission_2
-        + "---\n\n"
-        + submission_3
+        "--- Merged duplicate submissions ---\n\n" + submission_1 + "---\n\n" + submission_2 + "---\n\n" + submission_3
     )
 
     return (
@@ -1772,8 +1769,7 @@ def scenario_duplicate_ticket_concatenation() -> tuple[TicketInput, TriageDecisi
             assigned_team="Endpoint Engineering",
             missing_information=["device_info"],
             next_best_action=(
-                "Dispatch on-site support to inspect and repair the badge reader "
-                "at Singapore Block A main entrance."
+                "Dispatch on-site support to inspect and repair the badge reader at Singapore Block A main entrance."
             ),
             remediation_steps=[
                 "Verify the badge reader hardware status and power supply on-site",
@@ -1872,8 +1868,7 @@ def scenario_registry_export_dump() -> tuple[TicketInput, TriageDecision]:
     ]
     for i in range(30):
         reg_lines.append(
-            f'"item{i}"=hex:04,00,00,00,{i:02x},ab,cd,ef,01,23,45,67,89,ab,cd,ef,'
-            f"00,00,00,00,{i + 10:02x},00,00,00\n"
+            f'"item{i}"=hex:04,00,00,00,{i:02x},ab,cd,ef,01,23,45,67,89,ab,cd,ef,00,00,00,00,{i + 10:02x},00,00,00\n'
         )
     reg_lines.append("\n")
     reg_lines.append(
@@ -1889,9 +1884,7 @@ def scenario_registry_export_dump() -> tuple[TicketInput, TriageDecision]:
     ]:
         reg_lines.append(f'"{name}"=dword:00000001\n')
     reg_lines.append("\n")
-    reg_lines.append(
-        "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Office\\16.0\\Outlook\\Security]\n"
-    )
+    reg_lines.append("[HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Office\\16.0\\Outlook\\Security]\n")
     reg_lines.append('"EnableUnsafeClientMailRules"=dword:00000000\n')
     reg_lines.append('"AdminSecurityMode"=dword:00000003\n')
     reg_lines.append('"AllowActiveXOneOffForms"=dword:00000000\n')
@@ -1949,10 +1942,7 @@ def scenario_powershell_verbose_output() -> tuple[TicketInput, TriageDecision]:
     The user ran diagnostic commands and pasted all output. The real issue
     is that the SQL Server service keeps stopping on a production DB server.
     """
-    service_header = (
-        "Status   Name               DisplayName\n"
-        "------   ----               -----------\n"
-    )
+    service_header = "Status   Name               DisplayName\n------   ----               -----------\n"
     services = [
         ("Running", "AdobeARMservice   ", "Adobe Acrobat Update Service"),
         ("Running", "BrokerInfrastru...", "Background Tasks Infrastructure Ser..."),
@@ -1979,9 +1969,7 @@ def scenario_powershell_verbose_output() -> tuple[TicketInput, TriageDecision]:
         ("Running", "Winmgmt           ", "Windows Management Instrumentation"),
         ("Running", "wuauserv          ", "Windows Update"),
     ]
-    service_lines = service_header + "\n".join(
-        f"{status:<8} {name} {display}" for status, name, display in services
-    )
+    service_lines = service_header + "\n".join(f"{status:<8} {name} {display}" for status, name, display in services)
 
     process_header = (
         "\nHandles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName\n"
@@ -2053,8 +2041,13 @@ def scenario_powershell_verbose_output() -> tuple[TicketInput, TriageDecision]:
             ),
             remediation_steps=[
                 "Review the SQL Server error log for the root cause of the repeated service stops",
+<<<<<<< HEAD
                 "Check disk health and available space on the volumes hosting "
                 "the ContosoSettlements database and transaction log",
+=======
+                "Check disk health and available space on the volumes hosting the"
+                " ContosoSettlements database and transaction log",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
                 "Verify the database integrity with DBCC CHECKDB on ContosoSettlements",
                 "Restart the SQL Server service and monitor; if instability persists, fail over to the DR instance",
             ],
@@ -2149,8 +2142,13 @@ def scenario_ics_calendar_content() -> tuple[TicketInput, TriageDecision]:
             ),
             remediation_steps=[
                 "Verify Outlook iCalendar processing settings and test with a manually crafted .ics file",
+<<<<<<< HEAD
                 "Check Exchange transport rules or mail-flow policies that "
                 "may strip or block .ics attachments from external senders",
+=======
+                "Check Exchange transport rules or mail-flow policies that may strip or"
+                " block .ics attachments from external senders",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
                 "Test the specific .ics file by importing it directly via File > Open & Export in Outlook",
                 "If a transport rule is blocking, add an exception for the globexcorp.com domain",
             ],
@@ -2183,7 +2181,7 @@ def scenario_pdf_to_text_artifacts() -> tuple[TicketInput, TriageDecision]:
         " 10   USB-C Docking Station DS-       $   249.00    $  2,490.00\n"
         "      Pro (dual 4K output)\n"
         "100   Cat6a Patch Cable 5ft           $     4.75    $    475.00\n"
-        " 15   27\" 4K Monitor MN-2700          $   399.00    $  5,985.00\n"
+        ' 15   27" 4K Monitor MN-2700          $   399.00    $  5,985.00\n'
         "                                      Subtotal:     $ 14,312.00\n"
         "                                      Tax (8.5%):   $  1,216.52\n"
         "                                      TOTAL:        $ 15,528.52\n"
@@ -2238,8 +2236,13 @@ def scenario_pdf_to_text_artifacts() -> tuple[TicketInput, TriageDecision]:
                 "Compare OCR module v4.2.1 output with v4.1.x on the same sample invoices to confirm regression",
                 "If regression confirmed, roll back the OCR module to v4.1.x and re-process the stuck invoices",
                 "Report the parsing issue to the OCR module vendor with sample PDFs",
+<<<<<<< HEAD
                 "Implement validation checks on extracted text to catch "
                 "garbled output before it enters the processing queue",
+=======
+                "Implement validation checks on extracted text to catch garbled output"
+                " before it enters the processing queue",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
             ],
         ),
     )
@@ -2254,8 +2257,18 @@ def scenario_enormous_cc_list() -> tuple[TicketInput, TriageDecision]:
     """
     cc_recipients = []
     departments = [
-        "sales", "marketing", "finance", "legal", "hr", "engineering",
-        "ops", "support", "compliance", "risk", "trading", "research",
+        "sales",
+        "marketing",
+        "finance",
+        "legal",
+        "hr",
+        "engineering",
+        "ops",
+        "support",
+        "compliance",
+        "risk",
+        "trading",
+        "research",
     ]
     for i in range(84):
         dept = departments[i % len(departments)]
@@ -2273,9 +2286,9 @@ def scenario_enormous_cc_list() -> tuple[TicketInput, TriageDecision]:
         "Date: Wed, 18 Mar 2026 09:00:00 -0500\n"
         "Message-ID: <20260318090000.ABC123@mail.contoso.com>\n"
         "MIME-Version: 1.0\n"
-        "Content-Type: multipart/mixed; boundary=\"----=_Part_12345\"\n"
+        'Content-Type: multipart/mixed; boundary="----=_Part_12345"\n'
         "X-Mailer: Microsoft Outlook 16.0\n"
-        'X-MS-Exchange-Organization-SCL: -1\n'
+        "X-MS-Exchange-Organization-SCL: -1\n"
         "X-MS-Exchange-Organization-AuthSource: EXCH-PROD-01.contoso.local\n\n"
         "The bounce-back error says:\n"
         "  550 5.1.3 Invalid address — recipient list exceeds maximum allowed "
@@ -2535,17 +2548,27 @@ def scenario_sql_query_dump() -> tuple[TicketInput, TriageDecision]:
                 "ContosoSettlements with 47 blocked sessions affecting 30 users across trading desks."
             ),
             remediation_steps=[
+<<<<<<< HEAD
                 "Identify the head blocker among the 47 blocked sessions "
                 "using sys.dm_exec_requests and sys.dm_os_waiting_tasks",
                 "Check for long-running transactions or uncommitted changes holding locks",
                 "Review PAGEIOLATCH_SH waits for potential disk I/O bottleneck or memory pressure",
                 "If a runaway query is identified, terminate it and consider "
                 "adding missing indexes to prevent recurrence",
+=======
+                "Identify the head blocker among the 47 blocked sessions using"
+                " sys.dm_exec_requests and sys.dm_os_waiting_tasks",
+                "Check for long-running transactions or uncommitted changes holding locks",
+                "Review PAGEIOLATCH_SH waits for potential disk I/O bottleneck or memory pressure",
+                "If a runaway query is identified, terminate it and consider adding"
+                " missing indexes to prevent recurrence",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
             ],
         ),
     )
 
 
+<<<<<<< HEAD
 # ── New scenarios (INC-DC-5001 through INC-DC-5010) ──────────────────
 
 
@@ -3293,6 +3316,8 @@ def scenario_spreadsheet_tab_paste() -> tuple[TicketInput, TriageDecision]:
     return ticket, gold
 
 
+=======
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
 def get_all_data_cleanup_scenarios() -> list[tuple[TicketInput, TriageDecision]]:
     """Return all data cleanup evaluation scenarios as (ticket, gold) pairs."""
     return [
@@ -3336,6 +3361,7 @@ def get_all_data_cleanup_scenarios() -> list[tuple[TicketInput, TriageDecision]]
         scenario_enormous_cc_list(),
         scenario_nested_quoted_replies(),
         scenario_sql_query_dump(),
+<<<<<<< HEAD
         # ── New scenarios (INC-DC-5001 through INC-DC-5010) ──
         scenario_docker_container_logs(),
         scenario_kubernetes_pod_yaml(),
@@ -3347,4 +3373,6 @@ def get_all_data_cleanup_scenarios() -> list[tuple[TicketInput, TriageDecision]]
         scenario_packet_capture_text(),
         scenario_deeply_nested_java_exception(),
         scenario_spreadsheet_tab_paste(),
+=======
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
     ]

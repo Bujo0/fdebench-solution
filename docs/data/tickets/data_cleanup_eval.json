@@ -1,4 +1,5 @@
 [
+<<<<<<< HEAD
   {
     "ticket_id": "INC-2001",
     "subject": "Fwd: Fwd: Fwd: Re: Fwd: Re: VPN not working",
@@ -7,6 +8,20 @@
       "name": "James Wong",
       "email": "james.wong@contoso.com",
       "department": "Compliance"
+=======
+    {
+        "ticket_id": "INC-2001",
+        "subject": "Fwd: Fwd: Fwd: Re: Fwd: Re: VPN not working",
+        "description": "---------- Forwarded message ----------\nFrom: james.wong@contoso.com\nDate: Mon, 17 Mar 2026 at 08:00\nTo: helpdesk@contoso.com\nSubject: Re: VPN not working\n\nCan someone please look into this?\n\n---------- Forwarded message ----------\nFrom: sarah.miller@contoso.com\nDate: Fri, 14 Mar 2026 at 16:30\nTo: james.wong@contoso.com\nSubject: Re: VPN not working\n\nJames, I'm forwarding this to you since IT hasn't responded. Original issue below.\n\n---------- Forwarded message ----------\nFrom: mike.patel@contoso.com\nDate: Thu, 13 Mar 2026 at 11:45\nTo: sarah.miller@contoso.com\nSubject: Re: VPN not working\n\nSame issue here. GlobalProtect keeps disconnecting.\n\n---------- Forwarded message ----------\nFrom: lisa.garcia@contoso.com\nDate: Wed, 12 Mar 2026 at 09:22\nTo: mike.patel@contoso.com, sarah.miller@contoso.com\nCc: operations-team@contoso.com\nSubject: VPN not working\n\nHi team,\n\nSince Wednesday morning, GlobalProtect VPN on my laptop disconnects every 15 minutes. I'm on the London office Wi-Fi, Floor 3. I've tried restarting the client and my laptop. The error message says 'Gateway timeout - connection reset'. This is blocking my work on the quarterly compliance report which is due Friday.\n\n---------- Forwarded message ----------\nFrom: auto-reply@contoso.com\nDate: Wed, 12 Mar 2026 at 09:23\nTo: lisa.garcia@contoso.com\nSubject: Ticket confirmation\n\nYour ticket has been received. Reference: INC-1847.\n\n---------- Forwarded message ----------\nFrom: it-notifications@contoso.com\nDate: Tue, 11 Mar 2026 at 22:00\nTo: all-staff@contoso.com\nSubject: Scheduled maintenance completed\n\nNetwork maintenance window has been completed successfully. All services should be operational.\n\nBest regards,\nIT Operations",
+        "reporter": {
+            "name": "James Wong",
+            "email": "james.wong@contoso.com",
+            "department": "Compliance"
+        },
+        "created_at": "2026-03-17T10:30:00Z",
+        "channel": "email",
+        "attachments": []
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
     },
     "created_at": "2026-03-17T10:30:00Z",
     "channel": "email",
@@ -118,6 +133,7 @@
       "email": "patricia.lane@contoso.com",
       "department": "HR"
     },
+<<<<<<< HEAD
     "created_at": "2026-03-17T11:00:00Z",
     "channel": "portal",
     "attachments": []
@@ -195,6 +211,46 @@
       "name": "Monitoring System",
       "email": "monitoring@contoso.com",
       "department": "IT"
+=======
+    {
+        "ticket_id": "INC-2010",
+        "subject": "Can't access my email - getting error",
+        "description": "I can’t access my Outlook email since this morning. When I try to log in I get the error “Your account has been locked. Please contact your administrator.”\n\nI’ve tried resetting my password through the self-service portal but it says “Unable to verify your identity.”\n\nThis is urgent because I have client meetings today and all my calendar invites and prep documents are in Outlook. I’m currently using my personal email to communicate.\n\nMy employee ID is E-4521 and I’m in the NYC office, Floor 7.\n\n[Note: This ticket was originally submitted via phone with poor audio quality. Some character encoding artifacts may be present from the transcription system.]",
+        "reporter": {
+            "name": "Carlos Mendez",
+            "email": "carlos.mendez@contoso.com",
+            "department": "Wealth Management"
+        },
+        "created_at": "2026-03-17T08:00:00Z",
+        "channel": "phone",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-2011",
+        "subject": "Wi-Fi issue",
+        "description": "Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. \n\nPlease fix the Wi-Fi on Floor 2 of the Singapore office. The SSID 'Contoso-Corp' is visible but authentication fails with '802.1X authentication failed'. This affects about 30 people on this floor. We've been using mobile hotspots as a workaround.\n\nWi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. Wi-Fi not working. ",
+        "reporter": {
+            "name": "Wei Lin",
+            "email": "wei.lin@contoso.com",
+            "department": "Trading"
+        },
+        "created_at": "2026-03-17T04:00:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-2012",
+        "subject": "Multiple issues - VPN, printer, and also Bloomberg",
+        "description": "OK so I have like 5 different issues and I don't know if I should file separate tickets or not so here goes:\n\n1) My VPN keeps disconnecting when I'm on calls. It's been happening for 2 weeks. I'm using GlobalProtect on my MacBook Pro.\n\n2) The printer on Floor 4 (the HP Color LaserJet) is printing everything in black and white even though I select color.\n\n3) Bloomberg Terminal is showing stale data — the prices haven't updated since Friday and it's showing a 'Data feed interrupted' warning. This is CRITICAL because I'm trading live positions.\n\n4) Also my Intune enrollment keeps failing with error 0x80180026. I think this happened after I updated macOS to Sonoma.\n\n5) Can someone also look into why the conference room booking system (the one integrated with Outlook) is double-booking Room 4B? It happened 3 times this week.\n\nThe Bloomberg one is the most urgent. The rest can wait.",
+        "reporter": {
+            "name": "Marcus Williams",
+            "email": "marcus.williams@contoso.com",
+            "department": "Trading"
+        },
+        "created_at": "2026-03-17T07:30:00Z",
+        "channel": "portal",
+        "attachments": []
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
     },
     "created_at": "2026-03-17T04:23:00Z",
     "channel": "email",
@@ -252,6 +308,7 @@
       "email": "diana.okonkwo@contoso.com",
       "department": "Engineering"
     },
+<<<<<<< HEAD
     "created_at": "2026-03-17T06:45:00Z",
     "channel": "portal",
     "attachments": [
@@ -267,6 +324,146 @@
       "name": "Sandra Williams",
       "email": "sandra.williams@contoso.com",
       "department": "Compliance"
+=======
+    {
+        "ticket_id": "INC-2017",
+        "subject": "Fwd: Virus scan report - 47 threats detected",
+        "description": "Hi IT team,\n\nI received this email and I'm not sure if it's real or a scam. I did NOT click on any links. Can you check if my computer actually has viruses?\n\n--- Forwarded message ---\nFrom: security-alerts@micros0ft-support.com\nSubject: URGENT: Your computer is infected!\n\nDear Valued Customer,\n\nOur security scan has detected 47 CRITICAL THREATS on your device!\n\nThreats detected:\n- Trojan.GenericKD.46584732 (CRITICAL)\n- Backdoor.Win32.Agent.abc (HIGH)\n- PUP.Optional.Toolbar (MEDIUM)\n... and 44 more threats\n\nCLICK HERE IMMEDIATELY to remove threats: https://micros0ft-security-scan.com/clean?ref=CONTOSO-2026\n\nIf you do not act within 24 hours, your files may be permanently damaged.\n\nMicrosoft Security Team\n--- End forwarded message ---\n\nThe email looked suspicious because of the sender address. I'm using Windows 11 with Windows Defender. My laptop is a ThinkPad T14.\n\nThanks,\nGreg",
+        "reporter": {
+            "name": "Greg Morrison",
+            "email": "greg.morrison@contoso.com",
+            "department": "Operations"
+        },
+        "created_at": "2026-03-17T10:15:00Z",
+        "channel": "email",
+        "attachments": [
+            "suspicious_email.eml"
+        ]
+    },
+    {
+        "ticket_id": "INC-2018",
+        "subject": "Need help",
+        "description": "Hi\n\n\n\n\n\nCan\n\nyou\n\nhelp\n\nme\n\nwith\n\nmy\n\naccount?\n\n\n\n\n\nI am locked out of Active Directory and cannot log into any of my applications including Outlook, Teams, and the internal portal. My manager said there might be a group policy issue because I was recently transferred from the London office to NYC.\n\n\n\n\n\nThanks\n\n\n\n\n\n\n\n\n\nRobert\n\n\n\n\n\n",
+        "reporter": {
+            "name": "Robert Chen",
+            "email": "robert.chen@contoso.com",
+            "department": "Risk Management"
+        },
+        "created_at": "2026-03-17T09:20:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-2019",
+        "subject": "SSL certificate renewal + performance degradation on prod",
+        "description": "https://wiki.contoso.internal/pages/ssl-cert-management\nhttps://monitoring.contoso.internal/dashboards/api-latency\nhttps://jira.contoso.internal/browse/SEC-1234\nhttps://confluence.contoso.internal/display/OPS/Runbook+SSL+Renewal\nhttps://grafana.contoso.internal/d/abc123/api-performance\n\nSee links above for context.\n\nTwo issues:\n\n1. SSL certificate for api.contoso.com expires in 5 days (March 22). The auto-renewal via Let's Encrypt failed — see SEC-1234 for the error. We need manual renewal before it expires or the client portal and trading API will start showing certificate warnings.\n\n2. API response times have degraded by 300% over the past 48 hours. P95 latency went from 200ms to 800ms. The Grafana dashboard shows the spike correlates with the new logging middleware deployed Friday.\n\nhttps://github.contoso.internal/platform/api-gateway/pull/892\nhttps://github.contoso.internal/platform/api-gateway/pull/891\nhttps://dev.azure.com/contoso/platform/_build/results?buildId=45678\nhttps://monitoring.contoso.internal/alerts/active?service=api-gateway\n",
+        "reporter": {
+            "name": "Diana Okonkwo",
+            "email": "diana.okonkwo@contoso.com",
+            "department": "Engineering"
+        },
+        "created_at": "2026-03-17T06:45:00Z",
+        "channel": "portal",
+        "attachments": [
+            "latency_graph.png",
+            "cert_expiry_alert.png"
+        ]
+    },
+    {
+        "ticket_id": "INC-2020",
+        "subject": "Phone transcript - caller had bad connection",
+        "description": "[Phone transcript - automated transcription]\n\nAgent: Thank you for calling IT support, how can I help you?\nCaller: Hi, I'm... [inaudible] ...having trouble with my... [static] ...the SharePoint...\nAgent: I'm sorry, could you repeat that?\nCaller: ...SharePoint site for... [garbled] ...compliance team ...can't upload documents... [inaudible] ...error says... [long pause] ...file too large but it's only 10MB...\nAgent: So you're having trouble uploading to SharePoint?\nCaller: Yes! The... [static] ...compliance documents for the quarterly audit... [inaudible] ...tried different browsers... [garbled] ...Chrome and Edge both... [static] ...same error\nAgent: What's the exact error message?\nCaller: Something about... [inaudible] ...quota exceeded... [static] ...I think the site... [garbled] ...storage limit\nAgent: OK, I'll create a ticket for this.\nCaller: Thank you... [inaudible] ...by end of week deadline... [static] ...regulatory requirement\n\n[End of transcript - call quality: POOR, confidence: 43%]",
+        "reporter": {
+            "name": "Sandra Williams",
+            "email": "sandra.williams@contoso.com",
+            "department": "Compliance"
+        },
+        "created_at": "2026-03-17T15:00:00Z",
+        "channel": "phone",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DC001",
+        "subject": "VPN not connecting — very long email chain below",
+        "description": "Hi IT team, I can't connect to the VPN from home since this morning. I get an error 'Connection timed out — unable to reach gateway'. I've tried restarting the client and my laptop. My internet is working fine otherwise. I need VPN to access the trade reconciliation system for end-of-day processing.\n\n--- On Jan 5, 2026, user0@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 0\n> Department of Finance\n> Contoso Financial Services\n> Phone: +1-555-0100\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Jan 6, 2026, user1@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 1\n> Department of Operations\n> Contoso Financial Services\n> Phone: +1-555-0101\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Jan 7, 2026, user2@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 2\n> Department of Finance\n> Contoso Financial Services\n> Phone: +1-555-0102\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Jan 8, 2026, user3@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 3\n> Department of Operations\n> Contoso Financial Services\n> Phone: +1-555-0103\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Jan 9, 2026, user4@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 4\n> Department of Finance\n> Contoso Financial Services\n> Phone: +1-555-0104\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Jan 10, 2026, user5@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 5\n> Department of Operations\n> Contoso Financial Services\n> Phone: +1-555-0105\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Jan 11, 2026, user6@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 6\n> Department of Finance\n> Contoso Financial Services\n> Phone: +1-555-0106\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Jan 12, 2026, user7@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 7\n> Department of Operations\n> Contoso Financial Services\n> Phone: +1-555-0107\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Jan 13, 2026, user8@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 8\n> Department of Finance\n> Contoso Financial Services\n> Phone: +1-555-0108\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Jan 14, 2026, user9@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 9\n> Department of Operations\n> Contoso Financial Services\n> Phone: +1-555-0109\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Feb 1, 2026, user10@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 10\n> Department of Finance\n> Contoso Financial Services\n> Phone: +1-555-0110\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Feb 2, 2026, user11@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 11\n> Department of Operations\n> Contoso Financial Services\n> Phone: +1-555-0111\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Feb 3, 2026, user12@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 12\n> Department of Finance\n> Contoso Financial Services\n> Phone: +1-555-0112\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Feb 4, 2026, user13@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 13\n> Department of Operations\n> Contoso Financial Services\n> Phone: +1-555-0113\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Feb 5, 2026, user14@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 14\n> Department of Finance\n> Contoso Financial Services\n> Phone: +1-555-0114\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Feb 6, 2026, user15@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 15\n> Department of Operations\n> Contoso Financial Services\n> Phone: +1-555-0115\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Feb 7, 2026, user16@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 16\n> Department of Finance\n> Contoso Financial Services\n> Phone: +1-555-0116\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Feb 8, 2026, user17@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 17\n> Department of Operations\n> Contoso Financial Services\n> Phone: +1-555-0117\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Feb 9, 2026, user18@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 18\n> Department of Finance\n> Contoso Financial Services\n> Phone: +1-555-0118\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n\n--- On Feb 10, 2026, user19@contoso.com wrote:\n> Thanks for the update. Let me check with the team.\n> Regards,\n> User 19\n> Department of Operations\n> Contoso Financial Services\n> Phone: +1-555-0119\n> This email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error, please notify the sender immediately and delete this email from your system. Any unauthorized use, disclosure, or copying of this email or any part thereof is strictly prohibited.\n",
+        "reporter": {
+            "name": "Amanda Foster",
+            "email": "amanda.foster@contoso.com",
+            "department": "Trading"
+        },
+        "created_at": "2026-03-18T08:00:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DC002",
+        "subject": "Screenshot of error — see below",
+        "description": "Getting an error on the Bloomberg terminal. Here is the screenshot:\n\ndata:image/png;base64,iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\n\nThe error says 'License validation failed — contact administrator'. This started after lunch. Other traders on the floor can access Bloomberg fine.",
+        "reporter": {
+            "name": "Kevin Park",
+            "email": "kevin.park@contoso.com",
+            "department": "Trading"
+        },
+        "created_at": "2026-03-18T14:30:00Z",
+        "channel": "email",
+        "attachments": [
+            "bloomberg_error.png"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC003",
+        "subject": "<b>URGENT</b> — <script>alert('xss')</script> printer issue",
+        "description": "<html><body><p style='font-family: Comic Sans MS; color: red; font-size: 24px;'>THE PRINTER ON THE 5TH FLOOR IS NOT WORKING!!!</p><p>I tried printing from <b>Word</b> and <i>Excel</i> — both just queue up and nothing comes out.</p><p>Model: HP LaserJet Pro MFP M428fdw<br/>Location: 5th floor, near conference room B<br/>Status light: blinking amber</p><img src='cid:printer_photo.jpg' /><p>Please fix ASAP, we have client presentations to print.</p><!--[if gte mso 9]><xml><o:OfficeDocumentSettings><o:AllowPNG/></o:OfficeDocumentSettings></xml><![endif]--></body></html>",
+        "reporter": {
+            "name": "Lisa Wang",
+            "email": "lisa.wang@contoso.com",
+            "department": "Wealth Management"
+        },
+        "created_at": "2026-03-18T10:15:00Z",
+        "channel": "email",
+        "attachments": [
+            "printer_photo.jpg"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC004",
+        "subject": "Phone call — garbled transcription",
+        "description": "[Transcribed from phone call, 2:15 PM — LOW CONFIDENCE]\n\nCaller: Yeah so um... [inaudible] ...the thing with the... [background noise] ...database? Or maybe it's the... [inaudible] ...when I try to [static] ...access the... [inaudible] ...SharePoint? No wait, OneDrive. Yeah, OneDrive. The files are... [long pause] ...they're not syncing. Like I put a file in there yesterday and my colleague [inaudible] ...can't see it. It's the... [inaudible] ...the shared folder for the... [coughing] ...compliance audit files. We need those by... [inaudible] ...Thursday? Yeah Thursday. [background noise] ...is anybody... [inaudible] ...hello? Are you still there? [call quality degraded] ...OK so yeah the OneDrive thing. Can someone... [static] ...look at it? My name is... [inaudible] ...uh, Peterson. Mark Peterson. Compliance team. [call ended]",
+        "reporter": {
+            "name": "Mark Peterson",
+            "email": "mark.peterson@contoso.com",
+            "department": "Compliance"
+        },
+        "created_at": "2026-03-18T14:15:00Z",
+        "channel": "phone",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DC005",
+        "subject": "🚨🔥💻 HELPPP 😱😱😱",
+        "description": "💻 my laptop 💀💀💀 it keeps 🔄 restarting 🔄 every few minutes ⏰\ni was just working on the 📊 quarterly report 📈 and BOOM 💥\nblue screen 🟦 with some error ❌ about memory 🧠\nthis has happened like 5️⃣ times today already 😤😤😤\nim on a Dell Latitude 🖥️ and i think its about 3️⃣ years old 📅\ncan someone PLEASE 🙏🙏🙏 look at this before i lose all my work ��\nim on the 2️⃣nd floor near the elevator 🛗\n\n☎️ call me at ext 4521 📞",
+        "reporter": {
+            "name": "Jessica Huang",
+            "email": "jessica.huang@contoso.com",
+            "department": "Finance"
+        },
+        "created_at": "2026-03-18T11:30:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DC006",
+        "subject": "",
+        "description": "",
+        "reporter": {
+            "name": "System AutoMailer",
+            "email": "automailer@contoso.com",
+            "department": "IT"
+        },
+        "created_at": "2026-03-18T03:00:00Z",
+        "channel": "email",
+        "attachments": []
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
     },
     "created_at": "2026-03-17T15:00:00Z",
     "channel": "phone",
@@ -309,6 +506,7 @@
       "email": "lisa.wang@contoso.com",
       "department": "Wealth Management"
     },
+<<<<<<< HEAD
     "created_at": "2026-03-18T10:15:00Z",
     "channel": "email",
     "attachments": [
@@ -336,6 +534,37 @@
       "name": "Jessica Huang",
       "email": "jessica.huang@contoso.com",
       "department": "Finance"
+=======
+    {
+        "ticket_id": "INC-DC010",
+        "subject": "http://malicious-site.example.com/click-here http://spam.example.com/free-stuff https://phishing.example.com/login?redirect=evil",
+        "description": "Check out these links:\nhttp://malicious-site.example.com/download-toolbar\nhttp://free-software.example.com/crack\nhttp://spam.example.com/earn-money-fast\n\nBut seriously — I got this in my email and I think it might be a phishing attempt. The email was from 'IT-Department@contoso-support.xyz' (note the .xyz domain) and asked me to verify my credentials by clicking a link. The email had the Contoso logo and looked official. I did NOT click any links. Forwarding to you for review. The email header shows it came from IP 185.234.72.19.\n\nHere are more suspicious URLs from the email:\nhttps://contoso-verify.phishing-site.example.com/secure/login\nhttps://password-reset.example.com/contoso?user=me\nhttp://legitimate-looking.example.com/contoso-internal/update",
+        "reporter": {
+            "name": "Daniel Brown",
+            "email": "daniel.brown@contoso.com",
+            "department": "Retail Banking"
+        },
+        "created_at": "2026-03-18T09:20:00Z",
+        "channel": "email",
+        "attachments": [
+            "suspicious_email.eml"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC011",
+        "subject": "Database access request",
+        "description": "I need access to the following databases:\n\n```\nServer: sql-prod-eastus2.database.windows.net\nDatabase: ClientPortfolio_Prod\nRole: db_datareader\nJustification: Need read access for quarterly compliance reporting\n```\n\nManager approval: David Liu (attached email confirmation)\n\nAlso need access to:\n```json\n{\n  \"server\": \"sql-analytics-eastus2.database.windows.net\",\n  \"database\": \"MarketData_Warehouse\",\n  \"role\": \"db_datareader\",\n  \"justification\": \"Cross-reference client portfolio data with market trends\"\n}\n```\n\nTimeline: need this by end of week. Previous ticket for similar access: INC-3201.",
+        "reporter": {
+            "name": "Sarah Mitchell",
+            "email": "sarah.mitchell@contoso.com",
+            "department": "Compliance"
+        },
+        "created_at": "2026-03-18T10:00:00Z",
+        "channel": "portal",
+        "attachments": [
+            "manager_approval.pdf"
+        ]
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
     },
     "created_at": "2026-03-18T11:30:00Z",
     "channel": "chat",
@@ -363,6 +592,7 @@
       "email": "jennifer.mills@contoso.com",
       "department": "Investor Relations"
     },
+<<<<<<< HEAD
     "created_at": "2026-03-18T09:45:00Z",
     "channel": "email",
     "attachments": []
@@ -478,3 +708,32 @@
     "attachments": []
   }
 ]
+=======
+    {
+        "ticket_id": "INC-DC014",
+        "subject": "Fichier non accessible / File not accessible",
+        "description": "Bonjour,\n\nJe n'arrive pas à accéder au fichier partagé sur le serveur de fichiers legacy. Le chemin est \\\\fs-legacy-lon\\shared\\finance\\Q1-2026\\.\n\nJ'obtiens l'erreur 'Access Denied' quand j'essaie d'ouvrir le dossier.\n\nI need access to the legacy file share at \\\\fs-legacy-lon\\shared\\finance\\Q1-2026\\. Getting 'Access Denied'. I had access last quarter — not sure what changed. My team (London Finance) needs these files for the quarterly review next week.\n\nMerci / Thanks,\nPhilippe Durand",
+        "reporter": {
+            "name": "Philippe Durand",
+            "email": "philippe.durand@contoso.com",
+            "department": "Finance"
+        },
+        "created_at": "2026-03-18T08:30:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DC015",
+        "subject": "Backup restore request     with   weird   characters",
+        "description": "We need to restore a backup of the ClientReports SharePoint site from March 10, 2026. A user accidentally deleted the entire 'Q4-2025 Final Reports' document library containing approximately 200 files.\n\nSite URL: https://contoso.sharepoint.com/sites/ClientReports\nLibrary: Q4-2025 Final Reports\nDeletion timestamp: approximately 2026-03-17 at 16:30 UTC\nDeleted by: jamie.collins@contoso.com (accidental)\n\nWe've checked the SharePoint recycle bin — the files aren't there (second-stage recycle bin was emptied). Need an admin-level restore from backup.\n\nThis is needed before the client audit on March 22.",
+        "reporter": {
+            "name": "Claire Thompson",
+            "email": "claire.thompson@contoso.com",
+            "department": "Wealth Management"
+        },
+        "created_at": "2026-03-18T07:45:00Z",
+        "channel": "portal",
+        "attachments": []
+    }
+]
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche

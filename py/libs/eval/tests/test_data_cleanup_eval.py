@@ -124,7 +124,11 @@ class TestAllScenariosSchemaCompliance:
 
     def test_minimum_scenario_count(self) -> None:
         """Ensure we have a meaningful number of data cleanup scenarios."""
+<<<<<<< HEAD
         assert len(_ALL_SCENARIOS) >= 48
+=======
+        assert len(_ALL_SCENARIOS) >= 38
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
 
 
 # ── Scenario-specific tests ──────────────────────────────────────────
@@ -804,6 +808,7 @@ class TestSqlQueryDump:
         assert gold.category == "Data & Storage"
         assert gold.priority == "P2"
         assert gold.assigned_team == "Data Platform"
+<<<<<<< HEAD
 
 
 # ── New comprehensive scenario tests (INC-DC-5001 through INC-DC-5010) ──
@@ -1006,3 +1011,5 @@ class TestSpreadsheetTabPaste:
         assert gold.priority == "P3"
         assert gold.assigned_team == "Identity & Access Management"
 
+=======
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche

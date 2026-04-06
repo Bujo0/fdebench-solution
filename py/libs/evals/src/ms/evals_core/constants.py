@@ -146,6 +146,7 @@ FLOORS: list[str] = [
     "10th floor",
 ]
 
+
 class ScenarioTag(StrEnum):
     """Tags that classify what an evaluation scenario is testing."""
 
