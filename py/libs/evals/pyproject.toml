@@ -1,0 +1,27 @@
+[project]
+name = "ms-evals"
+version = "0.0.0"
+description = "Evaluation scenarios and validators for IT ticket triage"
+requires-python = "==3.12.*"
+
+dependencies = [
+    "ms-common-models",
+]
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.407",
+    "pytest>=9.0.1",
+    "httpx>=0.28.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.10.10,<0.11.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "ms.evals"
+module-root = "src"
+
+[tool.uv.sources]
+ms-common-models = { workspace = true }
