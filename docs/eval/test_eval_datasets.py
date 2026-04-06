@@ -219,7 +219,9 @@ def test_no_duplicate_ticket_ids():
     for tickets_file, _ in _DATASETS:
         tickets = _load(tickets_file)
         ids = [t["ticket_id"] for t in tickets]
-        assert len(ids) == len(set(ids)), f"{tickets_file} has duplicate ticket IDs: {[x for x in ids if ids.count(x) > 1]}"
+        assert len(ids) == len(set(ids)), (
+            f"{tickets_file} has duplicate ticket IDs: {[x for x in ids if ids.count(x) > 1]}"
+        )
 
 
 def test_ticket_gold_id_alignment():
@@ -241,9 +243,7 @@ def test_ticket_count_matches():
     for tickets_file, gold_file in _DATASETS:
         tickets = _load(tickets_file)
         golds = _load(gold_file)
-        assert len(tickets) == len(golds), (
-            f"{tickets_file}: {len(tickets)} tickets but {gold_file}: {len(golds)} golds"
-        )
+        assert len(tickets) == len(golds), f"{tickets_file}: {len(tickets)} tickets but {gold_file}: {len(golds)} golds"
 
 
 def test_all_tickets_valid_schema():
@@ -332,9 +332,9 @@ if __name__ == "__main__":
         try:
             t()
             passed += 1
-            print(f"  \u2713 {t.__name__}")
+            print(f"  ✓ {t.__name__}")
         except AssertionError as e:
             failed += 1
-            print(f"  \u2717 {t.__name__}: {e}")
+            print(f"  ✗ {t.__name__}: {e}")
     print(f"\n{passed} passed, {failed} failed")
     sys.exit(1 if failed else 0)

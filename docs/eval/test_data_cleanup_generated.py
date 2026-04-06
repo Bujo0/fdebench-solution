@@ -96,24 +96,18 @@ def test_dataset_has_at_least_200_tickets():
 
 
 def test_gold_count_matches_ticket_count():
-    assert len(_GOLD) == len(_TICKETS), (
-        f"Gold count ({len(_GOLD)}) != ticket count ({len(_TICKETS)})"
-    )
+    assert len(_GOLD) == len(_TICKETS), f"Gold count ({len(_GOLD)}) != ticket count ({len(_TICKETS)})"
 
 
 def test_ticket_ids_match_between_tickets_and_gold():
     ticket_ids = {t["ticket_id"] for t in _TICKETS}
     gold_ids = {g["ticket_id"] for g in _GOLD}
-    assert ticket_ids == gold_ids, (
-        f"Mismatched IDs: {ticket_ids.symmetric_difference(gold_ids)}"
-    )
+    assert ticket_ids == gold_ids, f"Mismatched IDs: {ticket_ids.symmetric_difference(gold_ids)}"
 
 
 def test_all_ticket_ids_follow_inc_prefix():
     for t in _TICKETS:
-        assert re.match(r"^INC-\d+$", t["ticket_id"]), (
-            f"Bad ticket_id format: {t['ticket_id']}"
-        )
+        assert re.match(r"^INC-\d+$", t["ticket_id"]), f"Bad ticket_id format: {t['ticket_id']}"
 
 
 def test_no_duplicate_ticket_ids():
@@ -124,9 +118,7 @@ def test_no_duplicate_ticket_ids():
 def test_ticket_id_ordering_matches():
     """Ticket and gold files should be in the same order."""
     for t, g in zip(_TICKETS, _GOLD, strict=True):
-        assert t["ticket_id"] == g["ticket_id"], (
-            f"Ordering mismatch: ticket {t['ticket_id']} vs gold {g['ticket_id']}"
-        )
+        assert t["ticket_id"] == g["ticket_id"], f"Ordering mismatch: ticket {t['ticket_id']} vs gold {g['ticket_id']}"
 
 
 # ── 2. Gold answer validation ────────────────────────────────────────
@@ -134,31 +126,23 @@ def test_ticket_id_ordering_matches():
 
 def test_gold_categories_all_valid():
     for g in _GOLD:
-        assert g["category"] in _VALID_CATEGORIES, (
-            f"{g['ticket_id']}: invalid category '{g['category']}'"
-        )
+        assert g["category"] in _VALID_CATEGORIES, f"{g['ticket_id']}: invalid category '{g['category']}'"
 
 
 def test_gold_priorities_all_valid():
     for g in _GOLD:
-        assert g["priority"] in _VALID_PRIORITIES, (
-            f"{g['ticket_id']}: invalid priority '{g['priority']}'"
-        )
+        assert g["priority"] in _VALID_PRIORITIES, f"{g['ticket_id']}: invalid priority '{g['priority']}'"
 
 
 def test_gold_teams_all_valid():
     for g in _GOLD:
-        assert g["assigned_team"] in _VALID_TEAMS, (
-            f"{g['ticket_id']}: invalid team '{g['assigned_team']}'"
-        )
+        assert g["assigned_team"] in _VALID_TEAMS, f"{g['ticket_id']}: invalid team '{g['assigned_team']}'"
 
 
 def test_gold_missing_info_all_valid():
     for g in _GOLD:
         for item in g["missing_information"]:
-            assert item in _VALID_MISSING_INFO, (
-                f"{g['ticket_id']}: invalid missing_information value '{item}'"
-            )
+            assert item in _VALID_MISSING_INFO, f"{g['ticket_id']}: invalid missing_information value '{item}'"
 
 
 def test_gold_schema_fields_present():
@@ -186,16 +170,12 @@ def test_gold_remediation_steps_is_nonempty_list():
         assert isinstance(g["remediation_steps"], list), (
             f"{g['ticket_id']}: remediation_steps is {type(g['remediation_steps'])}"
         )
-        assert len(g["remediation_steps"]) > 0, (
-            f"{g['ticket_id']}: remediation_steps should not be empty"
-        )
+        assert len(g["remediation_steps"]) > 0, f"{g['ticket_id']}: remediation_steps should not be empty"
 
 
 def test_gold_next_best_action_nonempty():
     for g in _GOLD:
-        assert g.get("next_best_action", "").strip(), (
-            f"{g['ticket_id']}: next_best_action is empty"
-        )
+        assert g.get("next_best_action", "").strip(), f"{g['ticket_id']}: next_best_action is empty"
 
 
 # ── 3. Scoring sanity (gold vs gold = perfect) ──────────────────────
@@ -256,9 +236,7 @@ def test_missing_info_variety():
     all_missing = set()
     for g in _GOLD:
         all_missing.update(g["missing_information"])
-    assert len(all_missing) >= 8, (
-        f"Only {len(all_missing)} unique missing_information values across dataset"
-    )
+    assert len(all_missing) >= 8, f"Only {len(all_missing)} unique missing_information values across dataset"
 
 
 # ── 5. Data-quality characteristics ─────────────────────────────────
@@ -267,77 +245,55 @@ def test_missing_info_variety():
 def test_some_tickets_have_very_long_descriptions():
     """At least some tickets should have very long descriptions (> 3000 chars)."""
     long_tickets = [t for t in _TICKETS if len(t["description"]) > 3000]
-    assert len(long_tickets) >= 5, (
-        f"Expected ≥5 tickets with very long descriptions, got {len(long_tickets)}"
-    )
+    assert len(long_tickets) >= 5, f"Expected ≥5 tickets with very long descriptions, got {len(long_tickets)}"
 
 
 def test_some_tickets_contain_base64_data():
     """At least some tickets should contain base64-encoded data."""
     b64_pattern = re.compile(r"[A-Za-z0-9+/]{50,}={0,2}")
     b64_tickets = [t for t in _TICKETS if b64_pattern.search(t["description"])]
-    assert len(b64_tickets) >= 3, (
-        f"Expected ≥3 tickets with base64 data, got {len(b64_tickets)}"
-    )
+    assert len(b64_tickets) >= 3, f"Expected ≥3 tickets with base64 data, got {len(b64_tickets)}"
 
 
 def test_some_tickets_contain_html_markup():
     """At least some tickets should contain HTML tags."""
     html_pattern = re.compile(r"<[a-zA-Z][^>]*>")
     html_tickets = [t for t in _TICKETS if html_pattern.search(t["description"])]
-    assert len(html_tickets) >= 3, (
-        f"Expected ≥3 tickets with HTML markup, got {len(html_tickets)}"
-    )
+    assert len(html_tickets) >= 3, f"Expected ≥3 tickets with HTML markup, got {len(html_tickets)}"
 
 
 def test_some_tickets_contain_code_blocks():
     """At least some tickets should contain code/logs."""
     code_tickets = [
-        t for t in _TICKETS
-        if "```" in t["description"] or "Traceback" in t["description"]
-        or "Exception" in t["description"]
+        t
+        for t in _TICKETS
+        if "```" in t["description"] or "Traceback" in t["description"] or "Exception" in t["description"]
     ]
-    assert len(code_tickets) >= 3, (
-        f"Expected ≥3 tickets with code/logs, got {len(code_tickets)}"
-    )
+    assert len(code_tickets) >= 3, f"Expected ≥3 tickets with code/logs, got {len(code_tickets)}"
 
 
 def test_some_tickets_have_emoji():
     """At least some tickets should contain emoji characters."""
-    emoji_pattern = re.compile(
-        r"[\U0001F600-\U0001F9FF\U00002600-\U000027BF\U0001FA00-\U0001FA6F]"
-    )
+    emoji_pattern = re.compile(r"[\U0001F600-\U0001F9FF\U00002600-\U000027BF\U0001FA00-\U0001FA6F]")
     emoji_tickets = [t for t in _TICKETS if emoji_pattern.search(t["description"])]
-    assert len(emoji_tickets) >= 2, (
-        f"Expected ≥2 tickets with emoji, got {len(emoji_tickets)}"
-    )
+    assert len(emoji_tickets) >= 2, f"Expected ≥2 tickets with emoji, got {len(emoji_tickets)}"
 
 
 def test_some_tickets_have_non_english_text():
     """At least some tickets should contain non-English text."""
     non_english_patterns = [
-        re.compile(r"[\u00C0-\u024F]"),  # Latin Extended (accents)
-        re.compile(r"[\u0400-\u04FF]"),  # Cyrillic
-        re.compile(r"[\u4E00-\u9FFF]"),  # CJK
+        re.compile(r"[À-ɏ]"),  # Latin Extended (accents)
+        re.compile(r"[Ѐ-ӿ]"),  # Cyrillic
+        re.compile(r"[一-鿿]"),  # CJK
     ]
-    non_eng_tickets = [
-        t for t in _TICKETS
-        if any(p.search(t["description"]) for p in non_english_patterns)
-    ]
-    assert len(non_eng_tickets) >= 2, (
-        f"Expected ≥2 tickets with non-English text, got {len(non_eng_tickets)}"
-    )
+    non_eng_tickets = [t for t in _TICKETS if any(p.search(t["description"]) for p in non_english_patterns)]
+    assert len(non_eng_tickets) >= 2, f"Expected ≥2 tickets with non-English text, got {len(non_eng_tickets)}"
 
 
 def test_some_tickets_have_excessive_whitespace():
     """At least some tickets should contain excessive whitespace/formatting."""
-    ws_tickets = [
-        t for t in _TICKETS
-        if "\n\n\n" in t["description"] or "     " in t["description"]
-    ]
-    assert len(ws_tickets) >= 3, (
-        f"Expected ≥3 tickets with excessive whitespace, got {len(ws_tickets)}"
-    )
+    ws_tickets = [t for t in _TICKETS if "\n\n\n" in t["description"] or "     " in t["description"]]
+    assert len(ws_tickets) >= 3, f"Expected ≥3 tickets with excessive whitespace, got {len(ws_tickets)}"
 
 
 def test_average_description_length_above_500():
@@ -379,17 +335,14 @@ def test_all_reporters_have_required_fields():
 
 def test_all_channels_are_valid():
     for t in _TICKETS:
-        assert t["channel"] in _VALID_CHANNELS, (
-            f"{t['ticket_id']}: invalid channel '{t['channel']}'"
-        )
+        assert t["channel"] in _VALID_CHANNELS, f"{t['ticket_id']}: invalid channel '{t['channel']}'"
 
 
 def test_not_a_support_ticket_routed_to_none():
     for g in _GOLD:
         if g["category"] == "Not a Support Ticket":
             assert g["assigned_team"] == "None", (
-                f"{g['ticket_id']}: 'Not a Support Ticket' should route to 'None', "
-                f"got '{g['assigned_team']}'"
+                f"{g['ticket_id']}: 'Not a Support Ticket' should route to 'None', got '{g['assigned_team']}'"
             )
 
 
@@ -399,8 +352,7 @@ def test_none_team_only_for_non_support_or_unroutable():
     for g in _GOLD:
         if g["assigned_team"] == "None":
             assert g["category"] in allowed_categories, (
-                f"{g['ticket_id']}: team 'None' with category '{g['category']}' — "
-                f"expected one of {allowed_categories}"
+                f"{g['ticket_id']}: team 'None' with category '{g['category']}' — expected one of {allowed_categories}"
             )
 
 
@@ -408,9 +360,7 @@ def test_no_duplicate_missing_info_in_gold():
     """Gold answers should not have duplicate missing_information items."""
     for g in _GOLD:
         items = g["missing_information"]
-        assert len(items) == len(set(items)), (
-            f"{g['ticket_id']}: duplicate missing_information items"
-        )
+        assert len(items) == len(set(items)), f"{g['ticket_id']}: duplicate missing_information items"
 
 
 def test_remediation_steps_are_strings():

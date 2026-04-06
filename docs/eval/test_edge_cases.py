@@ -330,7 +330,7 @@ def test_data_cleanup_inc2010_has_mojibake():
     """INC-2010: description contains mojibake/encoding artifacts."""
     tickets = _load_json(_DATA_CLEANUP_TICKETS)
     ticket = next(t for t in tickets if t["ticket_id"] == "INC-2010")
-    has_mojibake = "â" in ticket["description"] or "\u0080" in ticket["description"]
+    has_mojibake = "â" in ticket["description"] or "" in ticket["description"]
     assert has_mojibake, "INC-2010 should contain encoding artifacts"
 
 
@@ -612,9 +612,9 @@ if __name__ == "__main__":
         try:
             t()
             passed += 1
-            print(f"  \u2713 {t.__name__}")
+            print(f"  ✓ {t.__name__}")
         except AssertionError as e:
             failed += 1
-            print(f"  \u2717 {t.__name__}: {e}")
+            print(f"  ✗ {t.__name__}: {e}")
     print(f"\n{passed} passed, {failed} failed")
     sys.exit(1 if failed else 0)

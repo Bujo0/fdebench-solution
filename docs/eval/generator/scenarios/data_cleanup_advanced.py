@@ -62,8 +62,7 @@ SCENARIOS: list[Scenario] = [
         next_best_actions=[
             "Investigate high CPU and memory on SQLPROD-01/02 — check for long-running "
             "queries, missing indexes, or parameter sniffing issues.",
-            "Analyze slow billing queries — review execution plans and index usage on "
-            "production SQL cluster.",
+            "Analyze slow billing queries — review execution plans and index usage on production SQL cluster.",
         ],
         remediation_steps=[
             [
@@ -234,8 +233,7 @@ SCENARIOS: list[Scenario] = [
         next_best_actions=[
             "Ignore auto-reply content — investigate VPN disconnection issue for David Kim "
             "using Cisco AnyConnect on Seattle profile.",
-            "Troubleshoot intermittent VPN drops — check client configuration, DPD settings, "
-            "and ISP stability.",
+            "Troubleshoot intermittent VPN drops — check client configuration, DPD settings, and ISP stability.",
         ],
         remediation_steps=[
             [
@@ -341,8 +339,7 @@ SCENARIOS: list[Scenario] = [
         next_best_actions=[
             "Investigate 550 RESOLVER.ADR.RecipNotFound error — verify recipient address "
             "with client and check for DNS/MX record issues for clientcorp.com.",
-            "Check if clientcorp.com MX records are resolving correctly and verify the "
-            "recipient address is valid.",
+            "Check if clientcorp.com MX records are resolving correctly and verify the recipient address is valid.",
         ],
         remediation_steps=[
             [
@@ -410,8 +407,7 @@ SCENARIOS: list[Scenario] = [
         next_best_actions=[
             "Investigate SharePoint authentication failure after password change — likely "
             "cached credentials or token refresh issue.",
-            "Check for stale cached credentials in Windows Credential Manager and verify "
-            "Azure AD token refresh.",
+            "Check for stale cached credentials in Windows Credential Manager and verify Azure AD token refresh.",
         ],
         remediation_steps=[
             [
@@ -456,8 +452,7 @@ SCENARIOS: list[Scenario] = [
         next_best_actions=[
             "Investigate NullReferenceException in BatchProcessor.ProcessInvoice — "
             "decode the URL parameters to extract the trace ID and error details.",
-            "Debug batch invoice submission failure — 500 error with null reference "
-            "in BatchProcessor module.",
+            "Debug batch invoice submission failure — 500 error with null reference in BatchProcessor module.",
         ],
         remediation_steps=[
             [
@@ -575,36 +570,48 @@ SCENARIOS: list[Scenario] = [
         ],
         descriptions=[
             r"{\rtf1\ansi\ansicpg1252\deff0\nouicompat{\fonttbl{\f0\fswiss\fcharset0 "
-            r"Calibri;}{\f1\fnil\fcharset2 Symbol;}}" "\n"
-            r"{\*\generator Riched20 10.0.22621}\viewkind4\uc1" "\n"
+            r"Calibri;}{\f1\fnil\fcharset2 Symbol;}}"
+            "\n"
+            r"{\*\generator Riched20 10.0.22621}\viewkind4\uc1"
+            "\n"
             r"\pard\sa200\sl276\slmult1\f0\fs22\lang9 "
             "My laptop docking station stopped working this morning."
-            r"\par" "\n"
-            r"\b Issue Details:\b0\par" "\n"
+            r"\par"
+            "\n"
+            r"\b Issue Details:\b0\par"
+            "\n"
             r"{\pntext\f1\'B7\tab}"
             "When I connect my laptop to the dock, the external monitors don't turn on"
-            r"\par" "\n"
+            r"\par"
+            "\n"
             r"{\pntext\f1\'B7\tab}"
             "USB devices connected to the dock are not recognized"
-            r"\par" "\n"
+            r"\par"
+            "\n"
             r"{\pntext\f1\'B7\tab}"
             "The dock's power LED is amber instead of green"
-            r"\par" "\n"
+            r"\par"
+            "\n"
             r"{\pntext\f1\'B7\tab}"
             "Ethernet through the dock also doesn't work"
-            r"\par" "\n"
-            r"\b What I\rquote ve tried:\b0\par" "\n"
-            r"{\pntext\f1\'B7\tab}Unplugged and reconnected the dock\par" "\n"
-            r"{\pntext\f1\'B7\tab}Restarted my laptop\par" "\n"
-            r"{\pntext\f1\'B7\tab}Tried a different USB-C cable\par" "\n"
-            r"}\par" "\n"
+            r"\par"
+            "\n"
+            r"\b What I\rquote ve tried:\b0\par"
+            "\n"
+            r"{\pntext\f1\'B7\tab}Unplugged and reconnected the dock\par"
+            "\n"
+            r"{\pntext\f1\'B7\tab}Restarted my laptop\par"
+            "\n"
+            r"{\pntext\f1\'B7\tab}Tried a different USB-C cable\par"
+            "\n"
+            r"}\par"
+            "\n"
             "The dock worked fine yesterday before I left.",
         ],
         next_best_actions=[
             "Investigate docking station failure — amber LED indicates hardware or firmware "
             "issue. Check firmware version and power delivery.",
-            "Troubleshoot docking station — check firmware update, power supply, and USB-C "
-            "port on the laptop.",
+            "Troubleshoot docking station — check firmware update, power supply, and USB-C port on the laptop.",
         ],
         remediation_steps=[
             [
@@ -656,8 +663,7 @@ SCENARIOS: list[Scenario] = [
         next_best_actions=[
             "Investigate Dynamics 365 NullReferenceException in SalesForceAutomation module — "
             "decode OCR artifacts to extract actual error code CRM_EXC_0x80040265.",
-            "Debug CRM plugin error on lead processing — check for null references in "
-            "Pipeline.ProcessLead method.",
+            "Debug CRM plugin error on lead processing — check for null references in Pipeline.ProcessLead method.",
         ],
         remediation_steps=[
             [
@@ -820,10 +826,8 @@ SCENARIOS: list[Scenario] = [
             "> **Note:** v4.7.2 is currently running and stable.\n",
         ],
         next_best_actions=[
-            "Fix v4.8.0 deployment manifest — add missing REDIS_URL environment variable "
-            "and re-deploy.",
-            "Update deployment manifest with REDIS_URL and add cache connection validation "
-            "to startup checks.",
+            "Fix v4.8.0 deployment manifest — add missing REDIS_URL environment variable and re-deploy.",
+            "Update deployment manifest with REDIS_URL and add cache connection validation to startup checks.",
         ],
         remediation_steps=[
             [

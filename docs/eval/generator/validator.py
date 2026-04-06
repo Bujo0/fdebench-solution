@@ -134,4 +134,3 @@ def validate_dataset(tickets: list[dict], golds: list[dict]) -> list[str]:
         errors.extend(validate_gold(gold))
 
     return errors
-

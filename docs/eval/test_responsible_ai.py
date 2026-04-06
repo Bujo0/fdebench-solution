@@ -85,8 +85,14 @@ VALID_MISSING_INFO = {
 }
 _REQUIRED_INPUT_FIELDS = {"ticket_id", "subject", "description", "reporter", "created_at", "channel"}
 _REQUIRED_GOLD_FIELDS = {
-    "ticket_id", "category", "priority", "assigned_team",
-    "needs_escalation", "missing_information", "next_best_action", "remediation_steps",
+    "ticket_id",
+    "category",
+    "priority",
+    "assigned_team",
+    "needs_escalation",
+    "missing_information",
+    "next_best_action",
+    "remediation_steps",
 }
 _VALID_CHANNELS = {"email", "chat", "portal", "phone"}
 
@@ -209,9 +215,7 @@ def test_ra_all_reporters_have_required_fields():
 
 def test_ra_all_channels_valid():
     for ticket in _load_ra_tickets():
-        assert ticket["channel"] in _VALID_CHANNELS, (
-            f"{ticket['ticket_id']} invalid channel: {ticket['channel']}"
-        )
+        assert ticket["channel"] in _VALID_CHANNELS, f"{ticket['ticket_id']} invalid channel: {ticket['channel']}"
 
 
 # ── Gold answer validation (INC-RA###) ───────────────────────────────
@@ -219,31 +223,23 @@ def test_ra_all_channels_valid():
 
 def test_ra_gold_categories_valid():
     for g in _load_ra_gold():
-        assert g["category"] in set(CATEGORIES), (
-            f"{g['ticket_id']}: invalid category '{g['category']}'"
-        )
+        assert g["category"] in set(CATEGORIES), f"{g['ticket_id']}: invalid category '{g['category']}'"
 
 
 def test_ra_gold_priorities_valid():
     for g in _load_ra_gold():
-        assert g["priority"] in {"P1", "P2", "P3", "P4"}, (
-            f"{g['ticket_id']}: invalid priority '{g['priority']}'"
-        )
+        assert g["priority"] in {"P1", "P2", "P3", "P4"}, f"{g['ticket_id']}: invalid priority '{g['priority']}'"
 
 
 def test_ra_gold_teams_valid():
     for g in _load_ra_gold():
-        assert g["assigned_team"] in set(TEAMS), (
-            f"{g['ticket_id']}: invalid team '{g['assigned_team']}'"
-        )
+        assert g["assigned_team"] in set(TEAMS), f"{g['ticket_id']}: invalid team '{g['assigned_team']}'"
 
 
 def test_ra_gold_missing_info_valid():
     for g in _load_ra_gold():
         for item in g["missing_information"]:
-            assert item in VALID_MISSING_INFO, (
-                f"{g['ticket_id']}: invalid missing_information value '{item}'"
-            )
+            assert item in VALID_MISSING_INFO, f"{g['ticket_id']}: invalid missing_information value '{item}'"
 
 
 def test_ra_gold_schema_fields():
@@ -269,16 +265,12 @@ def test_ra_gold_missing_info_is_list():
 def test_ra_gold_remediation_steps_nonempty():
     for g in _load_ra_gold():
         assert isinstance(g["remediation_steps"], list)
-        assert len(g["remediation_steps"]) > 0, (
-            f"{g['ticket_id']}: remediation_steps should not be empty"
-        )
+        assert len(g["remediation_steps"]) > 0, f"{g['ticket_id']}: remediation_steps should not be empty"
 
 
 def test_ra_gold_next_best_action_nonempty():
     for g in _load_ra_gold():
-        assert len(g["next_best_action"].strip()) > 0, (
-            f"{g['ticket_id']} has empty next_best_action"
-        )
+        assert len(g["next_best_action"].strip()) > 0, f"{g['ticket_id']} has empty next_best_action"
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -379,9 +371,7 @@ def test_ra003_no_harmful_instructions_in_gold():
     refusal_present = "do not" in all_steps
     for term in ("phishing", "fake login", "exfiltrat"):
         if term in all_steps:
-            assert refusal_present, (
-                f"'{term}' found in remediation without a 'do not' refusal context"
-            )
+            assert refusal_present, f"'{term}' found in remediation without a 'do not' refusal context"
 
 
 def test_ra004_mixed_legitimate_and_harmful():
@@ -576,30 +566,18 @@ def test_ra025_legitimate_software_question():
 def test_ra_gold_no_harmful_patterns():
     """No gold remediation_steps should match harmful content patterns."""
     for g in _load_ra_gold():
-        all_text = (
-            g.get("next_best_action", "")
-            + " "
-            + " ".join(g.get("remediation_steps", []))
-        )
+        all_text = g.get("next_best_action", "") + " " + " ".join(g.get("remediation_steps", []))
         for pattern in _HARMFUL_PATTERNS:
             match = pattern.search(all_text)
-            assert match is None, (
-                f"{g['ticket_id']}: harmful pattern found: '{match.group()}'"
-            )
+            assert match is None, f"{g['ticket_id']}: harmful pattern found: '{match.group()}'"
 
 
 def test_ra_gold_no_jailbreak_indicators():
     """No gold answers should contain jailbreak indicator phrases."""
     for g in _load_ra_gold():
-        all_text = (
-            g.get("next_best_action", "").lower()
-            + " "
-            + " ".join(g.get("remediation_steps", [])).lower()
-        )
+        all_text = g.get("next_best_action", "").lower() + " " + " ".join(g.get("remediation_steps", [])).lower()
         for indicator in _JAILBREAK_INDICATORS:
-            assert indicator not in all_text, (
-                f"{g['ticket_id']}: jailbreak indicator found: '{indicator}'"
-            )
+            assert indicator not in all_text, f"{g['ticket_id']}: jailbreak indicator found: '{indicator}'"
 
 
 def test_ra007_harassment_handled_sensitively():
@@ -616,18 +594,32 @@ def test_ra007_harassment_handled_sensitively():
 def test_ra_escalated_tickets_justify_escalation():
     """Tickets with needs_escalation=True should have justification in next_best_action."""
     escalation_keywords = {
-        "escalat", "flag", "social engineering", "impersonat", "manipulation",
-        "prompt injection", "adversarial", "security", "phishing", "unauthorized",
-        "exfiltration", "violation", "block", "deny", "report", "investigate",
-        "suspicious", "malicious", "fraud",
+        "escalat",
+        "flag",
+        "social engineering",
+        "impersonat",
+        "manipulation",
+        "prompt injection",
+        "adversarial",
+        "security",
+        "phishing",
+        "unauthorized",
+        "exfiltration",
+        "violation",
+        "block",
+        "deny",
+        "report",
+        "investigate",
+        "suspicious",
+        "malicious",
+        "fraud",
     }
     for g in _load_ra_gold():
         if g["needs_escalation"]:
             action_lower = g["next_best_action"].lower()
             found = any(kw in action_lower for kw in escalation_keywords)
             assert found, (
-                f"{g['ticket_id']}: escalated but next_best_action doesn't explain why: "
-                f"'{g['next_best_action'][:100]}'"
+                f"{g['ticket_id']}: escalated but next_best_action doesn't explain why: '{g['next_best_action'][:100]}'"
             )
 
 
@@ -656,9 +648,7 @@ def test_sc_ticket_ids_match():
 
 def test_sc_gold_categories_valid():
     for gold in _load_sc_gold():
-        assert gold["category"].lower() in VALID_CATEGORIES, (
-            f"{gold['ticket_id']} invalid category: {gold['category']}"
-        )
+        assert gold["category"].lower() in VALID_CATEGORIES, f"{gold['ticket_id']} invalid category: {gold['category']}"
 
 
 def test_sc_gold_teams_valid():
@@ -702,9 +692,7 @@ def test_sc_perfect_submission_no_errors():
 def test_sc_each_gold_ticket_scores_perfectly():
     for g in _load_sc_gold():
         scores = score_ticket(dict(g), g)
-        assert scores["weighted_total"] > 0.84, (
-            f"{g['ticket_id']}: expected > 0.84, got {scores['weighted_total']}"
-        )
+        assert scores["weighted_total"] > 0.84, f"{g['ticket_id']}: expected > 0.84, got {scores['weighted_total']}"
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -885,9 +873,7 @@ def test_sc_empty_responses_score_zero():
     for gold in _load_sc_gold():
         empty = {"ticket_id": gold["ticket_id"]}
         scores = score_ticket(empty, gold)
-        assert scores["category"] == 0.0, (
-            f"{gold['ticket_id']}: empty should score 0.0 on category"
-        )
+        assert scores["category"] == 0.0, f"{gold['ticket_id']}: empty should score 0.0 on category"
         assert scores["priority"] == 0.0
         assert scores["routing"] == 0.0
         assert scores["escalation"] == 0.0
@@ -944,13 +930,20 @@ def test_sc_rai_includes_non_security():
 def test_sc_injection_tickets_route_to_real_teams():
     """Real IT issues wrapped in adversarial content should route to real teams."""
     gold_map = _sc_gold_by_id()
-    real_issue_ids = ["INC-6001", "INC-6002", "INC-6003", "INC-6006", "INC-6008",
-                      "INC-6009", "INC-6010", "INC-6011", "INC-6012"]
+    real_issue_ids = [
+        "INC-6001",
+        "INC-6002",
+        "INC-6003",
+        "INC-6006",
+        "INC-6008",
+        "INC-6009",
+        "INC-6010",
+        "INC-6011",
+        "INC-6012",
+    ]
     for tid in real_issue_ids:
         gold = gold_map[tid]
-        assert gold["assigned_team"] != "None", (
-            f"{tid}: real issue should route to a real team, not 'None'"
-        )
+        assert gold["assigned_team"] != "None", f"{tid}: real issue should route to a real team, not 'None'"
 
 
 def test_sc_security_threats_route_to_secops():
@@ -972,9 +965,7 @@ def test_sc_security_threats_route_to_secops():
 def test_ra_not_a_support_ticket_routed_to_none():
     for g in _load_ra_gold():
         if g["category"] == "Not a Support Ticket":
-            assert g["assigned_team"] == "None", (
-                f"{g['ticket_id']}: 'Not a Support Ticket' should route to 'None'"
-            )
+            assert g["assigned_team"] == "None", f"{g['ticket_id']}: 'Not a Support Ticket' should route to 'None'"
 
 
 def test_ra_none_team_only_for_non_support():
@@ -988,9 +979,7 @@ def test_ra_none_team_only_for_non_support():
 def test_sc_not_a_support_ticket_routed_to_none():
     for g in _load_sc_gold():
         if g["category"] == "Not a Support Ticket":
-            assert g["assigned_team"] == "None", (
-                f"{g['ticket_id']}: should route to 'None'"
-            )
+            assert g["assigned_team"] == "None", f"{g['ticket_id']}: should route to 'None'"
 
 
 def test_sc_none_team_only_for_non_support():
@@ -1022,30 +1011,18 @@ def test_no_id_collision_between_ra_and_sc():
 def test_sc_gold_no_harmful_patterns():
     """No INC-6### gold answers should contain harmful content patterns."""
     for g in _load_sc_gold():
-        all_text = (
-            g.get("next_best_action", "")
-            + " "
-            + " ".join(g.get("remediation_steps", []))
-        )
+        all_text = g.get("next_best_action", "") + " " + " ".join(g.get("remediation_steps", []))
         for pattern in _HARMFUL_PATTERNS:
             match = pattern.search(all_text)
-            assert match is None, (
-                f"{g['ticket_id']}: harmful pattern found: '{match.group()}'"
-            )
+            assert match is None, f"{g['ticket_id']}: harmful pattern found: '{match.group()}'"
 
 
 def test_sc_gold_no_jailbreak_indicators():
     """No INC-6### gold answers should contain jailbreak indicator phrases."""
     for g in _load_sc_gold():
-        all_text = (
-            g.get("next_best_action", "").lower()
-            + " "
-            + " ".join(g.get("remediation_steps", [])).lower()
-        )
+        all_text = g.get("next_best_action", "").lower() + " " + " ".join(g.get("remediation_steps", [])).lower()
         for indicator in _JAILBREAK_INDICATORS:
-            assert indicator not in all_text, (
-                f"{g['ticket_id']}: jailbreak indicator found: '{indicator}'"
-            )
+            assert indicator not in all_text, f"{g['ticket_id']}: jailbreak indicator found: '{indicator}'"
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -1070,15 +1047,17 @@ def test_ra_gold_no_injection_payload_echo():
     for g in _load_ra_gold():
         combined = (
             g.get("category", "").lower()
-            + " " + g.get("priority", "").lower()
-            + " " + g.get("assigned_team", "").lower()
-            + " " + g.get("next_best_action", "").lower()
-            + " " + " ".join(g.get("remediation_steps", [])).lower()
+            + " "
+            + g.get("priority", "").lower()
+            + " "
+            + g.get("assigned_team", "").lower()
+            + " "
+            + g.get("next_best_action", "").lower()
+            + " "
+            + " ".join(g.get("remediation_steps", [])).lower()
         )
         for payload in _INJECTION_PAYLOADS:
-            assert payload not in combined, (
-                f"{g['ticket_id']}: injection payload echoed in gold: '{payload}'"
-            )
+            assert payload not in combined, f"{g['ticket_id']}: injection payload echoed in gold: '{payload}'"
 
 
 def test_sc_gold_no_injection_payload_echo():
@@ -1086,15 +1065,17 @@ def test_sc_gold_no_injection_payload_echo():
     for g in _load_sc_gold():
         combined = (
             g.get("category", "").lower()
-            + " " + g.get("priority", "").lower()
-            + " " + g.get("assigned_team", "").lower()
-            + " " + g.get("next_best_action", "").lower()
-            + " " + " ".join(g.get("remediation_steps", [])).lower()
+            + " "
+            + g.get("priority", "").lower()
+            + " "
+            + g.get("assigned_team", "").lower()
+            + " "
+            + g.get("next_best_action", "").lower()
+            + " "
+            + " ".join(g.get("remediation_steps", [])).lower()
         )
         for payload in _INJECTION_PAYLOADS:
-            assert payload not in combined, (
-                f"{g['ticket_id']}: injection payload echoed in gold: '{payload}'"
-            )
+            assert payload not in combined, f"{g['ticket_id']}: injection payload echoed in gold: '{payload}'"
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -1106,18 +1087,14 @@ def test_ra_p1_security_always_escalated():
     """P1 Security & Compliance tickets should always be escalated (INC-RA###)."""
     for g in _load_ra_gold():
         if g["category"] == "Security & Compliance" and g["priority"] == "P1":
-            assert g["needs_escalation"] is True, (
-                f"{g['ticket_id']}: P1 Security ticket should be escalated"
-            )
+            assert g["needs_escalation"] is True, f"{g['ticket_id']}: P1 Security ticket should be escalated"
 
 
 def test_sc_p1_security_always_escalated():
     """P1 Security & Compliance tickets should always be escalated (INC-6###)."""
     for g in _load_sc_gold():
         if g["category"] == "Security & Compliance" and g["priority"] == "P1":
-            assert g["needs_escalation"] is True, (
-                f"{g['ticket_id']}: P1 Security ticket should be escalated"
-            )
+            assert g["needs_escalation"] is True, f"{g['ticket_id']}: P1 Security ticket should be escalated"
 
 
 def test_ra_not_support_ticket_has_none_team():
@@ -1147,8 +1124,7 @@ def test_ra_dataset_covers_prompt_injection():
     """At least one ticket should contain prompt injection pattern."""
     tickets = _load_ra_tickets()
     has_injection = any(
-        "ignore" in t["description"].lower() and "instruction" in t["description"].lower()
-        for t in tickets
+        "ignore" in t["description"].lower() and "instruction" in t["description"].lower() for t in tickets
     )
     assert has_injection, "No ticket contains prompt injection pattern"
 
@@ -1157,10 +1133,7 @@ def test_ra_dataset_covers_social_engineering():
     """At least one ticket should contain social engineering pattern."""
     tickets = _load_ra_tickets()
     se_keywords = ["ceo", "ciso", "urgent", "authorized by", "immediately", "executive"]
-    has_se = any(
-        any(kw in t["description"].lower() for kw in se_keywords)
-        for t in tickets
-    )
+    has_se = any(any(kw in t["description"].lower() for kw in se_keywords) for t in tickets)
     assert has_se, "No ticket contains social engineering pattern"
 
 
@@ -1168,10 +1141,7 @@ def test_ra_dataset_covers_credential_request():
     """At least one ticket should request credentials or sensitive data."""
     tickets = _load_ra_tickets()
     cred_keywords = ["password", "credential", "secret", "api key", "ssh key"]
-    has_cred = any(
-        any(kw in t["description"].lower() for kw in cred_keywords)
-        for t in tickets
-    )
+    has_cred = any(any(kw in t["description"].lower() for kw in cred_keywords) for t in tickets)
     assert has_cred, "No ticket contains credential request"
 
 
@@ -1179,10 +1149,7 @@ def test_sc_dataset_covers_authority_impersonation():
     """At least one INC-6### ticket should impersonate authority."""
     tickets = _load_sc_tickets()
     authority_keywords = ["cto", "ceo", "ciso", "admin", "director", "executive"]
-    has_auth = any(
-        any(kw in t["description"].lower() for kw in authority_keywords)
-        for t in tickets
-    )
+    has_auth = any(any(kw in t["description"].lower() for kw in authority_keywords) for t in tickets)
     assert has_auth, "No INC-6### ticket impersonates authority"
 
 
@@ -1190,10 +1157,7 @@ def test_sc_dataset_covers_encoding_attacks():
     """At least one INC-6### ticket should use encoding obfuscation."""
     tickets = _load_sc_tickets()
     enc_keywords = ["base64", "unicode", "\\u", "zero-width", "homoglyph"]
-    has_enc = any(
-        any(kw in t["description"].lower() for kw in enc_keywords)
-        for t in tickets
-    )
+    has_enc = any(any(kw in t["description"].lower() for kw in enc_keywords) for t in tickets)
     assert has_enc, "No INC-6### ticket uses encoding attacks"
 
 
@@ -1206,30 +1170,22 @@ def test_ra_gold_no_duplicate_missing_info():
     """No INC-RA### gold answer should have duplicate missing_information items."""
     for g in _load_ra_gold():
         items = g["missing_information"]
-        assert len(items) == len(set(items)), (
-            f"{g['ticket_id']}: duplicate missing_information items: {items}"
-        )
+        assert len(items) == len(set(items)), f"{g['ticket_id']}: duplicate missing_information items: {items}"
 
 
 def test_sc_gold_no_duplicate_missing_info():
     """No INC-6### gold answer should have duplicate missing_information items."""
     for g in _load_sc_gold():
         items = g["missing_information"]
-        assert len(items) == len(set(items)), (
-            f"{g['ticket_id']}: duplicate missing_information items: {items}"
-        )
+        assert len(items) == len(set(items)), f"{g['ticket_id']}: duplicate missing_information items: {items}"
 
 
 def test_ra_gold_remediation_reasonable_length():
     """Gold remediation steps should be reasonable length (INC-RA###)."""
     for g in _load_ra_gold():
         for i, step in enumerate(g["remediation_steps"]):
-            assert len(step) >= 5, (
-                f"{g['ticket_id']}: remediation step {i} too short: '{step}'"
-            )
-            assert len(step) <= 2000, (
-                f"{g['ticket_id']}: remediation step {i} too long ({len(step)} chars)"
-            )
+            assert len(step) >= 5, f"{g['ticket_id']}: remediation step {i} too short: '{step}'"
+            assert len(step) <= 2000, f"{g['ticket_id']}: remediation step {i} too long ({len(step)} chars)"
 
 
 def test_ra_gold_no_exploitation_guidance():
@@ -1243,9 +1199,7 @@ def test_ra_gold_no_exploitation_guidance():
         combined = " ".join(g.get("remediation_steps", []))
         for pattern in exploit_patterns:
             match = pattern.search(combined)
-            assert match is None, (
-                f"{g['ticket_id']}: exploitation guidance found: '{match.group()}'"
-            )
+            assert match is None, f"{g['ticket_id']}: exploitation guidance found: '{match.group()}'"
 
 
 def test_sc_gold_no_pii_in_remediation():
@@ -1259,9 +1213,7 @@ def test_sc_gold_no_pii_in_remediation():
         combined = " ".join(g.get("remediation_steps", []))
         for pattern in pii_patterns:
             match = pattern.search(combined)
-            assert match is None, (
-                f"{g['ticket_id']}: PII pattern in remediation: '{match.group()}'"
-            )
+            assert match is None, f"{g['ticket_id']}: PII pattern in remediation: '{match.group()}'"
 
 
 # ── Runner ────────────────────────────────────────────────────────────

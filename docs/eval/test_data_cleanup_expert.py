@@ -74,8 +74,14 @@ _VALID_MISSING_INFO = {
 }
 _REQUIRED_INPUT_FIELDS = {"ticket_id", "subject", "description", "reporter", "created_at", "channel"}
 _REQUIRED_GOLD_FIELDS = {
-    "ticket_id", "category", "priority", "assigned_team",
-    "needs_escalation", "missing_information", "next_best_action", "remediation_steps",
+    "ticket_id",
+    "category",
+    "priority",
+    "assigned_team",
+    "needs_escalation",
+    "missing_information",
+    "next_best_action",
+    "remediation_steps",
 }
 _VALID_CHANNELS = {"email", "chat", "portal", "phone"}
 
@@ -156,9 +162,7 @@ def test_all_reporters_have_required_fields():
 
 def test_all_channels_valid():
     for ticket in _load_tickets():
-        assert ticket["channel"] in _VALID_CHANNELS, (
-            f"{ticket['ticket_id']} invalid channel: {ticket['channel']}"
-        )
+        assert ticket["channel"] in _VALID_CHANNELS, f"{ticket['ticket_id']} invalid channel: {ticket['channel']}"
 
 
 def test_all_reporter_emails_contoso():
@@ -173,31 +177,23 @@ def test_all_reporter_emails_contoso():
 
 def test_gold_categories_valid():
     for g in _load_gold():
-        assert g["category"] in _VALID_CATEGORIES, (
-            f"{g['ticket_id']}: invalid category '{g['category']}'"
-        )
+        assert g["category"] in _VALID_CATEGORIES, f"{g['ticket_id']}: invalid category '{g['category']}'"
 
 
 def test_gold_priorities_valid():
     for g in _load_gold():
-        assert g["priority"] in _VALID_PRIORITIES, (
-            f"{g['ticket_id']}: invalid priority '{g['priority']}'"
-        )
+        assert g["priority"] in _VALID_PRIORITIES, f"{g['ticket_id']}: invalid priority '{g['priority']}'"
 
 
 def test_gold_teams_valid():
     for g in _load_gold():
-        assert g["assigned_team"] in _VALID_TEAMS, (
-            f"{g['ticket_id']}: invalid team '{g['assigned_team']}'"
-        )
+        assert g["assigned_team"] in _VALID_TEAMS, f"{g['ticket_id']}: invalid team '{g['assigned_team']}'"
 
 
 def test_gold_missing_info_valid():
     for g in _load_gold():
         for item in g["missing_information"]:
-            assert item in _VALID_MISSING_INFO, (
-                f"{g['ticket_id']}: invalid missing_information value '{item}'"
-            )
+            assert item in _VALID_MISSING_INFO, f"{g['ticket_id']}: invalid missing_information value '{item}'"
 
 
 def test_gold_schema_fields():
@@ -223,35 +219,25 @@ def test_gold_missing_info_is_list():
 def test_gold_remediation_steps_nonempty():
     for g in _load_gold():
         assert isinstance(g["remediation_steps"], list)
-        assert len(g["remediation_steps"]) > 0, (
-            f"{g['ticket_id']}: remediation_steps should not be empty"
-        )
+        assert len(g["remediation_steps"]) > 0, f"{g['ticket_id']}: remediation_steps should not be empty"
 
 
 def test_gold_next_best_action_nonempty():
     for g in _load_gold():
-        assert len(g["next_best_action"].strip()) > 0, (
-            f"{g['ticket_id']} has empty next_best_action"
-        )
+        assert len(g["next_best_action"].strip()) > 0, f"{g['ticket_id']} has empty next_best_action"
 
 
 def test_gold_no_duplicate_missing_info():
     for g in _load_gold():
         items = g["missing_information"]
-        assert len(items) == len(set(items)), (
-            f"{g['ticket_id']}: duplicate missing_information items: {items}"
-        )
+        assert len(items) == len(set(items)), f"{g['ticket_id']}: duplicate missing_information items: {items}"
 
 
 def test_gold_remediation_reasonable_length():
     for g in _load_gold():
         for i, step in enumerate(g["remediation_steps"]):
-            assert len(step) >= 5, (
-                f"{g['ticket_id']}: remediation step {i} too short: '{step}'"
-            )
-            assert len(step) <= 2000, (
-                f"{g['ticket_id']}: remediation step {i} too long ({len(step)} chars)"
-            )
+            assert len(step) >= 5, f"{g['ticket_id']}: remediation step {i} too short: '{step}'"
+            assert len(step) <= 2000, f"{g['ticket_id']}: remediation step {i} too long ({len(step)} chars)"
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -335,12 +321,7 @@ def test_dcx003_double_escaped_json():
     ticket = _tickets_by_id()["INC-DCX003"]
     gold = _gold_by_id()["INC-DCX003"]
     desc = ticket["description"]
-    has_escaped = (
-        '\\"' in desc
-        or '\\\\' in desc
-        or "escaped" in desc.lower()
-        or "parse" in desc.lower()
-    )
+    has_escaped = '\\"' in desc or "\\\\" in desc or "escaped" in desc.lower() or "parse" in desc.lower()
     assert has_escaped, "Ticket should contain double-escaped JSON content"
     assert gold["category"] == "Software & Applications"
     assert gold["assigned_team"] == "Enterprise Applications"
@@ -437,7 +418,7 @@ def test_dcx009_mixed_cjk_latin():
     ticket = _tickets_by_id()["INC-DCX009"]
     gold = _gold_by_id()["INC-DCX009"]
     desc = ticket["description"]
-    has_cjk = bool(re.search(r"[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af]", desc))
+    has_cjk = bool(re.search(r"[一-鿿぀-ゟ゠-ヿ가-힯]", desc))
     assert has_cjk, "Ticket should contain CJK characters"
     assert gold["category"] == "Software & Applications"
     assert gold["assigned_team"] == "Enterprise Applications"
@@ -449,11 +430,7 @@ def test_dcx010_http_response_dump():
     gold = _gold_by_id()["INC-DCX010"]
     desc = ticket["description"]
     has_http = (
-        "HTTP/" in desc
-        or "Content-Type" in desc
-        or "X-Request-Id" in desc
-        or "502" in desc
-        or "status" in desc.lower()
+        "HTTP/" in desc or "Content-Type" in desc or "X-Request-Id" in desc or "502" in desc or "status" in desc.lower()
     )
     assert has_http, "Ticket should contain HTTP response content"
     assert gold["category"] == "Network & Connectivity"
@@ -517,12 +494,7 @@ def test_dcx014_dns_zone_file():
     gold = _gold_by_id()["INC-DCX014"]
     desc = ticket["description"]
     has_dns = (
-        "SOA" in desc
-        or "IN A" in desc
-        or "CNAME" in desc
-        or "MX" in desc
-        or "TXT" in desc
-        or "zone" in desc.lower()
+        "SOA" in desc or "IN A" in desc or "CNAME" in desc or "MX" in desc or "TXT" in desc or "zone" in desc.lower()
     )
     assert has_dns, "Ticket should contain DNS zone file records"
     assert gold["category"] == "Network & Connectivity"
@@ -682,18 +654,14 @@ def test_multiple_channels_represented():
 def test_not_a_support_ticket_routed_to_none():
     for g in _load_gold():
         if g["category"] == "Not a Support Ticket":
-            assert g["assigned_team"] == "None", (
-                f"{g['ticket_id']}: 'Not a Support Ticket' should route to 'None'"
-            )
+            assert g["assigned_team"] == "None", f"{g['ticket_id']}: 'Not a Support Ticket' should route to 'None'"
 
 
 def test_none_team_only_for_non_support():
     allowed_categories = {"Not a Support Ticket", "General Inquiry"}
     for g in _load_gold():
         if g["assigned_team"] == "None":
-            assert g["category"] in allowed_categories, (
-                f"{g['ticket_id']}: team 'None' with category '{g['category']}'"
-            )
+            assert g["category"] in allowed_categories, f"{g['ticket_id']}: team 'None' with category '{g['category']}'"
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -705,9 +673,7 @@ def test_at_least_one_ticket_has_graphql():
     """At least one ticket should contain GraphQL response content."""
     tickets = _load_tickets()
     found = any(
-        "__typename" in t["description"]
-        or "edges" in t["description"]
-        or "graphql" in t["description"].lower()
+        "__typename" in t["description"] or "edges" in t["description"] or "graphql" in t["description"].lower()
         for t in tickets
     )
     assert found, "No ticket contains GraphQL content"
@@ -728,50 +694,35 @@ def test_at_least_one_ticket_has_k8s_logs():
 def test_at_least_one_ticket_has_json():
     """At least one ticket should contain JSON content."""
     tickets = _load_tickets()
-    found = any(
-        '{"' in t["description"] or '": ' in t["description"]
-        for t in tickets
-    )
+    found = any('{"' in t["description"] or '": ' in t["description"] for t in tickets)
     assert found, "No ticket contains JSON content"
 
 
 def test_at_least_one_ticket_has_pem():
     """At least one ticket should contain PEM certificate data."""
     tickets = _load_tickets()
-    found = any(
-        "BEGIN CERTIFICATE" in t["description"] or "-----BEGIN" in t["description"]
-        for t in tickets
-    )
+    found = any("BEGIN CERTIFICATE" in t["description"] or "-----BEGIN" in t["description"] for t in tickets)
     assert found, "No ticket contains PEM certificate data"
 
 
 def test_at_least_one_ticket_has_cjk():
     """At least one ticket should contain CJK characters."""
     tickets = _load_tickets()
-    found = any(
-        bool(re.search(r"[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af]", t["description"]))
-        for t in tickets
-    )
+    found = any(bool(re.search(r"[一-鿿぀-ゟ゠-ヿ가-힯]", t["description"])) for t in tickets)
     assert found, "No ticket contains CJK characters"
 
 
 def test_at_least_one_ticket_has_http_headers():
     """At least one ticket should contain HTTP response headers."""
     tickets = _load_tickets()
-    found = any(
-        "HTTP/" in t["description"] or "Content-Type" in t["description"]
-        for t in tickets
-    )
+    found = any("HTTP/" in t["description"] or "Content-Type" in t["description"] for t in tickets)
     assert found, "No ticket contains HTTP response headers"
 
 
 def test_at_least_one_ticket_has_terraform():
     """At least one ticket should contain Terraform plan output."""
     tickets = _load_tickets()
-    found = any(
-        "terraform" in t["description"].lower() or "azurerm_" in t["description"]
-        for t in tickets
-    )
+    found = any("terraform" in t["description"].lower() or "azurerm_" in t["description"] for t in tickets)
     assert found, "No ticket contains Terraform output"
 
 
@@ -825,9 +776,12 @@ def test_no_id_collision_with_scoring_dc():
 
 def test_no_id_collision_with_rai_datasets():
     """No overlap with responsible AI datasets."""
-    for filename in ("responsible_ai_eval.json", "responsible_ai.json",
-                     "responsible_ai_advanced_eval.json",
-                     "responsible_ai_expert_eval.json"):
+    for filename in (
+        "responsible_ai_eval.json",
+        "responsible_ai.json",
+        "responsible_ai_advanced_eval.json",
+        "responsible_ai_expert_eval.json",
+    ):
         path = _DATA_DIR / filename
         if not path.exists():
             continue

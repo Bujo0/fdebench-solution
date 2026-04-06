@@ -74,8 +74,14 @@ _VALID_MISSING_INFO = {
 }
 _REQUIRED_INPUT_FIELDS = {"ticket_id", "subject", "description", "reporter", "created_at", "channel"}
 _REQUIRED_GOLD_FIELDS = {
-    "ticket_id", "category", "priority", "assigned_team",
-    "needs_escalation", "missing_information", "next_best_action", "remediation_steps",
+    "ticket_id",
+    "category",
+    "priority",
+    "assigned_team",
+    "needs_escalation",
+    "missing_information",
+    "next_best_action",
+    "remediation_steps",
 }
 _VALID_CHANNELS = {"email", "chat", "portal", "phone"}
 
@@ -156,9 +162,7 @@ def test_all_reporters_have_required_fields():
 
 def test_all_channels_valid():
     for ticket in _load_tickets():
-        assert ticket["channel"] in _VALID_CHANNELS, (
-            f"{ticket['ticket_id']} invalid channel: {ticket['channel']}"
-        )
+        assert ticket["channel"] in _VALID_CHANNELS, f"{ticket['ticket_id']} invalid channel: {ticket['channel']}"
 
 
 # ── Gold answer validation ───────────────────────────────────────────
@@ -166,31 +170,23 @@ def test_all_channels_valid():
 
 def test_gold_categories_valid():
     for g in _load_gold():
-        assert g["category"] in _VALID_CATEGORIES, (
-            f"{g['ticket_id']}: invalid category '{g['category']}'"
-        )
+        assert g["category"] in _VALID_CATEGORIES, f"{g['ticket_id']}: invalid category '{g['category']}'"
 
 
 def test_gold_priorities_valid():
     for g in _load_gold():
-        assert g["priority"] in _VALID_PRIORITIES, (
-            f"{g['ticket_id']}: invalid priority '{g['priority']}'"
-        )
+        assert g["priority"] in _VALID_PRIORITIES, f"{g['ticket_id']}: invalid priority '{g['priority']}'"
 
 
 def test_gold_teams_valid():
     for g in _load_gold():
-        assert g["assigned_team"] in _VALID_TEAMS, (
-            f"{g['ticket_id']}: invalid team '{g['assigned_team']}'"
-        )
+        assert g["assigned_team"] in _VALID_TEAMS, f"{g['ticket_id']}: invalid team '{g['assigned_team']}'"
 
 
 def test_gold_missing_info_valid():
     for g in _load_gold():
         for item in g["missing_information"]:
-            assert item in _VALID_MISSING_INFO, (
-                f"{g['ticket_id']}: invalid missing_information value '{item}'"
-            )
+            assert item in _VALID_MISSING_INFO, f"{g['ticket_id']}: invalid missing_information value '{item}'"
 
 
 def test_gold_schema_fields():
@@ -216,35 +212,25 @@ def test_gold_missing_info_is_list():
 def test_gold_remediation_steps_nonempty():
     for g in _load_gold():
         assert isinstance(g["remediation_steps"], list)
-        assert len(g["remediation_steps"]) > 0, (
-            f"{g['ticket_id']}: remediation_steps should not be empty"
-        )
+        assert len(g["remediation_steps"]) > 0, f"{g['ticket_id']}: remediation_steps should not be empty"
 
 
 def test_gold_next_best_action_nonempty():
     for g in _load_gold():
-        assert len(g["next_best_action"].strip()) > 0, (
-            f"{g['ticket_id']} has empty next_best_action"
-        )
+        assert len(g["next_best_action"].strip()) > 0, f"{g['ticket_id']} has empty next_best_action"
 
 
 def test_gold_no_duplicate_missing_info():
     for g in _load_gold():
         items = g["missing_information"]
-        assert len(items) == len(set(items)), (
-            f"{g['ticket_id']}: duplicate missing_information items: {items}"
-        )
+        assert len(items) == len(set(items)), f"{g['ticket_id']}: duplicate missing_information items: {items}"
 
 
 def test_gold_remediation_reasonable_length():
     for g in _load_gold():
         for i, step in enumerate(g["remediation_steps"]):
-            assert len(step) >= 5, (
-                f"{g['ticket_id']}: remediation step {i} too short: '{step}'"
-            )
-            assert len(step) <= 2000, (
-                f"{g['ticket_id']}: remediation step {i} too long ({len(step)} chars)"
-            )
+            assert len(step) >= 5, f"{g['ticket_id']}: remediation step {i} too short: '{step}'"
+            assert len(step) <= 2000, f"{g['ticket_id']}: remediation step {i} too long ({len(step)} chars)"
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -417,13 +403,7 @@ def test_dca010_rtf_artifacts():
     ticket = _tickets_by_id()["INC-DCA010"]
     gold = _gold_by_id()["INC-DCA010"]
     desc = ticket["description"]
-    has_rtf = (
-        "\\rtf" in desc
-        or "\\par" in desc
-        or "\\fonttbl" in desc
-        or "\\b " in desc
-        or "rtf" in desc.lower()
-    )
+    has_rtf = "\\rtf" in desc or "\\par" in desc or "\\fonttbl" in desc or "\\b " in desc or "rtf" in desc.lower()
     assert has_rtf, "Ticket should contain RTF formatting artifacts"
     assert gold["category"] == "Hardware & Peripherals"
     assert gold["assigned_team"] == "Endpoint Engineering"
@@ -628,18 +608,14 @@ def test_multiple_channels_represented():
 def test_not_a_support_ticket_routed_to_none():
     for g in _load_gold():
         if g["category"] == "Not a Support Ticket":
-            assert g["assigned_team"] == "None", (
-                f"{g['ticket_id']}: 'Not a Support Ticket' should route to 'None'"
-            )
+            assert g["assigned_team"] == "None", f"{g['ticket_id']}: 'Not a Support Ticket' should route to 'None'"
 
 
 def test_none_team_only_for_non_support():
     allowed_categories = {"Not a Support Ticket", "General Inquiry"}
     for g in _load_gold():
         if g["assigned_team"] == "None":
-            assert g["category"] in allowed_categories, (
-                f"{g['ticket_id']}: team 'None' with category '{g['category']}'"
-            )
+            assert g["category"] in allowed_categories, f"{g['ticket_id']}: team 'None' with category '{g['category']}'"
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -650,30 +626,21 @@ def test_none_team_only_for_non_support():
 def test_at_least_one_ticket_has_csv_data():
     """At least one ticket should contain CSV/tabular data."""
     tickets = _load_tickets()
-    found = any(
-        t["description"].count(",") > 20 and "\n" in t["description"]
-        for t in tickets
-    )
+    found = any(t["description"].count(",") > 20 and "\n" in t["description"] for t in tickets)
     assert found, "No ticket contains CSV data"
 
 
 def test_at_least_one_ticket_has_xml():
     """At least one ticket should contain XML/SOAP content."""
     tickets = _load_tickets()
-    found = any(
-        "</" in t["description"] or "<?xml" in t["description"]
-        for t in tickets
-    )
+    found = any("</" in t["description"] or "<?xml" in t["description"] for t in tickets)
     assert found, "No ticket contains XML content"
 
 
 def test_at_least_one_ticket_has_json():
     """At least one ticket should contain a JSON config dump."""
     tickets = _load_tickets()
-    found = any(
-        '{"' in t["description"] or '": ' in t["description"]
-        for t in tickets
-    )
+    found = any('{"' in t["description"] or '": ' in t["description"] for t in tickets)
     assert found, "No ticket contains JSON content"
 
 
@@ -687,30 +654,21 @@ def test_at_least_one_ticket_has_url_encoding():
 def test_at_least_one_ticket_has_ascii_table():
     """At least one ticket should contain ASCII art table formatting."""
     tickets = _load_tickets()
-    found = any(
-        "+--" in t["description"] and "|" in t["description"]
-        for t in tickets
-    )
+    found = any("+--" in t["description"] and "|" in t["description"] for t in tickets)
     assert found, "No ticket contains ASCII art tables"
 
 
 def test_at_least_one_ticket_has_markdown():
     """At least one ticket should contain raw markdown."""
     tickets = _load_tickets()
-    found = any(
-        "##" in t["description"] or "```" in t["description"]
-        for t in tickets
-    )
+    found = any("##" in t["description"] or "```" in t["description"] for t in tickets)
     assert found, "No ticket contains raw markdown"
 
 
 def test_at_least_one_ticket_has_mime_content():
     """At least one ticket should contain MIME multipart content."""
     tickets = _load_tickets()
-    found = any(
-        "boundary" in t["description"].lower() or "content-type" in t["description"].lower()
-        for t in tickets
-    )
+    found = any("boundary" in t["description"].lower() or "content-type" in t["description"].lower() for t in tickets)
     assert found, "No ticket contains MIME content"
 
 
@@ -752,8 +710,7 @@ def test_no_id_collision_with_scoring_dc():
 
 def test_no_id_collision_with_rai_datasets():
     """No overlap with responsible AI datasets."""
-    for filename in ("responsible_ai_eval.json", "responsible_ai.json",
-                     "responsible_ai_advanced_eval.json"):
+    for filename in ("responsible_ai_eval.json", "responsible_ai.json", "responsible_ai_advanced_eval.json"):
         path = _DATA_DIR / filename
         if not path.exists():
             continue

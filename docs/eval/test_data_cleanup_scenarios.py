@@ -236,7 +236,7 @@ def test_minimal_content_with_signature():
     desc = ticket["description"]
     issue_text = "need password reset"
     sig_start = desc.find("Sent from my iPhone")
-    assert issue_text in desc[:sig_start + 20], "Issue should be at the very beginning"
+    assert issue_text in desc[: sig_start + 20], "Issue should be at the very beginning"
     assert gold["category"] == "Access & Authentication"
     assert gold["assigned_team"] == "Identity & Access Management"
 
@@ -377,9 +377,9 @@ if __name__ == "__main__":
         try:
             t()
             passed += 1
-            print(f"  \u2713 {t.__name__}")
+            print(f"  ✓ {t.__name__}")
         except AssertionError as e:
             failed += 1
-            print(f"  \u2717 {t.__name__}: {e}")
+            print(f"  ✗ {t.__name__}: {e}")
     print(f"\n{passed} passed, {failed} failed")
     sys.exit(1 if failed else 0)

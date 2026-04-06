@@ -87,8 +87,14 @@ VALID_MISSING_INFO = {
 }
 _REQUIRED_INPUT_FIELDS = {"ticket_id", "subject", "description", "reporter", "created_at", "channel"}
 _REQUIRED_GOLD_FIELDS = {
-    "ticket_id", "category", "priority", "assigned_team",
-    "needs_escalation", "missing_information", "next_best_action", "remediation_steps",
+    "ticket_id",
+    "category",
+    "priority",
+    "assigned_team",
+    "needs_escalation",
+    "missing_information",
+    "next_best_action",
+    "remediation_steps",
 }
 _VALID_CHANNELS = {"email", "chat", "portal", "phone"}
 
@@ -181,9 +187,7 @@ def test_dc_all_reporters_have_required_fields():
 
 def test_dc_all_channels_valid():
     for ticket in _load_dc_tickets():
-        assert ticket["channel"] in _VALID_CHANNELS, (
-            f"{ticket['ticket_id']} invalid channel: {ticket['channel']}"
-        )
+        assert ticket["channel"] in _VALID_CHANNELS, f"{ticket['ticket_id']} invalid channel: {ticket['channel']}"
 
 
 # ── Gold answer validation (INC-DC###) ───────────────────────────────
@@ -191,31 +195,23 @@ def test_dc_all_channels_valid():
 
 def test_dc_gold_categories_valid():
     for g in _load_dc_gold():
-        assert g["category"] in set(CATEGORIES), (
-            f"{g['ticket_id']}: invalid category '{g['category']}'"
-        )
+        assert g["category"] in set(CATEGORIES), f"{g['ticket_id']}: invalid category '{g['category']}'"
 
 
 def test_dc_gold_priorities_valid():
     for g in _load_dc_gold():
-        assert g["priority"] in {"P1", "P2", "P3", "P4"}, (
-            f"{g['ticket_id']}: invalid priority '{g['priority']}'"
-        )
+        assert g["priority"] in {"P1", "P2", "P3", "P4"}, f"{g['ticket_id']}: invalid priority '{g['priority']}'"
 
 
 def test_dc_gold_teams_valid():
     for g in _load_dc_gold():
-        assert g["assigned_team"] in set(TEAMS), (
-            f"{g['ticket_id']}: invalid team '{g['assigned_team']}'"
-        )
+        assert g["assigned_team"] in set(TEAMS), f"{g['ticket_id']}: invalid team '{g['assigned_team']}'"
 
 
 def test_dc_gold_missing_info_valid():
     for g in _load_dc_gold():
         for item in g["missing_information"]:
-            assert item in VALID_MISSING_INFO, (
-                f"{g['ticket_id']}: invalid missing_information value '{item}'"
-            )
+            assert item in VALID_MISSING_INFO, f"{g['ticket_id']}: invalid missing_information value '{item}'"
 
 
 def test_dc_gold_schema_fields():
@@ -241,16 +237,12 @@ def test_dc_gold_missing_info_is_list():
 def test_dc_gold_remediation_steps_nonempty():
     for g in _load_dc_gold():
         assert isinstance(g["remediation_steps"], list)
-        assert len(g["remediation_steps"]) > 0, (
-            f"{g['ticket_id']}: remediation_steps should not be empty"
-        )
+        assert len(g["remediation_steps"]) > 0, f"{g['ticket_id']}: remediation_steps should not be empty"
 
 
 def test_dc_gold_next_best_action_nonempty():
     for g in _load_dc_gold():
-        assert len(g["next_best_action"].strip()) > 0, (
-            f"{g['ticket_id']} has empty next_best_action"
-        )
+        assert len(g["next_best_action"].strip()) > 0, f"{g['ticket_id']} has empty next_best_action"
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -461,16 +453,12 @@ def test_sc_all_ticket_ids_unique():
 
 def test_sc_gold_categories_valid():
     for gold in _load_sc_gold():
-        assert gold["category"].lower() in VALID_CATEGORIES, (
-            f"{gold['ticket_id']} invalid category: {gold['category']}"
-        )
+        assert gold["category"].lower() in VALID_CATEGORIES, f"{gold['ticket_id']} invalid category: {gold['category']}"
 
 
 def test_sc_gold_priorities_valid():
     for gold in _load_sc_gold():
-        assert gold["priority"].lower() in VALID_PRIORITIES, (
-            f"{gold['ticket_id']} invalid priority: {gold['priority']}"
-        )
+        assert gold["priority"].lower() in VALID_PRIORITIES, f"{gold['ticket_id']} invalid priority: {gold['priority']}"
 
 
 def test_sc_gold_teams_valid():
@@ -483,9 +471,7 @@ def test_sc_gold_teams_valid():
 def test_sc_gold_missing_info_valid():
     for gold in _load_sc_gold():
         for item in gold["missing_information"]:
-            assert item.lower() in VALID_MISSING_INFO, (
-                f"{gold['ticket_id']} invalid missing_info: {item}"
-            )
+            assert item.lower() in VALID_MISSING_INFO, f"{gold['ticket_id']} invalid missing_info: {item}"
 
 
 def test_sc_gold_has_required_fields():
@@ -646,8 +632,7 @@ def test_dc_not_a_support_ticket_routed_to_none():
     for g in _load_dc_gold():
         if g["category"] == "Not a Support Ticket":
             assert g["assigned_team"] == "None", (
-                f"{g['ticket_id']}: 'Not a Support Ticket' should route to 'None', "
-                f"got '{g['assigned_team']}'"
+                f"{g['ticket_id']}: 'Not a Support Ticket' should route to 'None', got '{g['assigned_team']}'"
             )
 
 
@@ -663,9 +648,7 @@ def test_dc_none_team_only_for_non_support():
 def test_sc_not_a_support_ticket_routed_to_none():
     for g in _load_sc_gold():
         if g["category"] == "Not a Support Ticket":
-            assert g["assigned_team"] == "None", (
-                f"{g['ticket_id']}: 'Not a Support Ticket' should route to 'None'"
-            )
+            assert g["assigned_team"] == "None", f"{g['ticket_id']}: 'Not a Support Ticket' should route to 'None'"
 
 
 def test_sc_none_team_only_for_non_support():
@@ -734,8 +717,10 @@ def test_dc_at_least_one_ticket_has_html():
     """At least one data cleanup ticket should contain HTML markup."""
     tickets = _load_dc_tickets()
     has_html = any(
-        "<html" in t["description"].lower() or "<script" in t["description"].lower()
-        or "<html" in t["subject"].lower() or "<script" in t["subject"].lower()
+        "<html" in t["description"].lower()
+        or "<script" in t["description"].lower()
+        or "<html" in t["subject"].lower()
+        or "<script" in t["subject"].lower()
         for t in tickets
     )
     assert has_html, "No ticket contains HTML markup"
@@ -767,8 +752,7 @@ def test_dc_at_least_one_ticket_has_mixed_language():
     tickets = _load_dc_tickets()
     mixed_indicators = ["bonjour", "buenos", "mañana", "funciona", "bitte", "danke"]
     has_mixed = any(
-        any(ind in t["description"].lower() or ind in t["subject"].lower() for ind in mixed_indicators)
-        for t in tickets
+        any(ind in t["description"].lower() or ind in t["subject"].lower() for ind in mixed_indicators) for t in tickets
     )
     assert has_mixed, "No ticket has mixed language content"
 
@@ -784,9 +768,7 @@ def test_dc_at_least_one_ticket_has_emoji():
     """At least one ticket should contain emoji."""
     tickets = _load_dc_tickets()
     has_emoji = any(
-        any(ord(c) > 0x1F000 for c in t["description"]) or
-        any(ord(c) > 0x1F000 for c in t["subject"])
-        for t in tickets
+        any(ord(c) > 0x1F000 for c in t["description"]) or any(ord(c) > 0x1F000 for c in t["subject"]) for t in tickets
     )
     assert has_emoji, "No ticket contains emoji"
 
@@ -812,8 +794,7 @@ def test_sc_at_least_one_ticket_has_garbled_text():
     """At least one INC-5xxx ticket should have garbled/misspelled content."""
     tickets = _load_sc_tickets()
     has_garbled = any(
-        "isuse" in t.get("subject", "").lower() or "outlok" in t.get("subject", "").lower()
-        for t in tickets
+        "isuse" in t.get("subject", "").lower() or "outlok" in t.get("subject", "").lower() for t in tickets
     )
     assert has_garbled, "No INC-5xxx ticket has garbled text"
 
@@ -824,7 +805,8 @@ def test_sc_at_least_one_ticket_has_stack_trace():
     has_trace = any(
         "traceback" in t["description"].lower()
         or "exception" in t["description"].lower()
-        or "at " in t["description"] and "line " in t["description"]
+        or "at " in t["description"]
+        and "line " in t["description"]
         for t in tickets
     )
     assert has_trace, "No INC-5xxx ticket has a stack trace"
@@ -906,42 +888,30 @@ def test_dc_gold_no_duplicate_missing_info():
     """No gold answer should have duplicate missing_information items."""
     for g in _load_dc_gold():
         items = g["missing_information"]
-        assert len(items) == len(set(items)), (
-            f"{g['ticket_id']}: duplicate missing_information items: {items}"
-        )
+        assert len(items) == len(set(items)), f"{g['ticket_id']}: duplicate missing_information items: {items}"
 
 
 def test_sc_gold_no_duplicate_missing_info():
     """No INC-5### gold answer should have duplicate missing_information items."""
     for g in _load_sc_gold():
         items = g["missing_information"]
-        assert len(items) == len(set(items)), (
-            f"{g['ticket_id']}: duplicate missing_information items: {items}"
-        )
+        assert len(items) == len(set(items)), f"{g['ticket_id']}: duplicate missing_information items: {items}"
 
 
 def test_dc_gold_remediation_reasonable_length():
     """Gold remediation steps should be reasonable length (not absurdly long or trivial)."""
     for g in _load_dc_gold():
         for i, step in enumerate(g["remediation_steps"]):
-            assert len(step) >= 5, (
-                f"{g['ticket_id']}: remediation step {i} too short: '{step}'"
-            )
-            assert len(step) <= 2000, (
-                f"{g['ticket_id']}: remediation step {i} too long ({len(step)} chars)"
-            )
+            assert len(step) >= 5, f"{g['ticket_id']}: remediation step {i} too short: '{step}'"
+            assert len(step) <= 2000, f"{g['ticket_id']}: remediation step {i} too long ({len(step)} chars)"
 
 
 def test_sc_gold_remediation_reasonable_length():
     """INC-5### gold remediation steps should be reasonable length."""
     for g in _load_sc_gold():
         for i, step in enumerate(g["remediation_steps"]):
-            assert len(step) >= 5, (
-                f"{g['ticket_id']}: remediation step {i} too short: '{step}'"
-            )
-            assert len(step) <= 2000, (
-                f"{g['ticket_id']}: remediation step {i} too long ({len(step)} chars)"
-            )
+            assert len(step) >= 5, f"{g['ticket_id']}: remediation step {i} too short: '{step}'"
+            assert len(step) <= 2000, f"{g['ticket_id']}: remediation step {i} too long ({len(step)} chars)"
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -1009,9 +979,7 @@ def test_dc_gold_remediation_no_raw_urls():
         matches = url_pattern.findall(combined)
         # Allow documentation URLs (microsoft.com, etc.)
         suspicious = [u for u in matches if "microsoft.com" not in u and "contoso.com" not in u]
-        assert not suspicious, (
-            f"{g['ticket_id']}: suspicious URL(s) in remediation: {suspicious}"
-        )
+        assert not suspicious, f"{g['ticket_id']}: suspicious URL(s) in remediation: {suspicious}"
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -1025,10 +993,9 @@ def test_dc_description_length_variance():
     lengths = [len(t["description"]) for t in tickets]
     mean_len = sum(lengths) / len(lengths)
     variance = sum((x - mean_len) ** 2 for x in lengths) / len(lengths)
-    std_dev = variance ** 0.5
+    std_dev = variance**0.5
     assert std_dev > 100, (
-        f"Description lengths have low variance (std_dev={std_dev:.0f}). "
-        "Cleanup tickets should have varied lengths."
+        f"Description lengths have low variance (std_dev={std_dev:.0f}). Cleanup tickets should have varied lengths."
     )
 
 
@@ -1042,10 +1009,7 @@ def test_dc_at_least_one_ticket_has_url_content():
 def test_dc_at_least_one_ticket_with_code_blocks():
     """At least one ticket should contain code/structured data."""
     tickets = _load_dc_tickets()
-    has_code = any(
-        "```" in t["description"] or "{" in t["description"]
-        for t in tickets
-    )
+    has_code = any("```" in t["description"] or "{" in t["description"] for t in tickets)
     assert has_code, "No ticket contains code blocks or structured data"
 
 
@@ -1077,9 +1041,7 @@ def test_dc_security_tickets_escalated():
     """Data cleanup tickets classified as Security & Compliance with high severity should be escalated."""
     for g in _load_dc_gold():
         if g["category"] == "Security & Compliance" and g["priority"] in ("P1", "P2"):
-            assert g["needs_escalation"] is True, (
-                f"{g['ticket_id']}: P1/P2 Security ticket should be escalated"
-            )
+            assert g["needs_escalation"] is True, f"{g['ticket_id']}: P1/P2 Security ticket should be escalated"
 
 
 def test_sc_category_team_consistency():

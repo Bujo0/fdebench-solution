@@ -108,7 +108,7 @@ def test_category_with_newlines():
 
 def test_category_unicode_ampersand():
     """API returns unicode ampersand (＆ U+FF06) instead of ASCII — should not match."""
-    assert score_category("Network \uff06 Connectivity", "Network & Connectivity") == 0.0
+    assert score_category("Network ＆ Connectivity", "Network & Connectivity") == 0.0
 
 
 def test_category_html_entity_ampersand():
@@ -459,32 +459,32 @@ def test_binary_f1_never_escalated():
 
 def test_category_with_non_breaking_space():
     """API returns category with non-breaking space (U+00A0) instead of regular space."""
-    assert score_category("Network\u00a0& Connectivity", "Network & Connectivity") == 0.0
+    assert score_category("Network & Connectivity", "Network & Connectivity") == 0.0
 
 
 def test_category_with_zero_width_space():
     """API returns category with zero-width space (U+200B) embedded."""
-    assert score_category("Network\u200b & Connectivity", "Network & Connectivity") == 0.0
+    assert score_category("Network​ & Connectivity", "Network & Connectivity") == 0.0
 
 
 def test_category_with_bom_prefix():
     """API returns category with UTF-8 BOM prefix."""
-    assert score_category("\ufeffNetwork & Connectivity", "Network & Connectivity") == 0.0
+    assert score_category("﻿Network & Connectivity", "Network & Connectivity") == 0.0
 
 
 def test_category_with_right_to_left_override():
     """API returns category with RTL override character."""
-    assert score_category("\u202eNetwork & Connectivity", "Network & Connectivity") == 0.0
+    assert score_category("‮Network & Connectivity", "Network & Connectivity") == 0.0
 
 
 def test_routing_with_zero_width_joiner():
     """API returns team with zero-width joiner (U+200D) in the middle."""
-    assert score_routing("Security\u200dOperations", "Security Operations") == 0.0
+    assert score_routing("Security‍Operations", "Security Operations") == 0.0
 
 
 def test_routing_with_non_breaking_space():
     """API returns team name with non-breaking space."""
-    assert score_routing("Security\u00a0Operations", "Security Operations") == 0.0
+    assert score_routing("Security Operations", "Security Operations") == 0.0
 
 
 # ── Control character handling in responses ──────────────────────────
@@ -502,7 +502,7 @@ def test_category_with_ansi_escape_codes():
 
 def test_priority_with_bom():
     """API returns priority with BOM prefix — should not match."""
-    assert score_priority("\ufeffP1", "P1") == 0.0
+    assert score_priority("﻿P1", "P1") == 0.0
 
 
 def test_priority_with_line_feed():
@@ -587,12 +587,22 @@ def test_missing_info_with_unicode_normalization():
 def test_missing_info_all_16_items_as_pred():
     """API returns all 16 vocabulary items when gold has only 2."""
     all_items = [
-        "affected_system", "error_message", "steps_to_reproduce",
-        "affected_users", "environment_details", "timestamp",
-        "previous_ticket_id", "contact_info", "device_info",
-        "application_version", "network_location", "business_impact",
-        "reproduction_frequency", "screenshot_or_attachment",
-        "authentication_method", "configuration_details",
+        "affected_system",
+        "error_message",
+        "steps_to_reproduce",
+        "affected_users",
+        "environment_details",
+        "timestamp",
+        "previous_ticket_id",
+        "contact_info",
+        "device_info",
+        "application_version",
+        "network_location",
+        "business_impact",
+        "reproduction_frequency",
+        "screenshot_or_attachment",
+        "authentication_method",
+        "configuration_details",
     ]
     gold = ["error_message", "device_info"]
     score = score_missing_info(all_items, gold)
@@ -674,14 +684,16 @@ def test_submission_whitespace_padded_fields():
     gold = [
         _make_cleanup_ticket("INC-Y001", category="Network & Connectivity", assigned_team="Network Operations"),
     ]
-    padded = [{
-        "ticket_id": "INC-Y001",
-        "category": "  Network & Connectivity  ",
-        "priority": "  P1  ",
-        "assigned_team": "  Network Operations  ",
-        "needs_escalation": False,
-        "missing_information": [],
-    }]
+    padded = [
+        {
+            "ticket_id": "INC-Y001",
+            "category": "  Network & Connectivity  ",
+            "priority": "  P1  ",
+            "assigned_team": "  Network Operations  ",
+            "needs_escalation": False,
+            "missing_information": [],
+        }
+    ]
     result = score_submission(padded, gold)
     assert result["classification_score"] == 85.0
 

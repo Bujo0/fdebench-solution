@@ -1366,42 +1366,42 @@ SCENARIOS: list[Scenario] = [
         needs_escalation=False,
         missing_information=["application_version", "steps_to_reproduce"],
         subjects=[
-            "Teams\u200b\u200b\u200b\u200b app\u200b\u200b crashes\u200b\u200b on\u200b start\u200bup",
-            "Microsoft\u200b\u200b Teams\u200b\u200b won't\u200b\u200b launch\u200b\u200b after\u200b update",
+            "Teams​​​​ app​​ crashes​​ on​ start​up",
+            "Microsoft​​ Teams​​ won't​​ launch​​ after​ update",
         ],
         descriptions=[
-            "Hi\u200b\u200b IT\u200b\u200b team\u200b,\n\n"
-            "Since\u200b\u200b yesterday\u200b's\u200b\u200b update\u200b,\u200b Microsoft\u200b"
-            "\u200b Teams\u200b (\u200bversion\u200b 24\u200b.\u200b2\u200b.\u200b1\u200b)"
-            "\u200b crashes\u200b\u200b immediately\u200b\u200b on\u200b launch\u200b.\u200b "
-            "I\u200b\u200b see\u200b\u200b a\u200b\u200b brief\u200b\u200b splash\u200b screen"
-            "\u200b\u200b and\u200b\u200b then\u200b\u200b it\u200b\u200b closes\u200b.\u200b "
-            "The\u200b\u200b Windows\u200b\u200b Event\u200b\u200b Viewer\u200b shows\u200b "
-            "Application\u200b Error\u200b\u200b with\u200b\u200b faulting\u200b module\u200b "
-            "msedge\u200bwebview2\u200b.\u200bdll\u200b.\n\n"
-            "I\u200b've\u200b tried\u200b clearing\u200b\u200b the\u200b\u200b Teams\u200b\u200b"
-            " cache\u200b\u200b folder\u200b (%\u200bAppData\u200b%\u200b\\\u200bMicrosoft"
-            "\u200b\\\u200bTeams\u200b)\u200b and\u200b\u200b reinstalling\u200b\u200b but"
-            "\u200b\u200b the\u200b\u200b same\u200b\u200b crash\u200b\u200b happens\u200b."
-            "\u200b Outlook\u200b\u200b and\u200b\u200b other\u200b\u200b Office\u200b\u200b"
-            " apps\u200b work\u200b\u200b fine\u200b.\n\n"
-            "Running\u200b\u200b Windows\u200b 11\u200b 23H2\u200b on\u200b a\u200b Dell"
-            "\u200b Latitude\u200b 5540\u200b.\n\n"
-            "Thanks\u200b,\nSara\u200b\u200b Nguyen\u200b\nAccounting",
-            "Teams\u200b\u200b\u200b desktop\u200b\u200b app\u200b\u200b won\u200b't\u200b "
-            "open\u200b.\u200b\u200b It\u200b\u200b crashes\u200b\u200b right\u200b\u200b "
-            "after\u200b\u200b the\u200b\u200b loading\u200b\u200b screen\u200b.\u200b\u200b "
-            "I\u200b\u200b checked\u200b\u200b Task\u200b\u200b Manager\u200b\u200b and\u200b"
-            "\u200b the\u200b\u200b process\u200b\u200b starts\u200b\u200b then\u200b\u200b "
-            "disappears\u200b\u200b after\u200b\u200b about\u200b\u200b three\u200b\u200b "
-            "seconds\u200b.\u200b\u200b The\u200b\u200b web\u200b\u200b version\u200b\u200b "
-            "works\u200b\u200b fine\u200b\u200b in\u200b\u200b Edge\u200b\u200b so\u200b\u200b "
-            "it\u200b's\u200b\u200b specific\u200b\u200b to\u200b\u200b the\u200b\u200b "
-            "desktop\u200b\u200b client\u200b.\u200b\u200b The\u200b\u200b faulting\u200b\u200b "
-            "module\u200b\u200b in\u200b\u200b the\u200b\u200b event\u200b\u200b log\u200b\u200b "
-            "is\u200b\u200b msedgewebview2\u200b.\u200bdll\u200b.\u200b\u200b This\u200b\u200b "
-            "started\u200b\u200b after\u200b\u200b yesterday\u200b's\u200b\u200b auto\u200b-"
-            "update\u200b.",
+            "Hi​​ IT​​ team​,\n\n"
+            "Since​​ yesterday​'s​​ update​,​ Microsoft​"
+            "​ Teams​ (​version​ 24​.​2​.​1​)"
+            "​ crashes​​ immediately​​ on​ launch​.​ "
+            "I​​ see​​ a​​ brief​​ splash​ screen"
+            "​​ and​​ then​​ it​​ closes​.​ "
+            "The​​ Windows​​ Event​​ Viewer​ shows​ "
+            "Application​ Error​​ with​​ faulting​ module​ "
+            "msedge​webview2​.​dll​.\n\n"
+            "I​'ve​ tried​ clearing​​ the​​ Teams​​"
+            " cache​​ folder​ (%​AppData​%​\\​Microsoft"
+            "​\\​Teams​)​ and​​ reinstalling​​ but"
+            "​​ the​​ same​​ crash​​ happens​."
+            "​ Outlook​​ and​​ other​​ Office​​"
+            " apps​ work​​ fine​.\n\n"
+            "Running​​ Windows​ 11​ 23H2​ on​ a​ Dell"
+            "​ Latitude​ 5540​.\n\n"
+            "Thanks​,\nSara​​ Nguyen​\nAccounting",
+            "Teams​​​ desktop​​ app​​ won​'t​ "
+            "open​.​​ It​​ crashes​​ right​​ "
+            "after​​ the​​ loading​​ screen​.​​ "
+            "I​​ checked​​ Task​​ Manager​​ and​"
+            "​ the​​ process​​ starts​​ then​​ "
+            "disappears​​ after​​ about​​ three​​ "
+            "seconds​.​​ The​​ web​​ version​​ "
+            "works​​ fine​​ in​​ Edge​​ so​​ "
+            "it​'s​​ specific​​ to​​ the​​ "
+            "desktop​​ client​.​​ The​​ faulting​​ "
+            "module​​ in​​ the​​ event​​ log​​ "
+            "is​​ msedgewebview2​.​dll​.​​ This​​ "
+            "started​​ after​​ yesterday​'s​​ auto​-"
+            "update​.",
         ],
         next_best_actions=[
             "Strip zero-width Unicode characters from the ticket text and focus on the Teams "
@@ -2985,16 +2985,16 @@ SCENARIOS: list[Scenario] = [
         descriptions=[
             "Our deployment script failed. Here's the terminal output I copied:\n\n"
             "\033[36m[2026-03-18 09:00:01]\033[0m Starting deployment pipeline v3.2.1\n"
-            "\033[36m[2026-03-18 09:00:02]\033[0m \033[32m\u2714\033[0m Checking prerequisites...\n"
-            "\033[36m[2026-03-18 09:00:03]\033[0m \033[32m\u2714\033[0m Docker image built: contoso/api:2026.3.18\n"
-            "\033[36m[2026-03-18 09:00:10]\033[0m \033[32m\u2714\033[0m Health check: staging... passed\n"
-            "\033[36m[2026-03-18 09:00:15]\033[0m \033[33m\u26a0\033[0m Warning: 2 pods pending in production\n"
+            "\033[36m[2026-03-18 09:00:02]\033[0m \033[32m✔\033[0m Checking prerequisites...\n"
+            "\033[36m[2026-03-18 09:00:03]\033[0m \033[32m✔\033[0m Docker image built: contoso/api:2026.3.18\n"
+            "\033[36m[2026-03-18 09:00:10]\033[0m \033[32m✔\033[0m Health check: staging... passed\n"
+            "\033[36m[2026-03-18 09:00:15]\033[0m \033[33m⚠\033[0m Warning: 2 pods pending in production\n"
             "\033[36m[2026-03-18 09:00:20]\033[0m Deploying to production cluster...\n"
-            "\033[36m[2026-03-18 09:00:45]\033[0m \033[31m\u2718 ERROR\033[0m: Deployment failed!\n"
+            "\033[36m[2026-03-18 09:00:45]\033[0m \033[31m✘ ERROR\033[0m: Deployment failed!\n"
             "\033[31mError: ImagePullBackOff — failed to pull image contoso/api:2026.3.18\n"
             "from registry.contoso.io: unauthorized: authentication required\033[0m\n"
-            "\033[36m[2026-03-18 09:00:46]\033[0m \033[31m\u2718\033[0m Rolling back to previous version...\n"
-            "\033[36m[2026-03-18 09:01:00]\033[0m \033[32m\u2714\033[0m Rollback complete: contoso/api:2026.3.15\n"
+            "\033[36m[2026-03-18 09:00:46]\033[0m \033[31m✘\033[0m Rolling back to previous version...\n"
+            "\033[36m[2026-03-18 09:01:00]\033[0m \033[32m✔\033[0m Rollback complete: contoso/api:2026.3.15\n"
             "\033[36m[2026-03-18 09:01:01]\033[0m \033[31mPipeline FAILED\033[0m — exit code 1\n\n"
             "The deployment failed because the production Kubernetes cluster couldn't "
             "pull the Docker image. The error is 'unauthorized: authentication required' "
@@ -3177,54 +3177,52 @@ SCENARIOS: list[Scenario] = [
         needs_escalation=False,
         missing_information=["error_message", "affected_users"],
         subjects=[
-            "SharePoint permissions error — \u05d1\u05e2\u05d9\u05d4 \u05d1\u05d2\u05d9\u05e9\u05d4 "
-            "\u05dc\u05ea\u05d9\u05e7\u05d9\u05d4 — cannot access site",
-            "\u0645\u0634\u0643\u0644\u0629 \u0641\u064a \u0627\u0644\u0648\u0635\u0648\u0644 — "
-            "SharePoint access denied for finance team",
+            "SharePoint permissions error — בעיה בגישה לתיקיה — cannot access site",
+            "مشكلة في الوصول — SharePoint access denied for finance team",
         ],
         descriptions=[
-            "\u05e9\u05dc\u05d5\u05dd, I need help with a SharePoint issue at Contoso Financial Services.\n\n"
-            "\u05d0\u05e0\u05d9 \u05dc\u05d0 \u05de\u05e6\u05dc\u05d9\u05d7 \u05dc\u05d2\u05e9\u05ea "
-            "\u05dc\u05d0\u05ea\u05e8 (I cannot access the site) — "
+            "שלום, I need help with a SharePoint issue at Contoso Financial Services.\n\n"
+            "אני לא מצליח לגשת "
+            "לאתר (I cannot access the site) — "
             "every time I click on the Finance Reports library "
-            "I get \u05e9\u05d2\u05d9\u05d0\u05d4 403 "
-            "(403 error). \u05d4\u05d0\u05ea\u05e8 \u05d4\u05d5\u05d0 "
+            "I get שגיאה 403 "
+            "(403 error). האתר הוא "
             "https://contoso.sharepoint.com/sites/FinanceReports "
             "and it was working fine "
-            "\u05e2\u05d3 \u05d9\u05d5\u05dd \u05e9\u05dc\u05d9\u05e9\u05d9 (until Tuesday).\n\n"
-            "\u05d4\u05de\u05e0\u05d4\u05dc \u05e9\u05dc\u05d9 \u05d0\u05de\u05e8 (my manager said) "
+            "עד יום שלישי (until Tuesday).\n\n"
+            "המנהל שלי אמר (my manager said) "
             "that our team was supposed to keep access "
             "after the site migration. "
-            "\u05d0\u05e0\u05d9 \u05d1\u05e6\u05d5\u05d5\u05ea Finance Operations "
+            "אני בצוות Finance Operations "
             "and I need the Q4 reports "
-            "\u05d1\u05d3\u05d7\u05d9\u05e4\u05d5\u05ea (urgently). "
-            "\u05d0\u05e0\u05d0 \u05ea\u05e2\u05d6\u05e8\u05d5 \u05dc\u05d9 (please help me). "
+            "בדחיפות (urgently). "
+            "אנא תעזרו לי (please help me). "
             "There are 12 people "
             "on my team and "
-            "\u05db\u05d5\u05dc\u05dd \u05e0\u05ea\u05e7\u05dc\u05d5 "
-            "\u05d1\u05d0\u05d5\u05ea\u05d4 \u05d1\u05e2\u05d9\u05d4 (all of them "
+            "כולם נתקלו "
+            "באותה בעיה (all of them "
             "have the same issue).",
-            "\u0645\u0631\u062d\u0628\u0627, this is regarding the SharePoint "
+            "مرحبا, this is regarding the SharePoint "
             "site for Contoso Financial Services "
             "regulatory compliance documents.\n\n"
-            "\u0623\u0646\u0627 \u0644\u0627 \u0623\u0633\u062a\u0637\u064a\u0639 "
-            "\u0627\u0644\u0648\u0635\u0648\u0644 (I cannot access) the site at "
+            "أنا لا أستطيع "
+            "الوصول (I cannot access) the site at "
             "https://contoso.sharepoint.com/sites/RegulatoryDocs. "
-            "\u0627\u0644\u062e\u0637\u0623 \u064a\u0642\u0648\u0644 "
+            "الخطأ يقول "
             "(the error says) 'Access Denied — you do not have "
             "permission to access this "
             "resource.' "
-            "\u0643\u0627\u0646 \u064a\u0639\u0645\u0644 \u0628\u0634\u0643\u0644 "
-            "\u0637\u0628\u064a\u0639\u064a (it was working normally) "
+            "كان يعمل بشكل "
+            "طبيعي (it was working normally) "
             "before the weekend. "
-            "\u0641\u0631\u064a\u0642\u064a (my team) in the compliance department "
+            "فريقي (my team) in the compliance department "
             "also lost access. "
-            "\u0646\u062d\u062a\u0627\u062c \u0647\u0630\u0627 \u0628\u0634\u0643\u0644 "
-            "\u0639\u0627\u062c\u0644 (we need this urgently) "
+            "نحتاج هذا بشكل "
+            "عاجل (we need this urgently) "
             "for the quarterly audit "
-            "\u0627\u0644\u0630\u064a \u064a\u0628\u062f\u0623 \u064a\u0648\u0645 "
-            "\u0627\u0644\u0627\u062b\u0646\u064a\u0646 (which starts Monday). "
-            "\u0634\u0643\u0631\u0627 (thank you).",
+            "الذي يبدأ يوم "
+            "الاثنين (which starts Monday). "
+            "شكرا (thank you).",
         ],
         next_best_actions=[
             "Look past the mixed Hebrew/Arabic and English text — the core issue is a "
@@ -3617,7 +3615,7 @@ SCENARIOS: list[Scenario] = [
         needs_escalation=False,
         missing_information=["application_version", "steps_to_reproduce"],
         subjects=[
-            "Localization bug \u2014 characters showing as Ã© Ã¼ Ã¶ in web app",
+            "Localization bug — characters showing as Ã© Ã¼ Ã¶ in web app",
             "Internal app displaying Ã±, Ã©, Ã¼ instead of proper characters",
         ],
         descriptions=[
@@ -4211,14 +4209,14 @@ SCENARIOS: list[Scenario] = [
             "I'm trying to install the driver for our Konica Minolta C308 printer and it "
             "keeps failing. The error message got garbled through multiple encoding layers. "
             "Here is what I see:\n\n"
-            "First the dialog showed: \u00e2\u20ac\u02dcDruckertreiber konnte nicht installiert "
-            "werden\u00e2\u20ac\u2122 \u00e2\u20ac\u201d Fehlercode 0x800F0214\n\n"
-            "Then I copied it to Notepad and it became: \u00c3\u00a2\u00e2\u201a\u00ac\u02dc"
-            "Cannot locate INF file\u00c3\u00a2\u00e2\u201a\u00ac\u2122\n\n"
+            "First the dialog showed: â€˜Druckertreiber konnte nicht installiert "
+            "werdenâ€™ â€” Fehlercode 0x800F0214\n\n"
+            "Then I copied it to Notepad and it became: Ã¢â‚¬˜"
+            "Cannot locate INF fileÃ¢â‚¬™\n\n"
             "My colleague sent me the error in an email and it got even worse: "
-            "\u00c3\u00a3\u00c2\u00a2\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201cDriver "
-            "installation failed\u00c3\u00a3\u00c2\u00a2\u00c3\u00a2\u00e2\u201a\u00ac"
-            "\u00c2\u009d\n\n"
+            "Ã£Â¢Ã¢â‚¬Å“Driver "
+            "installation failedÃ£Â¢Ã¢â‚¬"
+            "Â\n\n"
             "The original error appears to be in German but got double or triple encoded "
             "through our email system. The actual error code is 0x800F0214 and I'm on "
             "Windows 11.",
@@ -4979,8 +4977,8 @@ SCENARIOS: list[Scenario] = [
             "José García → José García\n"
             "François Müller → FranÃ§ois MÃ¼ller\n"
             "Søren Østergaard → SÃ¸ren Ãstergaard\n"
-            "日本語テスト → æ\u0097¥æ\u009c¬èª\u009eãã¹ã\n"
-            "Ñoño → Ã\u0091oÃ±o\n"
+            "日本語テスト → æ¥æ¬èªãã¹ã\n"
+            "Ñoño → ÃoÃ±o\n"
             "café → cafÃ©\n"
             "naïve → naÃ¯ve\n"
             "résumé → rÃ©sumÃ©\n\n"
@@ -5564,7 +5562,7 @@ SCENARIOS: list[Scenario] = [
             "X-Mailer: \xff\xfe<\x00n\x00u\x00l\x00l\x00>\n"
             "Subject: =?UTF-8?B?CORRUPTED_BASE64_ENCODING==?=\n"
             "Content-Type: multipart/mixed;\n"
-            "        boundary=\"----=_Part_BROKEN\n\n"
+            '        boundary="----=_Part_BROKEN\n\n'
             "The DKIM is failing with temperror and the SCL score is 5 which is high. "
             "Several users in Trading are getting these daily.",
             "Raw email headers from a message that failed Exchange transport rules. "
@@ -5653,26 +5651,26 @@ SCENARIOS: list[Scenario] = [
         needs_escalation=False,
         missing_information=["network_location", "error_message"],
         subjects=[
-            "\u0645\u0634\u0643\u0644\u0629 \u0641\u064a \u0627\u0644\u0634\u0628\u0643\u0629 — VPN connection issue from Riyadh office",
-            "Network problem — \u0627\u062a\u0635\u0627\u0644 VPN \u0645\u0646 \u0645\u0643\u062a\u0628 \u0627\u0644\u0631\u064a\u0627\u0636",
+            "مشكلة في الشبكة — VPN connection issue from Riyadh office",
+            "Network problem — اتصال VPN من مكتب الرياض",
         ],
         descriptions=[
-            "\u0645\u0631\u062d\u0628\u0627 \u0641\u0631\u064a\u0642 \u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627 \u0627\u0644\u0645\u0639\u0644\u0648\u0645\u0627\u062a,\n\n"
-            "\u0623\u0648\u0627\u062c\u0647 \u0645\u0634\u0643\u0644\u0629 \u0641\u064a \u0627\u0644\u0627\u062a\u0635\u0627\u0644 \u0628\u0634\u0628\u0643\u0629 VPN \u0645\u0646 \u0645\u0643\u062a\u0628 \u0627\u0644\u0631\u064a\u0627\u0636. "
-            "\u0639\u0646\u0648\u0627\u0646 IP \u0627\u0644\u0645\u062d\u0644\u064a: 10.42.128.55 "
-            "\u0648\u0639\u0646\u0648\u0627\u0646 \u0627\u0644\u0628\u0648\u0627\u0628\u0629: 10.42.128.1\n\n"
+            "مرحبا فريق تكنولوجيا المعلومات,\n\n"
+            "أواجه مشكلة في الاتصال بشبكة VPN من مكتب الرياض. "
+            "عنوان IP المحلي: 10.42.128.55 "
+            "وعنوان البوابة: 10.42.128.1\n\n"
             "The VPN gateway at vpn-riyadh.contoso.com (203.0.113.47) is not responding "
             "to connection attempts. Error code: 0x800704CF\n\n"
-            "\u0627\u0644\u0631\u062c\u0627\u0621 \u0627\u0644\u0645\u0633\u0627\u0639\u062f\u0629 \u0641\u064a \u0623\u0642\u0631\u0628 \u0648\u0642\u062a. "
-            "\u0641\u0631\u064a\u0642 \u0627\u0644\u062a\u062f\u0627\u0648\u0644 \u0628\u0627\u0644\u0643\u0627\u0645\u0644 \u063a\u064a\u0631 \u0642\u0627\u062f\u0631 \u0639\u0644\u0649 \u0627\u0644\u0648\u0635\u0648\u0644 "
-            "\u0625\u0644\u0649 \u0627\u0644\u0623\u0646\u0638\u0645\u0629 \u0627\u0644\u0645\u0631\u0643\u0632\u064a\u0629 \u0641\u064a New York.",
-            "VPN connection from Riyadh office failing. \u0627\u0644\u0645\u0634\u0643\u0644\u0629 \u0628\u062f\u0623\u062a \u0645\u0646\u0630 \u0627\u0644\u0635\u0628\u0627\u062d.\n"
+            "الرجاء المساعدة في أقرب وقت. "
+            "فريق التداول بالكامل غير قادر على الوصول "
+            "إلى الأنظمة المركزية في New York.",
+            "VPN connection from Riyadh office failing. المشكلة بدأت منذ الصباح.\n"
             "Local IP: 10.42.128.55\n"
             "Gateway: 10.42.128.1\n"
             "VPN server: vpn-riyadh.contoso.com (203.0.113.47)\n"
-            "Error: 0x800704CF — \u0627\u0644\u0634\u0628\u0643\u0629 \u063a\u064a\u0631 \u0645\u062a\u0627\u062d\u0629\n\n"
-            "\u0641\u0631\u064a\u0642 \u0627\u0644\u062a\u062f\u0627\u0648\u0644 \u0628\u0627\u0644\u0643\u0627\u0645\u0644 (\u0660\u0661\u0665 \u0645\u0633\u062a\u062e\u062f\u0645) \u0645\u062a\u0623\u062b\u0631. "
-            "\u0627\u0644\u0631\u062c\u0627\u0621 \u0627\u0644\u062a\u062d\u0642\u0642 \u0645\u0646 \u062d\u0627\u0644\u0629 \u0627\u0644\u0628\u0648\u0627\u0628\u0629.",
+            "Error: 0x800704CF — الشبكة غير متاحة\n\n"
+            "فريق التداول بالكامل (٠١٥ مستخدم) متأثر. "
+            "الرجاء التحقق من حالة البوابة.",
         ],
         next_best_actions=[
             "VPN gateway vpn-riyadh.contoso.com (203.0.113.47) not responding — check "
@@ -5773,10 +5771,10 @@ SCENARIOS: list[Scenario] = [
             "@@ -12,8 +12,8 @@ authentication:\n"
             "   oauth2:\n"
             "     provider: azure-ad\n"
-            "-    tenant_id: \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\"\n"
-            "-    client_id: \"12345678-abcd-efgh-ijkl-mnop12345678\"\n"
-            "+    tenant_id: \"PLACEHOLDER_TENANT_ID\"\n"
-            "+    client_id: \"PLACEHOLDER_CLIENT_ID\"\n"
+            '-    tenant_id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"\n'
+            '-    client_id: "12345678-abcd-efgh-ijkl-mnop12345678"\n'
+            '+    tenant_id: "PLACEHOLDER_TENANT_ID"\n'
+            '+    client_id: "PLACEHOLDER_CLIENT_ID"\n'
             "     redirect_uri: https://crm.contoso.com/auth/callback\n"
             "     scopes:\n"
             "       - openid\n"
@@ -6001,8 +5999,7 @@ SCENARIOS: list[Scenario] = [
         descriptions=[
             "The backup cron job on srv-db-prod-02 is generating thousands of "
             "identical syslog entries. Here's a sample (this repeats 2,847 times "
-            "in the last hour):\n\n"
-            + "Mar 15 10:00:01 srv-db-prod-02 CRON[28491]: (backup_svc) CMD "
+            "in the last hour):\n\n" + "Mar 15 10:00:01 srv-db-prod-02 CRON[28491]: (backup_svc) CMD "
             "(/opt/contoso/scripts/db_backup.sh --target=azure-blob "
             "--container=sql-backups --retention=30d 2>&1 | logger -t db-backup)\n"
             "Mar 15 10:00:01 srv-db-prod-02 db-backup: ERROR: Azure Blob Storage "
@@ -6012,9 +6009,7 @@ SCENARIOS: list[Scenario] = [
             "Waiting 5s before next attempt.\n"
             "Mar 15 10:00:06 srv-db-prod-02 db-backup: ERROR: Retry 2/3 failed.\n"
             "Mar 15 10:00:11 srv-db-prod-02 db-backup: ERROR: Retry 3/3 failed. "
-            "Giving up. Exit code: 1\n"
-            * 5
-            + "\n[... 2,847 identical entries in the last hour ...]\n\n"
+            "Giving up. Exit code: 1\n" * 5 + "\n[... 2,847 identical entries in the last hour ...]\n\n"
             "The cron is set to run every minute (which is wrong — it should be "
             "hourly) and each run generates 5 log lines. Syslog is at 98% capacity.",
             "Backup script flooding syslog with Azure Blob auth failures. "
@@ -6050,21 +6045,21 @@ SCENARIOS: list[Scenario] = [
         needs_escalation=False,
         missing_information=["application_version", "environment_details"],
         subjects=[
-            "\u30b7\u30b9\u30c6\u30e0\u30a8\u30e9\u30fc — SAP \u30ed\u30b0\u30a4\u30f3\u554f\u984c (Singapore office)",
-            "SAP login issue from Singapore — \u7cfb\u7edf\u767b\u5f55\u95ee\u9898",
+            "システムエラー — SAP ログイン問題 (Singapore office)",
+            "SAP login issue from Singapore — 系统登录问题",
         ],
         descriptions=[
-            "\u304a\u75b2\u308c\u69d8\u3067\u3059\u3002Singapore\u30aa\u30d5\u30a3\u30b9\u306e\u7530\u4e2d\u3067\u3059\u3002\n\n"
-            "SAP GUI\u306b\u30ed\u30b0\u30a4\u30f3\u3067\u304d\u307e\u305b\u3093\u3002\u30a8\u30e9\u30fc\u30e1\u30c3\u30bb\u30fc\u30b8:\n"
-            "\"Partner not reached (type=A, host=sap-prod-sg.contoso.com, service=3200)\"\n\n"
-            "\u4eca\u671d\u304b\u3089\u767a\u751f\u3057\u3066\u3044\u307e\u3059\u3002\u4ed6\u306e\u540c\u50da\u3082\u540c\u3058\u554f\u984c\u304c\u3042\u308b\u3068\u8a00\u3063\u3066\u3044\u307e\u3059\u3002\n"
+            "お疲れ様です。Singaporeオフィスの田中です。\n\n"
+            "SAP GUIにログインできません。エラーメッセージ:\n"
+            '"Partner not reached (type=A, host=sap-prod-sg.contoso.com, service=3200)"\n\n'
+            "今朝から発生しています。他の同僚も同じ問題があると言っています。\n"
             "Network ping to sap-prod-sg.contoso.com: OK (12ms)\n"
             "Telnet to port 3200: Connection refused\n\n"
-            "\u81f3\u6025\u5bfe\u5fdc\u3092\u304a\u9858\u3044\u3057\u307e\u3059\u3002\u8ca1\u52d9\u30c1\u30fc\u30e0\u306e\u6708\u672b\u51e6\u7406\u304c\u3067\u304d\u307e\u305b\u3093\u3002",
-            "\u4ece\u65b0\u52a0\u5761\u529e\u516c\u5ba4\u65e0\u6cd5\u767b\u5f55SAP\u7cfb\u7edf\u3002\n"
-            "Error: \"Partner not reached\" on sap-prod-sg.contoso.com:3200\n"
-            "Ping OK but port 3200 refused. \u53ef\u80fd\u662fSAP\u670d\u52a1\u505c\u6b62\u4e86\u3002\n"
-            "\u8d22\u52a1\u56e2\u961f\u7684\u6708\u672b\u5904\u7406\u53d7\u5f71\u54cd\u3002\u8bf7\u5c3d\u5feb\u5904\u7406\u3002",
+            "至急対応をお願いします。財務チームの月末処理ができません。",
+            "从新加坡办公室无法登录SAP系统。\n"
+            'Error: "Partner not reached" on sap-prod-sg.contoso.com:3200\n'
+            "Ping OK but port 3200 refused. 可能是SAP服务停止了。\n"
+            "财务团队的月末处理受影响。请尽快处理。",
         ],
         next_best_actions=[
             "SAP application server sap-prod-sg.contoso.com port 3200 is refusing "
@@ -6101,7 +6096,7 @@ SCENARIOS: list[Scenario] = [
             "Forwarding the original email about our Wi-Fi issue. Sorry it came "
             "through as raw MIME:\n\n"
             "MIME-Version: 1.0\n"
-            "Content-Type: multipart/mixed; boundary=\"----=_Part_12345_6789.0123\"\n"
+            'Content-Type: multipart/mixed; boundary="----=_Part_12345_6789.0123"\n'
             "From: Maria Santos <maria.santos@contoso.com>\n"
             "To: helpdesk@contoso.com\n"
             "Subject: Wi-Fi keeps dropping on 5th floor\n"
@@ -6114,9 +6109,9 @@ SCENARIOS: list[Scenario] = [
             "area. We're on the 'Contoso-Corp-5G' SSID. When it drops, we have to "
             "manually reconnect. It seems to happen more during peak hours (10am-2pm).\n\n"
             "------=_Part_12345_6789.0123\n"
-            "Content-Type: image/png; name=\"wifi_signal_chart.png\"\n"
+            'Content-Type: image/png; name="wifi_signal_chart.png"\n'
             "Content-Transfer-Encoding: base64\n"
-            "Content-Disposition: attachment; filename=\"wifi_signal_chart.png\"\n\n"
+            'Content-Disposition: attachment; filename="wifi_signal_chart.png"\n\n'
             "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVQYV2P8\n"
             "z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg==\n\n"
             "------=_Part_12345_6789.0123--\n\n"
@@ -6236,7 +6231,7 @@ SCENARIOS: list[Scenario] = [
             '    "message": "An error occurred while processing the request.",\n'
             '    "target": "/api/v3/portfolios/12847/positions",\n'
             '    "details": [\n'
-            '      {\n'
+            "      {\n"
             '        "code": "DatabaseConnectionPoolExhausted",\n'
             '        "message": "Cannot obtain a connection from the pool. All pooled '
             "connections are in use and the maximum pool size of 100 has been reached. "
@@ -6281,4 +6276,3 @@ SCENARIOS: list[Scenario] = [
         tags=["data-cleanup", "json-response", "api-error", "connection-pool"],
     ),
 ]
-
