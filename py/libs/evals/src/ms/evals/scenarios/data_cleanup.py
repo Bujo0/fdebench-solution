@@ -13,16 +13,16 @@ ensuring the system can "see through the noise" to the actual support request.
 
 import base64
 
-from ms.evals.models import AssignedTeam
-from ms.evals.models import Category
-from ms.evals.models import Channel
-from ms.evals.models import EvalScenario
-from ms.evals.models import MissingInformation
-from ms.evals.models import Priority
-from ms.evals.models import Reporter
-from ms.evals.models import ScenarioTag
-from ms.evals.models import TicketInput
-from ms.evals.models import TriageGold
+from ms.evals_core.constants import Category
+from ms.evals_core.constants import Channel
+from ms.evals_core.constants import MissingInfo as MissingInformation
+from ms.evals_core.constants import Priority
+from ms.evals_core.constants import ScenarioTag
+from ms.evals_core.constants import Team as AssignedTeam
+from ms.evals_core.models import GoldAnswer as TriageGold
+from ms.evals_core.models import Reporter
+from ms.evals_core.models import Scenario
+from ms.evals_core.models import Ticket as TicketInput
 
 _CATEGORY = "data_cleanup"
 
@@ -125,7 +125,7 @@ def _build_massive_signature() -> str:
     )
 
 
-def scenario_very_long_email_chain() -> EvalScenario:
+def scenario_very_long_email_chain() -> Scenario:
     """Extremely long email chain with the actual issue buried at the bottom."""
     core_issue = (
         "Hi IT Support,\n\n"
@@ -137,7 +137,7 @@ def scenario_very_long_email_chain() -> EvalScenario:
     )
     description = _build_long_email_chain(core_issue, chain_depth=30)
 
-    return EvalScenario(
+    return Scenario(
         ticket=TicketInput(
             ticket_id="EVAL-DC-0001",
             subject="Re: Re: Re: Re: Re: VPN issues — any update?",
@@ -168,11 +168,12 @@ def scenario_very_long_email_chain() -> EvalScenario:
         ),
         tags=[ScenarioTag.LONG_EMAIL, ScenarioTag.EMAIL_CHAIN],
         description="30-level deep email chain with VPN issue buried at bottom",
-        category=_CATEGORY,
+        scenario_category=_CATEGORY,
+        scenario_tag="EVAL-DC-0001",
     )
 
 
-def scenario_base64_image_in_description() -> EvalScenario:
+def scenario_base64_image_in_description() -> Scenario:
     """Ticket description contains a large base64-encoded image inline."""
     b64_block = _build_base64_noise(8192)
     description = (
@@ -184,7 +185,7 @@ def scenario_base64_image_in_description() -> EvalScenario:
         "might be a driver issue rather than the dock itself."
     )
 
-    return EvalScenario(
+    return Scenario(
         ticket=TicketInput(
             ticket_id="EVAL-DC-0002",
             subject="Monitor flickering — screenshot attached inline",
@@ -215,11 +216,12 @@ def scenario_base64_image_in_description() -> EvalScenario:
         ),
         tags=[ScenarioTag.BASE64_CONTENT],
         description="Ticket with large base64-encoded image data embedded inline",
-        category=_CATEGORY,
+        scenario_category=_CATEGORY,
+        scenario_tag="EVAL-DC-0002",
     )
 
 
-def scenario_raw_html_email() -> EvalScenario:
+def scenario_raw_html_email() -> Scenario:
     """Ticket submitted via email with full HTML markup instead of plain text."""
     inner_text = (
         "I can't access SAP after changing my password this morning. "
@@ -229,7 +231,7 @@ def scenario_raw_html_email() -> EvalScenario:
     )
     description = _build_html_email(inner_text)
 
-    return EvalScenario(
+    return Scenario(
         ticket=TicketInput(
             ticket_id="EVAL-DC-0003",
             subject="Can't access SAP after password change",
@@ -260,15 +262,16 @@ def scenario_raw_html_email() -> EvalScenario:
         ),
         tags=[ScenarioTag.HTML_EMAIL],
         description="Full HTML email with styles and confidentiality footer",
-        category=_CATEGORY,
+        scenario_category=_CATEGORY,
+        scenario_tag="EVAL-DC-0003",
     )
 
 
-def scenario_massive_email_signature() -> EvalScenario:
+def scenario_massive_email_signature() -> Scenario:
     """Tiny issue buried under a massive corporate email signature."""
     description = "Printer on 5th floor jammed again." + _build_massive_signature()
 
-    return EvalScenario(
+    return Scenario(
         ticket=TicketInput(
             ticket_id="EVAL-DC-0004",
             subject="Printer issue",
@@ -296,11 +299,12 @@ def scenario_massive_email_signature() -> EvalScenario:
         ),
         tags=[ScenarioTag.MASSIVE_SIGNATURE],
         description="One-sentence issue dwarfed by a massive corporate email signature",
-        category=_CATEGORY,
+        scenario_category=_CATEGORY,
+        scenario_tag="EVAL-DC-0004",
     )
 
 
-def scenario_garbled_encoding() -> EvalScenario:
+def scenario_garbled_encoding() -> Scenario:
     """Ticket with encoding corruption artifacts (mojibake) mixed with readable text."""
     description = (
         "I canâ\x80\x99t connect to the Wi-Fi in the London office since Monday. "
@@ -313,7 +317,7 @@ def scenario_garbled_encoding() -> EvalScenario:
         "network settings during travel?"
     )
 
-    return EvalScenario(
+    return Scenario(
         ticket=TicketInput(
             ticket_id="EVAL-DC-0005",
             subject="WiFi not working — London office",
@@ -344,15 +348,16 @@ def scenario_garbled_encoding() -> EvalScenario:
         ),
         tags=[ScenarioTag.GARBLED_TEXT, ScenarioTag.UNICODE_HEAVY],
         description="UTF-8/latin-1 mojibake artifacts mixed with readable support request",
-        category=_CATEGORY,
+        scenario_category=_CATEGORY,
+        scenario_tag="EVAL-DC-0005",
     )
 
 
-def scenario_empty_description() -> EvalScenario:
+def scenario_empty_description() -> Scenario:
     """Ticket with an effectively empty description (whitespace only)."""
     description = "   \n\n\t\t\n   \n  "
 
-    return EvalScenario(
+    return Scenario(
         ticket=TicketInput(
             ticket_id="EVAL-DC-0006",
             subject="HELP",
@@ -364,7 +369,7 @@ def scenario_empty_description() -> EvalScenario:
         ),
         gold=TriageGold(
             ticket_id="EVAL-DC-0006",
-            category=Category.GENERAL,
+            category=Category.GENERAL_INQUIRY,
             priority=Priority.P4,
             assigned_team=AssignedTeam.NONE,
             needs_escalation=False,
@@ -386,11 +391,12 @@ def scenario_empty_description() -> EvalScenario:
         ),
         tags=[ScenarioTag.EMPTY_DESCRIPTION],
         description="Ticket with whitespace-only description and vague subject",
-        category=_CATEGORY,
+        scenario_category=_CATEGORY,
+        scenario_tag="EVAL-DC-0006",
     )
 
 
-def scenario_repeated_content() -> EvalScenario:
+def scenario_repeated_content() -> Scenario:
     """Same paragraph pasted many times, simulating a paste or form glitch."""
     single_block = (
         "My Outlook keeps crashing every time I open a calendar invite. "
@@ -400,7 +406,7 @@ def scenario_repeated_content() -> EvalScenario:
     )
     description = "\n\n".join([single_block] * 15)
 
-    return EvalScenario(
+    return Scenario(
         ticket=TicketInput(
             ticket_id="EVAL-DC-0007",
             subject="Outlook crashing on calendar invites",
@@ -431,11 +437,12 @@ def scenario_repeated_content() -> EvalScenario:
         ),
         tags=[ScenarioTag.REPEATED_CONTENT],
         description="Same paragraph pasted 15 times simulating a form submission glitch",
-        category=_CATEGORY,
+        scenario_category=_CATEGORY,
+        scenario_tag="EVAL-DC-0007",
     )
 
 
-def scenario_mixed_language() -> EvalScenario:
+def scenario_mixed_language() -> Scenario:
     """Ticket mixing English and another language, from the Singapore office."""
     description = (
         "我的VPN连接不上了。I've been trying to connect to the corporate VPN from "
@@ -446,7 +453,7 @@ def scenario_mixed_language() -> EvalScenario:
         "请尽快处理，我有一个重要的客户会议在下午2点。"
     )
 
-    return EvalScenario(
+    return Scenario(
         ticket=TicketInput(
             ticket_id="EVAL-DC-0008",
             subject="VPN authentication failed — 新加坡办公室",
@@ -477,15 +484,16 @@ def scenario_mixed_language() -> EvalScenario:
         ),
         tags=[ScenarioTag.MIXED_LANGUAGE],
         description="Ticket mixing English and Mandarin Chinese from Singapore office",
-        category=_CATEGORY,
+        scenario_category=_CATEGORY,
+        scenario_tag="EVAL-DC-0008",
     )
 
 
-def scenario_attachment_reference_only() -> EvalScenario:
+def scenario_attachment_reference_only() -> Scenario:
     """Description says only 'see attached' with no context."""
     description = "See attached screenshots. Thanks."
 
-    return EvalScenario(
+    return Scenario(
         ticket=TicketInput(
             ticket_id="EVAL-DC-0009",
             subject="Issue with my computer",
@@ -497,7 +505,7 @@ def scenario_attachment_reference_only() -> EvalScenario:
         ),
         gold=TriageGold(
             ticket_id="EVAL-DC-0009",
-            category=Category.GENERAL,
+            category=Category.GENERAL_INQUIRY,
             priority=Priority.P4,
             assigned_team=AssignedTeam.NONE,
             needs_escalation=False,
@@ -520,11 +528,12 @@ def scenario_attachment_reference_only() -> EvalScenario:
         ),
         tags=[ScenarioTag.ATTACHMENT_ONLY],
         description="Description is just 'see attached' with no useful text",
-        category=_CATEGORY,
+        scenario_category=_CATEGORY,
+        scenario_tag="EVAL-DC-0009",
     )
 
 
-def scenario_excessive_whitespace_and_formatting() -> EvalScenario:
+def scenario_excessive_whitespace_and_formatting() -> Scenario:
     """Ticket with excessive blank lines, tabs, and inconsistent spacing."""
     description = (
         "\n\n\n\n\n"
@@ -542,7 +551,7 @@ def scenario_excessive_whitespace_and_formatting() -> EvalScenario:
         "\n\n\n"
     )
 
-    return EvalScenario(
+    return Scenario(
         ticket=TicketInput(
             ticket_id="EVAL-DC-0010",
             subject="email problem",
@@ -573,11 +582,12 @@ def scenario_excessive_whitespace_and_formatting() -> EvalScenario:
         ),
         tags=[ScenarioTag.EXCESSIVE_WHITESPACE],
         description="Ticket with excessive whitespace, tabs, and inconsistent formatting",
-        category=_CATEGORY,
+        scenario_category=_CATEGORY,
+        scenario_tag="EVAL-DC-0010",
     )
 
 
-def scenario_multiple_base64_blocks_with_headers() -> EvalScenario:
+def scenario_multiple_base64_blocks_with_headers() -> Scenario:
     """Email with multiple MIME-style base64 blocks between text."""
     b64_block_1 = _build_base64_noise(2048)
     b64_block_2 = _build_base64_noise(3072)
@@ -594,7 +604,7 @@ def scenario_multiple_base64_blocks_with_headers() -> EvalScenario:
         "------=_End\n"
     )
 
-    return EvalScenario(
+    return Scenario(
         ticket=TicketInput(
             ticket_id="EVAL-DC-0011",
             subject="Blue screen crashes during Teams calls",
@@ -625,11 +635,12 @@ def scenario_multiple_base64_blocks_with_headers() -> EvalScenario:
         ),
         tags=[ScenarioTag.BASE64_CONTENT],
         description="Email with multiple MIME base64 blocks interspersed with actual issue description",
-        category=_CATEGORY,
+        scenario_category=_CATEGORY,
+        scenario_tag="EVAL-DC-0011",
     )
 
 
-def scenario_extremely_long_single_paragraph() -> EvalScenario:
+def scenario_extremely_long_single_paragraph() -> Scenario:
     """A single enormous paragraph with no line breaks — stream of consciousness."""
     filler_sentences = [
         "I already tried restarting it but that didn't help.",
@@ -652,7 +663,7 @@ def scenario_extremely_long_single_paragraph() -> EvalScenario:
     # Repeat filler to make a massive single paragraph
     description = core + " ".join(filler_sentences * 8)
 
-    return EvalScenario(
+    return Scenario(
         ticket=TicketInput(
             ticket_id="EVAL-DC-0012",
             subject="SAP report error",
@@ -683,11 +694,12 @@ def scenario_extremely_long_single_paragraph() -> EvalScenario:
         ),
         tags=[ScenarioTag.LONG_EMAIL],
         description="Single massive paragraph (~3000 chars) stream of consciousness with no line breaks",
-        category=_CATEGORY,
+        scenario_category=_CATEGORY,
+        scenario_tag="EVAL-DC-0012",
     )
 
 
-def get_all_data_cleanup_scenarios() -> list[EvalScenario]:
+def get_all_data_cleanup_scenarios() -> list[Scenario]:
     """Return all data cleanup evaluation scenarios."""
     return [
         scenario_very_long_email_chain(),
