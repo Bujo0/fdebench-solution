@@ -49,8 +49,8 @@ class TestDatasetIntegrity:
         self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
     ) -> None:
         tickets, golds = dataset
-        assert len(tickets) == 10
-        assert len(golds) == 10
+        assert len(tickets) == 15
+        assert len(golds) == 15
 
     def test_every_ticket_has_matching_gold(
         self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
@@ -65,7 +65,7 @@ class TestDatasetIntegrity:
     ) -> None:
         tickets, _ = dataset
         ids = sorted(t.ticket_id for t in tickets)
-        assert ids == [f"INC-500{i}" for i in range(1, 10)] + ["INC-5010"]
+        assert ids == [f"INC-{5000 + i}" for i in range(1, 16)]
 
     def test_gold_categories_are_valid(
         self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
@@ -120,10 +120,12 @@ class TestVeryLongDescription:
         ticket = next(t for t in tickets if t.ticket_id == "INC-5001")
         assert len(ticket.description) > 2000
 
-    def test_classified_as_software(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
+    def test_classified_as_network(
+        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
+    ) -> None:
         _, golds = dataset
         gold = next(g for g in golds if g.ticket_id == "INC-5001")
-        assert gold.category == "Software & Applications"
+        assert gold.category == "Network & Connectivity"
 
 
 class TestBase64Content:
@@ -134,12 +136,12 @@ class TestBase64Content:
         ticket = next(t for t in tickets if t.ticket_id == "INC-5002")
         assert "base64" in ticket.description.lower()
 
-    def test_classified_as_access_auth(
+    def test_classified_as_software(
         self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
     ) -> None:
         _, golds = dataset
         gold = next(g for g in golds if g.ticket_id == "INC-5002")
-        assert gold.category == "Access & Authentication"
+        assert gold.category == "Software & Applications"
 
 
 class TestHtmlContent:
@@ -150,116 +152,124 @@ class TestHtmlContent:
         ticket = next(t for t in tickets if t.ticket_id == "INC-5003")
         assert "<html>" in ticket.description.lower() or "<blockquote>" in ticket.description.lower()
 
-    def test_classified_as_network(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
+    def test_classified_as_software(
+        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
+    ) -> None:
         _, golds = dataset
         gold = next(g for g in golds if g.ticket_id == "INC-5003")
-        assert gold.category == "Network & Connectivity"
-        assert gold.needs_escalation is True
+        assert gold.category == "Software & Applications"
 
 
-class TestEmbeddedCredentials:
-    """INC-5004: Ticket containing plaintext credentials."""
+class TestNestedEmailChain:
+    """INC-5004: Deeply nested email thread with many forwarding layers."""
 
-    def test_contains_password(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
+    def test_contains_original_message_markers(
+        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
+    ) -> None:
         tickets, _ = dataset
         ticket = next(t for t in tickets if t.ticket_id == "INC-5004")
-        assert "password" in ticket.description.lower()
+        assert ticket.description.count("Original Message") >= 4
 
-    def test_classified_as_security(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
+    def test_classified_as_hardware(
+        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
+    ) -> None:
         _, golds = dataset
         gold = next(g for g in golds if g.ticket_id == "INC-5004")
-        assert gold.category == "Security & Compliance"
-        assert gold.priority == "P1"
-        assert gold.needs_escalation is True
+        assert gold.category == "Hardware & Peripherals"
 
 
 class TestUnicodeCharacters:
-    """INC-5005: Special characters, emoji, multilingual content."""
+    """INC-5005: Emoji and unicode in subject, password in body."""
 
     def test_contains_unicode(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
         tickets, _ = dataset
         ticket = next(t for t in tickets if t.ticket_id == "INC-5005")
         assert any(ord(c) > 127 for c in ticket.subject)
 
-    def test_classified_as_software(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
+    def test_classified_as_access_auth(
+        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
+    ) -> None:
         _, golds = dataset
         gold = next(g for g in golds if g.ticket_id == "INC-5005")
-        assert gold.category == "Software & Applications"
+        assert gold.category == "Access & Authentication"
 
 
 class TestLongSubject:
-    """INC-5006: Extremely long subject line."""
+    """INC-5007: Extremely long subject line with overstated urgency."""
 
-    def test_subject_is_very_long(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
-        tickets, _ = dataset
-        ticket = next(t for t in tickets if t.ticket_id == "INC-5006")
-        assert len(ticket.subject) > 200
-
-    def test_classified_as_network(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
-        _, golds = dataset
-        gold = next(g for g in golds if g.ticket_id == "INC-5006")
-        assert gold.category == "Network & Connectivity"
-        assert gold.priority == "P1"
-        assert gold.needs_escalation is True
-
-
-class TestGarbledData:
-    """INC-5007: Corrupted text with null bytes and encoding issues."""
-
-    def test_contains_corruption_indicators(
+    def test_subject_is_very_long(
         self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
     ) -> None:
         tickets, _ = dataset
         ticket = next(t for t in tickets if t.ticket_id == "INC-5007")
-        assert "NaN" in ticket.description or "\\x00" in ticket.description
+        assert len(ticket.subject) > 200
+
+    def test_classified_as_software(
+        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
+    ) -> None:
+        _, golds = dataset
+        gold = next(g for g in golds if g.ticket_id == "INC-5007")
+        assert gold.category == "Software & Applications"
+        assert gold.priority == "P4"
+        assert gold.needs_escalation is False
+
+
+class TestDatabaseTimeout:
+    """INC-5006: Database connection timeout requiring escalation."""
 
     def test_classified_as_data_storage(
         self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
     ) -> None:
         _, golds = dataset
-        gold = next(g for g in golds if g.ticket_id == "INC-5007")
+        gold = next(g for g in golds if g.ticket_id == "INC-5006")
         assert gold.category == "Data & Storage"
-
-
-class TestEmailChain:
-    """INC-5008: Deeply nested email thread."""
-
-    def test_contains_original_message_markers(
-        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
-    ) -> None:
-        tickets, _ = dataset
-        ticket = next(t for t in tickets if t.ticket_id == "INC-5008")
-        assert ticket.description.count("Original Message") >= 4
-
-    def test_classified_as_hardware(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
-        _, golds = dataset
-        gold = next(g for g in golds if g.ticket_id == "INC-5008")
-        assert gold.category == "Hardware & Peripherals"
+        assert gold.priority == "P1"
         assert gold.needs_escalation is True
 
 
-class TestLogDump:
-    """INC-5009: Massive log output as ticket body."""
+class TestSharePointAccess:
+    """INC-5008: SharePoint site access request."""
 
-    def test_contains_log_entries(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
+    def test_classified_as_access_auth(
+        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
+    ) -> None:
+        _, golds = dataset
+        gold = next(g for g in golds if g.ticket_id == "INC-5008")
+        assert gold.category == "Access & Authentication"
+        assert gold.needs_escalation is False
+
+
+class TestFrenchLanguageTicket:
+    """INC-5009: Ticket partially written in French."""
+
+    def test_contains_non_ascii(
+        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
+    ) -> None:
         tickets, _ = dataset
         ticket = next(t for t in tickets if t.ticket_id == "INC-5009")
-        assert "[ERROR]" in ticket.description and "[INFO]" in ticket.description
+        assert any(ord(c) > 127 for c in ticket.subject)
 
-    def test_classified_as_software(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
+    def test_classified_as_software(
+        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
+    ) -> None:
         _, golds = dataset
         gold = next(g for g in golds if g.ticket_id == "INC-5009")
         assert gold.category == "Software & Applications"
 
 
-class TestSpamPhishing:
-    """INC-5010: Spam/phishing content submitted as ticket."""
+class TestStackTrace:
+    """INC-5010: Application error with Java stack trace in body."""
 
-    def test_classified_as_not_support(
+    def test_contains_stack_trace(
+        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
+    ) -> None:
+        tickets, _ = dataset
+        ticket = next(t for t in tickets if t.ticket_id == "INC-5010")
+        assert "stack trace" in ticket.description.lower()
+
+    def test_classified_as_software(
         self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
     ) -> None:
         _, golds = dataset
         gold = next(g for g in golds if g.ticket_id == "INC-5010")
-        assert gold.category == "Not a Support Ticket"
-        assert gold.assigned_team == "None"
-        assert gold.priority == "P4"
+        assert gold.category == "Software & Applications"
