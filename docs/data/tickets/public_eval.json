@@ -1,7 +1,7 @@
 [
     {
         "ticket_id": "INC-1001",
-        "subject": "Can't log into Salesforce \u2014 SSO error",
+        "subject": "Can't log into Salesforce — SSO error",
         "description": "Getting 'SAML assertion invalid' when trying to log into Salesforce. Worked fine yesterday. Other apps (Outlook, Teams) work. I have a client meeting in 2 hours and need to pull up their account history.",
         "reporter": {
             "name": "Lisa Chang",
@@ -30,7 +30,7 @@
     {
         "ticket_id": "INC-1003",
         "subject": "Keyboard not working",
-        "description": "keybrd stppd wrking on my lptop. only sme keys wrk. spce bar is fine but mst vwels dnt rspnd. tried extrnl keybrd \u2014 wrks fine. lptop is a Dell Ltitude 5550, abt 2 yrs old.",
+        "description": "keybrd stppd wrking on my lptop. only sme keys wrk. spce bar is fine but mst vwels dnt rspnd. tried extrnl keybrd — wrks fine. lptop is a Dell Ltitude 5550, abt 2 yrs old.",
         "reporter": {
             "name": "Tom Barrett",
             "email": "tom.barrett@contoso.com",
@@ -70,8 +70,8 @@
     },
     {
         "ticket_id": "INC-1006",
-        "subject": "Fwd: Invoice #4892 \u2014 payment overdue",
-        "description": "---------- Forwarded message ----------\nFrom: accounts@vendor-solutions.com\nDate: March 17, 2026\nSubject: Invoice #4892 \u2014 payment overdue\n\nDear Contoso Accounts Payable,\n\nThis is a reminder that invoice #4892 for $34,500 is now 30 days overdue. Please remit payment at your earliest convenience to avoid late fees.\n\nPayment details:\nBank: First National\nAccount: 4892-7731-0012\nRouting: 021000021\n\n--- end forwarded message ---\n\nHey IT, this came to my inbox by mistake. I think it should go to Finance? Not sure who to send it to. Can you forward it to the right person?",
+        "subject": "Fwd: Invoice #4892 — payment overdue",
+        "description": "---------- Forwarded message ----------\nFrom: accounts@vendor-solutions.com\nDate: March 17, 2026\nSubject: Invoice #4892 — payment overdue\n\nDear Contoso Accounts Payable,\n\nThis is a reminder that invoice #4892 for $34,500 is now 30 days overdue. Please remit payment at your earliest convenience to avoid late fees.\n\nPayment details:\nBank: First National\nAccount: 4892-7731-0012\nRouting: 021000021\n\n--- end forwarded message ---\n\nHey IT, this came to my inbox by mistake. I think it should go to Finance? Not sure who to send it to. Can you forward it to the right person?",
         "reporter": {
             "name": "Derek Hall",
             "email": "derek.hall@contoso.com",
@@ -84,7 +84,7 @@
     {
         "ticket_id": "INC-1007",
         "subject": "Defender flagging false positive on internal tool",
-        "description": "Microsoft Defender for Endpoint is quarantining our internal portfolio risk calculator (risk_calc.exe) on every machine it's deployed to. It's flagging it as 'Trojan:Win32/Generic'. This is a tool built by our internal quant team \u2014 it's been in use for 2 years. The latest Defender definition update (March 17) seems to have added a new signature that matches our binary. 47 machines in the Trading floor are affected. Traders can't run risk calculations.",
+        "description": "Microsoft Defender for Endpoint is quarantining our internal portfolio risk calculator (risk_calc.exe) on every machine it's deployed to. It's flagging it as 'Trojan:Win32/Generic'. This is a tool built by our internal quant team — it's been in use for 2 years. The latest Defender definition update (March 17) seems to have added a new signature that matches our binary. 47 machines in the Trading floor are affected. Traders can't run risk calculations.",
         "reporter": {
             "name": "Samantha Green",
             "email": "samantha.green@contoso.com",
@@ -111,7 +111,7 @@
     },
     {
         "ticket_id": "INC-1009",
-        "subject": "Bloomberg terminal showing stale data \u2014 trades not updating",
+        "subject": "Bloomberg terminal showing stale data — trades not updating",
         "description": "My Bloomberg terminal (B-Unit serial BT-4471) stopped receiving live market data around 08:15 EST. The terminal itself is powered on and I can navigate menus, but all price feeds show a timestamp from 08:14 and aren't updating. The terminal next to mine (Janet's) is working fine. I've already tried the green-green-red restart sequence. No effect. I'm mid-trade and need this resolved immediately.",
         "reporter": {
             "name": "Victor Osei",
@@ -138,7 +138,7 @@
     {
         "ticket_id": "INC-1011",
         "subject": "Two-factor authentication locked me out of everything",
-        "description": "I lost my phone over the weekend and now I can't get past MFA for any of our systems. I can log in with my password but every app asks for the authenticator code and I don't have the phone anymore. I'm at my desk in the NYC office \u2014 can someone verify my identity in person and reset my MFA? I've got client deliverables due today.",
+        "description": "I lost my phone over the weekend and now I can't get past MFA for any of our systems. I can log in with my password but every app asks for the authenticator code and I don't have the phone anymore. I'm at my desk in the NYC office — can someone verify my identity in person and reset my MFA? I've got client deliverables due today.",
         "reporter": {
             "name": "Alexandra Petrov",
             "email": "alexandra.petrov@contoso.com",
@@ -163,7 +163,7 @@
     },
     {
         "ticket_id": "INC-1013",
-        "subject": "Can't connect to VPN from hotel \u2014 urgent travel issue",
+        "subject": "Can't connect to VPN from hotel — urgent travel issue",
         "description": "I'm at the Marriott in London for client meetings tomorrow. The hotel WiFi connects fine but GlobalProtect VPN fails with 'Gateway not reachable.' I tried the London gateway and the auto-select option. I need to access the deal room on SharePoint tonight to prepare for tomorrow's presentation. Is there an alternative way to connect? Can we whitelist the hotel's IP range?",
         "reporter": {
             "name": "Daniel Kim",
@@ -176,7 +176,7 @@
     },
     {
         "ticket_id": "INC-1014",
-        "subject": "Potential compliance violation \u2014 client data in personal OneDrive",
+        "subject": "Potential compliance violation — client data in personal OneDrive",
         "description": "During a routine review I noticed that a team member has been syncing client PII (names, SSNs, account numbers) to their personal OneDrive folder instead of the team SharePoint site. Approximately 340 client records are affected. The data has been there for at least 3 weeks based on file modification dates. I've spoken to the individual privately. This may trigger our data handling policy and potentially SEC notification requirements. Please advise on next steps and containment.",
         "reporter": {
             "name": "Margaret Liu",
@@ -204,7 +204,7 @@
     },
     {
         "ticket_id": "INC-1016",
-        "subject": "Azure subscription costs spiked 300% \u2014 investigate",
+        "subject": "Azure subscription costs spiked 300% — investigate",
         "description": "The March invoice for Azure subscription 'contoso-prod-eastus2' (sub ID: a1b2c3d4-...) shows $47,000 against a usual monthly spend of ~$12,000. Cost analysis shows the spike started March 10 and is coming from the 'rg-ml-experiments' resource group. Looks like someone left GPU VMs running. Need to identify the owner, shut down unused resources immediately, and set up budget alerts so this doesn't happen again.",
         "reporter": {
             "name": "Patricia Gomez",
@@ -219,7 +219,7 @@
     },
     {
         "ticket_id": "INC-1017",
-        "subject": "New conference room AV setup \u2014 Building 2, Room 201",
+        "subject": "New conference room AV setup — Building 2, Room 201",
         "description": "We're converting Room 201 in Building 2 into a video conference room. Need the following installed by April 1:\n- Teams Room system (Poly or equivalent)\n- 75\" display\n- Ceiling microphone array\n- USB-C and HDMI connectivity for BYOD\n- Room scheduling panel outside the door\n\nBudget approved by VP Singh. PO number: PO-2026-3847. Please schedule a site survey this week.",
         "reporter": {
             "name": "Robert Kim",
@@ -234,8 +234,8 @@
     },
     {
         "ticket_id": "INC-1018",
-        "subject": "\ud14c\uc2a4\ud2b8 \u2014 \uc2dc\uc2a4\ud15c \ud14c\uc2a4\ud2b8 \ubb34\uc2dc\ud558\uc138\uc694",
-        "description": "\uc774\uac83\uc740 \ud14c\uc2a4\ud2b8 \ud2f0\ucf13\uc785\ub2c8\ub2e4. \ubb34\uc2dc\ud558\uc138\uc694. This is a test ticket from the Seoul office. Please ignore.",
+        "subject": "테스트 — 시스템 테스트 무시하세요",
+        "description": "이것은 테스트 티켓입니다. 무시하세요. This is a test ticket from the Seoul office. Please ignore.",
         "reporter": {
             "name": "Min-jun Park",
             "email": "minjun.park@contoso.com",
@@ -275,7 +275,7 @@
     },
     {
         "ticket_id": "INC-1021",
-        "subject": "Service account password expiring in 48 hours \u2014 batch jobs will break",
+        "subject": "Service account password expiring in 48 hours — batch jobs will break",
         "description": "The service account 'svc-etl-prod' (used by our nightly batch processing jobs) has a password expiring on March 20 at 00:00 UTC. If the password expires, all 14 scheduled ADF pipelines in rg-data-prod will fail because they authenticate via this service account. We need to either rotate the password and update all pipeline credentials, or convert this account to use managed identity. The current password was set 90 days ago per our rotation policy.",
         "reporter": {
             "name": "Raj Mehta",
@@ -289,7 +289,7 @@
     {
         "ticket_id": "INC-1022",
         "subject": "Screen flickering on ALL monitors in trading floor section B",
-        "description": "About 15 monitors in Section B of the NYC trading floor started flickering simultaneously around 09:30 EST. It's not individual monitor failures \u2014 all of them are doing it at the same time, which suggests a power or signal issue upstream. The monitors are connected through KVM switches to Bloomberg and internal trading workstations. Section A is fine.",
+        "description": "About 15 monitors in Section B of the NYC trading floor started flickering simultaneously around 09:30 EST. It's not individual monitor failures — all of them are doing it at the same time, which suggests a power or signal issue upstream. The monitors are connected through KVM switches to Bloomberg and internal trading workstations. Section A is fine.",
         "reporter": {
             "name": "Frank DeLuca",
             "email": "frank.deluca@contoso.com",
@@ -301,7 +301,7 @@
     },
     {
         "ticket_id": "INC-1023",
-        "subject": "Firewall rule change request \u2014 allow traffic to vendor API",
+        "subject": "Firewall rule change request — allow traffic to vendor API",
         "description": "We need a firewall rule to allow outbound HTTPS (443) traffic from our app servers in VLAN 42 (10.50.42.0/24) to the new KYC vendor API at api.verifyfast.com (IP: 203.0.113.50). This is for the customer onboarding automation project, go-live target April 7. Security review JIRA ticket: SEC-2026-0224 (approved by SecOps on March 15).",
         "reporter": {
             "name": "Nina Patel",
@@ -316,8 +316,8 @@
     },
     {
         "ticket_id": "INC-1024",
-        "subject": "Laptop stolen from car \u2014 need immediate lockdown",
-        "description": "My work laptop was stolen from my car last night (parked in downtown NYC). Dell Latitude 5550, asset tag CT-L-5102. It has BitLocker enabled but I'm not 100% sure if it was locked when taken \u2014 I might have had it in sleep mode. I have client financial data on it. Please disable the device remotely, wipe it if possible, and revoke my VPN access until I get a replacement. I've filed a police report (NYPD case #2026-NY-44891).",
+        "subject": "Laptop stolen from car — need immediate lockdown",
+        "description": "My work laptop was stolen from my car last night (parked in downtown NYC). Dell Latitude 5550, asset tag CT-L-5102. It has BitLocker enabled but I'm not 100% sure if it was locked when taken — I might have had it in sleep mode. I have client financial data on it. Please disable the device remotely, wipe it if possible, and revoke my VPN access until I get a replacement. I've filed a police report (NYPD case #2026-NY-44891).",
         "reporter": {
             "name": "Michael Torres",
             "email": "michael.torres@contoso.com",
@@ -386,8 +386,8 @@
     },
     {
         "ticket_id": "INC-1029",
-        "subject": "Monthly IT report \u2014 February stats",
-        "description": "Hi team, attaching the monthly IT operations report for February. Key highlights:\n- Total tickets: 3,847 (up 12% MoM)\n- Avg resolution time: 4.2 hours\n- SLA compliance: 91%\n- Top categories: Password resets (34%), Software installs (18%), VPN issues (12%)\n\nNo action needed \u2014 this is FYI only. Let me know if you have questions.\n\nBest,\nRaj",
+        "subject": "Monthly IT report — February stats",
+        "description": "Hi team, attaching the monthly IT operations report for February. Key highlights:\n- Total tickets: 3,847 (up 12% MoM)\n- Avg resolution time: 4.2 hours\n- SLA compliance: 91%\n- Top categories: Password resets (34%), Software installs (18%), VPN issues (12%)\n\nNo action needed — this is FYI only. Let me know if you have questions.\n\nBest,\nRaj",
         "reporter": {
             "name": "Raj Mehta",
             "email": "raj.mehta@contoso.com",
@@ -402,7 +402,7 @@
     {
         "ticket_id": "INC-1030",
         "subject": "Teams calls dropping every 5 minutes",
-        "description": "Every Teams call I join drops after exactly 4-5 minutes. Audio and video cut out simultaneously. Happens on my laptop AND my phone (when using the Teams mobile app on the same WiFi). Other people in the call stay connected \u2014 it's just me. I'm on the 3rd floor NYC office. My colleague sitting 10 feet away has no issues. Restarted laptop, cleared Teams cache, reinstalled the app. Still happening.",
+        "description": "Every Teams call I join drops after exactly 4-5 minutes. Audio and video cut out simultaneously. Happens on my laptop AND my phone (when using the Teams mobile app on the same WiFi). Other people in the call stay connected — it's just me. I'm on the 3rd floor NYC office. My colleague sitting 10 feet away has no issues. Restarted laptop, cleared Teams cache, reinstalled the app. Still happening.",
         "reporter": {
             "name": "Hannah Park",
             "email": "hannah.park@contoso.com",
@@ -414,7 +414,7 @@
     },
     {
         "ticket_id": "INC-1031",
-        "subject": "URGENT: production database backup failed \u2014 daily job skipped",
+        "subject": "URGENT: production database backup failed — daily job skipped",
         "description": "The daily backup for the production client database (sql-prod-eastus2-01) failed at 02:00 UTC with error 'Insufficient disk space on backup target.' This means we have no backup from last night. RPO is now 48 hours instead of our required 24 hours. The backup storage volume (/mnt/sql-backups) is at 97% capacity. We need to free space and re-run the backup before tonight's batch processing starts at 22:00 UTC.",
         "reporter": {
             "name": "Chris Henderson",
@@ -429,8 +429,8 @@
     },
     {
         "ticket_id": "INC-1032",
-        "subject": "Contractor needs temporary access \u2014 starts tomorrow",
-        "description": "We have a security penetration testing contractor (Apex Security Solutions) starting tomorrow March 19 at 9 AM. They need:\n- Temporary Entra ID guest accounts for 3 consultants (names in attachment)\n- VPN access limited to the test lab VLAN (10.99.0.0/24)\n- Access to the staging environment only \u2014 NOT production\n- Accounts should expire April 2\n\nApproved by CISO Sarah Morton. Approval email in attachment.",
+        "subject": "Contractor needs temporary access — starts tomorrow",
+        "description": "We have a security penetration testing contractor (Apex Security Solutions) starting tomorrow March 19 at 9 AM. They need:\n- Temporary Entra ID guest accounts for 3 consultants (names in attachment)\n- VPN access limited to the test lab VLAN (10.99.0.0/24)\n- Access to the staging environment only — NOT production\n- Accounts should expire April 2\n\nApproved by CISO Sarah Morton. Approval email in attachment.",
         "reporter": {
             "name": "James Wilson",
             "email": "james.wilson@contoso.com",
@@ -446,7 +446,7 @@
     {
         "ticket_id": "INC-1033",
         "subject": "I think someone is reading my emails",
-        "description": "This is going to sound paranoid but I need to report it. Over the past two weeks, my manager has been referencing things from my private emails to a colleague \u2014 conversations he shouldn't have access to. I checked my Outlook delegate settings and they look normal. I also noticed two 'Unknown device' entries in my recent sign-in activity that I don't recognize (both from US IP addresses, so it's not an overseas hacker). Could someone check if there are any mail forwarding rules or delegate access on my account that I might not be aware of?",
+        "description": "This is going to sound paranoid but I need to report it. Over the past two weeks, my manager has been referencing things from my private emails to a colleague — conversations he shouldn't have access to. I checked my Outlook delegate settings and they look normal. I also noticed two 'Unknown device' entries in my recent sign-in activity that I don't recognize (both from US IP addresses, so it's not an overseas hacker). Could someone check if there are any mail forwarding rules or delegate access on my account that I might not be aware of?",
         "reporter": {
             "name": "Jessica Palmer",
             "email": "jessica.palmer@contoso.com",
@@ -458,7 +458,7 @@
     },
     {
         "ticket_id": "INC-1034",
-        "subject": "Office 365 license upgrade needed \u2014 E3 to E5",
+        "subject": "Office 365 license upgrade needed — E3 to E5",
         "description": "I need my Office 365 license upgraded from E3 to E5. My team lead Sarah Chen approved it (cc'd). I specifically need the E5 features for:\n- Advanced eDiscovery (compliance investigation I'm leading)\n- Audio conferencing (international client calls)\n- Power BI Pro (already included in E5)\n\nIs there a process for this or can you just switch it?",
         "reporter": {
             "name": "Omar Hassan",
@@ -471,7 +471,7 @@
     },
     {
         "ticket_id": "INC-1035",
-        "subject": "CI/CD pipeline failing \u2014 GitHub Actions runner out of disk",
+        "subject": "CI/CD pipeline failing — GitHub Actions runner out of disk",
         "description": "Our main CI/CD pipeline (repo: contoso/client-portal, workflow: deploy-staging.yml) has been failing for the last 6 runs with 'No space left on device' on the self-hosted GitHub Actions runner (runner-prod-01). The runner VM has a 100GB OS disk and it looks like Docker images are accumulating without cleanup. Need to either clean up the disk or resize the runner VM. Staging deployments are blocked.",
         "reporter": {
             "name": "Tony Park",
@@ -486,7 +486,7 @@
     },
     {
         "ticket_id": "INC-1036",
-        "subject": "Phishing email received \u2014 very convincing, almost clicked",
+        "subject": "Phishing email received — very convincing, almost clicked",
         "description": "I received a very convincing phishing email that looked like it came from our CEO (elena.costa@contoso.com) but the actual sender address was elena.costa@c0ntoso.com (zero instead of 'o'). It asked me to urgently approve a wire transfer of $125,000 to a new vendor. I did NOT click any links or respond. Forwarding the original email to phishing@contoso.com separately. Wanted to flag this in case others received it too.",
         "reporter": {
             "name": "Grace Kim",
@@ -499,8 +499,8 @@
     },
     {
         "ticket_id": "INC-1037",
-        "subject": "Monitor arm broke \u2014 monitor fell on desk",
-        "description": "The Ergotron monitor arm at my desk just snapped and my monitor fell on the desk. Monitor seems OK but the arm is definitely broken \u2014 the joint cracked. I need a replacement arm. My desk is 4th floor NYC, desk B-47. Not urgent but I can't adjust my monitor height now and it's giving me neck pain.",
+        "subject": "Monitor arm broke — monitor fell on desk",
+        "description": "The Ergotron monitor arm at my desk just snapped and my monitor fell on the desk. Monitor seems OK but the arm is definitely broken — the joint cracked. I need a replacement arm. My desk is 4th floor NYC, desk B-47. Not urgent but I can't adjust my monitor height now and it's giving me neck pain.",
         "reporter": {
             "name": "Scott Miller",
             "email": "scott.miller@contoso.com",
@@ -514,7 +514,7 @@
     },
     {
         "ticket_id": "INC-1038",
-        "subject": "OneDrive sync stuck \u2014 'Processing changes' for 3 days",
+        "subject": "OneDrive sync stuck — 'Processing changes' for 3 days",
         "description": "OneDrive has been showing 'Processing changes' for 3 days. It's stuck on a folder called 'Client Proposals' that has about 200 files. I can't tell if my files are synced to the cloud or not, which means if my laptop dies I might lose 3 days of work. I've tried pausing and resuming sync, signing out and back in. Nothing works. I'm running OneDrive version 24.030.0210.0002 on Windows 11.",
         "reporter": {
             "name": "Elena Martinez",
@@ -527,8 +527,8 @@
     },
     {
         "ticket_id": "INC-1039",
-        "subject": "JIRA is down \u2014 can't access any projects",
-        "description": "Getting a 502 Bad Gateway when trying to access jira.contoso.local. All projects are inaccessible. Checked with colleagues \u2014 everyone on the Engineering team is affected. The Sprint 14 standup is in 20 minutes and we can't see the board. Can't find any scheduled maintenance notifications. This is our primary project tracking tool \u2014 ~150 engineers are blocked.",
+        "subject": "JIRA is down — can't access any projects",
+        "description": "Getting a 502 Bad Gateway when trying to access jira.contoso.local. All projects are inaccessible. Checked with colleagues — everyone on the Engineering team is affected. The Sprint 14 standup is in 20 minutes and we can't see the board. Can't find any scheduled maintenance notifications. This is our primary project tracking tool — ~150 engineers are blocked.",
         "reporter": {
             "name": "Andrew Nakamura",
             "email": "andrew.nakamura@contoso.com",
@@ -540,7 +540,7 @@
     },
     {
         "ticket_id": "INC-1040",
-        "subject": "Employee departing \u2014 concerned about data exfiltration",
+        "subject": "Employee departing — concerned about data exfiltration",
         "description": "Confidential: An employee in the Wealth Management team (I won't name them in a ticket) gave their 2-week notice yesterday. Since then, DLP alerts show they've downloaded 2.3 GB of files from SharePoint including client account files and internal strategy documents. This may be legitimate cleanup of personal files, or it may be data exfiltration. We need to investigate the file download activity and determine if any client data or proprietary information was transferred to personal devices or accounts. Please treat this as sensitive.",
         "reporter": {
             "name": "Sarah Morton",
@@ -553,8 +553,8 @@
     },
     {
         "ticket_id": "INC-1041",
-        "subject": "Power BI report showing wrong numbers \u2014 executive dashboard",
-        "description": "The executive KPI dashboard in Power BI (workspace: 'Exec Dashboards', report: 'Q1 Revenue Tracker') is showing revenue numbers that don't match what Finance reported. The dashboard shows $47.2M YTD but Finance says $52.1M. Difference is ~$4.9M. The dashboard refreshes from the data warehouse nightly. I suspect the data pipeline is dropping records or the refresh failed. CEO reviews this every Monday morning \u2014 we have until then to fix it.",
+        "subject": "Power BI report showing wrong numbers — executive dashboard",
+        "description": "The executive KPI dashboard in Power BI (workspace: 'Exec Dashboards', report: 'Q1 Revenue Tracker') is showing revenue numbers that don't match what Finance reported. The dashboard shows $47.2M YTD but Finance says $52.1M. Difference is ~$4.9M. The dashboard refreshes from the data warehouse nightly. I suspect the data pipeline is dropping records or the refresh failed. CEO reviews this every Monday morning — we have until then to fix it.",
         "reporter": {
             "name": "Linda Park",
             "email": "linda.park@contoso.com",
@@ -567,7 +567,7 @@
     {
         "ticket_id": "INC-1042",
         "subject": "USB-C hub not detected after Windows update",
-        "description": "After the Windows update that was pushed over the weekend, my USB-C hub (CalDigit TS4) is no longer detected. When I plug it in, nothing happens \u2014 no monitors, no USB devices, no charging. Device Manager shows a yellow exclamation mark on 'Unknown USB Device (Device Descriptor Request Failed)'. Tried different USB-C ports on my laptop, same result. Laptop: Dell Latitude 5550. Windows 11 23H2 build 22631.3374.",
+        "description": "After the Windows update that was pushed over the weekend, my USB-C hub (CalDigit TS4) is no longer detected. When I plug it in, nothing happens — no monitors, no USB devices, no charging. Device Manager shows a yellow exclamation mark on 'Unknown USB Device (Device Descriptor Request Failed)'. Tried different USB-C ports on my laptop, same result. Laptop: Dell Latitude 5550. Windows 11 23H2 build 22631.3374.",
         "reporter": {
             "name": "Patricia Williams",
             "email": "patricia.williams@contoso.com",
@@ -596,7 +596,7 @@
     },
     {
         "ticket_id": "INC-1044",
-        "subject": "Noise complaint \u2014 server room is too loud",
+        "subject": "Noise complaint — server room is too loud",
         "description": "The server room on the 2nd floor is really loud today. You can hear the fans through the wall in the adjacent conference room (Room 210). We had to move a client meeting because of it. Has something changed? Is a cooling unit malfunctioning? This wasn't this loud last week.",
         "reporter": {
             "name": "Jake Morrison",
@@ -609,8 +609,8 @@
     },
     {
         "ticket_id": "INC-1045",
-        "subject": "Azure Key Vault access denied \u2014 production app failing",
-        "description": "Production app 'client-portal-api' (running on AKS cluster aks-prod-eastus2) is failing to read secrets from Azure Key Vault 'kv-contoso-prod' with error 'Caller is not authorized to perform action.' This started at 05:00 UTC \u2014 the app's managed identity seems to have lost its access policy. The Key Vault access logs show the identity was removed at 04:47 UTC. 100% of API requests are failing. This is a P1 \u2014 clients can't log in.",
+        "subject": "Azure Key Vault access denied — production app failing",
+        "description": "Production app 'client-portal-api' (running on AKS cluster aks-prod-eastus2) is failing to read secrets from Azure Key Vault 'kv-contoso-prod' with error 'Caller is not authorized to perform action.' This started at 05:00 UTC — the app's managed identity seems to have lost its access policy. The Key Vault access logs show the identity was removed at 04:47 UTC. 100% of API requests are failing. This is a P1 — clients can't log in.",
         "reporter": {
             "name": "Alex Petrov",
             "email": "alex.petrov@contoso.com",
@@ -625,7 +625,7 @@
     {
         "ticket_id": "INC-1046",
         "subject": "plsssss help my laptop is making a weird noise",
-        "description": "omgggg my laptop is making this CLICKING sound from the bottom left side and its getting worse!! its like click-click-click every few seconds. also its been super slow this week. is it gonna die?? I have my thesis defense presentation on it and I didnt back it up \ud83d\ude2d\ud83d\ude2d\ud83d\ude2d its a dell latitude i think?? the silver one. pls help asap!!",
+        "description": "omgggg my laptop is making this CLICKING sound from the bottom left side and its getting worse!! its like click-click-click every few seconds. also its been super slow this week. is it gonna die?? I have my thesis defense presentation on it and I didnt back it up 😭😭😭 its a dell latitude i think?? the silver one. pls help asap!!",
         "reporter": {
             "name": "Sophie Adams",
             "email": "sophie.adams@contoso.com",
@@ -637,7 +637,7 @@
     },
     {
         "ticket_id": "INC-1047",
-        "subject": "SAP transport stuck in queue \u2014 month-end close blocked",
+        "subject": "SAP transport stuck in queue — month-end close blocked",
         "description": "SAP transport request TR-2026-0847 (changes to FI-GL posting logic for the new revenue recognition rules) has been stuck in 'Released' status for 6 hours. The transport queue shows 3 transports ahead of it but they're all showing 'Error' status. The month-end financial close process is blocked until this transport is applied to production. Close deadline is March 21 COB. The SAP Basis team is in India and currently unavailable (it's 2 AM there).",
         "reporter": {
             "name": "Robert Chang",
@@ -650,8 +650,8 @@
     },
     {
         "ticket_id": "INC-1048",
-        "subject": "Duplicate emails \u2014 receiving every email twice",
-        "description": "For the past 2 days I've been receiving every email twice. Both copies arrive at the same time with identical content. I checked my Outlook rules \u2014 nothing unusual. I have Outlook on my laptop and on my phone, but the duplicates show up in webmail too (outlook.office.com). I've gotten about 300 duplicate emails so far. It's making it impossible to manage my inbox.",
+        "subject": "Duplicate emails — receiving every email twice",
+        "description": "For the past 2 days I've been receiving every email twice. Both copies arrive at the same time with identical content. I checked my Outlook rules — nothing unusual. I have Outlook on my laptop and on my phone, but the duplicates show up in webmail too (outlook.office.com). I've gotten about 300 duplicate emails so far. It's making it impossible to manage my inbox.",
         "reporter": {
             "name": "Karen O'Brien",
             "email": "karen.obrien@contoso.com",
@@ -676,8 +676,8 @@
     },
     {
         "ticket_id": "INC-1050",
-        "subject": "Kubernetes pods crashing in loop \u2014 staging environment",
-        "description": "All pods in the 'client-onboarding' namespace on our AKS staging cluster (aks-staging-eastus2) are in CrashLoopBackOff. Started after deploying image tag v2.8.0-rc3 about an hour ago. Logs show 'FATAL: Cannot connect to Redis \u2014 connection refused.' The Redis instance in staging (redis-staging.redis.cache.windows.net) seems unreachable from inside the cluster but I can telnet to it from my laptop. Might be a network policy or DNS issue within the cluster.",
+        "subject": "Kubernetes pods crashing in loop — staging environment",
+        "description": "All pods in the 'client-onboarding' namespace on our AKS staging cluster (aks-staging-eastus2) are in CrashLoopBackOff. Started after deploying image tag v2.8.0-rc3 about an hour ago. Logs show 'FATAL: Cannot connect to Redis — connection refused.' The Redis instance in staging (redis-staging.redis.cache.windows.net) seems unreachable from inside the cluster but I can telnet to it from my laptop. Might be a network policy or DNS issue within the cluster.",
         "reporter": {
             "name": "Tony Park",
             "email": "tony.park@contoso.com",
