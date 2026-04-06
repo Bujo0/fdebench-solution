@@ -1,0 +1,176 @@
+[
+    {
+        "ticket_id": "INC-5001",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate Outlook crash on large inline-content emails. Check for known issues with Microsoft 365 Apps Version 2403 Build 17425.20228 handling large HTML emails with embedded images. Consider Outlook memory limits and the March Windows update as potential factors.",
+        "remediation_steps": [
+            "Check for known issues with Outlook Version 2403 and large HTML emails with embedded images",
+            "Review Event Viewer crash data for OUTLOOK.EXE exception code 0xc0000005 to identify the faulting module",
+            "Test with a freshly created Outlook profile and a copy of one of the problematic emails",
+            "If the issue is related to the March Windows update, check for a cumulative update fix or roll back the update",
+            "Consider configuring Outlook to download only email headers for the automated report folder as a workaround",
+            "Rebuild the Outlook search index to fix the search issue caused by crash-related corruption"
+        ]
+    },
+    {
+        "ticket_id": "INC-5002",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Investigate MFA token expiration preventing client portal access. The base64-encoded error log indicates an expired MFA token. Check Entra ID for MFA registration status and token refresh policy for this user.",
+        "remediation_steps": [
+            "Verify the user's MFA token status in Entra ID and check for token expiration issues",
+            "Check Conditional Access policies for any recent changes affecting the client portal",
+            "Have the user clear browser cache and re-authenticate to force a new MFA token",
+            "If MFA token refresh is failing, re-register the MFA method in Entra ID",
+            "Confirm portal access is restored before the user's client meetings"
+        ]
+    },
+    {
+        "ticket_id": "INC-5003",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate persistent packet loss on London office Floor 2 LAN. Access switch replacement did not resolve the issue — traceroute data shows losses at hop 3 (core switch 10.44.0.254). Focus investigation on the core switch rather than the access layer.",
+        "remediation_steps": [
+            "Investigate the core switch at 10.44.0.254 for packet loss — review interface error counters, CPU utilization, and spanning-tree topology",
+            "Check for duplex mismatches or failing transceivers on the uplink from Floor 2 access switch to the core",
+            "Review recent network changes or firmware updates that coincide with the March 11 start date",
+            "If core switch is faulty, plan failover to redundant path and schedule replacement",
+            "Escalate to vendor support if the core switch diagnostics are inconclusive"
+        ]
+    },
+    {
+        "ticket_id": "INC-5004",
+        "category": "Security & Compliance",
+        "priority": "P1",
+        "assigned_team": "Security Operations",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "SECURITY INCIDENT: Production database credentials, Azure storage account key, Key Vault tenant/client IDs, and a client secret have been exposed in a plaintext support ticket. Immediately rotate all exposed credentials and investigate the extent of potential unauthorized access.",
+        "remediation_steps": [
+            "Immediately rotate the production database password for svc_analytics_ro",
+            "Rotate the Azure Storage account key for contosoproddata",
+            "Rotate the client secret for app registration a8f3c2e1-4b5d-4f6a-8c9d-0e1f2a3b4c5d",
+            "Review Azure Key Vault access logs for any unauthorized access using the exposed credentials",
+            "Audit who has access to this support ticket and restrict visibility",
+            "Educate the user on secure credential handling practices — never share credentials in tickets",
+            "Implement automated credential scanning in the ticketing system to detect and redact secrets"
+        ]
+    },
+    {
+        "ticket_id": "INC-5005",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details",
+            "application_version"
+        ],
+        "next_best_action": "Investigate SharePoint file upload failures for filenames with non-ASCII characters (accented Latin, CJK, emoji). Check SharePoint Online character restrictions, tenant locale settings, and any recent policy changes affecting filename validation.",
+        "remediation_steps": [
+            "Verify SharePoint Online character restrictions for the Wealth Management site collection",
+            "Check tenant-level file naming policies for restrictions on non-ASCII characters",
+            "Test file uploads with various character sets to identify which specific characters are blocked",
+            "If locale-related, check the SharePoint site's language settings and the user's browser locale",
+            "Review recent SharePoint updates or policy changes that may have introduced stricter filename validation",
+            "Rebuild or trigger a re-crawl of the search index to fix the missing search results for accented filenames"
+        ]
+    },
+    {
+        "ticket_id": "INC-5006",
+        "category": "Network & Connectivity",
+        "priority": "P1",
+        "assigned_team": "Network Operations",
+        "needs_escalation": true,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Investigate VPN failure affecting 47 users in the Singapore office after overnight security update. Critical: MAS regulatory filing deadline tomorrow at 9 AM SGT. Determine if the security update modified GlobalProtect VPN client configuration or certificates.",
+        "remediation_steps": [
+            "Identify which security update was pushed overnight and check for known VPN compatibility issues",
+            "Check GlobalProtect gateway configuration and DNS resolution from the Singapore office",
+            "If the update broke the VPN client, prepare a rollback package for affected laptops",
+            "Establish an emergency alternative remote access method for the compliance team to meet the MAS deadline",
+            "Deploy the fix or rollback to all 47 affected users and verify VPN connectivity is restored"
+        ]
+    },
+    {
+        "ticket_id": "INC-5007",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details",
+            "configuration_details"
+        ],
+        "next_best_action": "Investigate data corruption in legacy CRM to Dynamics 365 migration export. Approximately 30% of 12,000 records have encoding corruption (null bytes, mixed collation, UTF-16 fragments). The legacy SQL Server 2008 source has mixed collation settings contributing to the issue.",
+        "remediation_steps": [
+            "Analyze the source SQL Server 2008 database collation settings across all relevant tables",
+            "Build a data cleansing pipeline that handles encoding normalization, null byte removal, and UTF-16 to UTF-8 conversion",
+            "Re-export the corrupted records directly from the source database with explicit encoding settings",
+            "Validate each record against the Dynamics 365 schema before import",
+            "Run a reconciliation report comparing source and destination record counts and data integrity",
+            "Document the encoding issues and migration process for the decommissioning audit trail"
+        ]
+    },
+    {
+        "ticket_id": "INC-5008",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Resolve persistent HP LaserJet paper jam error on Floor 6 printer (asset tag CT-P-2847). This is the 7th report in 4 days without resolution — previous dispatch and vendor escalation have not been effective. User needs the printer for quarterly compliance reports.",
+        "remediation_steps": [
+            "Dispatch a technician immediately to Floor 6 printer CT-P-2847",
+            "Perform hardware diagnostic — check paper path sensors, pickup rollers, and fuser assembly",
+            "If the phantom paper jam error persists after clearing, reset the printer firmware",
+            "If hardware is faulty, deploy a temporary replacement printer while CT-P-2847 is sent for repair",
+            "Ensure the user can print the quarterly compliance reports before the deadline"
+        ]
+    },
+    {
+        "ticket_id": "INC-5009",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate report-service OOMKilled crash causing 502 errors on the API gateway. The container exceeded its 4GB memory limit during quarterly report generation. Increase memory limits and optimize the report generation to handle large datasets without OOM.",
+        "remediation_steps": [
+            "Restart the report-service pod immediately to restore report generation capability",
+            "Increase the memory limit for the report-service container from 4GB to an appropriate higher value",
+            "Investigate the quarterly report generation code for memory leaks or inefficient data loading patterns",
+            "Implement streaming or chunked report generation to reduce peak memory usage",
+            "Add memory usage monitoring and alerts to catch similar issues before OOM kills"
+        ]
+    },
+    {
+        "ticket_id": "INC-5010",
+        "category": "Not a Support Ticket",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Close — this is a phishing/spam email, not a legitimate support request. The link appears to be a credential harvesting attempt disguised as an Azure certification program. Forward to the security team for investigation.",
+        "remediation_steps": [
+            "Close this ticket — it is spam/phishing, not a support request",
+            "Forward the original email to the Security Operations team for analysis and blocklisting",
+            "Block the sender domain contoso-partner.biz in the email gateway",
+            "Check if any employees clicked the phishing link and initiate credential reset if necessary"
+        ]
+    }
+]
