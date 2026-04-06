@@ -1,5 +1,47 @@
 [
     {
+<<<<<<< HEAD
+        "ticket_id": "INC-5001",
+        "subject": "Outlook keeps crashing when I open large emails",
+        "description": "Hi IT support,\n\nI need help with Outlook. It crashes consistently when I try to open certain emails, particularly ones with large inline content. I've tried everything I can think of — cleared the cache, repaired the Office installation, even reinstalled it completely. Nothing helps.\n\nLet me give you some background. I'm in the Wealth Management team and we receive a lot of client correspondence with embedded charts, tables, and sometimes inline images. The problem started about a week ago after the March Windows update. Before that, everything was fine.\n\nHere's what happens step by step:\n1. I open Outlook normally — it loads fine\n2. I navigate to my inbox — works fine\n3. I click on an email from our client reporting system — the preview pane shows the email header but then Outlook freezes\n4. After about 10-15 seconds, I get the 'Not Responding' message\n5. Then Outlook crashes with an error dialog that says 'Microsoft Outlook has stopped working'\n6. Sometimes it offers to restart in safe mode, which I've tried, but the same emails still crash it\n\nI've noticed the problematic emails all seem to be the automated reports from our portfolio management system. These emails typically contain:\n- 15-20 inline charts as embedded images\n- Large HTML tables with 500+ rows of position data\n- Multiple embedded Excel snippets\n- The total email size is usually 8-12 MB\n\nI tried forwarding one of these emails to my personal account and opening it in the web browser version of Outlook — it works there, just very slowly. So the data in the email seems fine, it's the desktop client that can't handle it.\n\nOther things I've tried:\n- Running Outlook in safe mode (still crashes on these specific emails)\n- Creating a new Outlook profile (same issue)\n- Disabling all COM add-ins (still crashes)\n- Running the Office repair tool (both quick and online repair)\n- Checking for Office updates (I'm on the latest version: Microsoft 365 Apps, Version 2403, Build 17425.20228)\n- Increasing the Outlook cache size in the registry\n- Clearing the Outlook temp folders\n- Running SFC /scannow (found no issues)\n- Checking Event Viewer — I see application error events for OUTLOOK.EXE with exception code 0xc0000005 (access violation)\n\nMy system specs:\n- Dell Latitude 7440, 16GB RAM, Intel i7-1365U\n- Windows 11 Enterprise 23H2\n- 256GB SSD with 89GB free\n- Connected via Ethernet in the NYC office, Floor 3\n\nThis is really impacting my work because these automated reports are how I track client portfolio performance. I'm currently having to use the web version of Outlook which is much slower and doesn't integrate with our other desktop tools.\n\nI've attached the Event Viewer export showing the crash events. Please let me know if you need any other information.\n\nThanks for your help,\nMelissa\n\nP.S. — My colleague Janet mentioned she had a similar issue last month but hers resolved after an update. Not sure if that helps.\n\nP.P.S. — I also noticed that my Outlook search hasn't been working properly since the crashes started. It shows results from months ago but not recent emails. Might be related to the indexing service getting corrupted by the crashes?\n\n---\nMelissa Chang\nSenior Portfolio Manager | Wealth Management\nContoso Financial Services\nOne Financial Plaza, Floor 3\nNew York, NY 10004\nTel: +1 (212) 555-0147\nEmail: melissa.chang@contoso.com\n\nCONFIDENTIALITY NOTICE: This email and any attachments are for the exclusive and confidential use of the intended recipient. If you are not the intended recipient, please do not read, distribute, or take action based on this message. If you have received this in error, please notify the sender immediately by return email and delete this message from your system. Contoso Financial Services does not accept liability for any damage caused by any virus transmitted by this email.",
+        "reporter": {
+            "name": "Melissa Chang",
+            "email": "melissa.chang@contoso.com",
+            "department": "Wealth Management"
+        },
+        "created_at": "2026-03-18T09:22:00Z",
+        "channel": "email",
+        "attachments": [
+            "event_viewer_export.evtx"
+        ]
+    },
+    {
+        "ticket_id": "INC-5002",
+        "subject": "Screenshot of error - can't login to portal",
+        "description": "Hi, I can't login to the client portal since this morning. Here's a screenshot of the error I'm getting:\n\n[Inline image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==]\n\nAnd here's the full error log from the browser console:\n\ndata:text/plain;base64,RVJST1IgMjAyNi0wMy0xOCAwOToxNToyMiBbQXV0aE1vZHVsZV0gRmFpbGVkIHRvIHZhbGlkYXRlIE1GQSB0b2tlbiBmb3IgdXNlciBzYXJhaC5jaGVuQGNvbnRvc28uY29tLiBUb2tlbiBleHBpcmVkIGF0IDIwMjYtMDMtMThUMDk6MTA6MDBaLiBSZXRyeSBjb3VudDogMy4gTW9kdWxlOiBBenVyZUFELk1GQS5WYWxpZGF0b3IuIENvcnJlbGF0aW9uSWQ6IGE4ZjNjMmUxLTRiNWQtNGY2YS04YzlkLTBlMWYyYTNiNGM1ZGNBdRVM6FDx2/sW33OIeLh8DG8vQpIB8WGumYZbW04hDCs1DXmWgketP07qWifhgu3OygIkC6N1rWz9nDheC4DA5ap5U/gdlJb5sUj+T3JdQS7ya1etZK9tyJ1B9vxDytuhaNT1qW+xWWiWQKPK3tbKjbKPA5A8bDEMCiUa9v+8kDsipa6uvzyS4fitsGSSR08JJwmh8Q==\n\nI also see this network trace showing the failed requests:\n\ndata:application/json;base64,eyJyZXF1ZXN0IjoiUE9TVCAvYXBpL2F1dGgvdG9rZW4iLCJzdGF0dXMiOjQwMSwicmVzcG9uc2UiOnsiZXJyb3IiOiJtZmFfdG9rZW5fZXhwaXJlZCIsIm1lc3NhZ2UiOiJNRkEgdmVyaWZpY2F0aW9uIHRva2VuIGhhcyBleHBpcmVkLiBQbGVhc2UgcmUtYXV0aGVudGljYXRlLiJ9fQ==\n\nThis is blocking my work — I have client meetings in an hour and need to access their portfolios. Can someone look at this urgently?\n\nThanks,\nSarah",
+        "reporter": {
+            "name": "Sarah Chen",
+            "email": "sarah.chen@contoso.com",
+            "department": "Wealth Management"
+        },
+        "created_at": "2026-03-18T09:20:00Z",
+        "channel": "email",
+        "attachments": [
+            "error_screenshot.png",
+            "network_trace.har"
+        ]
+    },
+    {
+        "ticket_id": "INC-5003",
+        "subject": "FW: RE: RE: RE: RE: Network issues in London office",
+        "description": "<html><head><style>body{font-family:Calibri,sans-serif;font-size:11pt}blockquote{border-left:2px solid #ccc;margin:0;padding:0 0 0 10px}.sig{color:#666;font-size:9pt}</style></head><body><div><p>Adding IT support to this thread. We've been going back and forth for a week now and the issue still isn't resolved.</p><p><b>Current issue:</b> Intermittent packet loss (15-30%) on the London office LAN affecting all users on Floor 2. Started March 11. Network team replaced the switch but it didn't help.</p></div><blockquote><div><p>From: Network Team &lt;netops@contoso.com&gt;<br/>Sent: March 17, 2026 4:30 PM<br/>To: James Morrison &lt;james.morrison@contoso.com&gt;</p><p>James, we replaced the Cisco Catalyst 9300 on Floor 2 this morning. Please confirm if the issue persists.</p></div></blockquote><blockquote><blockquote><div><p>From: James Morrison<br/>Sent: March 17, 2026 10:15 AM</p><p>Still seeing drops. &lt;span style=\"color:red\"&gt;Traceroute shows losses at hop 3&lt;/span&gt; which is the core switch. Maybe it's not the access switch?</p><p>&lt;table border=\"1\"&gt;&lt;tr&gt;&lt;th&gt;Hop&lt;/th&gt;&lt;th&gt;IP&lt;/th&gt;&lt;th&gt;Loss%&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;10.44.2.1&lt;/td&gt;&lt;td&gt;0%&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;10.44.0.1&lt;/td&gt;&lt;td&gt;0%&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;10.44.0.254&lt;/td&gt;&lt;td&gt;22%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</p></div></blockquote></blockquote><blockquote><blockquote><blockquote><div><p>From: Network Team<br/>Sent: March 14, 2026 2:00 PM</p><p>We've ordered a replacement access switch for Floor 2. ETA is Monday.</p></div></blockquote></blockquote></blockquote><blockquote><blockquote><blockquote><blockquote><div><p>From: James Morrison<br/>Sent: March 11, 2026 3:45 PM</p><p>Teams calls keep dropping and file transfers to the London NAS are timing out. Multiple people on Floor 2 affected. Started around 2pm today.</p></div></blockquote></blockquote></blockquote></blockquote><div class=\"sig\"><p>James Morrison | VP, Institutional Trading | Contoso Financial Services London<br/>Tel: +44 20 7555 0199 | james.morrison@contoso.com</p><p style=\"font-size:7pt;color:#999\">This email is confidential and may contain privileged information...</p></div></body></html>",
+        "reporter": {
+            "name": "James Morrison",
+            "email": "james.morrison@contoso.com",
+            "department": "Institutional Trading"
+        },
+        "created_at": "2026-03-18T08:00:00Z",
+=======
         "ticket_id": "INC-DC-001",
         "subject": "Re: Re: FW: VPN not connecting — GP-ERR-4021 since Friday",
         "description": "Hi IT Support,\n\nI've been having serious VPN connectivity issues for the past three days. Every time I try to connect to GlobalProtect from my home office, the tunnel establishes for about 90 seconds and then drops with error code GP-ERR-4021. I'm on a Windows 11 laptop (Dell Latitude 5540), connecting over Comcast residential broadband. The issue started after last Friday's endpoint agent update pushed by Intune. I need this resolved ASAP because I cannot access any internal resources — Jira, Confluence, the internal Git server, or the finance SharePoint.\n\nI already tried:\n  1. Rebooting the laptop\n  2. Flushing DNS (ipconfig /flushdns)\n  3. Releasing and renewing DHCP\n  4. Disabling Windows Firewall temporarily\n  5. Uninstalling and reinstalling GlobalProtect 6.1.2\n\nNone of these helped.\n\nThanks,\nPriya Nair\nSenior Analyst, Risk Management\n\n---------- Forwarded message ----------\nFrom: Priya Nair <priya.nair@contoso.com>\nDate: Tue, 11 Mar 2026 07:32:00 -0500\nSubject: Re: VPN issues\nTo: IT Support <itsupport@contoso.com>\n\nHi team, just following up — the VPN is still broken this morning. I missed the 8 AM portfolio review call because I couldn't connect to the internal Teams bridge.\n\n---------- Forwarded message ----------\nFrom: Priya Nair <priya.nair@contoso.com>\nDate: Mon, 10 Mar 2026 16:05:00 -0500\nSubject: VPN issues\nTo: IT Support <itsupport@contoso.com>\n\nHi, my VPN is not connecting at all since this afternoon.\n\n---\n\nCONFIDENTIALITY NOTICE: This e-mail message, including any attachments, is for the sole use of the intended recipient(s) and may contain confidential and privileged information. Any unauthorized review, use, disclosure, or distribution is prohibited. If you are not the intended recipient, please contact the sender by reply e-mail and destroy all copies of the original message. This email has been scanned by the Contoso Email Security Gateway. Message-ID: <CAFp3Jz7kXmR+Qn8vL2wZ5gT@mail.contoso.com>\n\n---\n\nContoso Financial Services | 200 Park Avenue, New York, NY 10166\nTel: +1 (212) 555-0199 | Fax: +1 (212) 555-0198\nwww.contoso.com | LinkedIn: contoso-financial\n\n♻ Please consider the environment before printing this email.\n\nThis communication is intended solely for the addressee and may contain information that is confidential or legally privileged. If you are not the intended recipient, you must not read, use, copy, or disseminate this communication. Please notify the sender immediately by reply e-mail if you have received this communication in error, then delete it and all copies. Contoso Financial Services Limited is authorised and regulated by the Financial Conduct Authority. Registered in England. Company No. 12345678. Registered Office: 200 Park Avenue, New York, NY 10166. VAT Registration No. GB 123 4567 89.\n\n--- End of Forwarded Messages ---\n\nP.S. — My direct number is +1 (212) 555-0342 if you need to reach me.\nAsset class: Equity Derivatives | Desk: RM-3 | Bloomberg: PNAIR@CONTOSO\n\n========================================================================\nThis message has been scanned by Contoso Antivirus Gateway v4.12.1.\nNo threats detected. Scan ID: AV-20260312-081500-PRIYA-NAIR-7742\n========================================================================\n",
@@ -9,10 +51,110 @@
             "department": "Risk Management"
         },
         "created_at": "2026-03-12T08:15:00Z",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "channel": "email",
         "attachments": []
     },
     {
+<<<<<<< HEAD
+        "ticket_id": "INC-5004",
+        "subject": "Can't connect to production database - sharing config for reference",
+        "description": "Hi team,\n\nI'm unable to connect to the production analytics database from my local development environment. I've been trying different connection strings and nothing works. Here's my current configuration file for reference:\n\n```\n[database]\nhost = prod-analytics-db.contoso.internal\nport = 5432\ndbname = client_analytics\nusername = svc_analytics_ro\npassword = Pr0d-An@lyt!cs_2026#SecurePass\nssl_mode = require\nssl_cert = /etc/ssl/contoso/prod-ca.pem\n\n[azure]\nkeyvault_url = https://kv-prod-analytics.vault.azure.net/\nstorage_connection_string = DefaultEndpointsProtocol=https;AccountName=contosoproddata;AccountKey=rK8xT2vN5qW3mJ7pL9bF4hD6gA0cE1iU8oY=;EndpointSuffix=core.windows.net\ntenant_id = 72f988bf-86f1-41af-91ab-2d7cd011db47\nclient_id = a8f3c2e1-4b5d-4f6a-8c9d-0e1f2a3b4c5d\nclient_secret = ~Kv8Q~3xR7mN2pL5wT9vB4hJ6fA0dE1cG8iU\n```\n\nThe error I get is: 'FATAL: password authentication failed for user \"svc_analytics_ro\"'\n\nI suspect the service account password was rotated recently and nobody updated the documentation. Can someone verify the current credentials or grant me access through a different method?\n\nAlso, I noticed the Azure Key Vault has a new access policy that might be blocking my app registration. Can you check?\n\nThanks,\nRaj",
+        "reporter": {
+            "name": "Raj Patel",
+            "email": "raj.patel@contoso.com",
+            "department": "Data Engineering"
+        },
+        "created_at": "2026-03-18T11:30:00Z",
+        "channel": "portal",
+        "attachments": [
+            "connection_error.log"
+        ]
+    },
+    {
+        "ticket_id": "INC-5005",
+        "subject": "🚨 Ùrgënt — Ṡÿstem ïssüe wîth spëcial çharacters in døcument namés 📄❌",
+        "description": "Hëllo IT Sùpport 👋\n\nI'm having a prøblem with SharePoint. When I try to upload dôcuments with special characters in the filename (like café-report-2026.xlsx or naïve-bayes-modël.py or Ñoño-client-données.pdf), the upload fails with a generic error.\n\nThe error message shows: «Erreur: Le nom du fichier contient des caractères non valides» which seems to be appearing in French even though my system is set to English 🤔\n\n具体的に言うと、日本語のファイル名も問題があります。例えば「月次報告書.docx」というファイルもアップロードできません。\n\nI've also noticed that the search index seems corrupted — searching for \"naïve\" returns zero results even though the file exists (uploaded before this issue started).\n\nSteps to reproduce:\n1. Go to https://contoso.sharepoint.com/sites/wealth-mgmt\n2. Click Upload → Files\n3. Select any file with accented characters (é, ü, ø, ñ, etc.) or CJK characters\n4. Upload fails with error\n\nThis affects our entire team since we work with international clients and many of our documents have non-ASCII filenames.\n\nMerci beaucoup! 🙏\n— Léa Müller\n\nP.S. The issue also affects files with emoji in the name like \"📊 Q1 Report.xlsx\" but those I can rename. The accented characters are in client names so I can't change those.",
+        "reporter": {
+            "name": "Léa Müller",
+            "email": "lea.muller@contoso.com",
+            "department": "Wealth Management"
+        },
+        "created_at": "2026-03-18T10:05:00Z",
+        "channel": "portal",
+        "attachments": [
+            "upload_error_screenshot.png"
+        ]
+    },
+    {
+        "ticket_id": "INC-5006",
+        "subject": "EXTREMELY URGENT CRITICAL PRIORITY ONE EMERGENCY HELP NEEDED IMMEDIATELY — VPN connection failure preventing access to all internal systems including email, SharePoint, Teams, and all line-of-business applications after the mandatory security update that was pushed overnight to all laptops in the Singapore office which seems to have broken the GlobalProtect VPN client configuration and now approximately 47 users in the Singapore office cannot work remotely and we have a critical regulatory filing deadline with MAS tomorrow morning at 9 AM SGT and if we miss it there will be significant financial penalties and reputational damage to the firm so this needs to be fixed RIGHT NOW PLEASE",
+        "description": "Same as subject. VPN is broken for the whole Singapore office after last night's update. GlobalProtect shows 'Gateway not found' error. 47 users affected. MAS filing deadline tomorrow 9 AM.",
+        "reporter": {
+            "name": "Wei Lin",
+            "email": "wei.lin@contoso.com",
+            "department": "Compliance"
+        },
+        "created_at": "2026-03-18T07:00:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5007",
+        "subject": "Data migration errors — partially corrupted export",
+        "description": "Running the data migration from the legacy CRM to Dynamics 365. The export file has corruption issues. Here's a sample of what the data looks like:\n\nRecord 1: {\"client_id\": \"C-4892\", \"name\": \"Meridian Partners LLC\", \"aum\": 45000000}\nRecord 2: {\"client_id\": \"C-4893\", \"name\": \"Ωmega Cα\u0000\u0000\u0000pital\\x00\\x00\", \"aum\": NaN}\nRecord 3: {\"cli\u0000ent_id\": \"C-4894\", \"n??ame\": \"Br\\xc3\\xb8kën Däta Grøup\", \"aum\": -1}\nRecord 4: \\xff\\xfe{\\x00\"\\x00c\\x00l\\x00i\\x00e\\x00n\\x00t\\x00_\\x00i\\x00d\\x00 — appears to be UTF-16 encoded\nRecord 5: {\"client_id\": \"C-4896\", \"name\": \"Vanguard Holdings\", \"aum\": 78000000} ← this one is fine\nRecords 6-847: Similar mix of valid and corrupted entries\n\nAbout 30% of the 12,000 records have some form of corruption — null bytes, encoding mismatches, NaN values, or truncated fields. The legacy system was running on SQL Server 2008 with mixed collation settings.\n\nWe need to:\n1. Fix the export process to handle encoding properly\n2. Recover the corrupted records from the source database\n3. Complete the migration before the legacy system is decommissioned on March 31\n\nThe migration team has been working on this for two weeks and we're running out of time.",
+        "reporter": {
+            "name": "Carlos Rivera",
+            "email": "carlos.rivera@contoso.com",
+            "department": "IT"
+        },
+        "created_at": "2026-03-18T14:20:00Z",
+        "channel": "portal",
+        "attachments": [
+            "migration_error_log.txt",
+            "sample_corrupted_export.csv"
+        ]
+    },
+    {
+        "ticket_id": "INC-5008",
+        "subject": "RE: RE: RE: RE: RE: RE: RE: Printer on Floor 6 not working",
+        "description": "PLEASE JUST FIX THE PRINTER.\n\n-----Original Message-----\nFrom: Help Desk <helpdesk@contoso.com>\nSent: March 17, 2026 4:45 PM\nTo: Tom Baker <tom.baker@contoso.com>\nSubject: RE: RE: RE: RE: RE: RE: Printer on Floor 6 not working\n\nHi Tom, thanks for your patience. We've escalated this to the printer vendor. They should contact you within 24 hours.\n\n-----Original Message-----\nFrom: Tom Baker\nSent: March 17, 2026 2:30 PM\n\nStill not working. This is the 7th email. It's been 4 days.\n\n-----Original Message-----\nFrom: Help Desk\nSent: March 16, 2026 10:00 AM\n\nWe've dispatched a technician to Floor 6. They should arrive within the hour.\n\n-----Original Message-----\nFrom: Tom Baker\nSent: March 15, 2026 3:15 PM\n\nNo one came. Printer still broken. I need to print the quarterly compliance reports by EOD Friday.\n\n-----Original Message-----\nFrom: Help Desk\nSent: March 14, 2026 11:30 AM\n\nThank you for reporting this. We'll send someone to look at the printer today.\n\n-----Original Message-----\nFrom: Tom Baker\nSent: March 14, 2026 9:00 AM\n\nThe HP LaserJet on Floor 6 near the kitchen is showing a 'Paper Jam' error but there's no paper jammed. I've opened all the trays and checked. The error won't clear. Asset tag: CT-P-2847.",
+        "reporter": {
+            "name": "Tom Baker",
+            "email": "tom.baker@contoso.com",
+            "department": "Compliance"
+        },
+        "created_at": "2026-03-18T08:15:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-5009",
+        "subject": "API gateway returning 502 errors",
+        "description": "The API gateway is throwing 502 errors. Here's the last 500 lines of the gateway log:\n\n2026-03-18T06:00:01.234Z [INFO] Gateway started on port 443\n2026-03-18T06:00:01.235Z [INFO] Loading route configuration from /etc/apigw/routes.yaml\n2026-03-18T06:00:01.240Z [INFO] Route /api/v1/auth -> upstream auth-service:8080 (healthy)\n2026-03-18T06:00:01.241Z [INFO] Route /api/v1/clients -> upstream client-service:8080 (healthy)\n2026-03-18T06:00:01.242Z [INFO] Route /api/v1/trades -> upstream trade-service:8080 (healthy)\n2026-03-18T06:00:01.243Z [INFO] Route /api/v1/reports -> upstream report-service:8080 (healthy)\n2026-03-18T06:00:02.100Z [INFO] Health check: auth-service OK (12ms)\n2026-03-18T06:00:02.105Z [INFO] Health check: client-service OK (8ms)\n2026-03-18T06:00:02.110Z [INFO] Health check: trade-service OK (15ms)\n2026-03-18T06:00:02.115Z [INFO] Health check: report-service OK (9ms)\n2026-03-18T06:00:05.000Z [INFO] Health check cycle complete. All upstreams healthy.\n2026-03-18T06:00:10.000Z [INFO] Health check: auth-service OK (11ms)\n2026-03-18T06:00:10.005Z [INFO] Health check: client-service OK (7ms)\n2026-03-18T06:00:10.010Z [INFO] Health check: trade-service OK (14ms)\n2026-03-18T06:00:10.015Z [INFO] Health check: report-service OK (10ms)\n[... 400+ similar health check lines omitted for brevity ...]\n2026-03-18T08:47:22.891Z [ERROR] upstream report-service:8080 returned 502: connection refused\n2026-03-18T08:47:22.892Z [ERROR] circuit breaker OPEN for report-service after 5 consecutive failures\n2026-03-18T08:47:23.100Z [WARN] request POST /api/v1/reports/generate -> 502 Bad Gateway (report-service circuit open)\n2026-03-18T08:47:24.200Z [WARN] request GET /api/v1/reports/quarterly -> 502 Bad Gateway (report-service circuit open)\n2026-03-18T08:47:25.300Z [ERROR] upstream report-service health check FAILED: connection refused\n2026-03-18T08:47:30.000Z [INFO] Health check: auth-service OK (12ms)\n2026-03-18T08:47:30.005Z [INFO] Health check: client-service OK (8ms)\n2026-03-18T08:47:30.010Z [INFO] Health check: trade-service OK (13ms)\n2026-03-18T08:47:30.015Z [ERROR] Health check: report-service FAILED: connection refused\n2026-03-18T08:47:35.015Z [ERROR] Health check: report-service FAILED: connection refused\n2026-03-18T08:47:40.015Z [ERROR] Health check: report-service FAILED: connection refused\n\nThe report-service container crashed. All other services are fine. Checked the report-service logs and it looks like an OOM kill — the pod was using 3.8GB of a 4GB limit when generating a large quarterly report. Kubernetes event shows: 'OOMKilled: Container report-service exceeded memory limit'.\n\nThis is affecting all report generation for the platform. Trading and auth services are unaffected.",
+        "reporter": {
+            "name": "Priya Sharma",
+            "email": "priya.sharma@contoso.com",
+            "department": "Platform Engineering"
+        },
+        "created_at": "2026-03-18T08:50:00Z",
+        "channel": "portal",
+        "attachments": [
+            "gateway_full_log.txt",
+            "k8s_events.json"
+        ]
+    },
+    {
+        "ticket_id": "INC-5010",
+        "subject": "🎉 CONGRATULATIONS! You've been selected for an exclusive Microsoft Azure certification program! 🎉",
+        "description": "Dear Valued Contoso Employee,\n\n🌟 AMAZING OPPORTUNITY! 🌟\n\nYou have been SPECIALLY SELECTED to participate in our EXCLUSIVE Microsoft Azure Certification Fast-Track Program!\n\n✅ FREE Azure certification (worth $999!)\n✅ 100% online, complete at YOUR pace\n✅ GUARANTEED pass rate\n✅ Certificate delivered in just 24 hours!\n\n👉 CLICK HERE TO CLAIM YOUR SPOT: https://totally-legit-azure-certs.contoso-partner.biz/claim?uid=12345\n\n⚠️ HURRY! Only 5 spots remaining! This offer expires in 24 hours!\n\n🏆 Join 10,000+ satisfied professionals who have already certified through our program!\n\n\"I went from zero to Azure Solutions Architect in just 2 days!\" — Definitely Real Person, Definitely Real Company\n\nDon't miss this INCREDIBLE opportunity! Your career depends on it!\n\nBest regards,\nThe Azure Certification Team*\n\n*Not affiliated with Microsoft Corporation. Terms and conditions apply. Results not typical. By clicking the link you agree to share your corporate credentials for verification purposes.\n\n---\nTo unsubscribe from future opportunities, send your full name, employee ID, and manager's email to optout@contoso-partner.biz",
+        "reporter": {
+            "name": "System",
+            "email": "noreply@contoso-partner.biz",
+            "department": "External"
+        },
+        "created_at": "2026-03-18T03:22:00Z",
+=======
         "ticket_id": "INC-DC-002",
         "subject": "Monitor flickering — screenshot attached inline",
         "description": "Hi,\n\nMy external monitor (Dell U2722D) has been flickering non-stop since this morning. It started after I docked my laptop (ThinkPad X1 Carbon Gen 11) into the Lenovo USB-C dock. The built-in laptop screen is fine — only the external monitor flickers.\n\nI took a photo with my phone and pasted it here:\n\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAQCAYAAAD/qcomAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oKFwgMNC3WkXYAACAASURBVHic7d15fFT1vf/x95lsk5nsG0kgCQlhCfsSAoooLohi3bV1adXaam/dWm1rW2uXW7u4tXZR691s7WLdam3rVq24sIjsyCb7FiAhIfu+Tc7vj0kIIZOQhExmJnk9H495nDlnzsx8k8Mj8p7v9/s1TNOUJFVVVen48eOqqamRw+FQXFycMjIylJubq6ioKF9+HAAAAAAYVM6u/7vnkSfU0NR8+kEmEz7JVfzOHY1tpmlqy5Yt+uSTTxQWFqbJkydr/PjxSk5OVmpqqux2u6++BQAAAAAMOW+8f0Dv7T7kk/c22+r8c9YOdHR0aNWqVTp27JjOO+88DR8+XNHR0RcXH\n\n(Sorry, I wasn't sure how to attach it properly.)\n\nThe flickering gets worse when I open Excel or any app with a lot of white background. I tried a different DisplayPort cable but same result. Could this be a driver issue? We had a Windows Update last week.\n\nThanks,\nDavid Park\nQuantitative Research",
@@ -191,6 +333,7 @@
             "department": "Fixed Income Analytics"
         },
         "created_at": "2026-03-17T09:00:00Z",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "channel": "email",
         "attachments": []
     }

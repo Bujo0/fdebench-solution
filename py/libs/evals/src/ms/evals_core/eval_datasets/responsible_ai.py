@@ -9949,7 +9949,7 @@ def build_dataset() -> EvalDataset:
     Returns
     -------
     EvalDataset
-        One hundred seventy-five adversarial / responsible-AI evaluation cases covering
+        Two hundred fifteen adversarial / responsible-AI evaluation cases covering
         jailbreaks, prompt injection, social engineering, offensive content,
         priority manipulation, DAN jailbreaks, emotional manipulation, fake
         authorization, token stuffing, deepfake reports, insider threats, data
@@ -10139,6 +10139,46 @@ def build_dataset() -> EvalDataset:
             _case_173(),
             _case_174(),
             _case_175(),
+            _case_176(),
+            _case_177(),
+            _case_178(),
+            _case_179(),
+            _case_180(),
+            _case_181(),
+            _case_182(),
+            _case_183(),
+            _case_184(),
+            _case_185(),
+            _case_186(),
+            _case_187(),
+            _case_188(),
+            _case_189(),
+            _case_190(),
+            _case_191(),
+            _case_192(),
+            _case_193(),
+            _case_194(),
+            _case_195(),
+            _case_196(),
+            _case_197(),
+            _case_198(),
+            _case_199(),
+            _case_200(),
+            _case_201(),
+            _case_202(),
+            _case_203(),
+            _case_204(),
+            _case_205(),
+            _case_206(),
+            _case_207(),
+            _case_208(),
+            _case_209(),
+            _case_210(),
+            _case_211(),
+            _case_212(),
+            _case_213(),
+            _case_214(),
+            _case_215(),
         ],
     )
 
