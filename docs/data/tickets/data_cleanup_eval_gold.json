@@ -1,14 +1,6 @@
 [
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
         "ticket_id": "INC-2001",
-=======
-        "ticket_id": "INC-DC001",
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
-=======
-        "ticket_id": "INC-DC001",
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "category": "Network & Connectivity",
         "priority": "P3",
         "assigned_team": "Network Operations",
@@ -16,8 +8,6 @@
         "missing_information": [
             "device_info"
         ],
-<<<<<<< HEAD
-<<<<<<< HEAD
         "next_best_action": "Investigate GlobalProtect VPN disconnection issue on London office Floor 3 Wi-Fi, check for gateway timeout errors after recent network maintenance.",
         "remediation_steps": [
             "Check GlobalProtect VPN gateway logs for 'connection reset' errors from London office Floor 3",
@@ -131,24 +121,6 @@
     },
     {
         "ticket_id": "INC-2008",
-=======
-=======
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
-        "next_best_action": "Investigate VPN gateway connectivity from the user's home network. The actual issue is buried in a very long email chain — the user cannot connect to VPN and gets a 'Connection timed out' error.",
-        "remediation_steps": [
-            "Verify VPN gateway health and availability",
-            "Check if other remote users are experiencing similar VPN issues",
-            "Have user verify their internet connectivity and try a different network if possible",
-            "Check VPN client version and configuration",
-            "If issue is isolated to this user, verify their VPN credentials and profile"
-        ]
-    },
-    {
-        "ticket_id": "INC-DC002",
-<<<<<<< HEAD
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
-=======
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "category": "Software & Applications",
         "priority": "P3",
         "assigned_team": "Enterprise Applications",
@@ -156,8 +128,6 @@
         "missing_information": [
             "device_info"
         ],
-<<<<<<< HEAD
-<<<<<<< HEAD
         "next_best_action": "Investigate Outlook crash when opening attachments larger than 5MB following Office 365 update to Version 2402.",
         "remediation_steps": [
             "Check for known issues with Office 365 Version 2402 Build 17328.20162 related to attachment handling",
@@ -290,9 +260,119 @@
     },
     {
         "ticket_id": "INC-2016",
-=======
-=======
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Arrange a replacement laptop or loaner for the user whose Dell Latitude 7420 was damaged by liquid spill. Recover data if possible.",
+        "remediation_steps": [
+            "Provide an immediate loaner laptop from the IT equipment pool",
+            "Attempt data recovery from the damaged Dell Latitude 7420 hard drive",
+            "Check if the user's files are backed up to OneDrive or a network share",
+            "Process hardware replacement through the asset management system",
+            "Help the user set up the loaner/replacement with required applications"
+        ]
+    },
+    {
+        "ticket_id": "INC-2017",
+        "category": "Security & Compliance",
+        "priority": "P3",
+        "assigned_team": "Security Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Confirm the forwarded email is a phishing attempt (spoofed sender: micros0ft-support.com). Verify the user did not click any links and run a security scan.",
+        "remediation_steps": [
+            "Confirm the email is a phishing attempt (note the spoofed domain: micros0ft-support.com)",
+            "Verify the user did not click on any links in the phishing email",
+            "Run a full Windows Defender scan on the user's ThinkPad T14 as a precaution",
+            "Block the phishing domain (micros0ft-security-scan.com) at the email gateway and firewall",
+            "Report the phishing email to the security team for threat intelligence",
+            "Send the user a confirmation that the email was indeed a phishing attempt"
+        ]
+    },
+    {
+        "ticket_id": "INC-2018",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Investigate Active Directory lockout for Robert Chen following office transfer from London to NYC. Check group policy assignments for the new location.",
+        "remediation_steps": [
+            "Check Active Directory for Robert Chen's account status and OU assignment",
+            "Verify the account was properly migrated from the London OU to the NYC OU",
+            "Review group policy objects applied to the user's new organizational unit",
+            "Unlock the account and verify group memberships are correct for NYC office",
+            "Test login to Outlook, Teams, and internal portal after remediation",
+            "Confirm with the user's manager that the transfer is properly reflected in HR systems"
+        ]
+    },
+    {
+        "ticket_id": "INC-2019",
+        "category": "Security & Compliance",
+        "priority": "P1",
+        "assigned_team": "Security Operations",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "URGENT: SSL certificate for api.contoso.com expires in 5 days. Manually renew the certificate immediately to prevent service disruption on client portal and trading API.",
+        "remediation_steps": [
+            "Investigate why the Let's Encrypt auto-renewal failed (see SEC-1234)",
+            "Manually generate and install a new SSL certificate for api.contoso.com",
+            "Test the new certificate across all dependent services (client portal, trading API)",
+            "Fix the auto-renewal mechanism to prevent future manual interventions",
+            "Separately investigate the API performance degradation correlated with the logging middleware deployment",
+            "Consider rolling back the Friday logging middleware deployment if performance impact is confirmed"
+        ]
+    },
+    {
+        "ticket_id": "INC-2020",
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "affected_system"
+        ],
+        "next_best_action": "Investigate SharePoint upload failure for compliance documents. Check if the site has reached its storage quota and increase if needed.",
+        "remediation_steps": [
+            "Check the SharePoint site storage quota for the compliance team's site",
+            "Verify the specific error message (likely 'quota exceeded' based on transcript)",
+            "If storage quota is full, increase the site quota or archive old documents",
+            "Test uploading a 10MB document to confirm the issue is resolved",
+            "Ensure the compliance team can meet their end-of-week regulatory deadline"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC001",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Investigate VPN gateway connectivity from the user's home network. The actual issue is buried in a very long email chain — the user cannot connect to VPN and gets a 'Connection timed out' error.",
+        "remediation_steps": [
+            "Verify VPN gateway health and availability",
+            "Check if other remote users are experiencing similar VPN issues",
+            "Have user verify their internet connectivity and try a different network if possible",
+            "Check VPN client version and configuration",
+            "If issue is isolated to this user, verify their VPN credentials and profile"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC002",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
         "next_best_action": "Investigate Bloomberg terminal license validation failure. The base64 image data in the ticket should be ignored — the actual error is 'License validation failed — contact administrator'.",
         "remediation_steps": [
             "Check Bloomberg terminal license status in the Bloomberg admin portal",
@@ -340,48 +420,10 @@
     },
     {
         "ticket_id": "INC-DC005",
-<<<<<<< HEAD
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
-=======
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "category": "Hardware & Peripherals",
         "priority": "P2",
         "assigned_team": "Endpoint Engineering",
         "needs_escalation": false,
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "missing_information": [],
-        "next_best_action": "Arrange a replacement laptop or loaner for the user whose Dell Latitude 7420 was damaged by liquid spill. Recover data if possible.",
-        "remediation_steps": [
-            "Provide an immediate loaner laptop from the IT equipment pool",
-            "Attempt data recovery from the damaged Dell Latitude 7420 hard drive",
-            "Check if the user's files are backed up to OneDrive or a network share",
-            "Process hardware replacement through the asset management system",
-            "Help the user set up the loaner/replacement with required applications"
-        ]
-    },
-    {
-        "ticket_id": "INC-2017",
-        "category": "Security & Compliance",
-        "priority": "P3",
-        "assigned_team": "Security Operations",
-        "needs_escalation": false,
-        "missing_information": [],
-        "next_best_action": "Confirm the forwarded email is a phishing attempt (spoofed sender: micros0ft-support.com). Verify the user did not click any links and run a security scan.",
-        "remediation_steps": [
-            "Confirm the email is a phishing attempt (note the spoofed domain: micros0ft-support.com)",
-            "Verify the user did not click on any links in the phishing email",
-            "Run a full Windows Defender scan on the user's ThinkPad T14 as a precaution",
-            "Block the phishing domain (micros0ft-security-scan.com) at the email gateway and firewall",
-            "Report the phishing email to the security team for threat intelligence",
-            "Send the user a confirmation that the email was indeed a phishing attempt"
-        ]
-    },
-    {
-        "ticket_id": "INC-2018",
-=======
-=======
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "missing_information": [
             "error_message",
             "device_info"
@@ -493,51 +535,11 @@
     },
     {
         "ticket_id": "INC-DC012",
-<<<<<<< HEAD
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
-=======
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "category": "Access & Authentication",
         "priority": "P2",
         "assigned_team": "Identity & Access Management",
         "needs_escalation": false,
         "missing_information": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-            "error_message"
-        ],
-        "next_best_action": "Investigate Active Directory lockout for Robert Chen following office transfer from London to NYC. Check group policy assignments for the new location.",
-        "remediation_steps": [
-            "Check Active Directory for Robert Chen's account status and OU assignment",
-            "Verify the account was properly migrated from the London OU to the NYC OU",
-            "Review group policy objects applied to the user's new organizational unit",
-            "Unlock the account and verify group memberships are correct for NYC office",
-            "Test login to Outlook, Teams, and internal portal after remediation",
-            "Confirm with the user's manager that the transfer is properly reflected in HR systems"
-        ]
-    },
-    {
-        "ticket_id": "INC-2019",
-        "category": "Security & Compliance",
-        "priority": "P1",
-        "assigned_team": "Security Operations",
-        "needs_escalation": true,
-        "missing_information": [],
-        "next_best_action": "URGENT: SSL certificate for api.contoso.com expires in 5 days. Manually renew the certificate immediately to prevent service disruption on client portal and trading API.",
-        "remediation_steps": [
-            "Investigate why the Let's Encrypt auto-renewal failed (see SEC-1234)",
-            "Manually generate and install a new SSL certificate for api.contoso.com",
-            "Test the new certificate across all dependent services (client portal, trading API)",
-            "Fix the auto-renewal mechanism to prevent future manual interventions",
-            "Separately investigate the API performance degradation correlated with the logging middleware deployment",
-            "Consider rolling back the Friday logging middleware deployment if performance impact is confirmed"
-        ]
-    },
-    {
-        "ticket_id": "INC-2020",
-=======
-=======
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
             "device_info"
         ],
         "next_best_action": "Investigate Entra ID authentication error AADSTS50076. Despite the repeated text at the start, the actual issue is cloud app login failure affecting Teams, SharePoint, and Outlook web. Local laptop login works fine.",
@@ -569,33 +571,10 @@
     },
     {
         "ticket_id": "INC-DC014",
-<<<<<<< HEAD
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
-=======
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "category": "Data & Storage",
         "priority": "P3",
         "assigned_team": "Data Platform",
         "needs_escalation": false,
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "missing_information": [
-            "error_message",
-            "affected_system"
-        ],
-        "next_best_action": "Investigate SharePoint upload failure for compliance documents. Check if the site has reached its storage quota and increase if needed.",
-        "remediation_steps": [
-            "Check the SharePoint site storage quota for the compliance team's site",
-            "Verify the specific error message (likely 'quota exceeded' based on transcript)",
-            "If storage quota is full, increase the site quota or archive old documents",
-            "Test uploading a 10MB document to confirm the issue is resolved",
-            "Ensure the compliance team can meet their end-of-week regulatory deadline"
-        ]
-    }
-]
-=======
-=======
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
         "missing_information": [],
         "next_best_action": "Restore file share access to \\\\fs-legacy-lon\\shared\\finance\\Q1-2026\\ for the London Finance team. Despite the mixed French/English text, the issue is clear: user previously had access that was revoked or expired.",
         "remediation_steps": [
@@ -623,7 +602,3 @@
         ]
     }
 ]
-<<<<<<< HEAD
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
-=======
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche

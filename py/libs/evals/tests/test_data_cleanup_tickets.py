@@ -120,9 +120,7 @@ class TestVeryLongDescription:
         ticket = next(t for t in tickets if t.ticket_id == "INC-5001")
         assert len(ticket.description) > 2000
 
-    def test_classified_as_network(
-        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
-    ) -> None:
+    def test_classified_as_network(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
         _, golds = dataset
         gold = next(g for g in golds if g.ticket_id == "INC-5001")
         assert gold.category == "Network & Connectivity"
@@ -136,9 +134,7 @@ class TestBase64Content:
         ticket = next(t for t in tickets if t.ticket_id == "INC-5002")
         assert "base64" in ticket.description.lower()
 
-    def test_classified_as_software(
-        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
-    ) -> None:
+    def test_classified_as_software(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
         _, golds = dataset
         gold = next(g for g in golds if g.ticket_id == "INC-5002")
         assert gold.category == "Software & Applications"
@@ -152,9 +148,7 @@ class TestHtmlContent:
         ticket = next(t for t in tickets if t.ticket_id == "INC-5003")
         assert "<html>" in ticket.description.lower() or "<blockquote>" in ticket.description.lower()
 
-    def test_classified_as_software(
-        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
-    ) -> None:
+    def test_classified_as_software(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
         _, golds = dataset
         gold = next(g for g in golds if g.ticket_id == "INC-5003")
         assert gold.category == "Software & Applications"
@@ -170,9 +164,7 @@ class TestNestedEmailChain:
         ticket = next(t for t in tickets if t.ticket_id == "INC-5004")
         assert ticket.description.count("Original Message") >= 4
 
-    def test_classified_as_hardware(
-        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
-    ) -> None:
+    def test_classified_as_hardware(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
         _, golds = dataset
         gold = next(g for g in golds if g.ticket_id == "INC-5004")
         assert gold.category == "Hardware & Peripherals"
@@ -197,16 +189,12 @@ class TestUnicodeCharacters:
 class TestLongSubject:
     """INC-5007: Extremely long subject line with overstated urgency."""
 
-    def test_subject_is_very_long(
-        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
-    ) -> None:
+    def test_subject_is_very_long(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
         tickets, _ = dataset
         ticket = next(t for t in tickets if t.ticket_id == "INC-5007")
         assert len(ticket.subject) > 200
 
-    def test_classified_as_software(
-        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
-    ) -> None:
+    def test_classified_as_software(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
         _, golds = dataset
         gold = next(g for g in golds if g.ticket_id == "INC-5007")
         assert gold.category == "Software & Applications"
@@ -242,16 +230,12 @@ class TestSharePointAccess:
 class TestFrenchLanguageTicket:
     """INC-5009: Ticket partially written in French."""
 
-    def test_contains_non_ascii(
-        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
-    ) -> None:
+    def test_contains_non_ascii(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
         tickets, _ = dataset
         ticket = next(t for t in tickets if t.ticket_id == "INC-5009")
         assert any(ord(c) > 127 for c in ticket.subject)
 
-    def test_classified_as_software(
-        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
-    ) -> None:
+    def test_classified_as_software(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
         _, golds = dataset
         gold = next(g for g in golds if g.ticket_id == "INC-5009")
         assert gold.category == "Software & Applications"
@@ -260,16 +244,12 @@ class TestFrenchLanguageTicket:
 class TestStackTrace:
     """INC-5010: Application error with Java stack trace in body."""
 
-    def test_contains_stack_trace(
-        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
-    ) -> None:
+    def test_contains_stack_trace(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
         tickets, _ = dataset
         ticket = next(t for t in tickets if t.ticket_id == "INC-5010")
         assert "stack trace" in ticket.description.lower()
 
-    def test_classified_as_software(
-        self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]
-    ) -> None:
+    def test_classified_as_software(self, dataset: tuple[tuple[TicketInput, ...], tuple[TriageResponse, ...]]) -> None:
         _, golds = dataset
         gold = next(g for g in golds if g.ticket_id == "INC-5010")
         assert gold.category == "Software & Applications"

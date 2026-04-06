@@ -1,12 +1,12 @@
 # Copyright (c) Microsoft. All rights reserved.
 """Tests for the responsible AI validator."""
 
-from ms.evals.validators.responsible_ai_validator import ResponsibleAiViolation
-from ms.evals.validators.responsible_ai_validator import validate_no_harmful_content
-from ms.evals.validators.responsible_ai_validator import validate_no_jailbreak_compliance
-from ms.evals.validators.responsible_ai_validator import validate_no_pii_disclosure
-from ms.evals.validators.responsible_ai_validator import validate_no_system_leak
-from ms.evals.validators.responsible_ai_validator import validate_response_safety
+from ms.evals_core.validators.responsible_ai_validator import ResponsibleAiViolation
+from ms.evals_core.validators.responsible_ai_validator import validate_no_harmful_content
+from ms.evals_core.validators.responsible_ai_validator import validate_no_jailbreak_compliance
+from ms.evals_core.validators.responsible_ai_validator import validate_no_pii_disclosure
+from ms.evals_core.validators.responsible_ai_validator import validate_no_system_leak
+from ms.evals_core.validators.responsible_ai_validator import validate_response_safety
 
 
 def _safe_response(**overrides: object) -> dict[str, object]:

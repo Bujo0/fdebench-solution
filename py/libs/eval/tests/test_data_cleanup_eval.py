@@ -22,7 +22,6 @@ from ms.eval.scenarios.data_cleanup import scenario_base64_attachment_flood
 from ms.eval.scenarios.data_cleanup import scenario_base64_image_in_description
 from ms.eval.scenarios.data_cleanup import scenario_binary_hex_dump
 from ms.eval.scenarios.data_cleanup import scenario_control_characters
-<<<<<<< HEAD
 from ms.eval.scenarios.data_cleanup import scenario_corrupted_json
 from ms.eval.scenarios.data_cleanup import scenario_csv_tabular_data
 from ms.eval.scenarios.data_cleanup import scenario_double_encoded_html_entities
@@ -30,20 +29,11 @@ from ms.eval.scenarios.data_cleanup import scenario_duplicate_ticket_concatenati
 from ms.eval.scenarios.data_cleanup import scenario_email_thread_noise
 from ms.eval.scenarios.data_cleanup import scenario_empty_description
 from ms.eval.scenarios.data_cleanup import scenario_enormous_cc_list
-=======
-from ms.eval.scenarios.data_cleanup import scenario_csv_tabular_data
-from ms.eval.scenarios.data_cleanup import scenario_double_encoded_html_entities
-from ms.eval.scenarios.data_cleanup import scenario_email_thread_noise
-from ms.eval.scenarios.data_cleanup import scenario_empty_description
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
 from ms.eval.scenarios.data_cleanup import scenario_excessive_whitespace
 from ms.eval.scenarios.data_cleanup import scenario_extremely_long_subject
 from ms.eval.scenarios.data_cleanup import scenario_garbled_ocr_text
 from ms.eval.scenarios.data_cleanup import scenario_html_email_body
-<<<<<<< HEAD
 from ms.eval.scenarios.data_cleanup import scenario_ics_calendar_content
-=======
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
 from ms.eval.scenarios.data_cleanup import scenario_json_config_dump
 from ms.eval.scenarios.data_cleanup import scenario_markdown_formatted_ticket
 from ms.eval.scenarios.data_cleanup import scenario_massive_email_signature
@@ -51,7 +41,6 @@ from ms.eval.scenarios.data_cleanup import scenario_minified_code_dump
 from ms.eval.scenarios.data_cleanup import scenario_mixed_languages
 from ms.eval.scenarios.data_cleanup import scenario_mojibake_encoding
 from ms.eval.scenarios.data_cleanup import scenario_multiple_issues_one_ticket
-<<<<<<< HEAD
 from ms.eval.scenarios.data_cleanup import scenario_nested_quoted_replies
 from ms.eval.scenarios.data_cleanup import scenario_pdf_to_text_artifacts
 from ms.eval.scenarios.data_cleanup import scenario_powershell_verbose_output
@@ -67,15 +56,6 @@ from ms.eval.scenarios.data_cleanup import scenario_unicode_rtl_and_homoglyphs
 from ms.eval.scenarios.data_cleanup import scenario_url_heavy_description
 from ms.eval.scenarios.data_cleanup import scenario_very_long_email
 from ms.eval.scenarios.data_cleanup import scenario_windows_event_log_dump
-=======
-from ms.eval.scenarios.data_cleanup import scenario_repeated_content
-from ms.eval.scenarios.data_cleanup import scenario_special_characters_and_encoding
-from ms.eval.scenarios.data_cleanup import scenario_stack_trace_flood
-from ms.eval.scenarios.data_cleanup import scenario_subject_description_mismatch
-from ms.eval.scenarios.data_cleanup import scenario_unicode_rtl_and_homoglyphs
-from ms.eval.scenarios.data_cleanup import scenario_url_heavy_description
-from ms.eval.scenarios.data_cleanup import scenario_very_long_email
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
 
 # ── Schema validation for all scenarios ──────────────────────────────
 
@@ -134,11 +114,7 @@ class TestAllScenariosSchemaCompliance:
 
     def test_minimum_scenario_count(self) -> None:
         """Ensure we have a meaningful number of data cleanup scenarios."""
-<<<<<<< HEAD
         assert len(_ALL_SCENARIOS) >= 38
-=======
-        assert len(_ALL_SCENARIOS) >= 26
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
 
 
 # ── Scenario-specific tests ──────────────────────────────────────────
@@ -607,7 +583,6 @@ class TestMojibakeEncoding:
         _, gold = scenario_mojibake_encoding()
         assert gold.category == "Software & Applications"
         assert gold.assigned_team == "Enterprise Applications"
-<<<<<<< HEAD
 
 
 # ── Wave-3 data cleanup scenario tests ───────────────────────────────
@@ -819,5 +794,3 @@ class TestSqlQueryDump:
         assert gold.category == "Data & Storage"
         assert gold.priority == "P2"
         assert gold.assigned_team == "Data Platform"
-=======
->>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
