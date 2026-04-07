@@ -1,0 +1,272 @@
+[
+  {
+    "ticket_id": "INC-9001",
+    "category": "Network & Connectivity",
+    "priority": "P3",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": [
+      "error_message"
+    ],
+    "next_best_action": "Investigate VPN disconnect pattern on London office Floor 3 Wi-Fi. Check VPN client v4.1 compatibility and session timeout settings.",
+    "remediation_steps": [
+      "Check VPN client v4.1 is the latest supported version",
+      "Review VPN session timeout and keepalive settings",
+      "Check London Floor 3 Wi-Fi access point health and load",
+      "If pattern persists, capture network trace during next disconnect"
+    ]
+  },
+  {
+    "ticket_id": "INC-9002",
+    "category": "Software & Applications",
+    "priority": "P2",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": false,
+    "missing_information": [
+      "affected_users"
+    ],
+    "next_best_action": "Check SAP application server sap-prod-01 health and connectivity. Verify if this is an isolated user issue or a system-wide outage affecting month-end processing.",
+    "remediation_steps": [
+      "Check SAP application server sap-prod-01:3200 connectivity and status",
+      "Verify SAP service is running and accepting connections",
+      "Check if other Finance users are experiencing the same error",
+      "If server is down, escalate to SAP Basis team for immediate restore",
+      "Confirm resolution with user before month-end deadline"
+    ]
+  },
+  {
+    "ticket_id": "INC-9003",
+    "category": "Data & Storage",
+    "priority": "P3",
+    "assigned_team": "Data Platform",
+    "needs_escalation": false,
+    "missing_information": [
+      "timestamp"
+    ],
+    "next_best_action": "Check SharePoint site permissions for the Wealth Management team site. Verify if permissions were changed recently or if site access policy was modified.",
+    "remediation_steps": [
+      "Check SharePoint admin center for Wealth Management site permissions",
+      "Verify user's group membership and access level",
+      "Check if recent permission changes or policy updates affected access",
+      "If permission issue, restore access and confirm user can reach the site",
+      "Verify Q1 reporting templates are accessible"
+    ]
+  },
+  {
+    "ticket_id": "INC-9004",
+    "category": "Not a Support Ticket",
+    "priority": "P4",
+    "assigned_team": "None",
+    "needs_escalation": false,
+    "missing_information": [],
+    "next_best_action": "Close — this appears to be an accidental submission containing only an email signature. No actionable issue present.",
+    "remediation_steps": [
+      "No action required — accidental submission detected, close ticket"
+    ]
+  },
+  {
+    "ticket_id": "INC-9005",
+    "category": "Not a Support Ticket",
+    "priority": "P4",
+    "assigned_team": "None",
+    "needs_escalation": false,
+    "missing_information": [],
+    "next_best_action": "Close — this is an automated email delivery failure notification (bounce-back), not a support request.",
+    "remediation_steps": [
+      "No action required — auto-generated bounce-back, close ticket"
+    ]
+  },
+  {
+    "ticket_id": "INC-9006",
+    "category": "Data & Storage",
+    "priority": "P1",
+    "assigned_team": "Data Platform",
+    "needs_escalation": true,
+    "missing_information": [
+      "affected_users",
+      "business_impact"
+    ],
+    "next_best_action": "Investigate connection pool exhaustion on prod-db-01. Database is unable to serve queries — potential production outage affecting transaction processing.",
+    "remediation_steps": [
+      "Check prod-db-01 connection pool configuration and active connections",
+      "Identify and terminate long-running or stale connections",
+      "Increase connection pool limits if appropriate",
+      "Review the query 'SELECT * FROM transactions' for optimization",
+      "Monitor connection pool health after fix to confirm stability"
+    ]
+  },
+  {
+    "ticket_id": "INC-9007",
+    "category": "Network & Connectivity",
+    "priority": "P2",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": [
+      "application_version"
+    ],
+    "next_best_action": "Investigate VPN authentication failure. Check if recent password change synced correctly to VPN authentication backend. User is on trading floor — time-sensitive.",
+    "remediation_steps": [
+      "Verify user's credentials are synced to VPN auth (Entra ID / RADIUS)",
+      "Check if recent password change propagated to all auth systems",
+      "Test VPN connectivity with a known-good account from same location",
+      "If auth sync issue, force credential sync and have user retry",
+      "Confirm resolution — trading floor user needs immediate access"
+    ]
+  },
+  {
+    "ticket_id": "INC-9008",
+    "category": "Hardware & Peripherals",
+    "priority": "P2",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [
+      "error_message"
+    ],
+    "next_best_action": "Dispatch technician to NYC office Floor 5 with a loaner laptop. User has a presentation in one hour — Dell Latitude 5520 with black screen, possibly display or docking station failure.",
+    "remediation_steps": [
+      "Attempt external monitor connection to rule out display failure",
+      "Test with and without docking station",
+      "If hardware failure confirmed, provide loaner laptop immediately",
+      "Schedule Dell warranty repair for the Latitude 5520",
+      "Transfer user's data/profile to loaner if needed before presentation"
+    ]
+  },
+  {
+    "ticket_id": "INC-9009",
+    "category": "Hardware & Peripherals",
+    "priority": "P3",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [
+      "device_info"
+    ],
+    "next_best_action": "Dispatch technician to check the 3rd floor printer near the break room. Display shows paper jam error but no jam found — likely sensor issue. Multiple users affected.",
+    "remediation_steps": [
+      "Check printer paper jam sensors for debris or misalignment",
+      "Clear any phantom paper jam errors and restart printer",
+      "Verify print queue is not stuck with stale jobs",
+      "Test print from multiple workstations to confirm fix",
+      "If sensor hardware failure, schedule printer service call"
+    ]
+  },
+  {
+    "ticket_id": "INC-9010",
+    "category": "Access & Authentication",
+    "priority": "P2",
+    "assigned_team": "Identity & Access Management",
+    "needs_escalation": false,
+    "missing_information": [
+      "environment_details"
+    ],
+    "next_best_action": "Investigate Entra ID sync failure — proxy address conflict on svc-sharepoint service account. Blocking new hire provisioning for 3 employees starting Monday.",
+    "remediation_steps": [
+      "Check conflicting proxy addresses on cn=svc-sharepoint object",
+      "Resolve proxy address conflict in on-premises AD",
+      "Force delta sync and verify sync completes without errors",
+      "Confirm new hire provisioning pipeline is unblocked",
+      "Reference previous ticket INC-3456 for related context"
+    ]
+  },
+  {
+    "ticket_id": "INC-9011",
+    "category": "Software & Applications",
+    "priority": "P3",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [],
+    "next_best_action": "Investigate Outlook freezing after latest update. Check if update version 16.0.17328.20162 has known issues. May need rollback.",
+    "remediation_steps": [
+      "Check for known issues with Outlook version 16.0.17328.20162",
+      "Clear Outlook cache and repair the Office installation",
+      "If issue persists, roll back the latest update",
+      "Test Outlook performance after fix",
+      "Report the issue to M365 admin if affecting multiple users"
+    ]
+  },
+  {
+    "ticket_id": "INC-9012",
+    "category": "Software & Applications",
+    "priority": "P1",
+    "assigned_team": "Enterprise Applications",
+    "needs_escalation": true,
+    "missing_information": [],
+    "next_best_action": "Investigate Bloomberg B-PIPE connection failure on Singapore trading floor. All 5 traders affected — Q1 reporting deadline today. Check network connectivity to Bloomberg data center.",
+    "remediation_steps": [
+      "Check Bloomberg B-PIPE service status and connectivity from Singapore",
+      "Verify network port 3C-14-A7 is active and not blocked",
+      "Test B-PIPE connection from terminal SGP-BT-042 directly",
+      "If network issue, escalate to Network Operations for Singapore link",
+      "Contact Bloomberg support if API-side issue confirmed"
+    ]
+  },
+  {
+    "ticket_id": "INC-9013",
+    "category": "Data & Storage",
+    "priority": "P3",
+    "assigned_team": "Data Platform",
+    "needs_escalation": false,
+    "missing_information": [
+      "device_info"
+    ],
+    "next_best_action": "Investigate OneDrive file locking errors. Multiple Excel files stuck with 'locked by another process' error — likely stale file locks or conflicting co-authoring sessions.",
+    "remediation_steps": [
+      "Check for stale file locks on the affected Excel files",
+      "Clear OneDrive sync cache and force re-sync",
+      "Verify no other process is holding locks on the files",
+      "If co-authoring conflict, close all open sessions and retry",
+      "Confirm sync completes before 2 PM client meeting"
+    ]
+  },
+  {
+    "ticket_id": "INC-9014",
+    "category": "General Inquiry",
+    "priority": "P4",
+    "assigned_team": "None",
+    "needs_escalation": false,
+    "missing_information": [
+      "affected_system",
+      "error_message",
+      "steps_to_reproduce"
+    ],
+    "next_best_action": "Contact reporter to describe the issue — the ticket references screenshots but provides no description of the problem.",
+    "remediation_steps": [
+      "Contact Ryan O'Brien to describe the issue in text",
+      "Review attached screenshots for initial context once described",
+      "Route to appropriate team once the issue is understood"
+    ]
+  },
+  {
+    "ticket_id": "INC-9015",
+    "category": "Network & Connectivity",
+    "priority": "P2",
+    "assigned_team": "Network Operations",
+    "needs_escalation": false,
+    "missing_information": [],
+    "next_best_action": "Investigate Wi-Fi degradation on Floor 7 east wing. 15+ users affected since Monday post-maintenance. Speed dropped from 100+ to 2 Mbps. Client demo tomorrow.",
+    "remediation_steps": [
+      "Check Floor 7 east wing access points for post-maintenance issues",
+      "Review weekend maintenance changes that may have affected east wing",
+      "Run diagnostics on AP signal strength and channel utilization",
+      "If AP hardware issue, deploy temporary AP for client demo coverage",
+      "Verify speed test shows normal throughput after fix"
+    ]
+  },
+  {
+    "ticket_id": "INC-9016",
+    "category": "Hardware & Peripherals",
+    "priority": "P3",
+    "assigned_team": "Endpoint Engineering",
+    "needs_escalation": false,
+    "missing_information": [
+      "device_info"
+    ],
+    "next_best_action": "Investigate Intune enrollment error 0x80180014 on new laptop. Error typically indicates device limit or autopilot profile mismatch.",
+    "remediation_steps": [
+      "Check Intune device enrollment limits for the user",
+      "Verify the device's autopilot profile assignment",
+      "Clear any stale device registrations in Entra ID",
+      "Re-attempt enrollment after clearing stale records",
+      "If error persists, check Intune connector health and logs"
+    ]
+  }
+]
