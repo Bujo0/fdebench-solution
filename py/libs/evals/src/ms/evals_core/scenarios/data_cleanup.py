@@ -17764,7 +17764,8 @@ def get_scenarios() -> list[ScenarioDefinition]:
                 "Coordinate with procurement on PO-2026-4471 for 15-seat renewal."
             ),
             remediation_steps=[
-                "Audit current Bloomberg license usage on LICSVR-02.contoso.local and identify the 3 grace-period seats.",
+                "Audit current Bloomberg license usage on LICSVR-02.contoso.local"
+                " and identify the 3 grace-period seats.",
                 "Verify the license server software version and compatibility with the renewed license terms.",
                 "Coordinate with procurement to process PO-2026-4471 before the April 30 deadline.",
                 "Plan the license key update on the server with minimal disruption to Compliance users.",

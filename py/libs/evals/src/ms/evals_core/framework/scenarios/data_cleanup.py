@@ -7330,9 +7330,11 @@ default_registry.register(
             description=(
                 "\u0645\u0631\u062d\u0628\u0627 IT Support,\n\n"
                 "\u0623\u0646\u0627 \u0641\u064a \u0645\u0643\u062a\u0628 Dubai \u200d(Building 7, 3rd floor)\u200d "
-                "\u0648\u0627\u0644\u200dVPN\u200d \u064a\u0646\u0642\u0637\u0639 \u0643\u0644 10 \u062f\u0642\u0627\u0626\u0642. "
+                "\u0648\u0627\u0644\u200dVPN\u200d \u064a\u0646\u0642\u0637\u0639 \u0643\u0644 "
+                "10 \u062f\u0642\u0627\u0626\u0642. "
                 "I am using GlobalProtect 6.2.1 on Windows 11 (Dell Latitude 7440).\n\n"
-                "\u0627\u0644\u0645\u0634\u0643\u0644\u0629 \u0628\u062f\u0623\u062a \u0628\u0639\u062f \u062a\u062d\u062f\u064a\u062b "
+                "\u0627\u0644\u0645\u0634\u0643\u0644\u0629 \u0628\u062f\u0623\u062a "
+                "\u0628\u0639\u062f \u062a\u062d\u062f\u064a\u062b "
                 "\u064a\u0648\u0645 \u0627\u0644\u062c\u0645\u0639\u0629. The error code is GP-ERR-4017 and it "
                 "happens during \u200dmarket hours\u200d (09:00-16:00 GST). When the VPN drops "
                 "I lose access to \u200dSharePoint\u200d, \u200dJira\u200d, and the "
@@ -7561,12 +7563,16 @@ default_registry.register(
         tags=["zalgo_text", "combining_diacritics", "unicode_heavy"],
         ticket=EvalTicket(
             ticket_id="INC-5136",
-            subject="M\u0336\u033a\u0347o\u0337\u0347n\u0336\u034di\u0334\u0353t\u0335\u034do\u0337\u0347r display issues on my desk",
+            subject=(
+                "M\u0336\u033a\u0347o\u0337\u0347n\u0336\u034di\u0334\u0353t\u0335\u034do\u0337\u0347r"
+                " display issues on my desk"
+            ),
             description=(
                 "H\u0336\u034di T\u0337\u034de\u0336\u034da\u0335\u034dm,\n\n"
                 "M\u0336\u0353y\u0337\u0347 external monitor (Dell U2722D) is showing "
                 "w\u0336\u034de\u0337\u0353i\u0335\u034dr\u0336\u0347d font rendering. "
-                "Characters appear with s\u0336\u034dt\u0337\u034da\u0335\u0353c\u0336\u0347k\u0337\u034de\u0336\u0353d "
+                "Characters appear with "
+                "s\u0336\u034dt\u0337\u034da\u0335\u0353c\u0336\u0347k\u0337\u034de\u0336\u0353d "
                 "diacritical marks everywhere. The text looks like "
                 "Z\u0335\u034da\u0337\u034dl\u0336\u0353g\u0335\u0347o text on every "
                 "application including Word, Chrome, and Outlook.\n\n"
@@ -7603,7 +7609,10 @@ default_registry.register(
         tags=["bidi_hebrew", "rtl_control", "mixed_direction"],
         ticket=EvalTicket(
             ticket_id="INC-5137",
-            subject="\u200f\u05de\u05d3\u05e4\u05e1\u05ea \u200eLaserJet\u200f \u05dc\u05d0 \u05e2\u05d5\u05d1\u05d3\u05ea",
+            subject=(
+                "\u200f\u05de\u05d3\u05e4\u05e1\u05ea \u200eLaserJet\u200f"
+                " \u05dc\u05d0 \u05e2\u05d5\u05d1\u05d3\u05ea"
+            ),
             description=(
                 "\u200f\u05e9\u05dc\u05d5\u05dd \u05e6\u05d5\u05d5\u05ea IT,\n\n"
                 "\u200f\u05d4\u05de\u05d3\u05e4\u05e1\u05ea \u200eHP LaserJet Pro M404dn\u200f "

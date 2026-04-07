@@ -8,13 +8,11 @@ expected triage values.
 
 import pytest
 
+# Ensure scenarios are registered before tests run.
+import ms.evals_core.framework.scenarios.data_cleanup  # noqa: F401
 from ms.evals_core.framework.models.scenario import EvalScenario
 from ms.evals_core.framework.models.scenario import ScenarioCategory
 from ms.evals_core.framework.scenarios.registry import default_registry
-
-# Ensure scenarios are registered before tests run.
-import ms.evals_core.framework.scenarios.data_cleanup  # noqa: F401
-
 
 VALID_CATEGORIES = {
     "Access & Authentication",
@@ -141,7 +139,9 @@ class TestExtendedDcNoiseTypes:
             pytest.skip("dc-136 not registered")
         import unicodedata
 
-        combining_count = sum(1 for c in s.ticket.description if unicodedata.category(c).startswith("M"))
+        combining_count = sum(
+            1 for c in s.ticket.description if unicodedata.category(c).startswith("M")
+        )
         assert combining_count >= 5, f"dc-136: expected Zalgo combining marks, found {combining_count}"
 
     def test_dc138_has_ansi_or_pipeline_markers(self, extended_dc_scenarios: list[EvalScenario]) -> None:

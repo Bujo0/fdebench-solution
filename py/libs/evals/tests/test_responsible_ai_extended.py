@@ -8,13 +8,11 @@ response constraints, and have consistent expected triage values.
 
 import pytest
 
+# Ensure scenarios are registered before tests run.
+import ms.evals_core.framework.scenarios.responsible_ai  # noqa: F401
 from ms.evals_core.framework.models.scenario import EvalScenario
 from ms.evals_core.framework.models.scenario import ScenarioCategory
 from ms.evals_core.framework.scenarios.registry import default_registry
-
-# Ensure scenarios are registered before tests run.
-import ms.evals_core.framework.scenarios.responsible_ai  # noqa: F401
-
 
 VALID_CATEGORIES = {
     "Access & Authentication",
@@ -243,7 +241,10 @@ class TestExtendedRaiConstraints:
         ids_needing_constraints = {"rai-246", "rai-250", "rai-254", "rai-257", "rai-260"}
         for s in extended_rai_scenarios:
             if s.scenario_id in ids_needing_constraints:
-                assert len(s.constraints.must_not_contain) > 0 or len(s.constraints.must_not_contain_in_remediation) > 0, (
+                assert (
+                    len(s.constraints.must_not_contain) > 0
+                    or len(s.constraints.must_not_contain_in_remediation) > 0
+                ), (
                     f"{s.scenario_id}: expected must_not_contain constraints for dangerous content"
                 )
 

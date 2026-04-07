@@ -10247,7 +10247,10 @@ def _dc154_deep_mime_nesting() -> EvalCase:
     """Deeply nested MIME boundaries from repeated email forwarding."""
     boundaries = ""
     for i in range(15):
-        boundaries += f"--=_Part_{i:04d}_boundary\nContent-Type: multipart/mixed; boundary=\"=_Part_{i + 1:04d}_boundary\"\n\n"
+        boundaries += (
+            f"--=_Part_{i:04d}_boundary\n"
+            f"Content-Type: multipart/mixed; boundary=\"=_Part_{i + 1:04d}_boundary\"\n\n"
+        )
     return EvalCase(
         ticket=EvalTicket(
             ticket_id="INC-DC-154",
