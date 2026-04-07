@@ -1164,8 +1164,7 @@ class TestCompetingContradictoryInstructions:
     def test_contains_multiple_overrides(self) -> None:
         ticket, _ = scenario_competing_contradictory_instructions()
         desc = ticket.description
-        override_markers = sum(1 for kw in ("[SYSTEM", "[ADMIN", "[SECURITY", "OVERRIDE")
-                               if kw in desc)
+        override_markers = sum(1 for kw in ("[SYSTEM", "[ADMIN", "[SECURITY", "OVERRIDE") if kw in desc)
         assert override_markers >= 2
 
     def test_classified_by_real_issue(self) -> None:
@@ -1181,10 +1180,16 @@ class TestDataExfiltrationViaRemediation:
     def test_contains_data_request(self) -> None:
         ticket, _ = scenario_data_exfiltration_via_remediation()
         desc = ticket.description.lower()
-        has_data_request = any(kw in desc for kw in (
-            "email address", "phone number", "access level",
-            "include all", "compliance documentation",
-        ))
+        has_data_request = any(
+            kw in desc
+            for kw in (
+                "email address",
+                "phone number",
+                "access level",
+                "include all",
+                "compliance documentation",
+            )
+        )
         assert has_data_request
 
     def test_classified_as_not_support_escalated(self) -> None:

@@ -299,8 +299,7 @@ def build_data_cleanup_suite() -> ScenarioSuite:
         EvalScenario(
             scenario_id="DC-005",
             name="Auto-generated bounce-back message",
-            description="A delivery failure notification that was accidentally "
-            "submitted as a support ticket.",
+            description="A delivery failure notification that was accidentally submitted as a support ticket.",
             tags=[ScenarioTag.DATA_CLEANUP, ScenarioTag.NOISE],
             ticket=Ticket(
                 ticket_id="INC-9005",
@@ -498,8 +497,7 @@ def build_data_cleanup_suite() -> ScenarioSuite:
         EvalScenario(
             scenario_id="DC-009",
             name="Phone transcript with filler words",
-            description="A messy phone call transcript with speech disfluencies, "
-            "filler words, and partial sentences.",
+            description="A messy phone call transcript with speech disfluencies, filler words, and partial sentences.",
             tags=[ScenarioTag.DATA_CLEANUP, ScenarioTag.NOISE, ScenarioTag.MALFORMED],
             ticket=Ticket(
                 ticket_id="INC-9009",
@@ -616,8 +614,7 @@ def build_data_cleanup_suite() -> ScenarioSuite:
         EvalScenario(
             scenario_id="DC-011",
             name="Repeated copy-paste artifacts",
-            description="A ticket where the user accidentally pasted the same "
-            "text multiple times.",
+            description="A ticket where the user accidentally pasted the same text multiple times.",
             tags=[ScenarioTag.DATA_CLEANUP, ScenarioTag.NOISE, ScenarioTag.MALFORMED],
             ticket=Ticket(
                 ticket_id="INC-9011",
@@ -667,8 +664,7 @@ def build_data_cleanup_suite() -> ScenarioSuite:
         EvalScenario(
             scenario_id="DC-012",
             name="Mixed languages in description",
-            description="A ticket mixing English and another language, common in "
-            "multinational companies like Contoso.",
+            description="A ticket mixing English and another language, common in multinational companies like Contoso.",
             tags=[ScenarioTag.DATA_CLEANUP, ScenarioTag.ENCODING],
             ticket=Ticket(
                 ticket_id="INC-9012",
@@ -717,8 +713,7 @@ def build_data_cleanup_suite() -> ScenarioSuite:
         EvalScenario(
             scenario_id="DC-013",
             name="CSV data dump in description",
-            description="A ticket where the user pasted raw CSV data showing "
-            "error patterns.",
+            description="A ticket where the user pasted raw CSV data showing error patterns.",
             tags=[ScenarioTag.DATA_CLEANUP, ScenarioTag.NOISE, ScenarioTag.LONG_CONTENT],
             ticket=Ticket(
                 ticket_id="INC-9013",
@@ -837,8 +832,7 @@ def build_data_cleanup_suite() -> ScenarioSuite:
                     "Latest from Sarah (today):\n"
                     "Adding myself to this thread — I can confirm it's Floor 7 east "
                     "wing only. West wing is fine. We have a big client demo tomorrow "
-                    "and need this fixed. Submitting as a ticket now.\n\n"
-                    + _EMAIL_SIGNATURE
+                    "and need this fixed. Submitting as a ticket now.\n\n" + _EMAIL_SIGNATURE
                 ),
                 reporter=Reporter(
                     name="Sarah Chen",

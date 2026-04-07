@@ -69,31 +69,23 @@ class TestDataCleanupScenarios:
     def test_gold_categories_valid(self) -> None:
         """All gold categories must be from the valid vocabulary."""
         for s in get_scenarios():
-            assert s.category.value in ALL_CATEGORIES, (
-                f"{s.scenario_id}: invalid gold category '{s.category}'"
-            )
+            assert s.category.value in ALL_CATEGORIES, f"{s.scenario_id}: invalid gold category '{s.category}'"
 
     def test_gold_priorities_valid(self) -> None:
         """All gold priorities must be from the valid vocabulary."""
         for s in get_scenarios():
-            assert s.priority.value in ALL_PRIORITIES, (
-                f"{s.scenario_id}: invalid gold priority '{s.priority}'"
-            )
+            assert s.priority.value in ALL_PRIORITIES, f"{s.scenario_id}: invalid gold priority '{s.priority}'"
 
     def test_gold_teams_valid(self) -> None:
         """All gold teams must be from the valid vocabulary."""
         for s in get_scenarios():
-            assert s.team.value in ALL_TEAMS, (
-                f"{s.scenario_id}: invalid gold team '{s.team}'"
-            )
+            assert s.team.value in ALL_TEAMS, f"{s.scenario_id}: invalid gold team '{s.team}'"
 
     def test_gold_missing_info_valid(self) -> None:
         """All gold missing_info items must be from the valid vocabulary."""
         for s in get_scenarios():
             for item in s.missing_info:
-                assert item.value in ALL_MISSING_INFO_FIELDS, (
-                    f"{s.scenario_id}: invalid missing info '{item}'"
-                )
+                assert item.value in ALL_MISSING_INFO_FIELDS, f"{s.scenario_id}: invalid missing info '{item}'"
 
     def test_covers_key_cleanup_categories(self) -> None:
         """Verify that key data cleanup noise types are covered."""

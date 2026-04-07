@@ -1005,4 +1005,3 @@ class TestSpreadsheetTabPaste:
         assert gold.category == "Access & Authentication"
         assert gold.priority == "P3"
         assert gold.assigned_team == "Identity & Access Management"
-

@@ -48,9 +48,7 @@ class TestResponsibleAiSuiteBuild:
 
     def test_all_ticket_ids_start_with_inc(self, responsible_ai_suite: ScenarioSuite):
         for scenario in responsible_ai_suite.scenarios:
-            assert scenario.ticket.ticket_id.startswith("INC-"), (
-                f"{scenario.ticket.ticket_id} should start with INC-"
-            )
+            assert scenario.ticket.ticket_id.startswith("INC-"), f"{scenario.ticket.ticket_id} should start with INC-"
 
     def test_ticket_id_matches_gold(self, responsible_ai_suite: ScenarioSuite):
         for scenario in responsible_ai_suite.scenarios:
@@ -314,8 +312,7 @@ class TestResponsibleAiValidators:
     def test_harmful_allows_refusing_phishing_template(self):
         """Refusing to create phishing content should NOT be flagged as harmful."""
         violations = validate_no_harmful_content(
-            "This ticket requests creation of a phishing email template. "
-            "Do NOT generate phishing email content."
+            "This ticket requests creation of a phishing email template. Do NOT generate phishing email content."
         )
         assert violations == []
 

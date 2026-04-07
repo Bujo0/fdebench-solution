@@ -10095,7 +10095,6 @@ def _dc150_git_blame() -> EvalCase:
     )
 
 
-
 # ---------------------------------------------------------------------------
 # INC-DC-151 .. INC-DC-170  —  extended data-cleanup evaluation cases
 # ---------------------------------------------------------------------------
@@ -10200,9 +10199,7 @@ def _dc152_unicode_nfd_accents() -> EvalCase:
 def _dc153_base64_image_flood() -> EvalCase:
     """Multiple inline base64 images obscuring a real hardware issue."""
     fake_b64 = "iVBORw0KGgo" + "A" * 500 + "=="
-    images = "\n".join(
-        [f"[Screenshot {i}]: data:image/png;base64,{fake_b64}" for i in range(1, 9)]
-    )
+    images = "\n".join([f"[Screenshot {i}]: data:image/png;base64,{fake_b64}" for i in range(1, 9)])
     return EvalCase(
         ticket=EvalTicket(
             ticket_id="INC-DC-153",
@@ -10248,8 +10245,7 @@ def _dc154_deep_mime_nesting() -> EvalCase:
     boundaries = ""
     for i in range(15):
         boundaries += (
-            f"--=_Part_{i:04d}_boundary\n"
-            f"Content-Type: multipart/mixed; boundary=\"=_Part_{i + 1:04d}_boundary\"\n\n"
+            f'--=_Part_{i:04d}_boundary\nContent-Type: multipart/mixed; boundary="=_Part_{i + 1:04d}_boundary"\n\n'
         )
     return EvalCase(
         ticket=EvalTicket(
@@ -10279,8 +10275,7 @@ def _dc154_deep_mime_nesting() -> EvalCase:
             needs_escalation=False,
             missing_information=[MissingInfoField.AFFECTED_SYSTEM],
             next_best_action=(
-                "Grant shared drive access after verifying manager approval — "
-                "strip the 15-level MIME nesting noise."
+                "Grant shared drive access after verifying manager approval — strip the 15-level MIME nesting noise."
             ),
             remediation_steps=[
                 "Confirm David Kim's approval for the finance-q1 share.",
@@ -10302,7 +10297,7 @@ def _dc155_csv_injection_formula() -> EvalCase:
             description=(
                 "The expense report app crashes when I upload this data:\n\n"
                 "Employee,Amount,Description\n"
-                '=CMD(\'calc.exe\'),1500,Travel\n'
+                "=CMD('calc.exe'),1500,Travel\n"
                 '+HYPERLINK("http://evil.com","Click"),200,Hotel\n'
                 "-1+1*cmd|'/C calc'!A0,350,Food\n"
                 "@SUM(A1:A10),100,Misc\n\n"
@@ -10369,8 +10364,7 @@ def _dc156_zalgo_combining_marks() -> EvalCase:
             needs_escalation=False,
             missing_information=[],
             next_best_action=(
-                "Fix the printer paper tray sensor issue on Floor 5 — "
-                "strip the Zalgo combining marks from the ticket."
+                "Fix the printer paper tray sensor issue on Floor 5 — strip the Zalgo combining marks from the ticket."
             ),
             remediation_steps=[
                 "Check the paper tray sensor on the HP LaserJet M404dn.",
@@ -10414,8 +10408,7 @@ def _dc157_hebrew_bidi_mixed() -> EvalCase:
             needs_escalation=False,
             missing_information=[MissingInfoField.APPLICATION_VERSION],
             next_best_action=(
-                "Fix Teams desktop loading issue before the 2 PM client call — "
-                "Hebrew bidi text does not affect triage."
+                "Fix Teams desktop loading issue before the 2 PM client call — Hebrew bidi text does not affect triage."
             ),
             remediation_steps=[
                 "Fully uninstall Teams including the %AppData% and %LocalAppData% folders.",
@@ -10496,9 +10489,9 @@ def _dc159_terraform_plan_dump() -> EvalCase:
     for res, old, new in resources:
         tf_plan += (
             f"  # {res} must be replaced\n"
-            f"  ~ resource \"{res.split('.')[0]}\" \"{res.split('.')[1]}\" {{\n"
-            f"      - old_value = \"{old}\"\n"
-            f"      + new_value = \"{new}\"\n"
+            f'  ~ resource "{res.split(".")[0]}" "{res.split(".")[1]}" {{\n'
+            f'      - old_value = "{old}"\n'
+            f'      + new_value = "{new}"\n'
             f"    }}\n\n"
         )
     return EvalCase(
@@ -10715,7 +10708,7 @@ def _dc163_event_viewer_xml() -> EvalCase:
         "    <Task>12544</Task>\n"
         "    <Keywords>0x8010000000000000</Keywords>\n"
         '    <TimeCreated SystemTime="2026-04-08T09:15:32.123Z"/>\n'
-        '    <Computer>WS-CONTOSO-4421</Computer>\n'
+        "    <Computer>WS-CONTOSO-4421</Computer>\n"
         "  </System>\n"
         "  <EventData>\n"
         '    <Data Name="TargetUserName">jsmith</Data>\n'
@@ -10841,7 +10834,7 @@ def _dc165_smime_artifact() -> EvalCase:
         "Content-Type: application/pkcs7-mime; smime-type=enveloped-data;\n"
         '  name="smime.p7m"\n'
         "Content-Transfer-Encoding: base64\n"
-        "Content-Disposition: attachment; filename=\"smime.p7m\"\n\n"
+        'Content-Disposition: attachment; filename="smime.p7m"\n\n'
         "MIIBmgYJKoZIhvcNAQcDoIIBizCCAYcCAQAxggEhMIIBHQIBADAFMAACAQEw\n"
         "DQYJKoZIhvcNAQEBBQAEggEAfakeencrypteddatagoeshereanditisquitelong\n"
         "andwouldnormallybemuchlongerbutthisisademooftheformatusedins/mime==\n"
@@ -10895,7 +10888,7 @@ def _dc166_arm_template_json() -> EvalCase:
         '{\n  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",\n'
         '  "contentVersion": "1.0.0.0",\n'
         '  "resources": [\n'
-        '    {\n'
+        "    {\n"
         '      "type": "Microsoft.Compute/virtualMachines",\n'
         '      "apiVersion": "2023-09-01",\n'
         '      "name": "vm-prod-web-01",\n'
@@ -10962,19 +10955,21 @@ def _dc167_python_traceback_deep() -> EvalCase:
         [
             f'  File "/opt/contoso/venv/lib/python3.12/site-packages/'
             f'contoso_{mod}/services/{svc}/handlers/v2/{handler}.py", '
-            f'line {100 + i * 7}, in {func}'
-            for i, (mod, svc, handler, func) in enumerate([
-                ("core", "auth", "token_validator", "validate_jwt"),
-                ("core", "auth", "session_manager", "refresh_session"),
-                ("middleware", "logging", "correlation_tracker", "track_request"),
-                ("middleware", "rate_limit", "sliding_window", "check_rate"),
-                ("api", "gateway", "request_router", "route_request"),
-                ("api", "gateway", "response_handler", "format_response"),
-                ("business", "ticketing", "ticket_processor", "process_ticket"),
-                ("business", "ticketing", "sla_calculator", "compute_sla"),
-                ("integrations", "jira", "sync_adapter", "sync_ticket"),
-                ("integrations", "jira", "field_mapper", "map_custom_fields"),
-            ])
+            f"line {100 + i * 7}, in {func}"
+            for i, (mod, svc, handler, func) in enumerate(
+                [
+                    ("core", "auth", "token_validator", "validate_jwt"),
+                    ("core", "auth", "session_manager", "refresh_session"),
+                    ("middleware", "logging", "correlation_tracker", "track_request"),
+                    ("middleware", "rate_limit", "sliding_window", "check_rate"),
+                    ("api", "gateway", "request_router", "route_request"),
+                    ("api", "gateway", "response_handler", "format_response"),
+                    ("business", "ticketing", "ticket_processor", "process_ticket"),
+                    ("business", "ticketing", "sla_calculator", "compute_sla"),
+                    ("integrations", "jira", "sync_adapter", "sync_ticket"),
+                    ("integrations", "jira", "field_mapper", "map_custom_fields"),
+                ]
+            )
         ]
     )
     return EvalCase(

@@ -73,9 +73,7 @@ class TestResponsibleAIGoldAnswers:
             assert s.expected_triage is not None
             if s.expected_triage.missing_information is not None:
                 for item in s.expected_triage.missing_information:
-                    assert item in ALL_MISSING_INFO_FIELDS, (
-                        f"{s.scenario_id}: invalid missing info item {item!r}"
-                    )
+                    assert item in ALL_MISSING_INFO_FIELDS, f"{s.scenario_id}: invalid missing info item {item!r}"
 
 
 class TestResponsibleAIGoldNeverComplies:
@@ -105,9 +103,7 @@ class TestResponsibleAIGoldNeverComplies:
                 continue
             all_text = _collect_expected_text(s.expected_triage.model_dump())
             for frag in config_fragments:
-                assert frag not in all_text.lower(), (
-                    f"{s.scenario_id}: gold answer reveals system config: {frag!r}"
-                )
+                assert frag not in all_text.lower(), f"{s.scenario_id}: gold answer reveals system config: {frag!r}"
 
 
 class TestResponsibleAICoverage:

@@ -48,9 +48,7 @@ class TestDataCleanupSuiteBuild:
 
     def test_all_ticket_ids_start_with_inc(self, data_cleanup_suite: ScenarioSuite):
         for scenario in data_cleanup_suite.scenarios:
-            assert scenario.ticket.ticket_id.startswith("INC-"), (
-                f"{scenario.ticket.ticket_id} should start with INC-"
-            )
+            assert scenario.ticket.ticket_id.startswith("INC-"), f"{scenario.ticket.ticket_id} should start with INC-"
 
     def test_ticket_id_matches_gold(self, data_cleanup_suite: ScenarioSuite):
         for scenario in data_cleanup_suite.scenarios:
@@ -58,9 +56,7 @@ class TestDataCleanupSuiteBuild:
 
     def test_all_scenarios_tagged_data_cleanup(self, data_cleanup_suite: ScenarioSuite):
         for scenario in data_cleanup_suite.scenarios:
-            assert ScenarioTag.DATA_CLEANUP in scenario.tags, (
-                f"{scenario.scenario_id} should be tagged data_cleanup"
-            )
+            assert ScenarioTag.DATA_CLEANUP in scenario.tags, f"{scenario.scenario_id} should be tagged data_cleanup"
 
 
 class TestDataCleanupGoldAnswers:
@@ -258,9 +254,7 @@ class TestDataCleanupValidators:
         assert violations == []
 
     def test_log_validator_catches_dump(self):
-        log_text = "\n".join(
-            f"2026-03-17T09:{i:02d}:00.000Z ERROR [prod] Connection failed" for i in range(5)
-        )
+        log_text = "\n".join(f"2026-03-17T09:{i:02d}:00.000Z ERROR [prod] Connection failed" for i in range(5))
         violations = validate_no_log_dump(log_text)
         assert len(violations) > 0
 

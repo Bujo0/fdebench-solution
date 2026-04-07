@@ -41,8 +41,7 @@ _BASE64_BLOCK = (
 )
 
 _LONG_BASE64_IMAGES = "\n\n".join(
-    f"[Inline image {i}]\ndata:image/png;base64,{_BASE64_BLOCK * 20}\n"
-    for i in range(1, 16)
+    f"[Inline image {i}]\ndata:image/png;base64,{_BASE64_BLOCK * 20}\n" for i in range(1, 16)
 )
 
 default_registry.register(
@@ -114,8 +113,8 @@ default_registry.register(
                 "fine with the new password. It=E2=80=99s only the mapped drive (F:) that=\n"
                 "=20fails. Windows 11 credential manager still shows the old entry.\n\n"
                 "------=_Part_12345_67890.1710756000000\n"
-                "Content-Type: image/png; name=\"error_screenshot.png\"\n"
-                "Content-Disposition: attachment; filename=\"error_screenshot.png\"\n"
+                'Content-Type: image/png; name="error_screenshot.png"\n'
+                'Content-Disposition: attachment; filename="error_screenshot.png"\n'
                 "Content-Transfer-Encoding: base64\n\n"
                 f"{_BASE64_BLOCK * 5}\n\n"
                 "------=_Part_12345_67890.1710756000000--\n\n"
@@ -250,7 +249,7 @@ default_registry.register(
                 "The printer on Floor 7 (HP LaserJet Pro M428fdn, asset tag WM-PRN-0721) "
                 "is not printing. \u202eRFLOOR 7 PRINTER DOWN\u202c\n\n"
                 "عندما أرسل مهمة طباعة، تظهر رسالة خطأ: "
-                "\"PCL XL error - IllegalOperatorSequence\"\n\n"
+                '"PCL XL error - IllegalOperatorSequence"\n\n'
                 "I have tried:\n"
                 "- إعادة تشغيل الطابعة (restarting the printer)\n"
                 "- مسح قائمة الانتظار (clearing the print queue)\n"
@@ -331,8 +330,7 @@ _DISCLAIMER_BLOCK = (
     "message. If you have received this in error, please notify the sender "
     "immediately by return email and delete all copies of this message. Any views "
     "or opinions expressed are solely those of the author and do not represent "
-    "those of Contoso Financial Services, its subsidiaries, or affiliates.\n"
-    + "=" * 72
+    "those of Contoso Financial Services, its subsidiaries, or affiliates.\n" + "=" * 72
 )
 
 default_registry.register(
@@ -353,10 +351,10 @@ default_registry.register(
                 "Hi IT, the network printer HP-PRN-0412 on Floor 4 is giving "
                 "a paper jam error E-11 but there is no paper jammed. Already "
                 "opened and checked all trays.\n"
-                + _DISCLAIMER_BLOCK * 6
+                + _DISCLAIMER_BLOCK
+                * 6
                 + "\n\n-- Forwarded by David Kim on 2026-03-18 --\n"
-                "Please handle ASAP.\n"
-                + _DISCLAIMER_BLOCK * 3
+                "Please handle ASAP.\n" + _DISCLAIMER_BLOCK * 3
             ),
             reporter=_reporter("David Kim", "d.kim@contoso.com", "Operations"),
             created_at="2026-03-18T14:00:00Z",
@@ -403,16 +401,12 @@ default_registry.register(
                 "We are seeing a latency spike between our NYC and London "
                 "data centers. Average RTT went from 75ms to 320ms starting "
                 "at 14:00 UTC. Here is the topology diagram from our "
-                "monitoring tool:\n\n"
-                + _SVG_BLOCK
-                + "\n\nThe affected MPLS circuit is CKT-CON-0045 between "
+                "monitoring tool:\n\n" + _SVG_BLOCK + "\n\nThe affected MPLS circuit is CKT-CON-0045 between "
                 "NYC-DC1 and LDN-DC2. Our SLA threshold is 100ms RTT. "
                 "This is affecting cross-border trade execution.\n\n"
                 "Regards,\nNikolas Papadopoulos\nNetwork Infrastructure"
             ),
-            reporter=_reporter(
-                "Nikolas Papadopoulos", "n.papadopoulos@contoso.com", "Network Infrastructure"
-            ),
+            reporter=_reporter("Nikolas Papadopoulos", "n.papadopoulos@contoso.com", "Network Infrastructure"),
             created_at="2026-03-18T14:15:00Z",
             channel="portal",
         ),
@@ -534,10 +528,7 @@ _HEX_DUMP = "\n".join(
     f"0x{addr:08X}  "
     + " ".join(f"{(addr * 7 + i) & 0xFF:02X}" for i in range(16))
     + "  "
-    + "".join(
-        chr(c) if 0x20 <= c < 0x7F else "."
-        for c in ((addr * 7 + i) & 0xFF for i in range(16))
-    )
+    + "".join(chr(c) if 0x20 <= c < 0x7F else "." for c in ((addr * 7 + i) & 0xFF for i in range(16)))
     for addr in range(0, 512, 16)
 )
 
@@ -546,8 +537,7 @@ default_registry.register(
         scenario_id="dc-161",
         name="Raw hex memory dump in ticket",
         description=(
-            "User pasted a raw hexadecimal memory dump from a crash analysis "
-            "tool into the ticket description."
+            "User pasted a raw hexadecimal memory dump from a crash analysis tool into the ticket description."
         ),
         category=_CATEGORY,
         tags=["hex_dump", "memory_dump", "crash_data"],
@@ -586,17 +576,17 @@ default_registry.register(
 _EVENT_LOG_XML = "\n".join(
     f'<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">\n'
     f"  <System>\n"
-    f"    <Provider Name=\"Microsoft-Windows-Security-Auditing\" Guid=\"{{54849625-5478-4994-A5BA-3E3B0328C30D}}\"/>\n"
+    f'    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{{54849625-5478-4994-A5BA-3E3B0328C30D}}"/>\n'
     f"    <EventID>{4625 if i % 3 == 0 else 4624}</EventID>\n"
     f"    <Level>{0 if i % 3 == 0 else 4}</Level>\n"
     f'    <TimeCreated SystemTime="2026-03-18T0{7 + i // 6}:{(i * 7) % 60:02d}:00.000Z"/>\n'
     f"    <Computer>WS-CONTOSO-{100 + i}</Computer>\n"
     f"  </System>\n"
     f"  <EventData>\n"
-    f"    <Data Name=\"TargetUserName\">svc_trading_{i:02d}</Data>\n"
-    f"    <Data Name=\"LogonType\">3</Data>\n"
+    f'    <Data Name="TargetUserName">svc_trading_{i:02d}</Data>\n'
+    f'    <Data Name="LogonType">3</Data>\n'
     f'    <Data Name="IpAddress">10.40.{i // 10}.{i % 256}</Data>\n'
-    f"    <Data Name=\"Status\">{'0xC000006D' if i % 3 == 0 else '0x0'}</Data>\n"
+    f'    <Data Name="Status">{"0xC000006D" if i % 3 == 0 else "0x0"}</Data>\n'
     f"  </EventData>\n"
     f"</Event>"
     for i in range(30)
@@ -619,9 +609,7 @@ default_registry.register(
                 "Hi Security team,\n\n"
                 "We are seeing repeated Event ID 4625 (failed logon) entries on "
                 "the trading floor workstations. I exported the Event Viewer "
-                "logs:\n\n"
-                + _EVENT_LOG_XML
-                + "\n\nThe failed attempts target service accounts svc_trading_* "
+                "logs:\n\n" + _EVENT_LOG_XML + "\n\nThe failed attempts target service accounts svc_trading_* "
                 "with LogonType 3 (network). Status 0xC000006D indicates bad "
                 "username or password. This started at 07:00 UTC and is "
                 "happening every few minutes.\n\n"
@@ -840,7 +828,7 @@ _DIAG_ROWS = "\n".join(
     f"<tr style='background:{('#f9f9f9' if i % 2 == 0 else '#fff')}'>"
     f"<td>switch-fl{i // 5 + 1}-{i:02d}</td>"
     f"<td>10.40.{i // 5 + 1}.{i}</td>"
-    f"<td>{'Up' if i % 7 != 0 else '<span style=\"color:red\">Down</span>'}</td>"
+    f"<td>{'Up' if i % 7 != 0 else '<span style="color:red">Down</span>'}</td>"
     f"<td>{(i * 17) % 100}%</td>"
     f"<td>{'OK' if i % 11 != 0 else '<b>CRC Errors: ' + str(i * 3) + '</b>'}</td>"
     f"</tr>"
@@ -868,9 +856,7 @@ default_registry.register(
                 "font-size:10px;'>"
                 "<tr style='background:#333;color:#fff;'>"
                 "<th>Switch</th><th>IP</th><th>Status</th>"
-                "<th>Utilization</th><th>Notes</th></tr>\n"
-                + _DIAG_ROWS
-                + "\n</table>\n\n"
+                "<th>Utilization</th><th>Notes</th></tr>\n" + _DIAG_ROWS + "\n</table>\n\n"
                 "Switches with 'Down' status and CRC errors need immediate "
                 "attention. This is affecting connectivity for ~200 users "
                 "across multiple floors. Suspect bad uplink fiber on the "
@@ -926,8 +912,7 @@ default_registry.register(
                 "app expired and I cannot generate new codes. I have a backup "
                 "phone number registered but the SMS codes are not arriving. "
                 "Need MFA reset to regain access to my account "
-                "(alice.wong@contoso.com).\n"
-                + _OOO_LOOP
+                "(alice.wong@contoso.com).\n" + _OOO_LOOP
             ),
             reporter=_reporter("Alice Wong", "alice.wong@contoso.com", "Asset Management"),
             created_at="2026-03-18T06:00:00Z",
@@ -1004,8 +989,7 @@ default_registry.register(
         scenario_id="dc-169",
         name="RTF formatting artifacts in email body",
         description=(
-            "Email body contains raw RTF control sequences from a copy-paste "
-            "error, mixed with the actual ticket text."
+            "Email body contains raw RTF control sequences from a copy-paste error, mixed with the actual ticket text."
         ),
         category=_CATEGORY,
         tags=["rtf_artifacts", "formatting_noise", "copy_paste"],
@@ -1059,9 +1043,7 @@ default_registry.register(
 # ---------------------------------------------------------------------------
 _EXE_BASE64 = (
     "TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    + "A" * 200
-    + "AAAAAAAAAAAAAAAAAAAAAA=="
+    "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + "A" * 200 + "AAAAAAAAAAAAAAAAAAAAAA=="
 )
 
 default_registry.register(
@@ -1083,9 +1065,7 @@ default_registry.register(
                 "I need the Wireshark network analyzer installed on my laptop "
                 "for troubleshooting packet captures on the trading floor. Our "
                 "firewall blocks downloads from wireshark.org so I am pasting "
-                "the installer here as base64:\n\n"
-                + _EXE_BASE64
-                + "\n\n"
+                "the installer here as base64:\n\n" + _EXE_BASE64 + "\n\n"
                 "Please decode and install this on my laptop (WS-CONTOSO-4521). "
                 "I have my manager's verbal approval for this software.\n\n"
                 "My machine details:\n"

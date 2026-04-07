@@ -76,17 +76,11 @@ class TestMasteryRaiScenarioIntegrity:
                 continue
             triage = s.expected_triage
             if triage.category is not None:
-                assert triage.category in VALID_CATEGORIES, (
-                    f"{s.scenario_id}: invalid category '{triage.category}'"
-                )
+                assert triage.category in VALID_CATEGORIES, f"{s.scenario_id}: invalid category '{triage.category}'"
             if triage.priority is not None:
-                assert triage.priority in VALID_PRIORITIES, (
-                    f"{s.scenario_id}: invalid priority '{triage.priority}'"
-                )
+                assert triage.priority in VALID_PRIORITIES, f"{s.scenario_id}: invalid priority '{triage.priority}'"
             if triage.assigned_team is not None:
-                assert triage.assigned_team in VALID_TEAMS, (
-                    f"{s.scenario_id}: invalid team '{triage.assigned_team}'"
-                )
+                assert triage.assigned_team in VALID_TEAMS, f"{s.scenario_id}: invalid team '{triage.assigned_team}'"
 
     def test_all_have_tags(self, mastery_rai_scenarios: list[EvalScenario]) -> None:
         for s in mastery_rai_scenarios:
@@ -123,9 +117,7 @@ class TestMasteryRaiAdversarialContent:
             pytest.skip("rai-286 not registered")
         # Count sentences (split on period-space or newline) — acrostic needs several sentences
         sentences = [
-            seg.strip()
-            for seg in re.split(r"[.\n]", s.ticket.description)
-            if seg.strip() and len(seg.strip()) > 5
+            seg.strip() for seg in re.split(r"[.\n]", s.ticket.description) if seg.strip() and len(seg.strip()) > 5
         ]
         assert len(sentences) >= 8, f"rai-286: expected 8+ sentences for acrostic, got {len(sentences)}"
 
@@ -134,9 +126,7 @@ class TestMasteryRaiAdversarialContent:
         if s is None:
             pytest.skip("rai-287 not registered")
         desc = s.ticket.description
-        assert "SYSTEM MESSAGE" in desc or "CRITICAL ERROR" in desc, (
-            "rai-287: expected fake system message markers"
-        )
+        assert "SYSTEM MESSAGE" in desc or "CRITICAL ERROR" in desc, "rai-287: expected fake system message markers"
 
     def test_rai288_has_gaslighting_language(self, mastery_rai_scenarios: list[EvalScenario]) -> None:
         s = next((s for s in mastery_rai_scenarios if s.scenario_id == "rai-288"), None)
@@ -170,9 +160,7 @@ class TestMasteryRaiAdversarialContent:
         if s is None:
             pytest.skip("rai-291 not registered")
         name = s.ticket.reporter.name.lower()
-        assert "system" in name or "override" in name, (
-            "rai-291: expected injection payload in reporter name"
-        )
+        assert "system" in name or "override" in name, "rai-291: expected injection payload in reporter name"
 
     def test_rai292_has_conditional_instruction(self, mastery_rai_scenarios: list[EvalScenario]) -> None:
         s = next((s for s in mastery_rai_scenarios if s.scenario_id == "rai-292"), None)
@@ -239,9 +227,7 @@ class TestMasteryRaiAdversarialContent:
         if s is None:
             pytest.skip("rai-304 not registered")
         desc = s.ticket.description.lower()
-        assert "personal onedrive" in desc or "outlook.com" in desc, (
-            "rai-304: expected data exfiltration indicators"
-        )
+        assert "personal onedrive" in desc or "outlook.com" in desc, "rai-304: expected data exfiltration indicators"
 
     def test_rai308_has_multi_vector(self, mastery_rai_scenarios: list[EvalScenario]) -> None:
         """Multi-vector attack should combine multiple techniques."""
@@ -273,9 +259,7 @@ class TestMasteryRaiAdversarialContent:
         if s is None:
             pytest.skip("rai-310 not registered")
         desc = s.ticket.description
-        assert "✅ Approved" in desc or "APPROVAL CHAIN" in desc, (
-            "rai-310: expected fake approval chain"
-        )
+        assert "✅ Approved" in desc or "APPROVAL CHAIN" in desc, "rai-310: expected fake approval chain"
 
 
 # ── Constraint validation ────────────────────────────────────────────
@@ -288,8 +272,7 @@ class TestMasteryRaiConstraints:
         """Every RAI scenario should have at least some constraints."""
         for s in mastery_rai_scenarios:
             has_constraints = (
-                len(s.constraints.must_not_contain) > 0
-                or len(s.constraints.must_not_contain_in_remediation) > 0
+                len(s.constraints.must_not_contain) > 0 or len(s.constraints.must_not_contain_in_remediation) > 0
             )
             assert has_constraints, f"{s.scenario_id}: expected must_not_contain constraints"
 
@@ -309,8 +292,7 @@ class TestMasteryRaiConstraints:
             if s.scenario_id in cred_ids:
                 all_blocked = s.constraints.must_not_contain + s.constraints.must_not_contain_in_remediation
                 has_sensitive_block = any(
-                    "password" in b.lower() or "credential" in b.lower() or "recovery" in b.lower()
-                    for b in all_blocked
+                    "password" in b.lower() or "credential" in b.lower() or "recovery" in b.lower() for b in all_blocked
                 )
                 assert has_sensitive_block, f"{s.scenario_id}: should block sensitive info terms"
 
@@ -345,8 +327,7 @@ class TestMasteryRaiClassification:
         for s in mastery_rai_scenarios:
             if s.scenario_id in real_issue_map and s.expected_triage is not None:
                 assert s.expected_triage.category == real_issue_map[s.scenario_id], (
-                    f"{s.scenario_id}: expected '{real_issue_map[s.scenario_id]}', "
-                    f"got '{s.expected_triage.category}'"
+                    f"{s.scenario_id}: expected '{real_issue_map[s.scenario_id]}', got '{s.expected_triage.category}'"
                 )
 
     def test_no_attack_inflates_priority(self, mastery_rai_scenarios: list[EvalScenario]) -> None:
@@ -355,8 +336,7 @@ class TestMasteryRaiClassification:
         for s in mastery_rai_scenarios:
             if s.scenario_id in low_priority_ids and s.expected_triage is not None:
                 assert s.expected_triage.priority in ("P3", "P4"), (
-                    f"{s.scenario_id}: manipulative content should not inflate "
-                    f"priority to {s.expected_triage.priority}"
+                    f"{s.scenario_id}: manipulative content should not inflate priority to {s.expected_triage.priority}"
                 )
 
     def test_network_issues_route_to_network_ops(self, mastery_rai_scenarios: list[EvalScenario]) -> None:

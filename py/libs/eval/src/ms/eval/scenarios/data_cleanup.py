@@ -2672,8 +2672,7 @@ def scenario_kubernetes_pod_yaml() -> tuple[TicketInput, TriageDecision]:
         assigned_team="Enterprise Applications",
         missing_information=["affected_users", "business_impact"],
         next_best_action=(
-            "Fix the container image tag in the Helm chart from "
-            "'v2.4.1-hotfix-typo' to 'v2.4.1-hotfix' and redeploy."
+            "Fix the container image tag in the Helm chart from 'v2.4.1-hotfix-typo' to 'v2.4.1-hotfix' and redeploy."
         ),
         remediation_steps=[
             "Correct the image tag in Helm values to 'v2.4.1-hotfix'",
@@ -2695,7 +2694,7 @@ def scenario_terraform_plan_output() -> tuple[TicketInput, TriageDecision]:
         "Terraform will perform the following actions:\n",
         "  # azurerm_resource_group.prod will be updated in-place",
         '  ~ resource "azurerm_resource_group" "prod" {',
-        '      ~ tags = {',
+        "      ~ tags = {",
         '          + "cost_center" = "CC-4521"',
         "        }",
         "    }\n",
@@ -2705,20 +2704,22 @@ def scenario_terraform_plan_output() -> tuple[TicketInput, TriageDecision]:
         plan_lines.append(f'  ~ resource "azurerm_storage_account" "data_{i:02d}" {{')
         plan_lines.append('      ~ tags = { + "env" = "production" }')
         plan_lines.append("    }\n")
-    plan_lines.extend([
-        "  # azurerm_dns_a_record.trading_api will be DESTROYED and re-created",
-        '  -/+ resource "azurerm_dns_a_record" "trading_api" {',
-        '      ~ name    = "api.trading" -> "api-v2.trading"',
-        '      ~ records = ["10.0.1.50"] -> ["10.0.2.100"]',
-        '      ~ ttl     = 300 -> 60',
-        "    }\n",
-        "  # azurerm_dns_cname_record.trading_web will be DESTROYED",
-        '  - resource "azurerm_dns_cname_record" "trading_web" {',
-        '      - name   = "trading.contoso.internal"',
-        '      - record = "api.trading.contoso.internal"',
-        "    }\n",
-        "Plan: 2 to add, 18 to change, 2 to destroy.\n",
-    ])
+    plan_lines.extend(
+        [
+            "  # azurerm_dns_a_record.trading_api will be DESTROYED and re-created",
+            '  -/+ resource "azurerm_dns_a_record" "trading_api" {',
+            '      ~ name    = "api.trading" -> "api-v2.trading"',
+            '      ~ records = ["10.0.1.50"] -> ["10.0.2.100"]',
+            "      ~ ttl     = 300 -> 60",
+            "    }\n",
+            "  # azurerm_dns_cname_record.trading_web will be DESTROYED",
+            '  - resource "azurerm_dns_cname_record" "trading_web" {',
+            '      - name   = "trading.contoso.internal"',
+            '      - record = "api.trading.contoso.internal"',
+            "    }\n",
+            "Plan: 2 to add, 18 to change, 2 to destroy.\n",
+        ]
+    )
     description = (
         "Hi team,\n\n"
         "We're about to apply this terraform plan for the Q2 infrastructure update. "
@@ -2970,39 +2971,41 @@ def scenario_dns_zone_file() -> tuple[TicketInput, TriageDecision]:
     Tests that the system identifies the DNS resolution failure from
     a dump of zone file records.
     """
-    zone_records = "\n".join([
-        "; Zone file for contoso.internal",
-        "$TTL 86400",
-        "$ORIGIN contoso.internal.",
-        "@       IN  SOA  ns1.contoso.internal. admin.contoso.internal. (",
-        "                 2026031801 ; Serial",
-        "                 3600       ; Refresh",
-        "                 900        ; Retry",
-        "                 604800     ; Expire",
-        "                 86400 )    ; Minimum TTL",
-        "",
-        "@           IN  NS   ns1.contoso.internal.",
-        "@           IN  NS   ns2.contoso.internal.",
-        "ns1         IN  A    10.0.0.10",
-        "ns2         IN  A    10.0.0.11",
-        "",
-        "; Production services",
-        "db-prod-01  IN  A    10.0.1.20",
-        "db-prod-02  IN  A    10.0.1.21",
-        "api-prod    IN  A    10.0.1.50",
-        "web-prod    IN  CNAME  api-prod.contoso.internal.",
-        "mail        IN  MX   10 mail.contoso.internal.",
-        "mail        IN  A    10.0.2.10",
-        "",
-        "; *** THESE RECORDS APPEAR CORRUPTED ***",
-        "trading     IN  A    0.0.0.0",
-        "settlement  IN  A    0.0.0.0",
-        "compliance  IN  A    0.0.0.0",
-        "",
-        "; Staging (should not resolve from prod network)",
-        "stg-api     IN  A    172.16.0.50",
-        "stg-web     IN  A    172.16.0.51",
-    ])
+    zone_records = "\n".join(
+        [
+            "; Zone file for contoso.internal",
+            "$TTL 86400",
+            "$ORIGIN contoso.internal.",
+            "@       IN  SOA  ns1.contoso.internal. admin.contoso.internal. (",
+            "                 2026031801 ; Serial",
+            "                 3600       ; Refresh",
+            "                 900        ; Retry",
+            "                 604800     ; Expire",
+            "                 86400 )    ; Minimum TTL",
+            "",
+            "@           IN  NS   ns1.contoso.internal.",
+            "@           IN  NS   ns2.contoso.internal.",
+            "ns1         IN  A    10.0.0.10",
+            "ns2         IN  A    10.0.0.11",
+            "",
+            "; Production services",
+            "db-prod-01  IN  A    10.0.1.20",
+            "db-prod-02  IN  A    10.0.1.21",
+            "api-prod    IN  A    10.0.1.50",
+            "web-prod    IN  CNAME  api-prod.contoso.internal.",
+            "mail        IN  MX   10 mail.contoso.internal.",
+            "mail        IN  A    10.0.2.10",
+            "",
+            "; *** THESE RECORDS APPEAR CORRUPTED ***",
+            "trading     IN  A    0.0.0.0",
+            "settlement  IN  A    0.0.0.0",
+            "compliance  IN  A    0.0.0.0",
+            "",
+            "; Staging (should not resolve from prod network)",
+            "stg-api     IN  A    172.16.0.50",
+            "stg-web     IN  A    172.16.0.51",
+        ]
+    )
     description = (
         "All internal DNS lookups for *.contoso.internal are intermittently failing. "
         "The trading, settlement, and compliance services have been unreachable since "
@@ -3118,7 +3121,7 @@ def scenario_deeply_nested_java_exception() -> tuple[TicketInput, TriageDecision
     spanning Spring, Hibernate, HikariCP, and JDBC layers.
     """
     exception_chain = (
-        "Exception in thread \"main\" org.springframework.web.util.NestedServletException: "
+        'Exception in thread "main" org.springframework.web.util.NestedServletException: '
         "Request processing failed; nested exception is "
         "org.springframework.dao.DataAccessResourceFailureException: could not extract ResultSet\n"
         "\tat org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\n"
@@ -3159,7 +3162,7 @@ def scenario_deeply_nested_java_exception() -> tuple[TicketInput, TriageDecision
         "\t... 95 more\n"
         "Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: "
         "The connection to the host 10.0.1.20, named instance contosofinance has failed. "
-        "Error: \"java.net.SocketTimeoutException: connect timed out\"\n"
+        'Error: "java.net.SocketTimeoutException: connect timed out"\n'
         "\tat com.microsoft.sqlserver.jdbc.SQLServerConnection.connectHelper(SQLServerConnection.java:2568)\n"
         "\tat com.microsoft.sqlserver.jdbc.SQLServerConnection.login(SQLServerConnection.java:2234)\n"
         "\tat com.microsoft.sqlserver.jdbc.SQLServerConnection.connect(SQLServerConnection.java:1210)\n"

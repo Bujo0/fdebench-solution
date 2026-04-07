@@ -74,17 +74,11 @@ class TestMasteryDcScenarioIntegrity:
             assert s.expected_triage is not None, f"{s.scenario_id}: missing expected_triage"
             triage = s.expected_triage
             if triage.category is not None:
-                assert triage.category in VALID_CATEGORIES, (
-                    f"{s.scenario_id}: invalid category '{triage.category}'"
-                )
+                assert triage.category in VALID_CATEGORIES, f"{s.scenario_id}: invalid category '{triage.category}'"
             if triage.priority is not None:
-                assert triage.priority in VALID_PRIORITIES, (
-                    f"{s.scenario_id}: invalid priority '{triage.priority}'"
-                )
+                assert triage.priority in VALID_PRIORITIES, f"{s.scenario_id}: invalid priority '{triage.priority}'"
             if triage.assigned_team is not None:
-                assert triage.assigned_team in VALID_TEAMS, (
-                    f"{s.scenario_id}: invalid team '{triage.assigned_team}'"
-                )
+                assert triage.assigned_team in VALID_TEAMS, f"{s.scenario_id}: invalid team '{triage.assigned_team}'"
 
     def test_all_have_tags(self, mastery_dc_scenarios: list[EvalScenario]) -> None:
         for s in mastery_dc_scenarios:
@@ -94,9 +88,7 @@ class TestMasteryDcScenarioIntegrity:
         for s in mastery_dc_scenarios:
             assert s.ticket.reporter.name, f"{s.scenario_id}: empty reporter name"
             assert s.ticket.reporter.email, f"{s.scenario_id}: empty reporter email"
-            assert "@contoso.com" in s.ticket.reporter.email, (
-                f"{s.scenario_id}: reporter email not from contoso.com"
-            )
+            assert "@contoso.com" in s.ticket.reporter.email, f"{s.scenario_id}: reporter email not from contoso.com"
 
     def test_no_duplicate_ticket_ids(self, mastery_dc_scenarios: list[EvalScenario]) -> None:
         ticket_ids = [s.ticket.ticket_id for s in mastery_dc_scenarios]
@@ -147,9 +139,7 @@ class TestMasteryDcNoiseTypes:
         s = next((s for s in mastery_dc_scenarios if s.scenario_id == "dc-174"), None)
         if s is None:
             pytest.skip("dc-174 not registered")
-        assert "%20" in s.ticket.description or "%0A" in s.ticket.description, (
-            "dc-174: expected URL-encoded content"
-        )
+        assert "%20" in s.ticket.description or "%0A" in s.ticket.description, "dc-174: expected URL-encoded content"
 
     def test_dc175_has_tab_delimited_data(self, mastery_dc_scenarios: list[EvalScenario]) -> None:
         """Description should contain tab characters in a data table."""
@@ -241,9 +231,7 @@ class TestMasteryDcNoiseTypes:
         if s is None:
             pytest.skip("dc-184 not registered")
         assert "[00:" in s.ticket.description, "dc-184: expected phone transcript timestamps"
-        assert "AGENT" in s.ticket.description or "CALLER" in s.ticket.description, (
-            "dc-184: expected speaker labels"
-        )
+        assert "AGENT" in s.ticket.description or "CALLER" in s.ticket.description, "dc-184: expected speaker labels"
 
     def test_dc185_has_hex_dump(self, mastery_dc_scenarios: list[EvalScenario]) -> None:
         """Description should contain hexadecimal dump content."""
@@ -357,10 +345,6 @@ class TestMasteryDcClassification:
     def test_category_coverage(self, mastery_dc_scenarios: list[EvalScenario]) -> None:
         """Mastery scenarios should cover multiple categories."""
         categories = {
-            s.expected_triage.category
-            for s in mastery_dc_scenarios
-            if s.expected_triage and s.expected_triage.category
+            s.expected_triage.category for s in mastery_dc_scenarios if s.expected_triage and s.expected_triage.category
         }
-        assert len(categories) >= 4, (
-            f"Expected coverage of at least 4 categories, got {len(categories)}: {categories}"
-        )
+        assert len(categories) >= 4, f"Expected coverage of at least 4 categories, got {len(categories)}: {categories}"

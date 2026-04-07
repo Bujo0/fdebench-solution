@@ -28,12 +28,7 @@ def extended_dc_scenarios() -> list[EvalScenario]:
     import ms.evals_core.framework.scenarios.data_cleanup_extended  # noqa: F401, PLC0415
 
     all_dc = default_registry.by_category(ScenarioCategory.DATA_CLEANUP)
-    return [
-        s
-        for s in all_dc
-        if s.scenario_id.startswith("dc-")
-        and 151 <= int(s.scenario_id.split("-")[1]) <= 170
-    ]
+    return [s for s in all_dc if s.scenario_id.startswith("dc-") and 151 <= int(s.scenario_id.split("-")[1]) <= 170]
 
 
 # ── Structural integrity ──────────────────────────────────────────────
@@ -112,9 +107,7 @@ class TestExtendedDataCleanupExpectedTriage:
         for s in extended_dc_scenarios:
             if s.expected_triage and s.expected_triage.missing_information:
                 for item in s.expected_triage.missing_information:
-                    assert item.strip().lower() in normalized_valid, (
-                        f"{s.scenario_id}: invalid missing info '{item}'"
-                    )
+                    assert item.strip().lower() in normalized_valid, f"{s.scenario_id}: invalid missing info '{item}'"
 
 
 # ── Data quality pattern coverage ─────────────────────────────────────
@@ -257,11 +250,7 @@ class TestExtendedDataCleanupScoring:
     def _gold_response(self, scenario: EvalScenario) -> dict:
         """Build a gold-standard response dict from the scenario's expected triage."""
         expected = scenario.expected_triage
-        escalation = (
-            expected.needs_escalation
-            if expected and expected.needs_escalation is not None
-            else False
-        )
+        escalation = expected.needs_escalation if expected and expected.needs_escalation is not None else False
         return {
             "ticket_id": scenario.ticket.ticket_id,
             "category": expected.category if expected and expected.category else "General Inquiry",

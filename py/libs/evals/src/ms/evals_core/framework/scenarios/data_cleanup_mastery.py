@@ -96,8 +96,7 @@ default_registry.register(
         scenario_id="dc-172",
         name="Emoji-only subject line",
         description=(
-            "Subject line consists entirely of emoji with no text. "
-            "The description contains the actual access issue."
+            "Subject line consists entirely of emoji with no text. The description contains the actual access issue."
         ),
         category=_CATEGORY,
         tags=["emoji_subject", "minimal_metadata", "unicode"],
@@ -129,18 +128,14 @@ default_registry.register(
 # ---------------------------------------------------------------------------
 # dc-173: Control characters and null bytes in description
 # ---------------------------------------------------------------------------
-_CONTROL_CHARS = (
-    "\x01\x02\x03\x04\x05\x06\x07\x08"
-    "\x0b\x0c\x0e\x0f\x10\x11\x12\x13"
-)
+_CONTROL_CHARS = "\x01\x02\x03\x04\x05\x06\x07\x08\x0b\x0c\x0e\x0f\x10\x11\x12\x13"
 
 default_registry.register(
     EvalScenario(
         scenario_id="dc-173",
         name="Control characters and null bytes",
         description=(
-            "Ticket body contains ASCII control characters from a "
-            "corrupted copy-paste from a terminal session."
+            "Ticket body contains ASCII control characters from a corrupted copy-paste from a terminal session."
         ),
         category=_CATEGORY,
         tags=["control_chars", "binary_artifact", "corrupted_paste"],
@@ -387,8 +382,7 @@ default_registry.register(
         scenario_id="dc-178",
         name="Base64-encoded entire email body",
         description=(
-            "Entire ticket body is base64-encoded, as if the email "
-            "gateway failed to decode a MIME transfer-encoding."
+            "Entire ticket body is base64-encoded, as if the email gateway failed to decode a MIME transfer-encoding."
         ),
         category=_CATEGORY,
         tags=["base64_full_body", "mime_encoding", "transfer_encoding"],
@@ -396,9 +390,7 @@ default_registry.register(
             ticket_id="INC-5178",
             subject="SharePoint access issue - URGENT",
             description=(
-                "Content-Transfer-Encoding: base64\n"
-                "Content-Type: text/plain; charset=UTF-8\n\n"
-                + _BASE64_BODY
+                "Content-Transfer-Encoding: base64\nContent-Type: text/plain; charset=UTF-8\n\n" + _BASE64_BODY
             ),
             reporter=_reporter("Tom Henderson", "t.henderson@contoso.com", "Corporate Strategy"),
             created_at="2026-03-18T09:15:00Z",
@@ -479,9 +471,7 @@ default_registry.register(
                 "the ingress controller stopped routing traffic to the backend "
                 "pods. All HTTP requests return 502 Bad Gateway. This is affecting "
                 "our production API that the trading desk depends on.\n\n"
-                "Current config:\n"
-                + _NESTED_JSON
-                + "\n\nI think the issue might be with the subnet annotation — "
+                "Current config:\n" + _NESTED_JSON + "\n\nI think the issue might be with the subnet annotation — "
                 "we moved to aks-subnet-02 last week but this config still "
                 "references aks-subnet-01. The cert rotation also happened "
                 "yesterday so it could be a TLS issue too.\n\n"
@@ -522,7 +512,7 @@ default_registry.register(
                 "יש לי בעיה בחיבור ל-VPN מהמשרד בתל אביב. "
                 "I am trying to connect to the GlobalProtect VPN gateway "
                 "vpn-eu.contoso.com but I keep getting error GP-0011 "
-                "(\"Gateway not reachable\"). "
+                '("Gateway not reachable"). '
                 "הבעיה התחילה אחרי שדרוג הרשת אתמול. "
                 "My colleague next to me can connect fine. "
                 "אני משתמש ב-Windows 11 עם GlobalProtect 6.2.1. "
@@ -568,9 +558,7 @@ default_registry.register(
             ticket_id="INC-5181",
             subject="Printer outputting garbled text",
             description=(
-                "Original ticket from PDF scan:\n\n"
-                + _PDF_GARBLE
-                + "\n\n"
+                "Original ticket from PDF scan:\n\n" + _PDF_GARBLE + "\n\n"
                 "Additional context from phone follow-up: The user reports "
                 "that the HP LaserJet Pro on Floor 5, Building 3 is printing "
                 "documents with missing or substituted characters. Started "
@@ -600,10 +588,7 @@ _SVG_CONTENT = (
     "CPU Usage Over Time</text>"
     '<line x1="50" y1="350" x2="750" y2="350" stroke="#000" stroke-width="2"/>'
     '<line x1="50" y1="50" x2="50" y2="350" stroke="#000" stroke-width="2"/>'
-    + "".join(
-        f'<circle cx="{50 + i * 14}" cy="{350 - (i * 3 + 20) * 3}" r="3" fill="red"/>'
-        for i in range(50)
-    )
+    + "".join(f'<circle cx="{50 + i * 14}" cy="{350 - (i * 3 + 20) * 3}" r="3" fill="red"/>' for i in range(50))
     + "</svg>"
 )
 
@@ -624,9 +609,7 @@ default_registry.register(
             description=(
                 "Hi team,\n\n"
                 "We're seeing sustained high CPU on SQLSRV-PROD-01. "
-                "Here is the chart from our monitoring:\n\n"
-                + _SVG_CONTENT
-                + "\n\n"
+                "Here is the chart from our monitoring:\n\n" + _SVG_CONTENT + "\n\n"
                 "As shown above, CPU has been climbing steadily since 4 AM "
                 "and is now at ~95%. The SQL Server instance is running our "
                 "core trading platform database. Query Store shows a new "
@@ -676,9 +659,7 @@ default_registry.register(
             description=(
                 "Hi, this was auto-forwarded from PagerDuty. Our API gateway "
                 "has been failing health checks since 6 AM. Here are all the "
-                "alerts:\n\n"
-                + _ALERT_BLOCK
-                + "\n\nCan someone please look into why the API gateway is "
+                "alerts:\n\n" + _ALERT_BLOCK + "\n\nCan someone please look into why the API gateway is "
                 "returning 503s? The backend services seem to be running "
                 "fine — I can hit them directly. I think it might be the "
                 "load balancer health probe configuration that was changed "
@@ -761,7 +742,9 @@ default_registry.register(
 # dc-185: Binary/hex dump in description
 # ---------------------------------------------------------------------------
 _HEX_DUMP = "\n".join(
-    f"0x{i * 16:08x}  " + " ".join(f"{(i * 16 + j) % 256:02x}" for j in range(16)) + "  "
+    f"0x{i * 16:08x}  "
+    + " ".join(f"{(i * 16 + j) % 256:02x}" for j in range(16))
+    + "  "
     + "".join(chr((i * 16 + j) % 94 + 33) for j in range(16))
     for i in range(30)
 )
@@ -771,8 +754,7 @@ default_registry.register(
         scenario_id="dc-185",
         name="Binary/hex dump pasted in description",
         description=(
-            "User pasted a hex dump from a memory debugger into the "
-            "ticket body while reporting an application crash."
+            "User pasted a hex dump from a memory debugger into the ticket body while reporting an application crash."
         ),
         category=_CATEGORY,
         tags=["hex_dump", "binary_data", "debug_output"],
@@ -782,9 +764,7 @@ default_registry.register(
             description=(
                 "Our custom trading application (ContosoTrader v4.2.1) is "
                 "crashing with an access violation. Here is the memory dump "
-                "from WinDbg at the crash point:\n\n"
-                + _HEX_DUMP
-                + "\n\n"
+                "from WinDbg at the crash point:\n\n" + _HEX_DUMP + "\n\n"
                 "The crash happens when loading the options pricing module. "
                 "Stack trace points to ntdll!RtlAllocateHeap. Looks like a "
                 "heap corruption issue. This affects 12 traders on the "
@@ -964,7 +944,7 @@ _EVENTLOG_XML = "\n".join(
     f"<System><EventID>{1000 + i}</EventID>"
     f"<Level>{[1, 2, 3, 4][i % 4]}</Level>"
     f'<TimeCreated SystemTime="2026-03-18T{8 + i // 6:02d}:{(i * 10) % 60:02d}:00.000Z"/>'
-    f"<Source Name=\"{'Application Error' if i % 3 == 0 else 'Microsoft-Windows-Security-Auditing'}\"/>"
+    f'<Source Name="{"Application Error" if i % 3 == 0 else "Microsoft-Windows-Security-Auditing"}"/>'
     f"</System><EventData><Data>Process: outlook.exe, PID: {4000 + i * 7}</Data>"
     f"<Data>Exception code: 0x{0xC0000005 + i:08x}</Data></EventData></Event>"
     for i in range(20)
@@ -974,10 +954,7 @@ default_registry.register(
     EvalScenario(
         scenario_id="dc-189",
         name="Windows Event Log XML dump",
-        description=(
-            "Ticket body contains 20 Windows Event Log entries in raw "
-            "XML format, dumped from Event Viewer."
-        ),
+        description=("Ticket body contains 20 Windows Event Log entries in raw XML format, dumped from Event Viewer."),
         category=_CATEGORY,
         tags=["event_log", "xml_dump", "windows"],
         ticket=EvalTicket(
@@ -1033,9 +1010,7 @@ default_registry.register(
             ticket_id="INC-5190",
             subject="Wi-Fi disconnecting â\x80\x93 limited connectivity",
             description=(
-                "Hi IT support,\n\n"
-                + _MOJIBAKE
-                + "\n\nIâ\x80\x99m on Floor 3, Building 2, London office. "
+                "Hi IT support,\n\n" + _MOJIBAKE + "\n\nIâ\x80\x99m on Floor 3, Building 2, London office. "
                 "Machine: Dell Latitude 7440, Windows 11 23H2.\n\n"
                 "Thanks,\nOliver Jenkins\nFixed Income"
             ),

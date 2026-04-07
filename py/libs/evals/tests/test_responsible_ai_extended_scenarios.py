@@ -27,12 +27,7 @@ def extended_rai_scenarios() -> list[EvalScenario]:
     import ms.evals_core.framework.scenarios.responsible_ai_extended  # noqa: F401, PLC0415
 
     all_rai = default_registry.by_category(ScenarioCategory.RESPONSIBLE_AI)
-    return [
-        s
-        for s in all_rai
-        if s.scenario_id.startswith("rai-")
-        and 261 <= int(s.scenario_id.split("-")[1]) <= 285
-    ]
+    return [s for s in all_rai if s.scenario_id.startswith("rai-") and 261 <= int(s.scenario_id.split("-")[1]) <= 285]
 
 
 # ── Structural integrity ──────────────────────────────────────────────
@@ -111,15 +106,12 @@ class TestExtendedRAIConstraints:
         for s in extended_rai_scenarios:
             assert s.constraints is not None, f"{s.scenario_id}: missing constraints"
 
-    def test_adversarial_scenarios_have_forbidden_strings(
-        self, extended_rai_scenarios: list[EvalScenario]
-    ) -> None:
+    def test_adversarial_scenarios_have_forbidden_strings(self, extended_rai_scenarios: list[EvalScenario]) -> None:
         for s in extended_rai_scenarios:
             has_must_not = len(s.constraints.must_not_contain) > 0
             has_must_not_remediation = len(s.constraints.must_not_contain_in_remediation) > 0
             assert has_must_not or has_must_not_remediation, (
-                f"{s.scenario_id}: adversarial scenario should have "
-                "must_not_contain or must_not_contain_in_remediation"
+                f"{s.scenario_id}: adversarial scenario should have must_not_contain or must_not_contain_in_remediation"
             )
 
     def test_forbidden_strings_are_nonempty(self, extended_rai_scenarios: list[EvalScenario]) -> None:
@@ -305,26 +297,14 @@ class TestExtendedRAIScoring:
     def _safe_response(self, scenario: EvalScenario) -> dict:
         """Build a safe gold-standard response."""
         expected = scenario.expected_triage
-        escalation = (
-            expected.needs_escalation
-            if expected and expected.needs_escalation is not None
-            else False
-        )
+        escalation = expected.needs_escalation if expected and expected.needs_escalation is not None else False
         return {
             "ticket_id": scenario.ticket.ticket_id,
-            "category": (
-                expected.category
-                if expected and expected.category
-                else "Not a Support Ticket"
-            ),
+            "category": (expected.category if expected and expected.category else "Not a Support Ticket"),
             "priority": expected.priority if expected and expected.priority else "P4",
             "assigned_team": expected.assigned_team if expected and expected.assigned_team else "None",
             "needs_escalation": escalation,
-            "missing_information": (
-                expected.missing_information
-                if expected and expected.missing_information
-                else []
-            ),
+            "missing_information": (expected.missing_information if expected and expected.missing_information else []),
             "next_best_action": "Review and handle appropriately.",
             "remediation_steps": ["Follow standard operating procedure."],
         }
@@ -335,8 +315,7 @@ class TestExtendedRAIScoring:
             response = self._safe_response(s)
             result = score_responsible_ai(s, response)
             assert result.passed, (
-                f"{s.scenario_id}: safe response should pass. "
-                f"Failed: {[c for c in result.checks if not c.passed]}"
+                f"{s.scenario_id}: safe response should pass. Failed: {[c for c in result.checks if not c.passed]}"
             )
 
     def test_injection_compliant_response_fails(self, extended_rai_scenarios: list[EvalScenario]) -> None:
@@ -355,8 +334,7 @@ class TestExtendedRAIScoring:
             )
             assert forbidden_check is not None
             assert not forbidden_check.passed, (
-                f"{s.scenario_id}: response containing '{forbidden}' should fail "
-                "the no_forbidden_content check"
+                f"{s.scenario_id}: response containing '{forbidden}' should fail the no_forbidden_content check"
             )
 
     def test_remediation_with_forbidden_content_fails(self, extended_rai_scenarios: list[EvalScenario]) -> None:
@@ -373,9 +351,7 @@ class TestExtendedRAIScoring:
                 None,
             )
             assert remediation_check is not None
-            assert not remediation_check.passed, (
-                f"{s.scenario_id}: remediation containing '{forbidden}' should fail"
-            )
+            assert not remediation_check.passed, f"{s.scenario_id}: remediation containing '{forbidden}' should fail"
 
     def test_adversarial_category_override_fails(self, extended_rai_scenarios: list[EvalScenario]) -> None:
         """A response with an invalid (adversarial) category should fail."""
@@ -429,8 +405,7 @@ class TestExtendedRAICrossCutting:
         not_support_count = sum(
             1
             for s in extended_rai_scenarios
-            if s.expected_triage
-            and s.expected_triage.category == "Not a Support Ticket"
+            if s.expected_triage and s.expected_triage.category == "Not a Support Ticket"
         )
         # At least 40% should be "Not a Support Ticket"
         assert not_support_count >= len(extended_rai_scenarios) * 0.4, (
@@ -442,9 +417,7 @@ class TestExtendedRAICrossCutting:
         real_issue_ids = {"rai-261", "rai-262", "rai-266", "rai-273", "rai-280", "rai-281", "rai-283"}
         for s in extended_rai_scenarios:
             if s.scenario_id in real_issue_ids:
-                assert s.expected_triage is not None, (
-                    f"{s.scenario_id}: should have expected triage for real issue"
-                )
+                assert s.expected_triage is not None, f"{s.scenario_id}: should have expected triage for real issue"
                 assert s.expected_triage.category != "Not a Support Ticket", (
                     f"{s.scenario_id}: real issue should not be 'Not a Support Ticket'"
                 )

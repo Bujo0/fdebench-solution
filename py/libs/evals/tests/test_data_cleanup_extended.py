@@ -74,17 +74,11 @@ class TestExtendedDcScenarioIntegrity:
             assert s.expected_triage is not None, f"{s.scenario_id}: missing expected_triage"
             triage = s.expected_triage
             if triage.category is not None:
-                assert triage.category in VALID_CATEGORIES, (
-                    f"{s.scenario_id}: invalid category '{triage.category}'"
-                )
+                assert triage.category in VALID_CATEGORIES, f"{s.scenario_id}: invalid category '{triage.category}'"
             if triage.priority is not None:
-                assert triage.priority in VALID_PRIORITIES, (
-                    f"{s.scenario_id}: invalid priority '{triage.priority}'"
-                )
+                assert triage.priority in VALID_PRIORITIES, f"{s.scenario_id}: invalid priority '{triage.priority}'"
             if triage.assigned_team is not None:
-                assert triage.assigned_team in VALID_TEAMS, (
-                    f"{s.scenario_id}: invalid team '{triage.assigned_team}'"
-                )
+                assert triage.assigned_team in VALID_TEAMS, f"{s.scenario_id}: invalid team '{triage.assigned_team}'"
 
     def test_all_have_tags(self, extended_dc_scenarios: list[EvalScenario]) -> None:
         for s in extended_dc_scenarios:
@@ -94,9 +88,7 @@ class TestExtendedDcScenarioIntegrity:
         for s in extended_dc_scenarios:
             assert s.ticket.reporter.name, f"{s.scenario_id}: empty reporter name"
             assert s.ticket.reporter.email, f"{s.scenario_id}: empty reporter email"
-            assert "@contoso.com" in s.ticket.reporter.email, (
-                f"{s.scenario_id}: reporter email not from contoso.com"
-            )
+            assert "@contoso.com" in s.ticket.reporter.email, f"{s.scenario_id}: reporter email not from contoso.com"
 
     def test_no_duplicate_ticket_ids(self, extended_dc_scenarios: list[EvalScenario]) -> None:
         ticket_ids = [s.ticket.ticket_id for s in extended_dc_scenarios]
@@ -140,9 +132,7 @@ class TestExtendedDcNoiseTypes:
         if s is None:
             pytest.skip("dc-136 not registered")
 
-        combining_count = sum(
-            1 for c in s.ticket.description if unicodedata.category(c).startswith("M")
-        )
+        combining_count = sum(1 for c in s.ticket.description if unicodedata.category(c).startswith("M"))
         assert combining_count >= 5, f"dc-136: expected Zalgo combining marks, found {combining_count}"
 
     def test_dc138_has_ansi_or_pipeline_markers(self, extended_dc_scenarios: list[EvalScenario]) -> None:
