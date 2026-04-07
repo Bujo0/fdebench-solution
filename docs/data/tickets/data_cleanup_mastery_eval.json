@@ -1,0 +1,181 @@
+[
+  {
+    "ticket_id": "INC-DCM-8001",
+    "subject": "RE: RE: FW: RE: FW: RE: RE: FW: RE: VPN issue - can someone look at this?",
+    "description": "From: Janet Olson <janet.olson@contoso.com>\nTo: Helpdesk <helpdesk@contoso.com>\nDate: Mon, 09 Mar 2026 14:52:33 -0500\n\n+helpdesk, adding you here so someone can actually look at this. See below.\n\n---------- Forwarded message ---------\nFrom: Marcus Webb <marcus.webb@contoso.com>\nDate: Mon, 09 Mar 2026 14:31:07 -0500\n\n>> Janet, I think you need to open a ticket for this. I can't help from my end.\n>>\n>> -----Original Message-----\n>> From: Janet Olson\n>> Sent: Monday, March 9, 2026 2:15 PM\n>> To: Marcus Webb\n>>\n>> Marcus, any ideas? See the thread below.\n>>\n>>>>>> -----Original Message-----\n>>>>>> From: Li Wei <li.wei@contoso.com>\n>>>>>> Sent: Monday, March 9, 2026 1:45 PM\n>>>>>> To: Janet Olson; Priya Nair\n>>>>>>\n>>>>>> Yeah I had something similar last week but it resolved on its own.\n>>>>>> Not sure what changed. Maybe a server reboot?\n>>>>>>\n>>>>>>>> -----Original Message-----\n>>>>>>>> From: Priya Nair <priya.nair@contoso.com>\n>>>>>>>> Sent: Monday, March 9, 2026 1:22 PM\n>>>>>>>> To: Janet Olson; Li Wei\n>>>>>>>>\n>>>>>>>> Janet - same here, but only on Mondays weirdly. I just use\n>>>>>>>> my phone hotspot when it happens. Not ideal but works.\n>>>>>>>>\n>>>>>>>>>> -----Original Message-----\n>>>>>>>>>> From: Janet Olson <janet.olson@contoso.com>\n>>>>>>>>>> Sent: Monday, March 9, 2026 12:58 PM\n>>>>>>>>>> To: Priya Nair; Li Wei\n>>>>>>>>>>\n>>>>>>>>>> Hey team, is anyone else having trouble with the VPN?\n>>>>>>>>>> It keeps disconnecting every 10-15 minutes and I have to\n>>>>>>>>>> manually reconnect. GlobalProtect just drops the connection\n>>>>>>>>>> with no warning. Been happening since last Thursday.\n>>>>>>>>>> I'm on the 4th floor, Building C, using my Dell laptop\n>>>>>>>>>> on WiFi. Really need this fixed ASAP because I can't\n>>>>>>>>>> stay connected to our internal dev servers.\n>>>>>>>>>>\n>>>>>>>>>>>> ---------- Forwarded message ----------\n>>>>>>>>>>>> From: IT Notifications <no-reply@contoso.com>\n>>>>>>>>>>>> Date: Thu, 05 Mar 2026 08:00:00 -0500\n>>>>>>>>>>>>\n>>>>>>>>>>>> Scheduled maintenance on VPN gateway completed\n>>>>>>>>>>>> successfully. No further action required.\n>>>>>>>>>>>>\n>>>>>>>>>>>> Regards,\n>>>>>>>>>>>> IT Operations",
+    "reporter": {
+      "name": "Janet Olson",
+      "email": "janet.olson@contoso.com",
+      "department": "Engineering"
+    },
+    "created_at": "2026-03-09T19:52:33Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCM-8002",
+    "subject": "Laptop crashed with blue screen - need help urgently",
+    "description": "Hi support,\n\nMy laptop crashed with a blue screen this morning while I was working in Excel. I managed to take some photos of the screen before it rebooted. Here they are:\n\n[Screenshot 1 - Blue Screen]\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAMAAABlApw1AAAAA3NCSVQICAjb4U/gAAAAxlBMVEX///8AAACAgIBVVVWqqqqZmZnu7u7MzMyIiIhmZmYzMzMREREiIiK7u7tERETd3d3FxcVxcXGSkpKhoaF8fHwHBwcaGhotLS06OjpLS0tSUlJbW1tjY2NpaWlubm50dHR5eXmDg4OLi4uNjY2Pj4+UlJSWlpaampqcnJyenp6goKCjo6Ompqarq6utra2xsbGzs7O1tbW4uLi6urrAwMDCwsLHx8fJycnPz8/R0dHV1dXY2Nje3t7i4uLl5eXp6ent7e3x8fH5+fkNRKasAAAA9HRSTlMA\n\nThe screen was completely blue with white text. I couldn't read all of it because it restarted quickly.\n\n[Screenshot 2 - Error after reboot]\ndata:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMCwsKCwsNDhIQDQ4RDgsLEBYQ\n\nAfter it rebooted there was an error message but I couldn't capture it in time.\n\n[Screenshot 3 - Event Viewer]\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAABl0RVh0U29mdHdhcmUAd2FpbnQubmV0IDQuMC4yMfEgaZUAACAASURBVHhe7N0HfBTV+sbxJ4UkEDqI0hQLCCgWEBuCFBFFRVFRERX7te/V22wajWLvXXuvvxW7InZFsYtYsICigAhSBOmBlMn/PGd2NoUkJLub3dn8Xz+f3U1mZ2fO7Jkz5z2nGAAAAAAAAAAAAAAAAAAAAAAAAIAkSk92AgAAAJKFAAAAAJBiCAAAAACpJZkJAAAASJYkJwAAABIlJQAAAABIIwIAAABACiEAAAAApBACAAAAQAohAAAAACQfAQAAACBxCAAAAACJQwAAAABIHAIAAABA4hAAAAAAEocAAAAAkDgEAAAAgMQhAAAAACQOAQAAAKBMBAAAAIAyEQAAAADKRAAAAAAoEwEAAACgTAQAAACA\n\nI think it said something about KERNEL_DATA_INPAGE_ERROR but I'm not 100% sure. This is the third time it's happened this month. Each time I lose whatever I was working on. Please help - I have a presentation due tomorrow and I can't afford another crash.\n\nThanks,\nRobert Chen",
+    "reporter": {
+      "name": "Robert Chen",
+      "email": "robert.chen@contoso.com",
+      "department": "Sales"
+    },
+    "created_at": "2026-03-11T09:17:45Z",
+    "channel": "email",
+    "attachments": [
+      "bluescreen_photo1.jpg",
+      "bluescreen_photo2.jpg",
+      "event_viewer_screenshot.png"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCM-8003",
+    "subject": "<h1>SharePoint Access Problem</h1><br/><b>URGENT</b>",
+    "description": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<title>Support Request</title>\n<style>\n  body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }\n  .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; }\n  h1 { color: #333366; font-size: 24px; }\n  .info-table { width: 100%; border-collapse: collapse; margin: 15px 0; }\n  .info-table td { padding: 8px 12px; border: 1px solid #ddd; }\n  .info-table .label { background-color: #f0f0f0; font-weight: bold; width: 30%; }\n  .footer { font-size: 11px; color: #999; margin-top: 30px; border-top: 1px solid #eee; padding-top: 10px; }\n  .highlight { background-color: #fff3cd; padding: 10px; border-left: 4px solid #ffc107; }\n  .status-badge { display: inline-block; padding: 3px 8px; background: #dc3545; color: white; border-radius: 3px; font-size: 12px; }\n</style>\n<script>\n  // Analytics tracking\n  (function() {\n    var tracker = document.createElement('img');\n    tracker.src = 'https://analytics.contoso.com/track?event=ticket_view&t=' + Date.now();\n    tracker.style.display = 'none';\n    document.body.appendChild(tracker);\n  })();\n  console.log('Support form loaded at: ' + new Date().toISOString());\n  window.addEventListener('load', function() {\n    document.querySelectorAll('.auto-expand').forEach(function(el) {\n      el.style.height = el.scrollHeight + 'px';\n    });\n  });\n</script>\n</head>\n<body>\n<div class=\"container\">\n<h1>IT Support Request Form</h1>\n<span class=\"status-badge\">NEW</span>\n<table class=\"info-table\">\n<tr><td class=\"label\">Requester</td><td>Amara Okafor</td></tr>\n<tr><td class=\"label\">Department</td><td>Legal</td></tr>\n<tr><td class=\"label\">Date</td><td>2026-03-12</td></tr>\n<tr><td class=\"label\">Priority</td><td>Medium</td></tr>\n</table>\n<div class=\"highlight\">\n<p>I am unable to access the Legal Department's SharePoint document library at https://contoso.sharepoint.com/sites/LegalDocs. When I try to open it, I get an \"Access Denied - You do not have permission to access this resource\" error. I was able to access it fine until last week. I need to retrieve case files for an upcoming court deadline on March 20th. Other members of my team (David Park and Sarah Liu) can still access it. My account seems to have been removed from the permissions group somehow.</p>\n</div>\n<br/>\n<div style=\"margin-top: 20px;\">\n<table class=\"info-table\">\n<tr><td class=\"label\">Browser</td><td>Microsoft Edge 122.0</td></tr>\n<tr><td class=\"label\">OS</td><td>Windows 11 Pro</td></tr>\n<tr><td class=\"label\">Network</td><td>Corporate LAN</td></tr>\n</table>\n</div>\n</div>\n<div class=\"footer\">\n<p>This form was auto-generated by the Contoso IT Portal v3.2.1 &copy; 2026</p>\n<p>Session ID: a4f8e2c1-9b73-4d56-8e12-3f7a9c0d1b5e</p>\n<p>User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36</p>\n</div>\n</body>\n</html>",
+    "reporter": {
+      "name": "Amara Okafor",
+      "email": "amara.okafor@contoso.com",
+      "department": "Legal"
+    },
+    "created_at": "2026-03-12T10:30:00Z",
+    "channel": "portal",
+    "attachments": [
+      "access_denied_screenshot.html"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCM-8004",
+    "subject": "Outlook not sending emails - getting weird errors",
+    "description": "Hi IT team,\n\nIâ€™ve been having trouble sending emails from Outlook since this morning. Every time I try to send a message, I get an error popup but the text is all garbled.\n\nThe error message looks something like this:\nÃ‰chec de lâ€™envoi du message. Le serveur a rÃ©pondu : 550 5.7.1 AccÃ¨s refusÃ©\n\nI tried copying the error but it came out like this:\n\\x00S\\x00e\\x00n\\x00d\\x00 \\x00f\\x00a\\x00i\\x00l\\x00e\\x00d\\x00:\\x00 \\x00t\\x00r\\x00a\\x00n\\x00s\\x00p\\x00o\\x00r\\x00t\\x00 \\x00e\\x00r\\x00r\\x00o\\x00r\n\nThen when I checked my outbox, the status column shows: Ã¼bermittlung fehlgeschlagen â€\" Verbindungsfehler and also FÃ¶rsÃ¶ket att skicka misslyckades\n\nI can receive emails fine, itâ€™s just sending thatâ€™s broken. Iâ€™ve tried restarting Outlook three times. My colleague KÃ¤the MÃ¼ller (kÃ¤the.mÃ¼ller@contoso.com â€\" or is it kathe.muller@contoso.com? the system shows it differently everywhere) is having the same problem.\n\nAlso the autocomplete in the To: field is showing names with weird characters now:\n- Josâ€° GarcÃ­a â†' should be José García\n- Ren\\xc3\\xa9 Dub\\xc3\\xb6is â†' should be René Dubois\n- Ã˜yvind SÃ¸rensen â†' shows as Ã\\x98yvind SÃ\\x83Â¸rensen in some views\n\nThe sent items folder also has messages with subjects like: RE: Q1 Budget RÃ©sumÃ© â€\" Final Versiâ€¹n and FW: CafÃ© Meeting â€\" Schedule Ã†ndring\n\nPlease help, I have important client emails that need to go out today.\n\nThanks,\nHenrik Johansson",
+    "reporter": {
+      "name": "Henrik Johansson",
+      "email": "henrik.johansson@contoso.com",
+      "department": "Client Services"
+    },
+    "created_at": "2026-03-10T08:45:12Z",
+    "channel": "email",
+    "attachments": [
+      "outlook_error_screenshot.png",
+      "outbox_status.png"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCM-8005",
+    "subject": "CRITICAL: Production database connection timeouts - application down",
+    "description": "Production CRM application is completely down due to database connection timeouts. Users are getting 500 errors on all pages. This started at approximately 06:30 UTC today. Pasting the application logs below:\n\n2026-03-13T06:30:01.123Z [INFO ] [pool-3-thread-12] c.c.d.ConnectionPool - Attempting connection to db-prod-east-01.contoso.internal:5432\n2026-03-13T06:30:01.125Z [DEBUG] [pool-3-thread-12] c.c.d.ConnectionPool - Connection parameters: timeout=30000ms, maxRetries=3, poolSize=50\n2026-03-13T06:30:01.126Z [INFO ] [pool-3-thread-14] c.c.a.HealthCheck - Health check initiated for service CRM-API-v2\n2026-03-13T06:30:01.340Z [WARN ] [pool-3-thread-12] c.c.d.ConnectionPool - Connection attempt 1 failed: java.net.SocketTimeoutException: connect timed out\n2026-03-13T06:30:01.341Z [DEBUG] [pool-3-thread-12] c.c.d.RetryHandler - Scheduling retry attempt 2 in 1000ms\n2026-03-13T06:30:02.345Z [INFO ] [pool-3-thread-12] c.c.d.ConnectionPool - Attempting connection to db-prod-east-01.contoso.internal:5432 (retry 2/3)\n2026-03-13T06:30:02.890Z [WARN ] [pool-3-thread-12] c.c.d.ConnectionPool - Connection attempt 2 failed: java.net.SocketTimeoutException: connect timed out\n2026-03-13T06:30:02.891Z [DEBUG] [pool-3-thread-12] c.c.d.RetryHandler - Scheduling retry attempt 3 in 2000ms\n2026-03-13T06:30:04.895Z [INFO ] [pool-3-thread-12] c.c.d.ConnectionPool - Attempting connection to db-prod-east-01.contoso.internal:5432 (retry 3/3)\n2026-03-13T06:30:05.401Z [ERROR] [pool-3-thread-12] c.c.d.ConnectionPool - All connection attempts exhausted for db-prod-east-01.contoso.internal:5432\n2026-03-13T06:30:05.402Z [ERROR] [pool-3-thread-12] c.c.d.ConnectionPool - java.net.SocketTimeoutException: connect timed out\n\tat java.net.PlainSocketImpl.socketConnect(Native Method)\n\tat java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)\n\tat java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)\n\tat java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)\n\tat java.net.Socket.connect(Socket.java:607)\n\tat org.postgresql.core.PGStream.createSocket(PGStream.java:241)\n\tat org.postgresql.core.PGStream.<init>(PGStream.java:98)\n\tat org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:109)\n\tat org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:235)\n2026-03-13T06:30:05.410Z [ERROR] [http-nio-8080-exec-7] c.c.w.GlobalExceptionHandler - Unhandled exception in request GET /api/v2/customers\n2026-03-13T06:30:05.411Z [ERROR] [http-nio-8080-exec-7] c.c.w.GlobalExceptionHandler - org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC connection\n2026-03-13T06:30:05.500Z [INFO ] [pool-3-thread-14] c.c.a.HealthCheck - Health check FAILED: database=DOWN, cache=UP, messageQueue=UP\n2026-03-13T06:30:06.001Z [INFO ] [pool-3-thread-15] c.c.d.ConnectionPool - Attempting connection to db-prod-east-02.contoso.internal:5432 (failover)\n2026-03-13T06:30:06.550Z [WARN ] [pool-3-thread-15] c.c.d.ConnectionPool - Failover connection also failed: java.net.SocketTimeoutException\n2026-03-13T06:30:06.700Z [INFO ] [scheduled-task-1] c.c.m.MetricsCollector - Active connections: 0/50, Pending requests: 347, Queue depth: 892\n2026-03-13T06:30:07.100Z [WARN ] [http-nio-8080-exec-9] c.c.w.RateLimiter - Request rate exceeding threshold: 450 req/s (limit: 200 req/s)\n2026-03-13T06:30:07.200Z [ERROR] [http-nio-8080-exec-11] c.c.w.GlobalExceptionHandler - Unhandled exception in request POST /api/v2/orders\n2026-03-13T06:30:07.201Z [ERROR] [http-nio-8080-exec-11] c.c.w.GlobalExceptionHandler - org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC connection\n2026-03-13T06:30:08.000Z [INFO ] [scheduled-task-2] c.c.a.AlertManager - ALERT TRIGGERED: P1_DATABASE_UNREACHABLE sent to oncall-data@contoso.com\n2026-03-13T06:30:08.500Z [INFO ] [pool-3-thread-16] c.c.d.ConnectionPool - Attempting connection to db-prod-east-01.contoso.internal:5432\n2026-03-13T06:30:09.100Z [WARN ] [pool-3-thread-16] c.c.d.ConnectionPool - Connection attempt failed: java.net.SocketTimeoutException: connect timed out\n2026-03-13T06:30:10.000Z [INFO ] [scheduled-task-1] c.c.m.MetricsCollector - Active connections: 0/50, Pending requests: 523, Queue depth: 1247\n2026-03-13T06:30:10.100Z [ERROR] [http-nio-8080-exec-15] c.c.w.CircuitBreaker - Circuit breaker OPEN for database operations. Failing fast.\n2026-03-13T06:30:10.500Z [INFO ] [scheduled-task-3] c.c.d.ConnectionPool - Pool statistics: created=0, destroyed=50, active=0, idle=0, waiting=523\n2026-03-13T06:30:11.000Z [WARN ] [pool-3-thread-17] c.c.d.ConnectionPool - TCP keepalive probe failed for db-prod-east-01.contoso.internal\n2026-03-13T06:30:11.500Z [INFO ] [scheduled-task-2] c.c.a.AlertManager - ALERT TRIGGERED: P1_APPLICATION_DEGRADED sent to oncall-platform@contoso.com\n2026-03-13T06:30:12.000Z [ERROR] [http-nio-8080-exec-22] c.c.w.GlobalExceptionHandler - Returning 503 Service Unavailable\n2026-03-13T06:30:12.001Z [INFO ] [scheduled-task-1] c.c.m.MetricsCollector - Error rate: 100% (last 60s), p99 latency: TIMEOUT",
+    "reporter": {
+      "name": "Carlos Mendoza",
+      "email": "carlos.mendoza@contoso.com",
+      "department": "Platform Engineering"
+    },
+    "created_at": "2026-03-13T06:45:00Z",
+    "channel": "portal",
+    "attachments": [
+      "crm-api-logs-20260313.log",
+      "grafana_dashboard_screenshot.png",
+      "connection_pool_metrics.csv"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCM-8006",
+    "subject": "Printer not working / الطابعة لا تعمل / プリンターが動作しません",
+    "description": "Hello IT support,\n\nI need help with the printer on the 2nd floor. It shows as offline.\n\nلقد حاولت إعادة تشغيل الطابعة عدة مرات لكنها لا تزال تظهر كغير متصلة. الطابعة موجودة في الطابق الثاني بجانب غرفة الاجتماعات. لقد تحققت من الكابلات وكلها متصلة بشكل صحيح. الضوء البرتقالي يومض على الطابعة.\n\nI asked my colleague Yuki to also report this:\n\n2階のプリンターが動作しません。印刷ジョブを送信しましたが、何も印刷されませんでした。プリンターの画面に「オフライン」と表示されています。ネットワーク接続を確認しましたが、ケーブルは接続されているようです。オレンジ色のランプが点滅しています。先週金曜日から問題が発生しています。\n\nTo summarize the issue:\n- The printer shows as offline on all computers\n- الطابعة تظهر كغير متصلة على جميع الأجهزة\n- すべてのコンピュータでプリンターがオフラインと表示される\n\nWe have tried:\n1. Restarting the printer / إعادة تشغيل الطابعة / プリンターの再起動\n2. Checking cables / فحص الكابلات / ケーブルの確認\n3. Removing and re-adding the printer / حذف الطابعة وإعادة إضافتها / プリンターの削除と再追加\n\nOrange blinking light is on. الضوء البرتقالي يومض. オレンジ色のランプが点滅中。\n\nPlease send someone to look at it. شكراً / ありがとうございます\n\nFatima Al-Rashid\nفاطمة الراشد",
+    "reporter": {
+      "name": "Fatima Al-Rashid",
+      "email": "fatima.alrashid@contoso.com",
+      "department": "Finance"
+    },
+    "created_at": "2026-03-16T11:20:00Z",
+    "channel": "phone",
+    "attachments": [
+      "printer_photo.jpg"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCM-8007",
+    "subject": "MFA not working - can't login to anything",
+    "description": "=== CONTOSO IT SUPPORT REQUEST FORM v4.1 ===\n\nPlease fill in all fields marked with an asterisk (*)\n\n* Full Name: {FULL_NAME}\n* Employee ID: {EMPLOYEE_ID}\n* Department: {DEPARTMENT}\n* Manager Name: {MANAGER_NAME}\n* Location: {OFFICE_LOCATION}\n  Building: {BUILDING}\n  Floor: {FLOOR}\n  Desk Number: {DESK_NUMBER}\n\n--- ISSUE DETAILS ---\n\n* Category: {SELECT_CATEGORY}\n  [ ] Hardware\n  [ ] Software\n  [ ] Network\n  [ ] Access/Permissions\n  [ ] Other\n\n* Subcategory: {SELECT_SUBCATEGORY}\n\n* Issue Description:\n{DESCRIBE_YOUR_ISSUE_IN_DETAIL}\n\n* When did the issue start? {DATE_TIME}\n\n* How many users are affected? {NUMBER_OF_USERS}\n\n--- SYSTEM INFORMATION ---\n\n* Computer Name: {COMPUTER_NAME}\n* Operating System: {OS_VERSION}\n* Last Windows Update: {LAST_UPDATE_DATE}\n* Antivirus Status: {AV_STATUS}\n* VPN Connected: {YES/NO}\n* Network Type: {WIRED/WIRELESS}\n\n--- PREVIOUS TROUBLESHOOTING ---\n\nHave you restarted your computer? {YES/NO}\nHave you cleared your browser cache? {YES/NO}\nHave you contacted your local IT contact? {YES/NO}\n\n--- ADDITIONAL INFORMATION ---\n\nOK so I didn't fill in most of the form above because I can't actually log into the system properly to look up half this stuff. HERE IS MY ACTUAL PROBLEM:\n\nMy multi-factor authentication completely stopped working two days ago. When I try to log into any Microsoft 365 app, I enter my password correctly but the MFA push notification never arrives on my phone. I've checked the Microsoft Authenticator app and it says \"No accounts found\" - it's like my account was wiped from the app. I tried to re-register for MFA at aka.ms/mfasetup but it tells me I need to authenticate first, which I can't do because MFA is broken. It's a complete catch-22.\n\nMy name is Diane Kowalski, employee ID E-4472, I'm in the Marketing department. I've been completely locked out of everything - email, Teams, SharePoint, all of it - for two days now and I'm missing critical campaign deadlines.\n\n* Attachments: {DRAG_AND_DROP_FILES_HERE}\n\n--- PRIORITY ASSESSMENT ---\n\n* Business Impact: {LOW/MEDIUM/HIGH/CRITICAL}\n* Number of people blocked: {NUMBER}\n\n=== END OF FORM ===\n\nRef: FORM-TMPL-2026-v4.1 | Auto-generated by ServicePortal",
+    "reporter": {
+      "name": "Diane Kowalski",
+      "email": "diane.kowalski@contoso.com",
+      "department": "Marketing"
+    },
+    "created_at": "2026-03-14T13:05:22Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCM-8008",
+    "subject": "file transfer super slow on network share",
+    "description": "\u001b[1m\u001b[31m=== ISSUE REPORT ===\u001b[0m\n\n\u001b[33mDate:\u001b[0m 2026-03-15\n\u001b[33mUser:\u001b[0m Tom Nakamura\n\n\u001b[32m--- Description ---\u001b[0m\n\nHey team,\t\tI'm having a really bad time\twith file transfers.\n\n\u001b[36mDetails:\u001b[0m\u000b\u000bWhen I try to copy files to \\\\fileserver\\shared\\projects\\\f\fthe transfer speed drops to about 50 KB/s.\u0007\u0007\n\nNormally\tit runs at about 100 MB/s but now it's\u001b[41m\u001b[37m EXTREMELY SLOW \u001b[0m\n\n\u001b[1mSteps I tried:\u001b[0m\n\u001b[34m1.\u001b[0m\tRestarted my computer\u001b[0K\n\u001b[34m2.\u001b[0m\tTried a different network cable\u001b[0K\n\u001b[34m3.\u001b[0m\tTried WiFi instead - same issue\u001b[0K\n\u001b[34m4.\u001b[0m\tPinged the server - ping is fine (1ms)\u001b[0K\n\n\u001b[31m\u001b[1mIMPORTANT:\u001b[0m\u0007\u0007\u0007 It's only slow for\u001b[4m large files\u001b[0m (over 100MB).\tSmall files\ttransfer fine.\n\n\u001b[2m--- System Info ---\u001b[0m\n\u001b[90mIP:\u001b[0m\t\t\tDHCP assigned\n\u001b[90mOS:\u001b[0m\t\t\tWindows 11\u000b\n\u001b[90mNIC:\u001b[0m\t\t\tIntel I219-V\f\n\n\u001b[1m\u001b[35mPriority:\u001b[0m Need this fixed because I'm working with large video files for a marketing project and\teach\ttransfer\ttakes\thours\tnow.\n\n\u001b[7m END OF REPORT \u001b[0m",
+    "reporter": {
+      "name": "Tom Nakamura",
+      "email": "tom.nakamura@contoso.com",
+      "department": "Marketing"
+    },
+    "created_at": "2026-03-15T15:33:10Z",
+    "channel": "chat",
+    "attachments": [
+      "speed_test_results.txt"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCM-8009",
+    "subject": "RE: RE: RE: Teams calls dropping - is this fixed or not?",
+    "description": "From: Gloria Reeves <gloria.reeves@contoso.com>\nDate: Tue, 17 Mar 2026 16:45:00 -0500\nTo: IT Helpdesk <helpdesk@contoso.com>\n\nHi helpdesk - I'm forwarding this mess because we STILL have the issue. Please read the whole thread and ignore all the \"it's fixed\" messages because it is NOT fixed. Teams calls drop after exactly location minutes every single time.\n\n--- Original thread ---\n\nFrom: Nathan Cross <nathan.cross@contoso.com>\nDate: Tue, 17 Mar 2026 16:30:00 -0500\n\n> Gloria is right, the issue is still happening as of 30 minutes ago. I was on a client call and it dropped at the 10 minute mark AGAIN. This is embarrassing and we're losing client confidence.\n\nFrom: Deepa Krishnan <deepa.krishnan@contoso.com>\nDate: Tue, 17 Mar 2026 15:15:00 -0500\n\n>> Actually, I take it back. It happened again just now. My 3pm meeting dropped at around the 10-minute mark. So it's definitely not fixed.\n\nFrom: Nathan Cross <nathan.cross@contoso.com>\nDate: Tue, 17 Mar 2026 14:00:00 -0500\n\n>>> I haven't had any drops today. Maybe it IS fixed? I had two short calls this morning (about 5 min each) and they were fine.\n\nFrom: Deepa Krishnan <deepa.krishnan@contoso.com>\nDate: Tue, 17 Mar 2026 12:30:00 -0500\n\n>>>> Just checked - IT said they applied a QoS policy update last night. They believe the issue should be resolved. Can everyone test and report back?\n\nFrom: Gloria Reeves <gloria.reeves@contoso.com>\nDate: Mon, 16 Mar 2026 17:00:00 -0500\n\n>>>>> This is getting ridiculous. Third day in a row. Every Teams call over 10 minutes just drops. Audio cuts out first, then video freezes, then \"reconnecting...\" for 30 seconds and then it disconnects entirely. I've tried from both my laptop and my phone on WiFi - same result.\n\nFrom: Nathan Cross <nathan.cross@contoso.com>\nDate: Mon, 16 Mar 2026 11:00:00 -0500\n\n>>>>>> Same here. My 10am standup just died mid-sentence. The weird thing is Zoom works perfectly fine - I tested with an external call. It's only Teams.\n\nFrom: Deepa Krishnan <deepa.krishnan@contoso.com>\nDate: Fri, 13 Mar 2026 16:00:00 -0500\n\n>>>>>>> Is anyone else's Teams calls dropping randomly? Started today for me. Calls seem to die after about 10 minutes.\n\n--- End thread ---\n\nTo be clear: The issue is that Microsoft Teams calls consistently disconnect after approximately 10 minutes. This has been happening since at least March 13th. Multiple people are affected. The QoS fix that was applied did NOT resolve the issue.",
+    "reporter": {
+      "name": "Gloria Reeves",
+      "email": "gloria.reeves@contoso.com",
+      "department": "Account Management"
+    },
+    "created_at": "2026-03-17T21:45:00Z",
+    "channel": "email",
+    "attachments": [
+      "teams_call_history.png",
+      "network_diagnostics.html"
+    ]
+  },
+  {
+    "ticket_id": "INC-DCM-8010",
+    "subject": "External monitor not detected after docking station update",
+    "description": "Hi IT,\n\nMy external monitor stopped being detected after the docking station firmware was updated yesterday. It was working fine before the update.\n\n---\n\nRegards,\nPhillip Ashworth\nSenior Financial Analyst | Treasury & Capital Markets\nContoso Financial Services, Ltd.\n1200 Commerce Boulevard, Suite 4500\nNew York, NY 10004\nDirect: +1 (212) 555-0147 | Mobile: +1 (917) 555-0283\nphillip.ashworth@contoso.com\n\n═══════════════════════════════════════════════════════════════\nCONFIDENTIALITY NOTICE: This e-mail message, including any attachments, is for the sole use of the intended recipient(s) and may contain confidential and privileged information. Any unauthorized review, use, disclosure, or distribution is prohibited. If you are not the intended recipient, please contact the sender by reply e-mail and destroy all copies of the original message. Receipt by anyone other than the intended recipient(s) is not a waiver of any attorney-client, work product, or other applicable privilege.\n\nDISCLAIMER: The information contained in this communication is intended solely for the use of the individual or entity to whom it is addressed and others authorized to receive it. It may contain confidential or legally privileged information. If you are not the intended recipient, you are hereby notified that any disclosure, copying, distribution or taking any action in reliance on the contents of this information is strictly prohibited and may be unlawful. If you have received this communication in error, please notify us immediately by responding to this email and then delete it from your system. Contoso Financial Services, Ltd. is neither liable for the proper and complete transmission of the information contained in this communication nor for any delay in its receipt.\n\nREGULATORY NOTICE: Contoso Financial Services, Ltd. is authorized and regulated by the Financial Conduct Authority (FCA Registration No. 123456). Registered in England and Wales, Company No. 78901234. Registered Office: 1200 Commerce Boulevard, Suite 4500, New York, NY 10004. VAT Registration No. GB 987 6543 21.\n\nTAX NOTICE: Any U.S. tax advice contained in the body of this e-mail was not intended or written to be used, and cannot be used, by the recipient for the purpose of avoiding penalties that may be imposed under the Internal Revenue Code or applicable state or local tax law provisions. To the extent this communication contains tax advice, the taxpayer should seek advice based on the taxpayer's particular circumstances from an independent tax advisor.\n\nENVIRONMENTAL NOTICE: Please consider the environment before printing this email. 🌿 If you must print, please use recycled paper and double-sided printing where possible. Contoso Financial Services is committed to reducing its carbon footprint and has been certified carbon-neutral since 2024.\n\nIRS CIRCULAR 230 DISCLOSURE: To ensure compliance with requirements imposed by the IRS, we inform you that any U.S. federal tax advice contained in this communication (including any attachments) is not intended or written to be used, and cannot be used, for the purpose of (i) avoiding penalties under the Internal Revenue Code or (ii) promoting, marketing or recommending to another party any transaction or matter addressed herein.\n\nThis email has been scanned by the Contoso Email Security Gateway. Message ID: MSG-20260318-AF72C9E1\n═══════════════════════════════════════════════════════════════",
+    "reporter": {
+      "name": "Phillip Ashworth",
+      "email": "phillip.ashworth@contoso.com",
+      "department": "Treasury"
+    },
+    "created_at": "2026-03-18T09:12:30Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCM-8011",
+    "subject": "URGENT: Need password reset - also some personal info questions",
+    "description": "Hi support team,\n\nI need my password reset for my main Contoso account. I've been locked out since this morning after too many failed attempts.\n\nFor verification purposes, here's my information:\n- Full name: Sandra Tillman\n- Employee ID: E-8834\n- SSN: XXX-XX-XXXX (I was told you might need this but I shouldn't type it - is that right?)\n- My old badge number was B-44921\n- Date of birth: 03/15/1988\n- Home address: 4218 Maple Ridge Drive, Apt 12B, Portland, OR 97201\n\nI also need to update my direct deposit info. My new bank details:\n- Bank: First National Credit Union\n- Routing: XXXXXXXXX (I was told not to put this in a ticket?)\n- Account: XXXX-XXXX-XXXX-XXXX\n\nAlso, my corporate credit card ending in XXXX-XXXX-XXXX-4729 was charged for something I didn't authorize - $847.33 from \"TECHSUPPLY ONLINE\" on March 15th. Can you look into that too? The full card number was XXXX-XXXX-XXXX-XXXX but I covered most of it.\n\nFor the password reset, my account is sandra.tillman@contoso.com and I normally use the Microsoft Authenticator app for MFA but I can also receive SMS to my personal number (503) 555-0192.\n\nOh and while I have you - our team shared drive at S:\\Marketing\\Q1-Campaign has some files that need to be moved to SharePoint. Can someone help with that too?\n\nSorry for the long message. The password reset is the most urgent thing.\n\nThanks,\nSandra Tillman\nMarketing Coordinator\nExt. 4421\nPersonal email: s.tillman.personal@gmail.com\nHome phone: (503) 555-0148",
+    "reporter": {
+      "name": "Sandra Tillman",
+      "email": "sandra.tillman@contoso.com",
+      "department": "Marketing"
+    },
+    "created_at": "2026-03-19T07:55:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCM-8012",
+    "subject": "🚨🚨🚨 DISK SPACE CRITICAL 🚨🚨🚨 💀💀💀",
+    "description": "🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥\n⚠️⚠️⚠️  HELP NEEDED IMMEDIATELY  ⚠️⚠️⚠️\n🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥\n\n╔══════════════════════════════════════╗\n║  ██████╗ ██╗███████╗██╗  ██╗        ║\n║  ██╔══██╗██║██╔════╝██║ ██╔╝        ║\n║  ██║  ██║██║███████╗█████╔╝         ║\n║  ██║  ██║██║╚════██║██╔═██╗         ║\n║  ██████╔╝██║███████║██║  ██╗        ║\n║  ╚═════╝ ╚═╝╚══════╝╚═╝  ╚═╝        ║\n║                                      ║\n║  ███████╗██╗   ██╗██╗     ██╗       ║\n║  ██╔════╝██║   ██║██║     ██║       ║\n║  █████╗  ██║   ██║██║     ██║       ║\n║  ██╔══╝  ██║   ██║██║     ██║       ║\n║  ██║     ╚██████╔╝███████╗███████╗  ║\n║  ╚═╝      ╚═════╝ ╚══════╝╚══════╝  ║\n╚══════════════════════════════════════╝\n\n(╯°□°)╯︵ ┻━┻   THE SERVER IS FULL   ┬─┬ノ( º _ ºノ)\n\nOK so here's the actual problem 👇👇👇\n\nThe shared file server \\\\fs-corp-03 is completely out of disk space. The D: drive is showing 99.2% full with only 847 MB remaining out of 4 TB. 📊\n\nI noticed it when I couldn't save a report this morning. The error said \"There is not enough space on the disk\" 💾❌\n\n┌─────────────────────────┐\n│  Drive D: Usage          │\n│  ████████████████████░  │\n│  99.2% (3.99 TB / 4 TB) │\n│  Free: 847 MB            │\n└─────────────────────────┘\n\nI did some digging 🔍 and it looks like someone's backup job is dumping huge files into D:\\Backups\\Archive\\ - there are .bak files from 2019 that nobody needs anymore taking up like 1.5 TB 😱😱😱\n\n¯\\_(ツ)_/¯ Not sure who set that up but it's been running forever apparently\n\n🎵 Things I've already tried 🎵\n✅ Emptied the Recycle Bin (freed up 2 GB temporarily, filled again)\n✅ Ran Disk Cleanup (barely helped)\n✅ Deleted my own old files\n❌ Can't delete files from Backups\\Archive - need admin access\n\n⭐ PLEASE ⭐ someone either clean up those old backups or expand the drive before it crashes 💥\n\n(ノಠ益ಠ)ノ彡┻━┻  SERIOUSLY THIS IS URGENT  ┬─┬ノ(ಠ_ಠノ)\n\n🙏🙏🙏 Thanks 🙏🙏🙏\n\n— Reggie Watts\n   IT Ops Coordinator\n   💻 reggie.watts@contoso.com\n\n🚨 P.S. Other people are starting to notice too. Got three complaints in the last hour about not being able to save files. 🚨\n\n╔══════════════════════════════════════╗\n║  Please resolve ASAP ❗❗❗          ║\n╚══════════════════════════════════════╝",
+    "reporter": {
+      "name": "Reggie Watts",
+      "email": "reggie.watts@contoso.com",
+      "department": "IT Operations"
+    },
+    "created_at": "2026-03-20T14:08:45Z",
+    "channel": "chat",
+    "attachments": [
+      "disk_usage_screenshot.png",
+      "backup_folder_listing.txt"
+    ]
+  }
+]

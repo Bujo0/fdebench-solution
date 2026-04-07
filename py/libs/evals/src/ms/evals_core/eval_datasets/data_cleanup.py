@@ -10095,8 +10095,1114 @@ def _dc150_git_blame() -> EvalCase:
     )
 
 
+
+# ---------------------------------------------------------------------------
+# INC-DC-151 .. INC-DC-170  —  extended data-cleanup evaluation cases
+# ---------------------------------------------------------------------------
+
+
+def _dc151_rtl_arabic_zero_width() -> EvalCase:
+    """Arabic RTL text with zero-width joiners obscuring the real issue."""
+    arabic_noise = (
+        "\u200f\u0645\u0631\u062d\u0628\u0627\u200c \u0628\u0641\u0631\u064a\u0642\u200c "
+        "\u062f\u0639\u0645\u200c \u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627\u200c "
+        "\u0627\u0644\u0645\u0639\u0644\u0648\u0645\u0627\u062a\u200c"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-151",
+            subject=f"{arabic_noise} — VPN disconnects every 10 minutes",
+            description=(
+                f"{arabic_noise}\n\n"
+                "Dear IT team,\n\n"
+                "My GlobalProtect VPN (version 6.1.3) disconnects every 10 minutes. "
+                "I'm on the Dubai office Wi-Fi (CONTOSO-DXB). Windows 11 laptop "
+                "(Dell Latitude 7440). Started after last week's firmware update on "
+                "the access points.\n\n"
+                f"{arabic_noise}\n\n"
+                "Error code GP-4017 in the logs. Please help urgently."
+            ),
+            reporter=Reporter(
+                name="Ahmad Hassan",
+                email="ahmad.hassan@contoso.com",
+                department="Middle East Operations",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-151",
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            assigned_team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.NETWORK_LOCATION],
+            next_best_action=(
+                "Investigate recurring VPN disconnections on the Dubai office Wi-Fi "
+                "after the firmware update — strip the RTL noise and zero-width characters."
+            ),
+            remediation_steps=[
+                "Check the Dubai office AP firmware changelog for VPN passthrough issues.",
+                "Review GlobalProtect gateway logs for GP-4017 patterns from the DXB network.",
+                "Test VPN from an Ethernet connection to isolate Wi-Fi vs. VPN issues.",
+            ],
+        ),
+        tags=["data-cleanup", "rtl_arabic"],
+        description="Arabic RTL text with zero-width joiners wrapping a real VPN issue.",
+    )
+
+
+def _dc152_unicode_nfd_accents() -> EvalCase:
+    """Unicode NFD accented characters in name and description."""
+    nfd_name = "Rene\u0301 Mu\u0308ller"  # René Müller in NFD
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-152",
+            subject=f"Outlook not syncing for {nfd_name}",
+            description=(
+                f"User: {nfd_name} (rene.mueller@contoso.com)\n"
+                f"Department: Gesch\u00e4ftsfu\u0308hrung\n\n"
+                "Outlook 365 desktop client stopped syncing email since Monday. "
+                "Shows 'Disconnected' in the bottom status bar. Web Outlook works "
+                "fine. Autodiscover returns correct settings.\n\n"
+                "Running Windows 11, Office Build 16.0.18025.20160."
+            ),
+            reporter=Reporter(
+                name=nfd_name,
+                email="rene.mueller@contoso.com",
+                department="Executive Office",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.PORTAL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-152",
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate Outlook desktop sync failure — the NFD-encoded accented "
+                "characters in the reporter name and department do not affect triage."
+            ),
+            remediation_steps=[
+                "Create a new Outlook profile and re-add the Exchange account.",
+                "Check the Outlook connection status dialog for the specific error.",
+                "Verify Autodiscover with the Test Email AutoConfiguration tool.",
+            ],
+        ),
+        tags=["data-cleanup", "unicode_nfd"],
+        description="NFD Unicode normalization in reporter name and department field.",
+    )
+
+
+def _dc153_base64_image_flood() -> EvalCase:
+    """Multiple inline base64 images obscuring a real hardware issue."""
+    fake_b64 = "iVBORw0KGgo" + "A" * 500 + "=="
+    images = "\n".join(
+        [f"[Screenshot {i}]: data:image/png;base64,{fake_b64}" for i in range(1, 9)]
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-153",
+            subject="Monitor flickering — see attached screenshots",
+            description=(
+                "My Dell U2722D monitor flickers every 30 seconds. I took 8 screenshots:\n\n"
+                f"{images}\n\n"
+                "Using DisplayPort cable, connected to Dell Latitude 7440 docking station. "
+                "Happens on both 60 Hz and 30 Hz. Updated Intel UHD drivers yesterday."
+            ),
+            reporter=Reporter(
+                name="Lisa Chen",
+                email="lisa.chen@contoso.com",
+                department="Design",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.PORTAL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-153",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.DEVICE_INFO],
+            next_best_action=(
+                "Investigate the monitor flickering issue — ignore the inline base64 "
+                "image data that clutters the description."
+            ),
+            remediation_steps=[
+                "Test with a different DisplayPort cable.",
+                "Try connecting the monitor directly (bypassing the dock).",
+                "Roll back the Intel UHD driver to the previous version.",
+            ],
+        ),
+        tags=["data-cleanup", "base64_flood"],
+        description="Eight inline base64 screenshots obscuring a monitor flickering issue.",
+    )
+
+
+def _dc154_deep_mime_nesting() -> EvalCase:
+    """Deeply nested MIME boundaries from repeated email forwarding."""
+    boundaries = ""
+    for i in range(15):
+        boundaries += f"--=_Part_{i:04d}_boundary\nContent-Type: multipart/mixed; boundary=\"=_Part_{i + 1:04d}_boundary\"\n\n"
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-154",
+            subject="Fwd: Fwd: Fwd: Fwd: Fwd: Shared drive access needed",
+            description=(
+                f"{boundaries}\n"
+                "Original message:\n\n"
+                "I need read/write access to \\\\file-server-02\\shared\\finance-q1. "
+                "My manager (David Kim) approved it last week. Employee ID E-22104, "
+                "Floor 3, Building 1.\n\n"
+                "This email was forwarded through 15 people before reaching IT."
+            ),
+            reporter=Reporter(
+                name="Kevin Park",
+                email="kevin.park@contoso.com",
+                department="Finance",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-154",
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P3,
+            assigned_team=Team.IAM,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.AFFECTED_SYSTEM],
+            next_best_action=(
+                "Grant shared drive access after verifying manager approval — "
+                "strip the 15-level MIME nesting noise."
+            ),
+            remediation_steps=[
+                "Confirm David Kim's approval for the finance-q1 share.",
+                "Grant read/write access via the file server ACL.",
+                "Notify the user and verify access works.",
+            ],
+        ),
+        tags=["data-cleanup", "deep_mime"],
+        description="15-level deep MIME boundary nesting from repeated email forwarding.",
+    )
+
+
+def _dc155_csv_injection_formula() -> EvalCase:
+    """CSV injection with spreadsheet formulas in the ticket body."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-155",
+            subject="Expense report app crashing — data attached",
+            description=(
+                "The expense report app crashes when I upload this data:\n\n"
+                "Employee,Amount,Description\n"
+                '=CMD(\'calc.exe\'),1500,Travel\n'
+                '+HYPERLINK("http://evil.com","Click"),200,Hotel\n'
+                "-1+1*cmd|'/C calc'!A0,350,Food\n"
+                "@SUM(A1:A10),100,Misc\n\n"
+                "The app (ExpenseTracker v3.2) crashes with a blank screen "
+                "after the CSV is pasted. Chrome 122, Windows 11."
+            ),
+            reporter=Reporter(
+                name="Maria Gonzalez",
+                email="maria.gonzalez@contoso.com",
+                department="Sales",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.PORTAL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-155",
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.STEPS_TO_REPRODUCE],
+            next_best_action=(
+                "Investigate the expense app crash on CSV upload — the formulas in the "
+                "data are CSV injection patterns but represent the user's actual data."
+            ),
+            remediation_steps=[
+                "Test the CSV upload with sanitized data to confirm the crash is data-dependent.",
+                "Add CSV formula sanitization to the ExpenseTracker upload handler.",
+                "Provide a workaround: prefix formula characters with a single quote.",
+            ],
+        ),
+        tags=["data-cleanup", "csv_injection"],
+        description="CSV injection formulas pasted in a ticket about an expense app crash.",
+    )
+
+
+def _dc156_zalgo_combining_marks() -> EvalCase:
+    """Zalgo text with stacked combining diacritical marks."""
+    zalgo = "H\u0336\u033a\u0347e\u0337\u0346\u0316l\u0334\u0318\u0348p\u0335\u0319\u0349"
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-156",
+            subject=f"{zalgo} — printer not working Floor 5",
+            description=(
+                f"{zalgo} {zalgo} {zalgo}\n\n"
+                "The HP LaserJet M404dn on Floor 5 near room 5-201 is not printing. "
+                "Jobs queue but nothing comes out. Display shows 'Ready' but paper tray "
+                "is empty according to the control panel (it's actually full).\n\n"
+                f"Printer IP: 10.1.5.42\nAsset tag: PRN-5201\n\n{zalgo}"
+            ),
+            reporter=Reporter(
+                name="Derek Johnson",
+                email="derek.johnson@contoso.com",
+                department="HR",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.CHAT,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-156",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Fix the printer paper tray sensor issue on Floor 5 — "
+                "strip the Zalgo combining marks from the ticket."
+            ),
+            remediation_steps=[
+                "Check the paper tray sensor on the HP LaserJet M404dn.",
+                "Restart the print spooler service on the print server.",
+                "Clear the stuck print queue and resubmit a test page.",
+            ],
+        ),
+        tags=["data-cleanup", "zalgo_text"],
+        description="Zalgo text with combining diacritical marks around a printer issue.",
+    )
+
+
+def _dc157_hebrew_bidi_mixed() -> EvalCase:
+    """Hebrew/English bidirectional text confusing field ordering."""
+    hebrew = "\u05e9\u05dc\u05d5\u05dd \u05e6\u05d5\u05d5\u05ea \u05ea\u05de\u05d9\u05db\u05d4"
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-157",
+            subject=f"{hebrew} - Teams not loading",
+            description=(
+                f"{hebrew}\n\n"
+                "Microsoft Teams desktop app (1.7.00.4654) won't load past the "
+                "spinning logo. Tel Aviv office, Windows 11. Cleared cache at "
+                "%AppData%\\Microsoft\\Teams. Web version works. Need this for a "
+                "client call at 2 PM IST.\n\n"
+                f"{hebrew}"
+            ),
+            reporter=Reporter(
+                name="Yael Cohen",
+                email="yael.cohen@contoso.com",
+                department="Customer Relations",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.CHAT,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-157",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.APPLICATION_VERSION],
+            next_best_action=(
+                "Fix Teams desktop loading issue before the 2 PM client call — "
+                "Hebrew bidi text does not affect triage."
+            ),
+            remediation_steps=[
+                "Fully uninstall Teams including the %AppData% and %LocalAppData% folders.",
+                "Reinstall the latest Teams desktop client.",
+                "If the call is imminent, use Teams Web as a workaround.",
+            ],
+        ),
+        tags=["data-cleanup", "hebrew_bidi"],
+        description="Hebrew bidirectional text mixed with English in a Teams loading issue.",
+    )
+
+
+def _dc158_jenkins_ansi_codes() -> EvalCase:
+    """Jenkins CI output with ANSI escape codes pasted in a ticket."""
+    ansi_output = (
+        "\033[1;32m[Pipeline] {\033[0m\n"
+        "\033[1;32m[Pipeline] stage\033[0m\n"
+        "\033[1;32m[Pipeline] { (Build)\033[0m\n"
+        "\033[1;31m[ERROR] BUILD FAILURE\033[0m\n"
+        "\033[1;31m[ERROR] \033[0mFailed to execute goal org.apache.maven.plugins:"
+        "maven-compiler-plugin:3.11.0:compile (default) on project contoso-api: "
+        "Compilation failure\n"
+        "\033[1;31m[ERROR] /src/main/java/com/contoso/api/AuthService.java:[42,15] "
+        "error: incompatible types: String cannot be converted to UUID\033[0m\n"
+        "\033[1;33m[WARNING] The requested profile 'prod' could not be activated.\033[0m\n"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-158",
+            subject="CI/CD pipeline build failure — AuthService compilation error",
+            description=(
+                "Our Jenkins pipeline (contoso-api-main, build #847) failed. "
+                "Here's the console output:\n\n"
+                f"{ansi_output}\n"
+                "The AuthService.java line 42 has a type mismatch after PR #312 merged. "
+                "This is blocking the release train for sprint 24."
+            ),
+            reporter=Reporter(
+                name="James Wright",
+                email="james.wright@contoso.com",
+                department="DevOps",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-158",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Fix the AuthService type mismatch blocking the CI pipeline — "
+                "ignore the ANSI escape codes in the build output."
+            ),
+            remediation_steps=[
+                "Revert or fix PR #312's change to AuthService.java line 42.",
+                "Change the parameter type from String to UUID or add proper conversion.",
+                "Rerun the Jenkins pipeline after the fix to unblock the release.",
+            ],
+        ),
+        tags=["data-cleanup", "ansi_codes"],
+        description="Jenkins CI console output with ANSI escape codes in a build failure ticket.",
+    )
+
+
+def _dc159_terraform_plan_dump() -> EvalCase:
+    """Large Terraform plan output pasted in a ticket."""
+    tf_plan = ""
+    resources = [
+        ("azurerm_virtual_network.main", "10.0.0.0/16", "10.0.0.0/20"),
+        ("azurerm_subnet.app", "10.0.0.0/24", "10.0.1.0/24"),
+        ("azurerm_network_security_group.app", "Allow-443", "Allow-443-8443"),
+        ("azurerm_application_gateway.main", "Standard_v2", "WAF_v2"),
+        ("azurerm_key_vault.main", "standard", "premium"),
+    ]
+    for res, old, new in resources:
+        tf_plan += (
+            f"  # {res} must be replaced\n"
+            f"  ~ resource \"{res.split('.')[0]}\" \"{res.split('.')[1]}\" {{\n"
+            f"      - old_value = \"{old}\"\n"
+            f"      + new_value = \"{new}\"\n"
+            f"    }}\n\n"
+        )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-159",
+            subject="Terraform apply failed — NSG rule conflict in production",
+            description=(
+                "Running `terraform apply` on the prod-eastus-001 workspace failed:\n\n"
+                f"{tf_plan}\n"
+                "Error: A resource with the ID /subscriptions/.../networkSecurityGroups/"
+                "app-nsg already exists. Possible state drift after manual portal change "
+                "last week by the networking team.\n\n"
+                "Need help reconciling Terraform state with actual Azure resources."
+            ),
+            reporter=Reporter(
+                name="Priya Sharma",
+                email="priya.sharma@contoso.com",
+                department="Cloud Engineering",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.PORTAL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-159",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Reconcile Terraform state drift for the prod-eastus-001 workspace — "
+                "the large plan output is noise but contains useful context."
+            ),
+            remediation_steps=[
+                "Run terraform import for the manually-created NSG resource.",
+                "Update the Terraform state to match actual Azure resource IDs.",
+                "Apply the plan again after state reconciliation.",
+            ],
+        ),
+        tags=["data-cleanup", "terraform_dump"],
+        description="Terraform plan output pasted in a state drift resolution ticket.",
+    )
+
+
+def _dc160_graphql_introspection() -> EvalCase:
+    """GraphQL introspection response dumped in a ticket."""
+    schema_fragment = (
+        '{"data":{"__schema":{"queryType":{"name":"Query"},"types":['
+        '{"kind":"OBJECT","name":"User","fields":['
+        '{"name":"id","type":{"kind":"NON_NULL","name":null,"ofType":{"kind":"SCALAR","name":"ID"}}},'
+        '{"name":"email","type":{"kind":"SCALAR","name":"String"}},'
+        '{"name":"role","type":{"kind":"ENUM","name":"UserRole"}},'
+        '{"name":"createdAt","type":{"kind":"SCALAR","name":"DateTime"}}'
+        "]},"
+        '{"kind":"OBJECT","name":"Ticket","fields":['
+        '{"name":"id","type":{"kind":"NON_NULL","name":null,"ofType":{"kind":"SCALAR","name":"ID"}}},'
+        '{"name":"title","type":{"kind":"SCALAR","name":"String"}},'
+        '{"name":"status","type":{"kind":"ENUM","name":"TicketStatus"}}'
+        "]}]}}"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-160",
+            subject="GraphQL API returning 500 errors on user queries",
+            description=(
+                "Our internal GraphQL API (api.contoso.internal/graphql) started returning "
+                "500 errors on all user-related queries since 10 AM. Here's the introspection "
+                "response from before the issue started (for reference):\n\n"
+                f"{schema_fragment}\n\n"
+                "The error in the server logs is: 'Cannot return null for non-nullable field "
+                "User.email'. Seems like a data migration script set some emails to null."
+            ),
+            reporter=Reporter(
+                name="Alex Rivera",
+                email="alex.rivera@contoso.com",
+                department="Backend Engineering",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.CHAT,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-160",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE],
+            next_best_action=(
+                "Fix the null email data caused by the migration script — "
+                "the GraphQL introspection dump is reference context."
+            ),
+            remediation_steps=[
+                "Identify which data migration set User.email to null.",
+                "Run a corrective migration to restore email values from backup.",
+                "Add a NOT NULL constraint or validation to prevent future nulls.",
+            ],
+        ),
+        tags=["data-cleanup", "graphql_dump"],
+        description="GraphQL introspection schema dump in an API 500 error ticket.",
+    )
+
+
+def _dc161_pgp_signed_email() -> EvalCase:
+    """PGP-signed email with ASCII armor wrapping a real issue."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-161",
+            subject="Encrypted file share access request (PGP signed)",
+            description=(
+                "-----BEGIN PGP SIGNED MESSAGE-----\n"
+                "Hash: SHA256\n\n"
+                "I need access to the encrypted file share at "
+                "\\\\vault-server-01\\classified\\project-phoenix.\n"
+                "My GPG key fingerprint: 4A2B C3D4 E5F6 7890 1234 5678 9ABC DEF0 1234 5678\n"
+                "Manager approval: David Chen (david.chen@contoso.com)\n"
+                "Project code: PHX-2026-Q2\n"
+                "Clearance level: Confidential\n"
+                "-----BEGIN PGP SIGNATURE-----\n\n"
+                "iQIzBAEBCAAdFiEESivD1OX2eJASNFZ4mrze8BI0VngFAmYBcHcACgkQ\n"
+                "mrze8BI0VniL3A//fakesignaturedata1234567890abcdefghijklmnop\n"
+                "qrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/==\n"
+                "-----END PGP SIGNATURE-----"
+            ),
+            reporter=Reporter(
+                name="Robert Kim",
+                email="robert.kim@contoso.com",
+                department="Research",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-161",
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P3,
+            assigned_team=Team.IAM,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.AUTHENTICATION_METHOD],
+            next_best_action=(
+                "Process the classified share access request after verifying "
+                "manager approval — the PGP signature is noise."
+            ),
+            remediation_steps=[
+                "Verify David Chen's approval for Project Phoenix access.",
+                "Confirm the user's clearance level through HR records.",
+                "Grant access to the encrypted share and notify the user.",
+            ],
+        ),
+        tags=["data-cleanup", "pgp_armor"],
+        description="PGP ASCII armor signature wrapping a file share access request.",
+    )
+
+
+def _dc162_teams_chat_reactions() -> EvalCase:
+    """Teams/Slack chat transcript with reactions and emoji flooding."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-162",
+            subject="Screenshot from Teams chat about server issue",
+            description=(
+                "From #infra-alerts channel:\n\n"
+                "[10:15 AM] AlertBot: \U0001f6a8 CRITICAL: cpu.usage > 95% on "
+                "sql-prod-03 for 15 min\n"
+                "    \U0001f44d 5  \U0001f631 3  \U0001f525 7  \U0001f440 2\n"
+                "[10:16 AM] @sarah.chen: Looking into it\n"
+                "    \U0001f44d 1  \u2764\ufe0f 1\n"
+                "[10:18 AM] @sarah.chen: It's the nightly ETL job running 3x. "
+                "@mike.jones did you change the cron schedule?\n"
+                "    \U0001f440 4\n"
+                "[10:19 AM] @mike.jones: Oh no \U0001f62c I set it to */20 instead of 0 20\n"
+                "    \U0001f926 8  \U0001f602 12\n"
+                "[10:20 AM] @sarah.chen: Fixed the cron. CPU dropping now.\n"
+                "    \U0001f389 6  \U0001f680 3  \U0001f44f 5\n\n"
+                "Can IT verify the ETL cron is correct and add monitoring for this?"
+            ),
+            reporter=Reporter(
+                name="Sarah Chen",
+                email="sarah.chen@contoso.com",
+                department="Data Engineering",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.CHAT,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-162",
+            category=Category.SOFTWARE,
+            priority=Priority.P3,
+            assigned_team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Verify the ETL cron schedule fix and add CPU monitoring alerting — "
+                "the chat reactions and emoji are presentation noise."
+            ),
+            remediation_steps=[
+                "Audit the ETL cron schedule to confirm the fix is correct.",
+                "Add a Grafana alert for sustained high CPU on sql-prod-03.",
+                "Review change management for cron schedule modifications.",
+            ],
+        ),
+        tags=["data-cleanup", "chat_reactions"],
+        description="Teams chat transcript with emoji reactions around a CPU spike incident.",
+    )
+
+
+def _dc163_event_viewer_xml() -> EvalCase:
+    """Windows Event Viewer XML export pasted in a ticket."""
+    event_xml = (
+        '<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">\n'
+        "  <System>\n"
+        '    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{543496D1-...}"/>\n'
+        "    <EventID>4625</EventID>\n"
+        "    <Level>0</Level>\n"
+        "    <Task>12544</Task>\n"
+        "    <Keywords>0x8010000000000000</Keywords>\n"
+        '    <TimeCreated SystemTime="2026-04-08T09:15:32.123Z"/>\n'
+        '    <Computer>WS-CONTOSO-4421</Computer>\n'
+        "  </System>\n"
+        "  <EventData>\n"
+        '    <Data Name="TargetUserName">jsmith</Data>\n'
+        '    <Data Name="TargetDomainName">CONTOSO</Data>\n'
+        '    <Data Name="Status">0xC000006D</Data>\n'
+        '    <Data Name="SubStatus">0xC000006A</Data>\n'
+        '    <Data Name="LogonType">10</Data>\n'
+        '    <Data Name="IpAddress">10.0.3.47</Data>\n'
+        "  </EventData>\n"
+        "</Event>"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-163",
+            subject="Account lockout — Event Viewer log attached",
+            description=(
+                "My account (jsmith@contoso.com) keeps getting locked out every morning "
+                "around 9 AM. I exported the failed logon events from Event Viewer:\n\n"
+                f"{event_xml}\n\n"
+                "There are about 50 of these Event ID 4625 entries each morning. The IP "
+                "10.0.3.47 is not my workstation (mine is 10.0.3.22). Someone or something "
+                "is trying to log in as me from a different machine."
+            ),
+            reporter=Reporter(
+                name="John Smith",
+                email="jsmith@contoso.com",
+                department="Accounting",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.PORTAL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-163",
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P2,
+            assigned_team=Team.IAM,
+            needs_escalation=True,
+            missing_information=[MissingInfoField.AUTHENTICATION_METHOD],
+            next_best_action=(
+                "Investigate repeated failed logon attempts from an unknown IP — "
+                "the Event Viewer XML export provides useful diagnostic data."
+            ),
+            remediation_steps=[
+                "Identify the device at IP 10.0.3.47 causing the failed logons.",
+                "Check for stale credentials in services or scheduled tasks on that machine.",
+                "Temporarily increase the lockout threshold while investigating.",
+            ],
+        ),
+        tags=["data-cleanup", "event_viewer_xml"],
+        description="Windows Event Viewer XML export in an account lockout investigation.",
+    )
+
+
+def _dc164_docker_compose_logs() -> EvalCase:
+    """Docker compose config and interleaved container logs."""
+    compose_yaml = (
+        "version: '3.8'\n"
+        "services:\n"
+        "  web:\n"
+        "    image: contoso/web-app:3.2.1\n"
+        "    ports: ['8080:8080']\n"
+        "    depends_on: [db, redis]\n"
+        "  db:\n"
+        "    image: postgres:16\n"
+        "    volumes: ['pgdata:/var/lib/postgresql/data']\n"
+        "  redis:\n"
+        "    image: redis:7-alpine\n"
+    )
+    logs = (
+        "web_1   | 2026-04-08 09:00:01 INFO  Starting web-app v3.2.1\n"
+        "db_1    | 2026-04-08 09:00:02 LOG   database system is ready\n"
+        "redis_1 | 2026-04-08 09:00:01 * Ready to accept connections\n"
+        "web_1   | 2026-04-08 09:00:05 ERROR Cannot connect to database: "
+        "connection refused on port 5432\n"
+        "web_1   | 2026-04-08 09:00:10 ERROR Retry 1/5 failed\n"
+        "web_1   | 2026-04-08 09:00:15 ERROR Retry 2/5 failed\n"
+        "web_1   | 2026-04-08 09:00:20 FATAL Max retries exceeded. Shutting down.\n"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-164",
+            subject="Docker web app can't connect to database after restart",
+            description=(
+                "After restarting our Docker Compose stack, the web app container "
+                "can't reach the database. Here's our docker-compose.yml:\n\n"
+                f"{compose_yaml}\n\n"
+                f"And here are the logs:\n\n{logs}\n"
+                "The database container starts but the web app tries to connect too early."
+            ),
+            reporter=Reporter(
+                name="Tyler Brooks",
+                email="tyler.brooks@contoso.com",
+                department="Platform Engineering",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.PORTAL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-164",
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Fix the Docker Compose startup ordering issue — the web app "
+                "needs a healthcheck-based dependency on the database."
+            ),
+            remediation_steps=[
+                "Add a healthcheck to the db service in docker-compose.yml.",
+                "Change web's depends_on to use condition: service_healthy.",
+                "Increase the retry count/delay in the web app's DB connection logic.",
+            ],
+        ),
+        tags=["data-cleanup", "docker_logs"],
+        description="Docker Compose config and interleaved container logs in a startup issue.",
+    )
+
+
+def _dc165_smime_artifact() -> EvalCase:
+    """S/MIME encrypted email body artifact in a support request."""
+    smime_blob = (
+        "Content-Type: application/pkcs7-mime; smime-type=enveloped-data;\n"
+        '  name="smime.p7m"\n'
+        "Content-Transfer-Encoding: base64\n"
+        "Content-Disposition: attachment; filename=\"smime.p7m\"\n\n"
+        "MIIBmgYJKoZIhvcNAQcDoIIBizCCAYcCAQAxggEhMIIBHQIBADAFMAACAQEw\n"
+        "DQYJKoZIhvcNAQEBBQAEggEAfakeencrypteddatagoeshereanditisquitelong\n"
+        "andwouldnormallybemuchlongerbutthisisademooftheformatusedins/mime==\n"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-165",
+            subject="Can't open encrypted emails from external partners",
+            description=(
+                "I receive S/MIME encrypted emails from our legal partners at "
+                "Baker & McKenzie. When I try to open them in Outlook, I get:\n"
+                "'Microsoft Outlook had problems decrypting this message.'\n\n"
+                "Here's what the raw email looks like:\n\n"
+                f"{smime_blob}\n"
+                "My certificate (issued by Contoso Internal CA) expired last week. "
+                "I think I need a new one."
+            ),
+            reporter=Reporter(
+                name="Patricia Moore",
+                email="patricia.moore@contoso.com",
+                department="Legal",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-165",
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P2,
+            assigned_team=Team.IAM,
+            needs_escalation=False,
+            missing_information=[],
+            next_best_action=(
+                "Renew the user's S/MIME certificate to restore encrypted email access — "
+                "the PKCS#7 blob is the raw email artifact."
+            ),
+            remediation_steps=[
+                "Issue a new S/MIME certificate from the Contoso Internal CA.",
+                "Install the new certificate in the user's Outlook profile.",
+                "Send a test encrypted email to verify decryption works.",
+            ],
+        ),
+        tags=["data-cleanup", "smime_artifact"],
+        description="S/MIME PKCS#7 encrypted blob in an email decryption failure ticket.",
+    )
+
+
+def _dc166_arm_template_json() -> EvalCase:
+    """Azure ARM template JSON dump in a deployment failure ticket."""
+    arm_fragment = (
+        '{\n  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",\n'
+        '  "contentVersion": "1.0.0.0",\n'
+        '  "resources": [\n'
+        '    {\n'
+        '      "type": "Microsoft.Compute/virtualMachines",\n'
+        '      "apiVersion": "2023-09-01",\n'
+        '      "name": "vm-prod-web-01",\n'
+        '      "location": "[resourceGroup().location]",\n'
+        '      "properties": {\n'
+        '        "hardwareProfile": {"vmSize": "Standard_D4s_v5"},\n'
+        '        "storageProfile": {\n'
+        '          "imageReference": {\n'
+        '            "publisher": "MicrosoftWindowsServer",\n'
+        '            "offer": "WindowsServer",\n'
+        '            "sku": "2022-datacenter-g2",\n'
+        '            "version": "latest"\n'
+        "          }\n"
+        "        }\n"
+        "      }\n"
+        "    }\n"
+        "  ]\n"
+        "}"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-166",
+            subject="ARM template deployment fails — quota exceeded in East US",
+            description=(
+                "Our ARM template deployment for the new production web tier failed:\n\n"
+                f"{arm_fragment}\n\n"
+                "Error: 'OperationNotAllowed - Operation could not be completed as it results "
+                "in exceeding approved Total Regional Cores quota.'\n\n"
+                "We need 16 more vCPU cores in East US for 4x Standard_D4s_v5 VMs."
+            ),
+            reporter=Reporter(
+                name="Nadia Petrova",
+                email="nadia.petrova@contoso.com",
+                department="Cloud Engineering",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.PORTAL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-166",
+            category=Category.DATA_STORAGE,
+            priority=Priority.P3,
+            assigned_team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.BUSINESS_IMPACT],
+            next_best_action=(
+                "Request an Azure vCPU quota increase in East US — the ARM template "
+                "JSON is context for the deployment failure."
+            ),
+            remediation_steps=[
+                "Submit a quota increase request for the East US region via Azure Portal.",
+                "Request 16 additional vCPU cores for the Dv5 series.",
+                "Retry the ARM template deployment after quota approval.",
+            ],
+        ),
+        tags=["data-cleanup", "arm_template"],
+        description="Azure ARM template JSON dump in a quota exceeded deployment failure.",
+    )
+
+
+def _dc167_python_traceback_deep() -> EvalCase:
+    """Very deep Python traceback with long module paths."""
+    frames = "\n".join(
+        [
+            f'  File "/opt/contoso/venv/lib/python3.12/site-packages/'
+            f'contoso_{mod}/services/{svc}/handlers/v2/{handler}.py", '
+            f'line {100 + i * 7}, in {func}'
+            for i, (mod, svc, handler, func) in enumerate([
+                ("core", "auth", "token_validator", "validate_jwt"),
+                ("core", "auth", "session_manager", "refresh_session"),
+                ("middleware", "logging", "correlation_tracker", "track_request"),
+                ("middleware", "rate_limit", "sliding_window", "check_rate"),
+                ("api", "gateway", "request_router", "route_request"),
+                ("api", "gateway", "response_handler", "format_response"),
+                ("business", "ticketing", "ticket_processor", "process_ticket"),
+                ("business", "ticketing", "sla_calculator", "compute_sla"),
+                ("integrations", "jira", "sync_adapter", "sync_ticket"),
+                ("integrations", "jira", "field_mapper", "map_custom_fields"),
+            ])
+        ]
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-167",
+            subject="Production API 500 error — full traceback attached",
+            description=(
+                "Getting 500 errors on POST /api/v2/tickets. Full traceback:\n\n"
+                f"Traceback (most recent call last):\n{frames}\n"
+                "KeyError: 'custom_field_sprint_id'\n\n"
+                "This started after we updated the Jira integration to API v3. "
+                "The field mapping is missing the sprint_id custom field."
+            ),
+            reporter=Reporter(
+                name="David Park",
+                email="david.park@contoso.com",
+                department="Backend Engineering",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-167",
+            category=Category.SOFTWARE,
+            priority=Priority.P1,
+            assigned_team=Team.ENTERPRISE_APPS,
+            needs_escalation=True,
+            missing_information=[MissingInfoField.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Fix the missing sprint_id field mapping in the Jira v3 integration — "
+                "the deep traceback provides the full call chain."
+            ),
+            remediation_steps=[
+                "Add 'custom_field_sprint_id' to the Jira v3 field mapper.",
+                "Deploy a hotfix since POST /api/v2/tickets is completely broken.",
+                "Add integration tests for all custom field mappings.",
+            ],
+        ),
+        tags=["data-cleanup", "deep_traceback"],
+        description="10-frame Python traceback with very long module paths in a 500 error ticket.",
+    )
+
+
+def _dc168_jira_notification_noise() -> EvalCase:
+    """Jira email notification template noise around a real issue."""
+    jira_noise = (
+        "--- Jira Notification ---\n"
+        "Project: CONTOSO-INFRA\n"
+        "Issue Type: Bug\n"
+        "Priority: Major\n"
+        "Status: Open\n"
+        "Reporter: Jen Walsh\n"
+        "Assignee: Unassigned\n"
+        "Created: 2026-04-08T10:00:00Z\n"
+        "Updated: 2026-04-08T10:00:00Z\n"
+        "Labels: network, vpn, production\n"
+        "Sprint: Sprint 24\n"
+        "Fix Version: 3.9.0\n"
+        "Components: Networking, Infrastructure\n"
+        "Environment: Production - East US\n"
+        "---\n"
+        "Watchers: @team-infra, @team-networking, @sarah.chen, @mike.jones, "
+        "@david.kim, @lisa.park, @tom.wilson\n"
+        "---\n"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-168",
+            subject="[CONTOSO-INFRA-2847] VPN split tunnel not working for Teams",
+            description=(
+                f"{jira_noise}\n"
+                "Microsoft Teams calls drop when connected to VPN (GlobalProtect 6.1.3). "
+                "Split tunneling is supposed to exclude Teams/Office 365 traffic but "
+                "it's routing everything through the tunnel. Latency jumps to 400ms.\n\n"
+                "Affects all remote workers (approx. 200 users).\n\n"
+                f"--- Do not reply above this line ---\n{jira_noise}"
+            ),
+            reporter=Reporter(
+                name="Jennifer Walsh",
+                email="jen.walsh@contoso.com",
+                department="Infrastructure",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-168",
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            assigned_team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.NETWORK_LOCATION],
+            next_best_action=(
+                "Fix VPN split tunnel configuration for Teams/O365 traffic — "
+                "the Jira notification metadata is template noise."
+            ),
+            remediation_steps=[
+                "Update the GlobalProtect split tunnel exclusion list to include Teams IP ranges.",
+                "Add the Office 365 FQDNs to the VPN exclude list.",
+                "Test with a sample of remote users to confirm the fix.",
+            ],
+        ),
+        tags=["data-cleanup", "jira_notification"],
+        description="Jira notification template metadata wrapping a VPN split tunnel issue.",
+    )
+
+
+def _dc169_auto_translation_artifact() -> EvalCase:
+    """Auto-translated ticket with translation artifacts and original text."""
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-169",
+            subject="[Auto-translated from Japanese] Computer slow / コンピュータが遅い",
+            description=(
+                "[This message was automatically translated from Japanese]\n"
+                "[Translation confidence: 72%]\n"
+                "[Original language: ja-JP]\n\n"
+                "Computer of me is very slow from the morning of today. The application "
+                "of Excel takes the time of 5 minutes to open the file. The memory "
+                "(RAM) is using 95% according to the manager of tasks. I think "
+                "the update of Windows that was installed the night of yesterday is "
+                "the cause of.\n\n"
+                "--- Original Message (ja-JP) ---\n"
+                "今朝からコンピュータがとても遅いです。Excelのアプリケーションは"
+                "ファイルを開くのに5分かかります。タスクマネージャーによると"
+                "メモリ（RAM）が95%使用されています。昨夜インストールされた"
+                "Windowsアップデートが原因だと思います。\n"
+                "--- End Original ---"
+            ),
+            reporter=Reporter(
+                name="Takeshi Yamamoto",
+                email="takeshi.yamamoto@contoso.com",
+                department="Tokyo Office",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-169",
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            assigned_team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.DEVICE_INFO],
+            next_best_action=(
+                "Investigate high RAM usage and slow performance after Windows Update — "
+                "the auto-translation artifacts don't affect triage."
+            ),
+            remediation_steps=[
+                "Check Task Manager for the process consuming the most memory.",
+                "Review which Windows Update was installed last night.",
+                "If the update is the cause, uninstall it and defer until a fix is available.",
+            ],
+        ),
+        tags=["data-cleanup", "auto_translation"],
+        description="Auto-translated ticket from Japanese with translation artifacts and original text.",
+    )
+
+
+def _dc170_verbose_buried_issue() -> EvalCase:
+    """Extremely verbose email with the actual issue buried in the middle."""
+    filler_before = (
+        "Good morning IT team!\n\n"
+        "I hope everyone is having a wonderful Monday. The weather here in Chicago "
+        "is beautiful — 72°F and sunny, perfect for the rooftop lunch we had last "
+        "week. Speaking of which, the rooftop access card system was being a bit "
+        "finicky, but that's a different story.\n\n"
+        "I wanted to start by saying how much I appreciate the work you all did "
+        "last quarter. The migration to the new ticketing system was incredibly "
+        "smooth. My team had zero downtime, which was amazing. I told my manager "
+        "about it at our last one-on-one and she was very impressed.\n\n"
+        "Now, before I get to my actual issue, let me give you some background. "
+        "Our team has been working on the Q2 financial forecasting project. We use "
+        "a combination of Excel, Power BI, and a custom Python tool. The Python "
+        "tool pulls data from our Azure SQL database and generates reports.\n\n"
+    )
+    actual_issue = (
+        "Anyway, here's the thing — since Thursday, our Azure SQL database "
+        "(sql-prod-finance-01.database.windows.net) has been timing out. "
+        "Connection timeout after 30 seconds. Our Python scripts that ran in "
+        "2 minutes now take 45 minutes or fail entirely. The Power BI dashboards "
+        "show stale data from Thursday. This is blocking the entire Q2 forecast.\n\n"
+    )
+    filler_after = (
+        "On a completely separate note, could you also look into why the coffee "
+        "machine on Floor 4 requires a badge tap now? It didn't used to. Not "
+        "urgent at all, just curious.\n\n"
+        "Also, I heard there might be a new version of Teams coming out? My "
+        "colleague mentioned it at lunch. If so, when will we get it?\n\n"
+        "Thanks so much for everything! You're the best IT team I've ever worked "
+        "with (and I've been at three companies). Have a great week!\n\n"
+        "Best regards,\n"
+        "Monica"
+    )
+    return EvalCase(
+        ticket=EvalTicket(
+            ticket_id="INC-DC-170",
+            subject="Quick question and an issue",
+            description=filler_before + actual_issue + filler_after,
+            reporter=Reporter(
+                name="Monica Rivera",
+                email="monica.rivera@contoso.com",
+                department="Finance",
+            ),
+            created_at="2026-04-08T14:00:00Z",
+            channel=Channel.EMAIL,
+        ),
+        gold=GoldAnswer(
+            ticket_id="INC-DC-170",
+            category=Category.DATA_STORAGE,
+            priority=Priority.P2,
+            assigned_team=Team.DATA_PLATFORM,
+            needs_escalation=False,
+            missing_information=[MissingInfoField.ERROR_MESSAGE],
+            next_best_action=(
+                "Investigate Azure SQL timeouts on sql-prod-finance-01 blocking the "
+                "Q2 forecast — the verbose email filler is noise."
+            ),
+            remediation_steps=[
+                "Check Azure SQL database metrics for CPU, DTU, and connection counts since Thursday.",
+                "Review query performance insights for blocking queries or deadlocks.",
+                "Consider scaling up the database temporarily while root-causing the issue.",
+            ],
+        ),
+        tags=["data-cleanup", "verbose_buried"],
+        description="Extremely verbose email with the actual database timeout issue buried in the middle.",
+    )
+
+
 def build_dataset() -> EvalDataset:
-    """Build and return the data-cleanup evaluation dataset (150 cases)."""
+    """Build and return the data-cleanup evaluation dataset (170 cases)."""
     return EvalDataset(
         name="data_cleanup",
         description=(
@@ -10260,6 +11366,26 @@ def build_dataset() -> EvalDataset:
             _dc148_base64_excel(),
             _dc149_terraform_dump(),
             _dc150_git_blame(),
+            _dc151_rtl_arabic_zero_width(),
+            _dc152_unicode_nfd_accents(),
+            _dc153_base64_image_flood(),
+            _dc154_deep_mime_nesting(),
+            _dc155_csv_injection_formula(),
+            _dc156_zalgo_combining_marks(),
+            _dc157_hebrew_bidi_mixed(),
+            _dc158_jenkins_ansi_codes(),
+            _dc159_terraform_plan_dump(),
+            _dc160_graphql_introspection(),
+            _dc161_pgp_signed_email(),
+            _dc162_teams_chat_reactions(),
+            _dc163_event_viewer_xml(),
+            _dc164_docker_compose_logs(),
+            _dc165_smime_artifact(),
+            _dc166_arm_template_json(),
+            _dc167_python_traceback_deep(),
+            _dc168_jira_notification_noise(),
+            _dc169_auto_translation_artifact(),
+            _dc170_verbose_buried_issue(),
         ],
     )
 

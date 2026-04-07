@@ -24,6 +24,9 @@ from ms.eval.scenarios.data_cleanup import scenario_binary_hex_dump
 from ms.eval.scenarios.data_cleanup import scenario_control_characters
 from ms.eval.scenarios.data_cleanup import scenario_corrupted_json
 from ms.eval.scenarios.data_cleanup import scenario_csv_tabular_data
+from ms.eval.scenarios.data_cleanup import scenario_deeply_nested_java_exception
+from ms.eval.scenarios.data_cleanup import scenario_dns_zone_file
+from ms.eval.scenarios.data_cleanup import scenario_docker_container_logs
 from ms.eval.scenarios.data_cleanup import scenario_double_encoded_html_entities
 from ms.eval.scenarios.data_cleanup import scenario_duplicate_ticket_concatenation
 from ms.eval.scenarios.data_cleanup import scenario_email_thread_noise
@@ -32,9 +35,11 @@ from ms.eval.scenarios.data_cleanup import scenario_enormous_cc_list
 from ms.eval.scenarios.data_cleanup import scenario_excessive_whitespace
 from ms.eval.scenarios.data_cleanup import scenario_extremely_long_subject
 from ms.eval.scenarios.data_cleanup import scenario_garbled_ocr_text
+from ms.eval.scenarios.data_cleanup import scenario_git_diff_in_ticket
 from ms.eval.scenarios.data_cleanup import scenario_html_email_body
 from ms.eval.scenarios.data_cleanup import scenario_ics_calendar_content
 from ms.eval.scenarios.data_cleanup import scenario_json_config_dump
+from ms.eval.scenarios.data_cleanup import scenario_kubernetes_pod_yaml
 from ms.eval.scenarios.data_cleanup import scenario_markdown_formatted_ticket
 from ms.eval.scenarios.data_cleanup import scenario_massive_email_signature
 from ms.eval.scenarios.data_cleanup import scenario_minified_code_dump
@@ -42,16 +47,21 @@ from ms.eval.scenarios.data_cleanup import scenario_mixed_languages
 from ms.eval.scenarios.data_cleanup import scenario_mojibake_encoding
 from ms.eval.scenarios.data_cleanup import scenario_multiple_issues_one_ticket
 from ms.eval.scenarios.data_cleanup import scenario_nested_quoted_replies
+from ms.eval.scenarios.data_cleanup import scenario_packet_capture_text
 from ms.eval.scenarios.data_cleanup import scenario_pdf_to_text_artifacts
+from ms.eval.scenarios.data_cleanup import scenario_pem_certificate_chain
 from ms.eval.scenarios.data_cleanup import scenario_powershell_verbose_output
+from ms.eval.scenarios.data_cleanup import scenario_raw_mime_multipart
 from ms.eval.scenarios.data_cleanup import scenario_registry_export_dump
 from ms.eval.scenarios.data_cleanup import scenario_repeated_content
 from ms.eval.scenarios.data_cleanup import scenario_soap_fault_xml
 from ms.eval.scenarios.data_cleanup import scenario_special_characters_and_encoding
+from ms.eval.scenarios.data_cleanup import scenario_spreadsheet_tab_paste
 from ms.eval.scenarios.data_cleanup import scenario_sql_query_dump
 from ms.eval.scenarios.data_cleanup import scenario_stack_trace_flood
 from ms.eval.scenarios.data_cleanup import scenario_subject_description_mismatch
 from ms.eval.scenarios.data_cleanup import scenario_syslog_flood
+from ms.eval.scenarios.data_cleanup import scenario_terraform_plan_output
 from ms.eval.scenarios.data_cleanup import scenario_unicode_rtl_and_homoglyphs
 from ms.eval.scenarios.data_cleanup import scenario_url_heavy_description
 from ms.eval.scenarios.data_cleanup import scenario_very_long_email
@@ -114,7 +124,11 @@ class TestAllScenariosSchemaCompliance:
 
     def test_minimum_scenario_count(self) -> None:
         """Ensure we have a meaningful number of data cleanup scenarios."""
+<<<<<<< HEAD
+        assert len(_ALL_SCENARIOS) >= 48
+=======
         assert len(_ALL_SCENARIOS) >= 38
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
 
 
 # ── Scenario-specific tests ──────────────────────────────────────────
@@ -794,3 +808,208 @@ class TestSqlQueryDump:
         assert gold.category == "Data & Storage"
         assert gold.priority == "P2"
         assert gold.assigned_team == "Data Platform"
+<<<<<<< HEAD
+
+
+# ── New comprehensive scenario tests (INC-DC-5001 through INC-DC-5010) ──
+
+
+class TestDockerContainerLogs:
+    """Verify Docker container log scenario has realistic log output."""
+
+    def test_contains_log_timestamps(self) -> None:
+        ticket, _ = scenario_docker_container_logs()
+        assert "2026-03" in ticket.description
+
+    def test_contains_oom_error(self) -> None:
+        ticket, _ = scenario_docker_container_logs()
+        assert "OutOfMemoryError" in ticket.description
+
+    def test_contains_restart_attempts(self) -> None:
+        ticket, _ = scenario_docker_container_logs()
+        assert "restart" in ticket.description.lower()
+
+    def test_classified_as_software_p1(self) -> None:
+        _, gold = scenario_docker_container_logs()
+        assert gold.category == "Software & Applications"
+        assert gold.priority == "P1"
+        assert gold.assigned_team == "Enterprise Applications"
+        assert gold.needs_escalation is False
+
+
+class TestKubernetesPodYaml:
+    """Verify Kubernetes pod YAML scenario has K8s resource output."""
+
+    def test_contains_pod_describe_output(self) -> None:
+        ticket, _ = scenario_kubernetes_pod_yaml()
+        assert "kubectl describe" in ticket.description or "Namespace:" in ticket.description
+
+    def test_contains_crashloopbackoff(self) -> None:
+        ticket, _ = scenario_kubernetes_pod_yaml()
+        assert "CrashLoopBackOff" in ticket.description
+
+    def test_classified_as_software_p2(self) -> None:
+        _, gold = scenario_kubernetes_pod_yaml()
+        assert gold.category == "Software & Applications"
+        assert gold.priority == "P2"
+        assert gold.assigned_team == "Enterprise Applications"
+
+
+class TestTerraformPlanOutput:
+    """Verify Terraform plan scenario has IaC plan output."""
+
+    def test_contains_terraform_actions(self) -> None:
+        ticket, _ = scenario_terraform_plan_output()
+        assert "Terraform will perform" in ticket.description
+
+    def test_contains_destroy_action(self) -> None:
+        ticket, _ = scenario_terraform_plan_output()
+        assert "DESTROYED" in ticket.description
+
+    def test_description_is_long(self) -> None:
+        ticket, _ = scenario_terraform_plan_output()
+        assert len(ticket.description) > 1500
+
+    def test_classified_as_network_p1_escalated(self) -> None:
+        _, gold = scenario_terraform_plan_output()
+        assert gold.category == "Network & Connectivity"
+        assert gold.priority == "P1"
+        assert gold.assigned_team == "Network Operations"
+        assert gold.needs_escalation is True
+
+
+class TestGitDiffInTicket:
+    """Verify git diff scenario has unified diff format."""
+
+    def test_contains_diff_markers(self) -> None:
+        ticket, _ = scenario_git_diff_in_ticket()
+        assert "diff --git" in ticket.description
+        assert "---" in ticket.description
+        assert "+++" in ticket.description
+
+    def test_classified_as_access_p2(self) -> None:
+        _, gold = scenario_git_diff_in_ticket()
+        assert gold.category == "Access & Authentication"
+        assert gold.priority == "P2"
+        assert gold.assigned_team == "Identity & Access Management"
+        assert gold.needs_escalation is False
+
+
+class TestPemCertificateChain:
+    """Verify PEM certificate scenario has cert data."""
+
+    def test_contains_pem_markers(self) -> None:
+        ticket, _ = scenario_pem_certificate_chain()
+        assert "-----BEGIN CERTIFICATE-----" in ticket.description
+        assert "-----END CERTIFICATE-----" in ticket.description
+
+    def test_description_is_long(self) -> None:
+        ticket, _ = scenario_pem_certificate_chain()
+        assert len(ticket.description) > 1000
+
+    def test_classified_as_security_p1_escalated(self) -> None:
+        _, gold = scenario_pem_certificate_chain()
+        assert gold.category == "Security & Compliance"
+        assert gold.priority == "P1"
+        assert gold.assigned_team == "Security Operations"
+        assert gold.needs_escalation is True
+
+
+class TestRawMimeMultipart:
+    """Verify raw MIME multipart scenario has email source."""
+
+    def test_contains_mime_boundary(self) -> None:
+        ticket, _ = scenario_raw_mime_multipart()
+        assert "boundary=" in ticket.description
+        assert "Content-Type:" in ticket.description
+
+    def test_contains_quoted_printable(self) -> None:
+        ticket, _ = scenario_raw_mime_multipart()
+        assert "quoted-printable" in ticket.description
+
+    def test_classified_as_software_p3(self) -> None:
+        _, gold = scenario_raw_mime_multipart()
+        assert gold.category == "Software & Applications"
+        assert gold.priority == "P3"
+        assert gold.assigned_team == "Enterprise Applications"
+
+
+class TestDnsZoneFile:
+    """Verify DNS zone file scenario has zone records."""
+
+    def test_contains_zone_records(self) -> None:
+        ticket, _ = scenario_dns_zone_file()
+        desc = ticket.description
+        assert "$TTL" in desc or "IN  A" in desc or "IN  SOA" in desc
+
+    def test_contains_corrupted_records(self) -> None:
+        ticket, _ = scenario_dns_zone_file()
+        assert "0.0.0.0" in ticket.description
+
+    def test_classified_as_network_p2(self) -> None:
+        _, gold = scenario_dns_zone_file()
+        assert gold.category == "Network & Connectivity"
+        assert gold.priority == "P2"
+        assert gold.assigned_team == "Network Operations"
+        assert gold.needs_escalation is False
+
+
+class TestPacketCaptureText:
+    """Verify packet capture scenario has tcpdump-like output."""
+
+    def test_contains_tcp_flags(self) -> None:
+        ticket, _ = scenario_packet_capture_text()
+        assert "Flags [" in ticket.description
+
+    def test_contains_retransmission(self) -> None:
+        ticket, _ = scenario_packet_capture_text()
+        assert "Retransmission" in ticket.description
+
+    def test_classified_as_network_p2(self) -> None:
+        _, gold = scenario_packet_capture_text()
+        assert gold.category == "Network & Connectivity"
+        assert gold.priority == "P2"
+        assert gold.assigned_team == "Network Operations"
+        assert gold.needs_escalation is False
+
+
+class TestDeeplyNestedJavaException:
+    """Verify deeply nested Java exception has multi-level Caused by chain."""
+
+    def test_contains_caused_by_chain(self) -> None:
+        ticket, _ = scenario_deeply_nested_java_exception()
+        caused_count = ticket.description.count("Caused by:")
+        assert caused_count >= 4, f"Expected ≥4 'Caused by:' levels, got {caused_count}"
+
+    def test_contains_hikari_pool_exhaustion(self) -> None:
+        ticket, _ = scenario_deeply_nested_java_exception()
+        assert "HikariPool" in ticket.description
+        assert "Active: 50" in ticket.description
+
+    def test_classified_as_data_storage_p1_escalated(self) -> None:
+        _, gold = scenario_deeply_nested_java_exception()
+        assert gold.category == "Data & Storage"
+        assert gold.priority == "P1"
+        assert gold.assigned_team == "Data Platform"
+        assert gold.needs_escalation is True
+
+
+class TestSpreadsheetTabPaste:
+    """Verify spreadsheet tab paste scenario has tabular data."""
+
+    def test_contains_tab_separated_data(self) -> None:
+        ticket, _ = scenario_spreadsheet_tab_paste()
+        assert "\t" in ticket.description
+
+    def test_contains_employee_data(self) -> None:
+        ticket, _ = scenario_spreadsheet_tab_paste()
+        assert "Employee ID" in ticket.description
+
+    def test_classified_as_access_p3(self) -> None:
+        _, gold = scenario_spreadsheet_tab_paste()
+        assert gold.category == "Access & Authentication"
+        assert gold.priority == "P3"
+        assert gold.assigned_team == "Identity & Access Management"
+
+=======
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche

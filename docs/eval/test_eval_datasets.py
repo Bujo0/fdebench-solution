@@ -71,7 +71,7 @@ MISSING_INFO_VOCAB = {
     "configuration_details",
 }
 
-_TICKET_ID_PATTERN = re.compile(r"^INC-[A-Z]*[0-9]+$")
+_TICKET_ID_PATTERN = re.compile(r"^INC-[A-Z0-9]+(-[A-Z0-9]+)*$")
 
 # ── Helpers ───────────────────────────────────────────────────────────
 
@@ -98,7 +98,7 @@ def _validate_ticket(ticket: dict, file_name: str) -> list[str]:
 
     # ticket_id format
     if "ticket_id" in ticket and not _TICKET_ID_PATTERN.match(str(ticket["ticket_id"])):
-        errors.append(f"{prefix}: ticket_id does not match pattern ^INC-[0-9]+$")
+        errors.append(f"{prefix}: ticket_id does not match expected INC-xxx pattern")
 
     # channel enum
     if "channel" in ticket and ticket["channel"] not in CHANNELS:

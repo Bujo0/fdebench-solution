@@ -1,0 +1,197 @@
+[
+  {
+    "ticket_id": "INC-7001",
+    "subject": "O̵̶̐ͦ̀̏̒͠utlook cra̵̶̐ͦ̀̏̒͠shing on startup",
+    "description": "H̵̶̐ͦ̀̏̒͠i IT,\n\nMy Out̵̶̐ͦ̀̏̒͠look 365 crash̵̶̐ͦ̀̏̒͠es every time I open it. I get a Visual C++ runtime error. This star̵̶̐ͦ̀̏̒͠ted after the latest Windows Update. Already tried /resetnavpane and safe mode.\n\nPle̵̶̐ͦ̀̏̒͠ase help.",
+    "reporter": {
+      "name": "Tom Chen",
+      "email": "tom.chen@contoso.com",
+      "department": "Research"
+    },
+    "created_at": "2026-03-18T08:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-7002",
+    "subject": "Cannot access shared drive after reboot",
+    "description": "Cannot access \\\\fs-nyc-02\\compliance\u0001\u0002 after rebooting my laptop this morning.\u0003\u0004 Error code: 0x80070035 — The network path was not found.\u0005\u0006 Other network resources work fine.\u0007",
+    "reporter": {
+      "name": "Lisa Yamamoto",
+      "email": "lisa.yamamoto@contoso.com",
+      "department": "Finance"
+    },
+    "created_at": "2026-03-18T09:07:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-7003",
+    "subject": "Screen flickering issue",
+    "description": "Hi%20IT%2C%0A%0AMy%20laptop%20screen%20is%20flickering%20intermittently.%20It%20happens%20every%2010-15%20minutes.%20Dell%20Latitude%205540%2C%20Windows%2011%2C%20Intel%20Iris%20Xe.%20The%20external%20monitor%20is%20a%20Dell%20U2722D%20via%20USB-C.%0A%0AThanks%2C%0AAisha%20Patel",
+    "reporter": {
+      "name": "Hannah Morrison",
+      "email": "hannah.morrison@contoso.com",
+      "department": "DevOps"
+    },
+    "created_at": "2026-03-18T10:14:00Z",
+    "channel": "phone",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-7004",
+    "subject": "CRITICAL: Database replication server at 96% CPU",
+    "description": "Full server health report from this morning:\n\nSRV-001\tOK\t91%\nSRV-002\tOK\t92%\nSRV-003\tOK\t93%\nSRV-004\tOK\t94%\nSRV-005\tOK\t95%\nSRV-006\tOK\t96%\nSRV-007\tCRITICAL\t97%\nSRV-008\tOK\t98%\nSRV-009\tOK\t99%\nSRV-010\tOK\t90%\nSRV-011\tOK\t91%\nSRV-012\tOK\t92%\nSRV-013\tOK\t93%\nSRV-014\tCRITICAL\t94%\nSRV-015\tOK\t95%\nSRV-016\tOK\t96%\nSRV-017\tOK\t97%\nSRV-018\tOK\t98%\nSRV-019\tOK\t99%\nSRV-020\tOK\t90%\nSRV-021\tCRITICAL\t91%\nSRV-022\tOK\t92%\nSRV-023\tOK\t93%\nSRV-024\tOK\t94%\nSRV-025\tOK\t95%\nSRV-026\tOK\t96%\nSRV-027\tOK\t97%\nSRV-028\tCRITICAL\t98%\nSRV-029\tOK\t99%\nSRV-030\tOK\t90%\n\nPlease investigate SRV-007 immediately. Replication job appears stuck.",
+    "reporter": {
+      "name": "Marcus Chen",
+      "email": "marcus.chen@contoso.com",
+      "department": "Trading"
+    },
+    "created_at": "2026-03-18T11:21:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-7005",
+    "subject": "Need help with stale account cleanup — query results attached",
+    "description": "Hi IAM team,\n\nI ran this query:\n\nSELECT u.user_id, u.display_name, u.last_login,\n       DATEDIFF(day, u.last_login, GETDATE()) AS days_inactive\nFROM dbo.Users u\nWHERE u.account_status = 'active'\n    AND u.last_login < DATEADD(month, -3, GETDATE())\nORDER BY u.last_login ASC;\n\n/* 847 rows returned */\n\nPer SEC-POL-007, accounts inactive 90+ days should be disabled. Can you run the bulk disable process?",
+    "reporter": {
+      "name": "Kenji Santos",
+      "email": "kenji.santos@contoso.com",
+      "department": "DevOps"
+    },
+    "created_at": "2026-03-18T12:28:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-7006",
+    "subject": "403 Forbidden on deal room SharePoint site",
+    "description": "Content-Transfer-Encoding: base64\n\nQ2Fubm90IGFjY2VzcyBodHRwczovL2NvbnRvc28uc2hhcmVwb2ludC5jb20vc2l0ZXMvTUEtQXRsYXMuIEdldHRpbmcgNDAzIEZvcmJpZGRlbiBzaW5jZSB5ZXN0ZXJkYXkuIFdhcyB3b3JraW5nIGZpbmUgYmVmb3JlLg==",
+    "reporter": {
+      "name": "Sam Okafor",
+      "email": "sam.okafor@contoso.com",
+      "department": "Research"
+    },
+    "created_at": "2026-03-18T13:35:00Z",
+    "channel": "phone",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-7007",
+    "subject": "FW: [PagerDuty] API Gateway health check failures (100+ alerts)",
+    "description": "Auto-forwarded from PagerDuty:\n\n[ALERT 0000] WARNING: Service health check failed at 2026-03-18T08:00:00Z\n[ALERT 0001] WARNING: Service health check failed at 2026-03-18T08:01:00Z\n[ALERT 0002] WARNING: Service health check failed at 2026-03-18T08:02:00Z\n[ALERT 0003] WARNING: Service health check failed at 2026-03-18T08:03:00Z\n[ALERT 0004] WARNING: Service health check failed at 2026-03-18T08:04:00Z\n[ALERT 0005] WARNING: Service health check failed at 2026-03-18T08:05:00Z\n[ALERT 0006] WARNING: Service health check failed at 2026-03-18T08:06:00Z\n[ALERT 0007] WARNING: Service health check failed at 2026-03-18T08:07:00Z\n[ALERT 0008] WARNING: Service health check failed at 2026-03-18T08:08:00Z\n[ALERT 0009] WARNING: Service health check failed at 2026-03-18T08:09:00Z\n[ALERT 0010] WARNING: Service health check failed at 2026-03-18T08:10:00Z\n[ALERT 0011] WARNING: Service health check failed at 2026-03-18T08:11:00Z\n[ALERT 0012] WARNING: Service health check failed at 2026-03-18T08:12:00Z\n[ALERT 0013] WARNING: Service health check failed at 2026-03-18T08:13:00Z\n[ALERT 0014] WARNING: Service health check failed at 2026-03-18T08:14:00Z\n[ALERT 0015] WARNING: Service health check failed at 2026-03-18T08:15:00Z\n[ALERT 0016] WARNING: Service health check failed at 2026-03-18T08:16:00Z\n[ALERT 0017] WARNING: Service health check failed at 2026-03-18T08:17:00Z\n[ALERT 0018] WARNING: Service health check failed at 2026-03-18T08:18:00Z\n[ALERT 0019] WARNING: Service health check failed at 2026-03-18T08:19:00Z\n[ALERT 0020] WARNING: Service health check failed at 2026-03-18T08:20:00Z\n[ALERT 0021] WARNING: Service health check failed at 2026-03-18T08:21:00Z\n[ALERT 0022] WARNING: Service health check failed at 2026-03-18T08:22:00Z\n[ALERT 0023] WARNING: Service health check failed at 2026-03-18T08:23:00Z\n[ALERT 0024] WARNING: Service health check failed at 2026-03-18T08:24:00Z\n[ALERT 0025] WARNING: Service health check failed at 2026-03-18T08:25:00Z\n[ALERT 0026] WARNING: Service health check failed at 2026-03-18T08:26:00Z\n[ALERT 0027] WARNING: Service health check failed at 2026-03-18T08:27:00Z\n[ALERT 0028] WARNING: Service health check failed at 2026-03-18T08:28:00Z\n[ALERT 0029] WARNING: Service health check failed at 2026-03-18T08:29:00Z\n[ALERT 0030] WARNING: Service health check failed at 2026-03-18T08:30:00Z\n[ALERT 0031] WARNING: Service health check failed at 2026-03-18T08:31:00Z\n[ALERT 0032] WARNING: Service health check failed at 2026-03-18T08:32:00Z\n[ALERT 0033] WARNING: Service health check failed at 2026-03-18T08:33:00Z\n[ALERT 0034] WARNING: Service health check failed at 2026-03-18T08:34:00Z\n[ALERT 0035] WARNING: Service health check failed at 2026-03-18T08:35:00Z\n[ALERT 0036] WARNING: Service health check failed at 2026-03-18T08:36:00Z\n[ALERT 0037] WARNING: Service health check failed at 2026-03-18T08:37:00Z\n[ALERT 0038] WARNING: Service health check failed at 2026-03-18T08:38:00Z\n[ALERT 0039] WARNING: Service health check failed at 2026-03-18T08:39:00Z\n[ALERT 0040] WARNING: Service health check failed at 2026-03-18T08:40:00Z\n[ALERT 0041] WARNING: Service health check failed at 2026-03-18T08:41:00Z\n[ALERT 0042] WARNING: Service health check failed at 2026-03-18T08:42:00Z\n[ALERT 0043] WARNING: Service health check failed at 2026-03-18T08:43:00Z\n[ALERT 0044] WARNING: Service health check failed at 2026-03-18T08:44:00Z\n[ALERT 0045] WARNING: Service health check failed at 2026-03-18T08:45:00Z\n[ALERT 0046] WARNING: Service health check failed at 2026-03-18T08:46:00Z\n[ALERT 0047] WARNING: Service health check failed at 2026-03-18T08:47:00Z\n[ALERT 0048] WARNING: Service health check failed at 2026-03-18T08:48:00Z\n[ALERT 0049] WARNING: Service health check failed at 2026-03-18T08:49:00Z\n\nPlease investigate why the API gateway is returning 503s. Backend services seem fine — might be load balancer health probe config.",
+    "reporter": {
+      "name": "Kenji Torres",
+      "email": "kenji.torres@contoso.com",
+      "department": "DevOps"
+    },
+    "created_at": "2026-03-18T14:42:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-7008",
+    "subject": "Transcribed call: user reporting spreadsheet crashes",
+    "description": "[00:00] AGENT: IT support, how can I help?\n[00:03] USER: My PowerPoint crashes whenever I try to save.\n[00:10] AGENT: Is it a specific file?\n[00:13] USER: Yes, a 200-slide deck with embedded videos.\n[00:25] USER: It just says 'not responding' when I hit save.\n[00:35] AGENT: Creating a ticket for this.",
+    "reporter": {
+      "name": "James Mendez",
+      "email": "james.mendez@contoso.com",
+      "department": "Research"
+    },
+    "created_at": "2026-03-18T15:49:00Z",
+    "channel": "phone",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-7009",
+    "subject": "Application crash with memory dump — heap corruption",
+    "description": "ContosoTrader v4.2.1 crashing with access violation:\n\n0x00000000  00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f\n0x00000010  10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f\n0x00000020  20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f\n0x00000030  30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f\n0x00000040  40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f\n0x00000050  50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f\n0x00000060  60 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f\n0x00000070  70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f\n0x00000080  80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f\n0x00000090  90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f\n0x000000a0  a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 aa ab ac ad ae af\n0x000000b0  b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf\n0x000000c0  c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb cc cd ce cf\n0x000000d0  d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df\n0x000000e0  e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef\n\nCrash at ntdll!RtlAllocateHeap — looks like heap corruption. Affects 12 traders on derivatives desk.",
+    "reporter": {
+      "name": "Kevin Li",
+      "email": "kevin.li@contoso.com",
+      "department": "Finance"
+    },
+    "created_at": "2026-03-18T16:56:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-7010",
+    "subject": "★★★ EXTREMELY URGENT ★★★ Entire floor has no WiFi ★★★",
+    "description": "◆◆◆ CRITICAL ◆◆◆ WiFi down on Floor 7!!!!!!\n>>>>> ALL access points showing red LED <<<<<\n50+ users affected, conference rooms unusable.\n===== PLEASE RESPOND IMMEDIATELY =====",
+    "reporter": {
+      "name": "Kevin Vasquez",
+      "email": "kevin.vasquez@contoso.com",
+      "department": "Trading"
+    },
+    "created_at": "2026-03-18T17:03:00Z",
+    "channel": "phone",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-7011",
+    "subject": "VPN connection issue — בעיה בחיבור VPN",
+    "description": "שלום צוות IT,\n\nI am trying to connect to GlobalProtect VPN gateway vpn-eu.contoso.com but keep getting error GP-0011 (Gateway not reachable). הבעיה התחילה אחרי שדרוג הרשת. My colleague can connect fine. Windows 11 with GP 6.2.1.\n\nתודה,\nDaniel Levy",
+    "reporter": {
+      "name": "Elena Liu",
+      "email": "elena.liu@contoso.com",
+      "department": "HR"
+    },
+    "created_at": "2026-03-18T08:10:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-7012",
+    "subject": "Two tickets accidentally merged by the system",
+    "description": "=== MERGED TICKETS ===\nTicket 1: DLP alert — 500+ emails with PII sent to personal addresses. Needs immediate investigation per data protection policy.\n\nTicket 2: Coffee machine on Floor 2 is broken. Not dispensing hot water. Please send facilities.",
+    "reporter": {
+      "name": "Marcus Miller",
+      "email": "marcus.miller@contoso.com",
+      "department": "IT Security"
+    },
+    "created_at": "2026-03-18T09:17:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-7013",
+    "subject": "AKS ingress not routing after config change — config dump attached",
+    "description": "Hi team,\n\nAfter applying this config:\n\n{\n  \"cluster\": {\n    \"config\": {\n      \"ingress\": {\n        \"controller\": {\n          \"replicas\": 3,\n          \"resources\": {\n            \"limits\": {\"cpu\": \"2000m\"}\n          }\n        }\n      }\n    }\n  }\n}\n\nIngress controller stopped routing. All requests return 502. Think the subnet annotation is wrong (aks-subnet-01 vs 02).",
+    "reporter": {
+      "name": "Patricia Morrison",
+      "email": "patricia.morrison@contoso.com",
+      "department": "IT Security"
+    },
+    "created_at": "2026-03-18T10:24:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-7014",
+    "subject": "🔑❌🖥️😱⚠️🔴",
+    "description": "Locked out of all systems. Error says 'account disabled by administrator' but nobody told me about this. Need immediate access restored.",
+    "reporter": {
+      "name": "Nancy Okafor",
+      "email": "nancy.okafor@contoso.com",
+      "department": "Research"
+    },
+    "created_at": "2026-03-18T11:31:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-7015",
+    "subject": "Wi-Fi disconnecting â limited connectivity",
+    "description": "Iâm having trouble with my laptopâs Wi-Fi. It keeps disconnecting and shows âpoorâ signal even next to the AP. Error: âLimited connectivityâ. Intel Wi-Fi 6E AX211. Driver update didnât help.",
+    "reporter": {
+      "name": "Marcus Yamamoto",
+      "email": "marcus.yamamoto@contoso.com",
+      "department": "Compliance"
+    },
+    "created_at": "2026-03-18T12:38:00Z",
+    "channel": "email",
+    "attachments": []
+  }
+]

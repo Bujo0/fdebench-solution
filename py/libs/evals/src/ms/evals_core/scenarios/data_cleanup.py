@@ -17519,4 +17519,319 @@ def get_scenarios() -> list[ScenarioDefinition]:
             tags=["data-cleanup", "winrm-transcript", "remote-session-dump"],
             difficulty="medium",
         ),
+        # ── DC-261  Enormous CC/BCC list burying a scanner issue ──────────
+        ScenarioDefinition(
+            scenario_id="DC-261",
+            subject="FW: FW: RE: Office equipment issue - URGENT PLEASE READ",
+            description=(
+                "From: Denise Kowalski <denise.kowalski@contoso.com>\n"
+                "To: IT Support <itsupport@contoso.com>\n"
+                "CC: john.abrantes@contoso.com; maria.hendricks@contoso.com; "
+                "frank.oduya@contoso.com; lisa.tanaka@contoso.com; "
+                "robert.mckinney@contoso.com; susan.pratt@contoso.com; "
+                "ahmed.hassan@contoso.com; carla.jensen@contoso.com; "
+                "dmitri.volkov@contoso.com; nancy.omalley@contoso.com; "
+                "wei.chen@contoso.com; patricia.barnes@contoso.com; "
+                "michael.reeves@contoso.com; angela.foster@contoso.com; "
+                "brandon.little@contoso.com; yuki.watanabe@contoso.com; "
+                "ernest.green@contoso.com; diana.ruiz@contoso.com; "
+                "howard.kim@contoso.com; teresa.simmons@contoso.com; "
+                "greg.papadopoulos@contoso.com; irene.black@contoso.com; "
+                "jake.morrison@contoso.com; linda.chang@contoso.com; "
+                "oscar.hernandez@contoso.com; rachel.dubois@contoso.com; "
+                "steve.wright@contoso.com; tanya.petrova@contoso.com; "
+                "victor.mantis@contoso.com; wendy.liu@contoso.com; "
+                "xavier.jones@contoso.com; yvette.martin@contoso.com; "
+                "zach.kowalski@contoso.com; adam.norris@contoso.com; "
+                "betty.crawford@contoso.com; carlos.mendez@contoso.com; "
+                "dawn.stewart@contoso.com; ed.franklin@contoso.com; "
+                "fiona.gallagher@contoso.com; george.hill@contoso.com; "
+                "helen.irving@contoso.com; ivan.petrov@contoso.com; "
+                "janet.quinn@contoso.com; karl.richter@contoso.com; "
+                "lucy.sato@contoso.com; mark.turner@contoso.com; "
+                "nina.underwood@contoso.com; oliver.vance@contoso.com; "
+                "paula.wang@contoso.com; quentin.xi@contoso.com; "
+                "rosa.young@contoso.com; sam.zhao@contoso.com; "
+                "tina.abbott@contoso.com; ulrich.bauer@contoso.com; "
+                "vera.cole@contoso.com; will.decker@contoso.com; "
+                "xena.ellis@contoso.com; yolanda.fisher@contoso.com; "
+                "zane.grant@contoso.com; abby.hawkins@contoso.com; "
+                "ben.ingram@contoso.com; claire.james@contoso.com; "
+                "derek.kirk@contoso.com; elsa.lang@contoso.com; "
+                "felix.moore@contoso.com; gina.nash@contoso.com; "
+                "hans.ortega@contoso.com; iris.parker@contoso.com; "
+                "joel.quinn@contoso.com; kara.reed@contoso.com; "
+                "leo.santos@contoso.com; mia.thompson@contoso.com; "
+                "nate.upton@contoso.com; olive.vaughn@contoso.com; "
+                "pete.walsh@contoso.com; quinn.xavier@contoso.com; "
+                "ruth.yates@contoso.com; sean.zimmerman@contoso.com; "
+                "tara.alston@contoso.com; ursula.beck@contoso.com\n"
+                "BCC: finance-all@contoso.com; operations-all@contoso.com; "
+                "compliance-team@contoso.com; hr-department@contoso.com\n"
+                "Subject: FW: FW: RE: Office equipment issue\n"
+                "Importance: High\n"
+                "X-Priority: 1\n\n"
+                "Hi everyone,\n\n"
+                "Forwarding this to make sure the right people see it. Please help if you can. "
+                "Adding the whole floor just in case someone knows how to fix this. "
+                "Also CC'ing finance because they had a similar issue last quarter.\n\n"
+                "--- Original Message from Denise Kowalski ---\n\n"
+                "The HP LaserJet MFP M428fdw scanner on the 3rd floor (asset tag SCAN-3F-017) "
+                "has stopped scanning to email entirely. When I place a document on the flatbed "
+                "and select Scan to Email, the device shows error code 22.00.03 and the scan "
+                "never completes. This started yesterday afternoon after what appeared to be a "
+                "firmware update. Printing still works fine from the same device.\n\n"
+                "Thanks,\nDenise\n\n"
+                "--- Disclaimer ---\n"
+                "This email and any attachments are intended solely for the named recipients."
+            ),
+            category=Category.HARDWARE,
+            priority=Priority.P3,
+            team=Team.ENDPOINT,
+            needs_escalation=False,
+            missing_info=[MissingInfo.STEPS_TO_REPRODUCE, MissingInfo.ENVIRONMENT_DETAILS],
+            next_best_action=(
+                "Investigate HP LaserJet MFP M428fdw scanner failure (error 22.00.03) on 3rd "
+                "floor device SCAN-3F-017. The scan-to-email function broke after a firmware "
+                "update while printing still works."
+            ),
+            remediation_steps=[
+                "Check the firmware version on SCAN-3F-017 and compare with the last known working version.",
+                "Attempt to roll back the firmware update if a previous version is available.",
+                "Verify SMTP relay configuration on the device for scan-to-email functionality.",
+                "Test scan-to-network-folder as a workaround while investigating the email scan path.",
+                "Check HP support for known issues with error code 22.00.03 on M428fdw devices.",
+            ],
+            reporter_name="Denise Kowalski",
+            reporter_email="denise.kowalski@contoso.com",
+            reporter_department="Operations",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "enormous-cc-bcc", "header-overload"],
+            difficulty="medium",
+        ),
+        # ── DC-262  Corrupted base64 blocks wrapping a network issue ──────
+        ScenarioDefinition(
+            scenario_id="DC-262",
+            subject="Network issue - pasting log exports",
+            description=(
+                "Hi team,\n\n"
+                "I've been having network drops all morning. I tried to export the logs from "
+                "our monitoring tool but the export seems corrupted. Here's what I got:\n\n"
+                "=== Exported Network Diagnostics Log ===\n"
+                "SGVsbG8gV29ybGQhIFRoaXMga&XMgYSB0ZXN0IG9mIGJhc2U2NCBlbmNvZGluZy4gSXQg\n"
+                "c2hvdWxkIGJlIHZhbGlkIGJ!dCB3ZSdyZSBhZGRpbmcgaW52YWxpZCBjaGFyYWN0ZXJz\n"
+                "IGhlcmUgYW5kIHRoZXJlIH@RvIG1ha2UgaXQgbG9vayBjb3JydXB0ZWQuIEhvcGVmdWxs\n"
+                "eSwgdGhpcyBpcyByZW&FsaXN0aWMgZW5vdWdoIGZvciBhIGRhdGEgY2xlYW51cCBzY2Vu\n"
+                "YXJpby4gVGhlIGVuY29kaW5n!IGlzIGRlbGliZXJhdGVseSBicm9rZW4u\n"
+                "=== End Block 1 ===\n\n"
+                "=== Network Capture Fragment ===\n"
+                "UGFja2V0IGNhcHR1cmUgZn@JhZ21lbnQ6IFRoaXMgcmVwcmVzZW50cyBhIHBhcnRpYWwg\n"
+                "bmV0d29yayBjYXB0dXJlIGZ!yb20gV2lyZXNoYXJrLiBUaGUgZGF0YSBoYXMgYmVlbiBj\n"
+                "b3JydXB0ZWQgZHVyaW5nIGV&4cG9ydCBkdWUgdG8gYSBidWcgaW4gdGhlIGV4cG9ydGVy\n"
+                "LiBNdWx0aXBsZSBmcmFtZX@MgYXJlIG1pc3NpbmcgYW5kIHRoZSBjaGVja3N1bXMgZG8g\n"
+                "bm90IG1hdGNoLiBC&YXNlNjQgZGVjb2Rpbmcgd2lsbCBmYWlsIG9uIHRoZXNlIGJsb2Nr\n"
+                "cy4gSW52YWxpZCBjaGFyYW!N0ZXJzIGluY2x1ZGU6ICYsIEAsICEsIGFuZCBvdGhlcnMu\n"
+                "=== End Block 2 ===\n\n"
+                "=== DHCP Log Fragment ===\n"
+                "REhDUCBMb2c6IE1hY2hpbmUg@Y29udG9zby1kZXNrLTAzNyByZXF1ZXN0ZWQgYWRkcmVz\n"
+                "cyAxMC4yMC4zMC40MCBm&cm9tIHNlcnZlciAxMC4yMC4zMC4xLiBMZWFzZSBncmFudGVk\n"
+                "IGZvciA4IGhvd!XJzLiBSZW5ld2FsIGZhaWxlZCBhdCAxNDoyMjo0NSB3aXRoIGVycm9y\n"
+                "IGNvZGUgMHg4M&DAzMDAwMS4gQ2xpZW50IGZlbGwgYmFjayB0byBBUElQQSBhZGRyZXNz\n"
+                "IDE2OS4yNTQuMT@UyLjE4Ny4gTm8gZ2F0ZXdheSByZWFjaGFibGUu\n"
+                "=== End Block 3 ===\n\n"
+                "The actual issue: My workstation contoso-desk-037 on the 4th floor keeps losing "
+                "its IP address. DHCP renewals are failing and I fall back to a 169.254.x.x APIPA "
+                "address roughly every 2 hours. I can't access any internal resources or the "
+                "internet when this happens. I have to manually run ipconfig /renew to get back "
+                "online. My switch port is 4F-SW02 port Gi0/24.\n\n"
+                "=== Additional Corrupted Export ===\n"
+                "QWRkaXRpb25hbCBuZXR3b3Jr!IGxvZ3M6IEFSUCBjYWNoZSBzaG93cyBzdGFsZSBlbnRy\n"
+                "aWVzIGZvci&BnYXRld2F5IDEwLjIwLjMwLjEuIFRyYWNlcm91dGUgdG8gOC44LjguOCBm\n"
+                "YWlscyBhdCBob3AgMS@4gTm8gcmVzcG9uc2UgZnJvbSBkZWZhdWx0IGdhdGV3YXku\n"
+                "=== End Block 4 ===\n\n"
+                "Please help, this is really disrupting my work.\n"
+                "Thanks, Roger"
+            ),
+            category=Category.NETWORK,
+            priority=Priority.P2,
+            team=Team.NETWORK_OPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.ERROR_MESSAGE, MissingInfo.TIMESTAMP],
+            next_best_action=(
+                "Investigate DHCP lease renewal failures on workstation contoso-desk-037 "
+                "(4th floor, switch port 4F-SW02 Gi0/24). The machine is falling back to "
+                "APIPA addressing every ~2 hours."
+            ),
+            remediation_steps=[
+                "Check DHCP server logs for lease renewal failures related to contoso-desk-037.",
+                "Inspect switch port 4F-SW02 Gi0/24 for errors, duplex mismatches, or spanning-tree issues.",
+                "Verify the DHCP scope has available addresses and the lease duration is appropriate.",
+                "Test with a static IP to rule out NIC driver issues on the workstation.",
+                "Check for rogue DHCP servers on the 4th floor VLAN.",
+            ],
+            reporter_name="Roger Eastman",
+            reporter_email="roger.eastman@contoso.com",
+            reporter_department="Risk Management",
+            channel=Channel.PORTAL,
+            tags=["data-cleanup", "corrupted-base64", "invalid-encoding"],
+            difficulty="hard",
+        ),
+        # ── DC-263  Deeply nested HTML tables from forwarded email ─────────
+        ScenarioDefinition(
+            scenario_id="DC-263",
+            subject="FW: Software license expiring - forwarded from vendor",
+            description=(
+                "<html><body>"
+                "<table border='1' cellpadding='5' style='border-collapse:collapse;'>"
+                "<tr><td style='background:#003366;color:white;font-size:18px;' colspan='3'>"
+                "CONTOSO FINANCIAL — IT Request Tracking</td></tr>"
+                "<tr><td>"
+                "  <table border='1' cellpadding='3'>"
+                "  <tr><td style='background:#f0f0f0;'>Request ID</td><td>REQ-20260415-0042</td></tr>"
+                "  <tr><td style='background:#f0f0f0;'>Date</td><td>2026-04-15</td></tr>"
+                "  <tr><td style='background:#f0f0f0;'>Submitter</td><td>Janet Okafor</td></tr>"
+                "  <tr><td>"
+                "    <table border='1' cellpadding='2'>"
+                "    <tr><td style='background:#e0e0e0;'>Department Details</td></tr>"
+                "    <tr><td>"
+                "      <table border='0' cellpadding='1'>"
+                "      <tr><td>Dept:</td><td>Compliance</td></tr>"
+                "      <tr><td>Floor:</td><td>7</td></tr>"
+                "      <tr><td>Building:</td><td>HQ-East</td></tr>"
+                "      <tr><td>"
+                "        <table border='1'>"
+                "        <tr><td style='background:#d0d0d0;'>Manager Chain</td></tr>"
+                "        <tr><td>"
+                "          <table border='0'>"
+                "          <tr><td>Direct:</td><td>Kevin Wu</td></tr>"
+                "          <tr><td>VP:</td><td>Sandra Meier</td></tr>"
+                "          <tr><td>"
+                "            <table border='1'>"
+                "            <tr><td style='background:#c0c0c0;'>Cost Center</td></tr>"
+                "            <tr><td>"
+                "              <table border='0'>"
+                "              <tr><td>CC:</td><td>7200-COMPLIANCE</td></tr>"
+                "              <tr><td>GL:</td><td>52100</td></tr>"
+                "              <tr><td>"
+                "                <table border='1'>"
+                "                <tr><td style='background:#b0b0b0;'>Approval History</td></tr>"
+                "                <tr><td>"
+                "                  <table border='0'>"
+                "                  <tr><td>2026-04-10</td><td>Kevin Wu</td><td>Approved</td></tr>"
+                "                  <tr><td>2026-04-11</td><td>Sandra Meier</td><td>Approved</td></tr>"
+                "                  <tr><td>2026-04-12</td><td>Procurement</td><td>Pending</td></tr>"
+                "                  </table>"
+                "                </td></tr>"
+                "                </table>"
+                "              </td></tr>"
+                "              </table>"
+                "            </td></tr>"
+                "            </table>"
+                "          </td></tr>"
+                "          </table>"
+                "        </td></tr>"
+                "        </table>"
+                "      </td></tr>"
+                "      </table>"
+                "    </td></tr>"
+                "    </table>"
+                "  </td></tr>"
+                "  </table>"
+                "</td></tr>"
+                "<tr><td colspan='3' style='padding:10px;'>"
+                "<b>Actual Issue:</b> Our Bloomberg Terminal software license (License ID: "
+                "BBG-CONT-2024-0891) expires on April 30, 2026. We need to renew for 15 seats "
+                "in the Compliance department. The vendor sent the renewal quote (PO-2026-4471, "
+                "$187,500/year) but we need IT to validate the license server configuration "
+                "before procurement processes the renewal. The current license server is "
+                "LICSVR-02.contoso.local and it shows 3 seats already in 'grace period' status."
+                "</td></tr>"
+                "<tr><td>"
+                "  <table border='1'><tr><td>Footer: Generated by ContosoCRM v4.2.1 — "
+                "Do not reply to this automated message</td></tr></table>"
+                "</td></tr>"
+                "</table>"
+                "</body></html>"
+            ),
+            category=Category.SOFTWARE,
+            priority=Priority.P2,
+            team=Team.ENTERPRISE_APPS,
+            needs_escalation=False,
+            missing_info=[MissingInfo.APPLICATION_VERSION, MissingInfo.BUSINESS_IMPACT],
+            next_best_action=(
+                "Validate Bloomberg Terminal license server LICSVR-02.contoso.local configuration "
+                "before the April 30 renewal deadline. Three seats are already in grace period. "
+                "Coordinate with procurement on PO-2026-4471 for 15-seat renewal."
+            ),
+            remediation_steps=[
+                "Audit current Bloomberg license usage on LICSVR-02.contoso.local and identify the 3 grace-period seats.",
+                "Verify the license server software version and compatibility with the renewed license terms.",
+                "Coordinate with procurement to process PO-2026-4471 before the April 30 deadline.",
+                "Plan the license key update on the server with minimal disruption to Compliance users.",
+                "Set up license expiration monitoring alerts for future renewals (90/60/30-day warnings).",
+            ],
+            reporter_name="Janet Okafor",
+            reporter_email="janet.okafor@contoso.com",
+            reporter_department="Compliance",
+            channel=Channel.EMAIL,
+            tags=["data-cleanup", "deep-html-tables", "nested-markup"],
+            difficulty="medium",
+        ),
+        # ── DC-264  Zero-width Unicode joiners and direction markers ──────
+        ScenarioDefinition(
+            scenario_id="DC-264",
+            subject="Can\u200bt lo\u200dg in\u200b to m\u200dy ac\u200bcount - HELP",
+            description=(
+                "Hi\u200b IT\u200d Support\u200b,\n\n"
+                "\u202aI\u200b am\u200d writing\u200b to\u200d report\u200b that\u200d "
+                "my\u200b account\u200d has\u200b been\u200d locked\u200b out\u200d.\u202c "
+                "\ufeffI\u200b have\u200d tried\u200b resetting\u200d my\u200b password\u200d "
+                "three\u200b times\u200d through\u200b the\u200d self\u200b-service\u200d "
+                "portal\u200b but\u200d it\u200b says\u200d '\u200baccount\u200d is\u200b "
+                "locked\u200d due\u200b to\u200d policy\u200b violation\u200d'.\u200b\n\n"
+                "\u202b\ufeffThe\u200b error\u200d message\u200b I\u200d see\u200b "
+                "is\u200d:\u200b '\u200dYour\u200b account\u200d has\u200b been\u200d "
+                "disabled\u200b.\u200d Contact\u200b your\u200d system\u200b "
+                "administrator\u200d'\u200b.\u202c\n\n"
+                "\u200bMy\u200d username\u200b is\u200d p\u200b.\u200dmurphy\u200b@contoso"
+                "\u200d.com\u200b and\u200d I\u200b am\u200d in\u200b the\u200d Fixed\u200b "
+                "Income\u200d department\u200b on\u200d the\u200b 6th\u200d floor\u200b.\u200d "
+                "\ufeffI\u200b need\u200d access\u200b urgently\u200d as\u200b I\u200d "
+                "have\u200b client\u200d meetings\u200b at\u200d 2\u200bPM\u200d.\n\n"
+                "\u202a\u200bThis\u200d started\u200b this\u200d morning\u200b at\u200d "
+                "approximately\u200b 8\u200d:\u200b15\u200d AM\u200b when\u200d I\u200b "
+                "tried\u200d to\u200b log\u200d in\u200b after\u200d the\u200b weekend"
+                "\u200d.\u202c \u200bI\u200d did\u200b not\u200d change\u200b my\u200d "
+                "password\u200b recently\u200d.\u200b I\u200d suspect\u200b someone\u200d "
+                "may\u200b have\u200d tried\u200b to\u200d access\u200b my\u200d "
+                "account\u200b over\u200d the\u200b weekend\u200d.\n\n"
+                "\u200bPlease\u200d help\u200b as\u200d soon\u200b as\u200d "
+                "possible\u200b.\u200d\n\n"
+                "\u200bThanks\u200d,\n"
+                "\u200bPatrick\u200d Murphy\u200b"
+            ),
+            category=Category.ACCESS_AUTH,
+            priority=Priority.P2,
+            team=Team.IAM,
+            needs_escalation=False,
+            missing_info=[MissingInfo.AUTHENTICATION_METHOD, MissingInfo.TIMESTAMP],
+            next_best_action=(
+                "Unlock the account for p.murphy@contoso.com and investigate why it was "
+                "disabled due to a 'policy violation'. Check for failed login attempts over "
+                "the weekend that may indicate unauthorized access attempts."
+            ),
+            remediation_steps=[
+                "Check Active Directory account status and lockout reason for p.murphy.",
+                "Review authentication logs for failed login attempts over the weekend.",
+                "Unlock/re-enable the account after verifying identity through a secondary channel.",
+                "If suspicious activity is confirmed, escalate to Security Ops for investigation.",
+                "Advise user to change password immediately after account is re-enabled.",
+            ],
+            reporter_name="Patrick Murphy",
+            reporter_email="patrick.murphy@contoso.com",
+            reporter_department="Fixed Income",
+            channel=Channel.CHAT,
+            tags=["data-cleanup", "zero-width-joiners", "mixed-direction"],
+            difficulty="hard",
+        ),
     ]

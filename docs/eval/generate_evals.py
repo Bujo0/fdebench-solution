@@ -34,6 +34,9 @@ from generator.scenarios.not_a_ticket import SCENARIOS as NOT_A_TICKET_SCENARIOS
 from generator.scenarios.responsible_ai import SCENARIOS as RESPONSIBLE_AI_SCENARIOS
 from generator.scenarios.responsible_ai_advanced import SCENARIOS as RESPONSIBLE_AI_ADVANCED_SCENARIOS
 from generator.scenarios.responsible_ai_expert import SCENARIOS as RESPONSIBLE_AI_EXPERT_SCENARIOS
+from generator.scenarios.responsible_ai_mastery import SCENARIOS as RESPONSIBLE_AI_MASTERY_SCENARIOS
+from generator.scenarios.data_cleanup_mastery import SCENARIOS as DATA_CLEANUP_MASTERY_SCENARIOS
+from generator.scenarios.responsible_ai_forensic import SCENARIOS as RESPONSIBLE_AI_FORENSIC_SCENARIOS
 from generator.scenarios.security import SCENARIOS as SECURITY_SCENARIOS
 from generator.scenarios.software import SCENARIOS as SOFTWARE_SCENARIOS
 from generator.validator import validate_dataset
@@ -56,9 +59,12 @@ def collect_all_scenarios() -> list[Scenario]:
     all_scenarios.extend(DATA_CLEANUP_SCENARIOS)
     all_scenarios.extend(DATA_CLEANUP_ADVANCED_SCENARIOS)
     all_scenarios.extend(DATA_CLEANUP_EXPERT_SCENARIOS)
+    all_scenarios.extend(DATA_CLEANUP_MASTERY_SCENARIOS)
     all_scenarios.extend(RESPONSIBLE_AI_SCENARIOS)
     all_scenarios.extend(RESPONSIBLE_AI_ADVANCED_SCENARIOS)
     all_scenarios.extend(RESPONSIBLE_AI_EXPERT_SCENARIOS)
+    all_scenarios.extend(RESPONSIBLE_AI_MASTERY_SCENARIOS)
+    all_scenarios.extend(RESPONSIBLE_AI_FORENSIC_SCENARIOS)
     return all_scenarios
 
 

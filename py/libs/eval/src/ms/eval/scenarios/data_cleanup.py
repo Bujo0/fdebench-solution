@@ -1631,8 +1631,13 @@ def scenario_soap_fault_xml() -> tuple[TicketInput, TriageDecision]:
                 "Check health and availability of the CRM backend service (crm-api.contoso.internal)",
                 "Review application and IIS logs on the CRM server around 09:15 for errors or resource exhaustion",
                 "Verify network connectivity between the web front-end and the CRM API tier",
+<<<<<<< HEAD
+                "If the backend service is healthy, increase the WCF SendTimeout "
+                "as a temporary workaround while root cause is investigated",
+=======
                 "If the backend service is healthy, increase the WCF SendTimeout as a temporary"
                 " workaround while root cause is investigated",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
             ],
         ),
     )
@@ -2036,8 +2041,13 @@ def scenario_powershell_verbose_output() -> tuple[TicketInput, TriageDecision]:
             ),
             remediation_steps=[
                 "Review the SQL Server error log for the root cause of the repeated service stops",
+<<<<<<< HEAD
+                "Check disk health and available space on the volumes hosting "
+                "the ContosoSettlements database and transaction log",
+=======
                 "Check disk health and available space on the volumes hosting the"
                 " ContosoSettlements database and transaction log",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
                 "Verify the database integrity with DBCC CHECKDB on ContosoSettlements",
                 "Restart the SQL Server service and monitor; if instability persists, fail over to the DR instance",
             ],
@@ -2132,8 +2142,13 @@ def scenario_ics_calendar_content() -> tuple[TicketInput, TriageDecision]:
             ),
             remediation_steps=[
                 "Verify Outlook iCalendar processing settings and test with a manually crafted .ics file",
+<<<<<<< HEAD
+                "Check Exchange transport rules or mail-flow policies that "
+                "may strip or block .ics attachments from external senders",
+=======
                 "Check Exchange transport rules or mail-flow policies that may strip or"
                 " block .ics attachments from external senders",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
                 "Test the specific .ics file by importing it directly via File > Open & Export in Outlook",
                 "If a transport rule is blocking, add an exception for the globexcorp.com domain",
             ],
@@ -2221,8 +2236,13 @@ def scenario_pdf_to_text_artifacts() -> tuple[TicketInput, TriageDecision]:
                 "Compare OCR module v4.2.1 output with v4.1.x on the same sample invoices to confirm regression",
                 "If regression confirmed, roll back the OCR module to v4.1.x and re-process the stuck invoices",
                 "Report the parsing issue to the OCR module vendor with sample PDFs",
+<<<<<<< HEAD
+                "Implement validation checks on extracted text to catch "
+                "garbled output before it enters the processing queue",
+=======
                 "Implement validation checks on extracted text to catch garbled output"
                 " before it enters the processing queue",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
             ],
         ),
     )
@@ -2528,17 +2548,776 @@ def scenario_sql_query_dump() -> tuple[TicketInput, TriageDecision]:
                 "ContosoSettlements with 47 blocked sessions affecting 30 users across trading desks."
             ),
             remediation_steps=[
+<<<<<<< HEAD
+                "Identify the head blocker among the 47 blocked sessions "
+                "using sys.dm_exec_requests and sys.dm_os_waiting_tasks",
+                "Check for long-running transactions or uncommitted changes holding locks",
+                "Review PAGEIOLATCH_SH waits for potential disk I/O bottleneck or memory pressure",
+                "If a runaway query is identified, terminate it and consider "
+                "adding missing indexes to prevent recurrence",
+=======
                 "Identify the head blocker among the 47 blocked sessions using"
                 " sys.dm_exec_requests and sys.dm_os_waiting_tasks",
                 "Check for long-running transactions or uncommitted changes holding locks",
                 "Review PAGEIOLATCH_SH waits for potential disk I/O bottleneck or memory pressure",
                 "If a runaway query is identified, terminate it and consider adding"
                 " missing indexes to prevent recurrence",
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
             ],
         ),
     )
 
 
+<<<<<<< HEAD
+# ── New scenarios (INC-DC-5001 through INC-DC-5010) ──────────────────
+
+
+def scenario_docker_container_logs() -> tuple[TicketInput, TriageDecision]:
+    """Ticket with Docker container log output pasted as the description.
+
+    Tests that the system extracts the actual issue (OOM-killed API service)
+    from noisy container runtime logs rather than being confused by the
+    structured log format, timestamps, and repeated restart messages.
+    """
+    description = (
+        "Docker logs from our production trade-execution API:\n\n"
+        "2026-03-18T09:14:23.456Z [INFO]  trade-api | Starting service on port 8080...\n"
+        "2026-03-18T09:14:23.890Z [INFO]  trade-api | Connected to Redis cache at redis-prod-01:6379\n"
+        "2026-03-18T09:14:24.112Z [INFO]  trade-api | Database pool initialized (min=5, max=50)\n"
+        "2026-03-18T09:14:24.334Z [INFO]  trade-api | Health check endpoint registered at /healthz\n"
+        "2026-03-18T09:14:25.001Z [INFO]  trade-api | Processing backlog: 1,247 pending orders\n"
+        "2026-03-18T09:15:01.223Z [WARN]  trade-api | Memory usage at 78% (3.12GB / 4GB limit)\n"
+        "2026-03-18T09:15:45.891Z [WARN]  trade-api | GC pressure detected, pausing 340ms\n"
+        "2026-03-18T09:16:02.112Z [ERROR] trade-api | Memory usage at 94% (3.76GB / 4GB limit)\n"
+        "2026-03-18T09:16:03.001Z [ERROR] trade-api | java.lang.OutOfMemoryError: Java heap space\n"
+        "2026-03-18T09:16:03.002Z [ERROR] trade-api | "
+        "  at com.contoso.trading.OrderProcessor.processBatch(OrderProcessor.java:247)\n"
+        "2026-03-18T09:16:03.003Z [ERROR] trade-api |   at com.contoso.trading.Engine.run(Engine.java:89)\n"
+        "2026-03-18T09:16:03.500Z [FATAL] trade-api | Container killed by OOM killer (exit code 137)\n"
+        "--- Container restarted (attempt 3/5) ---\n"
+        "2026-03-18T09:16:10.100Z [INFO]  trade-api | Starting service on port 8080...\n"
+        "2026-03-18T09:16:10.890Z [INFO]  trade-api | Connected to Redis cache at redis-prod-01:6379\n"
+        "2026-03-18T09:16:35.200Z [WARN]  trade-api | Memory usage at 72% after 25s\n"
+        "2026-03-18T09:17:01.456Z [FATAL] trade-api | Container killed by OOM killer (exit code 137)\n"
+        "--- Container restarted (attempt 4/5) ---\n"
+        "--- Container restarted (attempt 5/5) ---\n"
+        "2026-03-18T09:18:30.001Z [FATAL] trade-api | Max restart attempts reached. Container stopped.\n\n"
+        "This has been happening since the 9am deployment. The trade execution API keeps "
+        "crashing with OOM errors and orders are not being processed. Trading desk is impacted."
+    )
+    reporter = Reporter(
+        name="Raj Patel",
+        email="raj.patel@contoso.com",
+        department="Platform Engineering",
+    )
+    ticket = _ticket(
+        "INC-DC-5001",
+        "API container keeps restarting - OOM kills",
+        description,
+        channel="chat",
+        reporter=reporter,
+    )
+    gold = _gold(
+        "INC-DC-5001",
+        category="Software & Applications",
+        priority="P1",
+        assigned_team="Enterprise Applications",
+        missing_information=["application_version", "environment_details"],
+        next_best_action=(
+            "Investigate the Java OutOfMemoryError in the trade-execution API container. "
+            "The 9am deployment likely introduced a memory leak in OrderProcessor.processBatch. "
+            "Roll back the deployment immediately while investigating."
+        ),
+        remediation_steps=[
+            "Roll back the trade-execution API to the previous known-good image tag",
+            "Increase container memory limit temporarily to 8GB to restore service",
+            "Analyze heap dumps from the OOM events to identify the memory leak",
+            "Review the OrderProcessor.processBatch changes in the 9am deployment",
+            "Implement proper batch-size limits and memory-aware processing",
+        ],
+    )
+    return ticket, gold
+
+
+def scenario_kubernetes_pod_yaml() -> tuple[TicketInput, TriageDecision]:
+    """Ticket with Kubernetes pod YAML manifest and kubectl describe output.
+
+    Tests that the system identifies the actual issue (CrashLoopBackOff
+    due to wrong image tag) from verbose K8s resource descriptions.
+    """
+    description = (
+        "kubectl describe pod client-portal-api-7f8d9c6b4-xk2mj -n production:\n\n"
+        "Name:         client-portal-api-7f8d9c6b4-xk2mj\n"
+        "Namespace:    production\n"
+        "Priority:     0\n"
+        "Node:         aks-nodepool1-12345678-vmss000002/10.240.0.6\n"
+        "Start Time:   Mon, 18 Mar 2026 08:30:00 +0000\n"
+        "Labels:       app=client-portal-api\n"
+        "              pod-template-hash=7f8d9c6b4\n"
+        "              version=v2.4.1\n"
+        "Status:       Running\n"
+        "IP:           10.244.2.15\n"
+        "Containers:\n"
+        "  api:\n"
+        "    Container ID:  containerd://abc123def456\n"
+        "    Image:         contosoacr.azurecr.io/client-portal-api:v2.4.1-hotfix-typo\n"
+        "    Image ID:      contosoacr.azurecr.io/client-portal-api@sha256:deadbeef\n"
+        "    Port:          8443/TCP\n"
+        "    State:         Waiting\n"
+        "      Reason:      CrashLoopBackOff\n"
+        "    Last State:    Terminated\n"
+        "      Reason:      Error\n"
+        "      Exit Code:   1\n"
+        "      Started:     Mon, 18 Mar 2026 09:42:15 +0000\n"
+        "      Finished:    Mon, 18 Mar 2026 09:42:16 +0000\n"
+        "    Ready:         False\n"
+        "    Restart Count: 47\n"
+        "Events:\n"
+        "  Type     Reason     Message\n"
+        "  ----     ------     -------\n"
+        "  Normal   Scheduled  Successfully assigned production/client-portal-api-7f8d9c6b4\n"
+        "  Normal   Pulled     Container image pulled successfully\n"
+        "  Warning  BackOff    Back-off restarting failed container\n"
+        "  Warning  BackOff    Back-off 5m0s restarting failed container\n\n"
+        "The client portal has been down since the hotfix deployment this morning. "
+        "The image tag 'v2.4.1-hotfix-typo' doesn't exist in our registry — someone "
+        "fat-fingered the tag name in the Helm values. Should be 'v2.4.1-hotfix'."
+    )
+    reporter = Reporter(
+        name="Kenji Tanaka",
+        email="kenji.tanaka@contoso.com",
+        department="DevOps",
+    )
+    ticket = _ticket(
+        "INC-DC-5002",
+        "Client portal CrashLoopBackOff after hotfix deploy",
+        description,
+        channel="portal",
+        reporter=reporter,
+    )
+    gold = _gold(
+        "INC-DC-5002",
+        category="Software & Applications",
+        priority="P2",
+        assigned_team="Enterprise Applications",
+        missing_information=["affected_users", "business_impact"],
+        next_best_action=(
+            "Fix the container image tag in the Helm chart from "
+            "'v2.4.1-hotfix-typo' to 'v2.4.1-hotfix' and redeploy."
+        ),
+        remediation_steps=[
+            "Correct the image tag in Helm values to 'v2.4.1-hotfix'",
+            "Run helm upgrade to deploy the corrected configuration",
+            "Verify the pod enters Running state with restart count reset",
+            "Confirm the client portal is accessible and healthy",
+        ],
+    )
+    return ticket, gold
+
+
+def scenario_terraform_plan_output() -> tuple[TicketInput, TriageDecision]:
+    """Ticket with full terraform plan output showing infrastructure changes.
+
+    Tests that the system identifies the critical DNS change buried in
+    a large terraform plan with dozens of resource modifications.
+    """
+    plan_lines = [
+        "Terraform will perform the following actions:\n",
+        "  # azurerm_resource_group.prod will be updated in-place",
+        '  ~ resource "azurerm_resource_group" "prod" {',
+        '      ~ tags = {',
+        '          + "cost_center" = "CC-4521"',
+        "        }",
+        "    }\n",
+    ]
+    for i in range(1, 16):
+        plan_lines.append(f"  # azurerm_storage_account.data_{i:02d} will be updated in-place")
+        plan_lines.append(f'  ~ resource "azurerm_storage_account" "data_{i:02d}" {{')
+        plan_lines.append('      ~ tags = { + "env" = "production" }')
+        plan_lines.append("    }\n")
+    plan_lines.extend([
+        "  # azurerm_dns_a_record.trading_api will be DESTROYED and re-created",
+        '  -/+ resource "azurerm_dns_a_record" "trading_api" {',
+        '      ~ name    = "api.trading" -> "api-v2.trading"',
+        '      ~ records = ["10.0.1.50"] -> ["10.0.2.100"]',
+        '      ~ ttl     = 300 -> 60',
+        "    }\n",
+        "  # azurerm_dns_cname_record.trading_web will be DESTROYED",
+        '  - resource "azurerm_dns_cname_record" "trading_web" {',
+        '      - name   = "trading.contoso.internal"',
+        '      - record = "api.trading.contoso.internal"',
+        "    }\n",
+        "Plan: 2 to add, 18 to change, 2 to destroy.\n",
+    ])
+    description = (
+        "Hi team,\n\n"
+        "We're about to apply this terraform plan for the Q2 infrastructure update. "
+        "Can someone review? I'm worried about the DNS changes — the trading API "
+        "record is being destroyed and recreated with a new IP, and the CNAME for "
+        "trading.contoso.internal is being removed entirely. This will break all "
+        "trading platform connectivity if applied during market hours.\n\n"
+        + "\n".join(plan_lines)
+        + "\nThis needs urgent review before the change window at 6pm tonight."
+    )
+    reporter = Reporter(
+        name="Sarah Kim",
+        email="sarah.kim@contoso.com",
+        department="Infrastructure",
+    )
+    ticket = _ticket(
+        "INC-DC-5003",
+        "REVIEW NEEDED: Terraform plan destroying trading DNS records",
+        description,
+        reporter=reporter,
+    )
+    gold = _gold(
+        "INC-DC-5003",
+        category="Network & Connectivity",
+        priority="P1",
+        assigned_team="Network Operations",
+        needs_escalation=True,
+        missing_information=["affected_users", "business_impact"],
+        next_best_action=(
+            "Block the terraform apply until the DNS changes are reviewed. "
+            "Destroying the trading API DNS record and CNAME during market hours "
+            "will cause a production outage for the trading platform."
+        ),
+        remediation_steps=[
+            "Put a hold on the terraform apply until after market close",
+            "Review the DNS record changes with the trading platform team",
+            "Plan DNS migration with a staged cutover to avoid downtime",
+            "Pre-create the new DNS records before destroying old ones",
+            "Schedule the change window for after-hours with rollback plan",
+        ],
+    )
+    return ticket, gold
+
+
+def scenario_git_diff_in_ticket() -> tuple[TicketInput, TriageDecision]:
+    """Ticket with git diff output pasted as the description.
+
+    Tests that the system identifies the SSO configuration change
+    buried in a large unified diff.
+    """
+    description = (
+        "After yesterday's deployment (commit abc1234), SSO login is broken for "
+        "all users. Here's the relevant diff:\n\n"
+        "```diff\n"
+        "diff --git a/config/auth/sso.yaml b/config/auth/sso.yaml\n"
+        "index 1a2b3c4..5d6e7f8 100644\n"
+        "--- a/config/auth/sso.yaml\n"
+        "+++ b/config/auth/sso.yaml\n"
+        "@@ -12,8 +12,8 @@ sso:\n"
+        "   provider: azure-ad\n"
+        "   tenant_id: ${AZURE_TENANT_ID}\n"
+        "-  client_id: ${SSO_CLIENT_ID}\n"
+        "-  redirect_uri: https://portal.contoso.com/auth/callback\n"
+        "+  client_id: 00000000-0000-0000-0000-000000000000\n"
+        "+  redirect_uri: https://portal-staging.contoso.com/auth/callback\n"
+        "   scopes:\n"
+        "     - openid\n"
+        "     - profile\n"
+        "diff --git a/src/middleware/auth.ts b/src/middleware/auth.ts\n"
+        "index 9a8b7c6..3d2e1f0 100644\n"
+        "--- a/src/middleware/auth.ts\n"
+        "+++ b/src/middleware/auth.ts\n"
+        "@@ -45,7 +45,7 @@ export class AuthMiddleware {\n"
+        "   private validateToken(token: string): boolean {\n"
+        "-    return this.verifier.verify(token, { audience: this.config.clientId });\n"
+        "+    return true; // TODO: fix token validation in staging\n"
+        "   }\n"
+        "```\n\n"
+        "Someone accidentally pushed staging config to production. The client_id is "
+        "hardcoded to zeros and the redirect goes to staging. Plus the token validation "
+        "is completely disabled! Everyone is getting 'Authentication failed' errors."
+    )
+    reporter = Reporter(
+        name="Marcus Chen",
+        email="marcus.chen@contoso.com",
+        department="Security Engineering",
+    )
+    ticket = _ticket(
+        "INC-DC-5004",
+        "SSO broken after yesterday's deployment - wrong config pushed",
+        description,
+        channel="chat",
+        reporter=reporter,
+    )
+    gold = _gold(
+        "INC-DC-5004",
+        category="Access & Authentication",
+        priority="P2",
+        assigned_team="Identity & Access Management",
+        missing_information=["affected_users"],
+        next_best_action=(
+            "Immediately revert commit abc1234 to restore the correct SSO configuration. "
+            "The disabled token validation is a critical security vulnerability."
+        ),
+        remediation_steps=[
+            "Revert the deployment to restore the correct SSO client_id and redirect_uri",
+            "Re-enable token validation immediately (the TODO bypass is a security hole)",
+            "Audit access logs during the window when token validation was disabled",
+            "Implement pre-deployment config validation to prevent staging config leaks",
+        ],
+    )
+    return ticket, gold
+
+
+def scenario_pem_certificate_chain() -> tuple[TicketInput, TriageDecision]:
+    """Ticket with PEM certificate chain pasted in the email body.
+
+    Tests that the system identifies the expiring certificate issue
+    despite the large block of base64 certificate data.
+    """
+    fake_cert = "MIIFazCCA1OgAwIBAgIUE" + "A" * 200 + "="
+    description = (
+        "URGENT: Our wildcard SSL certificate for *.trading.contoso.com expires "
+        "TOMORROW (March 19, 2026). The renewal request has been stuck in "
+        "approvals for 3 weeks.\n\n"
+        "Current cert chain for reference:\n\n"
+        "-----BEGIN CERTIFICATE-----\n"
+        f"{fake_cert}\n"
+        "-----END CERTIFICATE-----\n"
+        "-----BEGIN CERTIFICATE-----\n"
+        f"MIIEtjCCA56gAwIBAgIQ{'B' * 200}=\n"
+        "-----END CERTIFICATE-----\n"
+        "-----BEGIN CERTIFICATE-----\n"
+        f"MIIDrzCCApegAwIBAgIQ{'C' * 200}=\n"
+        "-----END CERTIFICATE-----\n\n"
+        "Services affected if this expires:\n"
+        "- Trading API (api.trading.contoso.com)\n"
+        "- Client Portal (portal.trading.contoso.com)\n"
+        "- Real-time Market Feed (feed.trading.contoso.com)\n"
+        "- Settlement Gateway (settle.trading.contoso.com)\n\n"
+        "This will cause a COMPLETE trading platform outage if not renewed today. "
+        "The cert is managed through DigiCert and needs VP-level approval to renew."
+    )
+    reporter = Reporter(
+        name="Elena Rodriguez",
+        email="elena.rodriguez@contoso.com",
+        department="Security Operations",
+    )
+    ticket = _ticket(
+        "INC-DC-5005",
+        "CRITICAL: Wildcard SSL cert expires tomorrow - trading platform at risk",
+        description,
+        reporter=reporter,
+    )
+    gold = _gold(
+        "INC-DC-5005",
+        category="Security & Compliance",
+        priority="P1",
+        assigned_team="Security Operations",
+        needs_escalation=True,
+        next_best_action=(
+            "Expedite the SSL certificate renewal approval immediately. "
+            "If the wildcard cert for *.trading.contoso.com expires, "
+            "all trading platform services will be unavailable."
+        ),
+        remediation_steps=[
+            "Escalate the certificate renewal approval to VP level immediately",
+            "Generate a new CSR and submit to DigiCert for expedited issuance",
+            "Prepare the certificate deployment pipeline for all trading services",
+            "Test the new certificate in staging before production rollout",
+            "Set up automated certificate expiry monitoring and alerting at 30/14/7 days",
+        ],
+    )
+    return ticket, gold
+
+
+def scenario_raw_mime_multipart() -> tuple[TicketInput, TriageDecision]:
+    """Ticket with raw MIME multipart email content including boundaries.
+
+    Tests that the system extracts the Outlook crash issue from
+    raw email source with MIME headers and encoded content.
+    """
+    description = (
+        "Content-Type: multipart/mixed;\n"
+        '    boundary="----=_Part_12345_67890.1710752400000"\n'
+        "MIME-Version: 1.0\n"
+        "From: jsmith@contoso.com\n"
+        "To: helpdesk@contoso.com\n"
+        "Subject: Outlook crashes\n"
+        "Date: Mon, 18 Mar 2026 10:00:00 +0000\n\n"
+        "------=_Part_12345_67890.1710752400000\n"
+        "Content-Type: text/plain; charset=UTF-8\n"
+        "Content-Transfer-Encoding: quoted-printable\n\n"
+        "Hi, my Outlook keeps crashing whenever I try to open emails from the "
+        "legal department. It=E2=80=99s been happening since the March update. "
+        "I get an error dialog that says =E2=80=9CMicrosoft Outlook has stopped "
+        "working=E2=80=9D and then it restarts. This happens about 10 times a day "
+        "and I=E2=80=99m losing unsaved draft emails each time.\n\n"
+        "I=E2=80=99ve tried repairing the Office installation and creating a new "
+        "Outlook profile but neither helped. Running Outlook 365 version 2402 "
+        "Build 17328.20162 on Windows 11.\n\n"
+        "------=_Part_12345_67890.1710752400000\n"
+        "Content-Type: application/octet-stream;\n"
+        '    name="outlook_crash_dump.dmp"\n'
+        "Content-Transfer-Encoding: base64\n"
+        "Content-Disposition: attachment;\n"
+        '    filename="outlook_crash_dump.dmp"\n\n'
+        "TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA"
+        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQAAAAAAQAAIAAAAAAAAAAAAAA"
+        "AAAAAEAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\n\n"
+        "------=_Part_12345_67890.1710752400000--\n"
+    )
+    reporter = Reporter(
+        name="James Smith",
+        email="jsmith@contoso.com",
+        department="Legal Operations",
+    )
+    ticket = _ticket(
+        "INC-DC-5006",
+        "Outlook crashes when opening legal dept emails",
+        description,
+        channel="email",
+        reporter=reporter,
+    )
+    gold = _gold(
+        "INC-DC-5006",
+        category="Software & Applications",
+        priority="P3",
+        assigned_team="Enterprise Applications",
+        missing_information=["error_message", "steps_to_reproduce"],
+        next_best_action=(
+            "Investigate the Outlook crash on version 2402 Build 17328.20162 "
+            "when opening emails from the legal department. "
+            "Check for known issues with the March update."
+        ),
+        remediation_steps=[
+            "Analyze the crash dump file for the specific exception causing the crash",
+            "Check for known issues with Outlook 365 version 2402 and the March update",
+            "Test opening legal department emails in OWA to isolate whether it is a desktop client issue",
+            "If a known bug, apply the latest Office update or rollback to the previous build",
+        ],
+    )
+    return ticket, gold
+
+
+def scenario_dns_zone_file() -> tuple[TicketInput, TriageDecision]:
+    """Ticket with DNS zone file records dumped in the description.
+
+    Tests that the system identifies the DNS resolution failure from
+    a dump of zone file records.
+    """
+    zone_records = "\n".join([
+        "; Zone file for contoso.internal",
+        "$TTL 86400",
+        "$ORIGIN contoso.internal.",
+        "@       IN  SOA  ns1.contoso.internal. admin.contoso.internal. (",
+        "                 2026031801 ; Serial",
+        "                 3600       ; Refresh",
+        "                 900        ; Retry",
+        "                 604800     ; Expire",
+        "                 86400 )    ; Minimum TTL",
+        "",
+        "@           IN  NS   ns1.contoso.internal.",
+        "@           IN  NS   ns2.contoso.internal.",
+        "ns1         IN  A    10.0.0.10",
+        "ns2         IN  A    10.0.0.11",
+        "",
+        "; Production services",
+        "db-prod-01  IN  A    10.0.1.20",
+        "db-prod-02  IN  A    10.0.1.21",
+        "api-prod    IN  A    10.0.1.50",
+        "web-prod    IN  CNAME  api-prod.contoso.internal.",
+        "mail        IN  MX   10 mail.contoso.internal.",
+        "mail        IN  A    10.0.2.10",
+        "",
+        "; *** THESE RECORDS APPEAR CORRUPTED ***",
+        "trading     IN  A    0.0.0.0",
+        "settlement  IN  A    0.0.0.0",
+        "compliance  IN  A    0.0.0.0",
+        "",
+        "; Staging (should not resolve from prod network)",
+        "stg-api     IN  A    172.16.0.50",
+        "stg-web     IN  A    172.16.0.51",
+    ])
+    description = (
+        "All internal DNS lookups for *.contoso.internal are intermittently failing. "
+        "The trading, settlement, and compliance services have been unreachable since "
+        "8:00 AM. I pulled the zone file from ns1 and noticed the records are pointing "
+        "to 0.0.0.0:\n\n"
+        f"{zone_records}\n\n"
+        "Someone or something zeroed out the A records for the three critical financial "
+        "services. The secondary DNS (ns2) has the same corruption. We need to restore "
+        "the correct records ASAP — the London office can't access trading at all."
+    )
+    reporter = Reporter(
+        name="Thomas Wright",
+        email="thomas.wright@contoso.com",
+        department="Network Engineering",
+    )
+    ticket = _ticket(
+        "INC-DC-5007",
+        "DNS records corrupted - trading/settlement/compliance unreachable",
+        description,
+        channel="phone",
+        reporter=reporter,
+    )
+    gold = _gold(
+        "INC-DC-5007",
+        category="Network & Connectivity",
+        priority="P2",
+        assigned_team="Network Operations",
+        missing_information=["timestamp"],
+        next_best_action=(
+            "Immediately restore the correct A records for trading, settlement, and compliance "
+            "services on both ns1 and ns2. Investigate how the records were zeroed out."
+        ),
+        remediation_steps=[
+            "Restore the trading, settlement, and compliance A records from the last known-good backup",
+            "Verify DNS resolution from multiple locations after the fix",
+            "Investigate how both primary and secondary DNS were corrupted simultaneously",
+            "Review DNS change logs and access audit trails for unauthorized modifications",
+            "Implement DNS record change alerting and approval workflows",
+        ],
+    )
+    return ticket, gold
+
+
+def scenario_packet_capture_text() -> tuple[TicketInput, TriageDecision]:
+    """Ticket with tcpdump/Wireshark text output showing network issues.
+
+    Tests that the system identifies the high-latency database connectivity
+    issue from packet capture text output.
+    """
+    description = (
+        "We're seeing terrible latency to the settlement database. Here's a tcpdump "
+        "capture showing the TCP retransmissions:\n\n"
+        "09:30:01.234567 IP 10.0.1.100.54321 > 10.0.1.21.1433: Flags [S], seq 1234567890, win 65535\n"
+        "09:30:01.234890 IP 10.0.1.21.1433 > 10.0.1.100.54321: Flags [S.], seq 9876543210, ack 1234567891\n"
+        "09:30:01.235001 IP 10.0.1.100.54321 > 10.0.1.21.1433: Flags [.], ack 1, win 65535\n"
+        "09:30:01.235500 IP 10.0.1.100.54321 > 10.0.1.21.1433: Flags [P.], seq 1:245, ack 1\n"
+        "09:30:02.236000 IP 10.0.1.100.54321 > 10.0.1.21.1433: Flags [P.], seq 1:245, ack 1  [TCP Retransmission]\n"
+        "09:30:04.237000 IP 10.0.1.100.54321 > 10.0.1.21.1433: Flags [P.], seq 1:245, ack 1  [TCP Retransmission]\n"
+        "09:30:08.238000 IP 10.0.1.100.54321 > 10.0.1.21.1433: Flags [P.], seq 1:245, ack 1  [TCP Retransmission]\n"
+        "09:30:08.238500 IP 10.0.1.21.1433 > 10.0.1.100.54321: Flags [.], ack 245, win 65535\n"
+        "09:30:08.239000 IP 10.0.1.21.1433 > 10.0.1.100.54321: Flags [P.], seq 1:1460, ack 245\n"
+        "09:30:08.239100 IP 10.0.1.21.1433 > 10.0.1.100.54321: Flags [P.], seq 1460:2048, ack 245\n\n"
+        "--- TCP conversation summary ---\n"
+        "Total packets: 847\n"
+        "Retransmissions: 312 (36.8%)\n"
+        "Average RTT: 3,200ms (expected: <5ms)\n"
+        "Packet loss: ~15%\n"
+        "Source: 10.0.1.100 (settlement-api-prod)\n"
+        "Destination: 10.0.1.21 (db-prod-02, SQL Server)\n\n"
+        "The settlement system is timing out on every third transaction because the "
+        "DB queries take 7+ seconds instead of the normal <100ms. This is causing "
+        "trade settlement failures. Started around 8:30 AM today."
+    )
+    reporter = Reporter(
+        name="Lisa Park",
+        email="lisa.park@contoso.com",
+        department="Settlement Operations",
+    )
+    ticket = _ticket(
+        "INC-DC-5008",
+        "High latency to settlement DB - 36% packet retransmission",
+        description,
+        channel="portal",
+        reporter=reporter,
+    )
+    gold = _gold(
+        "INC-DC-5008",
+        category="Network & Connectivity",
+        priority="P2",
+        assigned_team="Network Operations",
+        missing_information=["network_location"],
+        next_best_action=(
+            "Investigate the network path between settlement-api-prod (10.0.1.100) "
+            "and db-prod-02 (10.0.1.21) for the source of 36.8% packet retransmission "
+            "and 3200ms RTT. This is causing trade settlement failures."
+        ),
+        remediation_steps=[
+            "Check switch/router interfaces on the path between 10.0.1.100 and 10.0.1.21 for errors or congestion",
+            "Verify no recent network changes (VLAN, firewall rules, QoS policies) around 8:30 AM",
+            "Check for NIC errors or driver issues on both the settlement API server and DB server",
+            "If a faulty switch port or cable is identified, failover to redundant path",
+            "Monitor packet loss and RTT after remediation to confirm resolution",
+        ],
+    )
+    return ticket, gold
+
+
+def scenario_deeply_nested_java_exception() -> tuple[TicketInput, TriageDecision]:
+    """Ticket with a 200+ line deeply nested Java exception chain.
+
+    Tests that the system identifies the root cause (connection pool
+    exhaustion) from a deeply nested 'Caused by:' exception chain
+    spanning Spring, Hibernate, HikariCP, and JDBC layers.
+    """
+    exception_chain = (
+        "Exception in thread \"main\" org.springframework.web.util.NestedServletException: "
+        "Request processing failed; nested exception is "
+        "org.springframework.dao.DataAccessResourceFailureException: could not extract ResultSet\n"
+        "\tat org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\n"
+        "\tat org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)\n"
+        "\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:626)\n"
+        "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)\n"
+        "\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:733)\n"
+        "\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)\n"
+        "\t... 45 more\n"
+        "Caused by: org.springframework.dao.DataAccessResourceFailureException: could not extract ResultSet; "
+        "nested exception is org.hibernate.exception.JDBCConnectionException: could not extract ResultSet\n"
+        "\tat org.springframework.orm.jpa.vendor."
+        "HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:276)\n"
+        "\tat org.springframework.orm.jpa.vendor."
+        "HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:233)\n"
+        "\tat org.springframework.orm.jpa."
+        "AbstractEntityManagerFactoryBean.translateExceptionIfPossible("
+        "AbstractEntityManagerFactoryBean.java:551)\n"
+        "\t... 58 more\n"
+        "Caused by: org.hibernate.exception.JDBCConnectionException: could not extract ResultSet\n"
+        "\tat org.hibernate.exception.internal.SQLStateConversionDelegate"
+        ".convert(SQLStateConversionDelegate.java:115)\n"
+        "\tat org.hibernate.exception.internal.StandardSQLExceptionConverter"
+        ".convert(StandardSQLExceptionConverter.java:56)\n"
+        "\tat org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:109)\n"
+        "\t... 72 more\n"
+        "Caused by: com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: "
+        "Failed to initialize pool: Cannot create PoolableConnectionFactory\n"
+        "\tat com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:596)\n"
+        "\tat com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:582)\n"
+        "\tat com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)\n"
+        "\t... 80 more\n"
+        "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, "
+        "request timed out after 30000ms. Active: 50, Idle: 0, Waiting: 247\n"
+        "\tat com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:695)\n"
+        "\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:197)\n"
+        "\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:162)\n"
+        "\t... 95 more\n"
+        "Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: "
+        "The connection to the host 10.0.1.20, named instance contosofinance has failed. "
+        "Error: \"java.net.SocketTimeoutException: connect timed out\"\n"
+        "\tat com.microsoft.sqlserver.jdbc.SQLServerConnection.connectHelper(SQLServerConnection.java:2568)\n"
+        "\tat com.microsoft.sqlserver.jdbc.SQLServerConnection.login(SQLServerConnection.java:2234)\n"
+        "\tat com.microsoft.sqlserver.jdbc.SQLServerConnection.connect(SQLServerConnection.java:1210)\n"
+        "\t... 102 more\n"
+    )
+    description = (
+        "The portfolio management service is completely down. Here are the logs:\n\n"
+        f"{exception_chain}\n"
+        "HikariPool is at max capacity (50 active, 0 idle, 247 waiting). "
+        "The root cause looks like the SQL Server instance on 10.0.1.20 "
+        "(contosofinance) is unreachable. All 50 connections are stuck "
+        "waiting for the DB to respond. This is blocking all portfolio "
+        "valuations and the EOD risk reports can't run."
+    )
+    reporter = Reporter(
+        name="David Okonkwo",
+        email="david.okonkwo@contoso.com",
+        department="Risk Management",
+    )
+    ticket = _ticket(
+        "INC-DC-5009",
+        "Portfolio service down - DB connection pool exhausted",
+        description,
+        channel="phone",
+        reporter=reporter,
+    )
+    gold = _gold(
+        "INC-DC-5009",
+        category="Data & Storage",
+        priority="P1",
+        assigned_team="Data Platform",
+        needs_escalation=True,
+        missing_information=["timestamp", "environment_details"],
+        next_best_action=(
+            "Investigate why SQL Server on 10.0.1.20 (contosofinance instance) "
+            "is unreachable, causing HikariCP pool exhaustion (50 active, 247 waiting). "
+            "This is blocking all portfolio valuations and EOD risk reports."
+        ),
+        remediation_steps=[
+            "Check SQL Server health on 10.0.1.20 — verify the contosofinance instance is running",
+            "Check network connectivity between the portfolio service and 10.0.1.20",
+            "If the DB server is unresponsive, restart the SQL Server service",
+            "Once DB is reachable, restart the portfolio management service to reset the connection pool",
+            "Review and potentially increase HikariCP max pool size and add connection timeout failover",
+        ],
+    )
+    return ticket, gold
+
+
+def scenario_spreadsheet_tab_paste() -> tuple[TicketInput, TriageDecision]:
+    """Ticket with tab-delimited spreadsheet data pasted from Excel.
+
+    Tests that the system identifies the bulk permission update request
+    from a pasted employee table rather than being confused by the
+    tabular formatting.
+    """
+    rows = [
+        "Employee ID\tName\tOld Department\tNew Department\tAccess Level\tStart Date",
+        "E10451\tJohnson, Maria\tWealth Mgmt\tTrading Desk\tLevel 3\t2026-04-01",
+        "E10452\tWilliams, Robert\tSettlement\tRisk Analytics\tLevel 2\t2026-04-01",
+        "E10453\tBrown, Patricia\tCompliance\tTrading Desk\tLevel 3\t2026-04-01",
+        "E10454\tDavis, Michael\tIT Support\tSecurity Ops\tLevel 4\t2026-04-01",
+        "E10455\tMiller, Jennifer\tHR\tCompliance\tLevel 2\t2026-04-01",
+        "E10456\tWilson, James\tTrading Desk\tWealth Mgmt\tLevel 3\t2026-04-01",
+        "E10457\tMoore, Linda\tOperations\tSettlement\tLevel 2\t2026-04-01",
+        "E10458\tTaylor, William\tRisk Analytics\tCompliance\tLevel 2\t2026-04-01",
+        "E10459\tAnderson, Barbara\tWealth Mgmt\tOperations\tLevel 1\t2026-04-01",
+        "E10460\tThomas, Richard\tTrading Desk\tRisk Analytics\tLevel 3\t2026-04-01",
+        "E10461\tJackson, Susan\tCompliance\tHR\tLevel 2\t2026-04-01",
+        "E10462\tWhite, Charles\tSecurity Ops\tIT Support\tLevel 4\t2026-04-01",
+        "E10463\tHarris, Jessica\tSettlement\tWealth Mgmt\tLevel 3\t2026-04-01",
+        "E10464\tMartin, Mark\tOperations\tTrading Desk\tLevel 3\t2026-04-01",
+        "E10465\tGarcia, Nancy\tRisk Analytics\tSettlement\tLevel 2\t2026-04-01",
+    ]
+    table = "\n".join(rows)
+    description = (
+        "Hi team,\n\n"
+        "We have a Q2 departmental reorganization effective April 1st. "
+        "Please update Active Directory group memberships and application "
+        "permissions for the following 15 employees. Each person needs to "
+        "be removed from their old department's security groups and added "
+        "to the new department's groups with the indicated access level.\n\n"
+        f"{table}\n\n"
+        "The access levels map to our standard permission tiers:\n"
+        "- Level 1: Read-only access\n"
+        "- Level 2: Read/write for department apps\n"
+        "- Level 3: Read/write + trading system access\n"
+        "- Level 4: Admin access\n\n"
+        "Please ensure this is completed before April 1st. Let me know if "
+        "you need the manager approval forms — they're all signed and filed "
+        "in ServiceNow under CHG-20260315."
+    )
+    reporter = Reporter(
+        name="Angela Foster",
+        email="angela.foster@contoso.com",
+        department="Human Resources",
+    )
+    ticket = _ticket(
+        "INC-DC-5010",
+        "Q2 reorg - bulk AD permission updates for 15 employees",
+        description,
+        channel="portal",
+        reporter=reporter,
+    )
+    gold = _gold(
+        "INC-DC-5010",
+        category="Access & Authentication",
+        priority="P3",
+        assigned_team="Identity & Access Management",
+        missing_information=["affected_users", "business_impact"],
+        next_best_action=(
+            "Process the bulk Active Directory group membership changes for the "
+            "15 employees transferring departments in the Q2 reorganization. "
+            "Verify manager approval forms in ServiceNow CHG-20260315."
+        ),
+        remediation_steps=[
+            "Verify all 15 manager approval forms are signed in ServiceNow CHG-20260315",
+            "Create a scripted AD group membership update for the 15 employees",
+            "Remove users from old department security groups and add to new ones",
+            "Update application-level permissions according to the access level mapping",
+            "Send confirmation to HR and each employee's new manager by March 31",
+        ],
+    )
+    return ticket, gold
+
+
+=======
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
 def get_all_data_cleanup_scenarios() -> list[tuple[TicketInput, TriageDecision]]:
     """Return all data cleanup evaluation scenarios as (ticket, gold) pairs."""
     return [
@@ -2582,4 +3361,18 @@ def get_all_data_cleanup_scenarios() -> list[tuple[TicketInput, TriageDecision]]
         scenario_enormous_cc_list(),
         scenario_nested_quoted_replies(),
         scenario_sql_query_dump(),
+<<<<<<< HEAD
+        # ── New scenarios (INC-DC-5001 through INC-DC-5010) ──
+        scenario_docker_container_logs(),
+        scenario_kubernetes_pod_yaml(),
+        scenario_terraform_plan_output(),
+        scenario_git_diff_in_ticket(),
+        scenario_pem_certificate_chain(),
+        scenario_raw_mime_multipart(),
+        scenario_dns_zone_file(),
+        scenario_packet_capture_text(),
+        scenario_deeply_nested_java_exception(),
+        scenario_spreadsheet_tab_paste(),
+=======
+>>>>>>> users/fde-platform-agent/fde-hiring-test-3/boyevche
     ]
