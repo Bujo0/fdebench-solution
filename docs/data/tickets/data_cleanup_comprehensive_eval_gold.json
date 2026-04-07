@@ -1,183 +1,183 @@
 [
-  {
-    "ticket_id": "INC-DC-5001",
-    "category": "Software & Applications",
-    "priority": "P1",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version",
-      "environment_details"
-    ],
-    "next_best_action": "Investigate the Java OutOfMemoryError in the trade-execution API container. The 9am deployment likely introduced a memory leak in OrderProcessor.processBatch. Roll back the deployment immediately while investigating.",
-    "remediation_steps": [
-      "Roll back the trade-execution API to the previous known-good image tag",
-      "Increase container memory limit temporarily to 8GB to restore service",
-      "Analyze heap dumps from the OOM events to identify the memory leak",
-      "Review the OrderProcessor.processBatch changes in the 9am deployment",
-      "Implement proper batch-size limits and memory-aware processing"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC-5002",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_users",
-      "business_impact"
-    ],
-    "next_best_action": "Fix the container image tag in the Helm chart from 'v2.4.1-hotfix-typo' to 'v2.4.1-hotfix' and redeploy.",
-    "remediation_steps": [
-      "Correct the image tag in Helm values to 'v2.4.1-hotfix'",
-      "Run helm upgrade to deploy the corrected configuration",
-      "Verify the pod enters Running state with restart count reset",
-      "Confirm the client portal is accessible and healthy"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC-5003",
-    "category": "Network & Connectivity",
-    "priority": "P1",
-    "assigned_team": "Network Operations",
-    "needs_escalation": true,
-    "missing_information": [
-      "affected_users",
-      "business_impact"
-    ],
-    "next_best_action": "Block the terraform apply until the DNS changes are reviewed. Destroying the trading API DNS record and CNAME during market hours will cause a production outage for the trading platform.",
-    "remediation_steps": [
-      "Put a hold on the terraform apply until after market close",
-      "Review the DNS record changes with the trading platform team",
-      "Plan DNS migration with a staged cutover to avoid downtime",
-      "Pre-create the new DNS records before destroying old ones",
-      "Schedule the change window for after-hours with rollback plan"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC-5004",
-    "category": "Access & Authentication",
-    "priority": "P2",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_users"
-    ],
-    "next_best_action": "Immediately revert commit abc1234 to restore the correct SSO configuration. The disabled token validation is a critical security vulnerability.",
-    "remediation_steps": [
-      "Revert the deployment to restore the correct SSO client_id and redirect_uri",
-      "Re-enable token validation immediately (the TODO bypass is a security hole)",
-      "Audit access logs during the window when token validation was disabled",
-      "Implement pre-deployment config validation to prevent staging config leaks"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC-5005",
-    "category": "Security & Compliance",
-    "priority": "P1",
-    "assigned_team": "Security Operations",
-    "needs_escalation": true,
-    "missing_information": [],
-    "next_best_action": "Expedite the SSL certificate renewal approval immediately. If the wildcard cert for *.trading.contoso.com expires, all trading platform services will be unavailable.",
-    "remediation_steps": [
-      "Escalate the certificate renewal approval to VP level immediately",
-      "Generate a new CSR and submit to DigiCert for expedited issuance",
-      "Prepare the certificate deployment pipeline for all trading services",
-      "Test the new certificate in staging before production rollout",
-      "Set up automated certificate expiry monitoring and alerting at 30/14/7 days"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC-5006",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message",
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Investigate the Outlook crash on version 2402 Build 17328.20162 when opening emails from the legal department. Check for known issues with the March update.",
-    "remediation_steps": [
-      "Analyze the crash dump file for the specific exception causing the crash",
-      "Check for known issues with Outlook 365 version 2402 and the March update",
-      "Test opening legal department emails in OWA to isolate whether it is a desktop client issue",
-      "If a known bug, apply the latest Office update or rollback to the previous build"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC-5007",
-    "category": "Network & Connectivity",
-    "priority": "P2",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "timestamp"
-    ],
-    "next_best_action": "Immediately restore the correct A records for trading, settlement, and compliance services on both ns1 and ns2. Investigate how the records were zeroed out.",
-    "remediation_steps": [
-      "Restore the trading, settlement, and compliance A records from the last known-good backup",
-      "Verify DNS resolution from multiple locations after the fix",
-      "Investigate how both primary and secondary DNS were corrupted simultaneously",
-      "Review DNS change logs and access audit trails for unauthorized modifications",
-      "Implement DNS record change alerting and approval workflows"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC-5008",
-    "category": "Network & Connectivity",
-    "priority": "P2",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "network_location"
-    ],
-    "next_best_action": "Investigate the network path between settlement-api-prod (10.0.1.100) and db-prod-02 (10.0.1.21) for the source of 36.8% packet retransmission and 3200ms RTT. This is causing trade settlement failures.",
-    "remediation_steps": [
-      "Check switch/router interfaces on the path between 10.0.1.100 and 10.0.1.21 for errors or congestion",
-      "Verify no recent network changes (VLAN, firewall rules, QoS policies) around 8:30 AM",
-      "Check for NIC errors or driver issues on both the settlement API server and DB server",
-      "If a faulty switch port or cable is identified, failover to redundant path",
-      "Monitor packet loss and RTT after remediation to confirm resolution"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC-5009",
-    "category": "Data & Storage",
-    "priority": "P1",
-    "assigned_team": "Data Platform",
-    "needs_escalation": true,
-    "missing_information": [
-      "timestamp",
-      "environment_details"
-    ],
-    "next_best_action": "Investigate why SQL Server on 10.0.1.20 (contosofinance instance) is unreachable, causing HikariCP pool exhaustion (50 active, 247 waiting). This is blocking all portfolio valuations and EOD risk reports.",
-    "remediation_steps": [
-      "Check SQL Server health on 10.0.1.20 — verify the contosofinance instance is running",
-      "Check network connectivity between the portfolio service and 10.0.1.20",
-      "If the DB server is unresponsive, restart the SQL Server service",
-      "Once DB is reachable, restart the portfolio management service to reset the connection pool",
-      "Review and potentially increase HikariCP max pool size and add connection timeout failover"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC-5010",
-    "category": "Access & Authentication",
-    "priority": "P3",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_users",
-      "business_impact"
-    ],
-    "next_best_action": "Process the bulk Active Directory group membership changes for the 15 employees transferring departments in the Q2 reorganization. Verify manager approval forms in ServiceNow CHG-20260315.",
-    "remediation_steps": [
-      "Verify all 15 manager approval forms are signed in ServiceNow CHG-20260315",
-      "Create a scripted AD group membership update for the 15 employees",
-      "Remove users from old department security groups and add to new ones",
-      "Update application-level permissions according to the access level mapping",
-      "Send confirmation to HR and each employee's new manager by March 31"
-    ]
-  }
+    {
+        "ticket_id": "INC-DC-5001",
+        "category": "Software & Applications",
+        "priority": "P1",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version",
+            "environment_details"
+        ],
+        "next_best_action": "Investigate the Java OutOfMemoryError in the trade-execution API container. The 9am deployment likely introduced a memory leak in OrderProcessor.processBatch. Roll back the deployment immediately while investigating.",
+        "remediation_steps": [
+            "Roll back the trade-execution API to the previous known-good image tag",
+            "Increase container memory limit temporarily to 8GB to restore service",
+            "Analyze heap dumps from the OOM events to identify the memory leak",
+            "Review the OrderProcessor.processBatch changes in the 9am deployment",
+            "Implement proper batch-size limits and memory-aware processing"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC-5002",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_users",
+            "business_impact"
+        ],
+        "next_best_action": "Fix the container image tag in the Helm chart from 'v2.4.1-hotfix-typo' to 'v2.4.1-hotfix' and redeploy.",
+        "remediation_steps": [
+            "Correct the image tag in Helm values to 'v2.4.1-hotfix'",
+            "Run helm upgrade to deploy the corrected configuration",
+            "Verify the pod enters Running state with restart count reset",
+            "Confirm the client portal is accessible and healthy"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC-5003",
+        "category": "Network & Connectivity",
+        "priority": "P1",
+        "assigned_team": "Network Operations",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_users",
+            "business_impact"
+        ],
+        "next_best_action": "Block the terraform apply until the DNS changes are reviewed. Destroying the trading API DNS record and CNAME during market hours will cause a production outage for the trading platform.",
+        "remediation_steps": [
+            "Put a hold on the terraform apply until after market close",
+            "Review the DNS record changes with the trading platform team",
+            "Plan DNS migration with a staged cutover to avoid downtime",
+            "Pre-create the new DNS records before destroying old ones",
+            "Schedule the change window for after-hours with rollback plan"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC-5004",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_users"
+        ],
+        "next_best_action": "Immediately revert commit abc1234 to restore the correct SSO configuration. The disabled token validation is a critical security vulnerability.",
+        "remediation_steps": [
+            "Revert the deployment to restore the correct SSO client_id and redirect_uri",
+            "Re-enable token validation immediately (the TODO bypass is a security hole)",
+            "Audit access logs during the window when token validation was disabled",
+            "Implement pre-deployment config validation to prevent staging config leaks"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC-5005",
+        "category": "Security & Compliance",
+        "priority": "P1",
+        "assigned_team": "Security Operations",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Expedite the SSL certificate renewal approval immediately. If the wildcard cert for *.trading.contoso.com expires, all trading platform services will be unavailable.",
+        "remediation_steps": [
+            "Escalate the certificate renewal approval to VP level immediately",
+            "Generate a new CSR and submit to DigiCert for expedited issuance",
+            "Prepare the certificate deployment pipeline for all trading services",
+            "Test the new certificate in staging before production rollout",
+            "Set up automated certificate expiry monitoring and alerting at 30/14/7 days"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC-5006",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Investigate the Outlook crash on version 2402 Build 17328.20162 when opening emails from the legal department. Check for known issues with the March update.",
+        "remediation_steps": [
+            "Analyze the crash dump file for the specific exception causing the crash",
+            "Check for known issues with Outlook 365 version 2402 and the March update",
+            "Test opening legal department emails in OWA to isolate whether it is a desktop client issue",
+            "If a known bug, apply the latest Office update or rollback to the previous build"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC-5007",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "timestamp"
+        ],
+        "next_best_action": "Immediately restore the correct A records for trading, settlement, and compliance services on both ns1 and ns2. Investigate how the records were zeroed out.",
+        "remediation_steps": [
+            "Restore the trading, settlement, and compliance A records from the last known-good backup",
+            "Verify DNS resolution from multiple locations after the fix",
+            "Investigate how both primary and secondary DNS were corrupted simultaneously",
+            "Review DNS change logs and access audit trails for unauthorized modifications",
+            "Implement DNS record change alerting and approval workflows"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC-5008",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "network_location"
+        ],
+        "next_best_action": "Investigate the network path between settlement-api-prod (10.0.1.100) and db-prod-02 (10.0.1.21) for the source of 36.8% packet retransmission and 3200ms RTT. This is causing trade settlement failures.",
+        "remediation_steps": [
+            "Check switch/router interfaces on the path between 10.0.1.100 and 10.0.1.21 for errors or congestion",
+            "Verify no recent network changes (VLAN, firewall rules, QoS policies) around 8:30 AM",
+            "Check for NIC errors or driver issues on both the settlement API server and DB server",
+            "If a faulty switch port or cable is identified, failover to redundant path",
+            "Monitor packet loss and RTT after remediation to confirm resolution"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC-5009",
+        "category": "Data & Storage",
+        "priority": "P1",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [
+            "timestamp",
+            "environment_details"
+        ],
+        "next_best_action": "Investigate why SQL Server on 10.0.1.20 (contosofinance instance) is unreachable, causing HikariCP pool exhaustion (50 active, 247 waiting). This is blocking all portfolio valuations and EOD risk reports.",
+        "remediation_steps": [
+            "Check SQL Server health on 10.0.1.20 — verify the contosofinance instance is running",
+            "Check network connectivity between the portfolio service and 10.0.1.20",
+            "If the DB server is unresponsive, restart the SQL Server service",
+            "Once DB is reachable, restart the portfolio management service to reset the connection pool",
+            "Review and potentially increase HikariCP max pool size and add connection timeout failover"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC-5010",
+        "category": "Access & Authentication",
+        "priority": "P3",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_users",
+            "business_impact"
+        ],
+        "next_best_action": "Process the bulk Active Directory group membership changes for the 15 employees transferring departments in the Q2 reorganization. Verify manager approval forms in ServiceNow CHG-20260315.",
+        "remediation_steps": [
+            "Verify all 15 manager approval forms are signed in ServiceNow CHG-20260315",
+            "Create a scripted AD group membership update for the 15 employees",
+            "Remove users from old department security groups and add to new ones",
+            "Update application-level permissions according to the access level mapping",
+            "Send confirmation to HR and each employee's new manager by March 31"
+        ]
+    }
 ]

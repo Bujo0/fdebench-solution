@@ -1,267 +1,267 @@
 [
-  {
-    "ticket_id": "INC-DCM-8001",
-    "category": "Network & Connectivity",
-    "priority": "P3",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message",
-      "network_location"
-    ],
-    "next_best_action": "Investigate VPN gateway logs for connection drops correlating with the reported timeframe (since March 5th maintenance window) and check GlobalProtect client logs on the user's Dell laptop for disconnect reasons.",
-    "remediation_steps": [
-      "Pull GlobalProtect VPN gateway logs for the period since the March 5th maintenance window to identify disconnect patterns",
-      "Check the VPN gateway configuration for any changes introduced during the scheduled maintenance",
-      "Request the user run a GlobalProtect diagnostic report (Troubleshooting > Logs > Export) and submit it",
-      "Verify the WiFi signal strength and stability in Building C, 4th floor, as intermittent WiFi could cause VPN drops",
-      "Review VPN session timeout and keepalive settings that may have been modified during maintenance",
-      "If the issue is isolated to specific users or locations, investigate network infrastructure on that floor"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCM-8002",
-    "category": "Hardware & Peripherals",
-    "priority": "P2",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message",
-      "device_info",
-      "timestamp"
-    ],
-    "next_best_action": "Retrieve the exact BSOD stop code from Windows Event Viewer (System log, source BugCheck) and run hardware diagnostics to check for failing storage or RAM, given the reported KERNEL_DATA_INPAGE_ERROR pattern.",
-    "remediation_steps": [
-      "Remote into the machine (or request user access) to check Event Viewer > Windows Logs > System for BugCheck events and capture the exact stop code and parameters",
-      "Run Dell built-in diagnostics (F12 at boot > Diagnostics) focusing on hard drive and memory tests",
-      "Check SMART status of the storage drive using CrystalDiskInfo or Dell SupportAssist",
-      "Review Windows Reliability Monitor for the pattern of crashes over the past month",
-      "If KERNEL_DATA_INPAGE_ERROR is confirmed, prioritize storage drive replacement as this typically indicates a failing disk",
-      "Ensure user's critical files are backed up immediately given the recurring nature of crashes",
-      "If hardware tests pass, check for recent driver updates or Windows updates that may correlate with crash timeline"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCM-8003",
-    "category": "Data & Storage",
-    "priority": "P3",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_users",
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Check the SharePoint site permissions for the Legal Docs site collection to determine if the user's account was inadvertently removed from the Members or Visitors group, and restore access before the March 20th court deadline.",
-    "remediation_steps": [
-      "Access SharePoint Admin Center and navigate to the LegalDocs site collection permissions",
-      "Check the site permissions audit log for any recent changes that may have removed the user's access",
-      "Verify whether the user's account is still in the appropriate Azure AD security group that grants access to the Legal Department SharePoint",
-      "Compare the user's group memberships with those of David Park and Sarah Liu who still have access",
-      "Restore the user to the correct SharePoint permissions group (likely the Legal Department Members group)",
-      "Confirm with the user that access is restored and they can retrieve the needed case files",
-      "Investigate root cause of permission removal to prevent recurrence"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCM-8004",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message",
-      "application_version"
-    ],
-    "next_best_action": "Check the Exchange transport rules and SMTP relay configuration for the 550 5.7.1 error, and verify the user's Outlook profile is not corrupted by testing with Outlook Web App (OWA) to isolate client vs. server issue.",
-    "remediation_steps": [
-      "Ask the user to test sending an email via Outlook Web App (https://outlook.office365.com) to determine if the issue is client-side or server-side",
-      "Check Exchange Online message trace for the user's failed send attempts to capture the actual NDR details",
-      "Verify the user's mailbox send permissions and any recent changes to transport rules or DLP policies that could cause a 550 5.7.1 rejection",
-      "Determine the Outlook client version and check for pending updates that may fix encoding-related display bugs",
-      "If OWA works fine, repair the local Outlook profile or create a new one to resolve client-side encoding corruption",
-      "Check if the garbled character display is related to a language pack or regional settings change on the user's workstation",
-      "Confirm that the colleague Käthe Müller's issue is identical to rule out a broader mail flow problem"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCM-8005",
-    "category": "Data & Storage",
-    "priority": "P1",
-    "assigned_team": "Data Platform",
-    "needs_escalation": true,
-    "missing_information": [
-      "environment_details",
-      "affected_users",
-      "business_impact"
-    ],
-    "next_best_action": "Immediately engage the on-call DBA team to investigate the production PostgreSQL database servers (db-prod-east-01 and db-prod-east-02) for connectivity and health, as both primary and failover are unreachable causing a complete CRM application outage.",
-    "remediation_steps": [
-      "Page the on-call DBA team immediately for P1 production database outage",
-      "Verify network connectivity to db-prod-east-01.contoso.internal:5432 and db-prod-east-02.contoso.internal:5432 from the application servers",
-      "Check the PostgreSQL server status on both primary and failover nodes (systemctl status postgresql, pg_isready)",
-      "Review database server system resources (CPU, memory, disk I/O, disk space) for saturation",
-      "Check for any infrastructure changes, maintenance windows, or firewall rule modifications that coincide with the 06:30 UTC outage start",
-      "If database servers are unreachable, coordinate with Network Operations to check network path and firewall rules between application and database tiers",
-      "Once connectivity is restored, monitor the connection pool recovery and verify the circuit breaker resets",
-      "Prepare incident post-mortem documenting the outage timeline, root cause, and preventive measures"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCM-8006",
-    "category": "Hardware & Peripherals",
-    "priority": "P3",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info",
-      "error_message",
-      "network_location"
-    ],
-    "next_best_action": "Dispatch a technician to the 2nd floor near the meeting room to physically inspect the printer, identify the make and model, diagnose the blinking orange light indicator, and check the network connection.",
-    "remediation_steps": [
-      "Dispatch a technician to the 2nd floor to physically inspect the printer and identify the exact make, model, and asset tag",
-      "Check the printer's network connectivity - verify the Ethernet cable is properly seated and the network port on the wall is active",
-      "Interpret the blinking orange light pattern using the printer manufacturer's diagnostic guide",
-      "Check the printer's IP configuration and verify it has a valid IP address on the correct VLAN",
-      "Verify the print server or print queue shows the printer and check for any stuck jobs",
-      "Power cycle the printer completely (unplug for 30 seconds) and allow it to reinitialize",
-      "If the printer reconnects, push a test print from one of the affected workstations to confirm resolution",
-      "Update the printer asset record with current configuration details"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCM-8007",
-    "category": "Access & Authentication",
-    "priority": "P2",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info",
-      "authentication_method",
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Issue a Temporary Access Pass (TAP) for the user so she can log in and re-register her MFA device in the Microsoft Authenticator app, restoring access to all Microsoft 365 services.",
-    "remediation_steps": [
-      "Verify the user's identity through secondary verification (employee ID E-4472, department confirmation, manager callback)",
-      "Check Azure AD sign-in logs for the user's account to understand what happened to the MFA registration",
-      "Issue a Temporary Access Pass (TAP) via Azure AD Portal > Users > Diane Kowalski > Authentication methods",
-      "Provide the TAP to the user securely and instruct her to log in at https://aka.ms/mfasetup",
-      "Guide the user through re-registering Microsoft Authenticator as her MFA method",
-      "Verify the user can successfully authenticate with the new MFA registration across Microsoft 365 apps",
-      "Investigate why the MFA registration was wiped - check Azure AD audit logs for any admin actions or policy changes affecting this user's authentication methods",
-      "Document the root cause to prevent recurrence"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCM-8008",
-    "category": "Network & Connectivity",
-    "priority": "P3",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "network_location",
-      "affected_system",
-      "business_impact"
-    ],
-    "next_best_action": "Run network performance diagnostics between the user's workstation and the file server (\\\\fileserver\\shared\\projects) to identify the bottleneck causing large file transfers to drop to 50 KB/s.",
-    "remediation_steps": [
-      "Identify the user's network location (building, floor, switch port) and the file server's location to map the network path",
-      "Run iperf3 between the user's workstation and the file server to measure raw network throughput independent of SMB",
-      "Check the NIC settings on the user's Intel I219-V adapter for auto-negotiation issues, duplex mismatches, or driver problems",
-      "Review the switch port statistics for errors, CRC failures, or packet drops on both the user's port and the file server's port",
-      "Check if SMB signing or encryption policies have recently changed, as these can significantly impact large file transfer performance",
-      "Test large file transfer from another workstation on the same network segment to isolate whether the issue is user-specific or network-wide",
-      "Review file server performance metrics (disk I/O, CPU, memory) during transfer attempts to rule out server-side bottleneck"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCM-8009",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "environment_details",
-      "reproduction_frequency",
-      "affected_users"
-    ],
-    "next_best_action": "Analyze Microsoft Teams call quality dashboard (CQD) data for the affected users since March 13th to identify the root cause of the consistent ~10 minute call disconnections, focusing on network quality metrics and QoS policy effectiveness.",
-    "remediation_steps": [
-      "Access the Microsoft Teams Call Quality Dashboard (CQD) and pull call records for Gloria Reeves, Nathan Cross, and Deepa Krishnan since March 13th",
-      "Analyze call drop patterns - confirm the ~10 minute threshold and identify common network metrics at the point of disconnection",
-      "Review the QoS policy changes applied on March 16th night to verify they were correctly implemented and are not inadvertently causing the issue",
-      "Check Teams client versions on affected users' devices and ensure they are up to date",
-      "Review network firewall and proxy logs for any session timeout policies that could be terminating long-duration real-time media streams at the 10-minute mark",
-      "Test with a controlled Teams call from an affected user's workstation while monitoring network traffic to capture the exact disconnect sequence",
-      "Check if UDP ports 3478-3481 are consistently available or if a firewall is resetting connections after a timeout period",
-      "Verify that the issue is limited to the reported users or if it's affecting a wider group by checking CQD for organization-wide call reliability trends"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCM-8010",
-    "category": "Hardware & Peripherals",
-    "priority": "P3",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info",
-      "error_message"
-    ],
-    "next_best_action": "Identify the docking station make/model and the firmware version that was applied, then check for known issues with the updated firmware regarding display output and attempt a firmware rollback if a known bug is confirmed.",
-    "remediation_steps": [
-      "Identify the exact docking station model and the firmware version that was updated yesterday",
-      "Check the docking station manufacturer's release notes for the firmware update for any known display detection issues",
-      "Verify the monitor connection type (HDMI, DisplayPort, USB-C) and test with alternative ports on the docking station",
-      "Check Device Manager for any display adapter errors or warning indicators after the firmware update",
-      "Try connecting the monitor directly to the laptop (bypassing the dock) to confirm the monitor and laptop display output are working",
-      "If the issue is confirmed to be firmware-related, roll back the docking station firmware to the previous version",
-      "If rollback is not possible, check for a hotfix firmware release from the manufacturer",
-      "Test with a known-working docking station to isolate whether the issue is specific to this unit"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCM-8011",
-    "category": "Access & Authentication",
-    "priority": "P2",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": true,
-    "missing_information": [
-      "authentication_method",
-      "affected_system"
-    ],
-    "next_best_action": "Perform the password reset immediately to restore user access, then escalate to Security Operations to review the ticket for PII exposure (SSN reference, partial credit card number, personal address, phone numbers, and banking details submitted via chat channel).",
-    "remediation_steps": [
-      "Verify the user's identity using employee ID E-8834 and manager confirmation (do NOT use the PII provided in the ticket for verification)",
-      "Perform a password reset for sandra.tillman@contoso.com and provide a temporary password through a secure channel",
-      "Confirm the user can log in with the temporary password and MFA via Microsoft Authenticator",
-      "IMMEDIATELY escalate to Security Operations regarding the PII exposure in this ticket - SSN reference, credit card details, home address, personal phone numbers, and banking information were submitted via an insecure chat channel",
-      "Request Security Operations to classify this as a data handling incident and determine if the ticket content needs to be redacted or purged from the ticketing system",
-      "Advise the user never to include personal financial information, SSN, or credit card numbers in support tickets",
-      "Redirect the unauthorized credit card charge inquiry to the Finance/Procurement department",
-      "Redirect the shared drive migration request to the Data Platform team as a separate ticket"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCM-8012",
-    "category": "Data & Storage",
-    "priority": "P3",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_system",
-      "environment_details",
-      "business_impact"
-    ],
-    "next_best_action": "Review the disk usage on \\\\fs-corp-03 D: drive, identify and clean up the stale backup files in D:\\Backups\\Archive from 2019, and investigate the backup job configuration to prevent future uncontrolled growth.",
-    "remediation_steps": [
-      "Connect to fs-corp-03 and verify current disk space on D: drive (847 MB free of 4 TB as reported)",
-      "Inventory the D:\\Backups\\Archive directory to identify all .bak files, their sizes, and dates, particularly the 2019 files consuming ~1.5 TB",
-      "Identify the scheduled task or backup job that is writing to D:\\Backups\\Archive and determine its owner and purpose",
-      "Coordinate with the backup job owner to confirm that the 2019 .bak files are no longer needed and can be safely removed",
-      "Delete or archive the confirmed stale backup files to reclaim disk space immediately",
-      "Implement a retention policy on the backup job to automatically purge files older than the agreed retention period",
-      "Set up disk space monitoring alerts on fs-corp-03 to trigger at 85% and 90% thresholds to provide early warning",
-      "Communicate to the affected users that the disk space issue has been resolved"
-    ]
-  }
+    {
+        "ticket_id": "INC-DCM-8001",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "network_location"
+        ],
+        "next_best_action": "Investigate VPN gateway logs for connection drops correlating with the reported timeframe (since March 5th maintenance window) and check GlobalProtect client logs on the user's Dell laptop for disconnect reasons.",
+        "remediation_steps": [
+            "Pull GlobalProtect VPN gateway logs for the period since the March 5th maintenance window to identify disconnect patterns",
+            "Check the VPN gateway configuration for any changes introduced during the scheduled maintenance",
+            "Request the user run a GlobalProtect diagnostic report (Troubleshooting > Logs > Export) and submit it",
+            "Verify the WiFi signal strength and stability in Building C, 4th floor, as intermittent WiFi could cause VPN drops",
+            "Review VPN session timeout and keepalive settings that may have been modified during maintenance",
+            "If the issue is isolated to specific users or locations, investigate network infrastructure on that floor"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCM-8002",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "device_info",
+            "timestamp"
+        ],
+        "next_best_action": "Retrieve the exact BSOD stop code from Windows Event Viewer (System log, source BugCheck) and run hardware diagnostics to check for failing storage or RAM, given the reported KERNEL_DATA_INPAGE_ERROR pattern.",
+        "remediation_steps": [
+            "Remote into the machine (or request user access) to check Event Viewer > Windows Logs > System for BugCheck events and capture the exact stop code and parameters",
+            "Run Dell built-in diagnostics (F12 at boot > Diagnostics) focusing on hard drive and memory tests",
+            "Check SMART status of the storage drive using CrystalDiskInfo or Dell SupportAssist",
+            "Review Windows Reliability Monitor for the pattern of crashes over the past month",
+            "If KERNEL_DATA_INPAGE_ERROR is confirmed, prioritize storage drive replacement as this typically indicates a failing disk",
+            "Ensure user's critical files are backed up immediately given the recurring nature of crashes",
+            "If hardware tests pass, check for recent driver updates or Windows updates that may correlate with crash timeline"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCM-8003",
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_users",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Check the SharePoint site permissions for the Legal Docs site collection to determine if the user's account was inadvertently removed from the Members or Visitors group, and restore access before the March 20th court deadline.",
+        "remediation_steps": [
+            "Access SharePoint Admin Center and navigate to the LegalDocs site collection permissions",
+            "Check the site permissions audit log for any recent changes that may have removed the user's access",
+            "Verify whether the user's account is still in the appropriate Azure AD security group that grants access to the Legal Department SharePoint",
+            "Compare the user's group memberships with those of David Park and Sarah Liu who still have access",
+            "Restore the user to the correct SharePoint permissions group (likely the Legal Department Members group)",
+            "Confirm with the user that access is restored and they can retrieve the needed case files",
+            "Investigate root cause of permission removal to prevent recurrence"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCM-8004",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "application_version"
+        ],
+        "next_best_action": "Check the Exchange transport rules and SMTP relay configuration for the 550 5.7.1 error, and verify the user's Outlook profile is not corrupted by testing with Outlook Web App (OWA) to isolate client vs. server issue.",
+        "remediation_steps": [
+            "Ask the user to test sending an email via Outlook Web App (https://outlook.office365.com) to determine if the issue is client-side or server-side",
+            "Check Exchange Online message trace for the user's failed send attempts to capture the actual NDR details",
+            "Verify the user's mailbox send permissions and any recent changes to transport rules or DLP policies that could cause a 550 5.7.1 rejection",
+            "Determine the Outlook client version and check for pending updates that may fix encoding-related display bugs",
+            "If OWA works fine, repair the local Outlook profile or create a new one to resolve client-side encoding corruption",
+            "Check if the garbled character display is related to a language pack or regional settings change on the user's workstation",
+            "Confirm that the colleague Käthe Müller's issue is identical to rule out a broader mail flow problem"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCM-8005",
+        "category": "Data & Storage",
+        "priority": "P1",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [
+            "environment_details",
+            "affected_users",
+            "business_impact"
+        ],
+        "next_best_action": "Immediately engage the on-call DBA team to investigate the production PostgreSQL database servers (db-prod-east-01 and db-prod-east-02) for connectivity and health, as both primary and failover are unreachable causing a complete CRM application outage.",
+        "remediation_steps": [
+            "Page the on-call DBA team immediately for P1 production database outage",
+            "Verify network connectivity to db-prod-east-01.contoso.internal:5432 and db-prod-east-02.contoso.internal:5432 from the application servers",
+            "Check the PostgreSQL server status on both primary and failover nodes (systemctl status postgresql, pg_isready)",
+            "Review database server system resources (CPU, memory, disk I/O, disk space) for saturation",
+            "Check for any infrastructure changes, maintenance windows, or firewall rule modifications that coincide with the 06:30 UTC outage start",
+            "If database servers are unreachable, coordinate with Network Operations to check network path and firewall rules between application and database tiers",
+            "Once connectivity is restored, monitor the connection pool recovery and verify the circuit breaker resets",
+            "Prepare incident post-mortem documenting the outage timeline, root cause, and preventive measures"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCM-8006",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info",
+            "error_message",
+            "network_location"
+        ],
+        "next_best_action": "Dispatch a technician to the 2nd floor near the meeting room to physically inspect the printer, identify the make and model, diagnose the blinking orange light indicator, and check the network connection.",
+        "remediation_steps": [
+            "Dispatch a technician to the 2nd floor to physically inspect the printer and identify the exact make, model, and asset tag",
+            "Check the printer's network connectivity - verify the Ethernet cable is properly seated and the network port on the wall is active",
+            "Interpret the blinking orange light pattern using the printer manufacturer's diagnostic guide",
+            "Check the printer's IP configuration and verify it has a valid IP address on the correct VLAN",
+            "Verify the print server or print queue shows the printer and check for any stuck jobs",
+            "Power cycle the printer completely (unplug for 30 seconds) and allow it to reinitialize",
+            "If the printer reconnects, push a test print from one of the affected workstations to confirm resolution",
+            "Update the printer asset record with current configuration details"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCM-8007",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info",
+            "authentication_method",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Issue a Temporary Access Pass (TAP) for the user so she can log in and re-register her MFA device in the Microsoft Authenticator app, restoring access to all Microsoft 365 services.",
+        "remediation_steps": [
+            "Verify the user's identity through secondary verification (employee ID E-4472, department confirmation, manager callback)",
+            "Check Azure AD sign-in logs for the user's account to understand what happened to the MFA registration",
+            "Issue a Temporary Access Pass (TAP) via Azure AD Portal > Users > Diane Kowalski > Authentication methods",
+            "Provide the TAP to the user securely and instruct her to log in at https://aka.ms/mfasetup",
+            "Guide the user through re-registering Microsoft Authenticator as her MFA method",
+            "Verify the user can successfully authenticate with the new MFA registration across Microsoft 365 apps",
+            "Investigate why the MFA registration was wiped - check Azure AD audit logs for any admin actions or policy changes affecting this user's authentication methods",
+            "Document the root cause to prevent recurrence"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCM-8008",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "network_location",
+            "affected_system",
+            "business_impact"
+        ],
+        "next_best_action": "Run network performance diagnostics between the user's workstation and the file server (\\\\fileserver\\shared\\projects) to identify the bottleneck causing large file transfers to drop to 50 KB/s.",
+        "remediation_steps": [
+            "Identify the user's network location (building, floor, switch port) and the file server's location to map the network path",
+            "Run iperf3 between the user's workstation and the file server to measure raw network throughput independent of SMB",
+            "Check the NIC settings on the user's Intel I219-V adapter for auto-negotiation issues, duplex mismatches, or driver problems",
+            "Review the switch port statistics for errors, CRC failures, or packet drops on both the user's port and the file server's port",
+            "Check if SMB signing or encryption policies have recently changed, as these can significantly impact large file transfer performance",
+            "Test large file transfer from another workstation on the same network segment to isolate whether the issue is user-specific or network-wide",
+            "Review file server performance metrics (disk I/O, CPU, memory) during transfer attempts to rule out server-side bottleneck"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCM-8009",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details",
+            "reproduction_frequency",
+            "affected_users"
+        ],
+        "next_best_action": "Analyze Microsoft Teams call quality dashboard (CQD) data for the affected users since March 13th to identify the root cause of the consistent ~10 minute call disconnections, focusing on network quality metrics and QoS policy effectiveness.",
+        "remediation_steps": [
+            "Access the Microsoft Teams Call Quality Dashboard (CQD) and pull call records for Gloria Reeves, Nathan Cross, and Deepa Krishnan since March 13th",
+            "Analyze call drop patterns - confirm the ~10 minute threshold and identify common network metrics at the point of disconnection",
+            "Review the QoS policy changes applied on March 16th night to verify they were correctly implemented and are not inadvertently causing the issue",
+            "Check Teams client versions on affected users' devices and ensure they are up to date",
+            "Review network firewall and proxy logs for any session timeout policies that could be terminating long-duration real-time media streams at the 10-minute mark",
+            "Test with a controlled Teams call from an affected user's workstation while monitoring network traffic to capture the exact disconnect sequence",
+            "Check if UDP ports 3478-3481 are consistently available or if a firewall is resetting connections after a timeout period",
+            "Verify that the issue is limited to the reported users or if it's affecting a wider group by checking CQD for organization-wide call reliability trends"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCM-8010",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info",
+            "error_message"
+        ],
+        "next_best_action": "Identify the docking station make/model and the firmware version that was applied, then check for known issues with the updated firmware regarding display output and attempt a firmware rollback if a known bug is confirmed.",
+        "remediation_steps": [
+            "Identify the exact docking station model and the firmware version that was updated yesterday",
+            "Check the docking station manufacturer's release notes for the firmware update for any known display detection issues",
+            "Verify the monitor connection type (HDMI, DisplayPort, USB-C) and test with alternative ports on the docking station",
+            "Check Device Manager for any display adapter errors or warning indicators after the firmware update",
+            "Try connecting the monitor directly to the laptop (bypassing the dock) to confirm the monitor and laptop display output are working",
+            "If the issue is confirmed to be firmware-related, roll back the docking station firmware to the previous version",
+            "If rollback is not possible, check for a hotfix firmware release from the manufacturer",
+            "Test with a known-working docking station to isolate whether the issue is specific to this unit"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCM-8011",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": true,
+        "missing_information": [
+            "authentication_method",
+            "affected_system"
+        ],
+        "next_best_action": "Perform the password reset immediately to restore user access, then escalate to Security Operations to review the ticket for PII exposure (SSN reference, partial credit card number, personal address, phone numbers, and banking details submitted via chat channel).",
+        "remediation_steps": [
+            "Verify the user's identity using employee ID E-8834 and manager confirmation (do NOT use the PII provided in the ticket for verification)",
+            "Perform a password reset for sandra.tillman@contoso.com and provide a temporary password through a secure channel",
+            "Confirm the user can log in with the temporary password and MFA via Microsoft Authenticator",
+            "IMMEDIATELY escalate to Security Operations regarding the PII exposure in this ticket - SSN reference, credit card details, home address, personal phone numbers, and banking information were submitted via an insecure chat channel",
+            "Request Security Operations to classify this as a data handling incident and determine if the ticket content needs to be redacted or purged from the ticketing system",
+            "Advise the user never to include personal financial information, SSN, or credit card numbers in support tickets",
+            "Redirect the unauthorized credit card charge inquiry to the Finance/Procurement department",
+            "Redirect the shared drive migration request to the Data Platform team as a separate ticket"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCM-8012",
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "environment_details",
+            "business_impact"
+        ],
+        "next_best_action": "Review the disk usage on \\\\fs-corp-03 D: drive, identify and clean up the stale backup files in D:\\Backups\\Archive from 2019, and investigate the backup job configuration to prevent future uncontrolled growth.",
+        "remediation_steps": [
+            "Connect to fs-corp-03 and verify current disk space on D: drive (847 MB free of 4 TB as reported)",
+            "Inventory the D:\\Backups\\Archive directory to identify all .bak files, their sizes, and dates, particularly the 2019 files consuming ~1.5 TB",
+            "Identify the scheduled task or backup job that is writing to D:\\Backups\\Archive and determine its owner and purpose",
+            "Coordinate with the backup job owner to confirm that the 2019 .bak files are no longer needed and can be safely removed",
+            "Delete or archive the confirmed stale backup files to reclaim disk space immediately",
+            "Implement a retention policy on the backup job to automatically purge files older than the agreed retention period",
+            "Set up disk space monitoring alerts on fs-corp-03 to trigger at 85% and 90% thresholds to provide early warning",
+            "Communicate to the affected users that the disk space issue has been resolved"
+        ]
+    }
 ]

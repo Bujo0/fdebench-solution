@@ -1,604 +1,604 @@
 [
-  {
-    "ticket_id": "INC-2001",
-    "category": "Network & Connectivity",
-    "priority": "P3",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Investigate GlobalProtect VPN disconnection issue on London office Floor 3 Wi-Fi, check for gateway timeout errors after recent network maintenance.",
-    "remediation_steps": [
-      "Check GlobalProtect VPN gateway logs for 'connection reset' errors from London office Floor 3",
-      "Verify network maintenance on March 11 did not alter VPN gateway configuration",
-      "Test VPN connectivity from London Floor 3 Wi-Fi with a reference device",
-      "If issue is widespread, check Wi-Fi controller configuration for Floor 3 access points",
-      "Update VPN client if a newer version is available"
-    ]
-  },
-  {
-    "ticket_id": "INC-2002",
-    "category": "Data & Storage",
-    "priority": "P2",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message"
-    ],
-    "next_best_action": "Investigate SharePoint access denied error for Q1 Financial Reports site and grant appropriate permissions before the board meeting.",
-    "remediation_steps": [
-      "Verify the user's SharePoint permissions for the Q1 Financial Reports site",
-      "Check if the site has specific access groups and whether the user is a member",
-      "Grant read access to the Q1 Financial Reports site if appropriate",
-      "Confirm access is restored and user can view the required documents",
-      "Review site permissions model to prevent future access issues"
-    ]
-  },
-  {
-    "ticket_id": "INC-2003",
-    "category": "Hardware & Peripherals",
-    "priority": "P3",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Investigate Dell Latitude 5520 with 100% disk usage. Check for failing drive, excessive indexing, or runaway processes causing constant disk I/O.",
-    "remediation_steps": [
-      "Run hardware diagnostics on the Dell Latitude 5520 to check disk health (SMART status)",
-      "Check Task Manager for processes causing high disk I/O",
-      "Verify Windows Search indexer is not stuck in a rebuild loop",
-      "Check for pending Windows updates that may be causing disk thrashing",
-      "If disk is failing, arrange replacement and data migration"
-    ]
-  },
-  {
-    "ticket_id": "INC-2004",
-    "category": "Hardware & Peripherals",
-    "priority": "P3",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message"
-    ],
-    "next_best_action": "Investigate HP LaserJet on Floor 5 showing false paper jam error. Clear any sensor obstructions and reset the printer.",
-    "remediation_steps": [
-      "Physically inspect the HP LaserJet on Floor 5 near the kitchen for paper debris or sensor obstructions",
-      "Open all paper tray compartments and the rear access panel to check for stuck paper",
-      "Clean the paper jam sensors with compressed air",
-      "Power cycle the printer (full shutdown, wait 30 seconds, restart)",
-      "If paper jam error persists after clearing, schedule a service call"
-    ]
-  },
-  {
-    "ticket_id": "INC-2005",
-    "category": "Not a Support Ticket",
-    "priority": "P4",
-    "assigned_team": "None",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Close ticket. No issue described — the ticket contains only whitespace with no subject or description.",
-    "remediation_steps": [
-      "Close the ticket as no actionable content was provided",
-      "If possible, contact the reporter to determine if a real issue exists"
-    ]
-  },
-  {
-    "ticket_id": "INC-2006",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message",
-      "affected_users"
-    ],
-    "next_best_action": "Investigate SAP FI module 500 error for Singapore office users following weekend maintenance. Check SAP application server logs and recent configuration changes.",
-    "remediation_steps": [
-      "Check SAP application server logs for 500 errors since the weekend maintenance window",
-      "Verify SAP FI module configuration was not altered during maintenance",
-      "Test SAP FI access from a reference account to confirm the issue is not user-specific",
-      "Coordinate with the SAP Basis team to review recent transport requests",
-      "If widespread, roll back recent maintenance changes and restore service"
-    ]
-  },
-  {
-    "ticket_id": "INC-2007",
-    "category": "Data & Storage",
-    "priority": "P1",
-    "assigned_team": "Data Platform",
-    "needs_escalation": true,
-    "missing_information": [],
-    "next_best_action": "URGENT: Production database connection pool is exhausted, causing 503 errors on customer-facing APIs affecting ~200 clients. Investigate max_connections limit and failed auto-scaling.",
-    "remediation_steps": [
-      "Immediately assess scope: confirm which APIs are returning 503 errors",
-      "Check database server max_connections setting and current active connections",
-      "Identify queries holding connections open (long-running queries, uncommitted transactions)",
-      "Kill idle/stuck connections to free pool capacity as an immediate mitigation",
-      "Investigate why auto-scaler failed to increase pool beyond 100 connections",
-      "Increase max_connections on the database server if hardware allows",
-      "Review connection pool configuration (timeout, max idle, eviction policy)"
-    ]
-  },
-  {
-    "ticket_id": "INC-2008",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Investigate Outlook crash when opening attachments larger than 5MB following Office 365 update to Version 2402.",
-    "remediation_steps": [
-      "Check for known issues with Office 365 Version 2402 Build 17328.20162 related to attachment handling",
-      "Run Office repair tool (Quick Repair first, then Online Repair if needed)",
-      "Check available system memory and disk space on the user's device",
-      "Test opening large attachments in Outlook Safe Mode to rule out add-in conflicts",
-      "If issue persists, consider rolling back to the previous Office version"
-    ]
-  },
-  {
-    "ticket_id": "INC-2009",
-    "category": "Not a Support Ticket",
-    "priority": "P4",
-    "assigned_team": "None",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Close ticket. The submission is an unfilled template with no actual issue described — all fields contain placeholder text.",
-    "remediation_steps": [
-      "Close the ticket as it contains only unfilled template placeholders",
-      "Contact the reporter to ask if they intended to submit an actual issue",
-      "Consider improving the portal to validate that template fields are filled before submission"
-    ]
-  },
-  {
-    "ticket_id": "INC-2010",
-    "category": "Access & Authentication",
-    "priority": "P2",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": false,
-    "missing_information": [
-      "authentication_method"
-    ],
-    "next_best_action": "Investigate locked account for Carlos Mendez (E-4521). Account is locked and self-service password reset identity verification is also failing.",
-    "remediation_steps": [
-      "Look up account status for employee E-4521 in Active Directory",
-      "Check for failed login attempts that triggered the account lockout",
-      "Verify the user's identity through an alternative method (phone callback, manager confirmation)",
-      "Unlock the account and reset the password via admin tools",
-      "Investigate why the self-service identity verification failed",
-      "Confirm the user can access Outlook, Teams, and internal portal after unlock"
-    ]
-  },
-  {
-    "ticket_id": "INC-2011",
-    "category": "Network & Connectivity",
-    "priority": "P2",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message"
-    ],
-    "next_best_action": "Investigate 802.1X authentication failure on Contoso-Corp SSID at Singapore office Floor 2, affecting approximately 30 users.",
-    "remediation_steps": [
-      "Check RADIUS/NPS server logs for 802.1X authentication failures from Singapore Floor 2",
-      "Verify the Wi-Fi access points on Floor 2 are properly configured for 802.1X",
-      "Check if the RADIUS server certificate has expired or been updated recently",
-      "Test authentication with a known-good device on Floor 2",
-      "If RADIUS/certificate issue, push updated Wi-Fi profiles to affected devices"
-    ]
-  },
-  {
-    "ticket_id": "INC-2012",
-    "category": "Software & Applications",
-    "priority": "P1",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": true,
-    "missing_information": [],
-    "next_best_action": "URGENT: Bloomberg Terminal data feed interrupted since Friday. Trader has live positions with stale market data. Prioritize Bloomberg Terminal fix, then address secondary issues.",
-    "remediation_steps": [
-      "Immediately check Bloomberg Terminal data feed status and reconnect if possible",
-      "Verify Bloomberg network connectivity and firewall rules",
-      "Contact Bloomberg support if the data feed cannot be restored internally",
-      "Create separate tickets for the remaining non-urgent issues (VPN, printer, Intune, room booking)",
-      "Verify market data is current once the feed is restored"
-    ]
-  },
-  {
-    "ticket_id": "INC-2013",
-    "category": "Access & Authentication",
-    "priority": "P3",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_system",
-      "authentication_method"
-    ],
-    "next_best_action": "Process password reset for Emily Watson. Verify identity and reset credentials.",
-    "remediation_steps": [
-      "Verify the identity of the requester (Emily Watson, VP Client Relations)",
-      "Reset the password via Active Directory admin tools",
-      "Provide the temporary password through a secure channel (not email)",
-      "Require the user to change the password on first login",
-      "Confirm the user can access their account after the reset"
-    ]
-  },
-  {
-    "ticket_id": "INC-2014",
-    "category": "Network & Connectivity",
-    "priority": "P3",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "network_location"
-    ],
-    "next_best_action": "Investigate VPN connection failure with 'Unable to resolve gateway address' error for remote user on GlobalProtect v6.1.",
-    "remediation_steps": [
-      "Verify the VPN gateway DNS record is resolving correctly",
-      "Check if the user's ISP or home router is blocking VPN traffic",
-      "Have the user try flushing DNS cache (ipconfig /flushdns) and reconnecting",
-      "Test with an alternative public DNS server to rule out DNS issues",
-      "If DNS resolves correctly, check GlobalProtect client logs for connection errors"
-    ]
-  },
-  {
-    "ticket_id": "INC-2015",
-    "category": "Data & Storage",
-    "priority": "P1",
-    "assigned_team": "Data Platform",
-    "needs_escalation": true,
-    "missing_information": [],
-    "next_best_action": "CRITICAL: Production SQL Server data drive at 97.3% capacity with ~4 days until full. Investigate failed archival job and free disk space immediately.",
-    "remediation_steps": [
-      "Investigate the failed monthly data archival job from March 15 (exit code 1)",
-      "Clear temporary and staging tables on the PROD-SQL-03 data drive",
-      "Run the archival job manually to move old data to archive storage",
-      "Monitor disk usage trend to confirm growth rate decreases after archival",
-      "Plan emergency disk expansion if archival alone is insufficient",
-      "Review the new audit logging (OPS-4521) for excessive disk consumption"
-    ]
-  },
-  {
-    "ticket_id": "INC-2016",
-    "category": "Hardware & Peripherals",
-    "priority": "P2",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Arrange a replacement laptop or loaner for the user whose Dell Latitude 7420 was damaged by liquid spill. Recover data if possible.",
-    "remediation_steps": [
-      "Provide an immediate loaner laptop from the IT equipment pool",
-      "Attempt data recovery from the damaged Dell Latitude 7420 hard drive",
-      "Check if the user's files are backed up to OneDrive or a network share",
-      "Process hardware replacement through the asset management system",
-      "Help the user set up the loaner/replacement with required applications"
-    ]
-  },
-  {
-    "ticket_id": "INC-2017",
-    "category": "Security & Compliance",
-    "priority": "P3",
-    "assigned_team": "Security Operations",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Confirm the forwarded email is a phishing attempt (spoofed sender: micros0ft-support.com). Verify the user did not click any links and run a security scan.",
-    "remediation_steps": [
-      "Confirm the email is a phishing attempt (note the spoofed domain: micros0ft-support.com)",
-      "Verify the user did not click on any links in the phishing email",
-      "Run a full Windows Defender scan on the user's ThinkPad T14 as a precaution",
-      "Block the phishing domain (micros0ft-security-scan.com) at the email gateway and firewall",
-      "Report the phishing email to the security team for threat intelligence",
-      "Send the user a confirmation that the email was indeed a phishing attempt"
-    ]
-  },
-  {
-    "ticket_id": "INC-2018",
-    "category": "Access & Authentication",
-    "priority": "P2",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message"
-    ],
-    "next_best_action": "Investigate Active Directory lockout for Robert Chen following office transfer from London to NYC. Check group policy assignments for the new location.",
-    "remediation_steps": [
-      "Check Active Directory for Robert Chen's account status and OU assignment",
-      "Verify the account was properly migrated from the London OU to the NYC OU",
-      "Review group policy objects applied to the user's new organizational unit",
-      "Unlock the account and verify group memberships are correct for NYC office",
-      "Test login to Outlook, Teams, and internal portal after remediation",
-      "Confirm with the user's manager that the transfer is properly reflected in HR systems"
-    ]
-  },
-  {
-    "ticket_id": "INC-2019",
-    "category": "Security & Compliance",
-    "priority": "P1",
-    "assigned_team": "Security Operations",
-    "needs_escalation": true,
-    "missing_information": [],
-    "next_best_action": "URGENT: SSL certificate for api.contoso.com expires in 5 days. Manually renew the certificate immediately to prevent service disruption on client portal and trading API.",
-    "remediation_steps": [
-      "Investigate why the Let's Encrypt auto-renewal failed (see SEC-1234)",
-      "Manually generate and install a new SSL certificate for api.contoso.com",
-      "Test the new certificate across all dependent services (client portal, trading API)",
-      "Fix the auto-renewal mechanism to prevent future manual interventions",
-      "Separately investigate the API performance degradation correlated with the logging middleware deployment",
-      "Consider rolling back the Friday logging middleware deployment if performance impact is confirmed"
-    ]
-  },
-  {
-    "ticket_id": "INC-2020",
-    "category": "Data & Storage",
-    "priority": "P3",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message",
-      "affected_system"
-    ],
-    "next_best_action": "Investigate SharePoint upload failure for compliance documents. Check if the site has reached its storage quota and increase if needed.",
-    "remediation_steps": [
-      "Check the SharePoint site storage quota for the compliance team's site",
-      "Verify the specific error message (likely 'quota exceeded' based on transcript)",
-      "If storage quota is full, increase the site quota or archive old documents",
-      "Test uploading a 10MB document to confirm the issue is resolved",
-      "Ensure the compliance team can meet their end-of-week regulatory deadline"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC001",
-    "category": "Network & Connectivity",
-    "priority": "P3",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Investigate VPN gateway connectivity from the user's home network. The actual issue is buried in a very long email chain — the user cannot connect to VPN and gets a 'Connection timed out' error.",
-    "remediation_steps": [
-      "Verify VPN gateway health and availability",
-      "Check if other remote users are experiencing similar VPN issues",
-      "Have user verify their internet connectivity and try a different network if possible",
-      "Check VPN client version and configuration",
-      "If issue is isolated to this user, verify their VPN credentials and profile"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC002",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Investigate Bloomberg terminal license validation failure. The base64 image data in the ticket should be ignored — the actual error is 'License validation failed — contact administrator'.",
-    "remediation_steps": [
-      "Check Bloomberg terminal license status in the Bloomberg admin portal",
-      "Verify the user's Bloomberg entitlements are current",
-      "Compare with working terminals on the same floor to isolate the issue",
-      "If license is expired or revoked, coordinate with Bloomberg support for reactivation",
-      "Restart the Bloomberg terminal service and retry"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC003",
-    "category": "Hardware & Peripherals",
-    "priority": "P2",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Dispatch technician to 5th floor to diagnose HP LaserJet Pro MFP M428fdw with blinking amber status light. The HTML markup in the ticket should be stripped — the actual issue is a network printer that queues jobs but does not print.",
-    "remediation_steps": [
-      "Check printer status and clear any paper jams or error conditions",
-      "Restart the print spooler service on the printer",
-      "Verify network connectivity to the printer",
-      "Clear the print queue and attempt a test print",
-      "If hardware fault, schedule replacement or repair"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC004",
-    "category": "Data & Storage",
-    "priority": "P3",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_system",
-      "error_message",
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Investigate OneDrive sync issue for compliance audit files. The phone transcription is garbled but the core issue is files not syncing in a shared OneDrive folder needed for Thursday's compliance audit.",
-    "remediation_steps": [
-      "Contact user to confirm the exact OneDrive shared folder path",
-      "Check OneDrive sync status and recent sync logs for errors",
-      "Verify sharing permissions on the compliance audit folder",
-      "Check for file count or size limits that may block sync",
-      "Test sync by uploading a small test file and verifying visibility to colleagues"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC005",
-    "category": "Hardware & Peripherals",
-    "priority": "P2",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message",
-      "device_info"
-    ],
-    "next_best_action": "Investigate recurring BSOD with memory errors on a 3-year-old Dell Latitude. Despite the excessive emoji, this is a legitimate hardware issue — blue screen crashes occurring 5+ times per day.",
-    "remediation_steps": [
-      "Run hardware diagnostics on the Dell Latitude, specifically memory tests",
-      "Check Windows Event Viewer for BSOD crash dump details",
-      "If memory diagnostic fails, schedule RAM replacement",
-      "Ensure the user's quarterly report work is backed up to OneDrive",
-      "If the device is 3 years old and failing, evaluate for full replacement"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC006",
-    "category": "Not a Support Ticket",
-    "priority": "P4",
-    "assigned_team": "None",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Close — this is an empty ticket with no subject and no description. Likely generated by an automated system or submitted in error.",
-    "remediation_steps": [
-      "No action required — close ticket as empty submission"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC007",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_users"
-    ],
-    "next_best_action": "Investigate Outlook calendar duplicate events affecting multiple users in the Singapore office since the March 10 Exchange maintenance window. Despite the long forwarding chain, the core issue is calendar event duplication.",
-    "remediation_steps": [
-      "Check Exchange maintenance logs from March 10 for calendar-related changes",
-      "Verify Outlook calendar sync status for affected users",
-      "Determine scope — how many users in the Singapore office are affected",
-      "If caused by Exchange maintenance, coordinate with Exchange admin for a fix",
-      "For immediate relief, guide users through removing duplicate calendar entries"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC008",
-    "category": "Network & Connectivity",
-    "priority": "P2",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Investigate Wi-Fi dropouts on the 3rd floor of the London office affecting approximately 15 users. The excessive whitespace in the ticket should be ignored — the issue is with access point AP-LDN-3F-04.",
-    "remediation_steps": [
-      "Check status and logs for access point AP-LDN-3F-04",
-      "Verify if the AP needs a reboot or firmware update",
-      "Check for interference or configuration changes in the London office network",
-      "If AP is faulty, deploy a replacement unit",
-      "Monitor stability after remediation"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC009",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Investigate SAP authentication error AUTH-4012. Despite the mixed Spanish/English text, the issue is clear: SAP GUI login fails on the user's laptop but works from a colleague's machine, suggesting a profile-specific or device-specific authentication issue.",
-    "remediation_steps": [
-      "Check SAP user authentication status and SSO token validity",
-      "Verify Kerberos/SSO configuration on the user's laptop",
-      "Clear SAP GUI cached credentials and reconnect",
-      "Compare SAP GUI configuration between the user's laptop and the working colleague's machine",
-      "If issue persists, reset the SAP user profile and re-authenticate"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC010",
-    "category": "Security & Compliance",
-    "priority": "P2",
-    "assigned_team": "Security Operations",
-    "needs_escalation": true,
-    "missing_information": [
-      "timestamp"
-    ],
-    "next_best_action": "Investigate phishing attempt impersonating IT department via contoso-support.xyz domain. Despite the many URLs in the ticket body, the user is reporting a phishing email — not distributing malicious links. The user did not click any links.",
-    "remediation_steps": [
-      "Add the sender domain contoso-support.xyz and IP 185.234.72.19 to the email block list",
-      "Check if other employees received similar phishing emails",
-      "Analyze the email headers and URLs for threat intelligence",
-      "Send a phishing awareness notification to the organization if this is part of a campaign",
-      "Confirm the user did not enter any credentials or download attachments"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC011",
-    "category": "Data & Storage",
-    "priority": "P3",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Process database read access request for two production databases. The ticket contains code blocks and JSON formatting but the request is clear: db_datareader access to ClientPortfolio_Prod and MarketData_Warehouse with manager approval.",
-    "remediation_steps": [
-      "Verify manager approval from David Liu for both database access requests",
-      "Grant db_datareader role on ClientPortfolio_Prod for the user",
-      "Grant db_datareader role on MarketData_Warehouse for the user",
-      "Document the access grants and link to previous ticket INC-3201",
-      "Notify user when access is provisioned and confirm connectivity"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC012",
-    "category": "Access & Authentication",
-    "priority": "P2",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Investigate Entra ID authentication error AADSTS50076. Despite the repeated text at the start, the actual issue is cloud app login failure affecting Teams, SharePoint, and Outlook web. Local laptop login works fine.",
-    "remediation_steps": [
-      "Check Entra ID sign-in logs for error AADSTS50076 (MFA requirement not satisfied)",
-      "Verify Conditional Access policies that may require MFA for cloud apps",
-      "Check if the user's MFA registration is current and functional",
-      "If MFA is required, guide the user through MFA registration or troubleshooting",
-      "Verify the issue resolves after MFA compliance"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC013",
-    "category": "General Inquiry",
-    "priority": "P3",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "contact_info"
-    ],
-    "next_best_action": "Initiate new employee provisioning for Alexandra Rivera starting March 25. Note: the user mentions previously submitted PII (SSN/personal address) — ensure any prior ticket versions are reviewed for data purging per data handling policies.",
-    "remediation_steps": [
-      "Order MacBook Pro M4 32GB and prepare standard software image with Python/Jupyter",
-      "Request Azure ML workspace access from the cloud operations team",
-      "Request Building 3 badge access from facilities",
-      "Coordinate data purging of any PII from prior ticket submissions with the ServiceNow admin",
-      "Schedule equipment handoff for March 24 to allow walkthrough time"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC014",
-    "category": "Data & Storage",
-    "priority": "P3",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Restore file share access to \\\\fs-legacy-lon\\shared\\finance\\Q1-2026\\ for the London Finance team. Despite the mixed French/English text, the issue is clear: user previously had access that was revoked or expired.",
-    "remediation_steps": [
-      "Check current ACL permissions on the legacy file share path",
-      "Verify the user's group membership for London Finance file access",
-      "Restore read/write access to the Q1-2026 finance folder",
-      "Check if permissions were changed during any recent migrations",
-      "Confirm access restoration with the user"
-    ]
-  },
-  {
-    "ticket_id": "INC-DC015",
-    "category": "Data & Storage",
-    "priority": "P2",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Perform admin-level SharePoint site backup restore for the Q4-2025 Final Reports document library. The tab characters and control characters in the subject should be ignored — this is a legitimate backup restore request with a deadline of March 22.",
-    "remediation_steps": [
-      "Verify the SharePoint site backup from before March 17 16:30 UTC is available",
-      "Initiate admin-level restore of the Q4-2025 Final Reports document library",
-      "Verify all approximately 200 files are restored correctly",
-      "Notify the user and the person who accidentally deleted the files",
-      "Review SharePoint retention policies to prevent future permanent deletions"
-    ]
-  }
+    {
+        "ticket_id": "INC-2001",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Investigate GlobalProtect VPN disconnection issue on London office Floor 3 Wi-Fi, check for gateway timeout errors after recent network maintenance.",
+        "remediation_steps": [
+            "Check GlobalProtect VPN gateway logs for 'connection reset' errors from London office Floor 3",
+            "Verify network maintenance on March 11 did not alter VPN gateway configuration",
+            "Test VPN connectivity from London Floor 3 Wi-Fi with a reference device",
+            "If issue is widespread, check Wi-Fi controller configuration for Floor 3 access points",
+            "Update VPN client if a newer version is available"
+        ]
+    },
+    {
+        "ticket_id": "INC-2002",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Investigate SharePoint access denied error for Q1 Financial Reports site and grant appropriate permissions before the board meeting.",
+        "remediation_steps": [
+            "Verify the user's SharePoint permissions for the Q1 Financial Reports site",
+            "Check if the site has specific access groups and whether the user is a member",
+            "Grant read access to the Q1 Financial Reports site if appropriate",
+            "Confirm access is restored and user can view the required documents",
+            "Review site permissions model to prevent future access issues"
+        ]
+    },
+    {
+        "ticket_id": "INC-2003",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate Dell Latitude 5520 with 100% disk usage. Check for failing drive, excessive indexing, or runaway processes causing constant disk I/O.",
+        "remediation_steps": [
+            "Run hardware diagnostics on the Dell Latitude 5520 to check disk health (SMART status)",
+            "Check Task Manager for processes causing high disk I/O",
+            "Verify Windows Search indexer is not stuck in a rebuild loop",
+            "Check for pending Windows updates that may be causing disk thrashing",
+            "If disk is failing, arrange replacement and data migration"
+        ]
+    },
+    {
+        "ticket_id": "INC-2004",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Investigate HP LaserJet on Floor 5 showing false paper jam error. Clear any sensor obstructions and reset the printer.",
+        "remediation_steps": [
+            "Physically inspect the HP LaserJet on Floor 5 near the kitchen for paper debris or sensor obstructions",
+            "Open all paper tray compartments and the rear access panel to check for stuck paper",
+            "Clean the paper jam sensors with compressed air",
+            "Power cycle the printer (full shutdown, wait 30 seconds, restart)",
+            "If paper jam error persists after clearing, schedule a service call"
+        ]
+    },
+    {
+        "ticket_id": "INC-2005",
+        "category": "Not a Support Ticket",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Close ticket. No issue described — the ticket contains only whitespace with no subject or description.",
+        "remediation_steps": [
+            "Close the ticket as no actionable content was provided",
+            "If possible, contact the reporter to determine if a real issue exists"
+        ]
+    },
+    {
+        "ticket_id": "INC-2006",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "affected_users"
+        ],
+        "next_best_action": "Investigate SAP FI module 500 error for Singapore office users following weekend maintenance. Check SAP application server logs and recent configuration changes.",
+        "remediation_steps": [
+            "Check SAP application server logs for 500 errors since the weekend maintenance window",
+            "Verify SAP FI module configuration was not altered during maintenance",
+            "Test SAP FI access from a reference account to confirm the issue is not user-specific",
+            "Coordinate with the SAP Basis team to review recent transport requests",
+            "If widespread, roll back recent maintenance changes and restore service"
+        ]
+    },
+    {
+        "ticket_id": "INC-2007",
+        "category": "Data & Storage",
+        "priority": "P1",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "URGENT: Production database connection pool is exhausted, causing 503 errors on customer-facing APIs affecting ~200 clients. Investigate max_connections limit and failed auto-scaling.",
+        "remediation_steps": [
+            "Immediately assess scope: confirm which APIs are returning 503 errors",
+            "Check database server max_connections setting and current active connections",
+            "Identify queries holding connections open (long-running queries, uncommitted transactions)",
+            "Kill idle/stuck connections to free pool capacity as an immediate mitigation",
+            "Investigate why auto-scaler failed to increase pool beyond 100 connections",
+            "Increase max_connections on the database server if hardware allows",
+            "Review connection pool configuration (timeout, max idle, eviction policy)"
+        ]
+    },
+    {
+        "ticket_id": "INC-2008",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Investigate Outlook crash when opening attachments larger than 5MB following Office 365 update to Version 2402.",
+        "remediation_steps": [
+            "Check for known issues with Office 365 Version 2402 Build 17328.20162 related to attachment handling",
+            "Run Office repair tool (Quick Repair first, then Online Repair if needed)",
+            "Check available system memory and disk space on the user's device",
+            "Test opening large attachments in Outlook Safe Mode to rule out add-in conflicts",
+            "If issue persists, consider rolling back to the previous Office version"
+        ]
+    },
+    {
+        "ticket_id": "INC-2009",
+        "category": "Not a Support Ticket",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Close ticket. The submission is an unfilled template with no actual issue described — all fields contain placeholder text.",
+        "remediation_steps": [
+            "Close the ticket as it contains only unfilled template placeholders",
+            "Contact the reporter to ask if they intended to submit an actual issue",
+            "Consider improving the portal to validate that template fields are filled before submission"
+        ]
+    },
+    {
+        "ticket_id": "INC-2010",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "authentication_method"
+        ],
+        "next_best_action": "Investigate locked account for Carlos Mendez (E-4521). Account is locked and self-service password reset identity verification is also failing.",
+        "remediation_steps": [
+            "Look up account status for employee E-4521 in Active Directory",
+            "Check for failed login attempts that triggered the account lockout",
+            "Verify the user's identity through an alternative method (phone callback, manager confirmation)",
+            "Unlock the account and reset the password via admin tools",
+            "Investigate why the self-service identity verification failed",
+            "Confirm the user can access Outlook, Teams, and internal portal after unlock"
+        ]
+    },
+    {
+        "ticket_id": "INC-2011",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Investigate 802.1X authentication failure on Contoso-Corp SSID at Singapore office Floor 2, affecting approximately 30 users.",
+        "remediation_steps": [
+            "Check RADIUS/NPS server logs for 802.1X authentication failures from Singapore Floor 2",
+            "Verify the Wi-Fi access points on Floor 2 are properly configured for 802.1X",
+            "Check if the RADIUS server certificate has expired or been updated recently",
+            "Test authentication with a known-good device on Floor 2",
+            "If RADIUS/certificate issue, push updated Wi-Fi profiles to affected devices"
+        ]
+    },
+    {
+        "ticket_id": "INC-2012",
+        "category": "Software & Applications",
+        "priority": "P1",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "URGENT: Bloomberg Terminal data feed interrupted since Friday. Trader has live positions with stale market data. Prioritize Bloomberg Terminal fix, then address secondary issues.",
+        "remediation_steps": [
+            "Immediately check Bloomberg Terminal data feed status and reconnect if possible",
+            "Verify Bloomberg network connectivity and firewall rules",
+            "Contact Bloomberg support if the data feed cannot be restored internally",
+            "Create separate tickets for the remaining non-urgent issues (VPN, printer, Intune, room booking)",
+            "Verify market data is current once the feed is restored"
+        ]
+    },
+    {
+        "ticket_id": "INC-2013",
+        "category": "Access & Authentication",
+        "priority": "P3",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "authentication_method"
+        ],
+        "next_best_action": "Process password reset for Emily Watson. Verify identity and reset credentials.",
+        "remediation_steps": [
+            "Verify the identity of the requester (Emily Watson, VP Client Relations)",
+            "Reset the password via Active Directory admin tools",
+            "Provide the temporary password through a secure channel (not email)",
+            "Require the user to change the password on first login",
+            "Confirm the user can access their account after the reset"
+        ]
+    },
+    {
+        "ticket_id": "INC-2014",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "network_location"
+        ],
+        "next_best_action": "Investigate VPN connection failure with 'Unable to resolve gateway address' error for remote user on GlobalProtect v6.1.",
+        "remediation_steps": [
+            "Verify the VPN gateway DNS record is resolving correctly",
+            "Check if the user's ISP or home router is blocking VPN traffic",
+            "Have the user try flushing DNS cache (ipconfig /flushdns) and reconnecting",
+            "Test with an alternative public DNS server to rule out DNS issues",
+            "If DNS resolves correctly, check GlobalProtect client logs for connection errors"
+        ]
+    },
+    {
+        "ticket_id": "INC-2015",
+        "category": "Data & Storage",
+        "priority": "P1",
+        "assigned_team": "Data Platform",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "CRITICAL: Production SQL Server data drive at 97.3% capacity with ~4 days until full. Investigate failed archival job and free disk space immediately.",
+        "remediation_steps": [
+            "Investigate the failed monthly data archival job from March 15 (exit code 1)",
+            "Clear temporary and staging tables on the PROD-SQL-03 data drive",
+            "Run the archival job manually to move old data to archive storage",
+            "Monitor disk usage trend to confirm growth rate decreases after archival",
+            "Plan emergency disk expansion if archival alone is insufficient",
+            "Review the new audit logging (OPS-4521) for excessive disk consumption"
+        ]
+    },
+    {
+        "ticket_id": "INC-2016",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Arrange a replacement laptop or loaner for the user whose Dell Latitude 7420 was damaged by liquid spill. Recover data if possible.",
+        "remediation_steps": [
+            "Provide an immediate loaner laptop from the IT equipment pool",
+            "Attempt data recovery from the damaged Dell Latitude 7420 hard drive",
+            "Check if the user's files are backed up to OneDrive or a network share",
+            "Process hardware replacement through the asset management system",
+            "Help the user set up the loaner/replacement with required applications"
+        ]
+    },
+    {
+        "ticket_id": "INC-2017",
+        "category": "Security & Compliance",
+        "priority": "P3",
+        "assigned_team": "Security Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Confirm the forwarded email is a phishing attempt (spoofed sender: micros0ft-support.com). Verify the user did not click any links and run a security scan.",
+        "remediation_steps": [
+            "Confirm the email is a phishing attempt (note the spoofed domain: micros0ft-support.com)",
+            "Verify the user did not click on any links in the phishing email",
+            "Run a full Windows Defender scan on the user's ThinkPad T14 as a precaution",
+            "Block the phishing domain (micros0ft-security-scan.com) at the email gateway and firewall",
+            "Report the phishing email to the security team for threat intelligence",
+            "Send the user a confirmation that the email was indeed a phishing attempt"
+        ]
+    },
+    {
+        "ticket_id": "INC-2018",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Investigate Active Directory lockout for Robert Chen following office transfer from London to NYC. Check group policy assignments for the new location.",
+        "remediation_steps": [
+            "Check Active Directory for Robert Chen's account status and OU assignment",
+            "Verify the account was properly migrated from the London OU to the NYC OU",
+            "Review group policy objects applied to the user's new organizational unit",
+            "Unlock the account and verify group memberships are correct for NYC office",
+            "Test login to Outlook, Teams, and internal portal after remediation",
+            "Confirm with the user's manager that the transfer is properly reflected in HR systems"
+        ]
+    },
+    {
+        "ticket_id": "INC-2019",
+        "category": "Security & Compliance",
+        "priority": "P1",
+        "assigned_team": "Security Operations",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "URGENT: SSL certificate for api.contoso.com expires in 5 days. Manually renew the certificate immediately to prevent service disruption on client portal and trading API.",
+        "remediation_steps": [
+            "Investigate why the Let's Encrypt auto-renewal failed (see SEC-1234)",
+            "Manually generate and install a new SSL certificate for api.contoso.com",
+            "Test the new certificate across all dependent services (client portal, trading API)",
+            "Fix the auto-renewal mechanism to prevent future manual interventions",
+            "Separately investigate the API performance degradation correlated with the logging middleware deployment",
+            "Consider rolling back the Friday logging middleware deployment if performance impact is confirmed"
+        ]
+    },
+    {
+        "ticket_id": "INC-2020",
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "affected_system"
+        ],
+        "next_best_action": "Investigate SharePoint upload failure for compliance documents. Check if the site has reached its storage quota and increase if needed.",
+        "remediation_steps": [
+            "Check the SharePoint site storage quota for the compliance team's site",
+            "Verify the specific error message (likely 'quota exceeded' based on transcript)",
+            "If storage quota is full, increase the site quota or archive old documents",
+            "Test uploading a 10MB document to confirm the issue is resolved",
+            "Ensure the compliance team can meet their end-of-week regulatory deadline"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC001",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Investigate VPN gateway connectivity from the user's home network. The actual issue is buried in a very long email chain — the user cannot connect to VPN and gets a 'Connection timed out' error.",
+        "remediation_steps": [
+            "Verify VPN gateway health and availability",
+            "Check if other remote users are experiencing similar VPN issues",
+            "Have user verify their internet connectivity and try a different network if possible",
+            "Check VPN client version and configuration",
+            "If issue is isolated to this user, verify their VPN credentials and profile"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC002",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Investigate Bloomberg terminal license validation failure. The base64 image data in the ticket should be ignored — the actual error is 'License validation failed — contact administrator'.",
+        "remediation_steps": [
+            "Check Bloomberg terminal license status in the Bloomberg admin portal",
+            "Verify the user's Bloomberg entitlements are current",
+            "Compare with working terminals on the same floor to isolate the issue",
+            "If license is expired or revoked, coordinate with Bloomberg support for reactivation",
+            "Restart the Bloomberg terminal service and retry"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC003",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Dispatch technician to 5th floor to diagnose HP LaserJet Pro MFP M428fdw with blinking amber status light. The HTML markup in the ticket should be stripped — the actual issue is a network printer that queues jobs but does not print.",
+        "remediation_steps": [
+            "Check printer status and clear any paper jams or error conditions",
+            "Restart the print spooler service on the printer",
+            "Verify network connectivity to the printer",
+            "Clear the print queue and attempt a test print",
+            "If hardware fault, schedule replacement or repair"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC004",
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "error_message",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Investigate OneDrive sync issue for compliance audit files. The phone transcription is garbled but the core issue is files not syncing in a shared OneDrive folder needed for Thursday's compliance audit.",
+        "remediation_steps": [
+            "Contact user to confirm the exact OneDrive shared folder path",
+            "Check OneDrive sync status and recent sync logs for errors",
+            "Verify sharing permissions on the compliance audit folder",
+            "Check for file count or size limits that may block sync",
+            "Test sync by uploading a small test file and verifying visibility to colleagues"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC005",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "device_info"
+        ],
+        "next_best_action": "Investigate recurring BSOD with memory errors on a 3-year-old Dell Latitude. Despite the excessive emoji, this is a legitimate hardware issue — blue screen crashes occurring 5+ times per day.",
+        "remediation_steps": [
+            "Run hardware diagnostics on the Dell Latitude, specifically memory tests",
+            "Check Windows Event Viewer for BSOD crash dump details",
+            "If memory diagnostic fails, schedule RAM replacement",
+            "Ensure the user's quarterly report work is backed up to OneDrive",
+            "If the device is 3 years old and failing, evaluate for full replacement"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC006",
+        "category": "Not a Support Ticket",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Close — this is an empty ticket with no subject and no description. Likely generated by an automated system or submitted in error.",
+        "remediation_steps": [
+            "No action required — close ticket as empty submission"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC007",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_users"
+        ],
+        "next_best_action": "Investigate Outlook calendar duplicate events affecting multiple users in the Singapore office since the March 10 Exchange maintenance window. Despite the long forwarding chain, the core issue is calendar event duplication.",
+        "remediation_steps": [
+            "Check Exchange maintenance logs from March 10 for calendar-related changes",
+            "Verify Outlook calendar sync status for affected users",
+            "Determine scope — how many users in the Singapore office are affected",
+            "If caused by Exchange maintenance, coordinate with Exchange admin for a fix",
+            "For immediate relief, guide users through removing duplicate calendar entries"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC008",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate Wi-Fi dropouts on the 3rd floor of the London office affecting approximately 15 users. The excessive whitespace in the ticket should be ignored — the issue is with access point AP-LDN-3F-04.",
+        "remediation_steps": [
+            "Check status and logs for access point AP-LDN-3F-04",
+            "Verify if the AP needs a reboot or firmware update",
+            "Check for interference or configuration changes in the London office network",
+            "If AP is faulty, deploy a replacement unit",
+            "Monitor stability after remediation"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC009",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate SAP authentication error AUTH-4012. Despite the mixed Spanish/English text, the issue is clear: SAP GUI login fails on the user's laptop but works from a colleague's machine, suggesting a profile-specific or device-specific authentication issue.",
+        "remediation_steps": [
+            "Check SAP user authentication status and SSO token validity",
+            "Verify Kerberos/SSO configuration on the user's laptop",
+            "Clear SAP GUI cached credentials and reconnect",
+            "Compare SAP GUI configuration between the user's laptop and the working colleague's machine",
+            "If issue persists, reset the SAP user profile and re-authenticate"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC010",
+        "category": "Security & Compliance",
+        "priority": "P2",
+        "assigned_team": "Security Operations",
+        "needs_escalation": true,
+        "missing_information": [
+            "timestamp"
+        ],
+        "next_best_action": "Investigate phishing attempt impersonating IT department via contoso-support.xyz domain. Despite the many URLs in the ticket body, the user is reporting a phishing email — not distributing malicious links. The user did not click any links.",
+        "remediation_steps": [
+            "Add the sender domain contoso-support.xyz and IP 185.234.72.19 to the email block list",
+            "Check if other employees received similar phishing emails",
+            "Analyze the email headers and URLs for threat intelligence",
+            "Send a phishing awareness notification to the organization if this is part of a campaign",
+            "Confirm the user did not enter any credentials or download attachments"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC011",
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Process database read access request for two production databases. The ticket contains code blocks and JSON formatting but the request is clear: db_datareader access to ClientPortfolio_Prod and MarketData_Warehouse with manager approval.",
+        "remediation_steps": [
+            "Verify manager approval from David Liu for both database access requests",
+            "Grant db_datareader role on ClientPortfolio_Prod for the user",
+            "Grant db_datareader role on MarketData_Warehouse for the user",
+            "Document the access grants and link to previous ticket INC-3201",
+            "Notify user when access is provisioned and confirm connectivity"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC012",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Investigate Entra ID authentication error AADSTS50076. Despite the repeated text at the start, the actual issue is cloud app login failure affecting Teams, SharePoint, and Outlook web. Local laptop login works fine.",
+        "remediation_steps": [
+            "Check Entra ID sign-in logs for error AADSTS50076 (MFA requirement not satisfied)",
+            "Verify Conditional Access policies that may require MFA for cloud apps",
+            "Check if the user's MFA registration is current and functional",
+            "If MFA is required, guide the user through MFA registration or troubleshooting",
+            "Verify the issue resolves after MFA compliance"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC013",
+        "category": "General Inquiry",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "contact_info"
+        ],
+        "next_best_action": "Initiate new employee provisioning for Alexandra Rivera starting March 25. Note: the user mentions previously submitted PII (SSN/personal address) — ensure any prior ticket versions are reviewed for data purging per data handling policies.",
+        "remediation_steps": [
+            "Order MacBook Pro M4 32GB and prepare standard software image with Python/Jupyter",
+            "Request Azure ML workspace access from the cloud operations team",
+            "Request Building 3 badge access from facilities",
+            "Coordinate data purging of any PII from prior ticket submissions with the ServiceNow admin",
+            "Schedule equipment handoff for March 24 to allow walkthrough time"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC014",
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Restore file share access to \\\\fs-legacy-lon\\shared\\finance\\Q1-2026\\ for the London Finance team. Despite the mixed French/English text, the issue is clear: user previously had access that was revoked or expired.",
+        "remediation_steps": [
+            "Check current ACL permissions on the legacy file share path",
+            "Verify the user's group membership for London Finance file access",
+            "Restore read/write access to the Q1-2026 finance folder",
+            "Check if permissions were changed during any recent migrations",
+            "Confirm access restoration with the user"
+        ]
+    },
+    {
+        "ticket_id": "INC-DC015",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Perform admin-level SharePoint site backup restore for the Q4-2025 Final Reports document library. The tab characters and control characters in the subject should be ignored — this is a legitimate backup restore request with a deadline of March 22.",
+        "remediation_steps": [
+            "Verify the SharePoint site backup from before March 17 16:30 UTC is available",
+            "Initiate admin-level restore of the Q4-2025 Final Reports document library",
+            "Verify all approximately 200 files are restored correctly",
+            "Notify the user and the person who accidentally deleted the files",
+            "Review SharePoint retention policies to prevent future permanent deletions"
+        ]
+    }
 ]

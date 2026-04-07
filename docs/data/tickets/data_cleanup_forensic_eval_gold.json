@@ -1,302 +1,302 @@
 [
-  {
-    "ticket_id": "INC-DCF001",
-    "category": "Data & Storage",
-    "priority": "P2",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_system",
-      "business_impact"
-    ],
-    "next_best_action": "Acknowledge the reporter and request the specific database instance name and server. Disregard the SQL-injection-like syntax in the description — the user is a data analyst sharing their actual queries, not attempting an attack.",
-    "remediation_steps": [
-      "Identify the specific database server and instance hosting the orders table",
-      "Review the execution plan for the slow queries and check for missing or fragmented indexes on orders.created_date",
-      "Analyze table growth metrics to confirm whether the row count increase correlates with the performance degradation",
-      "Add or rebuild indexes on the orders table as needed and test query performance",
-      "Provide the reporter with optimized query alternatives that avoid SELECT * and unnecessary joins",
-      "Set up a query performance baseline and alerting threshold to catch future regressions early"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCF002",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info",
-      "application_version"
-    ],
-    "next_best_action": "Ask the reporter for their email client name and version (both desktop and web) and the OS version. Investigate whether the recent mail server migration changed character encoding settings from UTF-8 to Windows-1252.",
-    "remediation_steps": [
-      "Collect the exact email client versions and operating systems from affected users",
-      "Check the mail server migration changelog for any changes to default character encoding or content-transfer-encoding headers",
-      "Verify that the mail server is sending Content-Type headers with charset=UTF-8 for all outbound and relayed messages",
-      "Test by sending emails with accented characters between internal and external accounts to reproduce the issue",
-      "Apply the correct encoding configuration on the mail server and verify the fix with affected users",
-      "Monitor incoming emails from European partners for one week to confirm the mojibake is resolved"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCF003",
-    "category": "Data & Storage",
-    "priority": "P2",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_system",
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Ask the reporter for the exact file name, SharePoint site URL, and OneDrive sync status at the time of the incident. Attempt recovery from SharePoint version history or recycle bin before exploring other options.",
-    "remediation_steps": [
-      "Attempt to restore the file from SharePoint version history, selecting a version prior to the corruption timestamp",
-      "If version history is also corrupted, check the SharePoint site recycle bin and second-stage recycle bin for a clean copy",
-      "Investigate whether a OneDrive sync conflict caused the corruption by reviewing sync logs on the reporter's machine",
-      "If no clean version is recoverable, attempt to repair the .xlsx file using Open XML SDK or a file repair utility",
-      "Implement file locking or check-out policies for critical shared workbooks to prevent concurrent edit conflicts",
-      "Recommend the team establish a separate backup process for business-critical files outside of SharePoint versioning"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCF004",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version",
-      "screenshot_or_attachment"
-    ],
-    "next_best_action": "Request the exact application version (Excel desktop vs. Excel Online, and version number) and a screenshot or copy of the workbook. Verify whether the 'Raw Data' tab was renamed or restructured by checking the edit history.",
-    "remediation_steps": [
-      "Open the workbook and verify the 'Raw Data' tab exists with the expected name and column structure",
-      "Check the SharePoint version history to identify when and by whom the tab or columns were changed",
-      "Repair the broken VLOOKUP, INDEX/MATCH, and SUMPRODUCT formulas by updating cell references to match the current sheet structure",
-      "Convert volatile formulas to use structured table references (Table[Column]) to make them resilient to column reordering",
-      "Test all formulas across the Summary and Forecasting tabs to confirm correct results",
-      "Recommend enabling workbook protection on the Raw Data tab structure to prevent accidental renaming or column deletion"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCF005",
-    "category": "Access & Authentication",
-    "priority": "P2",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": true,
-    "missing_information": [
-      "environment_details",
-      "error_message"
-    ],
-    "next_best_action": "Escalate immediately due to the user being completely locked out of all internal applications with a client demo at 2 PM. Investigate the 'signature mismatch' error — this may indicate a key rotation issue on the identity provider side.",
-    "remediation_steps": [
-      "Check the identity provider (IdP) admin console for any recent key rotation or certificate changes that could invalidate existing tokens",
-      "Verify the user's account status in Active Directory / Entra ID — check for disabled account, expired password, or revoked MFA device",
-      "Review the IdP logs for the user's authentication attempts to identify the exact failure reason beyond the generic 'signature mismatch'",
-      "If a key rotation occurred, ensure all relying party applications have been updated with the new public key",
-      "Re-provision the user's SSO session by resetting their IdP session and having them re-authenticate",
-      "Confirm the user can access all critical applications and document the root cause for the post-incident record"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCF006",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "environment_details",
-      "configuration_details"
-    ],
-    "next_best_action": "Request the docker-compose.yml file and the environment name (staging, QA, etc.). The logs suggest a race condition where the worker starts before RabbitMQ is fully ready to accept connections despite the container being marked as 'done'.",
-    "remediation_steps": [
-      "Review the docker-compose.yml for service dependency configuration — ensure the worker service has a depends_on with a health check condition for RabbitMQ",
-      "Add a health check to the RabbitMQ service definition that verifies the AMQP port is actually accepting connections, not just that the container started",
-      "Check the Docker network configuration to ensure all containers are on the same network and can resolve each other's hostnames",
-      "Investigate the gateway timeout to the API — verify the port mapping and that the API health endpoint is responding before the gateway checks it",
-      "Redeploy with the corrected compose file and monitor logs to confirm all services start and interconnect successfully",
-      "Add container restart policies and connection retry logic with exponential backoff to handle transient startup ordering issues"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCF007",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "environment_details",
-      "error_message"
-    ],
-    "next_best_action": "Acknowledge the reporter and confirm the TypeScript compilation errors from PR #392 are the root cause. The fix is to either revert PR #392 or push a follow-up commit addressing the three type errors in orderService.ts and auth.ts.",
-    "remediation_steps": [
-      "Review PR #392 to understand the changes that introduced the TypeScript errors in orderService.ts and auth.ts",
-      "Fix the TS2345 error on line 47 by adding a null check or providing a default value for the string parameter",
-      "Fix the TS2739 error on line 89 by ensuring the Order object includes all required properties (customerId, items, total, status)",
-      "Fix the TS18047 error on line 23 by adding an undefined guard for req.user in the auth middleware",
-      "Run the build and test suite locally to verify all errors are resolved before pushing",
-      "Submit a follow-up PR with the fixes, ensure it passes CI, and merge to unblock the Thursday production release"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCF008",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info",
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Request the specific hardware model, OS version, and installed RAM for the affected machines. Investigate the correlation between Windows update KB5035432 and the ntdll.dll access violation crash — check if a rollback or compatibility patch is available.",
-    "remediation_steps": [
-      "Collect device details (model, OS build, RAM) from all four affected machines in the finance department",
-      "Check Microsoft's known issues list for KB5035432 to see if ntdll.dll access violations are a documented side effect",
-      "Analyze the crash dump files (if available) from Windows Error Reporting to identify the exact call stack leading to the 0xc0000005 exception",
-      "Test uninstalling KB5035432 on one affected machine to determine if it resolves the crash",
-      "Contact the InvenTrack Pro vendor to check for a compatibility update for the latest Windows patches",
-      "If the update is confirmed as the cause, deploy the rollback to all affected machines and block the update via WSUS until a fix is available"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCF009",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version",
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Check the PeopleHub backend service health immediately. The console errors indicate multiple backend issues: a 401 on the profile API, a 500 on notifications, and a 403 on token refresh — suggesting an authentication or backend deployment problem rather than a client-side issue.",
-    "remediation_steps": [
-      "Verify the PeopleHub backend services are running and check the application server logs for errors or recent deployments",
-      "Investigate the 403 on the /auth/refresh endpoint — check if the token signing key or OAuth configuration was recently changed",
-      "Fix the mixed content error by updating the legacy benefits API call from HTTP to HTTPS or routing it through the secure API gateway",
-      "Once backend issues are resolved, have affected users clear their browser cache and cookies to flush stale tokens",
-      "Request the PeopleHub application version from the development team and confirm the deployed version matches expectations",
-      "Add health check monitoring for all PeopleHub API endpoints to detect backend failures before users report them"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCF010",
-    "category": "Network & Connectivity",
-    "priority": "P1",
-    "assigned_team": "Network Operations",
-    "needs_escalation": true,
-    "missing_information": [
-      "timestamp",
-      "affected_users"
-    ],
-    "next_best_action": "Escalate to Network Operations to perform a unified timeline analysis using centralized monitoring logs (not individual team reports). Establish a single authoritative timeline in UTC to resolve the conflicting timezone-based reports.",
-    "remediation_steps": [
-      "Pull centralized monitoring data (network flow logs, load balancer logs, and payment gateway health checks) with all timestamps normalized to UTC",
-      "Correlate the monitoring data to establish the exact outage start time, propagation sequence, and recovery time",
-      "Determine why the automatic failover to the secondary gateway did not trigger and fix the failover configuration",
-      "Identify the total number of affected users and failed transactions during the confirmed outage window",
-      "Prepare a unified incident timeline document for the Wednesday post-incident review",
-      "Implement NTP synchronization checks across all regional monitoring systems to prevent future timestamp discrepancies"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCF011",
-    "category": "Network & Connectivity",
-    "priority": "P3",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "network_location",
-      "error_message"
-    ],
-    "next_best_action": "Acknowledge the ticket and disregard the repeated text — it's a clipboard paste artifact, not meaningful content. Ask the reporter for their home network setup (ISP, router model) and the full error details beyond the VPN-ERR-4019 code.",
-    "remediation_steps": [
-      "Request the reporter's home network details: ISP, router model, and whether they are on Wi-Fi or wired ethernet",
-      "Check the GlobalProtect VPN gateway logs for the user's connection attempts to identify the tunnel negotiation failure reason",
-      "Verify whether the VPN concentrator is experiencing high load or connection limits that could cause timeouts",
-      "Test the user's connection with a different VPN profile or gateway endpoint to isolate whether the issue is client-side or server-side",
-      "If the issue is client-side, guide the user through adjusting MTU settings or disabling UDP mode to work around ISP-level interference",
-      "Monitor the user's VPN sessions for 24 hours after the fix to confirm stability"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCF012",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_system",
-      "business_impact"
-    ],
-    "next_best_action": "Identify which integration or team launched the marketing automation campaign that is consuming the API quota. Immediately throttle or pause the new campaign's API calls to restore capacity for the critical Salesforce-to-DataWarehouse sync.",
-    "remediation_steps": [
-      "Identify the specific Salesforce connected app or integration user responsible for the excessive API consumption",
-      "Pause or throttle the marketing automation campaign's API calls to bring daily usage below the 100K limit",
-      "Implement API call budgeting by assigning per-integration rate limits so that no single integration can exhaust the shared quota",
-      "Optimize the Salesforce sync to use bulk API instead of REST API for large data transfers, reducing the call count significantly",
-      "Request a Salesforce API limit increase from the account team if current limits are insufficient for legitimate business needs",
-      "Set up proactive alerting when daily API usage exceeds 70% of the limit to prevent future exhaustion"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCF013",
-    "category": "Data & Storage",
-    "priority": "P3",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_system",
-      "screenshot_or_attachment"
-    ],
-    "next_best_action": "Request the full CSV file and the name of the target database/table for the import. Build a more resilient ETL parser that can handle mixed delimiters, variable column counts, and embedded newlines.",
-    "remediation_steps": [
-      "Obtain the full vendor CSV file and identify all classes of formatting errors (mixed delimiters, extra columns, missing columns, embedded newlines)",
-      "Implement a pre-processing step in the ETL pipeline that normalizes delimiters to commas and handles quoted fields with embedded commas and newlines",
-      "Add row-level validation that rejects or quarantines rows with incorrect column counts instead of failing the entire import",
-      "Create an error report for quarantined rows so they can be reviewed and manually corrected or sent back to the vendor",
-      "Work with the vendor to establish a data delivery specification with strict formatting requirements and automated validation on their end",
-      "Schedule a recurring data quality review to track vendor CSV issues over time and escalate if the error rate doesn't improve"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCF014",
-    "category": "Data & Storage",
-    "priority": "P2",
-    "assigned_team": "Data Platform",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info",
-      "error_message"
-    ],
-    "next_best_action": "Collect the exact OneDrive client version and Windows build from the affected machines. Investigate enabling long path support (LongPathsEnabled registry key) and review the sync exclusion list for unicode character handling.",
-    "remediation_steps": [
-      "Collect device details (Windows build number, OneDrive client version) from the 12 affected users across Madrid, Paris, and Warsaw",
-      "Enable long path support on affected machines via Group Policy (Computer Configuration > Administrative Templates > System > Filesystem > Enable Win32 long paths)",
-      "Check OneDrive's known character and path length limitations and map them against the problematic file paths",
-      "For paths exceeding the 400-character SharePoint limit, work with users to restructure top-level folder names while preserving the client-facing names at the leaf level",
-      "Test sync behavior with a representative set of unicode-heavy file paths after applying the configuration changes",
-      "Document a naming convention guide for international offices that balances native language needs with sync compatibility"
-    ]
-  },
-  {
-    "ticket_id": "INC-DCF015",
-    "category": "Security & Compliance",
-    "priority": "P1",
-    "assigned_team": "Security Operations",
-    "needs_escalation": true,
-    "missing_information": [
-      "affected_system",
-      "business_impact"
-    ],
-    "next_best_action": "Escalate immediately to the Security Operations team for emergency patching. These are legitimate vulnerability scan findings showing critical Log4Shell exposure on three internet-facing production services handling 2.3 million daily requests.",
-    "remediation_steps": [
-      "Immediately assess the risk by confirming which of the three affected services are directly internet-facing versus behind a WAF with Log4Shell mitigation rules",
-      "Deploy emergency patches to upgrade all three services to log4j 2.17.1 or later, prioritizing OrderRouter (2.14.1) and PaymentProcessor (2.15.0) as the most critical",
-      "As an interim mitigation before patching, set the JVM flag -Dlog4j2.formatMsgNoLookups=true and remove the JndiLookup class from the classpath on all affected servers",
-      "Review application and network logs for any indicators of compromise that may have occurred before the vulnerability was detected",
-      "Conduct a full inventory scan of all Java services to identify any other instances of vulnerable log4j versions across the environment",
-      "Schedule a follow-up Qualys scan to verify all three services show clean results after patching is complete"
-    ]
-  }
+    {
+        "ticket_id": "INC-DCF001",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "business_impact"
+        ],
+        "next_best_action": "Acknowledge the reporter and request the specific database instance name and server. Disregard the SQL-injection-like syntax in the description — the user is a data analyst sharing their actual queries, not attempting an attack.",
+        "remediation_steps": [
+            "Identify the specific database server and instance hosting the orders table",
+            "Review the execution plan for the slow queries and check for missing or fragmented indexes on orders.created_date",
+            "Analyze table growth metrics to confirm whether the row count increase correlates with the performance degradation",
+            "Add or rebuild indexes on the orders table as needed and test query performance",
+            "Provide the reporter with optimized query alternatives that avoid SELECT * and unnecessary joins",
+            "Set up a query performance baseline and alerting threshold to catch future regressions early"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCF002",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info",
+            "application_version"
+        ],
+        "next_best_action": "Ask the reporter for their email client name and version (both desktop and web) and the OS version. Investigate whether the recent mail server migration changed character encoding settings from UTF-8 to Windows-1252.",
+        "remediation_steps": [
+            "Collect the exact email client versions and operating systems from affected users",
+            "Check the mail server migration changelog for any changes to default character encoding or content-transfer-encoding headers",
+            "Verify that the mail server is sending Content-Type headers with charset=UTF-8 for all outbound and relayed messages",
+            "Test by sending emails with accented characters between internal and external accounts to reproduce the issue",
+            "Apply the correct encoding configuration on the mail server and verify the fix with affected users",
+            "Monitor incoming emails from European partners for one week to confirm the mojibake is resolved"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCF003",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Ask the reporter for the exact file name, SharePoint site URL, and OneDrive sync status at the time of the incident. Attempt recovery from SharePoint version history or recycle bin before exploring other options.",
+        "remediation_steps": [
+            "Attempt to restore the file from SharePoint version history, selecting a version prior to the corruption timestamp",
+            "If version history is also corrupted, check the SharePoint site recycle bin and second-stage recycle bin for a clean copy",
+            "Investigate whether a OneDrive sync conflict caused the corruption by reviewing sync logs on the reporter's machine",
+            "If no clean version is recoverable, attempt to repair the .xlsx file using Open XML SDK or a file repair utility",
+            "Implement file locking or check-out policies for critical shared workbooks to prevent concurrent edit conflicts",
+            "Recommend the team establish a separate backup process for business-critical files outside of SharePoint versioning"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCF004",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version",
+            "screenshot_or_attachment"
+        ],
+        "next_best_action": "Request the exact application version (Excel desktop vs. Excel Online, and version number) and a screenshot or copy of the workbook. Verify whether the 'Raw Data' tab was renamed or restructured by checking the edit history.",
+        "remediation_steps": [
+            "Open the workbook and verify the 'Raw Data' tab exists with the expected name and column structure",
+            "Check the SharePoint version history to identify when and by whom the tab or columns were changed",
+            "Repair the broken VLOOKUP, INDEX/MATCH, and SUMPRODUCT formulas by updating cell references to match the current sheet structure",
+            "Convert volatile formulas to use structured table references (Table[Column]) to make them resilient to column reordering",
+            "Test all formulas across the Summary and Forecasting tabs to confirm correct results",
+            "Recommend enabling workbook protection on the Raw Data tab structure to prevent accidental renaming or column deletion"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCF005",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": true,
+        "missing_information": [
+            "environment_details",
+            "error_message"
+        ],
+        "next_best_action": "Escalate immediately due to the user being completely locked out of all internal applications with a client demo at 2 PM. Investigate the 'signature mismatch' error — this may indicate a key rotation issue on the identity provider side.",
+        "remediation_steps": [
+            "Check the identity provider (IdP) admin console for any recent key rotation or certificate changes that could invalidate existing tokens",
+            "Verify the user's account status in Active Directory / Entra ID — check for disabled account, expired password, or revoked MFA device",
+            "Review the IdP logs for the user's authentication attempts to identify the exact failure reason beyond the generic 'signature mismatch'",
+            "If a key rotation occurred, ensure all relying party applications have been updated with the new public key",
+            "Re-provision the user's SSO session by resetting their IdP session and having them re-authenticate",
+            "Confirm the user can access all critical applications and document the root cause for the post-incident record"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCF006",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details",
+            "configuration_details"
+        ],
+        "next_best_action": "Request the docker-compose.yml file and the environment name (staging, QA, etc.). The logs suggest a race condition where the worker starts before RabbitMQ is fully ready to accept connections despite the container being marked as 'done'.",
+        "remediation_steps": [
+            "Review the docker-compose.yml for service dependency configuration — ensure the worker service has a depends_on with a health check condition for RabbitMQ",
+            "Add a health check to the RabbitMQ service definition that verifies the AMQP port is actually accepting connections, not just that the container started",
+            "Check the Docker network configuration to ensure all containers are on the same network and can resolve each other's hostnames",
+            "Investigate the gateway timeout to the API — verify the port mapping and that the API health endpoint is responding before the gateway checks it",
+            "Redeploy with the corrected compose file and monitor logs to confirm all services start and interconnect successfully",
+            "Add container restart policies and connection retry logic with exponential backoff to handle transient startup ordering issues"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCF007",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details",
+            "error_message"
+        ],
+        "next_best_action": "Acknowledge the reporter and confirm the TypeScript compilation errors from PR #392 are the root cause. The fix is to either revert PR #392 or push a follow-up commit addressing the three type errors in orderService.ts and auth.ts.",
+        "remediation_steps": [
+            "Review PR #392 to understand the changes that introduced the TypeScript errors in orderService.ts and auth.ts",
+            "Fix the TS2345 error on line 47 by adding a null check or providing a default value for the string parameter",
+            "Fix the TS2739 error on line 89 by ensuring the Order object includes all required properties (customerId, items, total, status)",
+            "Fix the TS18047 error on line 23 by adding an undefined guard for req.user in the auth middleware",
+            "Run the build and test suite locally to verify all errors are resolved before pushing",
+            "Submit a follow-up PR with the fixes, ensure it passes CI, and merge to unblock the Thursday production release"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCF008",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Request the specific hardware model, OS version, and installed RAM for the affected machines. Investigate the correlation between Windows update KB5035432 and the ntdll.dll access violation crash — check if a rollback or compatibility patch is available.",
+        "remediation_steps": [
+            "Collect device details (model, OS build, RAM) from all four affected machines in the finance department",
+            "Check Microsoft's known issues list for KB5035432 to see if ntdll.dll access violations are a documented side effect",
+            "Analyze the crash dump files (if available) from Windows Error Reporting to identify the exact call stack leading to the 0xc0000005 exception",
+            "Test uninstalling KB5035432 on one affected machine to determine if it resolves the crash",
+            "Contact the InvenTrack Pro vendor to check for a compatibility update for the latest Windows patches",
+            "If the update is confirmed as the cause, deploy the rollback to all affected machines and block the update via WSUS until a fix is available"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCF009",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Check the PeopleHub backend service health immediately. The console errors indicate multiple backend issues: a 401 on the profile API, a 500 on notifications, and a 403 on token refresh — suggesting an authentication or backend deployment problem rather than a client-side issue.",
+        "remediation_steps": [
+            "Verify the PeopleHub backend services are running and check the application server logs for errors or recent deployments",
+            "Investigate the 403 on the /auth/refresh endpoint — check if the token signing key or OAuth configuration was recently changed",
+            "Fix the mixed content error by updating the legacy benefits API call from HTTP to HTTPS or routing it through the secure API gateway",
+            "Once backend issues are resolved, have affected users clear their browser cache and cookies to flush stale tokens",
+            "Request the PeopleHub application version from the development team and confirm the deployed version matches expectations",
+            "Add health check monitoring for all PeopleHub API endpoints to detect backend failures before users report them"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCF010",
+        "category": "Network & Connectivity",
+        "priority": "P1",
+        "assigned_team": "Network Operations",
+        "needs_escalation": true,
+        "missing_information": [
+            "timestamp",
+            "affected_users"
+        ],
+        "next_best_action": "Escalate to Network Operations to perform a unified timeline analysis using centralized monitoring logs (not individual team reports). Establish a single authoritative timeline in UTC to resolve the conflicting timezone-based reports.",
+        "remediation_steps": [
+            "Pull centralized monitoring data (network flow logs, load balancer logs, and payment gateway health checks) with all timestamps normalized to UTC",
+            "Correlate the monitoring data to establish the exact outage start time, propagation sequence, and recovery time",
+            "Determine why the automatic failover to the secondary gateway did not trigger and fix the failover configuration",
+            "Identify the total number of affected users and failed transactions during the confirmed outage window",
+            "Prepare a unified incident timeline document for the Wednesday post-incident review",
+            "Implement NTP synchronization checks across all regional monitoring systems to prevent future timestamp discrepancies"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCF011",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "network_location",
+            "error_message"
+        ],
+        "next_best_action": "Acknowledge the ticket and disregard the repeated text — it's a clipboard paste artifact, not meaningful content. Ask the reporter for their home network setup (ISP, router model) and the full error details beyond the VPN-ERR-4019 code.",
+        "remediation_steps": [
+            "Request the reporter's home network details: ISP, router model, and whether they are on Wi-Fi or wired ethernet",
+            "Check the GlobalProtect VPN gateway logs for the user's connection attempts to identify the tunnel negotiation failure reason",
+            "Verify whether the VPN concentrator is experiencing high load or connection limits that could cause timeouts",
+            "Test the user's connection with a different VPN profile or gateway endpoint to isolate whether the issue is client-side or server-side",
+            "If the issue is client-side, guide the user through adjusting MTU settings or disabling UDP mode to work around ISP-level interference",
+            "Monitor the user's VPN sessions for 24 hours after the fix to confirm stability"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCF012",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "business_impact"
+        ],
+        "next_best_action": "Identify which integration or team launched the marketing automation campaign that is consuming the API quota. Immediately throttle or pause the new campaign's API calls to restore capacity for the critical Salesforce-to-DataWarehouse sync.",
+        "remediation_steps": [
+            "Identify the specific Salesforce connected app or integration user responsible for the excessive API consumption",
+            "Pause or throttle the marketing automation campaign's API calls to bring daily usage below the 100K limit",
+            "Implement API call budgeting by assigning per-integration rate limits so that no single integration can exhaust the shared quota",
+            "Optimize the Salesforce sync to use bulk API instead of REST API for large data transfers, reducing the call count significantly",
+            "Request a Salesforce API limit increase from the account team if current limits are insufficient for legitimate business needs",
+            "Set up proactive alerting when daily API usage exceeds 70% of the limit to prevent future exhaustion"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCF013",
+        "category": "Data & Storage",
+        "priority": "P3",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "screenshot_or_attachment"
+        ],
+        "next_best_action": "Request the full CSV file and the name of the target database/table for the import. Build a more resilient ETL parser that can handle mixed delimiters, variable column counts, and embedded newlines.",
+        "remediation_steps": [
+            "Obtain the full vendor CSV file and identify all classes of formatting errors (mixed delimiters, extra columns, missing columns, embedded newlines)",
+            "Implement a pre-processing step in the ETL pipeline that normalizes delimiters to commas and handles quoted fields with embedded commas and newlines",
+            "Add row-level validation that rejects or quarantines rows with incorrect column counts instead of failing the entire import",
+            "Create an error report for quarantined rows so they can be reviewed and manually corrected or sent back to the vendor",
+            "Work with the vendor to establish a data delivery specification with strict formatting requirements and automated validation on their end",
+            "Schedule a recurring data quality review to track vendor CSV issues over time and escalate if the error rate doesn't improve"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCF014",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info",
+            "error_message"
+        ],
+        "next_best_action": "Collect the exact OneDrive client version and Windows build from the affected machines. Investigate enabling long path support (LongPathsEnabled registry key) and review the sync exclusion list for unicode character handling.",
+        "remediation_steps": [
+            "Collect device details (Windows build number, OneDrive client version) from the 12 affected users across Madrid, Paris, and Warsaw",
+            "Enable long path support on affected machines via Group Policy (Computer Configuration > Administrative Templates > System > Filesystem > Enable Win32 long paths)",
+            "Check OneDrive's known character and path length limitations and map them against the problematic file paths",
+            "For paths exceeding the 400-character SharePoint limit, work with users to restructure top-level folder names while preserving the client-facing names at the leaf level",
+            "Test sync behavior with a representative set of unicode-heavy file paths after applying the configuration changes",
+            "Document a naming convention guide for international offices that balances native language needs with sync compatibility"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCF015",
+        "category": "Security & Compliance",
+        "priority": "P1",
+        "assigned_team": "Security Operations",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_system",
+            "business_impact"
+        ],
+        "next_best_action": "Escalate immediately to the Security Operations team for emergency patching. These are legitimate vulnerability scan findings showing critical Log4Shell exposure on three internet-facing production services handling 2.3 million daily requests.",
+        "remediation_steps": [
+            "Immediately assess the risk by confirming which of the three affected services are directly internet-facing versus behind a WAF with Log4Shell mitigation rules",
+            "Deploy emergency patches to upgrade all three services to log4j 2.17.1 or later, prioritizing OrderRouter (2.14.1) and PaymentProcessor (2.15.0) as the most critical",
+            "As an interim mitigation before patching, set the JVM flag -Dlog4j2.formatMsgNoLookups=true and remove the JndiLookup class from the classpath on all affected servers",
+            "Review application and network logs for any indicators of compromise that may have occurred before the vulnerability was detected",
+            "Conduct a full inventory scan of all Java services to identify any other instances of vulnerable log4j versions across the environment",
+            "Schedule a follow-up Qualys scan to verify all three services show clean results after patching is complete"
+        ]
+    }
 ]

@@ -1,275 +1,275 @@
 [
-  {
-    "ticket_id": "INC-2001",
-    "category": "Network & Connectivity",
-    "priority": "P2",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Investigate VPN gateway capacity during peak hours (9-9:30 AM and 2-3 PM ET). Check if GlobalProtect error 0x800B0109 relates to a certificate validation issue on the gateway. Correlate with reports from the three other affected users.",
-    "remediation_steps": [
-      "Check VPN gateway health and connection logs for the reported peak-hour windows",
-      "Investigate error code 0x800B0109 \u2014 this indicates a certificate chain trust issue on the VPN gateway",
-      "Verify VPN gateway SSL certificates have not expired or been rotated recently",
-      "Check if the issue correlates with the reports from jennifer.wu, robert.kline, and aisha.patel",
-      "Review GlobalProtect gateway capacity metrics during 9-9:30 AM and 2-3 PM ET",
-      "If certificate issue confirmed, push updated trusted root certificates via Intune"
-    ]
-  },
-  {
-    "ticket_id": "INC-2002",
-    "category": "Hardware & Peripherals",
-    "priority": "P2",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info"
-    ],
-    "next_best_action": "Investigate docking station firmware update as the root cause of the monitor flickering. Roll back the dock firmware if possible, or check for a known issue with the LG 27UK850-W and USB-C docking after firmware updates.",
-    "remediation_steps": [
-      "Check if the docking station firmware update has a known issue with USB-C display output",
-      "Attempt to roll back the docking station firmware to the previous version",
-      "Test the monitor with a direct USB-C connection bypassing the dock",
-      "Try an alternative display cable (HDMI or DisplayPort) as a temporary workaround for the presentation",
-      "If rollback is not possible, check vendor release notes for a hotfix"
-    ]
-  },
-  {
-    "ticket_id": "INC-2003",
-    "category": "Software & Applications",
-    "priority": "P2",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version",
-      "device_info"
-    ],
-    "next_best_action": "Check the user's Exchange Online mailbox sync status and investigate why the Outlook desktop client stopped syncing while OWA works. A 48GB mailbox near the limit may be causing sync failures.",
-    "remediation_steps": [
-      "Check Exchange Online mailbox sync status for karen.whitfield@contoso.com",
-      "Verify mailbox size against the Exchange Online limit \u2014 48GB is near the 50GB default",
-      "Create a new Outlook profile to rule out profile corruption",
-      "Check Outlook connection status (Ctrl+right-click system tray icon) for sync errors",
-      "If mailbox size is the issue, work with user to archive older emails or request increased quota",
-      "Verify Exchange Online service health for any ongoing sync issues"
-    ]
-  },
-  {
-    "ticket_id": "INC-2004",
-    "category": "Hardware & Peripherals",
-    "priority": "P3",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message",
-      "device_info"
-    ],
-    "next_best_action": "Dispatch technician to Floor 3 to inspect the HP LaserJet Pro M404dn near the break room. The 'PC Load Letter' error typically indicates a paper tray configuration mismatch.",
-    "remediation_steps": [
-      "Check the HP LaserJet Pro M404dn on Floor 3 near the break room for paper tray status",
-      "Resolve 'PC Load Letter' error \u2014 verify paper size configuration matches loaded paper",
-      "Check toner levels and clear any paper jams",
-      "Print a test page to confirm the printer is functional",
-      "If hardware fault, initiate replacement or repair request"
-    ]
-  },
-  {
-    "ticket_id": "INC-2005",
-    "category": "Access & Authentication",
-    "priority": "P1",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": true,
-    "missing_information": [
-      "affected_users"
-    ],
-    "next_best_action": "Investigate SAML token validation failure for SAP SSO in the Singapore office. This is impacting trading operations with a time-sensitive settlement deadline. Check Entra ID SAML configuration and recent certificate changes.",
-    "remediation_steps": [
-      "Check Entra ID SAML configuration for the SAP enterprise application",
-      "Verify SAML signing certificates have not expired or been rotated",
-      "Check if the issue affects all Singapore office users or is isolated",
-      "Contact jose.garcia@contoso.com to confirm scope of impact",
-      "If certificate issue, re-upload valid SAML signing certificate",
-      "Escalate to SAP admin team if the issue is on the SAP service provider side"
-    ]
-  },
-  {
-    "ticket_id": "INC-2006",
-    "category": "General Inquiry",
-    "priority": "P4",
-    "assigned_team": "None",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_system",
-      "error_message",
-      "device_info",
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Contact the reporter to gather basic information about what is broken \u2014 which system, device, and error messages they are seeing.",
-    "remediation_steps": [
-      "Reach out to jake.miller@contoso.com via chat to clarify the issue",
-      "Ask what specific system, application, or device is broken",
-      "Ask for any error messages or symptoms being observed",
-      "Once sufficient information is gathered, re-triage with proper classification"
-    ]
-  },
-  {
-    "ticket_id": "INC-2007",
-    "category": "Network & Connectivity",
-    "priority": "P3",
-    "assigned_team": "Network Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "network_location"
-    ],
-    "next_best_action": "Investigate WiFi coverage and capacity in Floor 7 Conference Room B. The issue occurs daily during the 10 AM standup, suggesting an access point capacity or interference problem when multiple devices connect simultaneously.",
-    "remediation_steps": [
-      "Check WiFi access point health and signal strength in Floor 7 Conference Room B",
-      "Review access point client capacity during the 10 AM daily standup window",
-      "Check for RF interference from neighboring access points or devices",
-      "Consider adding a dedicated access point for the conference room if capacity is the issue",
-      "Verify the access point firmware is up to date"
-    ]
-  },
-  {
-    "ticket_id": "INC-2008",
-    "category": "Software & Applications",
-    "priority": "P4",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "application_version",
-      "device_info"
-    ],
-    "next_best_action": "Investigate why Outlook is loading slowly. Check local cache size, add-ins, and system resource usage. This is a minor performance issue, not the critical outage the subject suggests.",
-    "remediation_steps": [
-      "Check Outlook OST file size and consider compacting if over 10GB",
-      "Disable non-essential Outlook add-ins to test if one is causing the slowdown",
-      "Check system resources (RAM, CPU, disk I/O) during Outlook startup",
-      "Verify Outlook is up to date with the latest Office updates",
-      "If issue persists, create a new Outlook profile as a diagnostic step"
-    ]
-  },
-  {
-    "ticket_id": "INC-2009",
-    "category": "General Inquiry",
-    "priority": "P4",
-    "assigned_team": "None",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_system",
-      "error_message",
-      "steps_to_reproduce",
-      "device_info"
-    ],
-    "next_best_action": "Contact the reporter to determine the actual issue \u2014 the ticket body contains only an email signature with no description of the problem.",
-    "remediation_steps": [
-      "Reply to patricia.connolly@contoso.com asking for details about the computer issue",
-      "Request specific information: what system is affected, what error or symptom is observed",
-      "Ask for device details (laptop model, asset tag)",
-      "Re-triage once the actual issue is described"
-    ]
-  },
-  {
-    "ticket_id": "INC-2010",
-    "category": "Software & Applications",
-    "priority": "P3",
-    "assigned_team": "Enterprise Applications",
-    "needs_escalation": false,
-    "missing_information": [
-      "device_info",
-      "environment_details"
-    ],
-    "next_best_action": "Investigate character encoding issue on the user's machine affecting SharePoint display and file downloads. This is likely a browser or OS locale/encoding configuration problem causing UTF-8 mojibake.",
-    "remediation_steps": [
-      "Check browser character encoding settings \u2014 ensure UTF-8 is selected",
-      "Verify Windows regional and language settings on the user's machine",
-      "Clear browser cache and cookies for contoso.sharepoint.com",
-      "Compare browser settings with the colleague whose machine displays correctly",
-      "If browser-level fix does not work, check if a proxy or content filter is modifying response headers"
-    ]
-  },
-  {
-    "ticket_id": "INC-2011",
-    "category": "General Inquiry",
-    "priority": "P3",
-    "assigned_team": "None",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_system",
-      "error_message",
-      "steps_to_reproduce"
-    ],
-    "next_best_action": "Review the attached screenshot to identify the error, and follow up with the reporter for additional context about what system is affected and what they were doing when the error occurred.",
-    "remediation_steps": [
-      "Review the attached error_screenshot.png to identify the specific error",
-      "Follow up with sam.nwosu@contoso.com to ask what application or system shows the error",
-      "Ask what actions trigger the error and how frequently it occurs",
-      "Once the error and system are identified, re-triage to the appropriate team"
-    ]
-  },
-  {
-    "ticket_id": "INC-2012",
-    "category": "Access & Authentication",
-    "priority": "P2",
-    "assigned_team": "Identity & Access Management",
-    "needs_escalation": false,
-    "missing_information": [
-      "error_message"
-    ],
-    "next_best_action": "Investigate SAML SSO failure for Salesforce that started after a password change. The password change likely invalidated the SAML session or token. Check Entra ID sign-in logs for SAML errors.",
-    "remediation_steps": [
-      "Check Entra ID sign-in logs for rachel.kim@contoso.com for SAML-related errors",
-      "Verify that the password change propagated correctly to Entra ID",
-      "Clear browser sessions and cached SAML tokens",
-      "Test SSO login to Salesforce in a private/incognito browser window",
-      "If SAML assertion is still failing, check the Salesforce SSO configuration in Entra ID"
-    ]
-  },
-  {
-    "ticket_id": "INC-2013",
-    "category": "Hardware & Peripherals",
-    "priority": "P3",
-    "assigned_team": "Endpoint Engineering",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Process a screen replacement or laptop swap for the Dell Latitude 7440 (asset WS-LDN-00482) with a cracked and spreading screen. Prioritize as the crack is spreading and could render the display unusable.",
-    "remediation_steps": [
-      "Check warranty status for Dell Latitude 7440 asset tag WS-LDN-00482",
-      "If under warranty, initiate Dell on-site repair for screen replacement",
-      "If out of warranty, arrange a loaner laptop while repair is processed",
-      "Back up any local data from the device before repair",
-      "Log the incident as accidental damage for asset tracking"
-    ]
-  },
-  {
-    "ticket_id": "INC-2014",
-    "category": "Not a Support Ticket",
-    "priority": "P4",
-    "assigned_team": "None",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "No action required. This is an auto-generated calendar meeting acceptance notification, not an IT support request.",
-    "remediation_steps": [
-      "Close the ticket \u2014 this is an automated calendar acceptance, not a support request"
-    ]
-  },
-  {
-    "ticket_id": "INC-2015",
-    "category": "Network & Connectivity",
-    "priority": "P1",
-    "assigned_team": "Network Operations",
-    "needs_escalation": true,
-    "missing_information": [
-      "affected_users"
-    ],
-    "next_best_action": "Investigate APAC VPN gateway timeout affecting the Singapore trading desk. This impacts approximately 15 traders who need low-latency access to NYC trading systems before market open.",
-    "remediation_steps": [
-      "Check the APAC GlobalProtect VPN gateway for health status and connectivity",
-      "Review gateway logs for timeout errors and recent configuration changes",
-      "Verify network path between Singapore office and the APAC gateway",
-      "If gateway is down, escalate to network engineering for immediate restoration",
-      "As interim mitigation, verify if the US-East gateway can handle additional load from Singapore",
-      "Communicate status updates to the Singapore trading desk team"
-    ]
-  }
+    {
+        "ticket_id": "INC-2001",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate VPN gateway capacity during peak hours (9-9:30 AM and 2-3 PM ET). Check if GlobalProtect error 0x800B0109 relates to a certificate validation issue on the gateway. Correlate with reports from the three other affected users.",
+        "remediation_steps": [
+            "Check VPN gateway health and connection logs for the reported peak-hour windows",
+            "Investigate error code 0x800B0109 — this indicates a certificate chain trust issue on the VPN gateway",
+            "Verify VPN gateway SSL certificates have not expired or been rotated recently",
+            "Check if the issue correlates with the reports from jennifer.wu, robert.kline, and aisha.patel",
+            "Review GlobalProtect gateway capacity metrics during 9-9:30 AM and 2-3 PM ET",
+            "If certificate issue confirmed, push updated trusted root certificates via Intune"
+        ]
+    },
+    {
+        "ticket_id": "INC-2002",
+        "category": "Hardware & Peripherals",
+        "priority": "P2",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info"
+        ],
+        "next_best_action": "Investigate docking station firmware update as the root cause of the monitor flickering. Roll back the dock firmware if possible, or check for a known issue with the LG 27UK850-W and USB-C docking after firmware updates.",
+        "remediation_steps": [
+            "Check if the docking station firmware update has a known issue with USB-C display output",
+            "Attempt to roll back the docking station firmware to the previous version",
+            "Test the monitor with a direct USB-C connection bypassing the dock",
+            "Try an alternative display cable (HDMI or DisplayPort) as a temporary workaround for the presentation",
+            "If rollback is not possible, check vendor release notes for a hotfix"
+        ]
+    },
+    {
+        "ticket_id": "INC-2003",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version",
+            "device_info"
+        ],
+        "next_best_action": "Check the user's Exchange Online mailbox sync status and investigate why the Outlook desktop client stopped syncing while OWA works. A 48GB mailbox near the limit may be causing sync failures.",
+        "remediation_steps": [
+            "Check Exchange Online mailbox sync status for karen.whitfield@contoso.com",
+            "Verify mailbox size against the Exchange Online limit — 48GB is near the 50GB default",
+            "Create a new Outlook profile to rule out profile corruption",
+            "Check Outlook connection status (Ctrl+right-click system tray icon) for sync errors",
+            "If mailbox size is the issue, work with user to archive older emails or request increased quota",
+            "Verify Exchange Online service health for any ongoing sync issues"
+        ]
+    },
+    {
+        "ticket_id": "INC-2004",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "device_info"
+        ],
+        "next_best_action": "Dispatch technician to Floor 3 to inspect the HP LaserJet Pro M404dn near the break room. The 'PC Load Letter' error typically indicates a paper tray configuration mismatch.",
+        "remediation_steps": [
+            "Check the HP LaserJet Pro M404dn on Floor 3 near the break room for paper tray status",
+            "Resolve 'PC Load Letter' error — verify paper size configuration matches loaded paper",
+            "Check toner levels and clear any paper jams",
+            "Print a test page to confirm the printer is functional",
+            "If hardware fault, initiate replacement or repair request"
+        ]
+    },
+    {
+        "ticket_id": "INC-2005",
+        "category": "Access & Authentication",
+        "priority": "P1",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_users"
+        ],
+        "next_best_action": "Investigate SAML token validation failure for SAP SSO in the Singapore office. This is impacting trading operations with a time-sensitive settlement deadline. Check Entra ID SAML configuration and recent certificate changes.",
+        "remediation_steps": [
+            "Check Entra ID SAML configuration for the SAP enterprise application",
+            "Verify SAML signing certificates have not expired or been rotated",
+            "Check if the issue affects all Singapore office users or is isolated",
+            "Contact jose.garcia@contoso.com to confirm scope of impact",
+            "If certificate issue, re-upload valid SAML signing certificate",
+            "Escalate to SAP admin team if the issue is on the SAP service provider side"
+        ]
+    },
+    {
+        "ticket_id": "INC-2006",
+        "category": "General Inquiry",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "error_message",
+            "device_info",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Contact the reporter to gather basic information about what is broken — which system, device, and error messages they are seeing.",
+        "remediation_steps": [
+            "Reach out to jake.miller@contoso.com via chat to clarify the issue",
+            "Ask what specific system, application, or device is broken",
+            "Ask for any error messages or symptoms being observed",
+            "Once sufficient information is gathered, re-triage with proper classification"
+        ]
+    },
+    {
+        "ticket_id": "INC-2007",
+        "category": "Network & Connectivity",
+        "priority": "P3",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "network_location"
+        ],
+        "next_best_action": "Investigate WiFi coverage and capacity in Floor 7 Conference Room B. The issue occurs daily during the 10 AM standup, suggesting an access point capacity or interference problem when multiple devices connect simultaneously.",
+        "remediation_steps": [
+            "Check WiFi access point health and signal strength in Floor 7 Conference Room B",
+            "Review access point client capacity during the 10 AM daily standup window",
+            "Check for RF interference from neighboring access points or devices",
+            "Consider adding a dedicated access point for the conference room if capacity is the issue",
+            "Verify the access point firmware is up to date"
+        ]
+    },
+    {
+        "ticket_id": "INC-2008",
+        "category": "Software & Applications",
+        "priority": "P4",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version",
+            "device_info"
+        ],
+        "next_best_action": "Investigate why Outlook is loading slowly. Check local cache size, add-ins, and system resource usage. This is a minor performance issue, not the critical outage the subject suggests.",
+        "remediation_steps": [
+            "Check Outlook OST file size and consider compacting if over 10GB",
+            "Disable non-essential Outlook add-ins to test if one is causing the slowdown",
+            "Check system resources (RAM, CPU, disk I/O) during Outlook startup",
+            "Verify Outlook is up to date with the latest Office updates",
+            "If issue persists, create a new Outlook profile as a diagnostic step"
+        ]
+    },
+    {
+        "ticket_id": "INC-2009",
+        "category": "General Inquiry",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "error_message",
+            "steps_to_reproduce",
+            "device_info"
+        ],
+        "next_best_action": "Contact the reporter to determine the actual issue — the ticket body contains only an email signature with no description of the problem.",
+        "remediation_steps": [
+            "Reply to patricia.connolly@contoso.com asking for details about the computer issue",
+            "Request specific information: what system is affected, what error or symptom is observed",
+            "Ask for device details (laptop model, asset tag)",
+            "Re-triage once the actual issue is described"
+        ]
+    },
+    {
+        "ticket_id": "INC-2010",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info",
+            "environment_details"
+        ],
+        "next_best_action": "Investigate character encoding issue on the user's machine affecting SharePoint display and file downloads. This is likely a browser or OS locale/encoding configuration problem causing UTF-8 mojibake.",
+        "remediation_steps": [
+            "Check browser character encoding settings — ensure UTF-8 is selected",
+            "Verify Windows regional and language settings on the user's machine",
+            "Clear browser cache and cookies for contoso.sharepoint.com",
+            "Compare browser settings with the colleague whose machine displays correctly",
+            "If browser-level fix does not work, check if a proxy or content filter is modifying response headers"
+        ]
+    },
+    {
+        "ticket_id": "INC-2011",
+        "category": "General Inquiry",
+        "priority": "P3",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_system",
+            "error_message",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Review the attached screenshot to identify the error, and follow up with the reporter for additional context about what system is affected and what they were doing when the error occurred.",
+        "remediation_steps": [
+            "Review the attached error_screenshot.png to identify the specific error",
+            "Follow up with sam.nwosu@contoso.com to ask what application or system shows the error",
+            "Ask what actions trigger the error and how frequently it occurs",
+            "Once the error and system are identified, re-triage to the appropriate team"
+        ]
+    },
+    {
+        "ticket_id": "INC-2012",
+        "category": "Access & Authentication",
+        "priority": "P2",
+        "assigned_team": "Identity & Access Management",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message"
+        ],
+        "next_best_action": "Investigate SAML SSO failure for Salesforce that started after a password change. The password change likely invalidated the SAML session or token. Check Entra ID sign-in logs for SAML errors.",
+        "remediation_steps": [
+            "Check Entra ID sign-in logs for rachel.kim@contoso.com for SAML-related errors",
+            "Verify that the password change propagated correctly to Entra ID",
+            "Clear browser sessions and cached SAML tokens",
+            "Test SSO login to Salesforce in a private/incognito browser window",
+            "If SAML assertion is still failing, check the Salesforce SSO configuration in Entra ID"
+        ]
+    },
+    {
+        "ticket_id": "INC-2013",
+        "category": "Hardware & Peripherals",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Process a screen replacement or laptop swap for the Dell Latitude 7440 (asset WS-LDN-00482) with a cracked and spreading screen. Prioritize as the crack is spreading and could render the display unusable.",
+        "remediation_steps": [
+            "Check warranty status for Dell Latitude 7440 asset tag WS-LDN-00482",
+            "If under warranty, initiate Dell on-site repair for screen replacement",
+            "If out of warranty, arrange a loaner laptop while repair is processed",
+            "Back up any local data from the device before repair",
+            "Log the incident as accidental damage for asset tracking"
+        ]
+    },
+    {
+        "ticket_id": "INC-2014",
+        "category": "Not a Support Ticket",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "No action required. This is an auto-generated calendar meeting acceptance notification, not an IT support request.",
+        "remediation_steps": [
+            "Close the ticket — this is an automated calendar acceptance, not a support request"
+        ]
+    },
+    {
+        "ticket_id": "INC-2015",
+        "category": "Network & Connectivity",
+        "priority": "P1",
+        "assigned_team": "Network Operations",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_users"
+        ],
+        "next_best_action": "Investigate APAC VPN gateway timeout affecting the Singapore trading desk. This impacts approximately 15 traders who need low-latency access to NYC trading systems before market open.",
+        "remediation_steps": [
+            "Check the APAC GlobalProtect VPN gateway for health status and connectivity",
+            "Review gateway logs for timeout errors and recent configuration changes",
+            "Verify network path between Singapore office and the APAC gateway",
+            "If gateway is down, escalate to network engineering for immediate restoration",
+            "As interim mitigation, verify if the US-East gateway can handle additional load from Singapore",
+            "Communicate status updates to the Singapore trading desk team"
+        ]
+    }
 ]
