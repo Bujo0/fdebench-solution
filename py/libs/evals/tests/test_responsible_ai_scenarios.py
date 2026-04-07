@@ -48,12 +48,14 @@ class TestResponsibleAIGoldAnswers:
     @pytest.mark.xfail(reason="Known data quality issues in generated scenarios (e.g. 'Hardware & Equipment')")
     def test_gold_categories_valid(self) -> None:
         for s in self.scenarios:
+            assert s.expected_triage is not None
             cat = s.expected_triage.category
             if cat is not None:
                 assert cat in ALL_CATEGORIES, f"{s.scenario_id}: invalid gold category {cat!r}"
 
     def test_gold_priorities_valid(self) -> None:
         for s in self.scenarios:
+            assert s.expected_triage is not None
             pri = s.expected_triage.priority
             if pri is not None:
                 assert pri in ALL_PRIORITIES, f"{s.scenario_id}: invalid gold priority {pri!r}"
@@ -61,12 +63,14 @@ class TestResponsibleAIGoldAnswers:
     @pytest.mark.xfail(reason="Known data quality issues in generated scenarios (e.g. 'IAM')")
     def test_gold_teams_valid(self) -> None:
         for s in self.scenarios:
+            assert s.expected_triage is not None
             team = s.expected_triage.assigned_team
             if team is not None:
                 assert team in ALL_TEAMS, f"{s.scenario_id}: invalid gold team {team!r}"
 
     def test_gold_missing_info_valid(self) -> None:
         for s in self.scenarios:
+            assert s.expected_triage is not None
             if s.expected_triage.missing_information is not None:
                 for item in s.expected_triage.missing_information:
                     assert item in ALL_MISSING_INFO_FIELDS, (

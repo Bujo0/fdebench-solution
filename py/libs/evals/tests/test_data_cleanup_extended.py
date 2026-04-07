@@ -6,6 +6,8 @@ are well-formed, cover the expected noise types, and have consistent
 expected triage values.
 """
 
+import unicodedata
+
 import pytest
 
 # Ensure scenarios are registered before tests run.
@@ -137,7 +139,6 @@ class TestExtendedDcNoiseTypes:
         s = next((s for s in extended_dc_scenarios if s.scenario_id == "dc-136"), None)
         if s is None:
             pytest.skip("dc-136 not registered")
-        import unicodedata
 
         combining_count = sum(
             1 for c in s.ticket.description if unicodedata.category(c).startswith("M")

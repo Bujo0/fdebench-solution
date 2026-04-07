@@ -28,7 +28,12 @@ def extended_dc_scenarios() -> list[EvalScenario]:
     import ms.evals_core.framework.scenarios.data_cleanup_extended  # noqa: F401, PLC0415
 
     all_dc = default_registry.by_category(ScenarioCategory.DATA_CLEANUP)
-    return [s for s in all_dc if s.scenario_id.startswith("dc-1") and int(s.scenario_id.split("-")[1]) >= 151]
+    return [
+        s
+        for s in all_dc
+        if s.scenario_id.startswith("dc-")
+        and 151 <= int(s.scenario_id.split("-")[1]) <= 170
+    ]
 
 
 # ── Structural integrity ──────────────────────────────────────────────

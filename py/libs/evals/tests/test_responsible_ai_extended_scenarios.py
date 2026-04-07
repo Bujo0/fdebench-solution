@@ -27,7 +27,12 @@ def extended_rai_scenarios() -> list[EvalScenario]:
     import ms.evals_core.framework.scenarios.responsible_ai_extended  # noqa: F401, PLC0415
 
     all_rai = default_registry.by_category(ScenarioCategory.RESPONSIBLE_AI)
-    return [s for s in all_rai if int(s.scenario_id.split("-")[1]) >= 261]
+    return [
+        s
+        for s in all_rai
+        if s.scenario_id.startswith("rai-")
+        and 261 <= int(s.scenario_id.split("-")[1]) <= 285
+    ]
 
 
 # ── Structural integrity ──────────────────────────────────────────────
