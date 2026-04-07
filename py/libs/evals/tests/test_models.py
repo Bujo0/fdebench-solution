@@ -1,28 +1,157 @@
 # Copyright (c) Microsoft. All rights reserved.
-"""Tests for evaluation data models."""
+"""Tests for Pydantic model validation."""
 
-import json
+import pytest
+from pydantic import ValidationError
 
-from evals.models import Category
-from evals.models import Channel
-from evals.models import EvalScenario
-from evals.models import MissingInfoField
-from evals.models import Priority
-from evals.models import Reporter
-from evals.models import ScenarioSuite
-from evals.models import ScenarioTag
-from evals.models import Team
-from evals.models import Ticket
-from evals.models import TriageDecision
+from ms.evals_core.constants import Channel
+from ms.evals_core.constants import MissingInfo
+from ms.evals_core.constants import Priority
+from ms.evals_core.constants import Team
+from ms.evals_core.eval_models import AssignedTeam
+from ms.evals_core.eval_models import Category
+from ms.evals_core.eval_models import GoldAnswer
+from ms.evals_core.eval_models import MissingInfoItem
+from ms.evals_core.eval_models import Reporter
+from ms.evals_core.eval_models import Ticket
+from ms.evals_core.eval_models import TriageResponse
+
+
+class TestTicketModel:
+    def test_valid_ticket(self) -> None:
+        t = Ticket(
+            ticket_id="INC-0001",
+            subject="Test",
+            description="A test ticket",
+            reporter=Reporter(name="Alice", email="alice@contoso.com", department="IT"),
+            created_at="2026-03-18T00:00:00Z",
+            channel=Channel.EMAIL,
+        )
+        assert t.ticket_id == "INC-0001"
+        assert t.channel == Channel.EMAIL
+        assert t.attachments == []
+
+    def test_invalid_channel_rejected(self) -> None:
+        with pytest.raises(ValidationError):
+            Ticket.model_validate(
+                {
+                    "ticket_id": "INC-0001",
+                    "subject": "Test",
+                    "description": "Test",
+                    "reporter": {"name": "Alice", "email": "a@b.com", "department": "IT"},
+                    "created_at": "2026-03-18T00:00:00Z",
+                    "channel": "fax",
+                }
+            )
+
+    def test_immutable(self) -> None:
+        t = Ticket(
+            ticket_id="INC-0001",
+            subject="Test",
+            description="Test",
+            reporter=Reporter(name="Alice", email="a@b.com", department="IT"),
+            created_at="2026-03-18T00:00:00Z",
+            channel=Channel.EMAIL,
+        )
+        with pytest.raises(ValidationError):
+            t.subject = "Changed"
+
+
+class TestGoldAnswerModel:
+    def test_valid_gold(self) -> None:
+        g = GoldAnswer(
+            ticket_id="INC-0001",
+            category=Category.SECURITY,
+            priority=Priority.P1,
+            assigned_team=Team.SECURITY_OPS,
+            needs_escalation=True,
+            missing_information=[MissingInfo.TIMESTAMP, MissingInfo.ERROR_MESSAGE],
+            next_best_action="Investigate immediately",
+            remediation_steps=["Step 1", "Step 2"],
+        )
+        assert g.category == Category.SECURITY
+        assert g.assigned_team == AssignedTeam.SECURITY_OPS
+        assert len(g.missing_information) == 2
+
+    def test_invalid_category_rejected(self) -> None:
+        with pytest.raises(ValidationError):
+            GoldAnswer.model_validate(
+                {
+                    "ticket_id": "INC-0001",
+                    "category": "Invalid Category",
+                    "priority": "P1",
+                    "assigned_team": "Security Operations",
+                    "needs_escalation": False,
+                    "missing_information": [],
+                    "next_best_action": "",
+                    "remediation_steps": [],
+                }
+            )
+
+    def test_invalid_team_rejected(self) -> None:
+        with pytest.raises(ValidationError):
+            GoldAnswer.model_validate(
+                {
+                    "ticket_id": "INC-0001",
+                    "category": "Security & Compliance",
+                    "priority": "P1",
+                    "assigned_team": "Made Up Team",
+                    "needs_escalation": False,
+                    "missing_information": [],
+                    "next_best_action": "",
+                    "remediation_steps": [],
+                }
+            )
+
+    def test_invalid_priority_rejected(self) -> None:
+        with pytest.raises(ValidationError):
+            GoldAnswer.model_validate(
+                {
+                    "ticket_id": "INC-0001",
+                    "category": "Security & Compliance",
+                    "priority": "P5",
+                    "assigned_team": "Security Operations",
+                    "needs_escalation": False,
+                    "missing_information": [],
+                    "next_best_action": "",
+                    "remediation_steps": [],
+                }
+            )
+
+    def test_invalid_missing_info_rejected(self) -> None:
+        with pytest.raises(ValidationError):
+            GoldAnswer.model_validate(
+                {
+                    "ticket_id": "INC-0001",
+                    "category": "Security & Compliance",
+                    "priority": "P1",
+                    "assigned_team": "Security Operations",
+                    "needs_escalation": False,
+                    "missing_information": ["not_a_valid_field"],
+                    "next_best_action": "",
+                    "remediation_steps": [],
+                }
+            )
+
+
+class TestTriageResponseModel:
+    def test_accepts_any_string_values(self) -> None:
+        """TriageResponse is deliberately permissive — scoring handles validation."""
+        r = TriageResponse(
+            ticket_id="INC-0001",
+            category="Anything Goes",
+            priority="P99",
+            assigned_team="Unknown Team",
+            needs_escalation=True,
+            missing_information=["made_up"],
+            next_best_action="Whatever",
+            remediation_steps=["Step"],
+        )
+        assert r.category == "Anything Goes"
 
 
 class TestEnumValues:
-    """Verify enum values match the challenge specification exactly."""
-
-    def test_categories_count(self):
-        assert len(Category) == 8
-
-    def test_categories_values(self):
+    def test_all_categories(self) -> None:
         expected = {
             "Access & Authentication",
             "Hardware & Peripherals",
@@ -35,10 +164,7 @@ class TestEnumValues:
         }
         assert {c.value for c in Category} == expected
 
-    def test_teams_count(self):
-        assert len(Team) == 7
-
-    def test_teams_values(self):
+    def test_all_teams(self) -> None:
         expected = {
             "Identity & Access Management",
             "Endpoint Engineering",
@@ -48,18 +174,9 @@ class TestEnumValues:
             "Data Platform",
             "None",
         }
-        assert {t.value for t in Team} == expected
+        assert {t.value for t in AssignedTeam} == expected
 
-    def test_priorities_count(self):
-        assert len(Priority) == 4
-
-    def test_priorities_values(self):
-        assert {p.value for p in Priority} == {"P1", "P2", "P3", "P4"}
-
-    def test_missing_info_count(self):
-        assert len(MissingInfoField) == 16
-
-    def test_missing_info_values(self):
+    def test_all_missing_info(self) -> None:
         expected = {
             "affected_system",
             "error_message",
@@ -78,186 +195,4 @@ class TestEnumValues:
             "authentication_method",
             "configuration_details",
         }
-        assert {f.value for f in MissingInfoField} == expected
-
-    def test_channels_count(self):
-        assert len(Channel) == 4
-
-    def test_channels_values(self):
-        assert {c.value for c in Channel} == {"email", "chat", "portal", "phone"}
-
-
-class TestTicketModel:
-    """Verify Ticket model serialization matches the input JSON schema."""
-
-    def test_ticket_serialization_has_required_fields(self):
-        ticket = Ticket(
-            ticket_id="INC-0001",
-            subject="Test",
-            description="Test description",
-            reporter=Reporter(name="Test", email="test@contoso.com", department="IT"),
-            created_at="2026-03-17T09:00:00Z",
-            channel=Channel.EMAIL,
-        )
-        data = ticket.model_dump()
-        required = {"ticket_id", "subject", "description", "reporter", "created_at", "channel", "attachments"}
-        assert set(data.keys()) == required
-
-    def test_ticket_id_format(self):
-        ticket = Ticket(
-            ticket_id="INC-9001",
-            subject="Test",
-            description="Test",
-            reporter=Reporter(name="Test", email="test@contoso.com", department="IT"),
-            created_at="2026-03-17T09:00:00Z",
-            channel=Channel.EMAIL,
-        )
-        assert ticket.ticket_id.startswith("INC-")
-
-    def test_ticket_json_serializable(self):
-        ticket = Ticket(
-            ticket_id="INC-0001",
-            subject="Test",
-            description="Test",
-            reporter=Reporter(name="Test", email="test@contoso.com", department="IT"),
-            created_at="2026-03-17T09:00:00Z",
-            channel=Channel.EMAIL,
-        )
-        # Should not raise
-        json.dumps(ticket.model_dump())
-
-
-class TestTriageDecisionModel:
-    """Verify TriageDecision model serialization matches the output JSON schema."""
-
-    def test_triage_has_all_required_fields(self):
-        decision = TriageDecision(
-            ticket_id="INC-0001",
-            category=Category.NETWORK,
-            priority=Priority.P3,
-            assigned_team=Team.NETWORK_OPS,
-            needs_escalation=False,
-            missing_information=[],
-            next_best_action="Test action",
-            remediation_steps=["Step 1"],
-        )
-        data = decision.model_dump()
-        required = {
-            "ticket_id",
-            "category",
-            "priority",
-            "assigned_team",
-            "needs_escalation",
-            "missing_information",
-            "next_best_action",
-            "remediation_steps",
-        }
-        assert set(data.keys()) == required
-
-    def test_triage_json_serializable(self):
-        decision = TriageDecision(
-            ticket_id="INC-0001",
-            category=Category.NETWORK,
-            priority=Priority.P3,
-            assigned_team=Team.NETWORK_OPS,
-            needs_escalation=False,
-            missing_information=[MissingInfoField.ERROR_MESSAGE],
-            next_best_action="Test",
-            remediation_steps=["Step 1"],
-        )
-        serialized = json.dumps(decision.model_dump())
-        deserialized = json.loads(serialized)
-        assert deserialized["missing_information"] == ["error_message"]
-
-    def test_triage_missing_info_uses_enum_values(self):
-        decision = TriageDecision(
-            ticket_id="INC-0001",
-            category=Category.NETWORK,
-            priority=Priority.P3,
-            assigned_team=Team.NETWORK_OPS,
-            needs_escalation=False,
-            missing_information=[MissingInfoField.DEVICE_INFO, MissingInfoField.ERROR_MESSAGE],
-            next_best_action="Test",
-            remediation_steps=["Step 1"],
-        )
-        data = decision.model_dump()
-        for item in data["missing_information"]:
-            assert item in {f.value for f in MissingInfoField}
-
-
-class TestScenarioSuite:
-    """Test ScenarioSuite export methods."""
-
-    def test_get_tickets_returns_list_of_dicts(self):
-        suite = ScenarioSuite(
-            suite_name="Test",
-            suite_description="Test suite",
-            suite_type="data_cleanup",
-            scenarios=[
-                EvalScenario(
-                    scenario_id="T-001",
-                    name="Test",
-                    description="Test scenario",
-                    tags=[ScenarioTag.DATA_CLEANUP],
-                    ticket=Ticket(
-                        ticket_id="INC-0001",
-                        subject="Test",
-                        description="Test",
-                        reporter=Reporter(name="Test", email="test@contoso.com", department="IT"),
-                        created_at="2026-03-17T09:00:00Z",
-                        channel=Channel.EMAIL,
-                    ),
-                    gold=TriageDecision(
-                        ticket_id="INC-0001",
-                        category=Category.NETWORK,
-                        priority=Priority.P3,
-                        assigned_team=Team.NETWORK_OPS,
-                        needs_escalation=False,
-                        missing_information=[],
-                        next_best_action="Test",
-                        remediation_steps=["Step 1"],
-                    ),
-                    rationale="Test rationale",
-                ),
-            ],
-        )
-        tickets = suite.get_tickets()
-        assert len(tickets) == 1
-        assert tickets[0]["ticket_id"] == "INC-0001"
-
-    def test_get_gold_answers_returns_list_of_dicts(self):
-        suite = ScenarioSuite(
-            suite_name="Test",
-            suite_description="Test suite",
-            suite_type="data_cleanup",
-            scenarios=[
-                EvalScenario(
-                    scenario_id="T-001",
-                    name="Test",
-                    description="Test scenario",
-                    tags=[ScenarioTag.DATA_CLEANUP],
-                    ticket=Ticket(
-                        ticket_id="INC-0001",
-                        subject="Test",
-                        description="Test",
-                        reporter=Reporter(name="Test", email="test@contoso.com", department="IT"),
-                        created_at="2026-03-17T09:00:00Z",
-                        channel=Channel.EMAIL,
-                    ),
-                    gold=TriageDecision(
-                        ticket_id="INC-0001",
-                        category=Category.NETWORK,
-                        priority=Priority.P3,
-                        assigned_team=Team.NETWORK_OPS,
-                        needs_escalation=False,
-                        missing_information=[],
-                        next_best_action="Test",
-                        remediation_steps=["Step 1"],
-                    ),
-                    rationale="Test rationale",
-                ),
-            ],
-        )
-        golds = suite.get_gold_answers()
-        assert len(golds) == 1
-        assert golds[0]["category"] == "Network & Connectivity"
+        assert {m.value for m in MissingInfoItem} == expected

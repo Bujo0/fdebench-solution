@@ -1,0 +1,197 @@
+[
+    {
+        "ticket_id": "INC-DCX001",
+        "subject": "Internal API returning malformed GraphQL response — pasted below",
+        "description": "Hi IT team,\n\nOur internal product catalog API (graphql-gateway.contoso.com/v2) has been returning malformed data since this morning. I'm pasting the raw GraphQL response here so you can see the issue:\n\n{\"data\":{\"organization\":{\"__typename\":\"Organization\",\"id\":\"org-9281\",\"repositories\":{\"__typename\":\"RepositoryConnection\",\"totalCount\":247,\"pageInfo\":{\"__typename\":\"PageInfo\",\"hasNextPage\":true,\"endCursor\":\"Y3Vyc29yOnYyOpK5MjAyNi0wMi0xNVQxMDozMDowMCswMDowMM4AY3jk\"},\"edges\":[{\"__typename\":\"RepositoryEdge\",\"cursor\":\"Y3Vyc29yOnYyOpK5MjAyNi0wMS0yMFQwODoxNTowMCswMDowMM4AX2Nh\",\"node\":{\"__typename\":\"Repository\",\"name\":\"billing-service\",\"description\":\"Core billing microservice\",\"primaryLanguage\":{\"__typename\":\"Language\",\"name\":\"C#\"},\"stargazerCount\":12,\"issues\":{\"__typename\":\"IssueConnection\",\"totalCount\":34,\"nodes\":[{\"__typename\":\"Issue\",\"title\":\"NullReferenceException on invoice generation\",\"state\":\"OPEN\",\"labels\":{\"__typename\":\"LabelConnection\",\"nodes\":[{\"__typename\":\"Label\",\"name\":\"bug\"},{\"__typename\":\"Label\",\"name\":\"P1\"}]},\"assignees\":{\"__typename\":\"UserConnection\",\"nodes\":[{\"__typename\":\"User\",\"login\":\"jsmith\"}]}},{\"__typename\":\"Issue\",\"title\":\"Add retry logic for payment gateway timeout\",\"state\":\"OPEN\",\"labels\":{\"__typename\":\"LabelConnection\",\"nodes\":[{\"__typename\":\"Label\",\"name\":\"enhancement\"}]},\"assignees\":{\"__typename\":\"UserConnection\",\"nodes\":[]}}]}}}}]}},\"productCatalog\":{\"__typename\":\"CatalogQuery\",\"search\":{\"__typename\":\"SearchResult\",\"totalHits\":1893,\"facets\":{\"__typename\":\"FacetResult\",\"category\":[{\"value\":\"Electronics\",\"count\":423},{\"value\":\"Office Supplies\",\"count\":891},{\"value\":\"Furniture\",\"count\":312},{\"value\":\"Software\",\"count\":267}]},\"items\":{\"__typename\":\"ItemConnection\",\"edges\":[{\"__typename\":\"ItemEdge\",\"node\":{\"__typename\":\"CatalogItem\",\"sku\":\"SKU-29481\",\"name\":\"Dell Latitude 5540\",\"price\":{\"__typename\":\"Money\",\"amount\":1249.99,\"currency\":\"USD\"},\"inventory\":{\"__typename\":\"InventoryStatus\",\"available\":42,\"reserved\":8,\"warehouses\":[{\"__typename\":\"Warehouse\",\"code\":\"WH-EAST\",\"qty\":28},{\"__typename\":\"Warehouse\",\"code\":\"WH-WEST\",\"qty\":14}]}}}]}}}}},\"errors\":[{\"message\":\"Cannot return null for non-nullable field CatalogItem.description\",\"locations\":[{\"line\":42,\"column\":9}],\"path\":[\"data\",\"productCatalog\",\"search\",\"items\",\"edges\",0,\"node\",\"description\"],\"extensions\":{\"code\":\"INTERNAL_SERVER_ERROR\",\"timestamp\":\"2026-03-10T14:23:18Z\"}}]}\n\nThe actual problem: the API started throwing \"Cannot return null for non-nullable field\" errors on description fields after yesterday's deployment. Our procurement portal relies on this API and staff can't browse or order equipment. About 15 people have reported issues so far.\n\nCan someone from the applications team look into the recent deployment and check what changed with the catalog item schema?\n\nThanks,\nPriya",
+        "reporter": {
+            "name": "Priya Patel",
+            "email": "p.patel@contoso.com",
+            "department": "Procurement"
+        },
+        "created_at": "2026-03-10T14:45:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCX002",
+        "subject": "CRITICAL: Order processing pods keep crashing — OOMKilled",
+        "description": "Pasting the kubectl logs from the order-processing deployment. Multiple containers crashing:\n\n$ kubectl logs order-processing-7d9f8b6c4d-xk2p9 --all-containers --timestamps -n production\n\n[init-container/config-loader] 2026-03-11T06:00:01.234Z INFO Loading configuration from ConfigMap order-processing-config\n[init-container/config-loader] 2026-03-11T06:00:01.567Z INFO Config loaded: 47 keys, 3 secrets mounted\n[init-container/config-loader] 2026-03-11T06:00:01.890Z INFO Init container completed successfully\n[sidecar/envoy-proxy] 2026-03-11T06:00:02.123Z INFO Envoy proxy starting, listening on 0.0.0.0:15001\n[sidecar/envoy-proxy] 2026-03-11T06:00:02.456Z INFO Upstream cluster order-svc configured: 3 endpoints\n[sidecar/envoy-proxy] 2026-03-11T06:00:02.789Z INFO Health check passed for order-svc/10.244.1.15:8080\n[main/order-processor] 2026-03-11T06:00:03.012Z INFO Starting OrderProcessor v3.2.1 (build a8f3c2d)\n[main/order-processor] 2026-03-11T06:00:03.345Z INFO Connecting to PostgreSQL: order-db.production.svc:5432\n[main/order-processor] 2026-03-11T06:00:03.678Z INFO Database connection pool: min=5, max=20, idle=300s\n[main/order-processor] 2026-03-11T06:00:04.011Z INFO Kafka consumer group order-processing-group joined\n[main/order-processor] 2026-03-11T06:00:04.344Z INFO Subscribed to topics: [orders.created, orders.updated, orders.cancelled]\n[main/order-processor] 2026-03-11T06:00:10.567Z INFO Processing batch: 1247 messages from orders.created\n[main/order-processor] 2026-03-11T06:00:15.890Z WARN Memory usage at 78% (1.56GB/2.0GB) — approaching limit\n[main/order-processor] 2026-03-11T06:00:18.123Z WARN Memory usage at 89% (1.78GB/2.0GB) — GC pressure increasing\n[main/order-processor] 2026-03-11T06:00:19.456Z ERROR java.lang.OutOfMemoryError: Java heap space\n[main/order-processor] 2026-03-11T06:00:19.457Z ERROR   at com.contoso.orders.BatchProcessor.processLargeBatch(BatchProcessor.java:142)\n[main/order-processor] 2026-03-11T06:00:19.458Z ERROR   at com.contoso.orders.KafkaConsumer.onMessage(KafkaConsumer.java:87)\n[main/order-processor] 2026-03-11T06:00:19.459Z ERROR   at org.apache.kafka.clients.consumer.internals.ConsumerCoordinator.poll(ConsumerCoordinator.java:456)\n[sidecar/envoy-proxy] 2026-03-11T06:00:19.789Z WARN Upstream host 10.244.1.15:8080 health check failed\n[sidecar/envoy-proxy] 2026-03-11T06:00:20.012Z INFO Ejecting host 10.244.1.15:8080 from cluster\n\n$ kubectl describe pod order-processing-7d9f8b6c4d-xk2p9 -n production\nState:       Terminated\nReason:      OOMKilled\nExit Code:   137\nRestart Count: 14\n\nLast week we pushed a change to process orders in larger batches (ticket INC-3847) and since then the pods keep getting OOMKilled. This is blocking all order processing — customers can't place orders.",
+        "reporter": {
+            "name": "Marcus Chen",
+            "email": "m.chen@contoso.com",
+            "department": "Engineering"
+        },
+        "created_at": "2026-03-11T06:30:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCX003",
+        "subject": "Config service returning double-escaped JSON — apps failing to parse",
+        "description": "The centralized config service is returning badly escaped JSON. When our apps fetch config, the values contain extra backslash escaping that breaks parsing.\n\nHere is what we're getting back from GET /api/v1/config/billing-service:\n\n{\"config\":{\"database\":{\"connectionString\":\"Server=sqlprod-01.contoso.com;Database=BillingDB;User Id=svc_billing;Password=\\\"redacted\\\"\",\"maxPoolSize\":\"20\",\"commandTimeout\":\"30\"},\"redis\":{\"endpoints\":\"[\\\"redis-01.contoso.com:6379\\\",\\\"redis-02.contoso.com:6379\\\"]\",\"password\":\"\\\"redacted\\\"\",\"ssl\":\"true\"},\"logging\":{\"level\":\"Information\",\"format\":\"{\\\"timestamp\\\":\\\"{Timestamp:o}\\\",\\\"level\\\":\\\"{Level}\\\",\\\"message\\\":\\\"{Message}\\\"}\"},\"featureFlags\":\"{\\\"enableNewInvoiceFlow\\\":true,\\\"maxRetryCount\\\":3,\\\"circuitBreakerThreshold\\\":5}\"}}\n\nThe values are supposed to be:\n- connectionString: a plain string\n- endpoints: a JSON array [\"redis-01...\", \"redis-02...\"]\n- format: a JSON template string\n- featureFlags: a JSON object\n\nBut everything has extra layers of escaping (triple backslash-quote instead of just quote). This started after the config service was upgraded to v2.4.0 last Friday. Our billing service, notification service, and reporting service are all failing to start because they can't deserialize their configs.\n\nAbout 30 people in finance are affected because the billing portal is down.",
+        "reporter": {
+            "name": "Aisha Johnson",
+            "email": "a.johnson@contoso.com",
+            "department": "Engineering"
+        },
+        "created_at": "2026-03-12T08:15:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCX004",
+        "subject": "Internal dashboard build broken — webpack errors after dependency update",
+        "description": "Our internal HR dashboard webpack build is completely broken after running npm update yesterday. Here is the full error output:\n\n> hr-dashboard@4.2.0 build\n> webpack --config webpack.prod.js\n\n[webpack-cli] Compilation error:\n\nERROR in ./src/components/EmployeeTable/EmployeeTable.tsx 15:0-47\nModule not found: Error: Can't resolve '@contoso/ui-kit/DataGrid' in '/app/src/components/EmployeeTable'\n    at /app/node_modules/webpack/lib/Compilation.js:2156:28\n    at /app/node_modules/webpack/lib/NormalModuleFactory.js:798:13\n\nERROR in ./src/pages/Dashboard/Dashboard.tsx 8:0-52\nModule not found: Error: Can't resolve '@contoso/ui-kit/Charts/BarChart' in '/app/src/pages/Dashboard'\n    at /app/node_modules/webpack/lib/Compilation.js:2156:28\n\nERROR in chunk hr-dashboard-main [mini-css-extract-plugin]\nConflicting order. Following module has been added:\ndespite it was not able to fulfill desired ordering with these modules:\n\nWARNING in asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).\n  Assets:\n    hr-dashboard-main.a8f3c2d9.js (892 KiB)\n    vendors~hr-dashboard.7b2e4f1a.js (1.24 MiB)\n\nWARNING in ./src/utils/reportGenerator.ts\nModule Warning (from ./node_modules/source-map-loader/dist/cjs.js):\nFailed to parse source map from '/app/src/utils/reportGenerator.ts.map'\n\nwebpack 5.91.0 compiled with 3 errors and 2 warnings in 34291 ms\n\nLooks like @contoso/ui-kit v5 changed its export paths. I need help figuring out what the new import paths should be or rolling back the dependency.",
+        "reporter": {
+            "name": "David Kim",
+            "email": "d.kim@contoso.com",
+            "department": "Human Resources"
+        },
+        "created_at": "2026-03-13T10:00:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCX005",
+        "subject": "Automated deployment script failing — PowerShell errors pasted",
+        "description": "Our nightly Azure deployment script has been failing for 3 nights. Here is the PowerShell error output:\n\nPS C:\\Deploy> .\\Deploy-WebApp.ps1 -Environment Production -Version 3.8.1\n\nVERBOSE: Starting deployment of version 3.8.1 to Production...\nVERBOSE: Authenticating to Azure subscription contoso-prod (a1b2c3d4-e5f6-7890-abcd-ef1234567890)...\n\nSet-AzWebApp : The remote server returned an error: (409) Conflict.\nAt C:\\Deploy\\Deploy-WebApp.ps1:87 char:5\n+     Set-AzWebApp -ResourceGroupName  -Name  -AppSetti ...\n+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : CloseError: (:) [Set-AzWebApp], CloudException\n    + FullyQualifiedErrorId : Microsoft.Azure.Commands.WebApps.Cmdlets.WebApps.SetAzureWebAppCmdlet\n    + PSComputerName        : localhost\n\nScriptStackTrace:\n   at Deploy-AppSettings, C:\\Deploy\\Deploy-WebApp.ps1: line 87\n   at Deploy-WebApp, C:\\Deploy\\Deploy-WebApp.ps1: line 142\n   at <ScriptBlock>, C:\\Deploy\\Deploy-WebApp.ps1: line 198\n\nWARNING: Retrying in 30 seconds... (attempt 2 of 3)\n\nSet-AzWebApp : The remote server returned an error: (409) Conflict.\nAt C:\\Deploy\\Deploy-WebApp.ps1:87 char:5\n+     Set-AzWebApp -ResourceGroupName  -Name  -AppSetti ...\n+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : CloseError: (:) [Set-AzWebApp], CloudException\n    + FullyQualifiedErrorId : Microsoft.Azure.Commands.WebApps.Cmdlets.WebApps.SetAzureWebAppCmdlet\n\nWrite-Error: All 3 deployment attempts failed for app contoso-prod-webapp.\nErrorRecord:\n    Exception: System.Management.Automation.RuntimeException\n    TargetObject: contoso-prod-webapp\n    CategoryInfo: NotSpecified: (:) [Write-Error], WriteErrorException\n    FullyQualifiedErrorId: Microsoft.PowerShell.Commands.WriteErrorException\n\nI think there might be a slot swap lock or something preventing the app settings update. The previous deployment (v3.7.9) was done manually through the portal and might have left a lock.",
+        "reporter": {
+            "name": "Sarah Williams",
+            "email": "s.williams@contoso.com",
+            "department": "DevOps"
+        },
+        "created_at": "2026-03-14T07:00:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCX006",
+        "subject": "App settings corrupted after Windows Update — registry dump attached",
+        "description": "After the latest Windows Update (KB5034441) my Outlook and Teams settings were completely reset. I exported the relevant registry keys — can you check if anything looks wrong?\n\nWindows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\16.0\\Outlook\\Profiles\\Outlook]\n\"DefaultProfile\"=\"\"\n\"LastChangeVer\"=dword:00000000\n\n[HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\16.0\\Outlook\\Profiles\\Outlook\\0a0d020000000000c000000000000046]\n\"001f6610\"=hex:2f,00,6f,00,3d,00,46,00,69,00,72,00,73,00,74,00,20,00,4f,00,72,00,67,00\n\"001f6641\"=hex:00,00\n\"001f662c\"=hex:00,00\n\n[HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\16.0\\Common\\Identity]\n\"EnableADAL\"=dword:00000001\n\"DisableADALatopWAMOverride\"=dword:00000000\n\"DisableAADWAM\"=dword:00000000\n\n[HKEY_CURRENT_USER\\Software\\Microsoft\\Teams]\n\"currentVersion\"=\"24316.2402.3082.1636\"\n\"ring\"=\"general\"\n\"region\"=\"amer\"\n\"isLoggedOut\"=dword:00000001\n\"wasEverSignedIn\"=dword:00000001\n\n[HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Teams]\n\"DisplayVersion\"=\"24316.2402.3082.1636\"\n\"InstallLocation\"=\"C:\\Users\\jthompson\\AppData\\Local\\Microsoft\\Teams\"\n\nEverything was working fine before the update. Now Outlook asks me to set up my profile from scratch and Teams shows me as signed out even though I was logged in. My laptop is a Lenovo ThinkPad X1 Carbon Gen 11 running Windows 11 23H2.",
+        "reporter": {
+            "name": "James Thompson",
+            "email": "j.thompson@contoso.com",
+            "department": "Marketing"
+        },
+        "created_at": "2026-03-10T11:30:00Z",
+        "channel": "phone",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCX007",
+        "subject": "TLS handshake failure — certificate chain pasted for review",
+        "description": "Our internal payment gateway (pay-gw.internal.contoso.com) is failing TLS handshakes. I dumped the certificate chain using openssl:\n\n$ openssl s_client -connect pay-gw.internal.contoso.com:443 -showcerts\n\nCONNECTED(00000003)\ndepth=2 C = US, O = Contoso Corp, CN = Contoso Root CA\nverify error:num=20:unable to get local issuer certificate\n---\nCertificate chain\n 0 s:CN = pay-gw.internal.contoso.com, O = Contoso Corp\n   i:CN = Contoso Intermediate CA G2, O = Contoso Corp\n-----BEGIN CERTIFICATE-----\nMIIFGTCCBAGgAwIBAgIQCzN3S2xKoYpFq3VwQRmxADANBgkqhkiG9w0BAQsFADBh\nMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMQ29udG9zbyBDb3JwMSMwIQYDVQQDExpD\nb250b3NvIEludGVybWVkaWF0ZSBDQSBHMTIWHDI2MDEwMTAwMDAwMFoXDTI2MTIz\nMTIzNTk1OVowQDEqMCgGA1UEAwwhcGF5LWd3LmludGVybmFsLmNvbnRvc28uY29t\nMRIwEAYDVQQKEwlDb250b3NvMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC\nAQEApD7hLqR8VcX9QjG5M8oBTnVrM3FZOE9KdTu0K2w5eVN3qK0n6hCJ+YZfGk0\n-----END CERTIFICATE-----\n 1 s:CN = Contoso Intermediate CA G2, O = Contoso Corp\n   i:CN = Contoso Root CA, O = Contoso Corp\n-----BEGIN CERTIFICATE-----\nMIIEkTCCA3mgAwIBAgIRAKC6hfQ1K5AjRqjKSjhGNVEwDQYJKoZIhvcNAQELBQAw\nUTELMAkGA1UEBhMCVVMxFTATBgNVBAoTDENvbnRvc28gQ29ycDErMCkGA1UEAxMi\nQ29udG9zbyBSb290IENBMCAXDTIzMDEwMTAwMDAwMFoYDzIwNDgwMTAxMDAwMDAw\nWjBhMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMQ29udG9zbyBDb3JwMSMwIQYDVQQD\n-----END CERTIFICATE-----\n 2 s:CN = Contoso Root CA, O = Contoso Corp\n   i:CN = Contoso Root CA, O = Contoso Corp\n-----BEGIN CERTIFICATE-----\nMIIDfzCCAmegAwIBAgIRAJfZ5G0L9+2VfMhUKBBqJmIwDQYJKoZIhvcNAQELBQAw\nUTELMAkGA1UEBhMCVVMxFTATBgNVBAoTDENvbnRvc28gQ29ycDErMCkGA1UEAxMi\nQ29udG9zbyBSb290IENBMCAXDTIwMDEwMTAwMDAwMFoYDzIwNTAwMTAxMDAwMDAw\n-----END CERTIFICATE-----\n\nThe intermediate CA cert (G2) expired today — that's what is causing all the validation failures. Multiple services that connect to the payment gateway (billing, order-processing, refunds) are all failing. This is a P2 escalation because payment processing is down.",
+        "reporter": {
+            "name": "Alex Rivera",
+            "email": "a.rivera@contoso.com",
+            "department": "Security"
+        },
+        "created_at": "2026-03-15T09:00:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCX008",
+        "subject": "Linux app server won't start — systemd journal dump",
+        "description": "Our main application server (app-prod-03) won't start the web service after last night's maintenance. Here is the journalctl output:\n\n-- Logs begin at Tue 2026-03-11 00:00:00 UTC, end at Tue 2026-03-11 06:15:23 UTC. --\nMar 11 06:00:01 app-prod-03 systemd[1]: Starting contoso-webapp.service - Contoso Web Application...\nMar 11 06:00:01 app-prod-03 contoso-webapp[4521]: [INFO] Loading configuration from /etc/contoso/webapp.conf\nMar 11 06:00:01 app-prod-03 contoso-webapp[4521]: [INFO] Environment: production\nMar 11 06:00:01 app-prod-03 contoso-webapp[4521]: [INFO] Database: postgresql://db-prod-01:5432/contoso\nMar 11 06:00:02 app-prod-03 contoso-webapp[4521]: [INFO] Initializing connection pool...\nMar 11 06:00:02 app-prod-03 contoso-webapp[4521]: [ERROR] Failed to bind to port 8080: Address already in use\nMar 11 06:00:02 app-prod-03 contoso-webapp[4521]: [ERROR] java.net.BindException: Address already in use (Bind failed)\nMar 11 06:00:02 app-prod-03 contoso-webapp[4521]: [ERROR]     at java.base/sun.nio.ch.Net.bind0(Native Method)\nMar 11 06:00:02 app-prod-03 contoso-webapp[4521]: [ERROR]     at java.base/sun.nio.ch.Net.bind(Net.java:555)\nMar 11 06:00:02 app-prod-03 contoso-webapp[4521]: [ERROR]     at io.netty.channel.socket.nio.NioServerSocketChannel.doBind(NioServerSocketChannel.java:141)\nMar 11 06:00:02 app-prod-03 systemd[1]: contoso-webapp.service: Main process exited, code=exited, status=1/FAILURE\nMar 11 06:00:02 app-prod-03 systemd[1]: contoso-webapp.service: Failed with result 'exit-code'.\nMar 11 06:00:32 app-prod-03 systemd[1]: contoso-webapp.service: Scheduled restart job, restart counter is at 1.\nMar 11 06:00:32 app-prod-03 systemd[1]: Starting contoso-webapp.service - Contoso Web Application...\nMar 11 06:00:33 app-prod-03 contoso-webapp[4589]: [ERROR] Failed to bind to port 8080: Address already in use\nMar 11 06:00:33 app-prod-03 systemd[1]: contoso-webapp.service: Main process exited, code=exited, status=1/FAILURE\nMar 11 06:01:03 app-prod-03 systemd[1]: contoso-webapp.service: Start request repeated too quickly.\nMar 11 06:01:03 app-prod-03 systemd[1]: contoso-webapp.service: Failed with result 'exit-code'.\nMar 11 06:01:03 app-prod-03 systemd[1]: Failed to start contoso-webapp.service - Contoso Web Application.\n\nSomething is already occupying port 8080 — maybe a zombie process from the maintenance window? I tried systemctl restart but it keeps failing.",
+        "reporter": {
+            "name": "Omar Hassan",
+            "email": "o.hassan@contoso.com",
+            "department": "Operations"
+        },
+        "created_at": "2026-03-11T06:20:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCX009",
+        "subject": "Outlook encoding issue — 邮件客户端显示乱码",
+        "description": "你好 IT 团队，\n\n我的 Outlook 客户端从昨天开始出现编码问题。When I receive emails from our Shanghai office, the Chinese characters are showing as garbled text (乱码 / mojibake). 以前一直正常的，昨天突然就不行了。\n\n具体情况:\n- 发件人: 上海办公室的同事 (Shanghai colleagues)\n- 收件人: 我的 Outlook (my Outlook client)\n- 问题: 中文内容显示为 \"å¤§å®¶å¥½\" instead of \"大家好\"\n- The subject line usually works fine but the body text is garbled\n- It only affects emails with mixed Chinese and English content\n\nI checked my Outlook language settings and everything looks correct:\n- Display language: English (United States)\n- Editing languages: English + 中文（简体）\n- Encoding: Auto-detect is turned ON\n\n我试过改变编码设置 (I tried changing encoding settings) to UTF-8 manually but that didn't help either. Other colleagues in the Seattle office (西雅图办公室) are not having this issue.\n\nCould this be related to the Exchange server migration that happened last week? 我记得 IT 部门上周做了一些邮件服务器的迁移工作。\n\n谢谢！\nLi Wei",
+        "reporter": {
+            "name": "Li Wei",
+            "email": "l.wei@contoso.com",
+            "department": "International Sales"
+        },
+        "created_at": "2026-03-12T15:30:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCX010",
+        "subject": "Internal web app returning 502 — full HTTP response attached",
+        "description": "The expense reporting app (expense.contoso.com) is returning 502 errors intermittently. I captured a full HTTP response using curl -v:\n\n* Connected to expense.contoso.com (10.20.30.40) port 443\n* TLS handshake completed, TLSv1.3 (TLS_AES_256_GCM_SHA384)\n> GET /api/v1/reports/pending HTTP/2\n> Host: expense.contoso.com\n> User-Agent: curl/8.5.0\n> Accept: application/json\n> Authorization: Bearer eyJhbGciOiJSUzI1NiIs[...truncated...]\n> X-Request-Id: req-8a4f2c1d-3b7e-4d9f-a2c1-8e7f3b4a5d6c\n\n< HTTP/2 502\n< content-type: text/html; charset=UTF-8\n< server: nginx/1.25.4\n< date: Thu, 13 Mar 2026 14:30:15 GMT\n< x-request-id: req-8a4f2c1d-3b7e-4d9f-a2c1-8e7f3b4a5d6c\n< x-upstream-status: 502\n< x-upstream-addr: 10.20.30.41:8080\n< x-upstream-response-time: 60.003\n< set-cookie: _contoso_session=abc123; Path=/; Secure; HttpOnly; SameSite=Strict\n< strict-transport-security: max-age=31536000; includeSubDomains\n< x-content-type-options: nosniff\n< x-frame-options: DENY\n< content-security-policy: default-src 'self'; script-src 'self'\n\n<html>\n<head><title>502 Bad Gateway</title></head>\n<body>\n<center><h1>502 Bad Gateway</h1></center>\n<hr><center>nginx/1.25.4</center>\n</body>\n</html>\n\nThe x-upstream-response-time: 60.003 suggests the backend is timing out. This started happening around 2pm today and affects approximately 50 people who need to submit expense reports before end of quarter.",
+        "reporter": {
+            "name": "Rachel Foster",
+            "email": "r.foster@contoso.com",
+            "department": "Finance"
+        },
+        "created_at": "2026-03-13T14:45:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCX011",
+        "subject": "Email attachments not rendering — raw MIME source pasted",
+        "description": "When I forward emails from our vendor portal, the attachments show up as raw MIME text instead of proper attachments. Here is what the email body looks like:\n\nContent-Type: multipart/mixed; boundary=\"----=_Part_4521_1834567890.1710234567890\"\nMIME-Version: 1.0\n\n------=_Part_4521_1834567890.1710234567890\nContent-Type: multipart/alternative; boundary=\"----=_Part_4522_9876543210.1710234567891\"\n\n------=_Part_4522_9876543210.1710234567891\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: quoted-printable\n\nHi Team,\n\nPlease find the Q1 report attached. The key metrics are summarized below=\n:\n\nRevenue: .2M (up 12% YoY)\nCustomer satisfaction: 94.3%\n\n------=_Part_4522_9876543210.1710234567891\nContent-Type: text/html; charset=UTF-8\nContent-Transfer-Encoding: base64\n\nPGh0bWw+PGJvZHk+PHA+SGkgVGVhbSw8L3A+PHA+UGxlYXNlIGZpbmQgdGhlIFExIHJlcG9y\ndCBhdHRhY2hlZC48L3A+PC9ib2R5PjwvaHRtbD4=\n\n------=_Part_4522_9876543210.1710234567891--\n\n------=_Part_4521_1834567890.1710234567890\nContent-Type: application/pdf; name=\"Q1_Report_2026.pdf\"\nContent-Transfer-Encoding: base64\nContent-Disposition: attachment; filename=\"Q1_Report_2026.pdf\"\n\nJVBERi0xLjcKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5k\nb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4=\n\n------=_Part_4521_1834567890.1710234567890--\n\nThis only happens with forwarded messages from our vendor portal. Direct emails work fine. About 10 people in procurement are affected.",
+        "reporter": {
+            "name": "Karen Mitchell",
+            "email": "k.mitchell@contoso.com",
+            "department": "Procurement"
+        },
+        "created_at": "2026-03-14T09:15:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCX012",
+        "subject": "Deployment broke after merge — git log of recent changes",
+        "description": "Production deployment failed this morning. I am pasting the git log of the recent commits to help with the investigation:\n\n$ git log --oneline --graph --decorate -20\n\n*   a8f3c2d (HEAD -> main, origin/main) Merge pull request #1247 from feature/invoice-v2\n|\\\n| * 7b2e4f1 fix: handle null invoice line items\n| * c9d1e2f feat: new invoice PDF generation using iTextSharp\n| * 3f4a5b6 refactor: extract InvoiceCalculator to separate service\n| * 8e7f3b4 chore: add invoice v2 migration scripts\n|/\n*   5d6c7a8 Merge pull request #1245 from bugfix/auth-timeout\n|\\\n| * 2a1b3c4 fix: increase OAuth token refresh timeout to 300s\n|/\n* 9f0e1d2 chore: bump dependencies (Newtonsoft.Json 13.0.3 -> 14.0.1)\n* b4c5d6e feat: add health check endpoint for load balancer\n* 1a2b3c4 fix: correct SQL parameter binding in report query\n*   e5f6a7b Merge pull request #1242 from feature/new-dashboard\n|\\\n| * d8c9b0a feat: add executive dashboard with KPI widgets\n| * f1e2d3c feat: implement real-time chart updates via SignalR\n|/\n* 4b5c6d7 docs: update API documentation for v3.8\n* 7e8f9a0 fix: prevent duplicate email notifications\n* a1b2c3d chore: update CI pipeline to use .NET 8 SDK\n\n$ git log -1 --format=fuller a8f3c2d\ncommit a8f3c2d\nAuthor:     Chen Wei <c.wei@contoso.com>\nAuthorDate: Mon Mar 15 2026 08:30:00 +0000\nCommit:     GitHub Enterprise <noreply@github.contoso.com>\nCommitDate: Mon Mar 15 2026 08:30:00 +0000\n\n    Merge pull request #1247 from feature/invoice-v2\n\nThe build passes locally and in CI but the production deployment fails with a database migration error. I suspect the migration scripts in commit 8e7f3b4 conflict with the existing schema.",
+        "reporter": {
+            "name": "Chen Wei",
+            "email": "c.wei@contoso.com",
+            "department": "Engineering"
+        },
+        "created_at": "2026-03-15T08:45:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCX013",
+        "subject": "Azure infrastructure provisioning failed — Terraform plan output",
+        "description": "Our new data lake environment provisioning failed during terraform apply. Here is the terraform plan output that was approved:\n\nTerraform will perform the following actions:\n\n  # azurerm_storage_account.datalake will be created\n  + resource \"azurerm_storage_account\" \"datalake\" {\n      + access_tier                       = \"Hot\"\n      + account_kind                      = \"StorageV2\"\n      + account_replication_type          = \"GRS\"\n      + account_tier                      = \"Standard\"\n      + allow_nested_items_to_be_public   = false\n      + id                                = (known after apply)\n      + is_hns_enabled                    = true\n      + large_file_share_enabled          = true\n      + location                          = \"eastus2\"\n      + min_tls_version                   = \"TLS1_2\"\n      + name                              = \"contosodatalakeprod\"\n      + resource_group_name               = \"rg-datalake-prod\"\n      + tags                              = {\n          + \"Environment\" = \"Production\"\n          + \"ManagedBy\"   = \"Terraform\"\n          + \"Team\"        = \"Data Platform\"\n        }\n    }\n\n  # azurerm_synapse_workspace.analytics will be created\n  + resource \"azurerm_synapse_workspace\" \"analytics\" {\n      + id                                = (known after apply)\n      + location                          = \"eastus2\"\n      + managed_resource_group_name       = \"rg-synapse-managed\"\n      + name                              = \"contoso-synapse-prod\"\n      + resource_group_name               = \"rg-datalake-prod\"\n      + sql_administrator_login           = \"sqladmin\"\n      + storage_data_lake_gen2_filesystem_id = (known after apply)\n    }\n\n  # azurerm_synapse_sql_pool.dedicated will be created\n  + resource \"azurerm_synapse_sql_pool\" \"dedicated\" {\n      + collation                         = \"SQL_Latin1_General_CP1_CI_AS\"\n      + create_mode                       = \"Default\"\n      + id                                = (known after apply)\n      + name                              = \"sqlpool_analytics\"\n      + sku_name                          = \"DW200c\"\n      + synapse_workspace_id              = (known after apply)\n    }\n\nPlan: 8 to add, 0 to change, 0 to destroy.\n\nError: creating Synapse Workspace: unexpected status 403 with error: AuthorizationFailed: The client does not have authorization to perform action 'Microsoft.Synapse/workspaces/write' over scope '/subscriptions/a1b2c3d4/resourceGroups/rg-datalake-prod'.\n\nThe service principal used by Terraform doesn't have sufficient permissions on the subscription. We need the Synapse Contributor role added.",
+        "reporter": {
+            "name": "Fatima Al-Rashid",
+            "email": "f.alrashid@contoso.com",
+            "department": "Data Engineering"
+        },
+        "created_at": "2026-03-12T16:00:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCX014",
+        "subject": "URGENT: Internal DNS resolution failing — zone file for reference",
+        "description": "Internal DNS resolution is completely broken for the contoso.internal zone. Apps can't resolve any internal hostnames. I exported the zone file for reference:\n\n; Zone file for contoso.internal\n; Exported from DNS server dns-prod-01 at 2026-03-11T10:00:00Z\n 300\n contoso.internal.\n\n@       IN      SOA     dns-prod-01.contoso.internal. admin.contoso.com. (\n                        2026031101      ; Serial\n                        3600            ; Refresh (1 hour)\n                        900             ; Retry (15 min)\n                        604800          ; Expire (1 week)\n                        86400 )         ; Minimum TTL (1 day)\n\n; Name servers\n        IN      NS      dns-prod-01.contoso.internal.\n        IN      NS      dns-prod-02.contoso.internal.\n\n; A records for servers\ndns-prod-01     IN      A       10.1.0.10\ndns-prod-02     IN      A       10.1.0.11\ndc-prod-01      IN      A       10.1.0.20\ndc-prod-02      IN      A       10.1.0.21\napp-prod-01     IN      A       10.1.1.10\napp-prod-02     IN      A       10.1.1.11\napp-prod-03     IN      A       10.1.1.12\ndb-prod-01      IN      A       10.1.2.10\ndb-prod-02      IN      A       10.1.2.11\nweb-prod-01     IN      A       10.1.3.10\nweb-prod-02     IN      A       10.1.3.11\n\n; CNAME records for services\nexpense         IN      CNAME   web-prod-01.contoso.internal.\nintranet        IN      CNAME   web-prod-02.contoso.internal.\napi             IN      CNAME   app-prod-01.contoso.internal.\npay-gw          IN      CNAME   app-prod-02.contoso.internal.\n\n; MX records\n                IN      MX      10      mail-prod-01.contoso.internal.\n                IN      MX      20      mail-prod-02.contoso.internal.\n\n; TXT records\n                IN      TXT     \"v=spf1 include:contoso.com ~all\"\n\nThe SOA serial looks stale and the secondary DNS (dns-prod-02) might not be synchronizing properly. All internal applications are affected — approximately 500+ users cannot access internal services.",
+        "reporter": {
+            "name": "Brian O'Malley",
+            "email": "b.omalley@contoso.com",
+            "department": "Infrastructure"
+        },
+        "created_at": "2026-03-11T10:15:00Z",
+        "channel": "phone",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCX015",
+        "subject": "Intermittent network drops between sites — tcpdump capture",
+        "description": "We are seeing intermittent packet loss between our Seattle and Portland offices. I ran a tcpdump capture during one of the drops:\n\n$ sudo tcpdump -i eth0 -nn host 10.50.1.100 -c 30\n\ntcpdump: verbose output suppressed, use -v for full protocol decode\nlistening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes\n16:23:01.234567 IP 10.10.1.50.52341 > 10.50.1.100.443: Flags [S], seq 2847195632, win 64240, length 0\n16:23:01.267890 IP 10.50.1.100.443 > 10.10.1.50.52341: Flags [S.], seq 1293847560, ack 2847195633, win 65535, length 0\n16:23:01.268012 IP 10.10.1.50.52341 > 10.50.1.100.443: Flags [.], ack 1, win 64240, length 0\n16:23:01.312345 IP 10.10.1.50.52341 > 10.50.1.100.443: Flags [P.], seq 1:518, ack 1, win 64240, length 517\n16:23:01.378901 IP 10.50.1.100.443 > 10.10.1.50.52341: Flags [.], ack 518, win 65018, length 0\n16:23:01.412345 IP 10.50.1.100.443 > 10.10.1.50.52341: Flags [P.], seq 1:1449, ack 518, win 65018, length 1448\n16:23:04.567890 IP 10.10.1.50.52341 > 10.50.1.100.443: Flags [P.], seq 518:1036, ack 1449, win 63792, length 518\n16:23:07.890123 IP 10.10.1.50.52341 > 10.50.1.100.443: Flags [P.], seq 518:1036, ack 1449, win 63792, length 518\n16:23:14.123456 IP 10.10.1.50.52341 > 10.50.1.100.443: Flags [P.], seq 518:1036, ack 1449, win 63792, length 518\n16:23:14.234567 IP 10.10.1.50.52341 > 10.50.1.100.443: Flags [R.], seq 1036, ack 1449, win 63792, length 0\n\nNotice the retransmissions at 16:23:07 and 16:23:14 — the packets from 10.10.1.50 (Seattle) to 10.50.1.100 (Portland) are being dropped after the initial connection succeeds. The connection eventually resets after 3 retries.\n\nThis happens about 10-15 times per hour and affects file transfers, video calls, and app access between sites. About 40 people in Portland are complaining.",
+        "reporter": {
+            "name": "Nadia Kowalski",
+            "email": "n.kowalski@contoso.com",
+            "department": "Network Engineering"
+        },
+        "created_at": "2026-03-13T16:30:00Z",
+        "channel": "email",
+        "attachments": []
+    }
+]

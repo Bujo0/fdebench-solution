@@ -1,27 +1,33 @@
 [project]
-name = "evals"
+name = "ms-evals-core"
 version = "0.0.0"
-description = "Evaluation test scenarios for data cleanup and responsible AI edge cases"
+description = "Evaluation framework for IT ticket triage — data cleanup and responsible AI scenarios"
 requires-python = "==3.12.*"
 
 dependencies = [
-    "pydantic>=2.8.0",
     "ms-common-models",
+    "httpx>=0.28.0",
+    "pydantic>=2.8.0",
 ]
+
+[project.scripts]
+run-evals = "ms.evals_core.runner_cli:main"
 
 [dependency-groups]
 dev = [
     "pyright>=1.1.407",
     "pytest>=9.0.1",
+    "pytest-asyncio>=1.2.0",
+    "respx>=0.22.0",
 ]
 
 [build-system]
 requires = ["uv_build>=0.10.10,<0.11.0"]
 build-backend = "uv_build"
 
-[tool.uv.build-backend]
-module-name = "evals"
-module-root = "src"
-
 [tool.uv.sources]
 ms-common-models = { workspace = true }
+
+[tool.uv.build-backend]
+module-name = "ms.evals_core"
+module-root = "src"

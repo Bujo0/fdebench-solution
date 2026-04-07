@@ -1,214 +1,208 @@
 [
   {
-    "ticket_id": "INC-9001",
-    "subject": "Re: Re: Re: Fwd: VPN keeps disconnecting",
-    "description": "My VPN keeps dropping every 30 minutes since Monday. I'm on the London office Wi-Fi, Floor 3. Using Contoso VPN client v4.1. Already tried reconnecting and restarting my laptop. Need this fixed — I have client calls all week.\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n---------- Forwarded message ---------\nFrom: IT Helpdesk <helpdesk@contoso.com>\nDate: Mon, Mar 16, 2026 at 3:45 PM\nSubject: Re: Re: Re: VPN Issues\nTo: sarah.chen@contoso.com\n\nHi Sarah, we're looking into this. Can you provide more details?\n\n\n\n--\nSarah Chen | Senior Analyst | Wealth Management Division\nContoso Financial Services\nTel: +1 (212) 555-0142 | Mobile: +1 (917) 555-0198\nEmail: sarah.chen@contoso.com\n100 Financial Plaza, 23rd Floor, New York, NY 10004\nLinkedIn: linkedin.com/in/sarahchen | Internal: teams.contoso.com/sarah.chen\n\"Integrity, Innovation, Impact\" — Contoso Values\n🌿 Please consider the environment before printing this email.\n\n\n\n---\nCONFIDENTIALITY NOTICE: This email and any attachments are for the exclusive and confidential use of the intended recipient. If you are not the intended recipient, please do not read, distribute, or take action based on this message. If you have received this communication in error, please notify the sender immediately and delete this message from your system. Contoso Financial Services Ltd. does not accept liability for any damage caused by any virus transmitted by this email. The views expressed in this email are those of the individual sender and may not necessarily reflect the views of Contoso Financial Services Ltd. Contoso Financial Services Ltd. is registered in England and Wales with company number 12345678. Registered office: 100 Financial Plaza, London EC2V 8AA, United Kingdom. Authorized and regulated by the Financial Conduct Authority (FCA). This message has been scanned for viruses by our email security system. Any opinions expressed in this email are those of the individual and not necessarily of the company. Contoso Financial Services Ltd. reserves the right to monitor all email communications through its networks. Please consider the environment before printing this email.",
-    "reporter": {
-      "name": "Sarah Chen",
-      "email": "sarah.chen@contoso.com",
-      "department": "Wealth Management"
-    },
-    "created_at": "2026-03-17T09:14:00Z",
-    "channel": "email",
-    "attachments": []
-  },
-  {
-    "ticket_id": "INC-9002",
-    "subject": "Error when opening SAP — screenshot attached",
-    "description": "I get an error 'SAP GUI 770: Connection refused to application server sap-prod-01:3200' every time I try to open SAP since this morning. Here is a screenshot of the error:\n\n[Inline image: screenshot.png]\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4DwAAAQEABRjYTgAAAABJRU5ErkJggg==\n\nPlease help, I need SAP for month-end reporting due today.",
+    "ticket_id": "INC-2001",
+    "subject": "VPN connectivity issue from home office",
+    "description": "Hi IT Support Team,\n\nI hope this email finds you well. I wanted to reach out regarding an issue I have been experiencing with our corporate VPN connection. I understand you are all very busy and I appreciate your time in looking into this matter for me.\n\nSo, to provide some background, I have been working remotely from my home office for the past three years now, ever since the company transitioned to a hybrid work model back in 2023. During that time, I have generally had a good experience with the VPN, and I want to acknowledge the hard work that the IT team does to keep everything running smoothly.\n\nHowever, starting approximately two weeks ago, I began noticing intermittent disconnections from the VPN. At first, I thought it might be related to my home internet service provider, so I contacted them and they ran diagnostics on my line. They confirmed that my connection is stable and there are no issues on their end. I also tested my internet speed using speedtest.net and I am getting consistent download speeds of approximately 200 Mbps and upload speeds of approximately 50 Mbps, which should be more than sufficient for VPN usage.\n\nAfter ruling out my ISP, I tried several troubleshooting steps on my own. First, I restarted my laptop, which is a Dell Latitude 5540 running Windows 11 Enterprise, build 22631.3880. I also tried restarting my home router, which is a Netgear Nighthawk R7000. I updated the router firmware to the latest version available on the Netgear support site. I also tried connecting directly via an Ethernet cable instead of WiFi, but the VPN disconnections still occurred.\n\nThe disconnections seem to happen randomly throughout the day, but I have noticed they occur more frequently during our morning standup meetings between 9:00 AM and 9:30 AM Eastern Time, and also during the afternoon period between 2:00 PM and 3:00 PM Eastern Time. I am not sure if these times correspond to peak usage periods for the VPN infrastructure, but I thought it might be relevant information.\n\nWhen the VPN disconnects, I see an error message that says 'The VPN connection was interrupted. Reconnecting...' followed by 'Connection attempt failed. Error code: 0x800B0109.' After about 30 seconds to a minute, the VPN usually reconnects automatically, but sometimes I need to manually disconnect and reconnect. On a few occasions, I had to restart the VPN client entirely.\n\nI am currently using GlobalProtect version 6.2.1. I checked and it appears to be the latest version available in our Software Center. I also tried clearing the GlobalProtect cache and resetting the client configuration, but the issue persists.\n\nThis is impacting my productivity significantly because I lose access to internal resources like SharePoint, our internal wiki, and the development servers every time the VPN drops. Yesterday during an important client presentation via Teams, the VPN disconnected and I lost access to the demo environment for about two minutes, which was quite embarrassing.\n\nI am in the Engineering department and my direct manager is David Park. My employee ID is EMP-45892 and my workstation asset tag is WS-NYC-12847. I am based in the New York office but working remotely from my home in New Jersey.\n\nI have also spoken with three colleagues on my team who are experiencing similar issues:\n- Jennifer Wu (jennifer.wu@contoso.com)\n- Robert Kline (robert.kline@contoso.com)\n- Aisha Patel (aisha.patel@contoso.com)\n\nThey have noticed the same pattern of disconnections at similar times of day, which makes me think this might be a broader infrastructure issue rather than something specific to my setup.\n\nI would really appreciate it if someone could look into this. I am available for a screen-sharing session if that would be helpful for diagnosing the issue. My schedule is generally open between 10:00 AM and 4:00 PM Eastern Time, except for Tuesdays when I have back-to-back meetings.\n\nAlso, I forgot to mention - I recently traveled to our London office two weeks ago and the VPN worked fine there. The issue only occurs when I am at home. Although, as I mentioned, my colleagues who are also at their homes are experiencing the same thing, so it is probably not related to my specific home network.\n\nOne more thing - I ran a traceroute to our VPN gateway (vpn.contoso.com) and noticed some unusual latency spikes at hop 7, which appears to be somewhere in the ISP backbone. I saved the traceroute output to a text file and can share it if needed. The average latency to the VPN gateway was about 45ms, which seems normal, but there were occasional spikes to 200ms+ at that particular hop.\n\nThank you so much for your help with this. I know you have a lot on your plate and I really appreciate the support.\n\nBest regards,\nMichael Torres\nSenior Software Engineer\nEngineering Department\nContoso Financial Services\nPhone: +1 (212) 555-0147\nEmail: michael.torres@contoso.com\n\n---\nThis email and any attachments are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you are not the intended recipient, please notify the sender immediately and delete this email.",
     "reporter": {
       "name": "Michael Torres",
       "email": "michael.torres@contoso.com",
-      "department": "Finance"
-    },
-    "created_at": "2026-03-17T08:45:00Z",
-    "channel": "email",
-    "attachments": []
-  },
-  {
-    "ticket_id": "INC-9003",
-    "subject": "Can't access SharePoint team site",
-    "description": "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"></head><body><div style=\"font-family: Calibri, sans-serif; font-size: 11pt;\"><p>I cannot access the Wealth Management SharePoint site since yesterday afternoon. I get a &ldquo;403 Forbidden&rdquo; error when I try to open it in Chrome. Other SharePoint sites work fine. I need the Q1 reporting templates that are only on this site.</p></div><div style=\"border-top: 1px solid #ccc; padding-top: 10px; margin-top: 20px;\"><p><b>Sarah Chen</b> | Senior Analyst</p><p>Contoso Financial Services</p><p><img src=\"cid:logo@contoso.com\" width=\"150\" height=\"40\" alt=\"Contoso Logo\"></p><p style=\"font-size: 8pt; color: #666;\">CONFIDENTIALITY NOTICE: This email is intended solely for the use of the individual to whom it is addressed. If you are not the intended recipient, you are hereby notified that any disclosure, copying, distribution, or use of any of the information contained in this transmission is strictly prohibited.</p></div></body></html>",
-    "reporter": {
-      "name": "Amanda Foster",
-      "email": "amanda.foster@contoso.com",
-      "department": "Wealth Management"
-    },
-    "created_at": "2026-03-17T10:22:00Z",
-    "channel": "email",
-    "attachments": []
-  },
-  {
-    "ticket_id": "INC-9004",
-    "subject": "(no subject)",
-    "description": "\n\n--\nSarah Chen | Senior Analyst | Wealth Management Division\nContoso Financial Services\nTel: +1 (212) 555-0142 | Mobile: +1 (917) 555-0198\nEmail: sarah.chen@contoso.com\n100 Financial Plaza, 23rd Floor, New York, NY 10004\nLinkedIn: linkedin.com/in/sarahchen | Internal: teams.contoso.com/sarah.chen\n\"Integrity, Innovation, Impact\" — Contoso Values\n🌿 Please consider the environment before printing this email.\n\n\n---\nCONFIDENTIALITY NOTICE: This email and any attachments are for the exclusive and confidential use of the intended recipient. If you are not the intended recipient, please do not read, distribute, or take action based on this message. If you have received this communication in error, please notify the sender immediately and delete this message from your system. Contoso Financial Services Ltd. does not accept liability for any damage caused by any virus transmitted by this email. The views expressed in this email are those of the individual sender and may not necessarily reflect the views of Contoso Financial Services Ltd. Contoso Financial Services Ltd. is registered in England and Wales with company number 12345678. Registered office: 100 Financial Plaza, London EC2V 8AA, United Kingdom. Authorized and regulated by the Financial Conduct Authority (FCA). This message has been scanned for viruses by our email security system. Any opinions expressed in this email are those of the individual and not necessarily of the company. Contoso Financial Services Ltd. reserves the right to monitor all email communications through its networks. Please consider the environment before printing this email.",
-    "reporter": {
-      "name": "Sarah Chen",
-      "email": "sarah.chen@contoso.com",
-      "department": "Wealth Management"
-    },
-    "created_at": "2026-03-17T11:00:00Z",
-    "channel": "email",
-    "attachments": []
-  },
-  {
-    "ticket_id": "INC-9005",
-    "subject": "Delivery Status Notification (Failure)",
-    "description": "This is an automatically generated Delivery Status Notification.\n\nDelivery to the following recipient failed permanently:\n\n    john.doe@external-partner.com\n\nTechnical details of permanent failure:\nGoogle tried to deliver your message, but it was rejected by the server for the recipient domain external-partner.com by mx.external-partner.com [203.0.113.45].\n\nThe error that the other server returned was:\n550 5.1.1 The email account that you tried to reach does not exist. Please try double-checking the recipient's email address for typos or unnecessary spaces.\n\n----- Original message -----\nFrom: sarah.chen@contoso.com\nTo: john.doe@external-partner.com\nSubject: Q1 Financial Review Meeting\nDate: Mon, 17 Mar 2026 09:00:00 -0400\n\nHi John, please find attached the Q1 review documents...",
-    "reporter": {
-      "name": "MAILER-DAEMON",
-      "email": "mailer-daemon@contoso.com",
-      "department": "IT"
-    },
-    "created_at": "2026-03-17T09:05:00Z",
-    "channel": "email",
-    "attachments": []
-  },
-  {
-    "ticket_id": "INC-9006",
-    "subject": "Database errors — logs attached",
-    "description": "Prod database is throwing errors. Here are the logs:\n\n2026-03-17T09:00:00.000Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=12 query='SELECT * FROM transactions WHERE date > ...' elapsed=200ms\n2026-03-17T09:01:00.017Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=13 query='SELECT * FROM transactions WHERE date > ...' elapsed=250ms\n2026-03-17T09:02:00.034Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=14 query='SELECT * FROM transactions WHERE date > ...' elapsed=300ms\n2026-03-17T09:03:00.051Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=15 query='SELECT * FROM transactions WHERE date > ...' elapsed=350ms\n2026-03-17T09:04:00.068Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=16 query='SELECT * FROM transactions WHERE date > ...' elapsed=400ms\n2026-03-17T09:05:00.085Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=17 query='SELECT * FROM transactions WHERE date > ...' elapsed=450ms\n2026-03-17T09:06:00.102Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=18 query='SELECT * FROM transactions WHERE date > ...' elapsed=500ms\n2026-03-17T09:07:00.119Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=19 query='SELECT * FROM transactions WHERE date > ...' elapsed=550ms\n2026-03-17T09:08:00.136Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=20 query='SELECT * FROM transactions WHERE date > ...' elapsed=600ms\n2026-03-17T09:09:00.153Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=21 query='SELECT * FROM transactions WHERE date > ...' elapsed=650ms\n2026-03-17T09:10:00.170Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=22 query='SELECT * FROM transactions WHERE date > ...' elapsed=700ms\n2026-03-17T09:11:00.187Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=23 query='SELECT * FROM transactions WHERE date > ...' elapsed=750ms\n2026-03-17T09:12:00.204Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=24 query='SELECT * FROM transactions WHERE date > ...' elapsed=800ms\n2026-03-17T09:13:00.221Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=25 query='SELECT * FROM transactions WHERE date > ...' elapsed=850ms\n2026-03-17T09:14:00.238Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=26 query='SELECT * FROM transactions WHERE date > ...' elapsed=900ms\n2026-03-17T09:15:00.255Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=27 query='SELECT * FROM transactions WHERE date > ...' elapsed=950ms\n2026-03-17T09:16:00.272Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=28 query='SELECT * FROM transactions WHERE date > ...' elapsed=1000ms\n2026-03-17T09:17:00.289Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=29 query='SELECT * FROM transactions WHERE date > ...' elapsed=1050ms\n2026-03-17T09:18:00.306Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=30 query='SELECT * FROM transactions WHERE date > ...' elapsed=1100ms\n2026-03-17T09:19:00.323Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=31 query='SELECT * FROM transactions WHERE date > ...' elapsed=1150ms\n2026-03-17T09:20:00.340Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=32 query='SELECT * FROM transactions WHERE date > ...' elapsed=1200ms\n2026-03-17T09:21:00.357Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=33 query='SELECT * FROM transactions WHERE date > ...' elapsed=1250ms\n2026-03-17T09:22:00.374Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=34 query='SELECT * FROM transactions WHERE date > ...' elapsed=1300ms\n2026-03-17T09:23:00.391Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=35 query='SELECT * FROM transactions WHERE date > ...' elapsed=1350ms\n2026-03-17T09:24:00.408Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=36 query='SELECT * FROM transactions WHERE date > ...' elapsed=1400ms\n2026-03-17T09:25:00.425Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=37 query='SELECT * FROM transactions WHERE date > ...' elapsed=1450ms\n2026-03-17T09:26:00.442Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=38 query='SELECT * FROM transactions WHERE date > ...' elapsed=1500ms\n2026-03-17T09:27:00.459Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=39 query='SELECT * FROM transactions WHERE date > ...' elapsed=1550ms\n2026-03-17T09:28:00.476Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=40 query='SELECT * FROM transactions WHERE date > ...' elapsed=1600ms\n2026-03-17T09:29:00.493Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=41 query='SELECT * FROM transactions WHERE date > ...' elapsed=1650ms\n2026-03-17T09:30:00.510Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=42 query='SELECT * FROM transactions WHERE date > ...' elapsed=1700ms\n2026-03-17T09:31:00.527Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=43 query='SELECT * FROM transactions WHERE date > ...' elapsed=1750ms\n2026-03-17T09:32:00.544Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=44 query='SELECT * FROM transactions WHERE date > ...' elapsed=1800ms\n2026-03-17T09:33:00.561Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=45 query='SELECT * FROM transactions WHERE date > ...' elapsed=1850ms\n2026-03-17T09:34:00.578Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=46 query='SELECT * FROM transactions WHERE date > ...' elapsed=1900ms\n2026-03-17T09:35:00.595Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=47 query='SELECT * FROM transactions WHERE date > ...' elapsed=1950ms\n2026-03-17T09:36:00.612Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=48 query='SELECT * FROM transactions WHERE date > ...' elapsed=2000ms\n2026-03-17T09:37:00.629Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=49 query='SELECT * FROM transactions WHERE date > ...' elapsed=2050ms\n2026-03-17T09:38:00.646Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=50 query='SELECT * FROM transactions WHERE date > ...' elapsed=2100ms\n2026-03-17T09:39:00.663Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=51 query='SELECT * FROM transactions WHERE date > ...' elapsed=2150ms\n2026-03-17T09:40:00.680Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=52 query='SELECT * FROM transactions WHERE date > ...' elapsed=2200ms\n2026-03-17T09:41:00.697Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=53 query='SELECT * FROM transactions WHERE date > ...' elapsed=2250ms\n2026-03-17T09:42:00.714Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=54 query='SELECT * FROM transactions WHERE date > ...' elapsed=2300ms\n2026-03-17T09:43:00.731Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=55 query='SELECT * FROM transactions WHERE date > ...' elapsed=2350ms\n2026-03-17T09:44:00.748Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=56 query='SELECT * FROM transactions WHERE date > ...' elapsed=2400ms\n2026-03-17T09:45:00.765Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=57 query='SELECT * FROM transactions WHERE date > ...' elapsed=2450ms\n2026-03-17T09:46:00.782Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=58 query='SELECT * FROM transactions WHERE date > ...' elapsed=2500ms\n2026-03-17T09:47:00.799Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=59 query='SELECT * FROM transactions WHERE date > ...' elapsed=2550ms\n2026-03-17T09:48:00.816Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=60 query='SELECT * FROM transactions WHERE date > ...' elapsed=2600ms\n2026-03-17T09:49:00.833Z ERROR [prod-db-01] Connection pool exhausted - active=50 idle=0 waiting=61 query='SELECT * FROM transactions WHERE date > ...' elapsed=2650ms\n\nPlease investigate ASAP.",
-    "reporter": {
-      "name": "DevOps Team",
-      "email": "devops-alerts@contoso.com",
       "department": "Engineering"
     },
-    "created_at": "2026-03-17T06:30:00Z",
+    "created_at": "2026-03-19T10:22:00Z",
+    "channel": "email",
+    "attachments": [
+      "traceroute_output.txt"
+    ]
+  },
+  {
+    "ticket_id": "INC-2002",
+    "subject": "Monitor display issue - screenshot attached",
+    "description": "My monitor keeps flickering. Here is a photo of what it looks like:\n\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPj/HwADBwIAMCbHYQAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg==iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQI12NgAAIABQABNjN9GQAAAABJRkJggg==data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMCwsKCwsM\nDhEQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQU\nFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAABAAEDASIAAhEB\nAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/xAAUAQEAAAAAAAAA\nAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AKwA//9k=\n\nAs you can see the screen flashes white every few seconds. The monitor is an LG 27UK850-W connected via USB-C to my Dell laptop docking station. Started happening after I updated the docking station firmware yesterday.\n\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA\ndgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABMSURBVDiNY2Bg\nYPjPQAJgYqASGBjQACkGoOTlgTaAJC+T5IKBdgGxLiDKBcQYQJILBtoFxLiAKANIdcFAu4BoAygx\nYMANoMQAYg0AAJ0qDwsMB3EAAAAAAElFTkSuQmCC\n\nThis second image shows the dock firmware update screen. Please help, I have a presentation tomorrow morning.",
+    "reporter": {
+      "name": "Danielle Park",
+      "email": "danielle.park@contoso.com",
+      "department": "Wealth Management"
+    },
+    "created_at": "2026-03-19T16:45:00Z",
+    "channel": "email",
+    "attachments": [
+      "monitor_flicker.png",
+      "dock_firmware_update.png"
+    ]
+  },
+  {
+    "ticket_id": "INC-2003",
+    "subject": "Outlook not syncing",
+    "description": "<html><head><style>body{font-family:Calibri,sans-serif;font-size:11pt}p{margin:0 0 10px}.signature{color:#666;font-size:9pt;border-top:1px solid #ccc;padding-top:5px;margin-top:15px}</style></head><body><p>Hi IT team,</p><p>My <b>Outlook</b> hasn't been syncing emails since this morning. I can see emails on <a href=\"https://outlook.office365.com\">Outlook Web</a> but the desktop app shows the last email from <span style=\"color:red;font-weight:bold\">yesterday at 5:47 PM</span>.</p><p>I've tried the following:</p><ul><li>Restarted Outlook</li><li>Ran the <code>scanpst.exe</code> repair tool</li><li>Checked my internet connection &mdash; working fine</li><li>Cleared the Outlook cache folder at <code>%localappdata%\\Microsoft\\Outlook</code></li></ul><p>Nothing worked. My mailbox size is around 48GB if that matters.</p><p>I need this fixed ASAP &mdash; I&rsquo;m expecting contract documents from a client today.</p><div class=\"signature\"><p><b>Karen Whitfield</b><br>Vice President, Institutional Trading<br>Contoso Financial Services<br>Phone: +1 (212) 555-0198<br>Email: <a href=\"mailto:karen.whitfield@contoso.com\">karen.whitfield@contoso.com</a></p><p style=\"font-size:8pt;color:#999\">CONFIDENTIALITY NOTICE: This email is intended only for the named recipient(s). If you received this in error, please notify the sender and delete all copies.</p></div></body></html>",
+    "reporter": {
+      "name": "Karen Whitfield",
+      "email": "karen.whitfield@contoso.com",
+      "department": "Institutional Trading"
+    },
+    "created_at": "2026-03-19T09:15:00Z",
     "channel": "email",
     "attachments": []
   },
   {
-    "ticket_id": "INC-9007",
-    "subject": "Canât connect to VPN â please help",
-    "description": "Iâve been trying to connect to the VPN since this morning but it keeps giving me an error. Iâm working from home today and I canât access anything on the internal network.\n\nError message says: âAuthentication failed â please contact your administratorâ\n\nIâm using Windows 11 and the Contoso VPN client. My password was changed last week and Iâve been using the new one.\n\nThanks,\nRaj â Trading Floor",
+    "ticket_id": "INC-2004",
+    "subject": "RE: FW: RE: FW: FW: printer issue floor 3",
+    "description": "Adding IT to this thread, can someone please help?\n\n-----Original Message-----\nFrom: Greg Lawson <greg.lawson@contoso.com>\nSent: Tuesday, March 18, 2026 4:12 PM\nTo: Hana Yilmaz <hana.yilmaz@contoso.com>\nSubject: RE: FW: RE: FW: printer issue floor 3\n\nStill not working. Tried everything.\n\n-----Original Message-----\nFrom: Hana Yilmaz <hana.yilmaz@contoso.com>\nSent: Tuesday, March 18, 2026 3:45 PM\nTo: Greg Lawson <greg.lawson@contoso.com>\nSubject: RE: FW: RE: printer issue floor 3\n\nDid you try turning it off and on again? Also make sure the paper tray is fully closed.\n\n-----Original Message-----\nFrom: Greg Lawson <greg.lawson@contoso.com>\nSent: Tuesday, March 18, 2026 2:30 PM\nTo: Hana Yilmaz <hana.yilmaz@contoso.com>\nSubject: FW: RE: printer issue floor 3\n\nForwarding this to you. The printer on Floor 3 near the break room (HP LaserJet Pro M404dn) is showing 'PC Load Letter' error and won't print anything. Been like this since lunch.\n\n-----Original Message-----\nFrom: Amy Cortez <amy.cortez@contoso.com>\nSent: Tuesday, March 18, 2026 1:15 PM\nTo: Greg Lawson <greg.lawson@contoso.com>\nSubject: RE: printer issue floor 3\n\nYeah I tried that printer too and it's not working. Think it's out of toner maybe? Or jammed?\n\n-----Original Message-----\nFrom: Greg Lawson <greg.lawson@contoso.com>\nSent: Tuesday, March 18, 2026 12:50 PM\nTo: Amy Cortez <amy.cortez@contoso.com>\nSubject: printer issue floor 3\n\nHey Amy, is the printer on floor 3 working for you? I can't get it to print my quarterly report.",
     "reporter": {
-      "name": "Raj Mehta",
-      "email": "raj.mehta@contoso.com",
-      "department": "Trading"
+      "name": "Greg Lawson",
+      "email": "greg.lawson@contoso.com",
+      "department": "Finance"
     },
-    "created_at": "2026-03-17T07:45:00Z",
+    "created_at": "2026-03-18T16:30:00Z",
     "channel": "email",
     "attachments": []
   },
   {
-    "ticket_id": "INC-9008",
-    "subject": "URGENT URGENT URGENT my laptop screen went black and I cannot see anything and I tried restarting it three times and it still wont work and I have a presentation in one hour and I need this fixed immediately because my manager is going to be very upset if I cant do the presentation and I dont have a backup laptop and the IT desk said to submit a ticket so here I am please someone help me this is really urgent I am on Floor 5 of the NYC office near the kitchen area and my laptop is a Dell Latitude 5520 with the docking station",
-    "description": "",
-    "reporter": {
-      "name": "Jennifer Park",
-      "email": "jennifer.park@contoso.com",
-      "department": "Sales"
-    },
-    "created_at": "2026-03-17T13:00:00Z",
-    "channel": "portal",
-    "attachments": []
-  },
-  {
-    "ticket_id": "INC-9009",
-    "subject": "Phone call — user reports printing issue",
-    "description": "[Transcribed from phone call — 3/17/2026 10:15 AM]\n\nCaller: Um, hi, yeah so, uh, I'm having this... this problem with the, you know, the printer? The one on... let me think... the 4th floor? No wait, 3rd floor. Yeah, 3rd floor, the one near the, um, near the break room. So I tried to print — can you hear me? OK good — so I tried to print this document, it's a... it's an important client report, and it just... nothing happens. Like, I hit print and it says 'sent to printer' but nothing comes out. And I tried it like, I don't know, five times? Maybe six? And my colleague tried too and same thing. So it's not just me I think. Oh and also, uh, the display on the printer is showing some kind of error, like... paper jam? But there's no paper jammed, I checked. It's been like this since... since this morning I think. Yeah. Can someone come look at it? Thanks.",
-    "reporter": {
-      "name": "Call Center",
-      "email": "callcenter@contoso.com",
-      "department": "Operations"
-    },
-    "created_at": "2026-03-17T10:15:00Z",
-    "channel": "phone",
-    "attachments": []
-  },
-  {
-    "ticket_id": "INC-9010",
-    "subject": "Azure AD sync failing — tried everything",
-    "description": "Entra ID (Azure AD) sync has been failing since yesterday. I've already tried the following from the docs:\n\n1. https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/tshoot-connect-sync-errors\n2. https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-fix-default-rules\n3. https://stackoverflow.com/questions/12345678/azure-ad-connect-sync-errors\n4. https://community.microsoft.com/t5/microsoft-entra/bd-p/Microsoft-Entra\n5. https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-sync-functions-reference\n\nError in sync log: 'Error Code: 0x80230619 — Unable to sync object cn=svc-sharepoint to target directory. Object has conflicting proxy addresses.'\n\nThis is blocking new hire onboarding — 3 new employees starting Monday can't be provisioned until sync is working.\n\nSee also:\n- Internal wiki: https://wiki.contoso.com/pages/entra-id-sync-guide\n- Previous ticket: INC-3456\n- Azure status: https://status.azure.com/en-us/status\n- MS admin portal: https://admin.microsoft.com",
-    "reporter": {
-      "name": "Alex Wu",
-      "email": "alex.wu@contoso.com",
-      "department": "IT"
-    },
-    "created_at": "2026-03-17T14:30:00Z",
-    "channel": "portal",
-    "attachments": []
-  },
-  {
-    "ticket_id": "INC-9011",
-    "subject": "Outlook keeps freezing",
-    "description": "Outlook keeps freezing for about 30 seconds every time I open a new email. It started after the latest update was pushed last night. I'm on Windows 11, Outlook version 16.0.17328.20162.\n\nOutlook keeps freezing for about 30 seconds every time I open a new email. It started after the latest update was pushed last night. I'm on Windows 11, Outlook version 16.0.17328.20162.\n\nOutlook keeps freezing for about 30 seconds every time I open a new email. It started after the latest update was pushed last night. I'm on Windows 11, Outlook version 16.0.17328.20162.\n\nSorry if this sent multiple times — my email was acting up.",
-    "reporter": {
-      "name": "David Kim",
-      "email": "david.kim@contoso.com",
-      "department": "Compliance"
-    },
-    "created_at": "2026-03-17T08:20:00Z",
-    "channel": "email",
-    "attachments": []
-  },
-  {
-    "ticket_id": "INC-9012",
-    "subject": "Bloomberg terminal — 接続エラー (connection error)",
-    "description": "Bloomberg terminal on Trading Floor Singapore is showing a connection error since 8 AM SGT. \n\nエラーメッセージ: 'BLP API — Connection to B-PIPE failed: Timeout after 30000ms'\n\nThis is affecting all 5 traders on the Singapore floor. 我们需要这个工作 — Q1 reporting deadline is today.\n\nTerminal ID: SGP-BT-042\nNetwork port: 3C-14-A7\n\nすぐに対応してください。(Please respond immediately.)",
+    "ticket_id": "INC-2005",
+    "subject": "\ud83d\udea8 URGENT \ud83d\udea8 \u7cfb\u7edf\u767b\u5f55\u5931\u8d25 SSO not working!!!",
+    "description": "\u3053\u3093\u306b\u3061\u306f IT \u30c1\u30fc\u30e0\u3001\n\nI can't log into the SAP system since this morning! \ud83d\ude21\ud83d\ude21\ud83d\ude21\n\nError: \u00ab\u00c9chec d'authentification \u2014 jeton SAML non valide\u00bb\n\nI've tried:\n\u2022 Clearing cookies \ud83c\udf6a\n\u2022 Different browser (Chrome \u2192 Edge \u2192 Firefox)\n\u2022 Incognito mode \ud83d\udd75\ufe0f\n\u2022 Restarting my laptop \ud83d\udcbb\n\nN\u00f6tig: DRINGEND! I have \u00a550,000,000 trade settlement due by 15:00 JST today!!!\n\nMy colleague Jos\u00e9 Garc\u00eda (jos\u00e9.garc\u00eda@contoso.com) has the same issue \u2014 maybe it's affecting everyone in the Singapore office?\n\nPlease help ASAP! \ud83d\ude4f\ud83d\ude4f\ud83d\ude4f\n\nThanks,\nYuki Tanaka\nTrading Desk \u2014 Singapore Office\n\ud83d\udcde +65 6555 0123\n\u2709\ufe0f yuki.tanaka@contoso.com",
     "reporter": {
       "name": "Yuki Tanaka",
       "email": "yuki.tanaka@contoso.com",
       "department": "Trading"
     },
-    "created_at": "2026-03-17T08:15:00Z",
-    "channel": "portal",
-    "attachments": []
-  },
-  {
-    "ticket_id": "INC-9013",
-    "subject": "OneDrive sync errors — here's the error log export",
-    "description": "OneDrive keeps failing to sync. Exported the error log:\n\nTimestamp,File,Error,Code\n2026-03-17T08:00:00Z,Q1_Report_v0.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:01:00Z,Q1_Report_v1.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:02:00Z,Q1_Report_v2.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:03:00Z,Q1_Report_v3.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:04:00Z,Q1_Report_v4.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:05:00Z,Q1_Report_v5.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:06:00Z,Q1_Report_v6.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:07:00Z,Q1_Report_v7.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:08:00Z,Q1_Report_v8.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:09:00Z,Q1_Report_v9.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:10:00Z,Q1_Report_v10.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:11:00Z,Q1_Report_v11.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:12:00Z,Q1_Report_v12.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:13:00Z,Q1_Report_v13.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:14:00Z,Q1_Report_v14.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:15:00Z,Q1_Report_v15.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:16:00Z,Q1_Report_v16.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:17:00Z,Q1_Report_v17.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:18:00Z,Q1_Report_v18.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:19:00Z,Q1_Report_v19.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:20:00Z,Q1_Report_v20.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:21:00Z,Q1_Report_v21.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:22:00Z,Q1_Report_v22.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:23:00Z,Q1_Report_v23.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:24:00Z,Q1_Report_v24.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:25:00Z,Q1_Report_v25.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:26:00Z,Q1_Report_v26.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:27:00Z,Q1_Report_v27.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:28:00Z,Q1_Report_v28.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:29:00Z,Q1_Report_v29.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:30:00Z,Q1_Report_v30.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:31:00Z,Q1_Report_v31.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:32:00Z,Q1_Report_v32.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:33:00Z,Q1_Report_v33.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:34:00Z,Q1_Report_v34.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:35:00Z,Q1_Report_v35.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:36:00Z,Q1_Report_v36.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:37:00Z,Q1_Report_v37.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:38:00Z,Q1_Report_v38.xlsx,'The file is locked by another process',0x80070020\n2026-03-17T08:39:00Z,Q1_Report_v39.xlsx,'The file is locked by another process',0x80070020\n\nThis has been going on all morning. I need these files synced for a client meeting at 2 PM.",
-    "reporter": {
-      "name": "Lisa Wang",
-      "email": "lisa.wang@contoso.com",
-      "department": "Wealth Management"
-    },
-    "created_at": "2026-03-17T11:30:00Z",
-    "channel": "portal",
-    "attachments": []
-  },
-  {
-    "ticket_id": "INC-9014",
-    "subject": "See attached",
-    "description": "Please see the attached screenshots for details.",
-    "reporter": {
-      "name": "Ryan O'Brien",
-      "email": "ryan.obrien@contoso.com",
-      "department": "HR"
-    },
-    "created_at": "2026-03-17T09:45:00Z",
-    "channel": "portal",
-    "attachments": [
-      "error_screenshot_1.png",
-      "error_screenshot_2.png",
-      "network_trace.pcap"
-    ]
-  },
-  {
-    "ticket_id": "INC-9015",
-    "subject": "Re: Re: Fwd: Wi-Fi issues Floor 7",
-    "description": "> > > Original message from Tom:\n> > > The Wi-Fi on Floor 7 has been spotty all week.\n> >\n> > Jennifer replied:\n> > Same here — I'm dropping every 20 minutes. Floor 7 east wing.\n> > Can barely join Teams calls.\n>\n> Mike replied:\n> Actually I think it's worse than spotty. I ran a speed test > and we're getting 2 Mbps down. We should be getting 100+.\n> It's affecting the whole east wing, not just our area.\n>\n> Tom again:\n> Update — I asked around and at least 15 people on Floor 7 east > wing are having the same issue. Started Monday after the weekend > maintenance.\n\nLatest from Sarah (today):\nAdding myself to this thread — I can confirm it's Floor 7 east wing only. West wing is fine. We have a big client demo tomorrow and need this fixed. Submitting as a ticket now.\n\n\n\n--\nSarah Chen | Senior Analyst | Wealth Management Division\nContoso Financial Services\nTel: +1 (212) 555-0142 | Mobile: +1 (917) 555-0198\nEmail: sarah.chen@contoso.com\n100 Financial Plaza, 23rd Floor, New York, NY 10004\nLinkedIn: linkedin.com/in/sarahchen | Internal: teams.contoso.com/sarah.chen\n\"Integrity, Innovation, Impact\" — Contoso Values\n🌿 Please consider the environment before printing this email.\n",
-    "reporter": {
-      "name": "Sarah Chen",
-      "email": "sarah.chen@contoso.com",
-      "department": "Wealth Management"
-    },
-    "created_at": "2026-03-17T16:00:00Z",
+    "created_at": "2026-03-19T03:10:00Z",
     "channel": "email",
     "attachments": []
   },
   {
-    "ticket_id": "INC-9016",
-    "subject": "Intune enrollment error",
-    "description": "Getting error 0x80180014 when trying to enroll my new laptop in Intune. Already tried resetting the device once.\n\nAttached device diagnostic log (inline because portal won't let me upload):\n\neHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHg=\n\neXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXk=\n\nEnd of log.",
+    "ticket_id": "INC-2006",
+    "subject": "help",
+    "description": "broken",
     "reporter": {
-      "name": "Carlos Herrera",
-      "email": "carlos.herrera@contoso.com",
-      "department": "Risk Management"
+      "name": "Jake Miller",
+      "email": "jake.miller@contoso.com",
+      "department": "HR"
     },
-    "created_at": "2026-03-17T09:30:00Z",
+    "created_at": "2026-03-19T11:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-2007",
+    "subject": "WiFi keeps dropping",
+    "description": "WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping WiFi keeps dropping Floor 7 conference room B. Happens every day during 10am standup. Multiple people affected. Using MacBook Pro M3.",
+    "reporter": {
+      "name": "Nina Shah",
+      "email": "nina.shah@contoso.com",
+      "department": "Engineering"
+    },
+    "created_at": "2026-03-19T10:15:00Z",
     "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-2008",
+    "subject": "EXTREMELY URGENT CRITICAL PRIORITY ESCALATION NEEDED IMMEDIATELY CANNOT ACCESS ANY SYSTEMS ALL APPLICATIONS DOWN COMPLETE OUTAGE AFFECTING ENTIRE TRADING FLOOR REVENUE IMPACT MILLIONS OF DOLLARS NEED IMMEDIATE RESPONSE FROM SENIOR MANAGEMENT AND ALL AVAILABLE ENGINEERS THIS IS NOT A DRILL REPEAT THIS IS NOT A DRILL EVERYTHING IS BROKEN",
+    "description": "My Outlook is slow to load today. Takes about 10 seconds instead of the usual 3. Not really blocking me but figured I'd report it.",
+    "reporter": {
+      "name": "Derek Simmons",
+      "email": "derek.simmons@contoso.com",
+      "department": "Compliance"
+    },
+    "created_at": "2026-03-19T14:22:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-2009",
+    "subject": "Issue with computer",
+    "description": "Best regards,\n\nPatricia Connolly\nSenior Vice President\nWealth Management Division\nContoso Financial Services\n1 World Financial Center, Floor 42\nNew York, NY 10281\nDirect: +1 (212) 555-0234\nMobile: +1 (917) 555-0567\nFax: +1 (212) 555-0235\nEmail: patricia.connolly@contoso.com\nLinkedIn: linkedin.com/in/patriciaconnolly\n\nContoso Financial Services | Trusted Partners Since 1987\nwww.contoso.com\n\nIMPORTANT: This email and any files transmitted with it are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error please notify the system manager. This message contains confidential information and is intended only for the individual named. If you are not the named addressee you should not disseminate, distribute or copy this email. Please notify the sender immediately by email if you have received this email by mistake and delete this email from your system. If you are not the intended recipient you are notified that disclosing, copying, distributing or taking any action in reliance on the contents of this information is strictly prohibited.",
+    "reporter": {
+      "name": "Patricia Connolly",
+      "email": "patricia.connolly@contoso.com",
+      "department": "Wealth Management"
+    },
+    "created_at": "2026-03-19T08:05:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-2010",
+    "subject": "can\u00e2\u0080\u0099t access SharePoint \u00e2\u0080\u0094 getting weird characters",
+    "description": "Hi,\n\nI\u00e2\u0080\u0099m getting a strange error when I try to open the Finance team\u00e2\u0080\u0099s SharePoint site. The page loads but all the text shows up with weird characters like \u00e2\u0080\u009c and \u00e2\u0080\u009d instead of quotes, and \u00e2\u0080\u0093 instead of dashes.\n\nThe URL is https://contoso.sharepoint.com/sites/FinanceTeam\n\nI\u00e2\u0080\u0099ve tried Chrome and Edge, same issue in both. My colleague Ren\u00e2\u0080\u0099s computer shows it correctly so it might be something with my encoding settings?\n\nAlso some Excel files downloaded from there have corrupted filenames like \u00e2\u0080\u009cQ1_Report_2026\u00e2\u0080\u009d.xlsx instead of the actual name.\n\nThanks,\nOliver Brandt",
+    "reporter": {
+      "name": "Oliver Brandt",
+      "email": "oliver.brandt@contoso.com",
+      "department": "Finance"
+    },
+    "created_at": "2026-03-19T13:40:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-2011",
+    "subject": "Error - see attachment",
+    "description": "See attached screenshot. This keeps happening. Please fix.",
+    "reporter": {
+      "name": "Sam Nwosu",
+      "email": "sam.nwosu@contoso.com",
+      "department": "Compliance"
+    },
+    "created_at": "2026-03-19T09:50:00Z",
+    "channel": "email",
+    "attachments": [
+      "error_screenshot.png"
+    ]
+  },
+  {
+    "ticket_id": "INC-2012",
+    "subject": "Multiple issues today",
+    "description": "https://contoso.sharepoint.com/sites/ITKnowledgeBase/SitePages/VPN-Troubleshooting.aspx\nhttps://contoso.sharepoint.com/sites/ITKnowledgeBase/SitePages/Known-Issues.aspx\nhttps://learn.microsoft.com/en-us/troubleshoot/azure/active-directory/troubleshoot-sso\nhttps://support.microsoft.com/en-us/office/fix-outlook-connection-problems-in-office-365-and-exchange-online-bfb4b345-e39a-4755-975f-cdf4ad9e8c9f\nhttps://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/SignIns\nhttps://admin.microsoft.com/Adminportal/Home#/servicehealth\n\nI tried all of these and none of them helped. My SSO is still broken for Salesforce. Getting SAML error. Started after password change yesterday.",
+    "reporter": {
+      "name": "Rachel Kim",
+      "email": "rachel.kim@contoso.com",
+      "department": "Wealth Management"
+    },
+    "created_at": "2026-03-19T10:30:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-2013",
+    "subject": "                  laptop                   issue                     ",
+    "description": "\n\n\n\n\n\n\nHi\n\n\n\n\n\n\n\nMy    laptop     screen      has      a      crack      in     the     lower     right     corner.\n\n\n\n\n\n\n\nIt     happened     when     it     fell     off     my     desk     this     morning.\n\n\n\n\n\n\n\nI     can     still     see     most     of     the     screen     but     the     crack     is     spreading.\n\n\n\n\n\n\n\n\n\nDell     Latitude     7440\n\n\n\n\nAsset     tag:     WS-LDN-00482\n\n\n\n\n\n\n\nThanks\n\n\n\n\n\n\n\n\n\n\n",
+    "reporter": {
+      "name": "Thomas Reid",
+      "email": "thomas.reid@contoso.com",
+      "department": "Compliance"
+    },
+    "created_at": "2026-03-19T08:45:00Z",
+    "channel": "email",
+    "attachments": [
+      "cracked_screen.jpg"
+    ]
+  },
+  {
+    "ticket_id": "INC-2014",
+    "subject": "Accepted: Q1 Budget Review - Recurring",
+    "description": "When: Tuesday, March 18, 2026 2:00 PM - 3:00 PM (UTC-05:00) Eastern Time (US & Canada)\nWhere: Conference Room 12A (Floor 12, NYC)\n\nOrganizer: CFO Office <cfo.office@contoso.com>\nRequired Attendees: Finance Leadership; Budget Committee; IT Finance\nOptional: department.heads@contoso.com\n\n~-~-~-~-~-~-~-~-~-~-~\n\nQ1 Budget Review\n\nAgenda:\n1. YTD spend vs. forecast\n2. Cloud infrastructure cost overruns\n3. Headcount budget adjustments\n4. FY27 planning preview\n\nDial-in: +1 (212) 555-0300 Conference ID: 482 991 023#\nTeams link: https://teams.microsoft.com/l/meetup-join/19%3ameeting_abc123\n\nPlease review the attached pre-read materials before the meeting.\n\n~-~-~-~-~-~-~-~-~-~-~",
+    "reporter": {
+      "name": "CFO Office",
+      "email": "cfo.office@contoso.com",
+      "department": "Finance"
+    },
+    "created_at": "2026-03-18T14:00:00Z",
+    "channel": "email",
+    "attachments": [
+      "Q1_Budget_Pre-Read.pptx"
+    ]
+  },
+  {
+    "ticket_id": "INC-2015",
+    "subject": "Acceso VPN - problemas de conexi\u00f3n / VPN access issues",
+    "description": "Hola equipo de IT,\n\nTengo un problema con la conexi\u00f3n VPN desde la oficina de Singapore. El cliente GlobalProtect muestra \"Gateway timeout\" cuando intento conectar al gateway de Asia-Pacific.\n\n(English translation for IT team: I'm having trouble connecting to the VPN from the Singapore office. GlobalProtect shows 'Gateway timeout' when connecting to the APAC gateway.)\n\nHe probado lo siguiente / I have tried the following:\n- Reiniciar el cliente VPN / Restart the VPN client\n- Cambiar al gateway de US-East / Switch to US-East gateway - this one works but latency is 300ms+\n- Verificar credenciales / Verify credentials - login works on the web portal\n\nEsto est\u00e1 afectando a todo el equipo de trading en Singapore (about 15 people). Necesitamos acceso a los servidores de New York para ejecutar trades y el gateway de backup tiene demasiada latencia.\n\nPor favor, this is urgent \u2014 trading opens in 2 hours and we need low-latency access to the NYC trading systems.\n\nGracias / Thanks,\nCarlos Mendez\nTrading Desk - Singapore",
+    "reporter": {
+      "name": "Carlos Mendez",
+      "email": "carlos.mendez@contoso.com",
+      "department": "Trading"
+    },
+    "created_at": "2026-03-19T05:30:00Z",
+    "channel": "email",
     "attachments": []
   }
 ]

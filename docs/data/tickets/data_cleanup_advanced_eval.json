@@ -1,0 +1,197 @@
+[
+    {
+        "ticket_id": "INC-DCA001",
+        "subject": "Database performance issue — metrics pasted below",
+        "description": "Hi IT,\n\nOur billing database is running very slow. Here are the metrics I exported from the monitoring dashboard:\n\nServerName,CPU_Percent,Memory_MB,DiskIO_IOPS,QueryTime_ms,ActiveConnections,Status\nSQLPROD-01,87.3,28672,4500,2340,185,WARNING\nSQLPROD-02,92.1,30720,5200,3100,210,CRITICAL\nSQLPROD-03,45.6,16384,1200,450,62,OK\nSQLPROD-04,89.7,29184,4800,2890,195,WARNING\nSQLREP-01,23.4,8192,300,120,15,OK\nSQLREP-02,67.8,20480,2100,890,98,WARNING\nBKUP-SQL-01,12.1,4096,150,45,3,OK\nBKUP-SQL-02,15.3,4096,180,52,5,OK\nETL-PROC-01,78.9,24576,3800,1560,142,WARNING\nETL-PROC-02,81.2,25600,3900,1680,155,WARNING\nCACHE-01,34.5,65536,800,25,320,OK\nCACHE-02,36.7,65536,850,28,340,OK\nLB-SQL-01,22.3,2048,100,5,0,OK\nLB-SQL-02,23.1,2048,110,6,0,OK\nMONITOR-01,8.5,1024,50,3,2,OK\n\nThe billing team says month-end reports that used to take 5 minutes now take over 30 minutes. This started about 3 days ago. Please investigate SQLPROD-01 and SQLPROD-02 specifically.",
+        "reporter": {
+            "name": "Carlos Mendez",
+            "email": "c.mendez@contoso.com",
+            "department": "Finance"
+        },
+        "created_at": "2026-03-12T09:45:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCA002",
+        "subject": "Web service integration failing — SOAP fault attached",
+        "description": "Our ERP integration with the vendor API started returning errors this morning. Here's the full SOAP response I captured:\n\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n  <soap:Body>\n    <soap:Fault>\n      <faultcode>soap:Server</faultcode>\n      <faultstring>System.ServiceModel.FaultException: The request channel timed out attempting to send after 00:01:00. Increase the timeout value passed to the call to Request or increase the SendTimeout value on the Binding.\n   at System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)\n   at System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)\n   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway)\n      </faultstring>\n      <detail>\n        <ErrorInfo xmlns=\"http://vendor.example.com/api/v2/errors\">\n          <ErrorCode>TIMEOUT_001</ErrorCode>\n          <Severity>Critical</Severity>\n          <Timestamp>2026-03-14T08:23:45.123Z</Timestamp>\n          <CorrelationId>a1b2c3d4-e5f6-7890-abcd-ef1234567890</CorrelationId>\n          <ServerNode>APPSVR-PROD-03</ServerNode>\n        </ErrorInfo>\n      </detail>\n    </soap:Fault>\n  </soap:Body>\n</soap:Envelope>\n\nThis is blocking all purchase order submissions. About 50 orders are queued up.",
+        "reporter": {
+            "name": "Janet Liu",
+            "email": "j.liu@contoso.com",
+            "department": "Procurement"
+        },
+        "created_at": "2026-03-14T08:40:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCA003",
+        "subject": "CI/CD pipeline deployment failed — error output below",
+        "description": "The nightly deployment pipeline failed. Here's the terminal output I copied:\n\n\u001b[36m[2026-03-14 02:15:33]\u001b[0m Starting deployment pipeline v3.2.1\n\u001b[32m[INFO]\u001b[0m  Pulling latest artifacts from registry...\n\u001b[32m[INFO]\u001b[0m  Artifact: app-service:2026.3.14-nightly \u001b[32m✓\u001b[0m\n\u001b[32m[INFO]\u001b[0m  Running pre-deployment health checks...\n\u001b[33m[WARN]\u001b[0m  Database migration check: 3 pending migrations\n\u001b[32m[INFO]\u001b[0m  Applying migration 0047_add_audit_columns...\n\u001b[31m[ERROR]\u001b[0m Migration 0047_add_audit_columns \u001b[1;31mFAILED\u001b[0m\n\u001b[31m[ERROR]\u001b[0m \u001b[1mSqlException:\u001b[0m Column 'created_by' already exists in table 'orders'\n\u001b[31m[ERROR]\u001b[0m Stack trace:\n\u001b[90m  at Migrator.ApplyMigration(Migration m) in /src/Migrator.cs:line 142\u001b[0m\n\u001b[90m  at Pipeline.RunMigrations() in /src/Pipeline.cs:line 87\u001b[0m\n\u001b[31m[FATAL]\u001b[0m \u001b[1;31mDeployment aborted. Rolling back...\u001b[0m\n\u001b[33m[WARN]\u001b[0m  Rollback completed. Previous version restored.\n\nThis is the third time this week the migration has failed. We need help fixing the migration script.",
+        "reporter": {
+            "name": "Alex Rivera",
+            "email": "a.rivera@contoso.com",
+            "department": "Engineering"
+        },
+        "created_at": "2026-03-14T07:20:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCA004",
+        "subject": "RE: RE: Out of Office: RE: VPN connection drops repeatedly",
+        "description": "--- Auto-Reply ---\nThank you for your email. I am currently out of the office from March 10-17 with limited access to email. For urgent matters, please contact my backup Sarah Chen (s.chen@contoso.com) or call the IT help desk at x4357.\nBest regards, James Wilson\n\n--- Auto-Reply ---\nI am out of the office attending the Global Sales Conference in Orlando. I will return on March 18th and respond to your email then.\nIf this is time-sensitive, please reach out to Mark Thompson (m.thompson@contoso.com).\nRegards, Amanda Peters\n\n--- Automatic Reply: Vacation ---\nHi! I'm away on PTO through March 20th. For anything urgent about the Henderson project, please CC my manager Lisa Park.\nThanks, Rachel Kim\n\n--- Original Message ---\nFrom: David Kim <d.kim@contoso.com>\nSubject: VPN connection drops repeatedly\n\nHi IT team,\n\nI've been having persistent VPN disconnections since yesterday. The VPN client connects successfully but drops the connection every 10-15 minutes. I work from home and this is severely impacting my productivity. I'm on the Seattle office VPN profile using the Cisco AnyConnect client.\n\nThanks,\nDavid",
+        "reporter": {
+            "name": "David Kim",
+            "email": "d.kim@contoso.com",
+            "department": "Engineering"
+        },
+        "created_at": "2026-03-13T14:30:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCA005",
+        "subject": "Several issues — printer + Outlook + WiFi",
+        "description": "Hi IT,\n\nI have several issues I need help with:\n\nISSUE 1: PRINTER\nThe printer on the 4th floor (HP LaserJet near Room 412) keeps jamming. Every time I print more than 5 pages it jams. I've cleared the paper path twice today already.\n\nISSUE 2: OUTLOOK\nOutlook crashes every time I try to open a meeting invite with more than 20 attendees. It just freezes and I have to force-close it. This has been happening since last week's update.\n\nISSUE 3: WIFI\nThe WiFi in the west wing conference rooms is extremely slow. Speed tests show less than 5 Mbps down when we need at least 50 Mbps for video calls. It's been like this for about 2 weeks.\n\nCan you please look into ALL of these? They're all affecting my team's productivity.\n\nThanks,\nLisa",
+        "reporter": {
+            "name": "Lisa Chen",
+            "email": "l.chen@contoso.com",
+            "department": "Marketing"
+        },
+        "created_at": "2026-03-11T10:15:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCA006",
+        "subject": "Can't email client — error message below",
+        "description": "I keep getting this bounce-back when I try to email our client. Can you help?\n\n--- Non-Delivery Report ---\nDelivery has failed to these recipients or groups:\n\njohn.doe@clientcorp.com\nThe email address you entered couldn't be found. Please check the recipient's email address and try to resend the message.\n\nDiagnostic information for administrators:\nGenerating server: EXCH-PROD-02.contoso.com\n\njohn.doe@clientcorp.com\nRemote Server returned '550 5.1.1 RESOLVER.ADR.RecipNotFound; not found #SMTP#'\n\nOriginal message headers:\nReceived: from EXCH-PROD-02.contoso.com (10.50.12.44) by\n EXCH-HUB-01.contoso.com (10.50.12.10) with Microsoft SMTP Server\n (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id\n 15.2.1118.26; Thu, 14 Mar 2026 10:15:23 -0500\nMessage-ID: <abc123@EXCH-PROD-02.contoso.com>\nFrom: Lisa Park <l.park@contoso.com>\nTo: John Doe <john.doe@clientcorp.com>\nSubject: Q1 Contract Review\nDate: Thu, 14 Mar 2026 10:15:22 -0500\nX-Mailer: Microsoft Outlook 16.0\nMIME-Version: 1.0\nContent-Type: multipart/mixed;\n boundary=\"----=_NextPart_000_0001_01DAF23A.B8C7D890\"\n\nI've been trying to send this for two days. The contract review is due Friday.",
+        "reporter": {
+            "name": "Lisa Park",
+            "email": "l.park@contoso.com",
+            "department": "Legal"
+        },
+        "created_at": "2026-03-14T10:20:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCA007",
+        "subject": "Can't access SharePoint after password change",
+        "description": "I changed my password yesterday and now I can't access SharePoint. It keeps saying my credentials are invalid.\n\nBest regards,\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nRobert J. Henderson III\nSenior Vice President, Global Strategic Partnerships\nEnterprise Solutions Division\nContoso International Holdings, Ltd.\n\nOffice: +1 (425) 555-0142 ext. 7834\nMobile: +1 (206) 555-0198\nFax: +1 (425) 555-0143\n\nEmail: r.henderson@contoso.com\nLinkedIn: linkedin.com/in/robert-henderson-contoso\nTwitter: @RHendersonContoso\n\n🏢 Contoso Tower, Suite 4200\n    1234 Innovation Boulevard\n    Redmond, WA 98052\n    United States of America\n\n🌐 www.contoso.com | www.contoso-partners.com\n\n📞 24/7 Partner Hotline: 1-800-CONTOSO\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nCONFIDENTIALITY NOTICE: This email and any attachments are for the exclusive and confidential use of the intended recipient. If you are not the intended recipient, please do not read, distribute, or take action based on this message. If you have received this in error, please notify the sender immediately by return email and delete this message from your system. Any unauthorized use, disclosure, or distribution is strictly prohibited and may be unlawful.\n\nENVIRONMENTAL NOTICE: Please consider the environment before printing this email. 🌿\n\nLEGAL DISCLAIMER: The views and opinions expressed in this email are those of the author and do not necessarily reflect the official policy or position of Contoso International Holdings, Ltd. or any of its subsidiaries. This email does not constitute legal, financial, or professional advice.\n\nISO 27001 CERTIFIED | SOC 2 TYPE II COMPLIANT | GDPR READY\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+        "reporter": {
+            "name": "Robert Henderson",
+            "email": "r.henderson@contoso.com",
+            "department": "Strategic Partnerships"
+        },
+        "created_at": "2026-03-15T08:10:00Z",
+        "channel": "email",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCA008",
+        "subject": "Web application error — URL with error code below",
+        "description": "I'm getting errors on our internal portal. Here's the URL I see when it fails (I copied it from the browser bar):\n\nhttps%3A%2F%2Fportal.contoso.com%2Fapp%2Finvoice-management%2Ferror%3Fcode%3D500%26message%3DInternal%2520Server%2520Error%26timestamp%3D2026-03-14T10%253A30%253A00Z%26trace_id%3D7f8a9b2c-3d4e-5f6a-8b9c-0d1e2f3a4b5c%26module%3Dinvoice_processing%26action%3Dsubmit_batch%26user%3Dl.park%2540contoso.com%26session%3Ds_abc123def456%26details%3DNull%2520reference%2520exception%2520in%2520BatchProcessor.ProcessInvoice%2528%2529\n\nThis happens every time I try to submit a batch of invoices. Single invoices work fine but batch submissions fail.",
+        "reporter": {
+            "name": "Michelle Torres",
+            "email": "m.torres@contoso.com",
+            "department": "Accounts Payable"
+        },
+        "created_at": "2026-03-14T10:45:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCA009",
+        "subject": "Firewall config not working — full config pasted below",
+        "description": "This firewall config doesn't work. Please fix it:\n\n{\"firewall_config\": {\"version\": \"3.2.1\", \"last_modified\": \"2026-03-13T22:45:00Z\", \"modified_by\": \"netadmin@contoso.com\", \"global_settings\": {\"default_action\": \"deny\", \"logging_level\": \"verbose\", \"max_connections\": 50000, \"connection_timeout_seconds\": 300, \"icmp_rate_limit\": 100, \"syn_flood_protection\": true, \"geo_blocking_enabled\": true, \"blocked_countries\": [\"XX\", \"YY\", \"ZZ\"], \"ssl_inspection\": {\"enabled\": true, \"certificate\": \"/etc/ssl/fw-inspect.pem\", \"bypass_categories\": [\"banking\", \"healthcare\"], \"min_tls_version\": \"1.2\"}}, \"zones\": [{\"name\": \"DMZ\", \"interface\": \"eth0\", \"vlan_id\": 100}, {\"name\": \"Internal\", \"interface\": \"eth1\", \"vlan_id\": 200}, {\"name\": \"Guest\", \"interface\": \"eth2\", \"vlan_id\": 300}, {\"name\": \"Servers\", \"interface\": \"eth3\", \"vlan_id\": 400}], \"rules\": [{\"id\": 1, \"name\": \"Allow DNS\", \"source\": \"Internal\", \"destination\": \"DMZ\", \"port\": 53, \"protocol\": \"udp\", \"action\": \"allow\"}, {\"id\": 2, \"name\": \"Allow HTTP\", \"source\": \"Internal\", \"destination\": \"any\", \"port\": 80, \"protocol\": \"tcp\", \"action\": \"allow\"}, {\"id\": 3, \"name\": \"Allow HTTPS\", \"source\": \"Internal\", \"destination\": \"any\", \"port\": 443, \"protocol\": \"tcp\", \"action\": \"allow\"}, {\"id\": 4, \"name\": \"Allow SMTP\", \"source\": \"Servers\", \"destination\": \"DMZ\", \"port\": 25, \"protocol\": \"tcp\", \"action\": \"allow\"}, {\"id\": 5, \"name\": \"Block Guest to Internal\", \"source\": \"Guest\", \"destination\": \"Internal\", \"port\": \"any\", \"protocol\": \"any\", \"action\": \"deny\"}, {\"id\": 6, \"name\": \"Allow Guest Internet\", \"source\": \"Guest\", \"destination\": \"any\", \"port\": \"443,80\", \"protocol\": \"tcp\", \"action\": \"allow\"}, {\"id\": 10, \"name\": \"Block All\", \"source\": \"any\", \"destination\": \"any\", \"port\": \"any\", \"protocol\": \"any\", \"action\": \"deny\"}]}}\n\nAfter applying this config, guest WiFi users can't access the internet at all.",
+        "reporter": {
+            "name": "Daniel Park",
+            "email": "d.park@contoso.com",
+            "department": "Network Engineering"
+        },
+        "created_at": "2026-03-13T23:15:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCA010",
+        "subject": "Laptop docking station not working",
+        "description": "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat{\\fonttbl{\\f0\\fswiss\\fcharset0 Calibri;}{\\f1\\fnil\\fcharset2 Symbol;}}\n{\\*\\generator Riched20 10.0.22621}\\viewkind4\\uc1\n\\pard\\sa200\\sl276\\slmult1\\f0\\fs22\\lang9 My laptop docking station stopped working this morning.\\par\n\\b Issue Details:\\b0\\par\n{\\pntext\\f1\\'B7\\tab}When I connect my laptop to the dock, the external monitors don't turn on\\par\n{\\pntext\\f1\\'B7\\tab}USB devices connected to the dock are not recognized\\par\n{\\pntext\\f1\\'B7\\tab}The dock's power LED is amber instead of green\\par\n{\\pntext\\f1\\'B7\\tab}Ethernet through the dock also doesn't work\\par\n\\b What I've tried:\\b0\\par\n{\\pntext\\f1\\'B7\\tab}Unplugged and reconnected the dock\\par\n{\\pntext\\f1\\'B7\\tab}Restarted my laptop\\par\n{\\pntext\\f1\\'B7\\tab}Tried a different USB-C cable\\par\n}\\par\nThe dock worked fine yesterday before I left.",
+        "reporter": {
+            "name": "Amy Zhang",
+            "email": "a.zhang@contoso.com",
+            "department": "Design"
+        },
+        "created_at": "2026-03-15T09:00:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCA011",
+        "subject": "App1ication err0r — copied from screen",
+        "description": "I t00k a screenshot of the err0r and c0pied the text:\n\nMicr0soft Dynamics 365 — Fata1 Err0r\n────────────────────────────\nAn unhand1ed excepti0n has 0ccurred in the app1ication.\n\nErr0r C0de: CRM_EXC_0x80040265\nM0dule: Sa1esF0rceAut0mation.d11\nDescripti0n: 0bject reference n0t set t0 an\ninstance 0f an 0bject\n\nStack Trace (partia1):\n  at Micr0s0ft.Dynamics.Sa1es.Pipe1ine\n  .ProcessLead(1nt32 1eadId) in\n  C:\\src\\Sa1es\\Pipe1ine.cs:1ine 247\n  at Micr0s0ft.Dynamics.Runtime\n  .ExecuteP1ugin(IP1ugin p1ugin) in\n  C:\\src\\Runtime\\Executor.cs:1ine 89\n\nP1ease save y0ur w0rk and restart the\napp1ication. If the pr0b1em persists,\nc0ntact y0ur system administrat0r.\n\n[0K] [Cancel]\n\nThis happens every time I try to 0pen a 1ead rec0rd. Very frustratlng.",
+        "reporter": {
+            "name": "Kevin Brooks",
+            "email": "k.brooks@contoso.com",
+            "department": "Sales"
+        },
+        "created_at": "2026-03-12T11:30:00Z",
+        "channel": "phone",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCA012",
+        "subject": "Meeting scheduler showing wrong dates",
+        "description": "The meeting scheduler is showing different dates depending on where you look:\n\nIn the calendar view, my meeting shows as 03/15/2026 (March 15th).\nIn the list view, same meeting shows as 15-Mar-26.\nThe API returns it as 2026.03.14 (a day off!).\nThe email confirmation said 'March 15, 2026 at 2:00 PM PST'.\nThe export to CSV shows 1742054400 (Unix timestamp).\nThe mobile app says 'Tue, 15 Mar 2026 22:00:00 GMT'.\nThe iCal file has DTSTART:20260315T140000 with no timezone.\nMy Outlook shows it as '3/15/2026 2:00 PM' but the web version says '15/3/2026 22:00' (which seems like UTC).\n\nI'm in the PST timezone. The meeting is supposed to be at 2 PM my time on March 15th. But I joined the Teams call at 2 PM and nobody was there. Turns out the API thinks the meeting is on the 14th.\n\nThis is the third time this has happened with meetings that have attendees in different timezones.",
+        "reporter": {
+            "name": "Sarah Martinez",
+            "email": "s.martinez@contoso.com",
+            "department": "Product Management"
+        },
+        "created_at": "2026-03-15T15:00:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCA013",
+        "subject": "URGENT: Multiple servers offline — status table below",
+        "description": "Several production servers went offline in the last hour. Here's the current status from our monitoring tool:\n\n+------------------+----------+---------+-------+------------------+\n| Server           | Status   | DC      | Rack  | Last Seen        |\n+------------------+----------+---------+-------+------------------+\n| WEBPROD-01       | DOWN     | US-EAST | R12   | 2026-03-14 08:30 |\n| WEBPROD-02       | DOWN     | US-EAST | R12   | 2026-03-14 08:31 |\n| WEBPROD-03       | OK       | US-WEST | R04   | 2026-03-14 09:15 |\n| APPPROD-01       | DOWN     | US-EAST | R13   | 2026-03-14 08:28 |\n| APPPROD-02       | DOWN     | US-EAST | R13   | 2026-03-14 08:29 |\n| APPPROD-03       | OK       | US-WEST | R05   | 2026-03-14 09:15 |\n| DBPROD-01        | DEGRADED | US-EAST | R14   | 2026-03-14 08:35 |\n| DBPROD-02        | OK       | US-WEST | R06   | 2026-03-14 09:15 |\n| CACHE-01         | DOWN     | US-EAST | R12   | 2026-03-14 08:30 |\n| LB-PROD-01       | DEGRADED | US-EAST | R10   | 2026-03-14 08:32 |\n| LB-PROD-02       | OK       | US-WEST | R02   | 2026-03-14 09:15 |\n+------------------+----------+---------+-------+------------------+\n\nAll DOWN servers are in US-EAST datacenter, racks R12-R14. Looks like it might be a power or network issue affecting those specific racks. US-WEST is fine. Customer-facing services are degraded.",
+        "reporter": {
+            "name": "Marcus Johnson",
+            "email": "m.johnson@contoso.com",
+            "department": "Infrastructure"
+        },
+        "created_at": "2026-03-14T09:20:00Z",
+        "channel": "chat",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCA014",
+        "subject": "Deployment failed — notes from runbook below",
+        "description": "## Deployment Failure Report\n\n**Date:** 2026-03-14\n**Environment:** Production (PROD-CLUSTER-01)\n**Version:** v4.7.2 → v4.8.0\n\n### What Happened\n\nThe deployment of `invoice-service` v4.8.0 failed during the rolling update phase. Here are the details:\n\n1. Pre-deployment checks **passed** ✅\n2. Database migration **passed** ✅\n3. Rolling update started — 3 of 8 pods updated\n4. Pod `invoice-service-7f8b9c-xk4pl` entered **CrashLoopBackOff** ❌\n5. Rolling update **halted** — automatic rollback triggered\n\n### Error Log\n\n```\npanic: runtime error: invalid memory address or nil pointer dereference\n[signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x4a2f8c]\n\ngoroutine 1 [running]:\nmain.initializeCache(0x0)\n\t/app/cmd/server/main.go:142 +0x2c\nmain.main()\n\t/app/cmd/server/main.go:87 +0x1a4\n```\n\n### Relevant Links\n\n- [Deployment Pipeline](https://ci.contoso.com/pipelines/invoice-service/482)\n- [Kubernetes Dashboard](https://k8s.contoso.com/namespaces/production)\n- [Previous Successful Deploy](https://ci.contoso.com/pipelines/invoice-service/479)\n\n### Action Needed\n\nThe `initializeCache` function has a nil pointer because the **Redis connection string** environment variable `$REDIS_URL` is not set in the v4.8.0 deployment manifest. This was a _new dependency_ added in v4.8.0 that wasn't documented.\n\n> **Note:** v4.7.2 is currently running and stable.",
+        "reporter": {
+            "name": "Priya Sharma",
+            "email": "p.sharma@contoso.com",
+            "department": "DevOps"
+        },
+        "created_at": "2026-03-14T03:45:00Z",
+        "channel": "portal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "INC-DCA015",
+        "subject": "Email attachment problem — raw email data below",
+        "description": "When I try to open certain emails, instead of seeing the message and attachments normally, I see this raw content:\n\nMIME-Version: 1.0\nContent-Type: multipart/mixed;\n boundary=\"----=_Part_12345_67890.1710412800000\"\n\n------=_Part_12345_67890.1710412800000\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: quoted-printable\n\nHi team,\n\nPlease find the Q1 financial report attached. Key highlights:\n- Revenue up 12% YoY\n- Operating margin improved to 23.5%\n- Customer acquisition cost down 8%\n\nLet me know if you have questions.\n\nBest,\nSarah\n\n------=_Part_12345_67890.1710412800000\nContent-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;\n name=\"Q1_Financial_Report_2026.xlsx\"\nContent-Transfer-Encoding: base64\nContent-Disposition: attachment;\n filename=\"Q1_Financial_Report_2026.xlsx\"\n\nUEsDBBQAAAAIAAAAAACyIhAAaAAAAGQAAAARAAAAZG9jUHJvcHMvY29yZS54bWyNkE1qwzAQhe+F\n3kHo3pEcl1JkZZNC6KKFJhfoShp7HIn+Icmpe/rKTkIh0M1jZr43846cbnqXfUGMLqChKLgo\n[truncated — 800+ more lines of base64 data]\n\n------=_Part_12345_67890.1710412800000--\n\nThis only happens with emails from external senders. Internal emails display fine. I'm using the Outlook web app.",
+        "reporter": {
+            "name": "Jennifer Wu",
+            "email": "j.wu@contoso.com",
+            "department": "Finance"
+        },
+        "created_at": "2026-03-13T16:30:00Z",
+        "channel": "email",
+        "attachments": []
+    }
+]

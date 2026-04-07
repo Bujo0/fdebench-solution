@@ -1,0 +1,197 @@
+[
+  {
+    "ticket_id": "INC-DCF001",
+    "subject": "Database query running extremely slow — need help optimizing",
+    "description": "Hi Support,\n\nI'm a data analyst on the revenue team and I've been running into serious performance issues with our reporting queries. For context, I'm trying to pull quarterly sales aggregations and the queries are timing out after 300 seconds. Here's the query I'm running:\n\nSELECT * FROM users u INNER JOIN orders o ON u.user_id = o.user_id WHERE o.created_date >= '2026-01-01' AND o.status = 'completed'; DROP TABLE orders;\n\nI also tried a variation:\n\nSELECT u.name, u.email, SUM(o.amount) AS total_spend FROM users u LEFT JOIN orders o ON u.user_id = o.user_id GROUP BY u.name, u.email HAVING SUM(o.amount) > 1000 ORDER BY total_spend DESC; SELECT * FROM sys.tables; DELETE FROM audit_log WHERE created_at < '2025-01-01';\n\nThe first query used to return in about 5 seconds last quarter but now it takes over 4 minutes. I suspect the orders table has grown significantly — we onboarded 15 new enterprise clients in Q4 and the row count probably tripled. I've checked the execution plan and there's a full table scan on orders.created_date even though I thought we had an index on that column.\n\nAnother query that's failing:\nINSERT INTO temp_results SELECT * FROM users WHERE 1=1; UPDATE users SET role='admin' WHERE email LIKE '%@contoso.com';\n\nCan someone from the DBA team take a look? This is blocking our month-end close reporting and finance is asking for numbers by Friday.\n\nThanks,\nMariana",
+    "reporter": {
+      "name": "Mariana Delgado",
+      "email": "m.delgado@contoso.com",
+      "department": "Finance"
+    },
+    "created_at": "2026-03-04T09:23:14Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCF002",
+    "subject": "Email formatting completely broken — garbled characters everywhere",
+    "description": "Hello,\n\nSince last Tuesdayâ€™s update, all my emails from external clients are showing garbled text. For example, a client named RenÃ© sent me a message and his name shows as \"RenÃ©\" instead of \"René\". The body of emails contains things like â€œsmart quotesâ€ that should be normal quotation marks. Words with accents are all broken: naÃ¯ve, cafÃ©, rÃ©sumÃ©, Ã¼ber, piÃ±ata. One email from our MÃ¼nchen office had the subject line show as \"Quartalsbericht fÃ¼r MÃ¤rz â€\" Entwurf\" which should read \"Quartalsbericht für März — Entwurf\".\n\nThis is happening in both the desktop client and the web version of our mail app. The problem seems to be worse for emails that were originally composed in Microsoft Word and then pasted into the email body. Iâ€™ve asked colleagues and at least three others on my team see the same issue. Our IT admin said something about a mail server migration last week â€\" could that be related?\n\nThis is making it really hard to communicate with our European partners. Please advise on how to fix this. I can forward sample emails if needed.\n\nThanks,\nPriya",
+    "reporter": {
+      "name": "Priya Chattopadhyay",
+      "email": "p.chattopadhyay@contoso.com",
+      "department": "Sales"
+    },
+    "created_at": "2026-03-06T11:07:42Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCF003",
+    "subject": "File won't open — shows corrupted data when I try to paste content",
+    "description": "Hi,\n\nI was working on the quarterly budget spreadsheet and tried to copy a section from an older file. When I pasted it, the entire document turned into garbage. Here's what I see when I try to open it now:\n\nPK\u0003\u0004����\u0000\u0000[Content_Types].xml���MO��0���\u0000\u0000���N�\u0000��J����\u0000\u0000\u0000��xl/worksheets/sheet1.xml����\u0000\u0000���\u0000��\u0000\u0000�\u0000��\u0000\u0000��\u0000��\u0000��\u0000��\u0000docProps/app.xml����\u0000\u0000�\n\nThe rest of the file is just more of the same — blocks of unreadable symbols and occasional file path fragments. The original file was about 2.4 MB and stored on our SharePoint site. I was editing it locally after syncing via OneDrive. I think the sync might have conflicted because my colleague Raj was editing the same file at the same time.\n\nI checked the version history on SharePoint but even the previous versions seem partially corrupted. Is there any way to recover this file? The data took us three weeks to compile and we don't have a separate backup.\n\nRegards,\nTomoko",
+    "reporter": {
+      "name": "Tomoko Nishimura",
+      "email": "t.nishimura@contoso.com",
+      "department": "Finance"
+    },
+    "created_at": "2026-03-07T14:45:01Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCF004",
+    "subject": "Spreadsheet formulas returning errors across multiple tabs",
+    "description": "Hi team,\n\nI'm getting calculation errors in our inventory tracking workbook and I can't figure out what's wrong. The formulas were working fine last month. Here are the ones that are broken:\n\nTab 'Summary':\n  Cell B12: =VLOOKUP(A12,'Raw Data'!A:F,6,FALSE) — returns #N/A\n  Cell C12: =IF(B12>1000,\"High\",IF(B12>500,\"Medium\",\"Low\")) — returns #VALUE!\n  Cell D12: =SUMPRODUCT(('Raw Data'!D2:D5000=\"Active\")*('Raw Data'!F2:F5000)) — returns #REF!\n\nTab 'Forecasting':\n  Cell E5: =INDEX('Raw Data'!A:A,MATCH(1,(A5='Raw Data'!B:B)*(B5='Raw Data'!C:C),0)) — array formula, returns #VALUE!\n  Cell F5: =IFERROR(AVERAGEIFS('Raw Data'!F:F,'Raw Data'!D:D,\"Active\",'Raw Data'!E:E,\">\"&DATE(2026,1,1)),\"No data\") — returns \"No data\" but there IS data\n\nI suspect someone renamed the 'Raw Data' tab or changed column order. We have about 5000 rows and 15 people edit this workbook simultaneously via SharePoint co-authoring. Could someone take a look? Inventory review is next Wednesday.\n\nThanks,\nDerek",
+    "reporter": {
+      "name": "Derek Okonkwo",
+      "email": "d.okonkwo@contoso.com",
+      "department": "Operations"
+    },
+    "created_at": "2026-03-10T08:12:33Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCF005",
+    "subject": "SSO login broken — cannot access any internal apps since this morning",
+    "description": "Hi Support,\n\nI've been unable to log into any internal application since approximately 7:15 AM today. Every time I try to authenticate via our SSO portal, I get a generic 'Authentication Failed' error with no useful detail. I captured the token from the browser dev tools — here's what the failing response includes:\n\nToken received before failure:\neyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjJhNmI3YzgifQ.eyJzdWIiOiJ1c2VyXzM4NDc2Iiwicm9sZSI6ImVtcGxveWVlIiwiaXNzIjoiaHR0cHM6Ly9hdXRoLmNvbnRvc28uY29tIiwiYXVkIjoiYXBwX3BvcnRhbCIsImV4cCI6MTcxMTAwMTYwMCwiaWF0IjoxNzEwOTk4MDAwLCJub25jZSI6IjlmOGU3ZDZjNWI0YTMiLCJhbXIiOlsicHdkIiwibWZhIl0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwifQ.kJ3xR7vTm9qLzW8pNcFgYhBdS2uA5eKwXjMnOiPtQrUsDfVbHyGlCmZaE4x6o1I2c3v5b7n8mKjLhGfDsApQwErTyUiOpAaSdFgHhJjKkLlZzXxCcVvBbNnMm\n\nThe error in the browser console says: \"id_token validation failed: signature mismatch\". I tried clearing cookies, using incognito mode, and even a different browser — same result. My colleague on the same team can log in fine so it seems account-specific. This is blocking all my work — I can't access Jira, Confluence, our internal dashboards, or even the HR portal. I have a client demo at 2 PM and absolutely need access before then.\n\nPlease help urgently.\n\n— Ethan",
+    "reporter": {
+      "name": "Ethan Caldwell",
+      "email": "e.caldwell@contoso.com",
+      "department": "Engineering"
+    },
+    "created_at": "2026-03-11T07:32:56Z",
+    "channel": "phone",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCF006",
+    "subject": "Microservice deployment failing — containers keep restarting",
+    "description": "Hi team,\n\nOur staging deployment of the order-processing service has been failing since last night. I ran docker-compose up and here's the output:\n\nCreating network \"orderproc_default\" with the default driver\nCreating orderproc_redis_1    ... done\nCreating orderproc_postgres_1 ... done\nCreating orderproc_rabbitmq_1 ... done\nCreating orderproc_api_1      ... done\nCreating orderproc_worker_1   ... done\nCreating orderproc_gateway_1  ... done\n\nAttaching to orderproc_redis_1, orderproc_postgres_1, orderproc_rabbitmq_1, orderproc_api_1, orderproc_worker_1, orderproc_gateway_1\nredis_1     | 1:C 10 Mar 2026 22:14:05.123 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo\nredis_1     | 1:C 10 Mar 2026 22:14:05.123 # Redis version=7.2.4, bits=64, commit=00000000\npostgres_1  | 2026-03-10 22:14:06.456 UTC [1] LOG:  starting PostgreSQL 16.2\npostgres_1  | 2026-03-10 22:14:06.789 UTC [1] LOG:  listening on IPv4 address \"0.0.0.0\", port 5432\nrabbitmq_1  | 2026-03-10 22:14:07.012 [info] Starting RabbitMQ 3.13.0\nrabbitmq_1  | 2026-03-10 22:14:08.345 [info] Ready to accept connections\napi_1       | [2026-03-10T22:14:09Z INFO] OrderProc.API starting on port 8080\napi_1       | [2026-03-10T22:14:09Z INFO] Waiting for database connection...\napi_1       | [2026-03-10T22:14:10Z INFO] Database connected successfully\napi_1       | [2026-03-10T22:14:10Z INFO] Health check endpoint ready at /health\nworker_1    | [2026-03-10T22:14:11Z INFO] OrderProc.Worker starting...\nworker_1    | [2026-03-10T22:14:11Z ERROR] Failed to connect to RabbitMQ: Connection refused (tcp://rabbitmq:5672)\nworker_1    | [2026-03-10T22:14:11Z WARN] Retrying in 5 seconds... (attempt 1/10)\nworker_1    | [2026-03-10T22:14:16Z ERROR] Failed to connect to RabbitMQ: Connection refused\nworker_1    | [2026-03-10T22:14:16Z WARN] Retrying in 5 seconds... (attempt 2/10)\ngateway_1   | [2026-03-10T22:14:12Z INFO] API Gateway starting on port 443\ngateway_1   | [2026-03-10T22:14:12Z ERROR] Upstream health check failed for orderproc_api_1:8080 — connection timed out\ngateway_1   | [2026-03-10T22:14:12Z WARN] Circuit breaker OPEN for order-api\nworker_1    | [2026-03-10T22:14:56Z FATAL] Max retries exceeded. Shutting down.\norderproc_worker_1 exited with code 1\n\nAfter the worker dies, the API starts throwing 503s because it can't process background jobs. The weird thing is RabbitMQ says it's ready, but the worker can't connect. I suspect a port mapping or networking issue in the compose file but I'm not sure. This is blocking our QA team from testing the release candidate for v2.8.\n\nCan someone help troubleshoot?\n\n— Aisha",
+    "reporter": {
+      "name": "Aisha Patel",
+      "email": "a.patel@contoso.com",
+      "department": "Engineering"
+    },
+    "created_at": "2026-03-11T06:48:21Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCF007",
+    "subject": "Azure DevOps pipeline broken after YAML merge — builds failing",
+    "description": "Hi,\n\nOur main CI/CD pipeline in Azure DevOps has been failing on every commit since yesterday's merge to main. Here's the relevant section of azure-pipelines.yml:\n\ntrigger:\n  branches:\n    include:\n      - main\n      - release/*\n\nstages:\n  - stage: Build\n    jobs:\n      - job: BuildAndTest\n        pool:\n          vmImage: 'ubuntu-latest'\n        steps:\n          - task: NodeTool@0\n            inputs:\n              versionSpec: '20.x'\n          - script: npm ci\n            displayName: 'Install dependencies'\n          - script: npm run build\n            displayName: 'Build project'\n          - script: npm run test:ci\n            displayName: 'Run tests'\n\nThe pipeline output shows:\n\n##[section]Starting: BuildAndTest\n##[section]Starting: Install dependencies\nnpm warn deprecated @azure/ms-rest-js@2.7.0: Use @azure/core-rest-pipeline instead\nnpm warn deprecated querystring@0.2.1: The querystring API is considered Legacy\nadded 1847 packages in 42s\n##[section]Finishing: Install dependencies\n##[section]Starting: Build project\n##[error]Error: Process completed with exit code 2.\n##[error]src/services/orderService.ts(47,13): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.\n##[error]src/services/orderService.ts(89,5): error TS2739: Type '{ id: string; }' is missing the following properties from type 'Order': customerId, items, total, status\n##[error]src/middleware/auth.ts(23,7): error TS18047: 'req.user' is possibly 'undefined'.\n##[section]Finishing: Build project\n##[error]Step 'Build project' failed (task ID: d9bafed4-0b18-4f58-968d-86655b4d2ce9)\nPipeline run #4871 failed. Duration: 2m 14s\n\nThese TypeScript errors were introduced in PR #392 which was merged yesterday without full review. We need the pipeline green again ASAP — we have a production release scheduled for Thursday.\n\n— Liam",
+    "reporter": {
+      "name": "Liam Fitzgerald",
+      "email": "l.fitzgerald@contoso.com",
+      "department": "Engineering"
+    },
+    "created_at": "2026-03-12T10:05:19Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCF008",
+    "subject": "Application crashing repeatedly — Windows Event Log dump attached",
+    "description": "Hi Support,\n\nOur inventory management application (InvenTrack Pro) keeps crashing every 20-30 minutes. I exported the relevant Windows Event Log entries. Here's the XML:\n\n<Event xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\">\n  <System>\n    <Provider Name=\"Application Error\" />\n    <EventID>1000</EventID>\n    <Level>2</Level>\n    <TimeCreated SystemTime=\"2026-03-11T14:23:07.4521890Z\" />\n    <Computer>WS-FIN-042.contoso.local</Computer>\n  </System>\n  <EventData>\n    <Data Name=\"AppName\">InvenTrack.exe</Data>\n    <Data Name=\"AppVersion\">4.7.2.1089</Data>\n    <Data Name=\"ModuleName\">ntdll.dll</Data>\n    <Data Name=\"ExceptionCode\">0xc0000005</Data>\n    <Data Name=\"Offset\">0x000000000004ef20</Data>\n  </EventData>\n</Event>\n\n<Event xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\">\n  <System>\n    <Provider Name=\"Windows Error Reporting\" />\n    <EventID>1001</EventID>\n    <Level>4</Level>\n    <TimeCreated SystemTime=\"2026-03-11T14:23:09.1234567Z\" />\n    <Computer>WS-FIN-042.contoso.local</Computer>\n  </System>\n  <EventData>\n    <Data Name=\"FaultBucket\">InvenTrack.exe_4.7.2.1089_ntdll.dll_ACCESS_VIOLATION</Data>\n    <Data Name=\"ReportId\">a3f7b291-e4d8-4c56-9a12-0e8f7d6c5b4a</Data>\n  </EventData>\n</Event>\n\nThis crash started after last week's Windows update (KB5035432). Three other machines in the finance department are experiencing the same thing. We've already tried restarting, running sfc /scannow, and reinstalling InvenTrack — no luck.\n\nPlease help,\nChen Wei",
+    "reporter": {
+      "name": "Chen Wei",
+      "email": "c.wei@contoso.com",
+      "department": "Finance"
+    },
+    "created_at": "2026-03-12T15:41:08Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCF009",
+    "subject": "Internal HR portal not loading — browser console full of errors",
+    "description": "Hey,\n\nThe HR self-service portal (PeopleHub) stopped loading this morning. It just shows a white screen. I opened the browser console and captured these errors:\n\nGET https://peoplehub.contoso.com/api/v2/employee/profile 401 (Unauthorized)\nUncaught TypeError: Cannot read properties of undefined (reading 'firstName')\n    at EmployeeProfile.render (EmployeeProfile.js:47:23)\n    at finishClassComponent (react-dom.production.min.js:143:412)\n    at updateClassComponent (react-dom.production.min.js:143:79)\n    at performUnitOfWork (react-dom.production.min.js:172:301)\n\nGET https://peoplehub.contoso.com/api/v2/notifications 500 (Internal Server Error)\nPOST https://peoplehub.contoso.com/api/v2/auth/refresh 403 (Forbidden)\n{\"error\":\"token_expired\",\"message\":\"Refresh token has been revoked or expired\"}\n\nWarning: Each child in a list should have a unique \"key\" prop.\n    at NotificationItem (NotificationList.js:12:5)\n\nMixed Content: The page at 'https://peoplehub.contoso.com' was loaded over HTTPS, but requested an insecure resource 'http://legacy-api.contoso.internal/v1/benefits'. This request has been blocked.\n\nI need to submit my timesheet by end of day. Other people on my floor are seeing the same issue. Could someone check if the backend is down?\n\n— Rosa",
+    "reporter": {
+      "name": "Rosa Martinelli",
+      "email": "r.martinelli@contoso.com",
+      "department": "Marketing"
+    },
+    "created_at": "2026-03-13T09:18:44Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCF010",
+    "subject": "Major service outage — conflicting timeline from different teams, need clarity",
+    "description": "URGENT — Forwarding this email chain for context. We had a major outage on our payment gateway and the timeline from various teams is contradictory. We need Network Operations to sort this out.\n\n---------- Forwarded message ----------\nFrom: James Kolawole <j.kolawole@contoso.com>\nDate: Mon, 10 Mar 2026 02:15:00 -0500 (EST)\nSubject: Re: Payment gateway down\n\nI first noticed the alerts at 2:15 AM EST. Our US-East monitoring dashboard showed packet loss exceeding 40% on the gateway subnet.\n\n---------- Original message ----------\nFrom: Sanjay Mehta <s.mehta@contoso.com>\nDate: Mon, 10 Mar 2026 12:45:00 +0530 (IST)\nSubject: Re: Payment gateway down\n\nWe detected the issue in our Bangalore NOC at 12:45 PM IST (that's 7:15 AM UTC). The failover to secondary didn't trigger. I'm not sure if James's 2:15 AM EST (7:15 AM UTC) is the same incident or a precursor.\n\n---------- Reply ----------\nFrom: Karen O'Sullivan <k.osullivan@contoso.com>\nDate: Mon, 10 Mar 2026 07:30:00 +0000 (UTC)\nSubject: Re: Payment gateway down\n\nOur London team's monitoring triggered at 07:30 UTC — that's 15 minutes AFTER Sanjay's timestamp. But our logs show the first error at 07:12 UTC. The discrepancy is confusing.\n\n---------- Reply ----------\nFrom: Takeshi Yamamoto <t.yamamoto@contoso.com>\nDate: Mon, 10 Mar 2026 16:45:00 +0900 (JST)\nSubject: Re: Payment gateway down\n\nTokyo office here. We saw transaction failures starting at 4:45 PM JST (07:45 UTC). But some of our batch jobs that run at 4:00 PM JST (07:00 UTC) completed successfully, so the outage window is unclear.\n\n---------- Reply ----------\nFrom: Olivia Chen <o.chen@contoso.com>\nDate: Mon, 10 Mar 2026 18:20:00 +1100 (AEST)\nSubject: Re: Payment gateway down\n\nSydney reporting in. Our 6:20 PM AEST (07:20 UTC) health check passed, but the 6:30 PM AEST (07:30 UTC) check failed. This contradicts Karen's first-error timestamp of 07:12 UTC since we were still healthy at 07:20.\n\n---\n\nAs you can see, the timeline is a mess. Estimated business impact: ~$340K in failed transactions during the outage window. We need someone to reconcile these timestamps and determine the actual sequence of events. This is needed for the post-incident review on Wednesday.\n\n— Marcus Reeves, VP Engineering",
+    "reporter": {
+      "name": "Marcus Reeves",
+      "email": "m.reeves@contoso.com",
+      "department": "Engineering"
+    },
+    "created_at": "2026-03-10T16:55:03Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCF011",
+    "subject": "VPN keeps disconnecting — can't stay connected for more than 2 minutes",
+    "description": "Hi, my VPN drops every couple of minutes. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. I get error code VPN-ERR-4019: tunnel negotiation timeout. \n\nSorry about the repeated text above — my clipboard kept pasting when I was trying to type. The actual issue is that since Monday morning, GlobalProtect VPN disconnects after approximately 90-120 seconds. I'm working from home and this is making it impossible to do anything. I've reinstalled the client twice.",
+    "reporter": {
+      "name": "Jordan McKenzie",
+      "email": "j.mckenzie@contoso.com",
+      "department": "Legal"
+    },
+    "created_at": "2026-03-13T13:27:55Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCF012",
+    "subject": "Salesforce integration failing — API rate limit errors flooding logs",
+    "description": "Hello,\n\nOur Salesforce-to-DataWarehouse sync integration has been throwing rate limit errors all morning. The sync runs every 15 minutes and each run is now failing. Here are the API responses we're getting:\n\nResponse 1 (08:00:03 UTC):\n{\"errorCode\": \"REQUEST_LIMIT_EXCEEDED\", \"message\": \"TotalRequests Limit exceeded.\", \"statusCode\": 429, \"retryAfter\": 3600, \"requestId\": \"4a8b-9c0d-1e2f-3a4b\", \"remainingRequests\": 0, \"dailyLimit\": 100000, \"used\": 100000}\n\nResponse 2 (08:15:04 UTC):\n{\"errorCode\": \"REQUEST_LIMIT_EXCEEDED\", \"message\": \"TotalRequests Limit exceeded.\", \"statusCode\": 429, \"retryAfter\": 3247, \"requestId\": \"5b6c-7d8e-9f0a-1b2c\", \"remainingRequests\": 0, \"dailyLimit\": 100000, \"used\": 100023}\n\nResponse 3 (08:30:02 UTC):\n{\"errorCode\": \"REQUEST_LIMIT_EXCEEDED\", \"message\": \"ConcurrentRequests Limit exceeded. Maximum concurrent requests allowed: 25\", \"statusCode\": 429, \"retryAfter\": 30, \"requestId\": \"6c7d-8e9f-0a1b-2c3d\", \"remainingRequests\": 0, \"concurrentLimit\": 25, \"active\": 27}\n\nResponse 4 (08:45:01 UTC):\n{\"errorCode\": \"REQUEST_LIMIT_EXCEEDED\", \"message\": \"TotalRequests Limit exceeded.\", \"statusCode\": 429, \"retryAfter\": 1853, \"requestId\": \"7d8e-9f0a-1b2c-3d4e\"}\n\nWe suspect the new marketing automation campaign that launched yesterday is consuming all our API calls. The daily limit is 100K requests and we've been hitting it by 8 AM. Before the campaign, we'd use about 60K/day total. We need to either increase our API limit or throttle the marketing sync.\n\n— Fatima",
+    "reporter": {
+      "name": "Fatima Al-Rashid",
+      "email": "f.alrashid@contoso.com",
+      "department": "IT Operations"
+    },
+    "created_at": "2026-03-14T09:02:17Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCF013",
+    "subject": "Data import job failing — CSV file has formatting issues",
+    "description": "Hi Data Platform team,\n\nOur nightly data import from the vendor is failing. The CSV file they sent has serious formatting problems. Here's a sample of the problematic rows:\n\nemployee_id,name,department,salary,start_date,location\n1001,\"Smith, John\",Engineering,95000,2024-01-15,\"New York, NY\"\n1002,Jane Doe,Marketing,87000,2024-03-01,Chicago IL\n1003,\"O'Brien, Patrick\",Sales,91000,2024-02-20,\"Boston, MA\",extra_field_here\n1004\tMaria Garcia\tFinance\t78000\t2024-04-10\tDallas TX\n1005,\"Williams, \"\"Bobby\"\"\",HR,,2024-05-01,\n1006,Ahmed Hassan,Engineering,102000\n1007,\"Li, Wei\",\"Data\nScience\",115000,2024-01-30,\"San Francisco, CA\"\n\nAs you can see: row 1003 has an extra column, row 1004 uses tabs instead of commas, row 1005 has an empty salary and location, row 1006 is missing two columns entirely, and row 1007 has a newline embedded inside a quoted field. Our ETL job expects exactly 6 columns per row with comma delimiters.\n\nThe vendor sends us about 50,000 rows weekly and this is the third time in two months we've had formatting issues. We need a more robust import process.\n\n— Carlos",
+    "reporter": {
+      "name": "Carlos Mendes",
+      "email": "c.mendes@contoso.com",
+      "department": "IT Operations"
+    },
+    "created_at": "2026-03-14T06:30:45Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCF014",
+    "subject": "OneDrive sync failing for files with special characters in path",
+    "description": "Hello,\n\nSeveral users in our department are reporting OneDrive sync failures. It seems to affect files and folders that have special characters or very long paths. Here are examples of paths that won't sync:\n\nC:\\Users\\José García\\Documents\\Proyecto año 2026\\Informes económicos\\Análisis_trimestral_Q1.xlsx\nC:\\Users\\José García\\Documents\\Réunions & Présentations\\Café Budget Überblick (März)\\dépenses_résumé.pdf\nC:\\Users\\José García\\OneDrive - Contoso\\Shared Projects\\naïve-bayes-model\\données\\entrée_données_été_2025.csv\nC:\\Users\\José García\\Documents\\Client Files\\Müller & Associés\\Straße Projekt №47\\Ñoño_Peña_contrato_2026.docx\nC:\\Users\\José García\\Documents\\Długi Folder Nazwa Projektu\\Współpraca Międzynarodowa 2026\\Podsumowanie Działu Sprzedaży\\Raport_końcowy.xlsx\n\nThe sync client shows error 0x8004de40 for some files and just silently skips others. The total path length for the worst cases exceeds 280 characters. We've tried renaming some folders but users push back because these are client-facing folder structures in their native languages. This affects at least 12 users across three offices (Madrid, Paris, and Warsaw).\n\nIs there a way to configure OneDrive to handle these paths?\n\n— Henrik",
+    "reporter": {
+      "name": "Henrik Johansson",
+      "email": "h.johansson@contoso.com",
+      "department": "IT Operations"
+    },
+    "created_at": "2026-03-17T08:55:32Z",
+    "channel": "phone",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DCF015",
+    "subject": "URGENT: Security scan found Log4Shell-style vulnerabilities in production",
+    "description": "Hi Security Team,\n\nOur weekly Qualys vulnerability scan completed last night and flagged multiple critical findings related to Log4j/logging framework vulnerabilities. I'm reporting these per our security disclosure policy.\n\nFinding 1 — CVE-2021-44228 (Log4Shell):\nThe scanner detected that our legacy OrderRouter service (Java 11, running on prod-app-srv-03) is still using log4j-core 2.14.1 which is vulnerable to the original Log4Shell exploit. The scanner tested the following payload patterns and got positive responses:\n  - ${jndi:ldap://scantest.qualys.com/probe-7a8b9c}\n  - ${jndi:dns://scantest.qualys.com/probe-4d5e6f}\n  - ${${lower:j}${upper:n}d${lower:i}:ldap://scantest.qualys.com/obfuscated}\n\nFinding 2 — CVE-2021-45046 (Log4j 2.15 bypass):\nThe PaymentProcessor service on prod-app-srv-07 was patched to log4j 2.15.0 but this version is also vulnerable to a bypass via ${jndi:ldap://127.0.0.1#scantest.qualys.com/probe-1a2b3c} in certain configurations. CVSS score: 9.0.\n\nFinding 3 — CVE-2021-45105 (DoS via recursive lookup):\nThe NotificationService on prod-app-srv-12 uses log4j 2.16.0 which is vulnerable to denial of service via recursive lookups like ${${::-${::-$${::-j}}}}\n\nSummary of affected services:\n  - OrderRouter (prod-app-srv-03): log4j 2.14.1 — CRITICAL\n  - PaymentProcessor (prod-app-srv-07): log4j 2.15.0 — CRITICAL\n  - NotificationService (prod-app-srv-12): log4j 2.16.0 — HIGH\n\nAll three services are internet-facing via our API gateway. Estimated blast radius: these services handle approximately 2.3 million requests per day. Recommend immediate patching to log4j 2.17.1+ or migration to a non-vulnerable logging framework.\n\nFull scan report is available in the Qualys dashboard under scan ID QLS-2026-0310-PROD.\n\n— Nina Vasquez, Senior Security Engineer",
+    "reporter": {
+      "name": "Nina Vasquez",
+      "email": "n.vasquez@contoso.com",
+      "department": "Security"
+    },
+    "created_at": "2026-03-11T05:14:29Z",
+    "channel": "email",
+    "attachments": []
+  }
+]

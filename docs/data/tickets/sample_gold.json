@@ -78,9 +78,9 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close \u2014 this is an automated out-of-office reply to a maintenance notification, not a support request. No action required.",
+        "next_best_action": "Close — this is an automated out-of-office reply to a maintenance notification, not a support request. No action required.",
         "remediation_steps": [
-            "No action required \u2014 auto-reply detected, close ticket"
+            "No action required — auto-reply detected, close ticket"
         ]
     },
     {
@@ -124,7 +124,7 @@
         "assigned_team": "Data Platform",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate production database connection pool exhaustion immediately. This is a customer-facing production incident \u2014 40% of API requests are failing regardless of the submitter's priority classification.",
+        "next_best_action": "Investigate production database connection pool exhaustion immediately. This is a customer-facing production incident — 40% of API requests are failing regardless of the submitter's priority classification.",
         "remediation_steps": [
             "Investigate connection pool configuration on the primary database replica",
             "Identify and terminate long-running queries or leaked connections",
@@ -142,7 +142,7 @@
         "missing_information": [
             "previous_ticket_id"
         ],
-        "next_best_action": "Escalate badge access issue for Building 7 \u2014 third report without resolution. Verify badge permissions in the updated access management system post-migration and cross-reference with INC-2834 if accessible.",
+        "next_best_action": "Escalate badge access issue for Building 7 — third report without resolution. Verify badge permissions in the updated access management system post-migration and cross-reference with INC-2834 if accessible.",
         "remediation_steps": [
             "Check user's badge permissions in the updated access management system",
             "Verify Building 7 access rights were properly migrated from the old system",
@@ -200,7 +200,7 @@
             "device_info",
             "affected_users"
         ],
-        "next_best_action": "Investigate monitor flickering as primary issue \u2014 likely hardware or cable fault. Route the Salesforce license question separately to Enterprise Applications.",
+        "next_best_action": "Investigate monitor flickering as primary issue — likely hardware or cable fault. Route the Salesforce license question separately to Enterprise Applications.",
         "remediation_steps": [
             "Test with a replacement DisplayPort cable",
             "Test monitor with a different source device to isolate whether it's the monitor or the terminal",
@@ -232,9 +232,9 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close \u2014 this is a thank-you message, not a support request. No action required.",
+        "next_best_action": "Close — this is a thank-you message, not a support request. No action required.",
         "remediation_steps": [
-            "No action required \u2014 positive feedback, close ticket"
+            "No action required — positive feedback, close ticket"
         ]
     },
     {
@@ -247,7 +247,7 @@
             "affected_system",
             "environment_details"
         ],
-        "next_best_action": "Investigate 200ms\u219250ms latency regression on the APAC trading path before London open. Check network path to the exchange gateway, recent firewall or routing changes, and whether the latency is on Contoso's side or the exchange side.",
+        "next_best_action": "Investigate 200ms→50ms latency regression on the APAC trading path before London open. Check network path to the exchange gateway, recent firewall or routing changes, and whether the latency is on Contoso's side or the exchange side.",
         "remediation_steps": [
             "Check network latency metrics on the path between Contoso's APAC trading cluster and the exchange gateway",
             "Review recent firewall rule, routing, or proxy changes that may affect the trading path",
@@ -268,7 +268,7 @@
         "next_best_action": "Investigate SSO token invalidation after password rotation. Likely the SAP SSO ticket needs to be reissued after the Windows password change. Time-sensitive due to month-end reconciliation deadline.",
         "remediation_steps": [
             "Verify the user's Entra ID session and Kerberos ticket are refreshed after the password change",
-            "Check SAP SSO configuration \u2014 confirm whether SAP GUI uses Kerberos or SAML-based SSO",
+            "Check SAP SSO configuration — confirm whether SAP GUI uses Kerberos or SAML-based SSO",
             "Reissue the SAP SSO logon ticket or have the user log into SAP with explicit credentials as a workaround",
             "If SSO token regeneration doesn't resolve it, check whether the password policy change affected the SAP SNC configuration",
             "Confirm SAP access is restored and the user can complete month-end reconciliation"
@@ -301,7 +301,7 @@
         "assigned_team": "Enterprise Applications",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Dispatch support to the 8th floor executive boardroom immediately. SVP-level VIP ticket \u2014 treat as one priority level higher. Investigate Teams sharing policy blocking screen share for this user. Active board meeting with institutional clients.",
+        "next_best_action": "Dispatch support to the 8th floor executive boardroom immediately. SVP-level VIP ticket — treat as one priority level higher. Investigate Teams sharing policy blocking screen share for this user. Active board meeting with institutional clients.",
         "remediation_steps": [
             "Dispatch technician to the 8th floor executive boardroom immediately",
             "Check Conditional Access and Teams meeting policies applied to Carlos Martinez's account",
@@ -354,7 +354,7 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Redirect to Facilities/Office Management \u2014 meeting room booking and catering are not IT support functions. Provide brief guidance on how to book rooms via Outlook (add room resource) and direct catering questions to Office Management.",
+        "next_best_action": "Redirect to Facilities/Office Management — meeting room booking and catering are not IT support functions. Provide brief guidance on how to book rooms via Outlook (add room resource) and direct catering questions to Office Management.",
         "remediation_steps": [
             "Reply with instructions: in Outlook, create a new meeting and click 'Add a room' to search for available meeting rooms",
             "Note that catering requests should go to the Office Management team, not IT",
@@ -371,7 +371,7 @@
             "configuration_details",
             "environment_details"
         ],
-        "next_best_action": "Renew or replace the TLS certificate on client-api.contoso.com before it expires on March 20. This is a production-facing API gateway \u2014 expiry will break all external client integrations. Treat as P1 given 3-day window and the fact that the original provisioner has left the company.",
+        "next_best_action": "Renew or replace the TLS certificate on client-api.contoso.com before it expires on March 20. This is a production-facing API gateway — expiry will break all external client integrations. Treat as P1 given 3-day window and the fact that the original provisioner has left the company.",
         "remediation_steps": [
             "Identify the current certificate authority and certificate type (public CA, internal PKI, or Let's Encrypt)",
             "Determine whether auto-renewal was configured or if the cert was manually provisioned",
@@ -393,7 +393,7 @@
         ],
         "next_best_action": "Investigate laptop performance degradation. Symptoms (slow performance, fan running, pop-ups about 'updating system components') are more consistent with a stuck Windows update or background Intune policy compliance than malware, especially since Defender found nothing. Check update history and system resource usage.",
         "remediation_steps": [
-            "Check Windows Update history \u2014 verify whether recent updates completed or are stuck retrying",
+            "Check Windows Update history — verify whether recent updates completed or are stuck retrying",
             "Review Task Manager for high CPU/disk processes (likely Windows Update or Intune compliance)",
             "If updates are stuck, run Windows Update troubleshooter or manually reset the update components",
             "Verify Defender definitions are current and run a quick scan to confirm no threats",
@@ -409,7 +409,7 @@
         "missing_information": [],
         "next_best_action": "Confirm this is a phishing/scam email and advise the user NOT to click any links. Forward the original email to phishing@contoso.com for analysis. No breach has occurred if the user hasn't clicked.",
         "remediation_steps": [
-            "Reply to the user immediately: this is a scam email \u2014 do NOT click any links or provide any personal information",
+            "Reply to the user immediately: this is a scam email — do NOT click any links or provide any personal information",
             "Have the user forward the original email as an attachment to phishing@contoso.com",
             "Check whether the email bypassed Contoso's email filtering and report to SecOps if so",
             "If the user already clicked the link, escalate to a full security incident and initiate credential reset"
@@ -422,7 +422,7 @@
         "assigned_team": "Data Platform",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate Azure VM prod-analytics-01 stuck at 'Applying computer settings' after scheduled OS patching reboot. Executive analytics dashboard dependent on this VM \u2014 2-hour window before the 9 AM briefing.",
+        "next_best_action": "Investigate Azure VM prod-analytics-01 stuck at 'Applying computer settings' after scheduled OS patching reboot. Executive analytics dashboard dependent on this VM — 2-hour window before the 9 AM briefing.",
         "remediation_steps": [
             "Check Azure boot diagnostics serial console output for the stuck state",
             "Attempt to connect via Azure Serial Console to bypass the stuck login screen",

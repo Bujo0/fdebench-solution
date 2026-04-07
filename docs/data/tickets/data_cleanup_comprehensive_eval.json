@@ -1,0 +1,132 @@
+[
+  {
+    "ticket_id": "INC-DC-5001",
+    "subject": "API container keeps restarting - OOM kills",
+    "description": "Docker logs from our production trade-execution API:\n\n2026-03-18T09:14:23.456Z [INFO]  trade-api | Starting service on port 8080...\n2026-03-18T09:14:23.890Z [INFO]  trade-api | Connected to Redis cache at redis-prod-01:6379\n2026-03-18T09:14:24.112Z [INFO]  trade-api | Database pool initialized (min=5, max=50)\n2026-03-18T09:14:24.334Z [INFO]  trade-api | Health check endpoint registered at /healthz\n2026-03-18T09:14:25.001Z [INFO]  trade-api | Processing backlog: 1,247 pending orders\n2026-03-18T09:15:01.223Z [WARN]  trade-api | Memory usage at 78% (3.12GB / 4GB limit)\n2026-03-18T09:15:45.891Z [WARN]  trade-api | GC pressure detected, pausing 340ms\n2026-03-18T09:16:02.112Z [ERROR] trade-api | Memory usage at 94% (3.76GB / 4GB limit)\n2026-03-18T09:16:03.001Z [ERROR] trade-api | java.lang.OutOfMemoryError: Java heap space\n2026-03-18T09:16:03.002Z [ERROR] trade-api |   at com.contoso.trading.OrderProcessor.processBatch(OrderProcessor.java:247)\n2026-03-18T09:16:03.003Z [ERROR] trade-api |   at com.contoso.trading.Engine.run(Engine.java:89)\n2026-03-18T09:16:03.500Z [FATAL] trade-api | Container killed by OOM killer (exit code 137)\n--- Container restarted (attempt 3/5) ---\n2026-03-18T09:16:10.100Z [INFO]  trade-api | Starting service on port 8080...\n2026-03-18T09:16:10.890Z [INFO]  trade-api | Connected to Redis cache at redis-prod-01:6379\n2026-03-18T09:16:35.200Z [WARN]  trade-api | Memory usage at 72% after 25s\n2026-03-18T09:17:01.456Z [FATAL] trade-api | Container killed by OOM killer (exit code 137)\n--- Container restarted (attempt 4/5) ---\n--- Container restarted (attempt 5/5) ---\n2026-03-18T09:18:30.001Z [FATAL] trade-api | Max restart attempts reached. Container stopped.\n\nThis has been happening since the 9am deployment. The trade execution API keeps crashing with OOM errors and orders are not being processed. Trading desk is impacted.",
+    "reporter": {
+      "name": "Raj Patel",
+      "email": "raj.patel@contoso.com",
+      "department": "Platform Engineering"
+    },
+    "created_at": "2026-03-20T10:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DC-5002",
+    "subject": "Client portal CrashLoopBackOff after hotfix deploy",
+    "description": "kubectl describe pod client-portal-api-7f8d9c6b4-xk2mj -n production:\n\nName:         client-portal-api-7f8d9c6b4-xk2mj\nNamespace:    production\nPriority:     0\nNode:         aks-nodepool1-12345678-vmss000002/10.240.0.6\nStart Time:   Mon, 18 Mar 2026 08:30:00 +0000\nLabels:       app=client-portal-api\n              pod-template-hash=7f8d9c6b4\n              version=v2.4.1\nStatus:       Running\nIP:           10.244.2.15\nContainers:\n  api:\n    Container ID:  containerd://abc123def456\n    Image:         contosoacr.azurecr.io/client-portal-api:v2.4.1-hotfix-typo\n    Image ID:      contosoacr.azurecr.io/client-portal-api@sha256:deadbeef\n    Port:          8443/TCP\n    State:         Waiting\n      Reason:      CrashLoopBackOff\n    Last State:    Terminated\n      Reason:      Error\n      Exit Code:   1\n      Started:     Mon, 18 Mar 2026 09:42:15 +0000\n      Finished:    Mon, 18 Mar 2026 09:42:16 +0000\n    Ready:         False\n    Restart Count: 47\nEvents:\n  Type     Reason     Message\n  ----     ------     -------\n  Normal   Scheduled  Successfully assigned production/client-portal-api-7f8d9c6b4\n  Normal   Pulled     Container image pulled successfully\n  Warning  BackOff    Back-off restarting failed container\n  Warning  BackOff    Back-off 5m0s restarting failed container\n\nThe client portal has been down since the hotfix deployment this morning. The image tag 'v2.4.1-hotfix-typo' doesn't exist in our registry — someone fat-fingered the tag name in the Helm values. Should be 'v2.4.1-hotfix'.",
+    "reporter": {
+      "name": "Kenji Tanaka",
+      "email": "kenji.tanaka@contoso.com",
+      "department": "DevOps"
+    },
+    "created_at": "2026-03-20T10:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DC-5003",
+    "subject": "REVIEW NEEDED: Terraform plan destroying trading DNS records",
+    "description": "Hi team,\n\nWe're about to apply this terraform plan for the Q2 infrastructure update. Can someone review? I'm worried about the DNS changes — the trading API record is being destroyed and recreated with a new IP, and the CNAME for trading.contoso.internal is being removed entirely. This will break all trading platform connectivity if applied during market hours.\n\nTerraform will perform the following actions:\n\n  # azurerm_resource_group.prod will be updated in-place\n  ~ resource \"azurerm_resource_group\" \"prod\" {\n      ~ tags = {\n          + \"cost_center\" = \"CC-4521\"\n        }\n    }\n\n  # azurerm_storage_account.data_01 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_01\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_storage_account.data_02 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_02\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_storage_account.data_03 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_03\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_storage_account.data_04 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_04\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_storage_account.data_05 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_05\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_storage_account.data_06 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_06\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_storage_account.data_07 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_07\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_storage_account.data_08 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_08\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_storage_account.data_09 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_09\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_storage_account.data_10 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_10\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_storage_account.data_11 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_11\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_storage_account.data_12 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_12\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_storage_account.data_13 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_13\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_storage_account.data_14 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_14\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_storage_account.data_15 will be updated in-place\n  ~ resource \"azurerm_storage_account\" \"data_15\" {\n      ~ tags = { + \"env\" = \"production\" }\n    }\n\n  # azurerm_dns_a_record.trading_api will be DESTROYED and re-created\n  -/+ resource \"azurerm_dns_a_record\" \"trading_api\" {\n      ~ name    = \"api.trading\" -> \"api-v2.trading\"\n      ~ records = [\"10.0.1.50\"] -> [\"10.0.2.100\"]\n      ~ ttl     = 300 -> 60\n    }\n\n  # azurerm_dns_cname_record.trading_web will be DESTROYED\n  - resource \"azurerm_dns_cname_record\" \"trading_web\" {\n      - name   = \"trading.contoso.internal\"\n      - record = \"api.trading.contoso.internal\"\n    }\n\nPlan: 2 to add, 18 to change, 2 to destroy.\n\nThis needs urgent review before the change window at 6pm tonight.",
+    "reporter": {
+      "name": "Sarah Kim",
+      "email": "sarah.kim@contoso.com",
+      "department": "Infrastructure"
+    },
+    "created_at": "2026-03-20T10:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DC-5004",
+    "subject": "SSO broken after yesterday's deployment - wrong config pushed",
+    "description": "After yesterday's deployment (commit abc1234), SSO login is broken for all users. Here's the relevant diff:\n\n```diff\ndiff --git a/config/auth/sso.yaml b/config/auth/sso.yaml\nindex 1a2b3c4..5d6e7f8 100644\n--- a/config/auth/sso.yaml\n+++ b/config/auth/sso.yaml\n@@ -12,8 +12,8 @@ sso:\n   provider: azure-ad\n   tenant_id: ${AZURE_TENANT_ID}\n-  client_id: ${SSO_CLIENT_ID}\n-  redirect_uri: https://portal.contoso.com/auth/callback\n+  client_id: 00000000-0000-0000-0000-000000000000\n+  redirect_uri: https://portal-staging.contoso.com/auth/callback\n   scopes:\n     - openid\n     - profile\ndiff --git a/src/middleware/auth.ts b/src/middleware/auth.ts\nindex 9a8b7c6..3d2e1f0 100644\n--- a/src/middleware/auth.ts\n+++ b/src/middleware/auth.ts\n@@ -45,7 +45,7 @@ export class AuthMiddleware {\n   private validateToken(token: string): boolean {\n-    return this.verifier.verify(token, { audience: this.config.clientId });\n+    return true; // TODO: fix token validation in staging\n   }\n```\n\nSomeone accidentally pushed staging config to production. The client_id is hardcoded to zeros and the redirect goes to staging. Plus the token validation is completely disabled! Everyone is getting 'Authentication failed' errors.",
+    "reporter": {
+      "name": "Marcus Chen",
+      "email": "marcus.chen@contoso.com",
+      "department": "Security Engineering"
+    },
+    "created_at": "2026-03-20T10:00:00Z",
+    "channel": "chat",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DC-5005",
+    "subject": "CRITICAL: Wildcard SSL cert expires tomorrow - trading platform at risk",
+    "description": "URGENT: Our wildcard SSL certificate for *.trading.contoso.com expires TOMORROW (March 19, 2026). The renewal request has been stuck in approvals for 3 weeks.\n\nCurrent cert chain for reference:\n\n-----BEGIN CERTIFICATE-----\nMIIFazCCA1OgAwIBAgIUEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMIIEtjCCA56gAwIBAgIQBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMIIDrzCCApegAwIBAgIQCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC=\n-----END CERTIFICATE-----\n\nServices affected if this expires:\n- Trading API (api.trading.contoso.com)\n- Client Portal (portal.trading.contoso.com)\n- Real-time Market Feed (feed.trading.contoso.com)\n- Settlement Gateway (settle.trading.contoso.com)\n\nThis will cause a COMPLETE trading platform outage if not renewed today. The cert is managed through DigiCert and needs VP-level approval to renew.",
+    "reporter": {
+      "name": "Elena Rodriguez",
+      "email": "elena.rodriguez@contoso.com",
+      "department": "Security Operations"
+    },
+    "created_at": "2026-03-20T10:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DC-5006",
+    "subject": "Outlook crashes when opening legal dept emails",
+    "description": "Content-Type: multipart/mixed;\n    boundary=\"----=_Part_12345_67890.1710752400000\"\nMIME-Version: 1.0\nFrom: jsmith@contoso.com\nTo: helpdesk@contoso.com\nSubject: Outlook crashes\nDate: Mon, 18 Mar 2026 10:00:00 +0000\n\n------=_Part_12345_67890.1710752400000\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: quoted-printable\n\nHi, my Outlook keeps crashing whenever I try to open emails from the legal department. It=E2=80=99s been happening since the March update. I get an error dialog that says =E2=80=9CMicrosoft Outlook has stopped working=E2=80=9D and then it restarts. This happens about 10 times a day and I=E2=80=99m losing unsaved draft emails each time.\n\nI=E2=80=99ve tried repairing the Office installation and creating a new Outlook profile but neither helped. Running Outlook 365 version 2402 Build 17328.20162 on Windows 11.\n\n------=_Part_12345_67890.1710752400000\nContent-Type: application/octet-stream;\n    name=\"outlook_crash_dump.dmp\"\nContent-Transfer-Encoding: base64\nContent-Disposition: attachment;\n    filename=\"outlook_crash_dump.dmp\"\n\nTVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQAAAAAAQAAIAAAAAAAAAAAAAAAAAAAEAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\n\n------=_Part_12345_67890.1710752400000--\n",
+    "reporter": {
+      "name": "James Smith",
+      "email": "jsmith@contoso.com",
+      "department": "Legal Operations"
+    },
+    "created_at": "2026-03-20T10:00:00Z",
+    "channel": "email",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DC-5007",
+    "subject": "DNS records corrupted - trading/settlement/compliance unreachable",
+    "description": "All internal DNS lookups for *.contoso.internal are intermittently failing. The trading, settlement, and compliance services have been unreachable since 8:00 AM. I pulled the zone file from ns1 and noticed the records are pointing to 0.0.0.0:\n\n; Zone file for contoso.internal\n$TTL 86400\n$ORIGIN contoso.internal.\n@       IN  SOA  ns1.contoso.internal. admin.contoso.internal. (\n                 2026031801 ; Serial\n                 3600       ; Refresh\n                 900        ; Retry\n                 604800     ; Expire\n                 86400 )    ; Minimum TTL\n\n@           IN  NS   ns1.contoso.internal.\n@           IN  NS   ns2.contoso.internal.\nns1         IN  A    10.0.0.10\nns2         IN  A    10.0.0.11\n\n; Production services\ndb-prod-01  IN  A    10.0.1.20\ndb-prod-02  IN  A    10.0.1.21\napi-prod    IN  A    10.0.1.50\nweb-prod    IN  CNAME  api-prod.contoso.internal.\nmail        IN  MX   10 mail.contoso.internal.\nmail        IN  A    10.0.2.10\n\n; *** THESE RECORDS APPEAR CORRUPTED ***\ntrading     IN  A    0.0.0.0\nsettlement  IN  A    0.0.0.0\ncompliance  IN  A    0.0.0.0\n\n; Staging (should not resolve from prod network)\nstg-api     IN  A    172.16.0.50\nstg-web     IN  A    172.16.0.51\n\nSomeone or something zeroed out the A records for the three critical financial services. The secondary DNS (ns2) has the same corruption. We need to restore the correct records ASAP — the London office can't access trading at all.",
+    "reporter": {
+      "name": "Thomas Wright",
+      "email": "thomas.wright@contoso.com",
+      "department": "Network Engineering"
+    },
+    "created_at": "2026-03-20T10:00:00Z",
+    "channel": "phone",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DC-5008",
+    "subject": "High latency to settlement DB - 36% packet retransmission",
+    "description": "We're seeing terrible latency to the settlement database. Here's a tcpdump capture showing the TCP retransmissions:\n\n09:30:01.234567 IP 10.0.1.100.54321 > 10.0.1.21.1433: Flags [S], seq 1234567890, win 65535\n09:30:01.234890 IP 10.0.1.21.1433 > 10.0.1.100.54321: Flags [S.], seq 9876543210, ack 1234567891\n09:30:01.235001 IP 10.0.1.100.54321 > 10.0.1.21.1433: Flags [.], ack 1, win 65535\n09:30:01.235500 IP 10.0.1.100.54321 > 10.0.1.21.1433: Flags [P.], seq 1:245, ack 1\n09:30:02.236000 IP 10.0.1.100.54321 > 10.0.1.21.1433: Flags [P.], seq 1:245, ack 1  [TCP Retransmission]\n09:30:04.237000 IP 10.0.1.100.54321 > 10.0.1.21.1433: Flags [P.], seq 1:245, ack 1  [TCP Retransmission]\n09:30:08.238000 IP 10.0.1.100.54321 > 10.0.1.21.1433: Flags [P.], seq 1:245, ack 1  [TCP Retransmission]\n09:30:08.238500 IP 10.0.1.21.1433 > 10.0.1.100.54321: Flags [.], ack 245, win 65535\n09:30:08.239000 IP 10.0.1.21.1433 > 10.0.1.100.54321: Flags [P.], seq 1:1460, ack 245\n09:30:08.239100 IP 10.0.1.21.1433 > 10.0.1.100.54321: Flags [P.], seq 1460:2048, ack 245\n\n--- TCP conversation summary ---\nTotal packets: 847\nRetransmissions: 312 (36.8%)\nAverage RTT: 3,200ms (expected: <5ms)\nPacket loss: ~15%\nSource: 10.0.1.100 (settlement-api-prod)\nDestination: 10.0.1.21 (db-prod-02, SQL Server)\n\nThe settlement system is timing out on every third transaction because the DB queries take 7+ seconds instead of the normal <100ms. This is causing trade settlement failures. Started around 8:30 AM today.",
+    "reporter": {
+      "name": "Lisa Park",
+      "email": "lisa.park@contoso.com",
+      "department": "Settlement Operations"
+    },
+    "created_at": "2026-03-20T10:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DC-5009",
+    "subject": "Portfolio service down - DB connection pool exhausted",
+    "description": "The portfolio management service is completely down. Here are the logs:\n\nException in thread \"main\" org.springframework.web.util.NestedServletException: Request processing failed; nested exception is org.springframework.dao.DataAccessResourceFailureException: could not extract ResultSet\n\tat org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\n\tat org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)\n\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:626)\n\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)\n\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:733)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)\n\t... 45 more\nCaused by: org.springframework.dao.DataAccessResourceFailureException: could not extract ResultSet; nested exception is org.hibernate.exception.JDBCConnectionException: could not extract ResultSet\n\tat org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:276)\n\tat org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:233)\n\tat org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:551)\n\t... 58 more\nCaused by: org.hibernate.exception.JDBCConnectionException: could not extract ResultSet\n\tat org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:115)\n\tat org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:56)\n\tat org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:109)\n\t... 72 more\nCaused by: com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Cannot create PoolableConnectionFactory\n\tat com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:596)\n\tat com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:582)\n\tat com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)\n\t... 80 more\nCaused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. Active: 50, Idle: 0, Waiting: 247\n\tat com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:695)\n\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:197)\n\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:162)\n\t... 95 more\nCaused by: com.microsoft.sqlserver.jdbc.SQLServerException: The connection to the host 10.0.1.20, named instance contosofinance has failed. Error: \"java.net.SocketTimeoutException: connect timed out\"\n\tat com.microsoft.sqlserver.jdbc.SQLServerConnection.connectHelper(SQLServerConnection.java:2568)\n\tat com.microsoft.sqlserver.jdbc.SQLServerConnection.login(SQLServerConnection.java:2234)\n\tat com.microsoft.sqlserver.jdbc.SQLServerConnection.connect(SQLServerConnection.java:1210)\n\t... 102 more\n\nHikariPool is at max capacity (50 active, 0 idle, 247 waiting). The root cause looks like the SQL Server instance on 10.0.1.20 (contosofinance) is unreachable. All 50 connections are stuck waiting for the DB to respond. This is blocking all portfolio valuations and the EOD risk reports can't run.",
+    "reporter": {
+      "name": "David Okonkwo",
+      "email": "david.okonkwo@contoso.com",
+      "department": "Risk Management"
+    },
+    "created_at": "2026-03-20T10:00:00Z",
+    "channel": "phone",
+    "attachments": []
+  },
+  {
+    "ticket_id": "INC-DC-5010",
+    "subject": "Q2 reorg - bulk AD permission updates for 15 employees",
+    "description": "Hi team,\n\nWe have a Q2 departmental reorganization effective April 1st. Please update Active Directory group memberships and application permissions for the following 15 employees. Each person needs to be removed from their old department's security groups and added to the new department's groups with the indicated access level.\n\nEmployee ID\tName\tOld Department\tNew Department\tAccess Level\tStart Date\nE10451\tJohnson, Maria\tWealth Mgmt\tTrading Desk\tLevel 3\t2026-04-01\nE10452\tWilliams, Robert\tSettlement\tRisk Analytics\tLevel 2\t2026-04-01\nE10453\tBrown, Patricia\tCompliance\tTrading Desk\tLevel 3\t2026-04-01\nE10454\tDavis, Michael\tIT Support\tSecurity Ops\tLevel 4\t2026-04-01\nE10455\tMiller, Jennifer\tHR\tCompliance\tLevel 2\t2026-04-01\nE10456\tWilson, James\tTrading Desk\tWealth Mgmt\tLevel 3\t2026-04-01\nE10457\tMoore, Linda\tOperations\tSettlement\tLevel 2\t2026-04-01\nE10458\tTaylor, William\tRisk Analytics\tCompliance\tLevel 2\t2026-04-01\nE10459\tAnderson, Barbara\tWealth Mgmt\tOperations\tLevel 1\t2026-04-01\nE10460\tThomas, Richard\tTrading Desk\tRisk Analytics\tLevel 3\t2026-04-01\nE10461\tJackson, Susan\tCompliance\tHR\tLevel 2\t2026-04-01\nE10462\tWhite, Charles\tSecurity Ops\tIT Support\tLevel 4\t2026-04-01\nE10463\tHarris, Jessica\tSettlement\tWealth Mgmt\tLevel 3\t2026-04-01\nE10464\tMartin, Mark\tOperations\tTrading Desk\tLevel 3\t2026-04-01\nE10465\tGarcia, Nancy\tRisk Analytics\tSettlement\tLevel 2\t2026-04-01\n\nThe access levels map to our standard permission tiers:\n- Level 1: Read-only access\n- Level 2: Read/write for department apps\n- Level 3: Read/write + trading system access\n- Level 4: Admin access\n\nPlease ensure this is completed before April 1st. Let me know if you need the manager approval forms — they're all signed and filed in ServiceNow under CHG-20260315.",
+    "reporter": {
+      "name": "Angela Foster",
+      "email": "angela.foster@contoso.com",
+      "department": "Human Resources"
+    },
+    "created_at": "2026-03-20T10:00:00Z",
+    "channel": "portal",
+    "attachments": []
+  }
+]
