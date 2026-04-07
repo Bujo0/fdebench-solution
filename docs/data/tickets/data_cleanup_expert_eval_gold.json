@@ -1,0 +1,287 @@
+[
+    {
+        "ticket_id": "INC-DCX001",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Investigate the GraphQL schema change in the recent deployment that caused CatalogItem.description to return null for non-nullable fields.",
+        "remediation_steps": [
+            "Review the recent deployment changes to the graphql-gateway product catalog API",
+            "Check the CatalogItem schema definition for the description field nullability constraint",
+            "Verify the backing data source has populated description fields for all catalog items",
+            "Roll back the schema change or fix the null values in the catalog database",
+            "Confirm the procurement portal can browse and order equipment after the fix"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCX002",
+        "category": "Software & Applications",
+        "priority": "P1",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": true,
+        "missing_information": [
+            "environment_details",
+            "affected_users"
+        ],
+        "next_best_action": "Address the OOMKilled pod issue by increasing memory limits or reverting the batch size change from INC-3847 that is causing excessive memory consumption.",
+        "remediation_steps": [
+            "Review the batch size change from INC-3847 that increased order processing batch size",
+            "Increase the pod memory limit or revert the batch size to the previous value",
+            "Monitor the order-processing pods for memory usage after the change",
+            "Verify Kafka consumer group rebalancing completes successfully after pod restart",
+            "Confirm order processing pipeline is functional and customer orders are flowing"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCX003",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version",
+            "environment_details"
+        ],
+        "next_best_action": "Investigate the config service v2.4.0 upgrade that introduced double-escaped JSON serialization in configuration values.",
+        "remediation_steps": [
+            "Review the config service v2.4.0 release notes for serialization changes",
+            "Check if the JSON serialization library was upgraded with double-encoding behavior",
+            "Fix the serialization logic to produce properly escaped JSON values",
+            "Verify billing, notification, and reporting services can deserialize configs correctly",
+            "Deploy the fix and restart affected downstream services"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCX004",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "application_version",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Resolve the webpack build failure caused by breaking changes in @contoso/ui-kit v5 export paths after the npm update.",
+        "remediation_steps": [
+            "Check the @contoso/ui-kit v5 migration guide for updated import paths",
+            "Update import statements in EmployeeTable and Dashboard components",
+            "Resolve the CSS ordering conflict between grid.css and overrides.css",
+            "Pin the @contoso/ui-kit dependency to a compatible version if needed",
+            "Verify the build completes successfully and deploy the HR dashboard"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCX005",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details",
+            "error_message"
+        ],
+        "next_best_action": "Investigate the 409 Conflict error on Azure Web App settings update — likely caused by a deployment slot lock from the previous manual deployment.",
+        "remediation_steps": [
+            "Check for deployment slot locks or swap operations on contoso-prod-webapp",
+            "Verify no manual deployment locks were left from the v3.7.9 portal deployment",
+            "Remove any stale locks preventing Set-AzWebApp app settings updates",
+            "Re-run the deployment script to confirm the 409 Conflict is resolved",
+            "Add lock cleanup to the deployment script to prevent future occurrences"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCX006",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Endpoint Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info",
+            "application_version"
+        ],
+        "next_best_action": "Repair the Outlook profile and Teams sign-in state that were reset by Windows Update KB5034441.",
+        "remediation_steps": [
+            "Check if KB5034441 is known to reset Office/Teams registry keys",
+            "Re-create the Outlook mail profile and reconfigure the Exchange account",
+            "Clear the Teams cache and re-sign in to restore the session",
+            "Verify Identity registry keys (EnableADAL, etc.) are set correctly",
+            "Monitor after next Windows Update cycle to confirm settings persist"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCX007",
+        "category": "Security & Compliance",
+        "priority": "P2",
+        "assigned_team": "Security Operations",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_system",
+            "error_message"
+        ],
+        "next_best_action": "Renew the expired Contoso Intermediate CA G2 certificate and redistribute it to all services connecting to the payment gateway.",
+        "remediation_steps": [
+            "Confirm the Intermediate CA G2 certificate has expired",
+            "Generate and sign a new intermediate CA certificate from the Root CA",
+            "Deploy the renewed certificate to pay-gw.internal.contoso.com",
+            "Update the certificate trust chain on all client services (billing, order-processing, refunds)",
+            "Verify TLS handshakes complete successfully for all dependent services"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCX008",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details",
+            "steps_to_reproduce"
+        ],
+        "next_best_action": "Identify and kill the process occupying port 8080 on app-prod-03 so the contoso-webapp service can start.",
+        "remediation_steps": [
+            "Run netstat or ss to identify the process occupying port 8080",
+            "Determine if a zombie process from the maintenance window is holding the port",
+            "Kill the stale process and restart the contoso-webapp systemd service",
+            "Verify the web application starts successfully and passes health checks",
+            "Add a pre-start check to the systemd unit to detect port conflicts"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCX009",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "device_info",
+            "application_version"
+        ],
+        "next_best_action": "Investigate the Outlook character encoding issue for emails with mixed Chinese and English content, likely related to the recent Exchange server migration.",
+        "remediation_steps": [
+            "Check the Exchange server migration logs for encoding configuration changes",
+            "Verify the Exchange transport rules preserve UTF-8 encoding for international content",
+            "Test sending mixed Chinese/English emails between migrated and non-migrated mailboxes",
+            "Check the Outlook client encoding detection settings and MIME charset headers",
+            "Apply encoding fixes to the Exchange server or Outlook client as needed"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCX010",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "network_location",
+            "timestamp"
+        ],
+        "next_best_action": "Investigate the 502 Bad Gateway errors from the nginx reverse proxy — the upstream backend at 10.20.30.41:8080 is timing out after 60 seconds.",
+        "remediation_steps": [
+            "Check the application health on the upstream server 10.20.30.41:8080",
+            "Review application logs for slow queries or resource exhaustion",
+            "Increase the nginx upstream timeout if the backend legitimately needs more time",
+            "Check if the backend connection pool is saturated or the server is under load",
+            "Verify the expense reporting app is responsive after the fix"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCX011",
+        "category": "Software & Applications",
+        "priority": "P3",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_users",
+            "application_version"
+        ],
+        "next_best_action": "Investigate why forwarded emails from the vendor portal display raw MIME content instead of properly rendered attachments.",
+        "remediation_steps": [
+            "Check the vendor portal email forwarding configuration for MIME handling",
+            "Verify the Exchange server correctly processes multipart/mixed forwarded messages",
+            "Test with different email clients to isolate whether the issue is server or client side",
+            "Check if a recent Exchange update changed MIME content-type handling",
+            "Apply the fix and confirm attachments render properly in forwarded vendor emails"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCX012",
+        "category": "Software & Applications",
+        "priority": "P2",
+        "assigned_team": "Enterprise Applications",
+        "needs_escalation": false,
+        "missing_information": [
+            "error_message",
+            "environment_details"
+        ],
+        "next_best_action": "Investigate the database migration error from PR #1247 (invoice-v2) that is causing the production deployment to fail.",
+        "remediation_steps": [
+            "Review the migration scripts in commit 8e7f3b4 for schema conflicts",
+            "Check if the migration targets a table or column that was modified separately",
+            "Run the migration in a staging environment to reproduce the error",
+            "Fix the migration script or adjust the existing schema to be compatible",
+            "Re-deploy to production after verifying the migration succeeds"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCX013",
+        "category": "Data & Storage",
+        "priority": "P2",
+        "assigned_team": "Data Platform",
+        "needs_escalation": false,
+        "missing_information": [
+            "environment_details",
+            "error_message"
+        ],
+        "next_best_action": "Grant the Synapse Contributor role to the Terraform service principal so it can create the Synapse Workspace in the data lake environment.",
+        "remediation_steps": [
+            "Identify the service principal used by Terraform for the datalake provisioning",
+            "Request and assign the Synapse Contributor role on the target subscription",
+            "Verify the role assignment propagates (may take a few minutes)",
+            "Re-run terraform apply to complete the data lake environment provisioning",
+            "Confirm all 8 resources are created successfully"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCX014",
+        "category": "Network & Connectivity",
+        "priority": "P1",
+        "assigned_team": "Network Operations",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_system",
+            "affected_users"
+        ],
+        "next_best_action": "Investigate the internal DNS resolution failure for the contoso.internal zone — check SOA serial synchronization between primary and secondary DNS servers.",
+        "remediation_steps": [
+            "Verify dns-prod-01 (primary) is serving the contoso.internal zone correctly",
+            "Check if dns-prod-02 (secondary) has a stale or desynchronized zone copy",
+            "Force a zone transfer from primary to secondary to update the SOA serial",
+            "Verify all internal hostnames (app-prod, db-prod, web-prod) resolve correctly",
+            "Monitor DNS query logs to confirm resolution is stable for all 500+ users"
+        ]
+    },
+    {
+        "ticket_id": "INC-DCX015",
+        "category": "Network & Connectivity",
+        "priority": "P2",
+        "assigned_team": "Network Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "network_location",
+            "timestamp"
+        ],
+        "next_best_action": "Investigate the intermittent packet loss between Seattle (10.10.x) and Portland (10.50.x) offices causing TCP retransmissions and connection resets.",
+        "remediation_steps": [
+            "Check the WAN link and router interfaces between Seattle and Portland for errors",
+            "Review QoS policies and bandwidth utilization on the inter-site link",
+            "Run extended packet captures to identify the specific network segment with loss",
+            "Check for CRC errors or interface flapping on intermediate switches/routers",
+            "Engage the ISP or circuit provider if the issue is on the WAN link"
+        ]
+    }
+]
