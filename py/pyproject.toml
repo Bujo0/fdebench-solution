@@ -14,12 +14,8 @@ dev = [
 venvPath = "."
 venv = ".venv"
 extraPaths = [
-    "apps/eval-generator/src",
-    "apps/evals/src",
     "common/libs/fastapi/src",
     "common/libs/models/src",
-    "libs/eval/src",
-    "libs/evals/src",
 ]
 
 [tool.pytest.ini_options]
