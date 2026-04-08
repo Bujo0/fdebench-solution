@@ -128,7 +128,7 @@ Your service must also respond to `GET /health` with HTTP 200.
 | Dataset | Tickets | Where | Purpose |
 |---|---|---|---|
 | **Sample + gold answers** | 25 | [sample.json](../data/tickets/sample.json) + [sample_gold.json](../data/tickets/sample_gold.json) | Iterate locally. Compare your output to the correct answers |
-| **Public eval set** | 50 | [public_eval.json](../data/tickets/public_eval.json) | Test at scale before submitting (no gold answers provided) |
+| **Public eval set** | 100 | [public_eval.json](../data/tickets/public_eval.json) | Test at scale before submitting (no gold answers provided) |
 | **Hidden eval set** | 1000+ | Not in this repo | Final scoring. Includes edge cases not in the public data |
 
 Tickets vary in quality. Some are clean. Some are vague, contradictory, multi-issue, garbled, or not real support requests at all. That's not a bug in the dataset. That's what enterprise tickets actually look like.
@@ -373,7 +373,7 @@ uv run python run_eval.py \
   --dataset ../data/tickets/sample.json \
   --gold ../data/tickets/sample_gold.json
 
-# 5. Stress-test against the 50 public eval tickets
+# 5. Stress-test against the 100 public eval tickets
 uv run python run_eval.py \
   --endpoint http://localhost:8000 \
   --dataset ../data/tickets/public_eval.json

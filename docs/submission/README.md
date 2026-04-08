@@ -76,7 +76,7 @@ See [challenge README: Engineering Review](../challenge/README.md#engineering-re
 - [ ] Your API handles **10 concurrent requests** without errors or timeouts
 - [ ] Each request responds in **under 30 seconds** (that's the timeout, aim for well under)
 - [ ] Eval harness runs against 25 sample tickets with gold scoring
-- [ ] Eval harness runs against 50 public eval tickets without errors or timeouts
+- [ ] Eval harness runs against 100 public eval tickets without errors or timeouts
 - [ ] `submission.json` at repo root with correct endpoint URL
 - [ ] `docs/architecture.md` exists and is substantive
 - [ ] `docs/methodology.md` exists and is substantive
