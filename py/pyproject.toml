@@ -5,7 +5,21 @@ description = "uv workspace root"
 requires-python = ">=3.12"
 
 [dependency-groups]
-dev = []
+dev = [
+    "pyright>=1.1.408",
+    "ruff>=0.15.9",
+]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+extraPaths = [
+    "common/libs/fastapi/src",
+    "common/libs/models/src",
+]
+
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
 
 [tool.uv]
 required-version = ">=0.9.5"

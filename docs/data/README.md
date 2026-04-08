@@ -10,7 +10,7 @@ data/
 ├── tickets/
 │   ├── sample.json            # 25 tickets for local development
 │   ├── sample_gold.json       # Gold-standard triage outputs for the sample set
-│   └── public_eval.json       # 50 tickets for pre-submission testing
+│   └── public_eval.json       # 100 tickets for pre-submission testing
 └── schemas/
     ├── input.json             # JSON Schema for ticket input
     └── output.json            # JSON Schema for expected triage output
@@ -72,7 +72,7 @@ This is what real enterprise tickets look like. Your system needs to handle all 
 | Set | Tickets | Gold answers? | Purpose |
 |---|---|---|---|
 | **Sample** | 25 | Yes | Primary development loop, score locally |
-| **Public eval** | 50 | No | Pre-submission validation, checks for errors and timeouts |
+| **Public eval** | 100 | No | Pre-submission validation, checks for errors and timeouts |
 | **Hidden eval** | 1000+ | No (held back) | Final scoring, includes edge cases not in public data |
 
 > **Don't overfit.** The hidden set has ticket types you won't find in the public data. Build for robustness, not memorization.

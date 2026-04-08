@@ -105,7 +105,7 @@ uv run python run_eval.py \
   --gold ../data/tickets/sample_gold.json
 ```
 
-### 50 public eval tickets (no gold answers)
+### 100 public eval tickets (no gold answers)
 
 Run this before you submit. There's no gold file so you won't get a score, but it'll catch crashes, timeouts, and schema issues on tickets you haven't seen.
 
