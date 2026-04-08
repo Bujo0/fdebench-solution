@@ -15,7 +15,7 @@
     {
         "ticket_id": "INC-0002",
         "subject": "Teams crashes and Outlook calendar shows old meetings",
-        "description": "Two problems since getting a new laptop yesterday: (1) Teams shows a white screen then crashes on launch \u2014 tried restarting twice. (2) Outlook calendar is showing meetings from 2024 I deleted months ago. Both started right after the laptop swap. Might be related, might not.",
+        "description": "Two problems since getting a new laptop yesterday: (1) Teams shows a white screen then crashes on launch — tried restarting twice. (2) Outlook calendar is showing meetings from 2024 I deleted months ago. Both started right after the laptop swap. Might be related, might not.",
         "reporter": {
             "name": "Marcus Rodriguez",
             "email": "marcus.rodriguez@contoso.com",
@@ -28,7 +28,7 @@
     {
         "ticket_id": "INC-0003",
         "subject": "Projector not working in Main Boardroom",
-        "description": "The projector in the main boardroom won't turn on. Tried the remote and the physical button. Meridian Partners are arriving in ~25 minutes for the final contract review on a $2.3M deal \u2014 our CFO is presenting. No backup room fits 12 people. Can someone come immediately?",
+        "description": "The projector in the main boardroom won't turn on. Tried the remote and the physical button. Meridian Partners are arriving in ~25 minutes for the final contract review on a $2.3M deal — our CFO is presenting. No backup room fits 12 people. Can someone come immediately?",
         "reporter": {
             "name": "Diana Marsh",
             "email": "diana.marsh@contoso.com",
@@ -40,7 +40,7 @@
     },
     {
         "ticket_id": "INC-0004",
-        "subject": "URGENT \u2014 everything is down!!!",
+        "subject": "URGENT — everything is down!!!",
         "description": "Nothing works. I cant access anything. My computer is just spinning. Please fix ASAP i have deadlines today and my manager is already asking for the deliverable.",
         "reporter": {
             "name": "Jordan Lee",
@@ -67,7 +67,7 @@
     {
         "ticket_id": "INC-0006",
         "subject": "Suspicious login attempts on my account",
-        "description": "Got 6 sign-in alert emails this morning \u2014 someone tried to log into my account from S\u00e3o Paulo, Brazil. I haven't traveled. Changed my password already but worried the account may already be compromised. I have confidential client contracts and deal documents in my OneDrive. Should I be concerned about data exposure?",
+        "description": "Got 6 sign-in alert emails this morning — someone tried to log into my account from São Paulo, Brazil. I haven't traveled. Changed my password already but worried the account may already be compromised. I have confidential client contracts and deal documents in my OneDrive. Should I be concerned about data exposure?",
         "reporter": {
             "name": "Thomas Wright",
             "email": "thomas.wright@contoso.com",
@@ -81,7 +81,7 @@
     },
     {
         "ticket_id": "INC-0007",
-        "subject": "Nightly ETL failing \u2014 SPN 403 against ADLS Gen2",
+        "subject": "Nightly ETL failing — SPN 403 against ADLS Gen2",
         "description": "ADF pipeline 'prod-client-ingest' failing since 03:00 UTC with 403 Forbidden on the ADLS Gen2 storage account. Service principal token may have expired or the Storage Blob Data Contributor RBAC role got removed during last week's subscription cleanup. Feeds the client churn model used for the Monday exec report. ADF is in eastus2, rg-data-prod. Last successful run Saturday 03:00 UTC.",
         "reporter": {
             "name": "Raj Patel",
@@ -96,7 +96,7 @@
     },
     {
         "ticket_id": "INC-0008",
-        "subject": "Low priority \u2014 small database issue",
+        "subject": "Low priority — small database issue",
         "description": "Hey team. The production client database has been returning timeout errors for 2 hours. ~40% of API requests to the client portal are failing with 500 errors. Clients are seeing intermittent errors accessing their accounts. SRE dashboard shows connection pool exhaustion on the primary replica. Marked as low priority since the read replica is still handling some traffic. Let me know when you get a chance.",
         "reporter": {
             "name": "Kim Nguyen",
@@ -111,8 +111,8 @@
     },
     {
         "ticket_id": "INC-0009",
-        "subject": "Re: INC-2834 \u2014 Badge access still broken, Building 7",
-        "description": "Following up on INC-2834 from last week. Badge still doesn't work for Building 7 after the access system migration. Was told it'd be fixed by Friday \u2014 it's Monday and I still can't get in. Have to wait for someone to open the door every morning. Third time reporting this.",
+        "subject": "Re: INC-2834 — Badge access still broken, Building 7",
+        "description": "Following up on INC-2834 from last week. Badge still doesn't work for Building 7 after the access system migration. Was told it'd be fixed by Friday — it's Monday and I still can't get in. Have to wait for someone to open the door every morning. Third time reporting this.",
         "reporter": {
             "name": "Elena Vasquez",
             "email": "elena.vasquez@contoso.com",
@@ -124,7 +124,7 @@
     },
     {
         "ticket_id": "INC-0010",
-        "subject": "New hire March 31 \u2014 full setup needed",
+        "subject": "New hire March 31 — full setup needed",
         "description": "New senior data scientist (Alex Rivera) starting March 31. Needs:\n- Laptop (MacBook Pro M4, 32GB)\n- Standard software + Python/Conda/Jupyter\n- Azure ML workspace access (rg-ml-prod)\n- Data catalog read access\n- Building 3 badge\n- Added to analytics-team DL and Teams channel\n\nReports to me. Please have everything ready by March 28 for a walkthrough.",
         "reporter": {
             "name": "Dr. Yuki Tanaka",
@@ -150,8 +150,8 @@
     },
     {
         "ticket_id": "INC-0012",
-        "subject": "FYI \u2014 Bloomberg terminal monitor flickering",
-        "description": "Monitor connected to my Bloomberg terminal started flickering around 10am. It's not constant \u2014 happens for a few seconds every 5-10 minutes. I switched the DP cable to a different port and it still does it. Bloomberg itself seems fine, data is updating. Just the display. Also, unrelated \u2014 can you check if my Salesforce license is still active? I got an expiry warning email last week but I can still log in.",
+        "subject": "FYI — Bloomberg terminal monitor flickering",
+        "description": "Monitor connected to my Bloomberg terminal started flickering around 10am. It's not constant — happens for a few seconds every 5-10 minutes. I switched the DP cable to a different port and it still does it. Bloomberg itself seems fine, data is updating. Just the display. Also, unrelated — can you check if my Salesforce license is still active? I got an expiry warning email last week but I can still log in.",
         "reporter": {
             "name": "Anna Brooks",
             "email": "anna.brooks@contoso.com",
@@ -163,7 +163,7 @@
     },
     {
         "ticket_id": "INC-0013",
-        "subject": "Potential data breach \u2014 immediate attention needed",
+        "subject": "Potential data breach — immediate attention needed",
         "description": "During a routine compliance audit, we discovered that a SharePoint site containing PII for ~1,200 clients in the Singapore office was shared externally with 'Anyone with the link' permissions. The site has been accessible since at least February 15. We've revoked the sharing link as of this morning but need to determine: (1) who created the public link, (2) whether external parties accessed the data, and (3) whether this triggers a notification obligation under MAS TRM guidelines. This is a potential regulatory incident.",
         "reporter": {
             "name": "Dr. Ananya Gupta",
@@ -180,7 +180,7 @@
     {
         "ticket_id": "INC-0014",
         "subject": "thanks!",
-        "description": "got it working, appreciate the quick turnaround. you guys are the best!! \ud83c\udf89",
+        "description": "got it working, appreciate the quick turnaround. you guys are the best!! 🎉",
         "reporter": {
             "name": "Mike Torres",
             "email": "mike.torres@contoso.com",
@@ -192,7 +192,7 @@
     },
     {
         "ticket_id": "INC-0015",
-        "subject": "Slight delay in trade execution \u2014 may be nothing",
+        "subject": "Slight delay in trade execution — may be nothing",
         "description": "Noticing about a 200ms delay in trade execution on the APAC book this morning. Normally we're at ~50ms. Volume looks normal. Latency seems to spike right around 09:00 SGT and hasn't recovered. Not sure if it's our side or the exchange. The traders haven't complained yet but if this gets to 500ms during the London open we'll have a real problem. Just flagging early.",
         "reporter": {
             "name": "James Okafor",
@@ -206,7 +206,7 @@
     {
         "ticket_id": "INC-0016",
         "subject": "SAP won't load after password change",
-        "description": "Changed my Windows password this morning per the quarterly rotation policy. Now SAP GUI gives me 'SSO token invalid \u2014 contact your system administrator'. Tried logging out and back in to Windows, same issue. Other apps (Outlook, Teams, SharePoint) work fine. I need SAP to process month-end reconciliation \u2014 close of business today is the deadline.",
+        "description": "Changed my Windows password this morning per the quarterly rotation policy. Now SAP GUI gives me 'SSO token invalid — contact your system administrator'. Tried logging out and back in to Windows, same issue. Other apps (Outlook, Teams, SharePoint) work fine. I need SAP to process month-end reconciliation — close of business today is the deadline.",
         "reporter": {
             "name": "Linda Park",
             "email": "linda.park@contoso.com",
@@ -220,7 +220,7 @@
     },
     {
         "ticket_id": "INC-0017",
-        "subject": "Phone call \u2014 user having issues with something",
+        "subject": "Phone call — user having issues with something",
         "description": "[Transcribed from phone call, 3:42 PM]\n\nCaller: Hi yeah so um my thing... the thing on my computer... it keeps doing the... you know when you click on it and it goes to the... [inaudible] ...and then nothing happens? I've been trying for like two days. My colleague Janet said to call you guys. I think it might be the... [inaudible] ...something about permissions? I don't know. Can someone just come look at it? I'm on the 5th floor, near the kitchen. My name's Bob. No wait, Robert. Robert Chen. Not the Robert Chen in accounting, the other one.",
         "reporter": {
             "name": "Robert Chen",
@@ -233,7 +233,7 @@
     },
     {
         "ticket_id": "INC-0018",
-        "subject": "SVP Martinez can't share screen in board meeting \u2014 happening now",
+        "subject": "SVP Martinez can't share screen in board meeting — happening now",
         "description": "Carlos Martinez (SVP, Institutional Trading) is in the board meeting right now and can't share his screen over Teams. The meeting is with the board of directors and institutional clients. He's tried sharing from both his laptop and the room's Teams Room device. Other participants can share fine. His laptop shows 'Sharing is blocked by your organization's policy.' Meeting has been going on for 10 minutes without his presentation. He's asking for someone to come to the 8th floor executive boardroom immediately.",
         "reporter": {
             "name": "Patricia Gomez",
@@ -246,7 +246,7 @@
     },
     {
         "ticket_id": "INC-0019",
-        "subject": "Employee offboarding \u2014 last day March 21",
+        "subject": "Employee offboarding — last day March 21",
         "description": "Jessica Palmer (jessica.palmer@contoso.com) in the Compliance team has resigned. Her last working day is Friday March 21. Please:\n- Disable her Entra ID account at 6 PM EST on March 21\n- Revoke VPN and all remote access\n- Wipe her company laptop (Dell Latitude 5540, asset tag CT-L-4892)\n- Transfer ownership of her OneDrive and SharePoint files to her manager David Liu (david.liu@contoso.com)\n- Remove her from all distribution lists and Teams channels\n- Archive her mailbox per our 7-year retention policy\n\nNote: Jessica has access to sensitive compliance investigation files. Please ensure these are preserved but not accessible after her departure.",
         "reporter": {
             "name": "David Liu",
@@ -262,7 +262,7 @@
     {
         "ticket_id": "INC-0020",
         "subject": "Printer on 3rd floor not working",
-        "description": "The big printer near the break room on the 3rd floor stopped printing. Jobs go to the queue but nothing comes out. I tried printing from my laptop and from the desktop next to it \u2014 same result. The printer display shows 'Ready' and paper trays are full. Other people on the floor are having the same issue. We need it for client proposals that go out today.",
+        "description": "The big printer near the break room on the 3rd floor stopped printing. Jobs go to the queue but nothing comes out. I tried printing from my laptop and from the desktop next to it — same result. The printer display shows 'Ready' and paper trays are full. Other people on the floor are having the same issue. We need it for client proposals that go out today.",
         "reporter": {
             "name": "Sam Williams",
             "email": "sam.williams@contoso.com",
@@ -287,7 +287,7 @@
     },
     {
         "ticket_id": "INC-0022",
-        "subject": "SSL cert expiring on client-api.contoso.com \u2014 3 days left",
+        "subject": "SSL cert expiring on client-api.contoso.com — 3 days left",
         "description": "Our monitoring flagged that the TLS certificate on client-api.contoso.com expires on March 20. This is the production API gateway that all external client integrations hit. If the cert expires, every client connection will start failing with TLS errors. The cert was originally provisioned manually by someone who left the company 6 months ago. I don't know if auto-renewal was ever configured. We need to renew or replace it before Thursday.",
         "reporter": {
             "name": "Nina Volkov",
@@ -315,8 +315,8 @@
     },
     {
         "ticket_id": "INC-0024",
-        "subject": "Fwd: You have won $5,000,000 \u2014 claim now!!!",
-        "description": "---------- Forwarded message ----------\nFrom: International Prize Committee <claims@totallylegit-prizes.ng>\nDate: March 16, 2026\nSubject: You have won $5,000,000 \u2014 claim now!!!\n\nDear Valued Customer,\n\nCongratulations! Your email address has been selected as the winner of our annual International Email Lottery. You have won the sum of $5,000,000 USD.\n\nTo claim your prize, please click the link below and enter your full name, date of birth, and bank account details:\nhttps://claim-your-prize-now.totallylegit-prizes.ng\n\n--- end forwarded message ---\n\nHey IT \u2014 got this email, is this legit? Should I click the link? Looks suspicious but I don't want to miss out if it's real.",
+        "subject": "Fwd: You have won $5,000,000 — claim now!!!",
+        "description": "---------- Forwarded message ----------\nFrom: International Prize Committee <claims@totallylegit-prizes.ng>\nDate: March 16, 2026\nSubject: You have won $5,000,000 — claim now!!!\n\nDear Valued Customer,\n\nCongratulations! Your email address has been selected as the winner of our annual International Email Lottery. You have won the sum of $5,000,000 USD.\n\nTo claim your prize, please click the link below and enter your full name, date of birth, and bank account details:\nhttps://claim-your-prize-now.totallylegit-prizes.ng\n\n--- end forwarded message ---\n\nHey IT — got this email, is this legit? Should I click the link? Looks suspicious but I don't want to miss out if it's real.",
         "reporter": {
             "name": "Greg Dawson",
             "email": "greg.dawson@contoso.com",
