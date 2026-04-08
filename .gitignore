@@ -3,3 +3,12 @@
 __pycache__/
 node_modules/
 .internal/
+.env
+.env.*
+!.env.example
+!.env.azure.example
+*.pyc
+dist/
+build/
+*.egg-info/
+eval_results.json
