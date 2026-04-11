@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Hackathon evaluation harness.
+"""Hackathon evaluation harness — Space Mission Control Signal Triage.
 
 Scores a participant's /triage endpoint against a gold-standard dataset.
 This script tests Part 1 (functional accuracy) only. Part 2 (engineering
@@ -15,15 +15,15 @@ Architecture:
     The platform scores your submission on 7 dimensions:
 
     5 classification dimensions (max 85 pts total):
-        0.20 × category      — macro F1 across 8 categories
+        0.20 × category      — macro F1 across 8 anomaly categories
         0.20 × priority      — mean ordinal partial credit (P1–P4)
-        0.20 × routing       — macro F1 across 7 teams
-        0.15 × missing_info  — mean per-ticket set F1
+        0.20 × routing       — macro F1 across 7 response divisions
+        0.15 × missing_info  — mean per-signal set F1
         0.10 × escalation    — binary F1 on the positive class
 
     2 efficiency dimensions (max 15 pts total):
         0.10 × latency       — normalized p50 response time
-        0.05 × cost          — normalized $/ticket from token usage
+        0.05 × cost          — normalized $/signal from token usage
 
     Total = classification (0–85) + efficiency (0–15) = 0–100.
 
@@ -87,23 +87,23 @@ WEIGHTS = {
 # ── Closed label sets (must match the platform) ─────────────────────
 
 CATEGORIES = (
-    "Access & Authentication",
-    "Hardware & Peripherals",
-    "Network & Connectivity",
-    "Software & Applications",
-    "Security & Compliance",
-    "Data & Storage",
-    "General Inquiry",
-    "Not a Support Ticket",
+    "Crew Access & Biometrics",
+    "Hull & Structural Systems",
+    "Communications & Navigation",
+    "Flight Software & Instruments",
+    "Threat Detection & Containment",
+    "Telemetry & Data Banks",
+    "Mission Briefing Request",
+    "Not a Mission Signal",
 )
 
 TEAMS = (
-    "Identity & Access Management",
-    "Endpoint Engineering",
-    "Network Operations",
-    "Enterprise Applications",
-    "Security Operations",
-    "Data Platform",
+    "Crew Identity & Airlock Control",
+    "Spacecraft Systems Engineering",
+    "Deep Space Communications",
+    "Mission Software Operations",
+    "Threat Response Command",
+    "Telemetry & Data Core",
     "None",
 )
 

@@ -2,18 +2,18 @@
 
 ## What Is This
 
-A **build challenge** where you tackle the kind of problem FDEs actually solve: a financial services company is drowning in IT support tickets, and they need an AI-powered triage API. Yesterday.
+A **build challenge** where you tackle the kind of problem FDEs actually solve: a deep-space station is drowning in incoming mission signals, and they need an AI-powered signal triage API. Yesterday. Before the hull breach in Sector 7 gets worse.
 
-You'll read their (messy, incomplete) customer brief, dig through their ticket data, build a real deployed API, and ship it. Then we score it against a hidden evaluation set you've never seen.
+You'll read their (messy, incomplete) mission briefing, dig through their signal data, build a real deployed API, and ship it. Then we score it against a hidden evaluation set you've never seen.
 
-**This is not a chatbot challenge.** It's an engineering challenge. One endpoint, one JSON in, one JSON out, deployed and callable. The kind of thing you'd actually build for a customer.
+**This is not a chatbot challenge.** It's an engineering challenge. One endpoint, one JSON in, one JSON out, deployed and callable. The kind of thing you'd actually build for a mission control team.
 
 ## Getting Started
 
-1. **Read the customer brief** → [docs/challenge/customer_brief.md](docs/challenge/customer_brief.md). Understand the business problem before you write code
-2. **Review the routing guide** → [docs/challenge/routing_guide.md](docs/challenge/routing_guide.md). Their internal (incomplete) routing rules
+1. **Read the mission briefing** → [docs/challenge/customer_brief.md](docs/challenge/customer_brief.md). Understand the mission before you write code
+2. **Review the routing protocol** → [docs/challenge/routing_guide.md](docs/challenge/routing_guide.md). Their internal (incomplete) signal routing rules
 3. **Read the challenge spec** → [docs/challenge/](docs/challenge/). API contract, schemas, scoring rubric
-4. **Explore the data** → [docs/data/](docs/data/). Synthetic tickets for development and testing
+4. **Explore the data** → [docs/data/](docs/data/). Synthetic signals for development and testing
 5. **Test locally** → [docs/eval/](docs/eval/). Run the eval harness against your endpoint
 6. **Submit** → deploy, push, then go to **[aka.ms/fde/hackathon](https://aka.ms/fde/hackathon)** to submit
 
@@ -21,8 +21,8 @@ You'll read their (messy, incomplete) customer brief, dig through their ticket d
 
 ```
 ├── docs/
-│   ├── challenge/       # Problem statement, customer brief, rules, scoring
-│   ├── data/            # Synthetic ticket dataset + schemas
+│   ├── challenge/       # Problem statement, mission briefing, rules, scoring
+│   ├── data/            # Synthetic signal dataset + schemas
 │   ├── eval/            # Public evaluation harness (run locally)
 │   └── submission/      # How to submit your solution
 ├── py/                  # Python workspace (uv)

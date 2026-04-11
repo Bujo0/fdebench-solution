@@ -1,112 +1,112 @@
-# Contoso IT Support — Internal Routing Guide
+# Contoso Deep Space Station — Internal Signal Routing Protocol
 
-> **Last updated:** July 2025
-> **Author:** Raj Mehta, IT Service Desk Manager
-> **Status:** DRAFT — some sections still being finalized after the Q2 reorg
+> **Last updated:** Stardate 2025.195
+> **Author:** Lt. Raj Mehta, Mission Control Shift Manager
+> **Status:** DRAFT — some sections still being finalized after the Q2 division reorg
 
 ---
 
-## How to use this guide
+## How to use this protocol
 
-When a ticket comes in, identify the **issue type** from the table below and route to the listed **owning team**. If you're unsure, escalate to the Service Desk Lead.
+When a signal comes in, identify the **anomaly type** from the table below and route to the listed **owning division**. If you're unsure, escalate to the Shift Commander.
 
 ## Priority Definitions
 
 | Priority | Label | Response SLA | Resolution SLA | When to use |
 |---|---|---|---|---|
-| P1 | Critical | 15 min | 4 hours | Production system down, security breach in progress, revenue-impacting outage, executive-impacting |
-| P2 | High | 1 hour | 8 hours | Major feature broken, no workaround, multiple users affected |
-| P3 | Medium | 4 hours | 3 business days | Impact with workaround available, single user blocked but non-urgent |
-| P4 | Low | 1 business day | 10 business days | Minor inconvenience, cosmetic issue, feature request, general question |
+| P1 | 🔴 Red Alert | 15 min | 4 hours | Life support failure, hull breach, hostile contact, crew medical emergency, active containment breach |
+| P2 | 🟡 Yellow Alert | 1 hour | 8 hours | Significant mission impact but not immediate danger; time-sensitive maneuvers, security anomalies, science windows at risk |
+| P3 | 🟠 Caution | 4 hours | 3 business days | Standard anomalies with workarounds, non-urgent maintenance, single crew member blocked but non-urgent |
+| P4 | 🟢 Routine | 1 business day | 10 business days | Informational queries, cosmetic issues, feature requests, general questions |
 
-**Override rule:** Any ticket mentioning potential data breach, regulatory issue, or compliance audit is automatically **P1** regardless of other factors.
+**Override rule:** Any signal mentioning potential hull breach, unidentified contact, or containment protocol violation is automatically **P1** regardless of other factors. Judge by IMPACT, not by the sender's label.
 
 ---
 
 ## Routing Table
 
-### Identity & Access Management (IAM)
+### Crew Identity & Airlock Control
 
-| Issue type | Route to | Notes |
+| Anomaly type | Route to | Notes |
 |---|---|---|
-| Password reset | IAM | Self-service portal handles most; only escalate if SSPR fails |
-| Account lockout | IAM | Check for brute-force indicators first — if suspicious, also alert SecOps |
-| New user provisioning | IAM | Requires manager approval in ServiceNow |
-| SSO not working | IAM | Verify the app is in the Entra ID gallery first |
-| Directory sync issues | IAM | Usually Entra Connect related |
-| Service account requests | IAM | Requires security review before provisioning |
+| Biometric reset | Crew Identity & Airlock Control | Self-service portal handles most; only escalate if self-service fails |
+| Crew lockout | Crew Identity & Airlock Control | Check for unauthorized access indicators first — if suspicious, also alert Threat Response |
+| New crew provisioning | Crew Identity & Airlock Control | Requires command officer approval in Mission Control |
+| SSO not working | Crew Identity & Airlock Control | Verify the app is in the crew identity database first |
+| Identity sync issues | Crew Identity & Airlock Control | Usually crew database replication related |
+| Service account requests | Crew Identity & Airlock Control | Requires security review before provisioning |
 
-### Endpoint Engineering
+### Spacecraft Systems Engineering
 
-| Issue type | Route to | Notes |
+| Anomaly type | Route to | Notes |
 |---|---|---|
-| Laptop hardware failure | Endpoint Engineering | If under warranty, initiate vendor RMA |
-| OS crash / blue screen | Endpoint Engineering | Collect crash dump before reimaging |
-| Software installation request | Endpoint Engineering | Must be on the approved software list |
-| Intune enrollment | Endpoint Engineering | New hires should be auto-enrolled |
-| Printer issues | Endpoint Engineering | Check if it's a network printer (→ Network Ops) or USB-connected |
-| Mobile device issues | Endpoint Engineering | Company-managed devices only |
-| Slow computer | Endpoint Engineering | Run hardware diagnostics first |
+| Hull panel failure | Spacecraft Systems Engineering | If under warranty, initiate manufacturer RMA |
+| Module crash / reboot loop | Spacecraft Systems Engineering | Collect diagnostic dump before reflashing |
+| Equipment installation request | Spacecraft Systems Engineering | Must be on the approved hardware list |
+| Docking port enrollment | Spacecraft Systems Engineering | New docking berths should be auto-enrolled |
+| Solar panel issues | Spacecraft Systems Engineering | Check if it's array-connected (→ Deep Space Comms) or module-connected |
+| Personal module device issues | Spacecraft Systems Engineering | Station-issued devices only |
+| Slow console | Spacecraft Systems Engineering | Run hardware diagnostics first |
 
-### Network Operations
+### Deep Space Communications
 
-| Issue type | Route to | Notes |
+| Anomaly type | Route to | Notes |
 |---|---|---|
-| VPN connectivity | Network Operations | Check if user's credentials are expired first (→ IAM if so) |
-| Office WiFi issues | Network Operations | — |
-| DNS resolution failures | Network Operations | — |
-| Firewall rule requests | Network Operations | Requires security approval from SecOps |
-| Bandwidth / latency | Network Operations | Get specific times and affected services |
-| Video conferencing quality | Network Operations | If it's a Teams-specific issue, try Enterprise Apps first |
+| Subspace relay connectivity | Deep Space Communications | Check if crew credentials are expired first (→ Crew Identity if so) |
+| Habitat Wi-Fi issues | Deep Space Communications | — |
+| Signal resolution failures | Deep Space Communications | — |
+| Comm filter rule requests | Deep Space Communications | Requires security approval from Threat Response |
+| Bandwidth / latency | Deep Space Communications | Get specific stardates and affected subsystems |
+| Holodeck comm quality | Deep Space Communications | If it's a flight-software-specific issue, try Mission Software first |
 
-### Enterprise Applications
+### Mission Software Operations
 
-| Issue type | Route to | Notes |
+| Anomaly type | Route to | Notes |
 |---|---|---|
-| SAP errors or access | Enterprise Applications | — |
-| Salesforce issues | Enterprise Applications | — |
-| Bloomberg terminal | Enterprise Applications | Physical hardware issues go to Endpoint Engineering |
-| Microsoft 365 issues | Enterprise Applications | Licensing issues specifically — general M365 outages are Network Ops |
-| Internal web app bugs | Enterprise Applications | — |
-| Application licensing | Enterprise Applications | — |
+| Navigation plotter errors | Mission Software Operations | — |
+| Science instrument issues | Mission Software Operations | — |
+| Star chart terminal | Mission Software Operations | Physical hardware issues go to Spacecraft Systems Engineering |
+| Mission planning software | Mission Software Operations | Licensing issues specifically — general outages are Deep Space Comms |
+| Internal station app bugs | Mission Software Operations | — |
+| Software licensing | Mission Software Operations | — |
 
-### Security Operations (SecOps)
+### Threat Response Command
 
-| Issue type | Route to | Notes |
+| Anomaly type | Route to | Notes |
 |---|---|---|
-| Phishing email received | SecOps | Forward original as attachment to phishing@contoso.com |
-| Malware / suspicious activity | SecOps | Isolate device from network immediately |
-| Data loss / unauthorized access | SecOps | Mandatory P1 escalation |
-| Security certificate issues | SecOps | — |
-| Compliance / audit requests | SecOps | — |
+| Suspicious transmission received | Threat Response Command | Forward original signal data to threats@contoso.com |
+| Anomalous object / hostile contact | Threat Response Command | Initiate containment protocol immediately |
+| Data breach / unauthorized access | Threat Response Command | Mandatory P1 escalation |
+| Encryption certificate issues | Threat Response Command | — |
+| Compliance / audit requests | Threat Response Command | — |
 
-### Data Platform
+### Telemetry & Data Core
 
-| Issue type | Route to | Notes |
+| Anomaly type | Route to | Notes |
 |---|---|---|
-| SharePoint site access | Data Platform | — |
-| OneDrive sync issues | Data Platform | Large file sync problems are common; check file count limits |
-| Database access request | Data Platform | Requires data owner approval |
-| Backup / restore request | Data Platform | — |
-| File share access | Data Platform | Legacy file shares only; new requests should use SharePoint |
+| Data bank access | Telemetry & Data Core | — |
+| Sensor sync issues | Telemetry & Data Core | Large telemetry sync problems are common; check data volume limits |
+| Database access request | Telemetry & Data Core | Requires data owner approval |
+| Backup / restore request | Telemetry & Data Core | — |
+| Legacy data bank access | Telemetry & Data Core | Legacy local data banks only; new requests should use cloud storage |
 
 ---
 
-## Known gaps in this guide
+## Known gaps in this protocol
 
-> **Raj's note:** The following areas still need to be sorted out. For now, use your best judgment or escalate to the Service Desk Lead.
+> **Lt. Mehta's note:** The following areas still need to be sorted out. For now, use your best judgment or escalate to the Shift Commander.
 
-- **Multi-factor authentication (MFA) issues** — Could be IAM (user setup), SecOps (policy enforcement), or Endpoint Engineering (authenticator app issues). We haven't agreed on a single owner.
-- **Teams/collaboration issues** — Is it a Network Ops issue (call quality), Enterprise Apps issue (Teams app crash), or Endpoint Engineering issue (headset/camera)? Depends on the symptoms.
-- **Cloud infrastructure requests** — Azure subscription access, VM requests, etc. Data Platform handles some, but we don't have a formal cloud ops team yet.
-- **Onboarding / offboarding** — Touches IAM (accounts), Endpoint Engineering (hardware), Enterprise Apps (licenses), and Data Platform (access). There's a workflow for this but it's manual and breaks constantly.
-- **Printer and scanning** — Network printers are Network Ops, USB printers are Endpoint Engineering, scanning-to-email failures could be either.
+- **Biometric scanner failures** — Could be Crew Identity (profile setup), Threat Response (security policy enforcement), or Spacecraft Systems Engineering (scanner hardware). We haven't agreed on a single owner.
+- **Holodeck / recreation issues** — Is it a Deep Space Comms issue (signal quality), Mission Software issue (holodeck program crash), or Spacecraft Systems issue (projector/emitter hardware)? Depends on the symptoms.
+- **Cloud infrastructure requests** — Azure compute access, VM requests, etc. Telemetry & Data Core handles some, but we don't have a formal cloud ops division yet.
+- **Crew onboarding / departure** — Touches Crew Identity (profiles), Spacecraft Systems (hardware), Mission Software (licenses), and Telemetry (data access). There's a workflow for this but it's manual and breaks constantly.
+- **Fabricator and recycler units** — Station-networked fabricators are Deep Space Comms, module-connected recyclers are Spacecraft Systems, scan-to-database failures could be either.
 
 ---
 
 ## Escalation rules
 
-1. **P1 tickets** — Must be acknowledged within 15 minutes. If the assigned team doesn't acknowledge, auto-escalate to Service Desk Lead.
-2. **Security incidents** — Always route to SecOps. If it also affects another team's domain (e.g., compromised account = IAM + SecOps), route to SecOps as primary and IAM as secondary.
-3. **VIP tickets** — C-suite and SVP+ tickets are auto-flagged. Treat as one priority level higher than normal assessment.
-4. **Repeat tickets** — If the same reporter has filed 3+ tickets in 7 days for the same issue, escalate to the team lead for root cause investigation.
+1. **P1 signals** — Must be acknowledged within 15 minutes. If the assigned division doesn't acknowledge, auto-escalate to the Shift Commander.
+2. **Threat incidents** — Always route to Threat Response Command. If it also affects another division's domain (e.g., compromised biometrics = Crew Identity + Threat Response), route to Threat Response as primary and Crew Identity as secondary.
+3. **VIP signals** — Command crew and Admiral+ signals are auto-flagged. Treat as one priority level higher than normal assessment.
+4. **Repeat signals** — If the same crew member has filed 3+ signals in 7 days for the same anomaly, escalate to the division lead for root cause investigation.
