@@ -78,9 +78,9 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close \u2014 this is an automated EVA-absence reply to a maintenance notification, not a support request. No action required.",
+        "next_best_action": "Close — this is an automated EVA-absence reply to a maintenance notification, not a support request. No action required.",
         "remediation_steps": [
-            "No action required \u2014 auto-reply detected, close signal"
+            "No action required — auto-reply detected, close signal"
         ]
     },
     {
@@ -124,7 +124,7 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate crew telemetry database connection pool exhaustion immediately. This is a station-wide production incident \u2014 40% of queries are failing regardless of the submitter's priority classification.",
+        "next_best_action": "Investigate crew telemetry database connection pool exhaustion immediately. This is a station-wide production incident — 40% of queries are failing regardless of the submitter's priority classification.",
         "remediation_steps": [
             "Investigate connection pool configuration on the primary telemetry data node",
             "Identify and terminate long-running queries or leaked connections",
@@ -142,7 +142,7 @@
         "missing_information": [
             "previous_signal_id"
         ],
-        "next_best_action": "Escalate airlock access issue for Module 7 \u2014 third report without resolution. Verify badge permissions in the updated airlock access system post-migration and cross-reference with SIG-2834 if accessible.",
+        "next_best_action": "Escalate airlock access issue for Module 7 — third report without resolution. Verify badge permissions in the updated airlock access system post-migration and cross-reference with SIG-2834 if accessible.",
         "remediation_steps": [
             "Check crew member's badge permissions in the updated airlock access system",
             "Verify Module 7 access rights were properly migrated from the old system",
@@ -200,7 +200,7 @@
             "module_specs",
             "affected_crew"
         ],
-        "next_best_action": "Investigate viewport display flickering as primary issue \u2014 likely hardware or plasma conduit fault. Route the StellarNav license question separately to Mission Software Operations.",
+        "next_best_action": "Investigate viewport display flickering as primary issue — likely hardware or plasma conduit fault. Route the StellarNav license question separately to Mission Software Operations.",
         "remediation_steps": [
             "Test with a replacement plasma conduit cable",
             "Test viewport display with a different console source to isolate whether it's the display or the sensor array",
@@ -232,9 +232,9 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close \u2014 this is a thank-you message, not a support request. No action required.",
+        "next_best_action": "Close — this is a thank-you message, not a support request. No action required.",
         "remediation_steps": [
-            "No action required \u2014 positive feedback, close signal"
+            "No action required — positive feedback, close signal"
         ]
     },
     {
@@ -247,10 +247,10 @@
             "affected_subsystem",
             "habitat_conditions"
         ],
-        "next_best_action": "Investigate 200ms\u219250ms latency regression on the port maneuvering array thruster response before the orbital correction window. Check data path to the thruster gimbal actuators, recent flight computer or routing changes, and whether the latency is on the station's side or the actuator side.",
+        "next_best_action": "Investigate 200ms→50ms latency regression on the port maneuvering array thruster response before the orbital correction window. Check data path to the thruster gimbal actuators, recent flight computer or routing changes, and whether the latency is on the station's side or the actuator side.",
         "remediation_steps": [
             "Check response latency metrics on the path between CDSS flight computer and the port thruster gimbal actuators",
-            "Review recent flight computer, routing, or firewall changes that may affect the thruster control path",
+            "Review recent flight computer, routing, or shield barrier changes that may affect the thruster control path",
             "Compare current latency baseline against historical data to confirm the regression",
             "If latency is on the station's side, escalate to flight systems engineering for immediate remediation before orbital correction window",
             "If actuator-side, contact thruster maintenance and notify flight deck crew of potential impact"
@@ -268,7 +268,7 @@
         "next_best_action": "Investigate SSO token invalidation after credential rotation. Likely the NavPlotter SSO session needs to be reissued after the station credential change. Time-sensitive due to end-of-cycle orbital recalibration deadline.",
         "remediation_steps": [
             "Verify the crew member's identity session and authentication token are refreshed after the credential rotation",
-            "Check NavPlotter SSO configuration \u2014 confirm whether NavPlotter uses token-based or certificate-based SSO",
+            "Check NavPlotter SSO configuration — confirm whether NavPlotter uses token-based or certificate-based SSO",
             "Reissue the NavPlotter SSO session token or have the crew member log in with explicit credentials as a workaround",
             "If SSO token regeneration doesn't resolve it, check whether the credential rotation policy affected the NavPlotter security configuration",
             "Confirm NavPlotter access is restored and the crew member can complete end-of-cycle orbital recalibration"
@@ -301,7 +301,7 @@
         "assigned_team": "Mission Software Operations",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Dispatch support to the Deck 8 command theater immediately. Admiral-level VIP signal \u2014 treat as one priority level higher. Investigate station security policy blocking tactical readout projection for this crew member. Active command briefing with Joint Fleet Admiralty.",
+        "next_best_action": "Dispatch support to the Deck 8 command theater immediately. Admiral-level VIP signal — treat as one priority level higher. Investigate station security policy blocking tactical readout projection for this crew member. Active command briefing with Joint Fleet Admiralty.",
         "remediation_steps": [
             "Dispatch technician to the Deck 8 command theater immediately",
             "Check security policies and projection permissions applied to Admiral Okoro's profile",
@@ -354,7 +354,7 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Redirect to Station Operations \u2014 holodeck reservation and catering are not mission operations support functions. Provide brief guidance on how to reserve the holodeck via StationOS scheduler (add facility resource) and direct catering questions to Station Operations.",
+        "next_best_action": "Redirect to Station Operations — holodeck reservation and catering are not mission operations support functions. Provide brief guidance on how to reserve the holodeck via StationOS scheduler (add facility resource) and direct catering questions to Station Operations.",
         "remediation_steps": [
             "Reply with instructions: in StationOS scheduler, create a new event and use 'Add a facility' to search for available holodecks",
             "Note that catering requests should go to Station Operations, not mission ops",
@@ -371,7 +371,7 @@
             "system_configuration",
             "habitat_conditions"
         ],
-        "next_best_action": "Renew or replace the encryption certificate on comms-relay.contoso.com before it expires on March 20. This is a production external communications relay \u2014 expiry will break all allied fleet subspace transmissions. Treat as P1 given 3-day window and the fact that the original provisioner has transferred off-station.",
+        "next_best_action": "Renew or replace the encryption certificate on comms-relay.contoso.com before it expires on March 20. This is a production external communications relay — expiry will break all allied fleet subspace transmissions. Treat as P1 given 3-day window and the fact that the original provisioner has transferred off-station.",
         "remediation_steps": [
             "Identify the current certificate authority and certificate type (public CA, internal PKI, or automated provisioning)",
             "Determine whether auto-renewal was configured or if the cert was manually provisioned",
@@ -393,7 +393,7 @@
         ],
         "next_best_action": "Investigate console performance degradation. Symptoms (slow performance, cooling fans running, pop-ups about 'updating system firmware') are more consistent with a stuck firmware update or background compliance policy sync than a security compromise, especially since ShieldScan found nothing. Check update history and system resource usage.",
         "remediation_steps": [
-            "Check firmware update history \u2014 verify whether recent updates completed or are stuck retrying",
+            "Check firmware update history — verify whether recent updates completed or are stuck retrying",
             "Review system monitor for high CPU/memory processes (likely firmware update or compliance policy sync)",
             "If updates are stuck, run the station firmware troubleshooter or manually reset the update components",
             "Verify ShieldScan definitions are current and run a quick scan to confirm no threats",
@@ -409,7 +409,7 @@
         "missing_information": [],
         "next_best_action": "Confirm this is a phishing/scam transmission and advise the crew member NOT to open any links or transmit any information. Forward the original transmission to threats@contoso.com for analysis. No breach has occurred if the crew member hasn't interacted with it.",
         "remediation_steps": [
-            "Reply to the crew member immediately: this is a scam transmission \u2014 do NOT open any links or provide any personal information",
+            "Reply to the crew member immediately: this is a scam transmission — do NOT open any links or provide any personal information",
             "Have the crew member forward the original transmission as an attachment to threats@contoso.com",
             "Check whether the transmission bypassed CDSS comm filtering and report to Threat Response Command if so",
             "If the crew member already opened the link, escalate to a full security incident and initiate credential reset"
@@ -422,7 +422,7 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate compute module prod-analytics-01 stuck at 'Applying station configuration' after scheduled firmware patching reboot. Command staff analytics dashboard dependent on this module \u2014 2-hour window before the 09:00 briefing.",
+        "next_best_action": "Investigate compute module prod-analytics-01 stuck at 'Applying station configuration' after scheduled firmware patching reboot. Command staff analytics dashboard dependent on this module — 2-hour window before the 09:00 briefing.",
         "remediation_steps": [
             "Check boot diagnostics serial console output for the stuck state on the compute module",
             "Attempt to connect via the station serial console to bypass the stuck configuration screen",
