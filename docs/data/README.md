@@ -1,6 +1,6 @@
 # Dataset
 
-Synthetic signals modeled on real deep-space station operations. They're messy on purpose. Like the real thing, except nobody dies when you get one wrong.
+Synthetic signals modeled on real deep-space station operations. They’re messy on purpose. Like the real thing, except nobody dies when you get one wrong. Probably. We make no guarantees about the emotional damage to your leaderboard ranking.
 
 ## Structure
 
@@ -49,7 +49,7 @@ Your `/triage` endpoint must return **all 8 fields**:
 | `next_best_action` | string | No* | Required but not deterministically scored |
 | `remediation_steps` | string[] | No* | Required but not deterministically scored |
 
-*Remediation quality is assessed during the separate engineering review. A system that says "investigate the anomaly" for every signal is telling us you phoned it in from 1 AU away.
+*Remediation quality is assessed during the separate engineering review. A system that says “investigate the anomaly” for every signal is telling us you phoned it in from 1 AU away while sipping something with an umbrella in it.
 
 See [schemas/output.json](schemas/output.json) for the formal JSON Schema with all valid enum values.
 
@@ -77,4 +77,4 @@ This is what real space station signals look like. Your system needs to handle a
 | **Public eval** | 100 | No | Pre-submission validation, checks for errors and timeouts |
 | **Hidden eval** | 1000+ | No (held back) | Final scoring, includes edge cases not in public data |
 
-> **Don't overfit.** The hidden set has signal types you won't find in the public data. Build for robustness, not memorization. The void doesn't repeat itself, and neither does the hidden eval.
+> **Don’t overfit.** The hidden set has signal types you won’t find in the public data. Build for robustness, not memorization. The void doesn’t repeat itself, and neither does the hidden eval. If your system only handles the 25 signals it’s seen, it’ll score like a crew member who studied for the wrong exam and showed up to the wrong deck.

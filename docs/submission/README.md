@@ -87,11 +87,11 @@ See [challenge README: Engineering Review](../challenge/README.md#engineering-re
 
 ## Tips
 
-- **Deploy early.** Get something live in hour 2 and iterate. The number of people who deploy at hour 23 and then panic is... well, it's the same number that ends up in the "lessons learned" section of every post-mortem. Don't be a lesson.
+- **Deploy early.** Get something live in hour 2 and iterate. The number of operators who deploy at hour 23 and then panic is... well, it’s the same number that ends up in the “lessons learned” section of every post-mission debrief. Don’t be a lesson. Don’t be the cautionary tale Lt. Mehta tells new recruits.
 - **Run the eval harness constantly.** It's the same scoring logic as the platform. Trust the numbers.
 - **Read the mission brief.** Candidates who skip it produce noticeably worse output. The mission context matters for routing and remediation.
-- **Handle the weird signals.** The hidden eval has stuff you haven't seen: vague signals, multi-issue signals, transmissions that are 90% panic and 10% consonants. If your system 500s on a confusing signal, that's a zero on every dimension. The void sends weird signals. Your API should not respond with a stack trace.
-- **Return valid JSON even when confused.** A reasonable default beats a stack trace. An ops officer can work with a wrong answer. They can't work with `500 Internal Server Error`.
+- **Handle the weird signals.** The hidden eval has stuff you haven’t seen: vague signals, multi-issue signals, transmissions that are 90% panic and 10% consonants, and at least one emergency beacon transcription that’s just heavy breathing. If your system 500s on a confusing signal, that’s a zero on every dimension. The void sends weird signals. Your API should not respond with a stack trace.
+- **Return valid JSON even when confused.** A reasonable default beats a stack trace. An ops officer can work with a wrong answer. They can’t work with `500 Internal Server Error`. Nobody in the history of space station operations has ever said “thank goodness the triage system crashed — now I can do this manually.”
 - **Explain your decisions.** "I chose X because Y" is worth more than a polished README that says nothing. We want to see how you think.
 - **Send the cost headers.** It's only 5% of the score, but it signals you actually read the spec. In ops, reading the spec is half the battle. The other half is believing it.
 - **Treat the repo like part of the product.** The endpoint drives your functional score. The repo is what reviewers use to judge the engineering.

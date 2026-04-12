@@ -2,7 +2,7 @@
 
 ## The Scenario
 
-Contoso Deep Space Station (CDSS) — a 2,000-crew research outpost 0.3 AU from Earth — is drowning in incoming signals. Their team of 12 mission ops analysts manually triages ∼180 signals per day across 6 specialist teams. Average time-to-route: 3.4 hours. Misroute rate: 42%. At that distance, a misrouted hull breach signal means someone dies before the right team even reads it. Commander Priya Kapoor, Station Operations Chief, just got off a subspace call with your manager. She was polite. She was professional. She made it extremely clear that this needs to be fixed before something else vents into the void.
+Contoso Deep Space Station (CDSS) — a 2,000-crew research outpost 0.3 AU from Earth — is drowning in incoming signals. Their team of 12 mission ops analysts manually triages ∼180 signals per day across 6 specialist teams. Average time-to-route: 3.4 hours. Misroute rate: 42%. At that distance, a misrouted hull breach signal means someone dies before the right team even reads it. Commander Priya Kapoor, Station Operations Chief, just got off a subspace call with your mission lead. She was polite. She was professional. She made it extremely clear that this needs to be fixed before something else vents into the void.
 
 **Start here. Read the mission brief:** [customer_brief.md](customer_brief.md)
 **Then review their routing guide:** [routing_guide.md](routing_guide.md) *(heads up: it’s incomplete. Some signal types aren’t covered, and some rules contradict each other. Welcome to deep space operations, where the documentation is always six months out of date and everyone has opinions.)*
@@ -139,11 +139,11 @@ Signals vary in quality. Some are clean. Some are vague, contradictory, multi-is
 
 ## Rules
 
-- **One submission.** Make it count.
-- Any language, framework, or AI model.
-- Deployed and callable via HTTPS. Not localhost.
-- AI coding assistants: encouraged. Use everything you’ve got.
-- All code must be your own work (AI-assisted is fine, copy-pasting someone else’s solution is not).
+- **One submission.** Make it count. Like a torpedo lock — you get one shot.
+- Any language, framework, or AI model. The scoring computer does not discriminate.
+- Deployed and callable via HTTPS. Not localhost. Not your quarters terminal. Not a console duct-taped to the hull with hope and zip ties.
+- AI coding assistants: encouraged. Use everything you’ve got. The crew doesn’t care how you built it — they care that it works when the alarms are blaring.
+- All code must be your own work (AI-assisted is fine, copy-pasting someone else’s solution is not — we can tell, and so can the Admiral).
 
 ---
 
@@ -304,11 +304,11 @@ We also look at: code quality, test coverage, error handling, infrastructure, CI
 
 #### Is engineering review another hidden test suite?
 
-No. The hidden eval set applies to the **functional score**. Engineering review happens separately based on your repo, docs, code structure, tests, deployment readiness, and the quality of the system you built.
+No. The hidden eval set applies to the **functional score**. Engineering review happens separately based on your repo, docs, code structure, tests, deployment readiness, and the quality of the system you built. Think of it this way: the hidden eval is the hull pressure test. The engineering review is the inspection of how you welded the hull in the first place.
 
 #### If engineering review happens separately, what should I optimize for?
 
-Optimize for trust. A reviewer should be able to open your repo and quickly see:
+Optimize for trust. The kind of trust that makes a Commander let your system make triage decisions about her crew at 0300 during a solar flare. A reviewer should be able to open your repo and quickly see:
 
 - how requests flow through the system
 - where the LLM or rules logic lives
@@ -316,7 +316,7 @@ Optimize for trust. A reviewer should be able to open your repo and quickly see:
 - how to run and test the service
 - what you tried, what failed, and what tradeoffs you made
 
-If your repo is hard to follow, missing tests, or only works with undocumented setup magic, that will show up here.
+If your repo is hard to follow, missing tests, or only works with undocumented setup magic, that will show up here. And Commander Kapoor will give you *the look*. You do not want *the look*.
 
 #### Do I need a complicated multi-agent system to score well?
 
@@ -328,27 +328,27 @@ Not directly. They are required by the schema, but they are reviewed as part of 
 
 #### What usually makes an engineering submission look weak?
 
-- Business logic buried in one route file (the “monolith of despair”)
-- No timeouts or retry handling around model calls (hope is not a strategy, especially at 0.3 AU)
-- No tests beyond a happy path (the void is mostly unhappy paths)
-- Missing docs or docs that only describe the final state (we want the journey, not just the destination)
-- Hardcoded config, secrets, or localhost-only assumptions
-- README that does not let someone run the project quickly
+- Business logic buried in one route file (the “monolith of despair” — we’ve seen them, and they haunt our dreams like the ghost of Deck 9’s atmospheric processor)
+- No timeouts or retry handling around model calls (hope is not a strategy, especially at 0.3 AU where help is literally light-minutes away)
+- No tests beyond a happy path (the void is mostly unhappy paths, and so is the hidden eval set)
+- Missing docs or docs that only describe the final state (we want the journey, not just the destination — this is a mission log, not a tourist brochure)
+- Hardcoded config, secrets, or localhost-only assumptions (we once saw an API key committed in plaintext; the Admiral’s security team still brings it up at every briefing)
+- README that does not let someone run the project quickly (if we can’t clone and run in 5 minutes, we assume the crew can’t either)
 
 #### What makes a submission feel strong in an FDE way?
 
-- The design is simple, but clearly intentional
-- The API contract is treated seriously, with validation and predictable errors
-- Latency and cost are managed as engineering constraints, not ignored until the end
-- Tests cover weird signals, failure cases, and non-happy paths
-- The repo shows evidence of iteration, tradeoffs, and honest evaluation
+- The design is simple, but clearly intentional — every component earns its place on the station manifest
+- The API contract is treated seriously, with validation and predictable errors (the crew trusts systems that fail gracefully, not systems that explode mysteriously)
+- Latency and cost are managed as engineering constraints, not ignored until the end (the Admiral reviews the fuel budget personally)
+- Tests cover weird signals, failure cases, and non-happy paths — because in space, the weird signals are the ones that kill you
+- The repo shows evidence of iteration, tradeoffs, and honest evaluation (we can tell when someone tested once and declared victory)
 - The whole thing feels like something a station ops team could actually operate — at 0300, during a solar flare, while the Admiral is asking pointed questions
 
 ---
 
 ### Finalist Round (top N)
 
-30-minute walkthrough of your solution, then 30 minutes of Q&A with FDE engineers. Think of it as a mission debrief, not an interrogation — a conversation with people who’ve actually shipped systems that keep stations running. We’re curious about your decisions, not trying to catch you out. We’ve all been the person who deployed at 0200 and discovered their service handles exactly one concurrent request. We just want to know you learned from it.
+30-minute walkthrough of your solution, then 30 minutes of Q&A with FDE engineers. Think of it as a post-mission debrief in the command briefing chamber, not an interrogation — a conversation with people who’ve actually shipped systems that keep stations running. We’re curious about your decisions, not trying to catch you out. We’ve all been the person who deployed at 0200 and discovered their service handles exactly one concurrent request. We just want to know you learned from it.
 
 ---
 

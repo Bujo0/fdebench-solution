@@ -269,7 +269,7 @@
     },
     {
         "ticket_id": "SIG-1020",
-        "subject": "Issue with my same login error",
+        "subject": "AGAIN — same authentication failure, third time this cycle",
         "description": "This is the third time I've had this authentication issue. There's a previous signal somewhere in the system — the last tech said it was a known problem with my account, which is reassuring in the way that 'known problem' means someone has documented it but not fixed it. I keep getting 'Authentication failed' but no details about what specifically is failing. I've been locked out for two hours now and my supervisor is starting to question whether I actually work here or have been an elaborate hallucination this whole time. I've reset my credentials twice this month already.",
         "reporter": {
             "name": "Yara Ito",
@@ -486,7 +486,7 @@
     },
     {
         "ticket_id": "SIG-1035",
-        "subject": "CRITICAL — relay split-path not working — app traffic going through tunnel — LOSING MONEY EVERY MINUTE",
+        "subject": "CRITICAL — relay split-path not working — app traffic going through tunnel — LOSING CREDITS EVERY MINUTE",
         "description": "Hi, <html><body><p>our encrypted relay is supposed to split-path so that traffic to Tactical Ops Console goes direct, but on my machine all Tactical Ops Console traffic is still routing through the encrypted relay tunnel. Thanks.",
         "reporter": {
             "name": "Rami Wright",
@@ -559,7 +559,7 @@
     },
     {
         "ticket_id": "SIG-1040",
-        "subject": "Question about how Contoso classifies data",
+        "subject": "Question about how the station classifies data",
         "description": "I'm working on a project for the Station Requisitions team and want to make sure I'm handling documents correctly. Where can I find the data classification policy? I want to understand the difference between confidential and internal-only. No rush — just want to be informed. (Yes, I know this probably didn't need to go through the emergency beacon. The regular terminal had a 47-person queue.)",
         "reporter": {
             "name": "Leo Muller",
@@ -644,8 +644,8 @@
     },
     {
         "ticket_id": "SIG-1046",
-        "subject": "Can I get access to an old project archive?",
-        "description": "I'm working on a similar project to one we did in 2021 and I'd like to reference the old project files. They were archived on the Station Compliance shared data vault somewhere in the great digital archaeological layer cake of our station's file system. I just need read access — no changes. The last time someone tried to recreate this work from memory, they accidentally inverted the gravitational polarity on Deck 4 and we had to explain to Station Command why the ceiling was temporarily the floor and why three crew members were found clinging to light fixtures looking traumatized. Lesson learned. Reference the original docs or risk architectural inversion.\n\nWhenever you get around to it is fine. The gravitational polarity is stable. For now.",
+        "subject": "Can I get access to an old mission archive?",
+        "description": "I'm working on a similar mission to one we ran in 2021 and I'd like to reference the old mission files. They were archived on the Station Compliance shared data vault somewhere in the great digital archaeological layer cake of our station's file system. I just need read access — no changes. The last time someone tried to recreate this work from memory, they accidentally inverted the gravitational polarity on Deck 4 and we had to explain to Station Command why the ceiling was temporarily the floor and why three crew members were found clinging to light fixtures looking traumatized. Lesson learned. Reference the original docs or risk architectural inversion.\n\nWhenever you get around to it is fine. The gravitational polarity is stable. For now.",
         "reporter": {
             "name": "Lena Muller",
             "email": "lena.muller@cdss.space",
@@ -686,7 +686,7 @@
     },
     {
         "ticket_id": "SIG-1049",
-        "subject": "Something's not working — 💻❌ budget approval",
+        "subject": "Something's not working — 💻❌ requisition approval",
         "description": "👋 Hiii\n\nWe want to buy some specialized equipment for teh lab — estimated cost around 15,000 credits. Where do I start with Mission Ops requisition? Is there a portal, or do I comm message someone? Need to understand the full approval workflow.\n\nSteps I tried:\n1️⃣ Restarted console terminal 🔄 → didn't work ❌\n2️⃣ Cleared cache 🗑️ → still broken 💔\n3️⃣ Asked colleague 👤 → they have same issue 😱\n\nPlease help! 🆘🆘🆘 This has been happening for a while. Please fix it.",
         "reporter": {
             "name": "Fatima Flores",
@@ -1235,7 +1235,7 @@
     {
         "ticket_id": "SIG-1087",
         "subject": "Briefing pod conflict — who do I talk to?",
-        "description": "I had Briefing Chamber 3B booked for 2pm today but when I showed up, another team was already in there and said they had it reserved too. The booking system is showing both reservations. This is the third time this month. Last time, both teams just stood there in an awkward zero-g standoff — six people floating in place, datapads in hand, all staring at each other — until a third team floated in with their own booking confirmation and the situation devolved into what I can only describe as a conference room Mexican standoff in three dimensions.\n\nWho handles the briefing chamber scheduling system? Is there a way to prevent double-bookings? Or at minimum, can we install a traffic light outside each chamber so people know before they enter whether they're about to have a meeting or a territorial dispute? I've lost more productivity to briefing chamber conflicts this quarter than to actual equipment failures, which says something about this station's priorities. The atmospheric processor on Deck 7 has been making that noise again, but sure, let's fix the calendar system first.",
+        "description": "I had Briefing Chamber 3B booked for 2pm today but when I showed up, another team was already in there and said they had it reserved too. The booking system is showing both reservations. This is the third time this month. Last time, both teams just stood there in an awkward zero-g standoff — six people floating in place, datapads in hand, all staring at each other — until a third team floated in with their own booking confirmation and the situation devolved into what I can only describe as a briefing chamber standoff in three dimensions. Nobody blinked. Nobody backed down. One person started slowly drifting toward the ceiling and pretended it was intentional.\n\nWho handles the briefing chamber scheduling system? Is there a way to prevent double-bookings? Or at minimum, can we install a status beacon outside each chamber so people know before they enter whether they're about to have a meeting or a territorial dispute? I've lost more productivity to briefing chamber conflicts this quarter than to actual equipment failures, which says something about this station's priorities. The atmospheric processor on Deck 7 has been making that noise again, but sure, let's fix the calendar system first.",
         "reporter": {
             "name": "Esther Morris",
             "email": "esther.morris@cdss.space",

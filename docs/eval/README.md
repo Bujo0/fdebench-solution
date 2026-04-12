@@ -111,7 +111,7 @@ uv run python run_eval.py \
 
 ### 100 public eval signals (no gold answers)
 
-Run this before you submit. There's no gold file so you won't get a score, but it'll catch crashes, timeouts, and schema issues on signals you haven't seen. Think of it as a pre-flight check. You wouldn't launch without one. You shouldn't submit without one either.
+Run this before you submit. There’s no gold file so you won’t get a score, but it’ll catch crashes, timeouts, and schema issues on signals you haven’t seen. Think of it as a pre-flight check. You wouldn’t launch without one. You shouldn’t submit without one either. The last person who skipped pre-flight is now on permanent algae-scrubbing duty on Deck 2.
 
 ```bash
 cd docs/eval
@@ -193,4 +193,4 @@ cd docs/eval
 python test_scoring.py
 ```
 
-All 84 should pass. If they don't, something's wrong with your environment, not the tests. The scoring computer has been tested more thoroughly than your station's life support. Probably. (Lt. Mehta would like the record to reflect that he has *also* tested life support. Recently. After an incident.)
+All 84 should pass. If they don’t, something’s wrong with your environment, not the tests. The scoring computer has been tested more thoroughly than your station’s life support. Probably. (Lt. Mehta would like the record to reflect that he has *also* tested life support. Recently. After an incident. He does not wish to discuss the incident. The cats were involved.)

@@ -599,33 +599,42 @@ def main() -> int:
     # Per-dimension space-themed color commentary
     _dim_commentary = {
         "category": {
-            0.9: "Anomaly classification: exemplary. The crew trusts you.",
-            0.7: "Decent anomaly reads, but some signals slipped by.",
+            0.9: (
+                "Anomaly classification: exemplary. The crew trusts you"
+                " with their lives. They probably shouldn't, but here we are."
+            ),
+            0.7: "Decent anomaly reads, but some signals slipped by. Lt. Mehta is squinting.",
             0.5: "Crew Identity got a hull breach. Threat Response got a lunch order.",
-            0.0: "You're classifying anomalies like a malfunctioning sensor array.",
+            0.0: "You're classifying anomalies like a sensor array taped to a cat.",
         },
         "priority": {
-            0.9: "Priority calls: surgeon-precise. No one died unnecessarily.",
-            0.7: "Mostly right — a few Red Alerts that should've been Routine.",
+            0.9: "Priority calls: surgeon-precise. No one died. Commander Kapoor approves.",
+            0.7: (
+                "Mostly right \u2014 a few Red Alerts that should've been Routine."
+                " The Admiral's blood pressure is elevated but stable."
+            ),
             0.5: "You called a hull breach 'Routine' and a jammed fabricator 'Red Alert.'",
             0.0: "Deck 7 now has mood lighting. From space. Through the new hole.",
         },
         "routing": {
             0.9: "Routing: every signal reached the right team. First try.",
-            0.7: "Most teams got the right signals. A few are confused.",
-            0.5: "Deep Space Comms is staring at a biometric scanner. Again.",
-            0.0: "You routed a containment breach to catering. Impressive, in a way.",
+            0.7: "Most teams got the right signals. A few are confused but functional.",
+            0.5: "Deep Space Comms is staring at a biometric scanner. They've stopped asking.",
+            0.0: "You routed a containment breach to catering. They sent a dessert trolley.",
         },
         "missing_info": {
             0.9: "Intel requests: precise. No wasted subspace bandwidth.",
-            0.7: "Mostly asked for the right follow-up data. A few misfires.",
+            0.7: "Mostly asked for the right follow-up data. A few harmless misfires.",
             0.5: "Asking for sensor logs on a 'thanks' message. Questionable.",
-            0.0: "Either asking for everything or nothing. The crew is not amused.",
+            0.0: "Either asking for everything or nothing. The relay is filing a complaint.",
         },
         "escalation": {
-            0.9: "Escalation calls: the Admiral sleeps soundly tonight.",
-            0.7: "Caught most escalations. Missed one or two. The Admiral noticed.",
-            0.5: "The Admiral found out about the hostile contact from the news.",
+            0.9: "Escalation calls: the Admiral sleeps soundly tonight. First time ever.",
+            0.7: "Caught most escalations. Missed one or two. The Admiral is taking notes.",
+            0.5: (
+                "The Admiral found out about the hostile contact from the news."
+                " He is composing a memo."
+            ),
             0.0: "You let a containment breach slide. The paperwork will outlive you.",
         },
     }
@@ -660,7 +669,7 @@ def main() -> int:
         print(f"  Signals lost to the void (scored as 0): {errors}")
     # Dynamic verdict based on score
     if classification_score >= 82:
-        verdict_line = "  │  🌟 The crew sleeps soundly. Outstanding triage, operator. │"
+        verdict_line = "  │  🌟 Commander Kapoor nods approvingly. The crew lives. 🫡  │"
     elif classification_score >= 70:
         verdict_line = "  │  🛰️  Solid work. The crew mostly survives your decisions.  │"
     elif classification_score >= 55:
