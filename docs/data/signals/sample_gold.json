@@ -1,6 +1,7 @@
 [
     {
         "ticket_id": "SIG-0001",
+        "difficulty": "standard",
         "category": "Communications & Navigation",
         "priority": "P3",
         "assigned_team": "Deep Space Communications",
@@ -16,6 +17,7 @@
     },
     {
         "ticket_id": "SIG-0002",
+        "difficulty": "adversarial",
         "category": "Flight Software & Instruments",
         "priority": "P3",
         "assigned_team": "Spacecraft Systems Engineering",
@@ -35,6 +37,7 @@
     },
     {
         "ticket_id": "SIG-0003",
+        "difficulty": "adversarial",
         "category": "Hull & Structural Systems",
         "priority": "P1",
         "assigned_team": "Spacecraft Systems Engineering",
@@ -53,6 +56,7 @@
     },
     {
         "ticket_id": "SIG-0004",
+        "difficulty": "adversarial",
         "category": "Crew Access & Biometrics",
         "priority": "P2",
         "assigned_team": "Spacecraft Systems Engineering",
@@ -73,6 +77,7 @@
     },
     {
         "ticket_id": "SIG-0005",
+        "difficulty": "standard",
         "category": "Not a Mission Signal",
         "priority": "P4",
         "assigned_team": "None",
@@ -85,6 +90,7 @@
     },
     {
         "ticket_id": "SIG-0006",
+        "difficulty": "standard",
         "category": "Threat Detection & Containment",
         "priority": "P2",
         "assigned_team": "Threat Response Command",
@@ -103,6 +109,7 @@
     },
     {
         "ticket_id": "SIG-0007",
+        "difficulty": "standard",
         "category": "Telemetry & Data Banks",
         "priority": "P2",
         "assigned_team": "Telemetry & Data Core",
@@ -119,6 +126,7 @@
     },
     {
         "ticket_id": "SIG-0008",
+        "difficulty": "adversarial",
         "category": "Telemetry & Data Banks",
         "priority": "P1",
         "assigned_team": "Telemetry & Data Core",
@@ -136,6 +144,7 @@
     },
     {
         "ticket_id": "SIG-0009",
+        "difficulty": "standard",
         "category": "Crew Access & Biometrics",
         "priority": "P3",
         "assigned_team": "Crew Identity & Airlock Control",
@@ -154,6 +163,7 @@
     },
     {
         "ticket_id": "SIG-0010",
+        "difficulty": "standard",
         "category": "Mission Briefing Request",
         "priority": "P3",
         "assigned_team": "Spacecraft Systems Engineering",
@@ -174,6 +184,7 @@
     },
     {
         "ticket_id": "SIG-0011",
+        "difficulty": "standard",
         "category": "Crew Access & Biometrics",
         "priority": "P3",
         "assigned_team": "Crew Identity & Airlock Control",
@@ -193,6 +204,7 @@
     },
     {
         "ticket_id": "SIG-0012",
+        "difficulty": "standard",
         "category": "Hull & Structural Systems",
         "priority": "P3",
         "assigned_team": "Spacecraft Systems Engineering",
@@ -212,6 +224,7 @@
     },
     {
         "ticket_id": "SIG-0013",
+        "difficulty": "standard",
         "category": "Threat Detection & Containment",
         "priority": "P1",
         "assigned_team": "Threat Response Command",
@@ -229,6 +242,7 @@
     },
     {
         "ticket_id": "SIG-0014",
+        "difficulty": "standard",
         "category": "Not a Mission Signal",
         "priority": "P4",
         "assigned_team": "None",
@@ -241,6 +255,7 @@
     },
     {
         "ticket_id": "SIG-0015",
+        "difficulty": "adversarial",
         "category": "Communications & Navigation",
         "priority": "P2",
         "assigned_team": "Deep Space Communications",
@@ -260,6 +275,7 @@
     },
     {
         "ticket_id": "SIG-0016",
+        "difficulty": "standard",
         "category": "Flight Software & Instruments",
         "priority": "P2",
         "assigned_team": "Mission Software Operations",
@@ -278,6 +294,7 @@
     },
     {
         "ticket_id": "SIG-0017",
+        "difficulty": "adversarial",
         "category": "Flight Software & Instruments",
         "priority": "P3",
         "assigned_team": "Spacecraft Systems Engineering",
@@ -298,6 +315,7 @@
     },
     {
         "ticket_id": "SIG-0018",
+        "difficulty": "standard",
         "category": "Flight Software & Instruments",
         "priority": "P1",
         "assigned_team": "Mission Software Operations",
@@ -314,6 +332,7 @@
     },
     {
         "ticket_id": "SIG-0019",
+        "difficulty": "standard",
         "category": "Mission Briefing Request",
         "priority": "P2",
         "assigned_team": "Crew Identity & Airlock Control",
@@ -332,6 +351,7 @@
     },
     {
         "ticket_id": "SIG-0020",
+        "difficulty": "adversarial",
         "category": "Hull & Structural Systems",
         "priority": "P3",
         "assigned_team": "Deep Space Communications",
@@ -352,6 +372,7 @@
     },
     {
         "ticket_id": "SIG-0021",
+        "difficulty": "standard",
         "category": "Mission Briefing Request",
         "priority": "P4",
         "assigned_team": "None",
@@ -366,6 +387,7 @@
     },
     {
         "ticket_id": "SIG-0022",
+        "difficulty": "standard",
         "category": "Threat Detection & Containment",
         "priority": "P1",
         "assigned_team": "Threat Response Command",
@@ -386,6 +408,7 @@
     },
     {
         "ticket_id": "SIG-0023",
+        "difficulty": "adversarial",
         "category": "Hull & Structural Systems",
         "priority": "P3",
         "assigned_team": "Spacecraft Systems Engineering",
@@ -405,6 +428,7 @@
     },
     {
         "ticket_id": "SIG-0024",
+        "difficulty": "standard",
         "category": "Threat Detection & Containment",
         "priority": "P3",
         "assigned_team": "Threat Response Command",
@@ -420,6 +444,7 @@
     },
     {
         "ticket_id": "SIG-0025",
+        "difficulty": "standard",
         "category": "Telemetry & Data Banks",
         "priority": "P1",
         "assigned_team": "Telemetry & Data Core",
