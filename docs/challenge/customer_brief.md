@@ -1,72 +1,72 @@
 # Customer Brief
 
-> Internal memo from Contoso Financial Services — shared with the FDE team during discovery.
+> Operational memo from the Contoso Deep Space Station (CDSS) — shared with the FDE team during discovery.
 
 ---
 
-**From:** Priya Kapoor, VP of IT Operations, Contoso Financial Services
+**From:** Commander Priya Kapoor, Mission Ops Director, Contoso Deep Space Station
 **To:** Microsoft FDE Team
 **Date:** March 2026
-**Subject:** Help us fix our ticket triage — we're drowning
+**Subject:** Help us fix our signal triage — we're drowning out here
 
 ---
 
 ## Who we are
 
-Contoso Financial Services. ~4,500 employees across 3 offices (New York, London, Singapore). We run wealth management, institutional trading, and retail banking. Regulated industry — compliance matters, downtime is expensive, and our people are impatient.
+Contoso Deep Space Station. ~2,000 crew orbiting at the edge of known space across 3 station sectors (Command Deck, Research Ring, Engineering Bay). We run deep space operations, scientific research, and spacecraft engineering. Heavily regulated by Interstellar Safety Command — compliance matters, system downtime can be life-threatening, and our crew does not have the patience for slow ops when they're dodging micrometeorites.
 
 ## What's broken
 
-Our IT support team handles ~180 tickets per day. Right now, a human L1 analyst reads every ticket, decides what it is, assigns a priority, and routes it to one of our 6 specialist teams. It takes **3.4 hours on average** to get a ticket to the right team. That's before anyone even starts working on it.
+Our Mission Ops team handles ~180 incoming signals per day — anomaly reports, system alerts, crew requests, you name it. Right now, a human Mission Ops operator reads every signal, decides what it is, assigns a priority, and routes it to one of our 6 specialist teams. It takes **3.4 hours on average** to get a signal to the right team. That's before anyone even starts working on it. Out here, 3.4 hours can mean the difference between a minor hull patch and a catastrophic decompression event.
 
-**42% of tickets get misrouted at least once.** When a ticket lands with the wrong team, they bounce it back, and we start over. Some tickets take 2-3 bounces before they reach the right place.
+**42% of signals get misrouted at least once.** When a signal lands with the wrong team, they bounce it back, and we start over. Some signals take 2-3 bounces before they reach the right division. Meanwhile, Deck 7 is venting atmosphere and everyone's pointing fingers.
 
-The worst part: our L1 analysts spend so much time triaging that they can't do actual resolution work. They're basically expensive human routers.
+The worst part: our Mission Ops operators spend so much time triaging that they can't do actual resolution work. They're basically expensive human signal routers floating in zero-G.
 
 ## What we want
 
-We want to **automate first-pass triage** for every incoming ticket. Specifically:
+We want to **automate first-pass triage** for every incoming signal. Specifically:
 
-1. **Classify** the ticket into the right category — what kind of issue is this?
-2. **Set priority** — how urgent is this, really? (People write "URGENT" on everything.)
+1. **Classify** the signal into the right category — what kind of anomaly or request is this?
+2. **Set priority** — how urgent is this, really? (Crew members flag "CRITICAL" on everything, including broken coffee dispensers.)
 3. **Route** to the correct specialist team — get it right the first time
-4. **Flag what's missing** — half our tickets don't include basic info we need. We waste time going back to the reporter to ask "which system?" or "what error message?"
-5. **Give our L1 team a head start on remediation** — even if a human still resolves the ticket, tell them what to try first
+4. **Flag what's missing** — half our signals don't include basic info we need. We waste time pinging the reporter back over subspace to ask "which system?" or "what error code?"
+5. **Give our Mission Ops team a head start on remediation** — even if a human still resolves the issue, tell them what to try first before suiting up
 
 ## Our teams
 
-We have 6 specialist IT teams:
+We have 6 specialist operations teams:
 
 | Team | What they handle |
 |---|---|
-| **Identity & Access Management** | Login issues, SSO, MFA, account provisioning, Entra ID, directory sync |
-| **Endpoint Engineering** | Laptops, desktops, mobile devices, OS issues, Intune, peripherals |
-| **Network Operations** | VPN, WiFi, DNS, firewall rules, proxy, WAN/LAN, office connectivity |
-| **Enterprise Applications** | Business apps (SAP, Salesforce, Bloomberg terminal, internal tools), licensing, integrations |
-| **Security Operations** | Phishing, malware, suspicious activity, data loss, compliance incidents, certificate management |
-| **Data Platform** | Databases, file shares, OneDrive/SharePoint, backups, data access requests, ETL pipelines |
+| **Crew Identity & Airlock Control** | Login issues, SSO, MFA, crew provisioning, Entra ID, biometric directory sync, airlock access codes |
+| **Spacecraft Systems Engineering** | Workstation terminals, mobile consoles, OS issues, Intune device management, peripheral hardware |
+| **Deep Space Communications** | Subspace relay links, local mesh WiFi, DNS, firewall rules, proxy, WAN/LAN, inter-deck and inter-ship connectivity |
+| **Mission Software Operations** | Mission-critical apps (SAP logistics, Salesforce crew services, deep space scanner terminals, internal tools), licensing, integrations |
+| **Threat Response Command** | Phishing attempts, malware, suspicious signal activity, data exfiltration, compliance incidents, certificate management |
+| **Telemetry & Data Core** | Databases, file shares, OneDrive/SharePoint, backup systems, data access requests, ETL pipelines, sensor telemetry streams |
 
-I've attached our **internal routing guide** — but fair warning, it was written 8 months ago and some things have changed. We've also reorganized since then. About 20% of ticket types aren't covered in it, and some of the routing rules overlap between teams. My team leads argue about ownership constantly. For example: who handles MFA issues — Identity or Security? Depends on the context, and honestly we're not consistent about it ourselves.
+I've attached our **internal routing guide** — but fair warning, it was written 8 months ago and some things have changed. We've reorganized divisions since the last crew rotation. About 20% of signal types aren't covered in it, and some of the routing rules overlap between teams. My team leads argue about ownership constantly. For example: who handles MFA lockouts — Crew Identity or Threat Response? Depends on whether someone fat-fingered their retinal scan or we have an actual intruder. Honestly, we're not consistent about it ourselves.
 
 ## What "good" looks like to us
 
 - **Reduce misrouting from 42% to under 15%** in the first month
 - **Time-to-route under 5 minutes** (from 3.4 hours)
-- **Catch missing information proactively** so we stop playing email ping-pong with reporters
-- **Actionable remediation steps** — not generic "investigate the issue" but specific things an L1 can actually try
+- **Catch missing information proactively** so we stop playing subspace ping-pong with reporters three sectors away
+- **Actionable remediation steps** — not generic "investigate the anomaly" but specific things an operator can actually try before escalating to EVA
 
-If you can show me this working on even 50 of our real tickets, I can make the business case to our CTO.
+If you can show me this working on even 50 of our real signals, I can make the business case to our Fleet Admiral.
 
 ## Things you should know
 
-- Our tickets come in through **4 channels**: email, chat (Teams), the self-service portal, and phone (transcribed by our call center). Quality varies wildly. Email tickets tend to be longer. Chat tickets are short and missing context. Phone transcriptions are messy.
-- **Some tickets aren't real incidents** — we get auto-replies, "thanks" messages, out-of-office notifications, and occasional spam. Our system doesn't filter these before routing.
-- **We use Microsoft's stack**: Entra ID, Intune, Microsoft 365, Azure. Most of our infra is on Azure. We recently moved to Defender for Endpoint. We still have some legacy on-prem systems (SAP, a few file servers).
-- **Priority is subjective**: People over-escalate constantly. "URGENT" in the title usually isn't. But sometimes a quiet ticket like "slight delay in trade execution" is actually critical. Context matters more than keywords.
-- **Compliance tickets are special**: Anything involving potential data breach, regulatory inquiry, or audit findings must be escalated to SecOps immediately, regardless of category. Getting this wrong has consequences.
+- Our signals come in through **4 channels**: subspace relay, holodeck comm (Teams), the bridge terminal self-service portal, and emergency beacon (transcribed by our comms center AI). Quality varies wildly. Subspace relays tend to be longer and more detailed. Holodeck comms are short and missing context. Emergency beacon transcriptions are garbled at best.
+- **Some signals aren't real incidents** — we get auto-acknowledgments, "thanks" replies, crew out-of-station notifications, and occasional subspace spam from passing freighters. Our system doesn't filter these before routing.
+- **We use Microsoft's station systems stack**: Entra ID for crew identity, Intune for device management, Microsoft 365 for collaboration, Azure for our core infrastructure. Most of our compute runs on Azure orbital nodes. We recently deployed Defender for Endpoint across all terminals. We still have some legacy on-station systems (SAP logistics, a few local data servers that survived the last solar flare).
+- **Priority is subjective**: Crew over-escalate constantly. "CRITICAL" in the signal header usually isn't. But sometimes a quiet report like "slight vibration in docking ring 4" is actually a hull breach in progress. Context matters more than keywords out here.
+- **Compliance signals are special**: Anything involving potential data breach, regulatory inquiry from Interstellar Safety Command, or audit findings must be escalated to Threat Response Command immediately, regardless of category. Getting this wrong has consequences — and at this altitude, "consequences" can mean losing your oxygen privileges.
 
 ## One more thing
 
-I don't need a chatbot. I don't need a dashboard. I need **an API I can plug into our existing ServiceNow workflow** that returns a JSON decision for each ticket. Fast, reliable, and right most of the time. If it's not sure, it should say so.
+I don't need a chatbot. I don't need a holographic dashboard. I need **an API I can plug into our Mission Ops workflow** that returns a JSON decision for each signal. Fast, reliable, and right most of the time. If it's not sure, it should say so — we'd rather flag uncertainty than misroute a hull breach report to the coffee machine repair queue.
 
-— Priya
+— Commander Kapoor, signing off from the edge of known space
