@@ -202,7 +202,7 @@ Five dimensions, scored at the **submission level** (not per-signal):
 | **Priority** | 20% | Mean partial credit | Exact match = 1.0. Off by one level = 0.67. Off by two or more = 0.0. Averaged across all signals. Calling a hull breach "Routine" is a zero. And also a catastrophe. |
 | **Routing** | 20% | Macro F1 | Per-class F1 averaged across all 7 teams. Same logic as category. Misrouting a containment breach to Telemetry & Data Core is the kind of mistake that ends up in the Admiral's next memo. |
 | **Missing info** | 15% | Mean set F1 | Per-signal F1 over the constrained vocabulary, then averaged. Both empty = 1.0. |
-| **Escalation** | 10% | Binary F1 | F1 for the positive class (`needs_escalation=true`) across all signals. |
+| **Escalation** | 10% | Binary F1 | F1 for the positive class (`needs_escalation=true`) across all signals. Hostile contacts, VIP/command escalation, repeat failures, containment breaches — does your system flag them? Miss an escalation and the Admiral finds out the hard way. That's a career-ending event. For you, not the Admiral. The Admiral will be fine. The Admiral is always fine. |
 
 The classification score is computed as:
 
