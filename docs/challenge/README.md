@@ -2,18 +2,18 @@
 
 ## The Scenario
 
-Contoso Deep Space Station (CDSS) (~2,000 crew members) is drowning in deep-space signals. Their team of 12 Mission Ops operators manually triages ~180 signals per cycle across 6 response divisions. Average time-to-route: 3.4 hours. Misroute rate: 42%. Their Station Commander just got off a subspace call with your manager and wants this fixed.
+🛰️ Contoso Deep Space Station (CDSS) — a crew of ~2,000 aboard humanity's most advanced orbital habitat — is drowning in incoming signals. Their Mission Control team of 12 manually triages ~180 signals per day across 6 response divisions. Average time-to-route: 3.4 hours. Misroute rate: 42%. Their Station Commander just got off a subspace call with your manager and wants this fixed. *Lives depend on it.*
 
 **Start here. Read the mission briefing:** [customer_brief.md](customer_brief.md)
-**Then review their signal routing protocol:** [routing_guide.md](routing_guide.md) *(heads up: it's incomplete. Some signal types aren't covered, and some rules contradict each other. Welcome to deep-space operations.)*
+**Then review their routing protocol:** [routing_guide.md](routing_guide.md) *(heads up: it's incomplete. Some signal types aren't covered, and some rules contradict each other. Welcome to deep space operations.)*
 
-Your job: **build an AI-powered signal triage API** that CDSS can plug into their MissionFlow workflow.
+Your job: **build an AI-powered signal triage API** that CDSS can plug into their Mission Control workflow.
 
 ---
 
 ## What You Are Building
 
-A deployed API that accepts a deep-space signal and returns a triage decision. One endpoint, one JSON in, one JSON out.
+A deployed API that accepts an incoming mission signal and returns a triage decision. One endpoint, one JSON in, one JSON out.
 
 ### API Contract
 
@@ -24,15 +24,15 @@ A deployed API that accepts a deep-space signal and returns a triage decision. O
 ```json
 {
   "ticket_id": "SIG-4829",
-  "subject": "oxygen levels dropping in sector 7-G!!!",
-  "description": "Hi, the atmospheric readings in Habitat Module 7-G have been fluctuating since around 0700 station time. O2 is down to 19.1% and falling slowly. Life support diagnostics show green but something is clearly off. I'm on shift in the bio-lab and we have a critical experiment running. URGENT PLEASE. - Lt. Chen",
+  "subject": "cant access airlock since this morning!!!",
+  "description": "Hi, I've been trying to get through Airlock 7B since around 0700 station time but the biometric scanner keeps rejecting my retina scan. I haven't changed my biometrics profile. I'm on EVA rotation today and have a hull inspection at 1000. URGENT PLEASE. - Sarah",
   "reporter": {
-    "name": "Lt. Sarah Chen",
-    "email": "sarah.chen@cdss.space",
-    "department": "Scientific Research"
+    "name": "Sarah Chen",
+    "email": "sarah.chen@contoso.com",
+    "department": "EVA Operations"
   },
-  "created_at": "2426-03-15T07:32:00Z",
-  "channel": "bridge_terminal",
+  "created_at": "2026-03-15T07:32:00Z",
+  "channel": "subspace_relay",
   "attachments": []
 }
 ```
@@ -42,21 +42,21 @@ A deployed API that accepts a deep-space signal and returns a triage decision. O
 ```json
 {
   "ticket_id": "SIG-4829",
-  "category": "Hull & Structural Systems",
+  "category": "Crew Access & Biometrics",
   "priority": "P2",
-  "assigned_team": "Spacecraft Systems Engineering",
+  "assigned_team": "Crew Identity & Airlock Control",
   "needs_escalation": false,
   "missing_information": [
     "software_version",
     "affected_crew"
   ],
-  "next_best_action": "Run full atmospheric diagnostic on Habitat Module 7-G and check for micro-hull breaches or life support recirculator faults in the sector",
+  "next_best_action": "Verify biometric profile status in the crew identity database and check for recent scanner firmware changes affecting EVA Operations airlocks",
   "remediation_steps": [
-    "Check life support control panel for Habitat Module 7-G recirculator status",
-    "Run hull integrity scan on sector 7-G for micro-breaches",
-    "If recirculator fault, initiate backup atmospheric unit and schedule repair",
-    "If hull breach detected, seal sector and reroute crew via emergency bulkheads",
-    "Confirm O2 levels stabilized and close signal"
+    "Check crew identity database for biometric profile anomalies",
+    "Verify airlock scanner firmware version and recent updates",
+    "If profile is valid, recalibrate the scanner on Airlock 7B",
+    "If scanner-specific, re-push biometric profile via crew management system",
+    "Confirm resolution with crew member and close signal"
   ]
 }
 ```
@@ -71,30 +71,28 @@ Your system must use **exactly** these values. The scoring is deterministic: any
 
 | Category | Description |
 |---|---|
-| `Crew Access & Biometrics` | Biometric scans, airlock access, crew provisioning, identity verification |
-| `Hull & Structural Systems` | Hull integrity, life support hardware, fabricators, docking bays, habitat modules |
-| `Communications & Navigation` | Subspace relays, navigation beacons, antenna arrays, signal routing |
-| `Flight Software & Instruments` | Science instruments, flight control software, sensor calibration, licensing |
-| `Threat Detection & Containment` | Hostile contacts, containment breaches, protocol violations, quarantine |
-| `Telemetry & Data Banks` | Sensor data, telemetry streams, data vaults, backups, mission archives |
-| `Mission Briefing Request` | Questions, how-tos, or signals that don't fit other categories |
-| `Not a Mission Signal` | Automated echoes, space noise, acknowledgments, cryo-sleep auto-replies |
+| `Crew Access & Biometrics` | Airlock access, biometric scanners, MFA, SSO, crew profile provisioning, identity sync |
+| `Hull & Structural Systems` | Hull breaches, radiation shielding, solar panels, docking ports, external hardware, structural integrity |
+| `Communications & Navigation` | Subspace relays, antennas, GPS/star tracker, signal latency, comms blackouts, navigation |
+| `Flight Software & Instruments` | Software crashes, instrument calibration, mission planning tools, science payloads, licensing |
+| `Threat Detection & Containment` | Unidentified objects, radiation spikes, hull breach attempts, quarantine, anomalous sensor readings |
+| `Telemetry & Data Banks` | Telemetry pipelines, data storage, sensor corruption, backups, scientific data |
+| `Mission Briefing Request` | Crew onboarding, "how do I" questions, habitat inquiries, general ops questions |
+| `Not a Mission Signal` | Beacon echoes, routine acks, space noise, automated responses, non-actionable transmissions |
 
-**Teams** (7 values):
+**Response Divisions** (7 values):
 
-| Team | When to route |
+| Division | When to route |
 |---|---|
-| `Crew Identity & Airlock Control` | Biometric auth, airlock access, crew provisioning, Station Identity Core |
-| `Spacecraft Systems Engineering` | Hull, life support, fabricators, ShipOS, hardware diagnostics |
-| `Deep Space Communications` | Subspace relays, antenna arrays, navigation beacons, signal routing |
-| `Mission Software Operations` | Station Resource Manager, OrbitalForce, Quantum Terminal, StarSuite 365 |
-| `Threat Response Command` | Hostile contacts, containment breaches, protocol violations, quarantine |
-| `Telemetry & Data Core` | Sensor data, telemetry streams, data vaults, backups, mission archives |
-| `None` | Use when the signal is not a real mission request |
+| `Crew Identity & Airlock Control` | Biometric access, SSO, MFA, crew profile provisioning, identity database |
+| `Spacecraft Systems Engineering` | Hull, structural systems, docking ports, solar panels, hardware, general triage for vague signals |
+| `Deep Space Communications` | Subspace relays, antenna alignment, navigation, signal routing, comms blackouts |
+| `Mission Software Operations` | Flight planning tools, science instruments, mission software, licensing, integrations |
+| `Threat Response Command` | Unidentified objects, radiation, containment breaches, hostile contacts, threat analysis |
+| `Telemetry & Data Core` | Telemetry pipelines, data storage, sensor data, backups, scientific databases |
+| `None` | Use when the signal is not an actionable mission transmission |
 
-**Priorities** (4 values): `P1` (🔴 Red Alert), `P2` (🟠 Orange Alert), `P3` (🟡 Yellow Alert), `P4` (🟢 Routine)
-
-**Channels** (4 values): `subspace_relay`, `holodeck_comm`, `bridge_terminal`, `emergency_beacon`
+**Priorities** (4 values): `P1` (🔴 Red Alert), `P2` (🟡 Yellow Alert), `P3` (🟠 Caution), `P4` (🟢 Routine)
 
 ### Missing Information Vocabulary
 
@@ -102,21 +100,21 @@ When identifying missing information, use **only** values from this list. Scorin
 
 | Value | What it means |
 |---|---|
-| `affected_subsystem` | Which subsystem, instrument, or service is impacted |
-| `anomaly_readout` | Exact anomaly text or diagnostic code observed |
-| `sequence_to_reproduce` | How to reproduce the issue |
+| `affected_subsystem` | Which subsystem, instrument, or module is impacted |
+| `anomaly_readout` | Exact anomaly text, error code, or sensor reading |
+| `sequence_to_reproduce` | How to reproduce the anomaly |
 | `affected_crew` | How many or which crew members are impacted |
-| `habitat_conditions` | OS, sector, configuration specifics, system IDs |
-| `stardate` | When the anomaly started or was observed |
+| `habitat_conditions` | Deck, module, environmental config specifics, system IDs |
+| `stardate` | When the anomaly started or was first observed |
 | `previous_signal_id` | Reference to a prior related signal |
-| `crew_contact` | Reporter contact details or alternate contact |
-| `module_specs` | Module make, model, specifications |
-| `software_version` | Software or instrument version number |
-| `sector_coordinates` | Deck, sector, network segment, relay address |
+| `crew_contact` | Reporter contact details or alternate crew contact |
+| `module_specs` | Module make, model, hardware specifications |
+| `software_version` | Software or instrument firmware version |
+| `sector_coordinates` | Deck, sector, module location, spatial coordinates |
 | `mission_impact` | Mission consequence or urgency context |
 | `recurrence_pattern` | How often the anomaly occurs |
-| `sensor_log_or_capture` | Visual evidence or diagnostic file |
-| `biometric_method` | Biometric method, SSO type, credential type |
+| `sensor_log_or_capture` | Sensor data dump, visual evidence, or log file |
+| `biometric_method` | Biometric type, SSO method, credential type |
 | `system_configuration` | System config, policy, or setup specifics |
 
 ### Health Check
@@ -133,7 +131,7 @@ Your service must also respond to `GET /health` with HTTP 200.
 | **Public eval set** | 100 | [public_eval.json](../data/tickets/public_eval.json) | Test at scale before submitting (no gold answers provided) |
 | **Hidden eval set** | 1000+ | Not in this repo | Final scoring. Includes edge cases not in the public data |
 
-Signals vary in quality. Some are clean. Some are vague, contradictory, multi-issue, garbled, or not real mission requests at all. That's not a bug in the dataset. That's what deep-space signals actually look like.
+Signals vary in quality. Some are clean. Some are vague, contradictory, multi-issue, garbled, or not real mission transmissions at all. That's not a bug in the dataset. That's what signals from a deep space station actually look like.
 
 > **Don't overfit.** The hidden set has signal types you won't see in the public data. Build for the real world, not for 25 specific signals.
 
@@ -184,9 +182,9 @@ Five dimensions, scored at the **submission level** (not per-signal):
 
 | Dimension | Weight | Metric | What it means |
 |---|---|---|---|
-| **Category** | 20% | Macro F1 | Per-class F1 averaged across all 8 categories. Systems that ignore rare classes are penalized. |
+| **Category** | 20% | Macro F1 | Per-class F1 averaged across all 8 anomaly categories. Systems that ignore rare classes are penalized. |
 | **Priority** | 20% | Mean partial credit | Exact match = 1.0. Off by one level = 0.67. Off by two or more = 0.0. Averaged across all signals. |
-| **Routing** | 20% | Macro F1 | Per-class F1 averaged across all 7 teams. Same logic as category. |
+| **Routing** | 20% | Macro F1 | Per-class F1 averaged across all 7 response divisions. Same logic as category. |
 | **Missing info** | 15% | Mean set F1 | Per-signal F1 over the constrained vocabulary, then averaged. Both empty = 1.0. |
 | **Escalation** | 10% | Binary F1 | F1 for the positive class (`needs_escalation=true`) across all signals. |
 
@@ -247,13 +245,13 @@ Think of it like this:
 - **Functional score** asks: did your live system make the right triage decisions on hidden signals?
 - **Engineering review** asks: if we opened your repo and reviewed it like teammates, would we trust the engineering?
 
-The signal we care about is very FDE-shaped: can you take an ambiguous mission problem, turn it into a clean service, make sensible tradeoffs, and ship something that still looks solid when we ask about latency, cost, failure modes, scale, security, and testing?
+The signal we care about is very FDE-shaped: can you take an ambiguous mission control problem, turn it into a clean service, make sensible tradeoffs, and ship something that still looks solid when we ask about latency, cost, failure modes, scale, security, and testing?
 
 We're looking for: clean code, good tests, sensible architecture, infrastructure that works, and documentation that shows you *understood* the problem, not just threw tokens at it.
 
 In practice, the strongest submissions usually do these things well:
 
-- Thin API layer, with business logic separated from route handlers
+- Thin API layer, with triage logic separated from route handlers
 - Typed models and schema validation on both input and output
 - Async external calls with explicit timeouts
 - Clear error handling instead of generic 500s everywhere
@@ -274,12 +272,12 @@ In other words, we are not just looking for a model call that happens to classif
 
 #### `docs/architecture.md`
 
-- What does your service do? How does it fit into CDSS's world?
+- What does your service do? How does it fit into CDSS's mission control?
 - Draw something. ASCII, Mermaid, napkin sketch, whatever. Show the moving parts.
 - Data flow: signal goes in, triage comes out, what happened in between?
 - AI pipeline: what model(s), why, how do you call them?
 - Tradeoffs: what else did you consider? Why not that?
-- Production readiness: what would you change if this had to handle 10,000 signals/cycle?
+- Production readiness: what would you change if this had to handle 10,000 signals/day?
 
 #### `docs/methodology.md`
 
@@ -312,7 +310,7 @@ No. The hidden eval set applies to the **functional score**. Engineering review 
 
 Optimize for trust. A reviewer should be able to open your repo and quickly see:
 
-- how requests flow through the system
+- how signals flow through the system
 - where the LLM or rules logic lives
 - how failures are handled
 - how to run and test the service
@@ -330,7 +328,7 @@ Not directly. They are required by the schema, but they are reviewed as part of 
 
 #### What usually makes an engineering submission look weak?
 
-- Business logic buried in one route file
+- Triage logic buried in one route file
 - No timeouts or retry handling around model calls
 - No tests beyond a happy path
 - Missing docs or docs that only describe the final state
@@ -344,7 +342,7 @@ Not directly. They are required by the schema, but they are reviewed as part of 
 - Latency and cost are managed as engineering constraints, not ignored until the end
 - Tests cover weird signals, failure cases, and non-happy paths
 - The repo shows evidence of iteration, tradeoffs, and honest evaluation
-- The whole thing feels like something a mission ops team could actually operate
+- The whole thing feels like something a mission control team could actually operate
 
 ---
 
@@ -357,7 +355,7 @@ Not directly. They are required by the schema, but they are reviewed as part of 
 ## Quick Start
 
 ```bash
-# 1. Read the mission briefing and signal routing protocol first. Seriously. It matters.
+# 1. Read the mission briefing and routing protocol first. Seriously. It matters.
 open docs/challenge/customer_brief.md
 open docs/challenge/routing_guide.md
 

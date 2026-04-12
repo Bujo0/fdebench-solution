@@ -2,11 +2,11 @@
 
 ## What Is This
 
-A **build challenge** where you tackle the kind of problem FDEs actually solve: a deep-space station is drowning in incoming signals, and they need an AI-powered triage API. Yesterday. Crew lives may depend on it. No pressure. 🛰️
+A **build challenge** where you tackle the kind of problem FDEs actually solve: a deep-space station is drowning in incoming mission signals, and they need an AI-powered signal triage API. Yesterday. Before the hull breach in Sector 7 gets worse.
 
 You'll read their (messy, incomplete) mission briefing, dig through their signal data, build a real deployed API, and ship it. Then we score it against a hidden evaluation set you've never seen.
 
-**This is not a chatbot challenge.** It's an engineering challenge. One endpoint, one JSON in, one JSON out, deployed and callable. The kind of thing you'd actually build for a mission ops team on the edge of known space.
+**This is not a chatbot challenge.** It's an engineering challenge. One endpoint, one JSON in, one JSON out, deployed and callable. The kind of thing you'd actually build for a mission control team.
 
 ## Getting Started
 
@@ -21,7 +21,7 @@ You'll read their (messy, incomplete) mission briefing, dig through their signal
 
 ```
 ├── docs/
-│   ├── challenge/       # Problem statement, customer brief, rules, scoring
+│   ├── challenge/       # Problem statement, mission briefing, rules, scoring
 │   ├── data/            # Synthetic signal dataset + schemas
 │   ├── eval/            # Public evaluation harness (run locally)
 │   └── submission/      # How to submit your solution

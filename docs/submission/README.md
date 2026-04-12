@@ -28,7 +28,7 @@ your-repo/
 
 Important nuance: the hidden signals are for the **0-100 functional score**. Engineering review happens separately from what is in your repo after you submit.
 
-What we want to see is not just that you got a decent score. We want to see how you built a system: clear design, sensible model usage, attention to latency and cost, tests that cover real failure modes, and engineering choices that would hold up in front of a Mission Ops review board.
+What we want to see is not just that you got a decent score. We want to see how you built a system: clear design, sensible model usage, attention to latency and cost, tests that cover real failure modes, and engineering choices that would hold up in front of a mission control team.
 
 ## submission.json
 
@@ -89,9 +89,9 @@ See [challenge README: Engineering Review](../challenge/README.md#engineering-re
 
 - **Deploy early.** Get something live in hour 2 and iterate. The number of people who deploy at hour 23 and then panic is... nonzero. Don't let your mission launch at T-minus-nothing.
 - **Run the eval harness constantly.** It's the same scoring logic as the platform. Trust the numbers.
-- **Read the mission briefing.** Candidates who skip it produce noticeably worse output. The mission context matters for routing and remediation. The Admiral wrote it for a reason.
+- **Read the mission briefing.** Candidates who skip it produce noticeably worse output. The mission context matters for routing and remediation.
 - **Handle the weird signals.** The hidden eval has stuff you haven't seen: vague signals, multi-issue signals, space noise. If your system 500s on a confusing signal, that's a zero on every dimension.
-- **Return valid JSON even when confused.** A reasonable default beats a stack trace. In space, silence is worse than a wrong answer.
+- **Return valid JSON even when confused.** A reasonable default beats a stack trace.
 - **Explain your decisions.** "I chose X because Y" is worth more than a polished README that says nothing. We want to see how you think.
 - **Send the cost headers.** It's only 5% of the score, but it signals you actually read the spec.
 - **Treat the repo like part of the mission.** The endpoint drives your functional score. The repo is what reviewers use to judge the engineering.

@@ -1,6 +1,6 @@
 # Dataset
 
-Synthetic signals modeled on real deep-space mission operations. They're messy on purpose.
+Synthetic signals modeled on real deep-space mission control operations. They're messy on purpose.
 
 ## Structure
 
@@ -55,17 +55,17 @@ See [schemas/output.json](schemas/output.json) for the formal JSON Schema with a
 
 The signals include:
 
-- **Clean signals**: well-documented, clear, all the telemetry you need
-- **Vague signals**: "all systems failing" with zero specifics
-- **Multi-issue signals**: "biometric scanner broken AND navigation array misaligned" (good luck picking one category)
+- **Clean signals**: well-written, clear, all the details you need
+- **Vague signals**: "systems are failing" with zero specifics
+- **Multi-issue signals**: "can't access airlock AND my viewport is flickering" (good luck picking one category)
 - **Hidden urgency**: no "RED ALERT" flag, but the body describes a hull breach
-- **Missing info**: half the telemetry you need isn't there
-- **Contradictions**: subject says "routine maintenance", body says mission-critical system offline
-- **Noise**: automated echoes, acknowledgments, cryo-sleep auto-replies, space noise (these are "Not a Mission Signal", routed to "None")
+- **Missing info**: half the context you need isn't there
+- **Contradictions**: subject says "routine", body says hull integrity is compromised
+- **Noise**: beacon echoes, "acknowledged" messages, automated responses, space interference (these are "Not a Mission Signal", routed to "None")
 - **Jargon**: dense technical language that requires actually understanding spacecraft operations
-- **Ambiguous routing**: is a biometric issue Crew Identity or Threat Response? Depends on the context. (Sound familiar? Read the routing protocol.)
+- **Ambiguous routing**: is a biometric failure Crew Identity or Threat Response? Depends on the context. (Sound familiar? Read the routing protocol.)
 
-This is what real mission operations signals look like. Your system needs to handle all of it.
+This is what real mission control signals look like. Your system needs to handle all of it.
 
 ## Dataset Splits
 

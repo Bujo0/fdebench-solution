@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Space Mission Control evaluation harness.
+"""Hackathon evaluation harness — Space Mission Control Signal Triage.
 
 Scores a participant's /triage endpoint against a gold-standard dataset.
 This script tests Part 1 (functional accuracy) only. Part 2 (engineering

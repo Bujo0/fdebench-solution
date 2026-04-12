@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Signal",
-    "description": "An incoming deep-space signal submitted to Contoso Deep Space Station (CDSS) Mission Operations.",
+    "description": "An incoming signal submitted to Contoso Deep Space Station (CDSS) Mission Control.",
     "type": "object",
     "required": [
         "ticket_id",
@@ -44,7 +44,7 @@
                 },
                 "department": {
                     "type": "string",
-                    "description": "Station division (e.g., Navigation Command, Resource Trading, Mission Compliance, Crew Welfare)."
+                    "description": "Station division (e.g., Navigation, Life Support, Astrobiology, Command, Engineering, Medical)."
                 }
             }
         },
@@ -68,7 +68,7 @@
             "items": {
                 "type": "string"
             },
-            "description": "Filenames of attachments included in the signal. Actual files are not provided — only names."
+            "description": "Filenames of attachments referenced in the signal. Actual files are not provided \u2014 only names."
         }
     }
 }

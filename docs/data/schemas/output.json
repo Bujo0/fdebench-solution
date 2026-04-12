@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "TriageDecision",
-    "description": "The expected triage output for a single deep-space signal.",
+    "description": "The expected triage output for a single signal.",
     "type": "object",
     "required": [
         "ticket_id",
@@ -30,15 +30,15 @@
                 "P3",
                 "P4"
             ],
-            "description": "Priority level. P1 = Red Alert (Critical), P2 = Orange Alert (High), P3 = Yellow Alert (Medium), P4 = Routine (Low)."
+            "description": "Priority level. P1 = Red Alert (Critical), P2 = Yellow Alert (High), P3 = Caution (Medium), P4 = Routine (Low)."
         },
         "assigned_team": {
             "type": "string",
-            "description": "The response division to route to. Expected values: 'Crew Identity & Airlock Control', 'Spacecraft Systems Engineering', 'Deep Space Communications', 'Mission Software Operations', 'Threat Response Command', 'Telemetry & Data Core', 'None'. Use 'None' only when the signal is not a real mission request."
+            "description": "The response division to route to. Expected values: 'Crew Identity & Airlock Control', 'Spacecraft Systems Engineering', 'Deep Space Communications', 'Mission Software Operations', 'Threat Response Command', 'Telemetry & Data Core', 'None'. Use 'None' only when the signal is not an actionable mission signal."
         },
         "needs_escalation": {
             "type": "boolean",
-            "description": "True if the signal requires escalation beyond normal routing (containment breaches, command-level VIP, repeat failures, protocol violations)."
+            "description": "True if the signal requires escalation beyond normal routing (hostile contacts, containment breaches, VIP/command crew, repeat anomalies)."
         },
         "missing_information": {
             "type": "array",
@@ -67,14 +67,14 @@
         },
         "next_best_action": {
             "type": "string",
-            "description": "A single sentence describing the most important next step for the assigned response division."
+            "description": "A single sentence describing the most important next step for the assigned division."
         },
         "remediation_steps": {
             "type": "array",
             "items": {
                 "type": "string"
             },
-            "description": "Ordered list of specific, actionable remediation steps an L1 operator should follow."
+            "description": "Ordered list of specific, actionable remediation steps a Tier 1 mission controller should follow."
         }
     }
 }

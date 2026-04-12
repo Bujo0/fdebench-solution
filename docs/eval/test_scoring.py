@@ -455,14 +455,14 @@ def test_ticket_returns_five_dimensions_plus_total():
 def test_ticket_total_is_weighted_sum():
     """Verify the total equals the documented weighted sum formula."""
     gold = {
-        "category": "Communications",
+        "category": "Communications & Navigation",
         "priority": "P1",
         "assigned_team": "Deep Space Communications",
         "needs_escalation": True,
         "missing_information": ["anomaly_readout", "stardate"],
     }
     cand = {
-        "category": "Communications",
+        "category": "Communications & Navigation",
         "priority": "P2",
         "assigned_team": "Wrong Division",
         "needs_escalation": True,
