@@ -444,12 +444,12 @@ def call_endpoint(client: httpx.Client, endpoint: str, signal: dict) -> tuple[di
         return resp.json(), elapsed_ms
     except Exception as e:
         elapsed_ms = (time.monotonic() - start) * 1000
-        print(f"  ✗ {signal['ticket_id']}: {e}")
+        print(f"  ✗ {signal['ticket_id']}: SIGNAL LOST — {e}")
         return None, elapsed_ms
 
 
 def check_health(client: httpx.Client, endpoint: str) -> bool:
-    """GET /health and check for 200."""
+    """GET /health — life-signs check. If the service has no pulse, we can't score it."""
     url = urljoin(endpoint.rstrip("/") + "/", "health")
     try:
         resp = client.get(url, timeout=10.0)
@@ -462,7 +462,9 @@ def check_health(client: httpx.Client, endpoint: str) -> bool:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Score a /triage endpoint against gold-standard signal data.")
+    parser = argparse.ArgumentParser(
+        description="🛰️ CDSS Scoring Computer — score a /triage endpoint against gold-standard signal data.",
+    )
     parser.add_argument(
         "--endpoint",
         required=True,
@@ -484,7 +486,7 @@ def main() -> int:
     # ── Load data ─────────────────────────────────────────────────────
     dataset_path = Path(args.dataset)
     if not dataset_path.exists():
-        print(f"Error: dataset file not found: {dataset_path}")
+        print(f"  ✗ Signal archive not found: {dataset_path}")
         return 1
 
     signals = json.loads(dataset_path.read_text())
@@ -496,12 +498,12 @@ def main() -> int:
         stem = dataset_path.stem
         gold_path = dataset_path.parent / f"{stem}_gold.json"
         if not gold_path.exists():
-            print(f"Error: gold file not found: {gold_path}")
-            print("Provide --gold explicitly or ensure <dataset>_gold.json exists.")
+            print(f"  ✗ Gold answer archive not found: {gold_path}")
+            print("  Provide --gold explicitly or ensure <dataset>_gold.json exists.")
             return 1
 
     if not gold_path.exists():
-        print(f"Error: gold file not found: {gold_path}")
+        print(f"  ✗ Gold answer archive not found: {gold_path}")
         return 1
 
     golds = json.loads(gold_path.read_text())
@@ -512,22 +514,30 @@ def main() -> int:
     gold_ids = set(gold_by_id.keys())
     missing_gold = [tid for tid in signal_ids if tid not in gold_ids]
     if missing_gold:
-        print(f"Error: {len(missing_gold)} signals have no gold answer: {missing_gold[:5]}")
+        print(f"  ✗ {len(missing_gold)} signals missing gold answers: {missing_gold[:5]}")
         return 1
 
-    print(f"Loaded {len(signals)} signals, {len(golds)} gold answers")
-    print(f"Endpoint: {args.endpoint}")
+    print()
+    print("  🛰️  CONTOSO DEEP SPACE STATION — SCORING COMPUTER  🛰️")
+    print("  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print()
+    print(f"  Incoming signals:  {len(signals)}")
+    print(f"  Gold answers:      {len(golds)}")
+    print(f"  Target endpoint:   {args.endpoint}")
     print()
 
     # ── Health check ──────────────────────────────────────────────────
     client = httpx.Client()
     healthy = check_health(client, args.endpoint)
-    print(f"Health check: {'✓ OK' if healthy else '✗ FAILED'}")
+    status = "✓ LIFE SIGNS DETECTED" if healthy else "✗ NO LIFE SIGNS — FLATLINE"
+    print(f"  Health check: {status}")
     if not healthy:
-        print("Warning: GET /health did not return 200. Continuing with scoring...")
+        print("  ⚠ Warning: GET /health did not return 200. Proceeding with scoring anyway...")
     print()
 
     # ── Score each signal ─────────────────────────────────────────────
+    print("  Transmitting signals to triage endpoint...")
+    print()
     results: list[dict] = []
     responses: list[dict] = []
     latencies: list[float] = []
@@ -580,9 +590,9 @@ def main() -> int:
 
     # ── Print results ─────────────────────────────────────────────────
     print()
-    print("=" * 60)
-    print("  FUNCTIONAL SCORE (Part 1 of final leaderboard)")
-    print("=" * 60)
+    print("  ╔═══════════════════════════════════════════════════════════╗")
+    print("  ║  🛰️  MISSION SCORING REPORT — CLASSIFICATION RESULTS    ║")
+    print("  ╚═══════════════════════════════════════════════════════════╝")
     print()
     print("  Classification dimensions (max 85 pts):")
     print()
@@ -590,25 +600,35 @@ def main() -> int:
         score = dim_scores[dim]
         pts = score * weight / _CLASSIFICATION_WEIGHT_SUM * 85
         method = "macro F1" if dim in ("category", "routing") else ("binary F1" if dim == "escalation" else "mean")
-        print(f"    {dim:<16s}  {score:.4f} ({method})  × {weight * 100:.0f}% weight  = {pts:5.2f} pts")
-    print(f"    {'─' * 52}")
-    print(f"    {'CLASSIFICATION':16s}  {classification_score:5.1f} / 85")
+        bar = "█" * int(score * 20) + "░" * (20 - int(score * 20))
+        print(f"    {dim:<16s}  {bar}  {score:.4f} ({method})  × {weight * 100:.0f}%  = {pts:5.2f} pts")
+    print(f"    {'─' * 62}")
+    print(f"    {'CLASSIFICATION':16s}  {'':20s}  {classification_score:5.1f} / 85")
     print()
     print("  Efficiency dimensions (max 15 pts, scored by platform):")
     print()
     print(f"    latency           p50={p50:.0f}ms  p95={p95:.0f}ms  (10% weight)")
     print("    cost              from response headers     (5% weight)")
     print()
-    print(f"  Signals scored: {n_valid}/{n_total}")
+    print(f"  Signals processed: {n_valid}/{n_total}")
     if errors:
-        print(f"  Errors (scored as 0): {errors}")
+        print(f"  Signals lost to the void: {errors}")
     print()
-    print("  ┌─────────────────────────────────────────────────────────┐")
-    print("  │  Classification score: up to 85 pts from 5 dimensions  │")
-    print("  │  Efficiency score: up to 15 pts (latency + cost)       │")
-    print("  │  Total functional score: 0–100 (50% of leaderboard)    │")
-    print("  │  Engineering quality: 50% of leaderboard               │")
-    print("  └─────────────────────────────────────────────────────────┘")
+    print("  ┌─────────────────────────────────────────────────────────────┐")
+    print("  │  Classification:  up to 85 pts from 5 scoring dimensions   │")
+    print("  │  Efficiency:      up to 15 pts (latency + cost)            │")
+    print("  │  Total functional score: 0–100                             │")
+    print("  │  Engineering review: evaluated separately from your repo   │")
+    print("  │                                                            │")
+    if classification_score >= 75:
+        print("  │  Status: 🟢 Strong signal — the crew approves.            │")
+    elif classification_score >= 55:
+        print("  │  Status: 🟡 Moderate — some signals lost in static.       │")
+    elif classification_score >= 30:
+        print("  │  Status: 🟠 Weak signal — review your triage logic.       │")
+    else:
+        print("  │  Status: 🔴 Critical — Commander Kapoor has been notified.│")
+    print("  └─────────────────────────────────────────────────────────────┘")
     print()
 
     # ── Write JSON results ────────────────────────────────────────────
@@ -624,7 +644,10 @@ def main() -> int:
     }
     output_path = Path("eval_results.json")
     output_path.write_text(json.dumps(output, indent=2) + "\n")
-    print(f"  Results saved to {output_path}")
+    print(f"  📡 Results transmitted to {output_path}")
+    print()
+    print("  End of scoring run. The void awaits your submission.")
+    print()
 
     return 0
 

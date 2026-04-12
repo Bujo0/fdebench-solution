@@ -130,43 +130,55 @@ uv run python run_eval.py \
 Each signal shows its per-signal classification score (max 85 pts):
 
 ```
-Loaded 25 signals, 25 gold answers
-Endpoint: http://localhost:8000
+  🛰️  CONTOSO DEEP SPACE STATION — SCORING COMPUTER  🛰️
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Health check: ✓ OK
+  Incoming signals:  25
+  Gold answers:      25
+  Target endpoint:   http://localhost:8000
+
+  Health check: ✓ LIFE SIGNS DETECTED
+
+  Transmitting signals to triage endpoint...
 
   SIG-0001  [ 85.0]  cat=✓ pri=✓ route=✓ esc=✓ miss=✓(1.00)  142ms
   SIG-0002  [ 60.1]  cat=✓ pri=✓ route=✗ esc=✓ miss=~(0.67)  198ms
   SIG-0003  [ 51.7]  cat=✓ pri=~ route=✓ esc=✗ miss=✗(0.00)  156ms
   ...
 
-  ════════════════════════════════════════════════════════════
-    FUNCTIONAL SCORE
-  ════════════════════════════════════════════════════════════
+  ╔═══════════════════════════════════════════════════════════╗
+  ║  🛰️  MISSION SCORING REPORT — CLASSIFICATION RESULTS    ║
+  ╚═══════════════════════════════════════════════════════════╝
 
-    Classification dimensions (max 85 pts):
+  Classification dimensions (max 85 pts):
 
-      category          0.8200 (macro F1)   × 20% weight  = 16.40 pts
-      priority          0.9100 (mean)        × 20% weight  = 18.20 pts
-      routing           0.7500 (macro F1)   × 20% weight  = 15.00 pts
-      missing_info      0.6800 (mean)        × 15% weight  = 10.20 pts
-      escalation        0.9000 (binary F1)  × 10% weight  =  9.00 pts
-      ────────────────────────────────────────────────────────
-      CLASSIFICATION     72.5 / 85
+    category          ████████████████░░░░  0.8200 (macro F1)   × 20%  = 16.40 pts
+    priority          ██████████████████░░  0.9100 (mean)        × 20%  = 18.20 pts
+    routing           ███████████████░░░░░  0.7500 (macro F1)   × 20%  = 15.00 pts
+    missing_info      █████████████░░░░░░░  0.6800 (mean)        × 15%  = 10.20 pts
+    escalation        ██████████████████░░  0.9000 (binary F1)  × 10%  =  9.00 pts
+    ──────────────────────────────────────────────────────────────
+    CLASSIFICATION                          72.5 / 85
 
-    Efficiency dimensions (max 15 pts, scored by platform):
+  Efficiency dimensions (max 15 pts, scored by platform):
 
-      latency           p50=320ms  p95=890ms  (10% weight)
-      cost              from response headers  (5% weight)
+    latency           p50=320ms  p95=890ms  (10% weight)
+    cost              from response headers  (5% weight)
 
-    ┌─────────────────────────────────────────────────────────┐
-    │  Classification score: up to 85 pts from 5 dimensions  │
-    │  Efficiency score: up to 15 pts (latency + cost)       │
-    │  Total functional score: 0–100 on the hidden set       │
-    │  Engineering review happens separately                 │
-    └─────────────────────────────────────────────────────────┘
+  Signals processed: 25/25
 
-  Results saved to eval_results.json
+  ┌─────────────────────────────────────────────────────────────┐
+  │  Classification:  up to 85 pts from 5 scoring dimensions   │
+  │  Efficiency:      up to 15 pts (latency + cost)            │
+  │  Total functional score: 0–100                             │
+  │  Engineering review: evaluated separately from your repo   │
+  │                                                            │
+  │  Status: 🟡 Moderate — some signals lost in static.       │
+  └─────────────────────────────────────────────────────────────┘
+
+  📡 Results transmitted to eval_results.json
+
+  End of scoring run. The void awaits your submission.
 ```
 
 The `eval_results.json` file contains full per-signal breakdowns for error analysis.
