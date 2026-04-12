@@ -6,12 +6,12 @@
         "assigned_team": "Deep Space Communications",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Investigate subspace relay compatibility with the latest comm array firmware update. Check for known signal dropout issues during antenna switching on the port-side array. Verify relay module firmware v3.2 is the latest supported version.",
+        "next_best_action": "Investigate comms relay compatibility with the latest station firmware update. Check for known RF mesh antenna issues on Deck 4. Verify SubComm v3.2 is the latest supported version.",
         "remediation_steps": [
-            "Verify subspace relay module firmware v3.2 is the latest supported version",
-            "Check for known signal dropout issues during antenna switching on the port-side array",
-            "Test relay reconnection behavior after the latest comm array firmware update on a reference module",
-            "If issue persists, escalate to Deep Space Communications for relay firmware patch review"
+            "Verify SubComm v3.2 is the latest supported version for the station firmware",
+            "Check for known RF mesh antenna connectivity issues on Deck 4",
+            "Test comms relay handoff behavior between hardline and RF mesh after the firmware update on a reference terminal",
+            "If issue persists, escalate to communications engineering for firmware patch review"
         ]
     },
     {
@@ -24,13 +24,13 @@
             "software_version",
             "module_specs"
         ],
-        "next_best_action": "Investigate whether flight console crash and navigation displaying old waypoints are related to the recent console swap migration. Verify that crew profile and instrument data were properly transferred to the new console.",
+        "next_best_action": "Investigate whether Mission Planner crash and Star Chart waypoint sync issues are related to the terminal swap. Verify that crew profile and application data were properly migrated to the new console.",
         "remediation_steps": [
-            "Verify console provisioning and data migration completed successfully",
-            "Clear flight console cache and reinitialize if crash persists",
-            "Check navigation profile migration status and force waypoint cache resync",
-            "Confirm instrument software versions match the supported standard flight image",
-            "If issues persist after cache clear and resync, re-provision flight software on the new console"
+            "Verify terminal provisioning and data migration completed successfully",
+            "Clear Mission Planner cache and reinstall if crash persists",
+            "Check Star Chart profile migration status and force waypoint database resync",
+            "Confirm software versions match the supported standard station image",
+            "If issues persist after cache clear and resync, re-provision applications on the new terminal"
         ]
     },
     {
@@ -42,13 +42,13 @@
         "missing_information": [
             "module_specs"
         ],
-        "next_best_action": "Dispatch immediate on-site support to Command Briefing Room with a portable backup holographic display. Time-critical: $2.3M treaty delegation arriving in 25 minutes.",
+        "next_best_action": "Dispatch immediate on-site support to the main briefing chamber with a portable backup holo-emitter. Time-critical: $2.3B colony contract review with Deep Space Command delegation in 25 minutes.",
         "remediation_steps": [
-            "Dispatch technician to Command Briefing Room immediately",
-            "Bring portable backup holographic display from engineering supply bay",
-            "Check display power coupling, data conduit connections, and input source settings",
-            "If main holographic display cannot be restored, set up portable unit before delegation arrives",
-            "After briefing, schedule full diagnostic of the main Command Briefing Room display"
+            "Dispatch on-site technician to the main briefing chamber immediately",
+            "Bring portable backup holo-emitter from engineering supply",
+            "Check projector power source, data conduit connections, and input source settings",
+            "If main holographic projector cannot be restored, set up portable unit before the delegation arrives",
+            "After briefing, schedule full diagnostic of the main chamber holographic projector"
         ]
     },
     {
@@ -63,11 +63,11 @@
             "module_specs",
             "sequence_to_reproduce"
         ],
-        "next_best_action": "Contact crew member to gather specifics: which subsystems are inaccessible, what anomaly readouts appear, what module they are using, and when the issue started. Cannot triage effectively without more detail.",
+        "next_best_action": "Contact crew member to gather specifics: which subsystems are inaccessible, what error messages appear, what console they are using, and when the issue started. Cannot triage effectively without more detail.",
         "remediation_steps": [
             "Contact crew member to gather specific details about the issue",
-            "Determine which subsystems and instruments are affected",
-            "Check if the issue is isolated to this crew member or affecting others in their division",
+            "Determine which subsystems and applications are affected",
+            "Check if the issue is isolated to this crew member or affecting others in the Sensors division",
             "Once root cause is identified, route to the appropriate specialist team"
         ]
     },
@@ -78,9 +78,9 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close — this is an automated cryo-sleep auto-reply to a maintenance notification, not a support request. No action required.",
+        "next_best_action": "Close -- this is an automated shore leave auto-reply to a maintenance notification, not a mission signal. No action required.",
         "remediation_steps": [
-            "No action required — cryo-sleep auto-reply detected, close signal"
+            "No action required -- auto-reply detected, close signal"
         ]
     },
     {
@@ -92,13 +92,13 @@
         "missing_information": [
             "stardate"
         ],
-        "next_best_action": "Initiate threat containment investigation. Review authentication logs for unauthorized access from unknown sector, check data archive audit trail for document access from the suspicious coordinates, and verify that credential rotation and biometric re-verification are in effect.",
+        "next_best_action": "Initiate security incident investigation. Review biometric authentication logs for unauthorized access, check data vault audit trail for document access from the unregistered terminal, and verify that access codes have been reset and multi-factor authentication is in effect.",
         "remediation_steps": [
-            "Review authentication logs for the crew member's account over the past 48 hours",
-            "Check data archive audit trail for any unauthorized file access or downloads from unknown sector",
-            "Verify credential rotation was successful and biometric verification is active",
-            "If unauthorized access is confirmed, escalate to Threat Response Command and notify data protection officer",
-            "Brief crew member on interim security measures and monitor account for further anomalies"
+            "Review biometric authentication logs for the crew member's profile over the past 48 hours",
+            "Check data vault audit trail for any unauthorized file access or downloads",
+            "Verify access code reset was successful and multi-factor biometric authentication is active",
+            "If unauthorized access is confirmed, escalate to threat response and notify the station data protection officer",
+            "Brief crew member on interim security measures and monitor profile for further anomalies"
         ]
     },
     {
@@ -108,13 +108,13 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Check service credentials and RBAC role assignments on the primary data bank in telemetry-core-prod. Restore the Data Bank Contributor role if it was removed during the subsystem cleanup.",
+        "next_best_action": "Check service credentials and role assignments on the station data archive in data-core-prod. Restore the Data Contributor role if it was removed during the archive cleanup.",
         "remediation_steps": [
-            "Verify service credential token expiration for the telemetry pipeline identity",
-            "Check RBAC role assignments on the primary data bank in telemetry-core-prod",
-            "Restore Data Bank Contributor role assignment if missing",
+            "Verify service credential expiration for the telemetry pipeline identity",
+            "Check role assignments on the station data archive in data-core-prod",
+            "Restore Data Contributor role assignment if missing",
             "Re-run the telemetry pipeline 'prod-sensor-ingest' and verify successful execution",
-            "Investigate why the role assignment was removed during the subsystem cleanup to prevent recurrence"
+            "Investigate why the role assignment was removed during the archive cleanup to prevent recurrence"
         ]
     },
     {
@@ -124,13 +124,13 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate telemetry core connection pool exhaustion immediately. This is a mission-critical incident — 40% of telemetry requests are failing regardless of the submitter's priority classification.",
+        "next_best_action": "Investigate production telemetry database connection pool exhaustion immediately. This is a station-critical production incident -- 40% of sensor queries are failing and life support monitoring is affected, regardless of the submitter's priority classification.",
         "remediation_steps": [
-            "Investigate connection pool configuration on the primary telemetry core replica",
-            "Identify and terminate long-running queries or leaked connections in the telemetry data banks",
-            "Increase connection pool size or restart the primary telemetry core as immediate mitigation",
-            "Verify secondary replica health and confirm it is handling redirected telemetry traffic",
-            "Post-incident: conduct root cause analysis on telemetry core connection pool exhaustion"
+            "Investigate connection pool configuration on the primary telemetry data node",
+            "Identify and terminate long-running queries or leaked connections",
+            "Increase connection pool size or restart the primary node as immediate mitigation",
+            "Verify backup node health and confirm it is handling redirected traffic",
+            "Post-incident: conduct root cause analysis on connection pool exhaustion"
         ]
     },
     {
@@ -142,12 +142,12 @@
         "missing_information": [
             "previous_signal_id"
         ],
-        "next_best_action": "Escalate airlock access issue for Habitat Ring 7 — third report without resolution. Verify airlock permissions in the updated access management system post-migration and cross-reference with SIG-2834 if accessible.",
+        "next_best_action": "Escalate airlock biometric badge issue for Deck 7 -- third report without resolution. Verify badge permissions in the updated access management system post-migration and cross-reference with SIG-2834 if accessible.",
         "remediation_steps": [
-            "Check crew member's airlock permissions in the updated access management system",
-            "Verify Habitat Ring 7 access rights were properly migrated from the old system",
-            "If permissions appear correct, test the biometric scanner and airlock control panel",
-            "Escalate to Crew Identity & Airlock Control if biometric scan and permissions are both confirmed working",
+            "Check crew member's badge permissions in the updated access management system",
+            "Verify Deck 7 airlock access rights were properly migrated from the old system",
+            "If permissions appear correct, test the physical badge and biometric scanner at the airlock",
+            "Escalate to station facilities management if badge and permissions are both confirmed working",
             "Follow up with crew member to confirm resolution"
         ]
     },
@@ -160,15 +160,15 @@
         "missing_information": [
             "crew_contact"
         ],
-        "next_best_action": "Initiate new crew member provisioning workflow for Alex Rivera (arrival stardate March 31). Coordinate console, instrument software, access, and division membership provisioning across divisions. Target readiness by March 28.",
+        "next_best_action": "Initiate new crew member onboarding workflow for Alex Rivera (reporting date March 31). Coordinate console terminal, software, access, and quarters provisioning across teams. Target readiness by March 28.",
         "remediation_steps": [
-            "Requisition standard flight console with sensor array from hardware procurement",
-            "Prepare standard software image with navigation, telemetry, and analysis instruments",
-            "Request analytics module workspace access (telemetry-ml-prod) from systems operations",
-            "Request data catalog read access from Telemetry & Data Core",
-            "Request Habitat Ring 3 airlock access from Crew Identity & Airlock Control",
-            "Add Alex Rivera to the analytics division comm channel and crew manifest",
-            "Schedule equipment handoff and station walkthrough for March 28"
+            "Requisition high-spec console terminal with 32GB memory core from equipment stores",
+            "Prepare standard flight software image with SciAnalytics and SpectraLab suite",
+            "Request telemetry workspace access (lab-science-prod) from data operations",
+            "Request data archive read access from telemetry engineering",
+            "Request Deck 3 quarters assignment and lab badge from crew services",
+            "Add Alex Rivera to science-team comm channel and briefing distribution list",
+            "Schedule equipment handoff and orientation walkthrough for March 28"
         ]
     },
     {
@@ -181,13 +181,13 @@
             "module_specs",
             "software_version"
         ],
-        "next_best_action": "Investigate biometric scan failure at the identity core. Check biometric registration status and recent policy changes in the identity core. Crew member can continue with backup access code in the meantime.",
+        "next_best_action": "Investigate iris scanner biometric approval failure. Check BioAuth registration status and recent authentication policy changes. Crew member can continue with backup PIN code in the meantime.",
         "remediation_steps": [
-            "Verify biometric registration status for this crew member in the identity core",
-            "Check for recent access policy or biometric calibration changes that may affect scan recognition",
-            "Have crew member verify biometric scanner module is updated to the latest firmware",
-            "If issue persists, remove and re-register the biometric profile in the identity core",
-            "Confirm biometric scan works after re-registration"
+            "Verify biometric registration status for this crew member in the BioAuth system",
+            "Check for recent authentication or biometric policy changes that may affect iris scanning",
+            "Have crew member verify iris scanner firmware is updated to the latest version",
+            "If issue persists, remove and re-register the iris biometric pattern in BioAuth",
+            "Confirm iris scan approval works after re-registration"
         ]
     },
     {
@@ -200,12 +200,12 @@
             "module_specs",
             "affected_crew"
         ],
-        "next_best_action": "Investigate sensor display flickering as primary issue — likely hardware or data conduit fault. Route the flight software license question separately to Mission Software Operations.",
+        "next_best_action": "Investigate sensor array display flickering as primary issue -- likely hardware or data conduit fault. Route the NavStar Pro license question separately to Mission Software Operations.",
         "remediation_steps": [
             "Test with a replacement data conduit cable",
-            "Test sensor display with a different source module to isolate whether it's the display or the console",
-            "If flickering persists with new cable and source, schedule sensor display replacement",
-            "Create a separate signal for the flight software license expiry and route to Mission Software Operations"
+            "Test display with a different source terminal to isolate whether it's the display or the console",
+            "If flickering persists with new cable and source, schedule display replacement",
+            "Create a separate signal for the NavStar Pro license expiry and route to Mission Software Operations"
         ]
     },
     {
@@ -215,14 +215,14 @@
         "assigned_team": "Threat Response Command",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Initiate classified data breach investigation immediately. This is a potential regulatory incident involving PII exposure of 1,200 crew records under Interstellar Data Protection protocols. Determine scope of external access, identify who created the sharing link, and assess notification obligations.",
+        "next_best_action": "Initiate data breach investigation immediately. This is a potential regulatory incident involving classified PII exposure of 1,200 crew personnel under Space Authority data protection regulations. Determine scope of unauthorized access, identify who created the sharing link, and assess notification obligations.",
         "remediation_steps": [
-            "Confirm the external sharing link has been fully revoked and verify no other data archives have similar permissions",
+            "Confirm the unsecured sharing permissions have been fully revoked and verify no other archives have similar settings",
             "Pull data archive audit logs to identify who created the public sharing link and when",
-            "Analyze audit logs for any external access to the archive between February 15 and today",
-            "Engage Command and Compliance to assess Interstellar Data Protection notification obligations",
+            "Analyze audit logs for any unauthorized access to the archive between February 15 and today",
+            "Engage Tactical Operations and Legal to assess Space Authority notification obligations",
             "Document findings for the incident report and regulatory record",
-            "Conduct a broader data archive permissions audit across all archives containing classified crew records"
+            "Conduct a broader data archive permissions audit across all archives containing classified crew PII"
         ]
     },
     {
@@ -232,9 +232,9 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close — this is a thank-you message, not a mission signal. No action required.",
+        "next_best_action": "Close -- this is a thank-you message, not a mission signal. No action required.",
         "remediation_steps": [
-            "No action required — positive feedback, close signal"
+            "No action required -- positive feedback, close signal"
         ]
     },
     {
@@ -247,13 +247,13 @@
             "affected_subsystem",
             "habitat_conditions"
         ],
-        "next_best_action": "Investigate navigation telemetry latency regression on the deep-space relay path before next scheduled jump window. Check signal path to the navigation beacon, recent antenna or routing changes, and whether the latency is on the ship's side or the beacon side.",
+        "next_best_action": "Investigate 200ms to 50ms latency regression on the APAC sector navigation relay before the Centauri transit window. Check relay path to the navigation beacon, recent routing or firewall changes, and whether the latency is on the station's side or the beacon side.",
         "remediation_steps": [
-            "Check navigation telemetry latency metrics on the signal path between the ship's comm array and the navigation beacon",
-            "Review recent antenna alignment, routing, or relay changes that may affect the navigation path",
+            "Check navigation relay latency metrics on the path between the station's APAC sector relay and the navigation beacon",
+            "Review recent firewall, routing, or relay configuration changes that may affect the navigation path",
             "Compare current latency baseline against historical data to confirm the regression",
-            "If latency is on the ship's side, escalate to Deep Space Communications for immediate remediation before next jump window",
-            "If beacon-side, contact beacon operations and notify navigation crew of potential impact"
+            "If latency is on the station's side, escalate to communications engineering for immediate remediation before the Centauri transit window",
+            "If beacon-side, contact beacon operations and notify helm officers of potential impact"
         ]
     },
     {
@@ -265,13 +265,13 @@
         "missing_information": [
             "habitat_conditions"
         ],
-        "next_best_action": "Investigate SSO token invalidation after credential rotation on flight planning system. Likely the SSO session needs to be reissued after the credential change. Time-sensitive due to mission planning deadline.",
+        "next_best_action": "Investigate SSO token invalidation after credential rotation. Likely the FlightOS authentication ticket needs to be reissued after the station credential change. Time-sensitive due to end-of-cycle trajectory calculation deadline.",
         "remediation_steps": [
-            "Verify the crew member's identity core session and auth token are refreshed after the credential change",
-            "Check flight planning SSO configuration — confirm whether SSO uses biometric or token-based authentication",
-            "Reissue the flight planning SSO token or have the crew member log in with explicit credentials as a workaround",
-            "If SSO token regeneration doesn't resolve it, check whether the credential rotation policy affected the flight planning secure channel configuration",
-            "Confirm flight planning access is restored and the crew member can complete the mission planning deadline"
+            "Verify the crew member's station session and authentication ticket are refreshed after the credential rotation",
+            "Check FlightOS SSO configuration -- confirm whether FlightOS uses token-based or certificate-based SSO",
+            "Reissue the FlightOS SSO logon ticket or have the crew member log into FlightOS with explicit credentials as a workaround",
+            "If SSO token regeneration doesn't resolve it, check whether the rotation protocol affected the FlightOS secure channel configuration",
+            "Confirm FlightOS access is restored and the crew member can complete end-of-cycle trajectory calculations"
         ]
     },
     {
@@ -286,10 +286,10 @@
             "module_specs",
             "sequence_to_reproduce"
         ],
-        "next_best_action": "Contact reporter on Deck 5 (Robert Chen, robert.chen2@station.local, Operations Division) to gather actual symptom details. Signal as submitted has insufficient detail to triage. Beacon transcription is too garbled to act on.",
+        "next_best_action": "Contact reporter on Deck 5 (Robert Chen, robert.chen2@contoso.com, Engineering) to gather actual symptom details. Signal as received has insufficient detail to triage. Emergency beacon transcription is too garbled to act on.",
         "remediation_steps": [
-            "Contact Robert Chen (Deck 5 near galley, Operations Division) to clarify the issue in person or via comm channel",
-            "Determine which instrument or subsystem is failing",
+            "Contact Robert Chen (Deck 5 near the galley, Engineering division) to clarify the issue in person or via holodeck comm",
+            "Determine which application or subsystem is failing",
             "Gather specific anomaly readouts and reproduction steps",
             "Once the actual issue is identified, re-triage and route to the correct specialist team"
         ]
@@ -301,12 +301,12 @@
         "assigned_team": "Mission Software Operations",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Dispatch support to the Command Briefing Room immediately. Admiral-level VIP signal — treat as one priority level higher. Investigate tactical display sharing policy blocking screen share for this crew member. Active briefing with allied delegation.",
+        "next_best_action": "Dispatch support to the command deck briefing chamber immediately. Commander-level VIP signal -- treat as one priority level higher. Investigate holographic display sharing policy blocking projection for this crew member. Active command briefing with admiralty.",
         "remediation_steps": [
-            "Dispatch technician to the Command Briefing Room immediately",
-            "Check access policies and display sharing permissions applied to Admiral Martinez's account",
-            "Verify whether the 'Sharing is blocked by command policy' error is caused by a data protection policy, display admin policy, or access restriction",
-            "As immediate workaround: have another officer share the tactical display on his behalf, or use the briefing room console with a different credential",
+            "Dispatch technician to the command deck briefing chamber immediately",
+            "Check station access policies and holographic display permissions applied to Commander Martinez's account",
+            "Verify whether the 'Display sharing blocked by station policy' error is caused by a security policy, display admin policy, or access restriction",
+            "As immediate workaround: have someone else project the presentation on his behalf, or use the chamber's integrated holo-emitter with a different account",
             "Once the briefing is unblocked, investigate and resolve the underlying policy conflict"
         ]
     },
@@ -317,15 +317,15 @@
         "assigned_team": "Crew Identity & Airlock Control",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Initiate crew departure deprovisioning workflow for Jessica Palmer (last duty shift March 21). Coordinate across Crew Identity, Spacecraft Systems Engineering, and Telemetry & Data Core for account disable, console wipe, file transfer, and comm archive. Note: sensitive compliance files require special handling.",
+        "next_best_action": "Initiate crew member departure workflow for Jessica Palmer (last duty day March 21). Coordinate across Crew Identity, Spacecraft Systems Engineering, and Telemetry & Data Core for BioScan disable, terminal wipe, file transfer, and message log archival. Note: classified investigation files require special handling.",
         "remediation_steps": [
-            "Schedule identity core account disable for 1800 hours on March 21",
-            "Prepare comm relay and remote access revocation to trigger simultaneously with account disable",
-            "Coordinate with Spacecraft Systems Engineering for console wipe of assigned workstation (asset tag ST-C-4892)",
-            "Transfer data archive and shared file ownership to David Liu (david.liu@station.local)",
-            "Remove from all crew comm channels and division manifests",
-            "Archive comm logs per 7-cycle retention policy",
-            "Ensure sensitive compliance investigation files are preserved in a secured data vault and access is revoked"
+            "Schedule BioScan ID disable for 18:00 EST on March 21",
+            "Prepare airlock access and remote terminal privilege revocation to trigger simultaneously with BioScan disable",
+            "Coordinate with Spacecraft Systems Engineering for terminal wipe of StarTerm X-40 (asset tag SS-T-4892)",
+            "Transfer data vault file ownership to David Liu (david.liu@contoso.com)",
+            "Remove from all comm channels and briefing distribution lists",
+            "Archive message logs per 7-year retention protocol",
+            "Ensure classified investigation files are preserved in a secured location and access is revoked"
         ]
     },
     {
@@ -338,13 +338,13 @@
             "module_specs",
             "sector_coordinates"
         ],
-        "next_best_action": "Investigate network fabricator queue issue on Deck 3. Multiple crew members affected and jobs are queuing but not fabricating, which suggests a network or fabricator controller issue rather than a terminal problem.",
+        "next_best_action": "Investigate fabricator output queue issue on Deck 3. Multiple crew affected and jobs are queuing but nothing materializes, which suggests a network or fabricator controller issue rather than a terminal problem.",
         "remediation_steps": [
-            "Identify the fabricator model and check whether it is network-attached or connected via fabrication controller",
+            "Identify the fabricator model and check whether it is network-attached or connected via a fabrication controller",
             "Check fabrication controller spooler service status and restart if necessary",
-            "Verify network connectivity between the fabricator and the fabrication controller or direct network path",
+            "Verify network connectivity between the fabricator and the controller or direct data path",
             "If network-connected, check the fabricator's network address and interface status",
-            "Clear stuck fabrication queue and test with a fresh fabrication job"
+            "Clear stuck fabrication queue and test with a fresh job submission"
         ]
     },
     {
@@ -354,11 +354,11 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Redirect to Facilities — briefing pod booking and provisions are not flight support functions. Provide brief guidance on how to book pods via the scheduling system (add pod resource) and direct provisions questions to Station Facilities.",
+        "next_best_action": "Redirect to Station Operations -- briefing chamber reservations and catering are not Mission Control functions. Provide brief guidance on how to reserve chambers via the station scheduling system and direct catering questions to Station Operations.",
         "remediation_steps": [
-            "Reply with instructions: in the scheduling system, create a new briefing and select 'Add a pod' to search for available briefing pods",
-            "Note that provisions requests should go to the Station Facilities team, not flight support",
-            "If the crew member cannot see pod resources in the scheduling system, verify their account has the pod finder permission and route to Mission Software Operations if needed"
+            "Reply with instructions: in the station scheduling system, create a new event and select 'Reserve Chamber' to search for available briefing chambers",
+            "Note that catering requests should go to the Station Operations team, not Mission Control",
+            "If the crew member cannot see chamber resources in the scheduling system, verify their profile has the chamber booking permission and route to Mission Software Operations if needed"
         ]
     },
     {
@@ -371,13 +371,13 @@
             "system_configuration",
             "habitat_conditions"
         ],
-        "next_best_action": "Renew or replace the security certificate on the external comm relay before it expires on March 20. This is a mission-facing relay — expiry will break all external comm integrations. Treat as P1 given 3-day window and the fact that the original provisioner has departed the crew.",
+        "next_best_action": "Renew or replace the encryption certificate on relay-gateway.contoso.com before it expires on March 20. This is the primary external comms relay gateway -- expiry will break all external communications and allied fleet integrations. Treat as P1 given the 3-day window and the fact that the original engineer has transferred off-station.",
         "remediation_steps": [
-            "Identify the current certificate authority and certificate type (public CA, internal PKI, or automated provisioning)",
+            "Identify the current certificate authority and certificate type (public CA, internal PKI, or auto-provisioned)",
             "Determine whether auto-renewal was configured or if the cert was manually provisioned",
             "If auto-renewal exists, trigger a manual renewal cycle and verify the new cert is issued",
-            "If manual, generate a CSR, obtain a new certificate from the CA, and install it on the external comm relay",
-            "Verify the new certificate is correctly installed and all comm links work without encryption errors",
+            "If manual, generate a certificate signing request, obtain a new certificate from the CA, and install it on the relay gateway",
+            "Verify the new certificate is correctly installed and all external comms links work without encryption errors",
             "Configure auto-renewal and monitoring alerts to prevent recurrence"
         ]
     },
@@ -391,13 +391,13 @@
             "module_specs",
             "anomaly_readout"
         ],
-        "next_best_action": "Investigate console performance degradation. Symptoms (slow response, cooling fans at maximum, pop-ups about 'updating system components') are more consistent with a stuck firmware update or background compliance scan than a breach, especially since threat scanner found nothing. Check firmware update status and run diagnostics.",
+        "next_best_action": "Investigate terminal performance degradation. Symptoms (slow performance, fan running, pop-ups about 'updating system components') are more consistent with a stuck system update or background compliance scan than malware, especially since the onboard security scanner found nothing. Check update history and system resource usage.",
         "remediation_steps": [
-            "Check firmware update history — verify whether recent updates completed or are stuck retrying",
-            "Review system diagnostics for high CPU/memory processes (likely firmware update or compliance scan)",
-            "If updates are stuck, run firmware update troubleshooter or manually reset the update components",
-            "Verify threat scanner definitions are current and run a quick diagnostic to confirm no intrusions",
-            "If the crew member interacted with a suspicious transmission, forward the transmission to threat-analysis@station.local and notify Threat Response Command as a precaution"
+            "Check system update history -- verify whether recent patches completed or are stuck retrying",
+            "Review system monitor for high CPU/disk processes (likely system update or compliance scan)",
+            "If updates are stuck, run system update troubleshooter or manually reset the update components",
+            "Verify security scanner definitions are current and run a diagnostic scan to confirm no threats",
+            "If the crew member opened a suspicious transmission, forward the transmission to security@contoso.com and notify Threat Response Command as a precaution"
         ]
     },
     {
@@ -407,12 +407,12 @@
         "assigned_team": "Threat Response Command",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Confirm this is a spoofed transmission and advise the crew member NOT to interact with any embedded links. Forward the original transmission to threat-analysis@station.local for analysis. No breach has occurred if the crew member hasn't interacted.",
+        "next_best_action": "Confirm this is a phishing/scam transmission and advise the crew member NOT to access any links. Forward the original transmission to security@contoso.com for analysis. No breach has occurred if the crew member hasn't clicked.",
         "remediation_steps": [
-            "Reply to the crew member immediately: this is a spoofed transmission — do NOT interact with any links or provide any credentials",
-            "Have the crew member forward the original transmission to threat-analysis@station.local",
-            "Check whether the transmission bypassed the ship's comm filtering and report to Threat Response Command if so",
-            "If the crew member already interacted with the link, escalate to a full security incident and initiate credential reset"
+            "Reply to the crew member immediately: this is a scam transmission -- do NOT access any links or provide any personal information",
+            "Have the crew member forward the original transmission as an attachment to security@contoso.com",
+            "Check whether the transmission bypassed the station's comm filtering and report to Threat Response Command if so",
+            "If the crew member already accessed the link, escalate to a full security incident and initiate credential reset"
         ]
     },
     {
@@ -422,14 +422,14 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate analytics compute module prod-analytics-01 stuck at boot sequence after scheduled firmware patching reboot. Command briefing dashboard dependent on this module — 2-hour window before the 0900 briefing.",
+        "next_best_action": "Investigate compute node prod-analytics-01 stuck at 'Applying configuration' after scheduled OS patching reboot. Command analytics dashboard depends on this node -- 2-hour window before the 9 AM mission briefing.",
         "remediation_steps": [
-            "Check boot diagnostics and serial console output for the stuck state on the compute module",
-            "Attempt to connect via serial console to bypass the stuck boot sequence",
-            "If serial console access is possible, check if a startup script or configuration policy is hanging",
-            "If the module is unrecoverable, redeploy from the latest snapshot or restore from backup",
-            "Verify the analytics dashboard is accessible once the compute module is restored",
-            "Post-incident: review the firmware patching procedure to prevent boot failures after scheduled updates"
+            "Check boot diagnostics console output for the stuck configuration state",
+            "Attempt to connect via diagnostic serial console to bypass the stuck boot screen",
+            "If serial console access is possible, check if a startup policy or initialization script is hanging",
+            "If the node is unrecoverable, redeploy from the latest snapshot or restore from backup",
+            "Verify the command analytics dashboard is accessible once the node is restored",
+            "Post-incident: review the OS patching procedure to prevent boot failures after scheduled updates"
         ]
     }
 ]
