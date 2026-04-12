@@ -515,7 +515,7 @@
     {
         "ticket_id": "SIG-1037",
         "subject": "subspace relay token not being cached — need to log in repeatedly",
-        "description": "Every time I open my personal console lid or switch networks, the subspace relay disconnects and asks me to re-enter my full credentials including biometric verification. Before the recent policy change it used to remember me for the whole day. This is happening to others on my team too.\n\nAttached:\n- anomaly_log_90.txt\n- sensor_capture_before.png\n- sensor_capture_after.png\n\nThe sensor captures show the state before and after the error occurs.",
+        "description": "Every time I open my personal console lid or switch networks, the subspace relay disconnects and asks me to re-enter my full credentials including biometric verification. Before the recent policy change it used to remember me for the whole duty cycle. Now I'm re-authenticating every 20 minutes, which in zero-g means I have to stabilize myself, align with the BioAuth scanner, and wait for the biometric handshake — which takes just long enough for my console to drift out of arm's reach. I have re-entered my credentials more times today than I have consumed protein cubes, and I have consumed many protein cubes. This is happening to others on my team too — Orbital Infrastructure is effectively a division of people angrily blinking at BioAuth panels.\n\nAttached:\n- anomaly_log_90.txt\n- sensor_capture_before.png\n- sensor_capture_after.png\n\nThe sensor captures show the state before and after the error occurs. The 'after' one is blurrier because I was floating sideways when I took it.",
         "reporter": {
             "name": "Miriam Rodriguez",
             "email": "miriam.rodriguez@cdss.space",
@@ -560,7 +560,7 @@
     {
         "ticket_id": "SIG-1040",
         "subject": "Question about how CDSS classifies data",
-        "description": "I'm working on a project for the Procurement team and want to make sure I'm handling mission documents correctly. Where can I find the station data classification policy? I want to understand the difference between confidential and internal-only — especially for sensor data that might be shared with fleet partners. No rush — just want to be informed before I accidentally transmit something classified across the subspace relay.",
+        "description": "I'm working on a project for the Procurement team and want to make sure I'm handling mission documents correctly. Where can I find the station data classification policy? I want to understand the difference between confidential and internal-only — especially for sensor data that might be shared with fleet partners. The last time someone on our team shared unclassified sensor data with a fleet partner, it turned out to contain navigational telemetry that was classified three levels above what anyone in Hazard Assessment is supposed to see. The Admiral had questions. We had no good answers. Mehta's margin note about it used the word 'catastrophic' twice and 'inadvisable' four times. No rush on this — just want to be informed before I accidentally transmit something classified across the subspace relay and become the subject of Mehta's next three-page annotation.",
         "reporter": {
             "name": "Leo Muller",
             "email": "leo.muller@cdss.space",
@@ -893,7 +893,7 @@
     {
         "ticket_id": "SIG-1063",
         "subject": "Personal quarters 3D fabricator won't connect — can you help?",
-        "description": "Hi, I'm having trouble setting up my personal fabricator in my quarters. It's not a station-issued device — I bought it myself for my dependents' education projects. The 3D fabricator won't pair with my quarters network and I figured the Mission Control team might know how to fix it. Is this something you can help with? I can share the model number if needed.",
+        "description": "Hi, I'm having trouble setting up my personal fabricator in my quarters. It's not a station-issued device — I bought it myself for my dependents' education projects. My youngest is doing a scale model of the station for her school assignment and my oldest somehow needs a 'historically accurate replica of a Rigelian diplomatic vessel' for reasons he won't explain. The 3D fabricator won't pair with my quarters network and I figured the Mission Control team might know how to fix it. The status light blinks blue three times and then goes amber, which according to the manual means either 'searching for network' or 'existential uncertainty,' and in zero-g both interpretations feel equally valid. Is this something you can help with, or is a personal device outside your scope? I can share the model number if needed. It's a FabriCore X200 — yes, the one from that merchant vessel that keeps trying to sell us 'premium hull sealant.' I know. But the reviews were decent and it was on sale.",
         "reporter": {
             "name": "Zach Johansson",
             "email": "zach.johansson@cdss.space",
@@ -1065,7 +1065,7 @@
     {
         "ticket_id": "SIG-1075",
         "subject": "Request to change mapped data link letter",
-        "description": "Is it possible to change which data link letter my shared data relay folder maps to on my bridge console? Currently it's on S: but I keep accidentally navigating to the wrong data link. My muscle memory from my previous station posting keeps taking me to the wrong place. Low priority — just a convenience thing. Though in zero-g, convenience is relative.",
+        "description": "Is it possible to change which data link letter my shared data relay folder maps to on my bridge console? Currently it's on S: but I keep accidentally navigating to the wrong data link. My muscle memory from my previous station posting — Tau Ceti Outpost, where everything was mapped to M: because the base commander had strong opinions about mnemonics — keeps taking me to the wrong place. Yesterday I accidentally opened the station-wide nutrient synthesizer recipe archive instead of my Alliance Services documents. I now know the protein cubes contain 'hydrolyzed soy compound #7' and I wish I didn't. Low priority — just a convenience thing. Though in zero-g, convenience is relative, and my muscle memory is currently calibrated for a station that's 11.9 light-years away.",
         "reporter": {
             "name": "Michael King",
             "email": "michael.king@cdss.space",

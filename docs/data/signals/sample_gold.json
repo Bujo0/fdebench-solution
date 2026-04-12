@@ -352,8 +352,8 @@
             "Prepare warp tunnel and remote access revocation to trigger simultaneously with crew account disable",
             "Coordinate with Spacecraft Systems Engineering for console wipe of OrbitalCore Console 5540 (asset tag CT-L-4892)",
             "Transfer data vault and mission log file ownership to David Liu (david.liu@cdss.space)",
-            "Remove from all comm channels and SubComm groups",
-            "Archive message archive per 7-cycle archival protocol",
+            "Remove from all comm channels, SubComm groups, and crew distribution lists — the last thing a departing crew member needs is 47 unread briefing notifications bouncing off a relay station at Tau Ceti",
+            "Archive comm message history per 7-cycle archival protocol — Threat Detection correspondence requires separate encrypted archival per station containment policy, which means yes, you have to do it twice",
             "Ensure sensitive threat investigation files are preserved in a secured location and access is revoked"
         ]
     },
