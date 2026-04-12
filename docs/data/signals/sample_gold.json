@@ -28,10 +28,10 @@
         ],
         "next_best_action": "Investigate whether SubComm crash and calendar sync issues are related to the new console migration. Verify that user profile and application data were properly transferred to the new device.",
         "remediation_steps": [
-            "Verify console provisioning and data migration completed successfully",
+            "Verify console provisioning and station data migration completed successfully",
             "Clear SubComm cache and reinstall if crash persists",
             "Check SubComm profile migration status and force calendar resync",
-            "Confirm application versions match the supported standard image",
+            "Confirm application versions match the station’s supported standard image",
             "If issues persist after cache clear and resync, re-provision applications on the new console"
         ]
     },
@@ -134,11 +134,11 @@
         "missing_information": [],
         "next_best_action": "Investigate production crew database connection pool exhaustion immediately. This is a crew-facing production incident — 40% of data requests are failing regardless of the submitter’s priority classification.",
         "remediation_steps": [
-            "Investigate connection pool configuration on the primary data node",
+            "Investigate connection pool configuration on the primary data node in the station data core",
             "Identify and terminate long-running queries or leaked connections",
             "Increase connection pool size or restart the primary data node as immediate mitigation",
             "Verify backup data node health and confirm it is handling redirected traffic",
-            "Post-incident: conduct root cause analysis on connection pool exhaustion"
+            "Post-incident: conduct root cause analysis on connection pool exhaustion and file station engineering report"
         ]
     },
     {
@@ -172,13 +172,13 @@
         ],
         "next_best_action": "Initiate new crew member onboarding workflow for Alex Rivera (arrival date March 31). Coordinate hardware, software, access, and group membership provisioning across teams. Target readiness by March 28.",
         "remediation_steps": [
-            "Order OrbitalCore Pro M4 32GB from hardware procurement",
+            "Order OrbitalCore Pro M4 32GB from station hardware procurement",
             "Prepare standard software image with Python, Conda, and Jupyter environment",
             "Request Station Core ML workspace access (ml-ops-bay-alpha) from station_ops",
             "Request sensor catalog read access from data_engineering",
             "Request Deck 3 airlock access code from identity_ops",
-            "Add Alex Rivera to analytics-team distribution list and SubComm channel",
-            "Schedule equipment handoff and walkthrough for March 28"
+            "Add Alex Rivera to analytics-team station distribution list and SubComm channel",
+            "Schedule station equipment handoff and orientation walkthrough for March 28"
         ]
     },
     {
@@ -196,9 +196,9 @@
         "remediation_steps": [
             "Verify biometric verification registration status for this crew member in BioScan ID",
             "Check for recent Conditional Access or biometric verification policy changes that may affect push notifications",
-            "Have crew member verify Authenticator app is updated to the latest version",
+            "Have crew member verify Authenticator app is updated to the latest station-approved version",
             "If issue persists, remove and re-register the biometric verification method in BioScan ID",
-            "Confirm push approval works after re-registration"
+            "Confirm push approval works after re-registration and test with a routine station authentication"
         ]
     },
     {
@@ -214,9 +214,9 @@
         ],
         "next_best_action": "Investigate holographic display flickering as primary issue — likely hardware or cable fault. Route the FlightOS license question separately to Mission Software Operations.",
         "remediation_steps": [
-            "Test with a replacement data cable",
-            "Test holographic display with a different source device to isolate whether it’s the holographic display or the nav console",
-            "If flickering persists with new cable and source, schedule holographic display replacement",
+            "Test with a replacement data conduit from Station Ops supply",
+            "Test holographic display with a different source console to isolate whether it’s the holographic display or the nav console",
+            "If flickering persists with new conduit and source, schedule holographic display replacement",
             "Create a separate signal for the FlightOS license expiry and route to Mission Software Operations"
         ]
     },
@@ -234,7 +234,7 @@
             "Pull mission log audit logs to identify who created the public sharing link and when",
             "Analyze audit logs for any external access to the archive between February 15 and today",
             "Engage Space Law Division and Compliance to assess Galactic Data Protection notification obligations",
-            "Document findings for the incident report and regulatory record",
+            "Document findings for the station incident report and galactic regulatory record",
             "Conduct a broader mission log permissions audit across all archives containing sensitive crew data"
         ]
     },
@@ -399,9 +399,9 @@
             "Identify the current certificate authority and certificate type (station PKI, external fleet CA, or automated quantum cert provisioner)",
             "Determine whether auto-renewal was configured or if the cert was manually provisioned",
             "If auto-renewal exists, trigger a manual renewal cycle and verify the new cert is issued",
-            "If manual, generate a CSR, obtain a new certificate from the CA, and install it on the API gateway",
+            "If manual, generate a CSR, obtain a new certificate from the CA, and install it on the fleet API gateway",
             "Verify the new certificate is correctly installed and all fleet connections work without TLS errors",
-            "Configure auto-renewal and monitoring dashboard alerts to prevent recurrence"
+            "Configure auto-renewal and bridge monitoring alerts to prevent recurrence"
         ]
     },
     {
