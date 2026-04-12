@@ -4,7 +4,7 @@
 
 1. **Fork** this repo (your fork must be **public**)
 2. **Build** your solution
-3. **Deploy** it somewhere callable via HTTPS
+3. **Deploy** it somewhere callable via HTTPS — not localhost, not your quarters terminal
 4. **Test** with the eval harness: sample set for scoring, public eval for smoke testing
 5. **Write** your three docs: `docs/architecture.md`, `docs/methodology.md`, `docs/evals.md`
 6. **Create** `submission.json` at the root (see below)
@@ -24,11 +24,11 @@ your-repo/
 └── ...                      # Your code, tests, infrastructure
 ```
 
-**All three docs are mandatory.** Missing one is a big hit in engineering review.
+**All three docs are mandatory.** Missing one is a big hit in engineering review. Like showing up to a mission briefing without your flight plan.
 
 Important nuance: the hidden signals are for the **0-100 functional score**. Engineering review happens separately from what is in your repo after you submit.
 
-What we want to see is not just that you got a decent score. We want to see how you built a system: clear design, sensible model usage, attention to latency and cost, tests that cover real failure modes, and engineering choices that would hold up in front of a crew member team in the CDSS mission.
+What we want to see is not just that you got a decent score. We want to see how you built a system: clear design, sensible model usage, attention to latency and cost, tests that cover real failure modes, and engineering choices that would hold up in front of a mission ops team.
 
 ## submission.json
 
@@ -49,7 +49,7 @@ Drop this at the root of your repo:
 |---|---|---|
 | **Classification accuracy** | Up to 85 pts | 5 dimensions via macro F1, ordinal credit, set F1, binary F1 |
 | **Efficiency** | Up to 15 pts | Latency (p50) + cost ($/signal) from response headers |
-| **Engineering review** | Separate review | Repo review of system design, code quality, tests, docs, evals, infrastructure, and mission readiness |
+| **Engineering review** | Separate review | Repo review of system design, code quality, tests, docs, evals, infrastructure, and production readiness |
 
 Full scoring details: [challenge README](../challenge/README.md#how-we-score-you)
 
@@ -63,14 +63,14 @@ See [challenge README: Engineering Review](../challenge/README.md#engineering-re
 | `docs/methodology.md` | How you approached it, what you tried, what failed, how you spent your time |
 | `docs/evals.md` | Your actual numbers, which signals you got wrong and why, where your system breaks |
 
-> **Seriously:** a clean, simple solution with honest error analysis beats a complex system with no explanation. Every single time.
+> **Real talk:** a clean, simple solution with honest error analysis beats a complex system with no explanation. Every single time. In space, clarity saves lives. On the leaderboard, clarity saves scores.
 
 ## Before You Submit
 
 - [ ] `GET /health` returns HTTP 200
 - [ ] `POST /triage` returns valid JSON matching the [output schema](../data/schemas/output.json)
 - [ ] All 8 response fields are present: `ticket_id`, `category`, `priority`, `assigned_team`, `needs_escalation`, `missing_information`, `next_best_action`, `remediation_steps`
-- [ ] `category` values are from the 8 valid anomaly types
+- [ ] `category` values are from the 8 valid anomaly categories
 - [ ] `assigned_team` values are from the 7 valid response divisions (including `"None"`)
 - [ ] `missing_information` values are from the 16-value constrained vocabulary
 - [ ] Your API handles **10 concurrent requests** without errors or timeouts
@@ -89,8 +89,8 @@ See [challenge README: Engineering Review](../challenge/README.md#engineering-re
 
 - **Deploy early.** Get something live in hour 2 and iterate. The number of people who deploy at hour 23 and then panic is... nonzero.
 - **Run the eval harness constantly.** It's the same scoring logic as the platform. Trust the numbers.
-- **Read the mission brief.** Candidates who skip it produce noticeably worse output. The operational context matters for routing and remediation.
-- **Handle the weird signals.** The hidden eval has stuff you haven't seen: vague signals, multi-issue signals, spam. If your system 500s on a confusing signal, that's a zero on every dimension.
+- **Read the mission brief.** Candidates who skip it produce noticeably worse output. The mission context matters for routing and remediation.
+- **Handle the weird signals.** The hidden eval has stuff you haven't seen: vague signals, multi-issue signals, space noise. If your system 500s on a confusing signal, that's a zero on every dimension.
 - **Return valid JSON even when confused.** A reasonable default beats a stack trace.
 - **Explain your decisions.** "I chose X because Y" is worth more than a polished README that says nothing. We want to see how you think.
 - **Send the cost headers.** It's only 5% of the score, but it signals you actually read the spec.

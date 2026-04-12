@@ -1,12 +1,12 @@
 # Dataset
 
-Synthetic signals modeled on real deep space station operations. They're messy on purpose.
+Synthetic signals modeled on real deep-space station operations. They're messy on purpose.
 
 ## Structure
 
 ```
 data/
-├── README.md                  # This file
+├── README.md                  # This file (you are here, operator)
 ├── tickets/
 │   ├── sample.json            # 25 signals for local development
 │   ├── sample_gold.json       # Gold-standard triage outputs for the sample set
@@ -24,8 +24,8 @@ Each signal has these fields:
 |---|---|---|
 | `ticket_id` | string | Unique ID (e.g., `SIG-4829`) |
 | `subject` | string | Short summary. May be vague or misleading. |
-| `description` | string | Full transmission body. Quality varies wildly. |
-| `reporter` | object | `{ name, email, department }` — e.g., departments like Astrogation, Propulsion, Life Support, Medical Bay, Flight Deck, Sensors; email domain `@contoso.space` |
+| `description` | string | Full signal transmission body. Quality varies wildly. |
+| `reporter` | object | `{ name, email, department }` |
 | `created_at` | datetime | ISO 8601 timestamp |
 | `channel` | enum | `subspace_relay`, `holodeck_comm`, `bridge_terminal`, or `emergency_beacon` |
 | `attachments` | string[] | Filenames mentioned (not actual files) |
@@ -41,15 +41,15 @@ Your `/triage` endpoint must return **all 8 fields**:
 | Field | Type | Scored? | Notes |
 |---|---|---|---|
 | `ticket_id` | string | — | Must match the input exactly |
-| `category` | string | **Yes** (20%) | One of 8 valid anomaly types |
-| `priority` | string | **Yes** (20%) | `P1` (Red Alert), `P2` (Yellow Alert), `P3` (Caution), or `P4` (Routine) |
+| `category` | string | **Yes** (20%) | One of 8 valid anomaly categories |
+| `priority` | string | **Yes** (20%) | `P1`, `P2`, `P3`, or `P4` |
 | `assigned_team` | string | **Yes** (20%) | One of 7 valid response divisions (including `"None"`) |
 | `needs_escalation` | boolean | **Yes** (10%) | `true` or `false` |
 | `missing_information` | string[] | **Yes** (15%) | From the 16-value constrained vocabulary |
 | `next_best_action` | string | No* | Required but not deterministically scored |
 | `remediation_steps` | string[] | No* | Required but not deterministically scored |
 
-*Remediation quality is assessed during the separate engineering review.
+*Remediation quality is assessed during the separate engineering review. A system that says "investigate the anomaly" for every signal is telling us you phoned it in from 1 AU away.
 
 See [schemas/output.json](schemas/output.json) for the formal JSON Schema with all valid enum values.
 
@@ -59,15 +59,15 @@ The signals include:
 
 - **Clean signals**: well-written, clear, all the details you need
 - **Vague signals**: "systems are failing" with zero specifics
-- **Multi-issue signals**: "airlock won't seal AND my nav console is offline" (good luck picking one category)
-- **Hidden urgency**: no "RED ALERT" flag, but the body describes a life-support failure
+- **Multi-issue signals**: "airlock code broken AND holodisplay flickering" (good luck picking one category)
+- **Hidden urgency**: no "CRITICAL" flag, but the body describes a hull breach
 - **Missing info**: half the context you need isn't there
-- **Contradictions**: subject says "routine", body says hull breach is imminent
-- **Noise**: routine beacon echoes, "acknowledged" messages, automated status pings, space noise (these are "Not a Mission Signal", routed to "None")
-- **Jargon**: dense technical language that requires actually understanding spacecraft systems
-- **Ambiguous routing**: is a biometric scanner failure Crew Identity or Threat Detection? Depends on the context. (Sound familiar? Read the routing guide.)
+- **Contradictions**: subject says "low priority", body says oxygen levels are dropping
+- **Noise**: automated beacon echoes, "thanks" messages, cryo-sleep auto-replies, space noise (these are "Not a Mission Signal", routed to "None")
+- **Jargon**: dense technical space-station terminology that requires actually understanding station operations
+- **Ambiguous routing**: is a biometric scanner issue Crew Identity or Threat Response? Depends on the context. (Sound familiar? Read the routing guide.)
 
-This is what real station ops signals look like. Your system needs to handle all of it.
+This is what real space station signals look like. Your system needs to handle all of it.
 
 ## Dataset Splits
 

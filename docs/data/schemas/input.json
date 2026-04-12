@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Signal",
-    "description": "An incoming signal submitted to Contoso Deep Space Station (CDSS) mission control.",
+    "description": "An incoming spacecraft signal received by Contoso Deep Space Station (CDSS).",
     "type": "object",
     "required": [
         "ticket_id",
@@ -23,7 +23,7 @@
         },
         "description": {
             "type": "string",
-            "description": "Full signal body. Quality varies: may be detailed, terse, garbled, or empty."
+            "description": "Full signal transmission content. Quality varies: may be detailed, terse, garbled, or empty."
         },
         "reporter": {
             "type": "object",
@@ -44,7 +44,7 @@
                 },
                 "department": {
                     "type": "string",
-                    "description": "Station division (e.g., Stellar Cartography, Propulsion, Tactical Operations, Life Support, Engineering)."
+                    "description": "Station department or division (e.g., Power Core Engineering, Exobiology Lab, Flight Deck Operations)."
                 }
             }
         },
@@ -61,7 +61,7 @@
                 "bridge_terminal",
                 "emergency_beacon"
             ],
-            "description": "How the signal was transmitted."
+            "description": "How the signal was submitted."
         },
         "attachments": {
             "type": "array",

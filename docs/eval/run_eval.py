@@ -1,21 +1,27 @@
 #!/usr/bin/env python3
-"""🛰️ Contoso Deep Space Station — Evaluation Harness 🛰️
+"""🛰️ CONTOSO DEEP SPACE STATION — SCORING COMPUTER 🛰️
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Scores a participant's /triage endpoint against gold-standard signal data.
-This script tests Part 1 (functional accuracy) only. Part 2 (engineering
-quality) is evaluated separately after submission.
+    "The scoring computer doesn't care about your feelings.
+     It doesn't care about your excuses. It doesn't care that
+     the LLM was 'pretty close.' Space doesn't grade on a curve."
+                                        — Admiral Chen, CDSS
+
+Evaluation harness for Signal Triage — the same cold, unforgiving
+math the platform uses to score your submission. Run it locally.
+See exactly how you'll be scored. No surprises on launch day.
 
 Usage:
-    uv run python run_eval.py \
-        --endpoint http://localhost:8000 \
-        --dataset ../data/tickets/sample.json \
+    uv run python run_eval.py \\
+        --endpoint http://localhost:8000 \\
+        --dataset ../data/tickets/sample.json \\
         --gold ../data/tickets/sample_gold.json
 
 Architecture:
     The scoring computer evaluates your submission on 7 dimensions:
 
     5 classification dimensions (max 85 pts total):
-        0.20 × category      — macro F1 across 8 anomaly types
+        0.20 × category      — macro F1 across 8 anomaly categories
         0.20 × priority      — mean ordinal partial credit (P1–P4)
         0.20 × routing       — macro F1 across 7 response divisions
         0.15 × missing_info  — mean per-signal set F1
@@ -28,11 +34,12 @@ Architecture:
     Total = classification (0–85) + efficiency (0–15) = 0–100.
 
     Why macro F1 instead of accuracy:
-        Accuracy lets a system game the score by always predicting the
-        most common anomaly type — like classifying every signal as
-        "Mission Briefing Request" and whistling past the hull breaches.
-        Macro F1 computes F1 per class then averages, so every anomaly
-        type matters equally regardless of frequency.
+        Accuracy is gameable — always predicting the most common class
+        gets you high accuracy while the crew dies from an unrouted hull
+        breach. Macro F1 computes F1 per class then averages, so every
+        anomaly type matters equally. A system that ignores rare-but-critical
+        classes (e.g., "Threat Detection & Containment") gets a score as
+        cold as the void outside.
 
     On the leaderboard this counts as 50% of the final 0-100 score.
     The other 50% comes from engineering quality (evaluated after submission).
@@ -40,14 +47,18 @@ Architecture:
     Note: remediation_steps and next_best_action are still required in
     your API response (they are part of the output schema), but they are
     not deterministically scored. Quality of remediation is evaluated as
-    part of the engineering quality assessment.
+    part of the engineering quality assessment — because a system that says
+    "investigate the anomaly" for every signal is telling us you phoned it
+    in from a comfortable 1 AU away.
 
     Efficiency scoring: To participate in latency and cost scoring, your
     API should return these response headers:
         X-Model-Name:         model name (e.g., "gpt-4o-mini")
         X-Prompt-Tokens:      integer token count
         X-Completion-Tokens:  integer token count
-    These are optional — missing headers result in default cost scoring.
+    These are optional — missing headers result in worst-case cost scoring.
+    (As if you're burning GPT-4 with zero caching. The Admiral will have
+    questions about your fuel budget.)
 """
 
 import argparse
@@ -86,7 +97,7 @@ WEIGHTS = {
     "escalation": WEIGHT_ESCALATION,
 }
 
-# ── Closed label sets (must match the platform) ─────────────────────
+# ── Closed label sets (must match the platform — deviate and you're spacing yourself) ──
 
 CATEGORIES = (
     "Crew Access & Biometrics",
@@ -143,7 +154,8 @@ def macro_f1(
 
     Computes per-class precision, recall, and F1, then averages F1 across
     all classes that appear in either golds or candidates. Classes absent
-    from both are excluded from the average.
+    from both are excluded from the average — the void is chatty, but we
+    only grade the signals that showed up to the party.
     """
     candidate_norm = [_normalize(c) for c in candidates]
     gold_norm = [_normalize(g) for g in golds]
@@ -170,7 +182,8 @@ def binary_f1(candidates: Sequence[bool], golds: Sequence[bool]) -> float:
     """F1 for the positive class (True) in binary classification.
 
     Returns 1.0 when there are no positive cases in either gold or
-    predictions (perfect agreement on absence).
+    predictions (perfect agreement on absence — the universe was quiet
+    and you correctly reported "all clear, Admiral").
     """
     tp = sum(1 for c, g in zip(candidates, golds, strict=False) if c and g)
     fp = sum(1 for c, g in zip(candidates, golds, strict=False) if c and not g)
@@ -187,23 +200,32 @@ def binary_f1(candidates: Sequence[bool], golds: Sequence[bool]) -> float:
     return 2 * precision * recall / (precision + recall)
 
 
-# ── Per-ticket scoring functions ─────────────────────────────────────
+# ── Per-signal scoring functions ──────────────────────────────────────
+# Each function scores one dimension for one signal. Think of it as
+# the black-box recorder for each individual triage decision.
 
 
 def score_category(pred: str | None, gold: str) -> float:
-    """Exact match, case-insensitive. Returns 0.0 or 1.0."""
+    """Per-signal anomaly category match (0.0 or 1.0).
+
+    Misclassify and the wrong division scrambles — Threat Response Command
+    arrives at a fabricator jam while an actual hull breach goes unattended.
+    Congratulations, you've invented a new way to fail.
+    """
     if not pred:
         return 0.0
     return 1.0 if _normalize(pred) == _normalize(gold) else 0.0
 
 
 def score_priority(pred: str | None, gold: str) -> float:
-    """Priority match with partial credit for off-by-one only.
+    """Priority match with partial credit — because "close" only counts in asteroid dodging.
 
-    Same level     → 1.0
-    Off by 1 level → 0.67
-    Off by 2+      → 0.0
-    Invalid value  → 0.0
+    Returns:
+        1.0  — exact match (correct threat assessment, gold star, the crew lives)
+        0.67 — off by one level (wrong, but you're in the right solar system)
+        0.0  — off by two or more levels, or invalid (you called a hull breach
+               "routine" and now there's a new window in Deck 7 that wasn't
+               in the blueprints)
     """
     order = {"P1": 0, "P2": 1, "P3": 2, "P4": 3}
     p = order.get(pred.strip().upper() if pred else "", -1)
@@ -219,27 +241,41 @@ def score_priority(pred: str | None, gold: str) -> float:
 
 
 def score_routing(pred: str | None, gold: str) -> float:
-    """Exact match, case-insensitive. Returns 0.0 or 1.0."""
+    """Per-signal routing match (0.0 or 1.0).
+
+    Route it wrong, and Deep Space Communications stares at a biometric
+    scanner while the actual comms blackout cuts off half the station.
+    The wrong team responding is worse than no team at all.
+    """
     if not pred:
         return 0.0
     return 1.0 if _normalize(pred) == _normalize(gold) else 0.0
 
 
 def score_escalation(pred: bool | None, gold: bool) -> float:
-    """Binary match. Returns 0.0 or 1.0."""
+    """Per-signal escalation match (0.0 or 1.0).
+
+    Miss an escalation and the Admiral finds out the hard way —
+    which is bad for the crew, bad for the mission, and *spectacular*
+    for your disciplinary hearing attendance record.
+    """
     if pred is None:
         return 0.0
     return 1.0 if bool(pred) == bool(gold) else 0.0
 
 
 def score_missing_info(pred_list: list[str] | None, gold_list: list[str]) -> float:
-    """Set F1 score using exact string match on the constrained vocabulary.
+    """Set F1 for missing_information — did you ask for the right intel?
 
+    Both inputs are lists from the constrained vocabulary (fixed label set).
     F1 = 2 × precision × recall / (precision + recall)
 
-    Both empty → 1.0 (correctly identified nothing is missing).
-    Gold empty, pred non-empty → 0.0 (false positives).
-    Gold non-empty, pred empty → 0.0 (false negatives).
+    Both empty → 1.0 (signal was complete — don't waste the crew's time
+    asking for data they already gave you. They're 0.3 AU from the nearest
+    nutrient synthesizer refill station and their patience is thinner than
+    the hull plating on Deck 7).
+    Gold empty, pred non-empty → 0.0 (all false positives).
+    Gold non-empty, pred empty → 0.0 (all false negatives).
     """
     pred_set = {_normalize(s) for s in (pred_list or [])}
     gold_set = {_normalize(s) for s in gold_list}
@@ -258,15 +294,21 @@ def score_missing_info(pred_list: list[str] | None, gold_list: list[str]) -> flo
     return 2.0 * precision * recall / (precision + recall)
 
 
-# ── Per-ticket scoring ────────────────────────────────────────────────
+# ── Per-signal scoring ────────────────────────────────────────────────
 
 
 def score_ticket(pred: dict, gold: dict) -> dict[str, float]:
-    """Score a single signal prediction against gold. Returns per-dimension scores.
+    """Score a single signal response against its gold answer.
+
+    Returns per-dimension scores (0.0–1.0 each) and a weighted total.
+    Think of it as the after-action report for each individual triage
+    decision — the black box recording that tells us whether you saved
+    the crew or sent Threat Response to investigate a holodeck glitch.
 
     Note: the submission-level score uses macro F1 for category and routing,
     and binary F1 for escalation. The per-signal total here is an
-    approximation useful for identifying which specific signals were wrong.
+    approximation useful for identifying which specific signals your
+    system got catastrophically, embarrassingly wrong.
     """
     cat = score_category(pred.get("category"), gold["category"])
     pri = score_priority(pred.get("priority"), gold["priority"])
@@ -302,17 +344,21 @@ def score_submission(
     candidate_responses: list[dict],
     gold_answers: list[dict],
 ) -> dict:
-    """Score a full submission using the same metrics as the platform.
+    """Score a full mission ops submission — the final reckoning.
+
+    This is it. The moment of truth. Your system triaged every signal
+    and now the scoring computer renders its verdict with the cold
+    indifference of a neutron star.
 
     Dimension scoring methods (submission level):
-      - category:     macro F1 across 8 anomaly type labels
+      - category:     macro F1 across 8 anomaly categories
       - priority:     mean per-signal ordinal partial credit
-      - routing:      macro F1 across 7 response division labels
+      - routing:      macro F1 across 7 response divisions
       - missing_info: mean per-signal set F1
       - escalation:   binary F1 on the positive class
 
     Returns dict with classification_score (0–85), dimension breakdowns,
-    and per-signal details.
+    and per-signal details for the post-mission debrief.
     """
     per_ticket: list[dict[str, float]] = []
 
@@ -391,11 +437,11 @@ def score_submission(
     }
 
 
-# ── HTTP client ───────────────────────────────────────────────────────
+# ── Comms relay (HTTP client) ─────────────────────────────────────────
 
 
 def call_endpoint(client: httpx.Client, endpoint: str, ticket: dict) -> tuple[dict | None, float]:
-    """POST a signal to /triage. Returns (parsed JSON or None, latency_ms)."""
+    """Transmit a signal to /triage and await the response. Returns (parsed JSON or None, latency_ms)."""
     url = urljoin(endpoint.rstrip("/") + "/", "triage")
     start = time.monotonic()
     try:
@@ -419,11 +465,13 @@ def check_health(client: httpx.Client, endpoint: str) -> bool:
         return False
 
 
-# ── Main ──────────────────────────────────────────────────────────────
+# ── Mission Control — Main Sequence ───────────────────────────────────
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Score a /triage endpoint against gold-standard signal data.")
+    parser = argparse.ArgumentParser(
+        description="🛰️ CDSS Scoring Computer — score a /triage endpoint against gold-standard signal data."
+    )
     parser.add_argument(
         "--endpoint",
         required=True,
@@ -488,7 +536,7 @@ def main() -> int:
         print("Warning: GET /health did not return 200. Continuing with scoring...")
     print()
 
-    # ── Score each ticket ─────────────────────────────────────────────
+    # ── Score each signal ────────────────────────────────────────────
     results: list[dict] = []
     responses: list[dict] = []
     latencies: list[float] = []
@@ -525,7 +573,7 @@ def main() -> int:
 
     client.close()
 
-    # ── Submission-level aggregate scoring ────────────────────────────
+    # ── Submission-level aggregate scoring (the final reckoning) ────
     sub_result = score_submission(responses, golds)
     dim_scores = sub_result["dimension_scores"]
     classification_score = sub_result["classification_score"]
@@ -539,11 +587,11 @@ def main() -> int:
     p95_idx = min(int(len(sorted_latencies) * 0.95), len(sorted_latencies) - 1) if sorted_latencies else 0
     p95 = sorted_latencies[p95_idx] if sorted_latencies else 0
 
-    # ── Print results ─────────────────────────────────────────────────
+    # ── Print results (the post-mission debrief) ─────────────────────
     print()
-    print("=" * 60)
-    print("  FUNCTIONAL SCORE (Part 1 of final leaderboard)")
-    print("=" * 60)
+    print("  🛰️ " + "═" * 56)
+    print("    MISSION CONTROL SCORING COMPUTER — FINAL VERDICT")
+    print("  🛰️ " + "═" * 56)
     print()
     print("  Classification dimensions (max 85 pts):")
     print()
@@ -562,14 +610,17 @@ def main() -> int:
     print()
     print(f"  Signals scored: {n_valid}/{n_total}")
     if errors:
-        print(f"  Errors (scored as 0): {errors}")
+        print(f"  Signals lost to the void (scored as 0): {errors}")
     print()
-    print("  ┌─────────────────────────────────────────────────────────┐")
-    print("  │  Classification score: up to 85 pts from 5 dimensions  │")
-    print("  │  Efficiency score: up to 15 pts (latency + cost)       │")
-    print("  │  Total functional score: 0–100 (50% of leaderboard)    │")
-    print("  │  Engineering quality: 50% of leaderboard               │")
-    print("  └─────────────────────────────────────────────────────────┘")
+    print("  ┌─────────────────────────────────────────────────────────────┐")
+    print("  │  Classification: up to 85 pts from 5 dimensions            │")
+    print("  │  Efficiency: up to 15 pts (latency + cost)                 │")
+    print("  │  Total functional score: 0–100 (50% of leaderboard)        │")
+    print("  │  Engineering quality: 50% of leaderboard                   │")
+    print("  │                                                             │")
+    print("  │  The scoring computer has rendered its verdict.             │")
+    print("  │  Space doesn't grade on a curve. Neither do we. 🫡         │")
+    print("  └─────────────────────────────────────────────────────────────┘")
     print()
 
     # ── Write JSON results ────────────────────────────────────────────

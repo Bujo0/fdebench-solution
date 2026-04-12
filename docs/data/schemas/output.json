@@ -20,7 +20,7 @@
         },
         "category": {
             "type": "string",
-            "description": "The anomaly type. Expected values: 'Crew Access & Biometrics', 'Hull & Structural Systems', 'Communications & Navigation', 'Flight Software & Instruments', 'Threat Detection & Containment', 'Telemetry & Data Banks', 'Mission Briefing Request', 'Not a Mission Signal'."
+            "description": "The anomaly category. Expected values: 'Crew Access & Biometrics', 'Hull & Structural Systems', 'Communications & Navigation', 'Flight Software & Instruments', 'Threat Detection & Containment', 'Telemetry & Data Banks', 'Mission Briefing Request', 'Not a Mission Signal'."
         },
         "priority": {
             "type": "string",
@@ -30,15 +30,15 @@
                 "P3",
                 "P4"
             ],
-            "description": "Priority level. P1 = Critical, P2 = High, P3 = Medium, P4 = Low."
+            "description": "Priority level. P1 = Critical (Red Alert), P2 = High, P3 = Medium, P4 = Low (Routine)."
         },
         "assigned_team": {
             "type": "string",
-            "description": "The response division to route to. Expected values: 'Crew Identity & Airlock Control', 'Spacecraft Systems Engineering', 'Deep Space Communications', 'Mission Software Operations', 'Threat Response Command', 'Telemetry & Data Core', 'None'. Use 'None' only when the signal is not a real mission signal."
+            "description": "The specialist response division to route to. Expected values: 'Crew Identity & Airlock Control', 'Spacecraft Systems Engineering', 'Deep Space Communications', 'Mission Software Operations', 'Threat Response Command', 'Telemetry & Data Core', 'None'. Use 'None' only when the signal is not a real mission signal."
         },
         "needs_escalation": {
             "type": "boolean",
-            "description": "True if the signal requires escalation beyond normal routing (threat incidents, command staff, repeat failures, containment protocols)."
+            "description": "True if the signal requires escalation beyond normal routing (hostile contacts, VIP/command escalation, repeat failures, compliance)."
         },
         "missing_information": {
             "type": "array",
@@ -67,14 +67,14 @@
         },
         "next_best_action": {
             "type": "string",
-            "description": "A single sentence describing the most important next step for the assigned division."
+            "description": "A single sentence describing the most important next step for the assigned response division."
         },
         "remediation_steps": {
             "type": "array",
             "items": {
                 "type": "string"
             },
-            "description": "Ordered list of specific, actionable remediation steps a mission ops analyst should follow."
+            "description": "Ordered list of specific, actionable remediation steps an operator should follow."
         }
     }
 }

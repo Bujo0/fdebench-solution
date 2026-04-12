@@ -2,10 +2,10 @@
 
 ## The Scenario
 
-Contoso Deep Space Station (CDSS) — a 2,000-crew research outpost 0.3 AU from Earth — is drowning in incoming signals. Their team of 12 mission ops analysts manually triages ~180 signals per day across 6 specialist teams. Average time-to-route: 3.4 hours. Misroute rate: 42%. At that distance, a misrouted hull breach signal means someone dies before the right team even reads it. Commander Priya Kapoor, Station Operations Chief, just got off a subspace call with your manager and wants this fixed.
+Contoso Deep Space Station (CDSS) — a 2,000-crew research outpost 0.3 AU from Earth — is drowning in incoming signals. Their team of 12 mission ops analysts manually triages ∼180 signals per day across 6 specialist teams. Average time-to-route: 3.4 hours. Misroute rate: 42%. At that distance, a misrouted hull breach signal means someone dies before the right team even reads it. Commander Priya Kapoor, Station Operations Chief, just got off a subspace call with your manager and wants this fixed.
 
 **Start here. Read the mission brief:** [customer_brief.md](customer_brief.md)
-**Then review their routing guide:** [routing_guide.md](routing_guide.md) *(heads up: it's incomplete. Some signal types aren't covered, and some rules contradict each other. Welcome to deep space operations.)*
+**Then review their routing guide:** [routing_guide.md](routing_guide.md) *(heads up: it’s incomplete. Some signal types aren’t covered, and some rules contradict each other. Welcome to deep space operations.)*
 
 Your job: **build an AI-powered signal triage API** that CDSS can plug into their station operations workflow.
 
@@ -25,7 +25,7 @@ A deployed API that accepts an incoming mission signal and returns a triage deci
 {
   "ticket_id": "SIG-4829",
   "subject": "cant authenticate to airlock since this morning!!!",
-  "description": "Hi, I've been trying to scan into Airlock 7-C since around 0700 station time but it keeps rejecting my biometrics. I haven't changed anything. I'm on EVA prep today and have a hull inspection at 1000. URGENT PLEASE. - Sarah",
+  "description": "Hi, I\'ve been trying to scan into Airlock 7-C since around 0700 station time but it keeps rejecting my biometrics. I haven\'t changed anything. I\'m on EVA prep today and have a hull inspection at 1000. URGENT PLEASE. - Sarah",
   "reporter": {
     "name": "Sarah Chen",
     "email": "sarah.chen@cdss.space",
@@ -65,7 +65,7 @@ See [../data/schemas/](../data/schemas/) for the formal JSON schemas.
 
 ### Valid Values for Classification Fields
 
-Your system must use **exactly** these values. The scoring is deterministic: anything not in these lists scores zero. In space, precision isn't optional — it's survival.
+Your system must use **exactly** these values. The scoring is deterministic: anything not in these lists scores zero. In space, precision isn’t optional — it’s survival.
 
 **Categories** (8 values):
 
@@ -77,8 +77,8 @@ Your system must use **exactly** these values. The scoring is deterministic: any
 | `Flight Software & Instruments` | Mission apps, Mission Suite, software installs, licensing, system integrations |
 | `Threat Detection & Containment` | Hostile contact, contamination, anomalous readings, containment protocol, security certificates |
 | `Telemetry & Data Banks` | Sensor archives, crew file stores, databases, backups, data vaults |
-| `Mission Briefing Request` | Questions, how-tos, or issues that don't fit other categories |
-| `Not a Mission Signal` | Auto-replies, junk transmissions, "thanks" messages, out-of-rotation notices |
+| `Mission Briefing Request` | Questions, how-tos, or issues that don’t fit other categories |
+| `Not a Mission Signal` | Auto-replies, junk transmissions, “thanks” messages, out-of-rotation notices |
 
 **Teams** (7 values):
 
@@ -131,9 +131,9 @@ Your service must also respond to `GET /health` with HTTP 200.
 | **Public eval set** | 100 | [public_eval.json](../data/tickets/public_eval.json) | Test at scale before submitting (no gold answers provided) |
 | **Hidden eval set** | 1000+ | Not in this repo | Final scoring. Includes edge cases not in the public data |
 
-Signals vary in quality. Some are clean. Some are vague, contradictory, multi-issue, garbled, or not real distress calls at all. That's not a bug in the dataset. That's what real station operations transmissions look like when 2,000 crew are filing signals at 0300 during a solar flare.
+Signals vary in quality. Some are clean. Some are vague, contradictory, multi-issue, garbled, or not real distress calls at all. That’s not a bug in the dataset. That’s what real station operations transmissions look like when 2,000 crew are filing signals at 0300 during a solar flare.
 
-> **Don't overfit.** The hidden set has signal types you won't see in the public data. Build for the real void, not for 25 specific signals.
+> **Don’t overfit.** The hidden set has signal types you won’t see in the public data. Build for the real void, not for 25 specific signals.
 
 ---
 
@@ -142,8 +142,8 @@ Signals vary in quality. Some are clean. Some are vague, contradictory, multi-is
 - **One submission.** Make it count.
 - Any language, framework, or AI model.
 - Deployed and callable via HTTPS. Not localhost.
-- AI coding assistants: encouraged. Use everything you've got.
-- All code must be your own work (AI-assisted is fine, copy-pasting someone else's solution is not).
+- AI coding assistants: encouraged. Use everything you’ve got.
+- All code must be your own work (AI-assisted is fine, copy-pasting someone else’s solution is not).
 
 ---
 
@@ -151,28 +151,28 @@ Signals vary in quality. Some are clean. Some are vague, contradictory, multi-is
 
 Your hidden-set **functional score** is **0–100**. Separately, we also review your repo for engineering quality.
 
-| Part | Weight | What we're looking at |
+| Part | Weight | What we’re looking at |
 |---|---|---|
 | **Functional scoring** | 0-100 | Does your system actually triage correctly? How fast and cheap is it? |
 | **Engineering review** | Separate review | How did you build it? Can we read your code? Did you test it? Do your docs tell us *why*? |
 
 ### Functional Score (0-100)
 
-We call your live endpoint with **1000+ signals you've never seen**. Every response is scored deterministically against gold answers. **No LLM judges. No vibes. Same logic as the local eval harness.** You can see exactly how you'll be scored before you submit.
+We call your live endpoint with **1000+ signals you’ve never seen**. Every response is scored deterministically against gold answers. **No LLM judges. No vibes. Same logic as the local eval harness.** You can see exactly how you’ll be scored before you submit.
 
 #### What the platform does when it scores you
 
-Here's exactly what happens when you hit "submit" on the platform:
+Here’s exactly what happens when you hit “submit” on the platform:
 
-1. **Health check.** `GET /health` must return 200. If it doesn't, scoring fails immediately.
-2. **Warm-up.** We send 3 throwaway requests first. These don't count toward your score. They exist so your cold start / first-request latency doesn't penalize you unfairly.
-3. **Scoring run.** We send all 1000+ signals to your `POST /triage` endpoint with **up to 10 requests in parallel**. Your API needs to handle concurrent load. If it can only process one request at a time, you'll hit timeouts.
-4. **Timeout.** Each request has a **30-second timeout**. If your endpoint doesn't respond in 30 seconds, that signal scores zero on all dimensions.
-5. **Retries.** Transient failures (5xx, timeouts) get **2 automatic retries** with backoff. Don't rely on this. Fix your errors instead.
-6. **Latency measurement.** We record the wall-clock time per request. Top and bottom 5% of latencies are trimmed before computing p50/p95 so a single spike doesn't tank your latency score.
+1. **Health check.** `GET /health` must return 200. If it doesn’t, scoring fails immediately.
+2. **Warm-up.** We send 3 throwaway requests first. These don’t count toward your score. They exist so your cold start / first-request latency doesn’t penalize you unfairly.
+3. **Scoring run.** We send all 1000+ signals to your `POST /triage` endpoint with **up to 10 requests in parallel**. Your API needs to handle concurrent load. If it can only process one request at a time, you’ll hit timeouts.
+4. **Timeout.** Each request has a **30-second timeout**. If your endpoint doesn’t respond in 30 seconds, that signal scores zero on all dimensions.
+5. **Retries.** Transient failures (5xx, timeouts) get **2 automatic retries** with backoff. Don’t rely on this. Fix your errors instead.
+6. **Latency measurement.** We record the wall-clock time per request. Top and bottom 5% of latencies are trimmed before computing p50/p95 so a single spike doesn’t tank your latency score.
 7. **Cost measurement.** We read your `X-Model-Name`, `X-Prompt-Tokens`, and `X-Completion-Tokens` response headers (if present) and compute $/signal using published model pricing.
 
-**Bottom line:** your API should comfortably handle 10 concurrent requests, respond in under 30 seconds each, and not fall over under sustained load. If you're using an LLM, make sure your model endpoint can handle the throughput. Rate limits and cold starts are your problem to solve.
+**Bottom line:** your API should comfortably handle 10 concurrent requests, respond in under 30 seconds each, and not fall over under sustained load. If you’re using an LLM, make sure your model endpoint can handle the throughput. Rate limits and cold starts are your problem to solve.
 
 The functional score has two components:
 
@@ -195,7 +195,7 @@ weighted = 0.20×category + 0.20×priority + 0.20×routing + 0.15×missing_info 
 classification_pts = (weighted / 0.85) × 85
 ```
 
-> **Why macro F1 instead of accuracy?** Because accuracy is gameable. If 80% of signals are "Flight Software & Instruments", always predicting that class gets you 80% accuracy and a terrible macro F1. We want systems that handle *every* class well, including the rare ones like "Not a Mission Signal" that trip people up.
+> **Why macro F1 instead of accuracy?** Because accuracy is gameable. If 80% of signals are “Flight Software & Instruments”, always predicting that class gets you 80% accuracy and a terrible macro F1. We want systems that handle *every* class well, including the rare ones like “Not a Mission Signal” that trip people up.
 
 #### Efficiency (max 15 pts)
 
@@ -216,7 +216,7 @@ Latency is interpolated linearly. Cost is interpolated on a log scale.
 | `X-Prompt-Tokens` | integer | `1250` |
 | `X-Completion-Tokens` | integer | `340` |
 
-These headers are **optional**. If you don't send them, you get worst-case cost (as if you're running GPT-4 with zero caching). Latency is always measured server-side regardless.
+These headers are **optional**. If you don’t send them, you get worst-case cost (as if you’re running GPT-4 with zero caching). Latency is always measured server-side regardless.
 
 #### Total functional score
 
@@ -230,7 +230,7 @@ This is the 0–100 functional score you should optimize for on the hidden set.
 
 #### What about `next_best_action` and `remediation_steps`?
 
-They're **required** in your response (the schema enforces it). But they're **not part of the functional score**. We look at remediation quality when we review your repo. Write good ones anyway. A system that says "investigate the anomaly" for every signal is telling us you phoned it in.
+They’re **required** in your response (the schema enforces it). But they’re **not part of the functional score**. We look at remediation quality when we review your repo. Write good ones anyway. A system that says “investigate the anomaly” for every signal is telling us you phoned it in.
 
 ---
 
@@ -247,7 +247,7 @@ Think of it like this:
 
 The signal we care about is very FDE-shaped: can you take an ambiguous station operations problem, turn it into a clean service, make sensible tradeoffs, and ship something that still looks solid when we ask about latency, cost, failure modes, scale, security, and testing?
 
-We're looking for: clean code, good tests, sensible architecture, infrastructure that works, and documentation that shows you *understood* the problem, not just threw tokens at it.
+We’re looking for: clean code, good tests, sensible architecture, infrastructure that works, and documentation that shows you *understood* the problem, not just threw tokens at it.
 
 In practice, the strongest submissions usually do these things well:
 
@@ -272,7 +272,7 @@ In other words, we are not just looking for a model call that happens to classif
 
 #### `docs/architecture.md`
 
-- What does your service do? How does it fit into CDSS's world?
+- What does your service do? How does it fit into CDSS’s world?
 - Draw something. ASCII, Mermaid, napkin sketch, whatever. Show the moving parts.
 - Data flow: signal goes in, triage comes out, what happened in between?
 - AI pipeline: what model(s), why, how do you call them?
@@ -283,7 +283,7 @@ In other words, we are not just looking for a model call that happens to classif
 
 - How did you read the mission brief? What jumped out?
 - What was your strategy? Baseline first? Edge cases early? How did you decide what to do in what order?
-- What did you try that didn't work? What did you change?
+- What did you try that didn’t work? What did you change?
 - How did you design and iterate on your prompts?
 - How did you actually spend your time?
 - What would you do differently with another day?
@@ -294,9 +294,9 @@ In other words, we are not just looking for a model call that happens to classif
 - Show us your numbers. Per-dimension scores on the sample set.
 - Which signals did your system get wrong? Why?
 - What are the hardest signal types for your system?
-- Where does it break? Be honest. We can tell when you're not.
+- Where does it break? Be honest. We can tell when you’re not.
 
-> **Real talk:** a straightforward solution with honest error analysis and clear docs will outscore a complex system with no explanation. Every time. We've seen it.
+> **Real talk:** a straightforward solution with honest error analysis and clear docs will outscore a complex system with no explanation. Every time. We’ve seen it.
 
 We also look at: code quality, test coverage, error handling, infrastructure, CI/CD, and whether your README actually lets someone else clone and run your system in under 5 minutes.
 
@@ -320,7 +320,7 @@ If your repo is hard to follow, missing tests, or only works with undocumented s
 
 #### Do I need a complicated multi-agent system to score well?
 
-No. A simple system with good judgment, good validation, solid tests, and honest writeups is a stronger submission than an overbuilt pipeline you can't explain.
+No. A simple system with good judgment, good validation, solid tests, and honest writeups is a stronger submission than an overbuilt pipeline you can’t explain.
 
 #### Are `next_best_action` and `remediation_steps` part of the hidden functional score?
 
@@ -348,7 +348,7 @@ Not directly. They are required by the schema, but they are reviewed as part of 
 
 ### Finalist Round (top N)
 
-30-minute walkthrough of your solution, then 30 minutes of Q&A with FDE engineers. Think of it as a design review, not an interview. We're curious about your decisions, not trying to catch you out.
+30-minute walkthrough of your solution, then 30 minutes of Q&A with FDE engineers. Think of it as a design review, not an interview. We’re curious about your decisions, not trying to catch you out.
 
 ---
 
@@ -356,7 +356,7 @@ Not directly. They are required by the schema, but they are reviewed as part of 
 
 ```bash
 # 1. Read the mission brief and routing guide first. Seriously. It matters.
-#    People's lives depend on correct signal triage.
+#    People’s lives depend on correct signal triage.
 open docs/challenge/customer_brief.md
 open docs/challenge/routing_guide.md
 
@@ -385,4 +385,4 @@ uv run python run_eval.py \
 
 ## Submission
 
-When you're ready, submit at **[aka.ms/fde/hackathon](https://aka.ms/fde/hackathon)**. Full checklist at [../submission/](../submission/).
+When you’re ready, submit at **[aka.ms/fde/hackathon](https://aka.ms/fde/hackathon)**. Full checklist at [../submission/](../submission/).
