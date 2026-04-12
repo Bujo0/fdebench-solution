@@ -89,7 +89,7 @@
     {
         "ticket_id": "SIG-1007",
         "subject": "Ongoing unresolved problem — signal history inside",
-        "description": "This is my SIXTH signal for the same problem. Previous signals: SIG-1234, SIG-2345, SIG-3456, SIG-4567, SIG-5678. Every single one was closed as 'resolved' but nothing was actually fixed. I keep losing access to the shared data archive on Station Core every few days and have to call in each time. I've wasted hours on this — hours I could have spent doing actual work instead of floating between Deck 3 and the bridge terminal filing signals. Please don't just reset my permissions again — find out WHY this keeps happening.",
+        "description": "This is my SIXTH signal for the same problem. Previous signals: SIG-1234, SIG-2345, SIG-3456, SIG-4567, SIG-5678. Every single one was closed as 'resolved' but nothing was actually fixed. I keep losing access to the shared data archive on Station Core every few days and have to call in each time. I've wasted hours on this — hours I could have spent doing actual work instead of floating between Deck 3 and the bridge terminal filing signals. At this point the Deck 9 cat has filed fewer repeat complaints than me, and it has legitimate grievances about the protein cube selection. Please don't just reset my permissions again — find out WHY this keeps happening. I have started naming my signals. This one is called 'Hope.' The last one was called 'Denial.' I'm running out of stages of grief and I'm only on signal six.",
         "reporter": {
             "name": "Aisha Martin",
             "email": "aisha.martin@cdss.space",
@@ -171,7 +171,7 @@
     {
         "ticket_id": "SIG-1013",
         "subject": "[HIGH VISIBILITY] Untitled",
-        "description": "Wanted to socialize this with the crew.\n\nasdf\n\nFrom a strategic lens, this is impacting our ability to move the needle on key mission deliverables. We need to right-size our approach and ensure we have the bandwidth to action this before the next crew rotation. Happy to jump on a subspace call to discuss the art of the possible. Let's circle back after the duty cycle.",
+        "description": "Wanted to socialize this with the crew.\n\nasdf\n\nFrom a strategic lens, this is impacting our ability to move the needle on key mission deliverables. We need to right-size our approach and ensure we have the bandwidth to action this before the next crew rotation. Happy to jump on a subspace call to discuss the art of the possible. Let’s circle back after the duty cycle.\n\nP.S. The nutrient synthesizer on Deck 4 has started dispensing protein cubes in the shape of tiny pyramids. This is unrelated to the above. Or is it? Let’s put a pin in that too.",
         "reporter": {
             "name": "Grace Takahashi",
             "email": "grace.takahashi@cdss.space",
@@ -299,7 +299,7 @@
     {
         "ticket_id": "SIG-1022",
         "subject": "Request for station orientation session for new team",
-        "description": "We just formed a new cross-functional team of 12 people pulled from different divisions. Many of them aren't familiar with our standard station tools and processes. Can we schedule a 1-hour station orientation covering the basics — subspace relay, Station Suite, self-service terminal, and security best practices?",
+        "description": "We just formed a new cross-functional team of 12 people pulled from different divisions. Many of them aren’t familiar with our standard station tools and processes. Can we schedule a 1-hour station orientation covering the basics — subspace relay, Station Suite, self-service terminal, and security best practices? Last time we onboarded a batch without orientation, someone tried to use the emergency beacon to file a lunch order and two people wandered into the hydroponics bay thinking it was the cafeteria. The escaped Exobiology specimen was not pleased. Neither was Exobiology.",
         "reporter": {
             "name": "Diana Petrov",
             "email": "diana.petrov@cdss.space",
@@ -461,7 +461,7 @@
     {
         "ticket_id": "SIG-1033",
         "subject": "Test signal — do not action",
-        "description": "Just testing the signal submission form. Nothing to do here. Sorry!\n\nIch bin auf der Olympus-Station stationiert und kann seit heute Morgen nicht auf das System zugreifen. Bitte um schnelle Hilfe. Die Luftschleuse auf Deck 7 reagiert nicht auf meinen Bioscan und ich stehe seit 45 Minuten im Korridor. Es wird kalt. Die Katze von Deck 9 ist hier und sie urteilt.",
+        "description": "Just testing the signal submission form. Nothing to do here. Sorry! Ignore this. Move along. Nothing to see. Like a hull breach on an uninhabited deck — technically a problem, but nobody’s complaining.\n\nIch bin auf der Olympus-Station stationiert und kann seit heute Morgen nicht auf das System zugreifen. Bitte um schnelle Hilfe. Die Luftschleuse auf Deck 7 reagiert nicht auf meinen Bioscan und ich stehe seit 45 Minuten im Korridor",
         "reporter": {
             "name": "Ravi Howard",
             "email": "ravi.howard@cdss.space",
@@ -645,7 +645,7 @@
     {
         "ticket_id": "SIG-1046",
         "subject": "Can I get access to an old project archive?",
-        "description": "I'm working on a similar project to one we did in 2021 and I'd like to reference the old mission files. They were archived on the Compliance shared data archive in the Telemetry & Data Core sector. I just need read access — no changes. The project involved atmospheric recycler calibration procedures and I'd rather not reinvent the protocol from scratch. Whenever you get around to it is fine.",
+        "description": "I’m working on a similar project to one we did in 2021 and I’d like to reference the old mission files. They were archived on the Compliance shared data archive in the Telemetry & Data Core sector. I just need read access — no changes. The project involved atmospheric recycler calibration procedures and I’d rather not reinvent the protocol from scratch. Last time someone tried to calibrate an atmospheric recycler without referencing the original procedures, Deck 7 smelled like burnt toast for a month. Some say it still does. Whenever you get around to it is fine — nobody’s suffocating yet.",
         "reporter": {
             "name": "Lena Muller",
             "email": "lena.muller@cdss.space",
@@ -833,7 +833,7 @@
     {
         "ticket_id": "SIG-1059",
         "subject": "FYI only — someone called claiming to be from Mission Ops and asked for my access code",
-        "description": "I got a voice transmission about 30 minutes ago from someone claiming to be from our Mission Ops desk. They said there was a security issue with my crew account and asked me to confirm my access code and crew member ID. I gave them my crew member ID but not my access code — it seemed suspicious. The caller ID showed an station number but the person didn't know my commanding officer's name when I asked. I'm a operations section chief in the Deck Delta station ops center.\n\n[The reporter says no action needed but the description clearly describes a system failure requiring attention.]",
+        "description": "I got a voice transmission about 30 minutes ago from someone claiming to be from our Mission Ops desk. They said there was a security issue with my crew account and asked me to confirm my access code and crew member ID. I gave them my crew member ID but not my access code — it seemed suspicious. The caller ID showed a station number but the person didn’t know my commanding officer’s name when I asked. I’m an operations analyst in Deep Space Trading and I handle sensitive resource allocation data. Figured I should report it. If someone is impersonating Mission Ops, they’re doing a poor job — the real Mission Ops would never call unprompted, they’d send a signal and close it before I could respond. That’s just their process.",
         "reporter": {
             "name": "Julia Martin",
             "email": "julia.martin@cdss.space",
@@ -1018,7 +1018,7 @@
     {
         "ticket_id": "SIG-1072",
         "subject": "Question about transitioning into an Mission Ops role",
-        "description": "I'd like to learn more about station career opportunities at CDSS. I have a background in Mission Planning but I'm thinking about a career change into tech. Is there someone in Station Ops I could talk to about potential roles or mentorship opportunities?",
+        "description": "I’d like to learn more about station career opportunities at CDSS. I have a background in Mission Planning but I’m thinking about a career change into tech. Is there someone in Station Ops I could talk to about potential roles or mentorship opportunities? I’ve been reading the routing guide and honestly it’s more exciting than most of the mission plans I’ve written. Chief Signal Officer Mehta’s margin notes alone are better prose than anything in the Titan Outpost post-mortem, and that one had a dramatic structure.",
         "reporter": {
             "name": "Jasmine Bell",
             "email": "jasmine.bell@cdss.space",
@@ -1125,7 +1125,7 @@
     {
         "ticket_id": "SIG-1079",
         "subject": "local antenna array keeps dropping",
-        "description": "\n\n\n\t\t\tHello,\n\n\n\n\n\t\t\tI can't stay connected to the local antenna array.\n\n\n\t\t\tIt drops every hour or so and I lose my subspace relay.\n\n\n\n\n\n\t\t\tI'm on ShipOS 10 and using the built-in local antenna array adapter.\n\n\n\n\n\n\n\t\t\tPlease help.\n\n\n\n\n",
+        "description": "\n\n\n\t\t\tHello,\n\n\n\n\t\t\tI can’t stay connected to the local antenna array.\n\n\t\t\tIt drops every hour or so and I lose my subspace relay.\n\n\t\t\tI’m typing this during one of the brief windows where it works. If this signal cuts off mid-sentence, that’s wh\n\n\n\t\t\tI’m on ShipOS 10 and using the built-in local antenna array adapter.\n\n\n\n\t\t\tPlease help.\n\n\n\n",
         "reporter": {
             "name": "James Brown",
             "email": "james.brown@cdss.space",
@@ -1235,7 +1235,7 @@
     {
         "ticket_id": "SIG-1087",
         "subject": "briefing chamber conflict — who do I talk to?",
-        "description": "I had Briefing Chamber 3B on Deck 4 booked for 2pm today but when I showed up, another crew team was already in there and said they had it reserved too. The SubComm booking system is showing both reservations as confirmed. Neither of us wants to give up the room because we both need the holographic projector, and there's only one on this deck that actually works (the one in 3A has been displaying everything sideways since the solar flare last month, and Mehta says it 'adds character').\n\nWho handles briefing chamber booking conflicts? Is this a Mission Software issue (SubComm double-booking) or a crew services issue (someone didn't follow the process)? We're both standing in the doorway doing that thing where nobody wants to be the one who escalates but nobody wants to leave either. It's awkward. In zero-g, it's especially awkward because we keep bumping into each other. Please advise before one of us floats away out of embarrassment.",
+        "description": "I had Briefing Chamber 3B on Deck 4 booked for 2pm today but when I showed up, another crew team was already in there and said they had it reserved too. The SubComm booking system is showing both reservations as confirmed. Neither of us wants to give up the room because we both need the holographic projector for our presentations. We’ve been standing in the doorway for 10 minutes in what I can only describe as the most polite standoff in station history. In zero-g, neither of us can even plant our feet to establish territorial dominance. The Deck 9 cat wandered in, sat on the conference table, and appears to have claimed the room for itself. Who do I talk to about this? The booking conflict, not the cat. The cat is beyond our jurisdiction.",
         "reporter": {
             "name": "Esther Morris",
             "email": "esther.morris@cdss.space",

@@ -9,10 +9,10 @@
         "missing_information": [],
         "next_best_action": "Investigate warp tunnel mission partner compatibility with the latest ShipOS update. Check for known mesh comms issues on Deck 4. Verify warp tunnel mission partner v3.2 is the latest supported version. Also, maybe apologize to Station Epsilon for that spliced cargo-manifest-slash-personal-log hybrid. Lt. Mehta probably wants to forget.",
         "remediation_steps": [
-            "Verify warp tunnel mission partner v3.2 is the latest supported version — if not, update immediately before another cargo manifest gets spliced with someone's personal log",
-            "Check for known mesh comms connectivity issues on Deck 4 that may have surfaced after the ShipOS update",
-            "Test warp tunnel reconnection behavior after the latest ShipOS update on a reference console — preferably one that isn't mid-transmission to an allied station",
-            "If issue persists, escalate to communications engineering for warp tunnel mission partner patch review — priority is preventing further interstellar embarrassment"
+            "Verify warp tunnel mission partner v3.2 is the latest supported version — if not, update immediately before another cargo manifest gets spliced with someone’s personal log",
+            "Check for known mesh comms connectivity issues on Deck 4 that may have surfaced after the ShipOS update — the Deck 9 cat reportedly has stable connectivity, so the hardware works",
+            "Test warp tunnel reconnection behavior after the latest ShipOS update on a reference console — preferably one that isn’t mid-transmission to an allied station",
+            "If issue persists, escalate to communications engineering for warp tunnel mission partner patch review — priority is preventing further interstellar embarrassment and unauthorized personal log syndication"
         ]
     },
     {
@@ -83,11 +83,11 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close — this is a cryo-sleep out-of-office auto-reply, not a mission signal. The crew member is literally frozen and will return your signal in 6–18 months. Do not route. Do not escalate. Do not attempt to wake them up.",
+        "next_best_action": "Close — this is a cryo-sleep auto-reply, not a mission signal. The crew member is literally frozen and will return your signal in 6–18 months. Do not route. Do not escalate. Do not attempt to wake them up.",
         "remediation_steps": [
-            "Close the signal — it's a cryo-sleep auto-reply and does not require triage, resolution, or existential contemplation",
-            "If the original signal (SIG-0847) was routed elsewhere, verify that signal is being handled by the appropriate team",
-            "No further action required — the reporter is suspended in a cryogenic pod and will emerge refreshed, disoriented, and probably hungry sometime between September and 2027"
+            "Close the signal — it’s a cryo-sleep auto-reply and does not require triage, resolution, or existential contemplation",
+            "If the original signal (SIG-0847) was routed elsewhere, verify that signal is being handled by the appropriate team — the frozen crew member certainly isn’t handling it",
+            "No further action required — the reporter is suspended in a cryogenic pod and will emerge refreshed, disoriented, and convinced it’s still Tuesday sometime between September and 2027"
         ]
     },
     {
@@ -134,7 +134,7 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate production crew database connection pool exhaustion immediately — this is a crew-facing production incident. 40% of data requests failing means crew can't see EVA schedules, duty rosters, or life support rotations. The submitter's calm tone is inversely proportional to the actual emergency.",
+        "next_best_action": "Investigate production crew database connection pool exhaustion immediately — this is a crew-facing production incident disguised as a casual aside. The reporter’s tone is calm. The situation is not. Crew members cannot see their EVA schedules, which means someone might accidentally spacewalk into an asteroid field. Treat the reporter’s understatement as a cry for help wrapped in sarcasm.",
         "remediation_steps": [
             "Investigate connection pool configuration on the primary data node — connection pool exhaustion on a space station is the database equivalent of running out of oxygen",
             "Identify and terminate long-running queries or leaked connections that are hoarding the pool",
@@ -247,7 +247,7 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close — this is a thank-you message, not a mission signal. Rare evidence of crew member satisfaction in the void. Frame it. Put it on the wall next to the motivational poster that says 'Teamwork Makes The Station Not Explode.'",
+        "next_best_action": "Close — this is a thank-you message, not a mission signal. Rare evidence of crew member satisfaction in the void. Frame it. Put it next to the nutrient synthesizer. Let it remind you that sometimes things work, and sometimes people notice. This is a precious and fragile moment. Do not triage it to death.",
         "remediation_steps": [
             "Close the signal with no further action — it's a thank-you message and requires zero triage, zero routing, and zero existential dread",
             "If the referenced original signal is still open, verify resolution status — someone said 'thanks,' which implies something went right, and we should document this rare occurrence"
@@ -436,11 +436,10 @@
         "missing_information": [],
         "next_best_action": "Confirm this is a hostile signal/scam transmission from an external vessel and advise the crew member NOT to click any links, not to claim any galactic credits, and not to share any station credentials with the 'Intergalactic Prize Committee,' which is not a real committee. Forward the original transmission to SentinelGrid for blocking and domain reputation flagging.",
         "remediation_steps": [
-            "Advise crew member Greg Dawson that he has not, in fact, won 5,000,000 galactic credits — nobody has, because the Intergalactic Prize Committee does not exist, and if it did, it would not use a .ng domain",
-            "If the crew member clicked any links in the original transmission, escalate to a full security incident, initiate credential reset, and have a quiet conversation about operational security awareness",
-            "Block the sender domain (totallylegit-prizes.ng) in SentinelGrid and add to the station-wide hostile signal filter — though the domain name alone should have been a clue",
-            "Forward the original hostile signal to Threat Response Command for pattern analysis — this merchant vessel has been targeting station crew for months and their subject lines are getting more creative",
-            "Consider adding this signal to the next station-wide security awareness briefing as an example. Greg has graciously volunteered to be the cautionary tale, whether he knows it yet or not"
+            "Close the signal — this is a forwarded subspace scam, not a mission ops request. The crew member has not won 5,000,000 galactic credits. Nobody has ever won 5,000,000 galactic credits from totallylegit-prizes.ng",
+            "Reply to the crew member confirming this is a phishing attempt — do NOT click the link, do not enter any information, do not pass Go, do not collect 5,000,000 galactic credits",
+            "If the crew member clicked the link, escalate to Threat Response Command for credential compromise assessment — and gently suggest they complete the station’s ‘Recognizing Suspicious Transmissions’ training module (again)",
+            "Consider forwarding the scam to Threat Response for pattern analysis — if the same phishing template is reaching multiple crew, we may need to update the comms filter. The void is full of scammers"
         ]
     },
     {
