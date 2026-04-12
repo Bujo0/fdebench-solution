@@ -29,7 +29,7 @@ When a signal comes in, identify the **issue type** from the table below and rou
 
 | Issue type | Route to | Notes |
 |---|---|---|
-| Biometric reset | Crew Identity & Airlock Control | Self-service terminal handles most; only escalate if self-service fails |
+| Biometric reset | Crew Identity & Airlock Control | Self-service BioAuth terminal handles most; only escalate if self-service fails |
 | Profile lockout | Crew Identity & Airlock Control | Check for intrusion indicators first — if suspicious, also alert Threat Response Command |
 | New crew provisioning | Crew Identity & Airlock Control | Requires section chief approval in mission command workflow |
 | Single sign-on not working | Crew Identity & Airlock Control | Verify the app is registered in BioScan ID first |
@@ -57,7 +57,7 @@ When a signal comes in, identify the **issue type** from the table below and rou
 | Issue type | Route to | Notes |
 |---|---|---|
 | Subspace relay connectivity | Deep Space Communications | Check if crew’s credentials are expired first (→ Crew Identity if so) |
-| Inter-deck comms mesh issues | Deep Space Communications | — |
+| Inter-deck comms mesh issues | Deep Space Communications | SubComm client-side issues may also need Spacecraft Systems Engineering |
 | DNS beacon resolution failures | Deep Space Communications | — |
 | Signal routing rule requests | Deep Space Communications | Requires security approval from Threat Response Command |
 | Bandwidth / latency | Deep Space Communications | Get specific times and affected services |
@@ -69,7 +69,7 @@ When a signal comes in, identify the **issue type** from the table below and rou
 
 | Issue type | Route to | Notes |
 |---|---|---|
-| Navigation suite errors or access | Mission Software Operations | — |
+| Navigation suite errors or access | Mission Software Operations | Includes FlightOS navigation modules |
 | Sensor platform issues | Mission Software Operations | — |
 | Astro-lab terminal | Mission Software Operations | Physical hardware issues go to Spacecraft Systems Engineering |
 | Mission Suite issues | Mission Software Operations | Licensing issues specifically — general Mission Suite outages are Deep Space Communications |
@@ -82,8 +82,8 @@ When a signal comes in, identify the **issue type** from the table below and rou
 |---|---|---|
 | Suspicious transmission received | Threat Response Command | Forward original signal to threats@cdss.space |
 | Contamination / anomalous readings | Threat Response Command | Isolate affected section immediately |
-| Data breach / unauthorized access | Threat Response Command | Mandatory P1 escalation |
-| Security certificate issues | Threat Response Command | — |
+| Data breach / unauthorized access | Threat Response Command | Mandatory P1 escalation — check SentinelGrid alerts for scope |
+| Security certificate issues | Threat Response Command | Verify against SentinelGrid certificate monitoring |
 | Containment protocol requests | Threat Response Command | — |
 
 > **Lt. Mehta’s note:** When in doubt, route to Threat Response. They’d rather get a false alarm than miss a real one. They’ve told me this repeatedly. Loudly. After incidents.
@@ -95,8 +95,8 @@ When a signal comes in, identify the **issue type** from the table below and rou
 | Sensor archive access | Telemetry & Data Core | — |
 | Crew file store sync issues | Telemetry & Data Core | Large dataset sync problems are common; check file count limits |
 | Database access request | Telemetry & Data Core | Requires data owner approval |
-| Backup / restore request | Telemetry & Data Core | — |
-| Legacy data vault access | Telemetry & Data Core | Legacy data vaults only; new requests should use sensor archives |
+| Backup / restore request | Telemetry & Data Core | Data Vault snapshots available for Station Core workloads |
+| Legacy data vault access | Telemetry & Data Core | Legacy Data Vault instances only; new requests should use sensor archives |
 
 ---
 
