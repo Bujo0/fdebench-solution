@@ -69,10 +69,10 @@
         ],
         "next_best_action": "Contact crew member to gather specifics: which subsystems are inaccessible, what error messages appear, what console they are using, and when the issue started. Cannot triage effectively without more detail — 'nothing works' is technically a description but it's the ops equivalent of calling the doctor and saying 'I feel bad.'",
         "remediation_steps": [
-            "Contact crew member to gather specific details about the issue",
-            "Determine which subsystems and applications are affected",
-            "Check if the issue is isolated to this crew member or affecting others in the Sensors division",
-            "Once root cause is identified, route to the appropriate specialist team"
+            "Hail the crew member via holodeck comm or in person on Deck 5 — 'nothing works' is a cry for help, not a diagnostic. Get the actual anomaly readout, the console model, and a description more specific than 'it's broken and the cursor is judging me'",
+            "Run remote diagnostics on their workstation via ShipOS MDM to check for hung processes, authentication failures, or BioScan ID lockouts — the spinning cursor usually means one of these three, and the nutrient synthesizer dispensing warm disappointment is a separate issue entirely",
+            "Check if the issue is isolated to this crew member or affecting others in the Sensors division — if multiple crew are spinning, it's likely a BioScan ID sync failure or a station-wide authentication hiccup, not a haunting",
+            "Once the actual subsystem is identified, re-triage and route to the correct specialist team — Spacecraft Systems for hardware, Crew Identity for authentication, Mission Software for application crashes. Do not route to an exorcist, despite what the crew member implies"
         ]
     },
     {
@@ -85,7 +85,7 @@
         "missing_information": [],
         "next_best_action": "Close — this is an automated shore leave auto-reply to a maintenance notification, not a mission signal. Reporter is at Titan Station enjoying limited subspace relay access and a drink with an umbrella in it. No action required.",
         "remediation_steps": [
-            "No action required -- auto-reply detected, close signal"
+            "No action required — this is a shore leave auto-reply echoing through the subspace relay like a postcard from someone having a better time than you. Close the signal and resist the urge to reply 'wish I was there' on the official ops channel"
         ]
     },
     {
@@ -250,7 +250,7 @@
         "missing_information": [],
         "next_best_action": "Close — this is a thank-you message about a resolved atmospheric recycler issue, not a new mission signal. The corridor no longer smells like burnt ozone and regret. File under 'rare wins' and move on.",
         "remediation_steps": [
-            "No action required -- positive feedback, close signal"
+            "No action required — this is a grateful crew member celebrating a functioning atmospheric recycler, which is both heartwarming and a reminder that 'the corridor no longer smells like burning ozone' counts as good news on this station. Close signal and savor the rare dopamine hit of positive feedback in the void"
         ]
     },
     {
@@ -307,10 +307,10 @@
         ],
         "next_best_action": "Contact reporter on Deck 5 (Robert Chen — the one near the galley, not the one in Astrogation, not the other other one) to figure out what 'the thing on my console doing the thing' actually means. This emergency beacon signal contains zero actionable technical detail and maximum existential confusion. Gather specifics before routing anywhere.",
         "remediation_steps": [
-            "Contact Robert Chen (Deck 5 near the galley, Engineering division) to clarify the issue in person or via holodeck comm",
-            "Determine which application or subsystem is failing",
-            "Gather specific anomaly readouts and reproduction steps",
-            "Once the actual issue is identified, re-triage and route to the correct specialist team"
+            "Locate Robert Chen on Deck 5 near the galley — the one who doesn't know what's wrong with his console, which apparently doesn't narrow it down among the three Robert Chens. Try the one near the reconstituted pasta smell. Clarify the issue in person since the emergency beacon transcription contains approximately zero useful diagnostic information and maximum existential confusion",
+            "Identify which application or subsystem is 'doing the thing' — ask for the specific holographic interface element, any anomaly readouts, and what 'nothing happens' looks like in practice. If the answer is 'you know, the thing,' try rephrasing the question with visual aids",
+            "Run remote diagnostics on the console via ShipOS MDM to check for permission errors, crashed applications, or pending updates — two days of 'nothing happens' on a Flight Deck console suggests either a permissions issue or a remarkably patient crew member",
+            "Once the actual issue is identified, re-triage and route to the correct specialist team — and gently suggest to Robert that emergency beacons are traditionally reserved for emergencies, not for 'the thing doing the thing.' Lt. Mehta has opinions about emergency beacon misuse. Loud ones."
         ]
     },
     {
