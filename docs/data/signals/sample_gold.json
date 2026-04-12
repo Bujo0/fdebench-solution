@@ -195,11 +195,11 @@
         ],
         "next_best_action": "Investigate biometric verification push approval failure in the Authenticator app. Check BioScan ID biometric verification registration status and recent policy changes. Crew member can continue with backup code fallback in the meantime.",
         "remediation_steps": [
-            "Verify biometric verification registration status for this crew member in BioScan ID",
-            "Check for recent Station Access Protocol or biometric verification policy changes that may affect push notifications",
-            "Have crew member verify Authenticator app is updated to the latest station-approved version",
-            "If issue persists, remove and re-register the biometric verification method in BioScan ID",
-            "Confirm push approval works after re-registration and test with a routine station authentication"
+            "Verify biometric verification registration status for this crew member in BioScan ID — it may have silently deregistered itself, which is not technically sentient behavior but feels suspicious",
+            "Check for recent Station Access Protocol or biometric verification policy changes that may affect push notifications — policy changes on a space station propagate at the speed of bureaucracy, which is slower than light",
+            "Have crew member verify Authenticator app is updated to the latest station-approved version — if the app hasn't updated since the last ShipOS patch, the push notifications may be arriving in a version of reality the app no longer recognizes",
+            "If issue persists, remove and re-register the biometric verification method in BioScan ID — the 'turn it off and on again' of identity management, but in space",
+            "Confirm push approval works after re-registration and test with a routine station authentication — have the crew member try while standing still, because zero-g spin can affect biometric capture in ways the vendor documentation refuses to acknowledge"
         ]
     },
     {
@@ -285,11 +285,11 @@
         ],
         "next_best_action": "Investigate unified crew authentication token invalidation after passphrase rotation. Likely the FlightOS unified crew authentication token needs to be reissued after the station passphrase change. Time-sensitive due to month-end resource reconciliation deadline.",
         "remediation_steps": [
-            "Verify the crew member’s BioScan ID session and quantum auth token are refreshed after the passphrase change",
-            "Check FlightOS unified crew authentication configuration — confirm whether FlightOS GUI uses quantum auth or SAML-based unified crew authentication",
-            "Reissue the FlightOS unified crew authentication logon token or have the crew member authenticate to FlightOS with explicit biometric credentials as a workaround",
-            "If unified crew authentication token regeneration doesn’t resolve it, check whether the passphrase policy change affected the FlightOS SNC configuration",
-            "Confirm FlightOS access is restored and the crew member can complete month-end resource reconciliation"
+            "Verify the crew member's BioScan ID session and quantum auth token are refreshed — passphrase rotation should not orphan active sessions, but Station Core has opinions about session management that aren't always communicated in advance",
+            "Clear FlightOS cached credentials and re-authenticate with new passphrase — FlightOS caches credentials the way the Deck 9 cat hoards stolen comm badges: aggressively and without obvious logic",
+            "If FlightOS still errors, check the fleet navigation system sign-in logs for authentication failures or account lockout events — account lockout after passphrase rotation is the kind of irony that keeps ops officers awake during what passes for night in space",
+            "Verify that BioScan ID sync has propagated the new passphrase to all federated station services — replication lag between identity systems is the silent killer of productivity and occasionally of morale",
+            "If all authentication is correct and FlightOS still won't load, reinstall the FlightOS client — sometimes the only fix is the nuclear option, which on a space station is a more loaded metaphor than we'd like"
         ]
     },
     {

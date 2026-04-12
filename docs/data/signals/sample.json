@@ -151,7 +151,7 @@
     {
         "ticket_id": "SIG-0012",
         "subject": "FYI — Stellar nav console holographic display flickering during solar flare",
-        "description": "Holographic display connected to my stellar navigation console started flickering around 10am. It’s not constant — happens for a few seconds every 5-10 minutes. I switched the data cable to a different port and it still does it. Nav data itself seems fine, readings are updating. Just the display. Also, unrelated — can you check if my FlightOS license is still active? I got an expiry warning transmission last week but I can still authenticate.",
+        "description": "Holographic display connected to my stellar navigation console started flickering around 10am. It's not constant — happens for a few seconds every 5-10 minutes. I switched the data cable to a different port and it still does it. Nav data itself seems fine, readings are updating. Just the display. In zero-g, a flickering holographic display is extra disorienting — it's like trying to read star charts while someone keeps turning the universe off and on again. Also, unrelated — can you check if my FlightOS license is still active? I got an expiry warning transmission last week but I can still authenticate. I'd rather find out I'm unlicensed now than during a navigational correction. The void is forgiving of many things, but not of unlicensed course changes.",
         "reporter": {
             "name": "Anna Brooks",
             "email": "anna.brooks@cdss.space",
@@ -206,7 +206,7 @@
     {
         "ticket_id": "SIG-0016",
         "subject": "FlightOS won’t load after passphrase rotation",
-        "description": "Changed my station passphrase this morning per the quarterly rotation policy. Now FlightOS GUI gives me ‘unified crew authentication token invalid — contact your system administrator’. Tried logging out and back in to the station console, same issue. Other apps (SubComm, mission logs) work fine. I need FlightOS to process month-end resource reconciliation — close of shift today is the deadline.",
+        "description": "Changed my station passphrase this morning per the quarterly rotation policy. Now FlightOS GUI gives me 'unified crew authentication token invalid — contact your system administrator'. Tried logging out and back in to the station console, same issue. Other apps (SubComm, mission logs) work fine — it's specifically FlightOS that has decided my new passphrase is a personal affront. I need FlightOS to process month-end resource reconciliation — close of shift today is the deadline. If I miss this deadline, the supply chain team won't know how many replacement air filters to request on the next cargo shuttle, and I'll be personally responsible for Deck 7's respiratory adventure. Again.",
         "reporter": {
             "name": "Linda Park",
             "email": "linda.park@cdss.space",
