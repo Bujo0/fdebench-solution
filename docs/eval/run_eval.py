@@ -599,8 +599,23 @@ def _run_smoke_test(signals: list[dict], endpoint: str) -> int:
     where the cracks are before the void finds them for you.
     """
     print()
+    print("         ╱╲")
+    print("        ╱  ╲")
+    print("       ╱    ╲")
+    print("      ╱  /\\  ╲")
+    print("     ╱  /  \\  ╲")
+    print("    ╱  / 🛰️  \\  ╲")
+    print("   ╱  /________\\  ╲")
+    print("   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾")
+    print("   ┃  ┃        ┃  ┃")
+    print("   ┃  ┃  CDSS  ┃  ┃")
+    print("   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾")
+    print("       💨💨💨💨")
+    print()
     print("  🛰️  CONTOSO DEEP SPACE STATION — SMOKE TEST  🛰️")
     print("  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("  « Pre-flight hull integrity scan — no scoring, just survival. »")
+    print()
     print()
     print(f"  Incoming signals:  {len(signals)}")
     print("  Gold answers:      — (smoke test — no scoring, just survival)")
@@ -766,8 +781,23 @@ def _run_scored(signals: list[dict], gold_path: Path, endpoint: str) -> int:
         return 1
 
     print()
+    print("         ╱╲")
+    print("        ╱  ╲")
+    print("       ╱    ╲")
+    print("      ╱  /\\  ╲")
+    print("     ╱  /  \\  ╲")
+    print("    ╱  / 🛰️  \\  ╲")
+    print("   ╱  /________\\  ╲")
+    print("   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾")
+    print("   ┃  ┃        ┃  ┃")
+    print("   ┃  ┃  CDSS  ┃  ┃")
+    print("   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾")
+    print("     🔥🔥🔥🔥🔥🔥")
+    print()
     print("  🛰️  CONTOSO DEEP SPACE STATION — SCORING COMPUTER  🛰️")
     print("  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("  « All stations — scoring run initiated. This is not a drill. »")
+    print("  « The math is real. The void is watching. The cat is judging. »")
     print()
     print(f"  Incoming signals:  {len(signals)}")
     print(f"  Gold answers:      {len(golds)}")
@@ -778,19 +808,21 @@ def _run_scored(signals: list[dict], gold_path: Path, endpoint: str) -> int:
     client = httpx.Client()
     healthy = check_health(client, endpoint)
     if healthy:
-        status = "✓ LIFE SIGNS DETECTED — the station breathes. The Deck 9 cat approves."
+        status = "✓ LIFE SIGNS DETECTED — station is online. The Deck 9 cat stirs approvingly."
     else:
-        status = "✗ NO LIFE SIGNS — FLATLINE — your service is as responsive as a frozen crewmate"
+        status = "✗ NO LIFE SIGNS — your service has the responsiveness of a frozen crewmate in Sector 7G"
     print(f"  Health check: {status}")
     if not healthy:
         print("  ⚠ Warning: GET /health did not return 200. Proceeding with scoring anyway...")
-        print("  (The scoring computer is brave. Or indifferent. Like the nutrient synthesizer.)")
+        print("  (The scoring computer charges ahead regardless, like a probe with a")
+        print("   broken proximity sensor. Brave? Reckless? The distinction is academic.)")
     print()
 
     # ── Score each signal ─────────────────────────────────────────────
-    print("  Transmitting signals to triage endpoint... stand by for contact.")
-    print("  (The scoring computer has no feelings. It has no mercy. It does,")
-    print("   however, have excellent handwriting. For a computer.)")
+    print("  ⚡ Transmitting signals to triage endpoint... stand by for contact.")
+    print("  (Every signal is a life-or-death decision. Or a protein cube complaint.")
+    print("   The scoring computer doesn't know which until it reads the gold answer.")
+    print("   It processes both with equal, terrifying precision.)")
     print()
     results: list[dict] = []
     responses: list[dict] = []
@@ -903,20 +935,25 @@ def _print_dimension_commentary(dim_scores: dict[str, float]) -> None:
     in the void, signifying nothing.
     """
     if dim_scores["category"] < 0.5:
-        print("    ⚠ Category: Your system is misidentifying anomaly types like a crew member")
-        print("      who calls every problem 'the holodeck is broken' regardless of what broke.")
+        print("    ⚠ Category: Your system confuses anomaly types like a cadet who thinks")
+        print("      every warning light means 'hull breach.' Threat Response just got")
+        print("      dispatched to a nutrient synthesizer jam. They are armed. And annoyed.")
     if dim_scores["priority"] < 0.5:
-        print("    ⚠ Priority: Hull breaches rated as Routine. Protein cube complaints rated")
-        print("      as Red Alert. Your priority assessment needs recalibration, not coffee.")
+        print("    ⚠ Priority: You rated a hull breach as Routine and a protein cube shortage")
+        print("      as Red Alert. The crew is evacuating Deck 3 over a seasoning error while")
+        print("      actual vacuum seeps through Deck 7. Recalibrate your threat model.")
     if dim_scores["routing"] < 0.5:
-        print("    ⚠ Routing: Signals going to the wrong teams like a turbolift with a sense")
-        print("      of humor. Threat Response does not want to fix fabricators.")
+        print("    ⚠ Routing: Signals arriving at the wrong teams like a malfunctioning")
+        print("      turbolift that exclusively visits decks where the problem isn't. Deep")
+        print("      Space Comms just received a containment breach. They have questions.")
     if dim_scores["missing_info"] < 0.5:
-        print("    ⚠ Missing info: Either asking for intel the signal already provided (the")
-        print("      crew is 0.3 AU from patience) or missing critical gaps entirely.")
+        print("    ⚠ Missing info: Either demanding data the signal already provided (the crew")
+        print("      can hear you asking their name from 0.3 AU away, and they are not amused)")
+        print("      or missing critical gaps like 'which deck is currently on fire.'")
     if dim_scores["escalation"] < 0.5:
-        print("    ⚠ Escalation: Missing escalations or false alarms. One gets people hurt.")
-        print("      The other wakes Commander Kapoor at 0300. Both have consequences.")
+        print("    ⚠ Escalation: Missing real emergencies or crying wolf on routine maintenance.")
+        print("      Commander Kapoor was woken at 0300 for a font rendering issue, and slept")
+        print("      through an actual hostile contact. She has opinions about this. Strong ones.")
 
 
 def _print_status_box(classification_score: float) -> None:
@@ -932,25 +969,34 @@ def _print_status_box(classification_score: float) -> None:
     print("  │  Engineering review: evaluated separately from your repo   │")
     print("  │                                                            │")
     if classification_score >= 80:
-        print("  │  Status: 🟢 Stellar — the crew salutes you.               │")
-        print("  │  Commander Kapoor nods. Mehta stops writing margin notes.  │")
-        print("  │  The Deck 9 cat purrs. The void itself seems less hostile. │")
+        print("  │  Status: 🟢 STELLAR — the crew salutes. Kapoor nods once. │")
+        print("  │  Mehta puts down his pen. The Deck 9 cat purrs for the    │")
+        print("  │  first time in recorded station history. The void itself   │")
+        print("  │  seems to soften, briefly, as if impressed. It isn't. But │")
+        print("  │  for a moment, it looked like it might be. That's enough.  │")
     elif classification_score >= 65:
-        print("  │  Status: 🟢 Strong signal — the crew survives with style. │")
-        print("  │  Mehta's margin notes about your system are complimentary. │")
-        print("  │  The protein cubes taste slightly better today. Probably.  │")
+        print("  │  Status: 🟢 Strong signal — crew survives with style.    │")
+        print("  │  Mehta's margin notes are almost complimentary. He wrote  │")
+        print("  │  'acceptable' which is his version of a standing ovation. │")
+        print("  │  Protein cubes taste slightly better today. Coincidence?  │")
     elif classification_score >= 50:
-        print("  │  Status: 🟡 Moderate — some signals lost in static.       │")
-        print("  │  The crew survives, but Mehta is writing margin notes.     │")
-        print("  │  The Deck 3 fabricator works better than this. Barely.     │")
+        print("  │  Status: 🟡 Moderate — some signals lost in static.      │")
+        print("  │  Crew survives, but Mehta is writing margin notes. Many   │")
+        print("  │  margin notes. The Deck 3 fabricator has better accuracy. │")
+        print("  │  That fabricator is ALWAYS broken. Think about that.      │")
     elif classification_score >= 30:
-        print("  │  Status: 🟠 Weak signal — review your triage logic.       │")
-        print("  │  Hull breaches going to the wrong team. People notice.     │")
-        print("  │  The nutrient synthesizer has better accuracy. Ouch.       │")
+        print("  │  Status: 🟠 Weak signal — review your triage logic.      │")
+        print("  │  Hull breaches routed to the wrong team. Containment      │")
+        print("  │  alerts sent to Telemetry. The nutrient synthesizer has   │")
+        print("  │  better judgment than this, and it thinks everything is   │")
+        print("  │  vanilla. The Admiral has started composing a memo.       │")
     else:
-        print("  │  Status: 🔴 Critical — Commander Kapoor has been notified.│")
-        print("  │  She is 0.3 AU away and she is not patient.               │")
-        print("  │  Even the Deck 9 cat is judging you. It has no thumbs.    │")
+        print("  │  Status: 🔴 CRITICAL — Commander Kapoor has been paged.  │")
+        print("  │  She is 0.3 AU away and she is not patient. Mehta has run │")
+        print("  │  out of margins to write in. The Deck 9 cat looked at    │")
+        print("  │  your scores, yawned, and walked away. Even the void     │")
+        print("  │  seems embarrassed on your behalf. Titan Outpost's last  │")
+        print("  │  triage system scored higher. They are a debris field.    │")
     print("  └─────────────────────────────────────────────────────────────┘")
 
 
@@ -959,15 +1005,25 @@ def _print_closing_message(classification_score: float) -> None:
     if classification_score >= 80:
         print("  End of scoring run. The void respects your engineering.")
         print("  Commander Kapoor has added your name to the 'Do Not Jettison' list.")
-        print("  The Deck 9 cat would purr in your general direction if it could be bothered.")
+        print("  The Deck 9 cat would headbutt your ankle approvingly, if it weren't")
+        print("  a cat, and therefore above such displays of affection. But you'd know.")
+    elif classification_score >= 65:
+        print("  End of scoring run. Solid work, operator.")
+        print("  The scoring computer has processed your results with something that,")
+        print("  if it had emotions, might be described as 'grudging respect.'")
+        print("  It does not have emotions. But the numbers speak. And they're decent.")
     elif classification_score >= 50:
-        print("  End of scoring run. The void awaits your submission.")
+        print("  End of scoring run. The void awaits your next attempt.")
         print("  May the scoring computer be less merciless next time. (It won't be.)")
         print("  The protein cubes wish you luck. They are the only ones who do.")
+        print("  Mehta has left a sticky note on your file: 'shows promise, needs work.'")
     else:
-        print("  End of scoring run. The void has opinions about your submission.")
-        print("  Mehta recommends re-reading the routing guide. All of it. Twice.")
-        print("  The Titan Outpost had better scores. And they don't exist anymore.")
+        print("  End of scoring run. The void has formed opinions about your submission.")
+        print("  Mehta recommends re-reading the routing guide. All of it. Twice. Out loud.")
+        print("  Then re-reading the mission briefing. Then sitting quietly in the dark")
+        print("  of the observation deck, contemplating the cosmic indifference of F1 scores,")
+        print("  before trying again. The Titan Outpost had better scores. They're an")
+        print("  asteroid field now, but at least they could route a hull breach correctly.")
 
 
 if __name__ == "__main__":
