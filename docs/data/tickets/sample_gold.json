@@ -78,7 +78,7 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close -- this is an automated shore leave auto-reply to a maintenance notification, not a mission signal. No action required.",
+        "next_best_action": "Close — this is an automated shore leave auto-reply to a maintenance notification, not a mission signal. Reporter is at Titan Station through March 28. No action required.",
         "remediation_steps": [
             "No action required -- auto-reply detected, close signal"
         ]
@@ -124,13 +124,14 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate production telemetry database connection pool exhaustion immediately. This is a station-critical production incident -- 40% of sensor queries are failing and life support monitoring is affected, regardless of the submitter's priority classification.",
+        "next_best_action": "Investigate production telemetry database connection pool exhaustion immediately. This is a station-critical incident despite the reporter's 'low priority' label — 40% of sensor queries are failing and life support monitoring data has gone stale. The oxygen recycler dashboard hasn't updated in 45 minutes. Override priority to P1.",
         "remediation_steps": [
-            "Investigate connection pool configuration on the primary telemetry data node",
-            "Identify and terminate long-running queries or leaked connections",
+            "Investigate connection pool configuration on the primary telemetry data node immediately",
+            "Identify and terminate long-running queries or leaked connections causing pool exhaustion",
+            "Verify life support monitoring systems are receiving data — oxygen recycler dashboard gap is the top concern",
             "Increase connection pool size or restart the primary node as immediate mitigation",
-            "Verify backup node health and confirm it is handling redirected traffic",
-            "Post-incident: conduct root cause analysis on connection pool exhaustion"
+            "Confirm backup node health and verify it is handling redirected traffic",
+            "Post-incident: conduct root cause analysis on connection pool exhaustion and add alerting on pool usage thresholds"
         ]
     },
     {
@@ -142,7 +143,7 @@
         "missing_information": [
             "previous_signal_id"
         ],
-        "next_best_action": "Escalate airlock biometric badge issue for Deck 7 -- third report without resolution. Verify badge permissions in the updated access management system post-migration and cross-reference with SIG-2834 if accessible.",
+        "next_best_action": "Escalate airlock biometric badge issue for Deck 7 — third report without resolution. Crew member has been manually overriding the door daily since the access system migration. Verify badge permissions in the updated access management system and cross-reference with SIG-2834.",
         "remediation_steps": [
             "Check crew member's badge permissions in the updated access management system",
             "Verify Deck 7 airlock access rights were properly migrated from the old system",
@@ -160,13 +161,13 @@
         "missing_information": [
             "crew_contact"
         ],
-        "next_best_action": "Initiate new crew member onboarding workflow for Alex Rivera (reporting date March 31). Coordinate console terminal, software, access, and quarters provisioning across teams. Target readiness by March 28.",
+        "next_best_action": "Initiate new crew member onboarding workflow for Alex Rivera (arriving 0600 supply shuttle, March 31). Coordinate console terminal, software, access, and quarters provisioning across teams. Target readiness by March 28 for orientation walkthrough.",
         "remediation_steps": [
             "Requisition high-spec console terminal with 32GB memory core from equipment stores",
             "Prepare standard flight software image with SciAnalytics and SpectraLab suite",
             "Request telemetry workspace access (lab-science-prod) from data operations",
             "Request data archive read access from telemetry engineering",
-            "Request Deck 3 quarters assignment and lab badge from crew services",
+            "Request Deck 3 quarters assignment (avoid atmospheric processor-adjacent quarters) and lab badge from crew services",
             "Add Alex Rivera to science-team comm channel and briefing distribution list",
             "Schedule equipment handoff and orientation walkthrough for March 28"
         ]
@@ -181,13 +182,13 @@
             "module_specs",
             "software_version"
         ],
-        "next_best_action": "Investigate iris scanner biometric approval failure. Check BioAuth registration status and recent authentication policy changes. Crew member can continue with backup PIN code in the meantime.",
+        "next_best_action": "Investigate iris scanner biometric match failure. Crew member returned from a 6-hour EVA recently — check whether BioAuth registration needs recalibration after prolonged EVA exposure. Backup PIN code works as interim access method.",
         "remediation_steps": [
             "Verify biometric registration status for this crew member in the BioAuth system",
+            "Check whether prolonged EVA exposure or lighting adjustment can affect iris scan calibration",
             "Check for recent authentication or biometric policy changes that may affect iris scanning",
-            "Have crew member verify iris scanner firmware is updated to the latest version",
             "If issue persists, remove and re-register the iris biometric pattern in BioAuth",
-            "Confirm iris scan approval works after re-registration"
+            "Confirm iris scan works after re-registration and crew member no longer needs the backup PIN"
         ]
     },
     {
@@ -202,8 +203,9 @@
         ],
         "next_best_action": "Investigate sensor array display flickering as primary issue -- likely hardware or data conduit fault. Route the NavStar Pro license question separately to Mission Software Operations.",
         "remediation_steps": [
-            "Test with a replacement data conduit cable",
+            "Test with a replacement data conduit cable to rule out cable fault",
             "Test display with a different source terminal to isolate whether it's the display or the console",
+            "Check for electromagnetic interference from nearby station systems that could cause intermittent flickering",
             "If flickering persists with new cable and source, schedule display replacement",
             "Create a separate signal for the NavStar Pro license expiry and route to Mission Software Operations"
         ]
@@ -232,7 +234,7 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close -- this is a thank-you message, not a mission signal. No action required.",
+        "next_best_action": "Close — this is a thank-you message about a resolved atmospheric recycler issue, not a new mission signal. No action required.",
         "remediation_steps": [
             "No action required -- positive feedback, close signal"
         ]
@@ -317,15 +319,15 @@
         "assigned_team": "Crew Identity & Airlock Control",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Initiate crew member departure workflow for Jessica Palmer (last duty day March 21). Coordinate across Crew Identity, Spacecraft Systems Engineering, and Telemetry & Data Core for BioScan disable, terminal wipe, file transfer, and message log archival. Note: classified investigation files require special handling.",
+        "next_best_action": "Initiate crew member departure workflow for Jessica Palmer (transferring to Kepler Station, last duty day March 21, 1800 shuttle). Coordinate across Crew Identity, Spacecraft Systems Engineering, and Telemetry & Data Core. Note: classified Sector 7-G investigation files require special handling.",
         "remediation_steps": [
-            "Schedule BioScan ID disable for 18:00 EST on March 21",
+            "Schedule BioScan ID disable for 18:00 EST on March 21 — not before, as crew member needs airlock access to reach shuttle bay",
             "Prepare airlock access and remote terminal privilege revocation to trigger simultaneously with BioScan disable",
             "Coordinate with Spacecraft Systems Engineering for terminal wipe of StarTerm X-40 (asset tag SS-T-4892)",
             "Transfer data vault file ownership to David Liu (david.liu@cdss.space)",
             "Remove from all comm channels and briefing distribution lists",
             "Archive message logs per 7-year retention protocol",
-            "Ensure classified investigation files are preserved in a secured location and access is revoked"
+            "Ensure classified Sector 7-G investigation files are preserved in a secured location and access is revoked"
         ]
     },
     {
@@ -338,13 +340,14 @@
             "module_specs",
             "sector_coordinates"
         ],
-        "next_best_action": "Investigate fabricator output queue issue on Deck 3. Multiple crew affected and jobs are queuing but nothing materializes, which suggests a network or fabricator controller issue rather than a terminal problem.",
+        "next_best_action": "Investigate fabricator output queue issue on Deck 3. Multiple crew affected and jobs are queuing but nothing materializes. Replacement hull gaskets for the observation deck viewport are needed within 72 hours — this needs resolution before a P3 becomes a P1.",
         "remediation_steps": [
             "Identify the fabricator model and check whether it is network-attached or connected via a fabrication controller",
             "Check fabrication controller spooler service status and restart if necessary",
             "Verify network connectivity between the fabricator and the controller or direct data path",
             "If network-connected, check the fabricator's network address and interface status",
-            "Clear stuck fabrication queue and test with a fresh job submission"
+            "Clear stuck fabrication queue and test with a fresh job submission",
+            "Prioritize hull gasket fabrication jobs once the fabricator is operational"
         ]
     },
     {
@@ -354,10 +357,10 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Redirect to Station Operations -- briefing chamber reservations and catering are not Mission Control functions. Provide brief guidance on how to reserve chambers via the station scheduling system and direct catering questions to Station Operations.",
+        "next_best_action": "Redirect to Station Operations — briefing chamber reservations and catering are not Mission Control functions. Note: the Mission Justification Code is only required for official mission briefings, not crew socials.",
         "remediation_steps": [
-            "Reply with instructions: in the station scheduling system, create a new event and select 'Reserve Chamber' to search for available briefing chambers",
-            "Note that catering requests should go to the Station Operations team, not Mission Control",
+            "Reply with instructions: for a crew social, select 'Social Event' as the booking type in the station scheduling system — this bypasses the Mission Justification Code requirement",
+            "Note that catering requests should go to the Station Operations team on Deck 6, not Mission Control",
             "If the crew member cannot see chamber resources in the scheduling system, verify their profile has the chamber booking permission and route to Mission Software Operations if needed"
         ]
     },
