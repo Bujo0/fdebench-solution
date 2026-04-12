@@ -2,12 +2,12 @@
 
 ## The Scenario
 
-Contoso Deep Space Station — CDSS (~450 crew members) is drowning in incoming signals. Their team of 12 mission ops analysts manually triages ~180 signals per day across 6 specialist divisions. Average time-to-route: 3.4 hours. Misroute rate: 42%. Their Admiral of Mission Operations just got off a comm-link with your manager and wants this fixed.
+Contoso Deep Space Station (CDSS) — a 2,000-crew research outpost 0.3 AU from Earth — is drowning in incoming signals. Their team of 12 mission ops analysts manually triages ~180 signals per day across 6 specialist teams. Average time-to-route: 3.4 hours. Misroute rate: 42%. At that distance, a misrouted hull breach signal means someone dies before the right team even reads it. Commander Priya Kapoor, Station Operations Chief, just got off a subspace call with your manager and wants this fixed.
 
-**Start here. Read the mission briefing:** [customer_brief.md](customer_brief.md)
+**Start here. Read the mission brief:** [customer_brief.md](customer_brief.md)
 **Then review their routing guide:** [routing_guide.md](routing_guide.md) *(heads up: it's incomplete. Some signal types aren't covered, and some rules contradict each other. Welcome to deep space operations.)*
 
-Your job: **build an AI-powered signal triage API** that CDSS can plug into their Mission Control System workflow.
+Your job: **build an AI-powered signal triage API** that CDSS can plug into their station operations workflow.
 
 ---
 
@@ -24,15 +24,15 @@ A deployed API that accepts an incoming mission signal and returns a triage deci
 ```json
 {
   "ticket_id": "SIG-4829",
-  "subject": "Oxygen recycler malfunction in Habitat Module 3",
-  "description": "The primary O2 recycler in Hab-3 started throwing anomaly codes around 0700 station time. CO2 levels rising at 0.3% per hour. Backup scrubbers are online but they're only rated for 12 hours. 53 crew in this module. We need engineering down here ASAP. - Lt. Vasquez",
+  "subject": "cant authenticate to airlock since this morning!!!",
+  "description": "Hi, I've been trying to scan into Airlock 7-C since around 0700 station time but it keeps rejecting my biometrics. I haven't changed anything. I'm on EVA prep today and have a hull inspection at 1000. URGENT PLEASE. - Sarah",
   "reporter": {
-    "name": "Lt. Vasquez",
-    "email": "vasquez@contoso.space",
-    "department": "Life Support"
+    "name": "Sarah Chen",
+    "email": "sarah.chen@cdss.space",
+    "department": "Stellar Cartography"
   },
   "created_at": "2026-03-15T07:32:00Z",
-  "channel": "emergency_beacon",
+  "channel": "subspace_relay",
   "attachments": []
 }
 ```
@@ -42,21 +42,21 @@ A deployed API that accepts an incoming mission signal and returns a triage deci
 ```json
 {
   "ticket_id": "SIG-4829",
-  "category": "Hull & Structural Systems",
-  "priority": "P1",
-  "assigned_team": "Spacecraft Systems Engineering",
-  "needs_escalation": true,
+  "category": "Crew Access & Biometrics",
+  "priority": "P2",
+  "assigned_team": "Crew Identity & Airlock Control",
+  "needs_escalation": false,
   "missing_information": [
-    "anomaly_readout",
+    "software_version",
     "affected_crew"
   ],
-  "next_best_action": "Dispatch engineering team to Hab-3 O2 recycler. Verify backup scrubber capacity and initiate crew evacuation protocol if CO2 exceeds 2.5%.",
+  "next_best_action": "Verify biometric profile status in BioScan ID and check for recent airlock policy changes affecting the Stellar Cartography crew rotation",
   "remediation_steps": [
-    "Run full diagnostics on primary O2 recycler and pull anomaly logs",
-    "Verify backup scrubber runtime and rated capacity for 53 crew",
-    "If primary recycler cannot be restarted, begin staged crew relocation to adjacent modules",
-    "Cross-check atmospheric sensors station-wide for cascading failures",
-    "Confirm resolution with reporting officer and close signal"
+    "Check BioScan ID for profile lockout or deactivated status",
+    "Verify Airlock 7-C sensor array health and recent policy deployments",
+    "If profile is locked, unlock and force biometric re-enrollment via self-service terminal",
+    "If airlock-specific, verify firmware version and re-push access profile via ShipOS MDM",
+    "Confirm resolution with reporter and close signal"
   ]
 }
 ```
@@ -65,34 +65,34 @@ See [../data/schemas/](../data/schemas/) for the formal JSON schemas.
 
 ### Valid Values for Classification Fields
 
-Your system must use **exactly** these values. The scoring is deterministic: anything not in these lists scores zero.
+Your system must use **exactly** these values. The scoring is deterministic: anything not in these lists scores zero. In space, precision isn't optional — it's survival.
 
 **Categories** (8 values):
 
 | Category | Description |
 |---|---|
-| `Crew Access & Biometrics` | Crew login, SSO, biometric auth, account provisioning, registry sync |
-| `Hull & Structural Systems` | Modules, hull integrity, airlocks, docking ports, structural components |
-| `Communications & Navigation` | Subspace relay links, comms arrays, nav beacons, signal routing, sector links |
-| `Flight Software & Instruments` | Mission apps, Mission Suite, installations, licensing, instrument integrations |
-| `Threat Detection & Containment` | Hostile contacts, malware, data breaches, compliance, security certificates |
-| `Telemetry & Data Banks` | DataVault, PersonalVault, databases, backups, data archives |
+| `Crew Access & Biometrics` | Airlock access, biometric scans, crew identity, profile provisioning, directory sync |
+| `Hull & Structural Systems` | Hull panels, workstations, display arrays, fabricators, structural peripherals |
+| `Communications & Navigation` | Subspace relay, local comms mesh, DNS beacons, signal routing, bandwidth, inter-deck links |
+| `Flight Software & Instruments` | Mission apps, Mission Suite, software installs, licensing, system integrations |
+| `Threat Detection & Containment` | Hostile contact, contamination, anomalous readings, containment protocol, security certificates |
+| `Telemetry & Data Banks` | Sensor archives, crew file stores, databases, backups, data vaults |
 | `Mission Briefing Request` | Questions, how-tos, or issues that don't fit other categories |
-| `Not a Mission Signal` | Auto-replies, spam, "thanks" messages, out-of-office |
+| `Not a Mission Signal` | Auto-replies, junk transmissions, "thanks" messages, out-of-rotation notices |
 
 **Teams** (7 values):
 
 | Team | When to route |
 |---|---|
-| `Crew Identity & Airlock Control` | Crew login, SSO, biometric auth, account provisioning, Ship Identity Registry |
-| `Spacecraft Systems Engineering` | Hull modules, structural systems, Fleet Device Manager, airlocks, hardware installs |
-| `Deep Space Communications` | Subspace relay links, comms arrays, nav beacons, signal routing, proxies |
-| `Mission Software Operations` | ATLAS Cargo System, HERMES Trade System, ORION Market Terminal, Mission Suite, internal tools |
-| `Threat Response Command` | Hostile contacts, malware, data breaches, compliance, security certificates |
-| `Telemetry & Data Core` | DataVault, PersonalVault, databases, backups, data archives |
+| `Crew Identity & Airlock Control` | Biometric access, crew identity, profile provisioning, BioScan ID |
+| `Spacecraft Systems Engineering` | Workstations, ShipOS, ShipOS MDM, peripherals, software installs |
+| `Deep Space Communications` | Subspace relay, local comms mesh, DNS beacons, signal routing, proxy |
+| `Mission Software Operations` | Navigation suite, sensor platforms, Mission Suite, internal tools |
+| `Threat Response Command` | Hostile contact, contamination, anomalous readings, containment protocol, certificates |
+| `Telemetry & Data Core` | Sensor archives, crew file stores, databases, backups, data vaults |
 | `None` | Use when the signal is not a real mission operations request |
 
-**Priorities** (4 values): `P1` (Critical), `P2` (High), `P3` (Medium), `P4` (Low)
+**Priorities** (4 values): `P1` (Red Alert), `P2` (Yellow Alert), `P3` (Caution), `P4` (Routine)
 
 ### Missing Information Vocabulary
 
@@ -101,20 +101,20 @@ When identifying missing information, use **only** values from this list. Scorin
 | Value | What it means |
 |---|---|
 | `affected_subsystem` | Which subsystem, instrument, or service is impacted |
-| `anomaly_readout` | Exact anomaly text or code observed |
-| `sequence_to_reproduce` | How to reproduce the issue |
+| `anomaly_readout` | Exact error text or diagnostic code observed |
+| `sequence_to_reproduce` | How to reproduce the anomaly |
 | `affected_crew` | How many or which crew members are impacted |
-| `habitat_conditions` | OS, sector, config specifics, system IDs |
-| `stardate` | When the issue started or was observed |
+| `habitat_conditions` | Deck, atmospheric config, system IDs, environmental specifics |
+| `stardate` | When the anomaly started or was observed |
 | `previous_signal_id` | Reference to a prior related signal |
 | `crew_contact` | Reporter contact details or alternate contact |
-| `module_specs` | Module make, model, specs |
-| `software_version` | Software or instrument version number |
-| `sector_coordinates` | Station, deck, network segment, coordinates |
+| `module_specs` | Module make, model, specifications |
+| `software_version` | Software or instrument firmware version |
+| `sector_coordinates` | Deck, section, network segment, station coordinates |
 | `mission_impact` | Mission consequence or urgency context |
-| `recurrence_pattern` | How often the issue occurs |
-| `sensor_log_or_capture` | Visual evidence or log file |
-| `biometric_method` | Biometric method, SSO type, credential type |
+| `recurrence_pattern` | How often the anomaly occurs |
+| `sensor_log_or_capture` | Visual evidence, sensor dump, or log file |
+| `biometric_method` | Biometric scan type, identity verification method |
 | `system_configuration` | System config, policy, or setup specifics |
 
 ### Health Check
@@ -131,9 +131,9 @@ Your service must also respond to `GET /health` with HTTP 200.
 | **Public eval set** | 100 | [public_eval.json](../data/tickets/public_eval.json) | Test at scale before submitting (no gold answers provided) |
 | **Hidden eval set** | 1000+ | Not in this repo | Final scoring. Includes edge cases not in the public data |
 
-Signals vary in quality. Some are clean. Some are vague, contradictory, multi-issue, garbled, or not real mission signals at all. That's not a bug in the dataset. That's what deep space operations signals actually look like.
+Signals vary in quality. Some are clean. Some are vague, contradictory, multi-issue, garbled, or not real distress calls at all. That's not a bug in the dataset. That's what real station operations transmissions look like when 2,000 crew are filing signals at 0300 during a solar flare.
 
-> **Don't overfit.** The hidden set has signal types you won't see in the public data. Build for the real world, not for 25 specific signals.
+> **Don't overfit.** The hidden set has signal types you won't see in the public data. Build for the real void, not for 25 specific signals.
 
 ---
 
@@ -230,7 +230,7 @@ This is the 0–100 functional score you should optimize for on the hidden set.
 
 #### What about `next_best_action` and `remediation_steps`?
 
-They're **required** in your response (the schema enforces it). But they're **not part of the functional score**. We look at remediation quality when we review your repo. Write good ones anyway. A system that says "investigate the issue" for every signal is telling us you phoned it in.
+They're **required** in your response (the schema enforces it). But they're **not part of the functional score**. We look at remediation quality when we review your repo. Write good ones anyway. A system that says "investigate the anomaly" for every signal is telling us you phoned it in.
 
 ---
 
@@ -245,7 +245,7 @@ Think of it like this:
 - **Functional score** asks: did your live system make the right triage decisions on hidden signals?
 - **Engineering review** asks: if we opened your repo and reviewed it like teammates, would we trust the engineering?
 
-The signal we care about is very FDE-shaped: can you take an ambiguous mission problem, turn it into a clean service, make sensible tradeoffs, and ship something that still looks solid when we ask about latency, cost, failure modes, scale, security, and testing?
+The signal we care about is very FDE-shaped: can you take an ambiguous station operations problem, turn it into a clean service, make sensible tradeoffs, and ship something that still looks solid when we ask about latency, cost, failure modes, scale, security, and testing?
 
 We're looking for: clean code, good tests, sensible architecture, infrastructure that works, and documentation that shows you *understood* the problem, not just threw tokens at it.
 
@@ -265,14 +265,14 @@ In other words, we are not just looking for a model call that happens to classif
 - Did you think about cost instead of brute-forcing everything with the biggest model?
 - Do you validate inputs and outputs so bad responses do not leak into the API contract?
 - Will the system fail gracefully when the model is slow, wrong, or unavailable?
-- Did you test the edge cases you know crew members will hit?
+- Did you test the edge cases you know station ops will hit?
 - Could another engineer clone the repo, understand the design, and extend it without guessing what you meant?
 
 **Three documents are mandatory.** Skip one and it will hurt the engineering review.
 
 #### `docs/architecture.md`
 
-- What does your service do? How does it fit into the CDSS mission?
+- What does your service do? How does it fit into CDSS's world?
 - Draw something. ASCII, Mermaid, napkin sketch, whatever. Show the moving parts.
 - Data flow: signal goes in, triage comes out, what happened in between?
 - AI pipeline: what model(s), why, how do you call them?
@@ -281,7 +281,7 @@ In other words, we are not just looking for a model call that happens to classif
 
 #### `docs/methodology.md`
 
-- How did you read the mission briefing? What jumped out?
+- How did you read the mission brief? What jumped out?
 - What was your strategy? Baseline first? Edge cases early? How did you decide what to do in what order?
 - What did you try that didn't work? What did you change?
 - How did you design and iterate on your prompts?
@@ -342,7 +342,7 @@ Not directly. They are required by the schema, but they are reviewed as part of 
 - Latency and cost are managed as engineering constraints, not ignored until the end
 - Tests cover weird signals, failure cases, and non-happy paths
 - The repo shows evidence of iteration, tradeoffs, and honest evaluation
-- The whole thing feels like something a mission operations team could actually operate
+- The whole thing feels like something a station ops team could actually operate
 
 ---
 
@@ -355,7 +355,8 @@ Not directly. They are required by the schema, but they are reviewed as part of 
 ## Quick Start
 
 ```bash
-# 1. Read the mission briefing and routing guide first. Seriously. It matters.
+# 1. Read the mission brief and routing guide first. Seriously. It matters.
+#    People's lives depend on correct signal triage.
 open docs/challenge/customer_brief.md
 open docs/challenge/routing_guide.md
 
