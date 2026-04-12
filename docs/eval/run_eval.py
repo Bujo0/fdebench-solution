@@ -330,10 +330,6 @@ def score_signal(pred: dict, gold: dict) -> dict[str, float]:
     return scores
 
 
-# Keep backward compatibility for tests that import by old name
-score_ticket = score_signal
-
-
 # ── Submission-level scoring ──────────────────────────────────────────
 
 
