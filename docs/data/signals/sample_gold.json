@@ -47,11 +47,11 @@
         ],
         "next_best_action": "Dispatch immediate on-site support to the main briefing chamber with a portable backup holo-emitter. Time-critical: 2.3B-credit colony contract review with Deep Space Command in under 25 minutes, and the Mission Director has rehearsed eleven times — do not let rehearsal #11 be for nothing.",
         "remediation_steps": [
-            "Dispatch on-site technician to the main briefing chamber immediately",
-            "Bring portable backup holo-emitter from engineering supply",
-            "Check projector power source, data conduit connections, and input source settings",
-            "If main holographic projector cannot be restored, set up portable unit before the delegation arrives",
-            "After briefing, schedule full diagnostic of the main chamber holographic projector"
+            "Dispatch on-site technician to the main briefing chamber immediately — this is a 2.3B-credit presentation and the only thing worse than a dead projector is explaining to Deep Space Command why their holographic briefing is now a puppet show",
+            "Bring portable backup holo-emitter from engineering supply — the one that works, not the one Lt. Mehta labeled 'cursed'",
+            "Check projector power source, data conduit connections, and input source settings — the emitter housing made a 'mechanical sigh,' which is not in the diagnostic manual but probably should be",
+            "If main holographic projector cannot be restored within 15 minutes, deploy the portable unit and pray the Mission Director's eleven rehearsals translate to any display surface",
+            "After the briefing, schedule full diagnostic of the main chamber holographic projector — and update the preventive maintenance schedule, because 'it worked last time' is not a maintenance strategy"
         ]
     },
     {
@@ -117,11 +117,11 @@
         "missing_information": [],
         "next_best_action": "Check service credentials and role assignments on the station data archive in data-core-prod. Restore the Data Contributor role if it was removed during the archive cleanup — which it probably was, because 'routine maintenance' and 'accidentally deleting credentials' are apparently synonyms on this station.",
         "remediation_steps": [
-            "Verify service credential expiration for the telemetry pipeline identity",
-            "Check role assignments on the station data archive in data-core-prod",
-            "Restore Data Contributor role assignment if missing",
-            "Re-run the telemetry pipeline 'prod-sensor-ingest' and verify successful execution",
-            "Investigate why the role assignment was removed during the archive cleanup to prevent recurrence"
+            "Verify service credential expiration for the telemetry pipeline identity — credentials in space expire with the same inevitability as hull gaskets, and with roughly the same consequences",
+            "Check role assignments on the station data archive in data-core-prod — the 'routine maintenance' that turned into 'routine catastrophe' likely revoked the Data Contributor role",
+            "Restore Data Contributor role assignment if missing — and document who removed it during the cleanup, because someone owes the night shift an apology",
+            "Re-run the telemetry pipeline 'prod-sensor-ingest' and verify data flows resume without 403 errors — the station sensors have been screaming into the void for hours and the void is not taking notes",
+            "Investigate why the role assignment was removed during the archive cleanup to prevent recurrence — because 'routine maintenance' should not require an incident report"
         ]
     },
     {
@@ -134,12 +134,12 @@
         "missing_information": [],
         "next_best_action": "Investigate production telemetry database connection pool exhaustion immediately. This is a station-critical incident despite the reporter's casual 'low priority' label — 40% of sensor queries are failing and life support monitoring data has gone stale. The oxygen recycler dashboard hasn't updated in 45 minutes, which is the kind of sentence that should be written in all caps with a siren emoji. Override priority to P1.",
         "remediation_steps": [
-            "Investigate connection pool configuration on the primary telemetry data node immediately",
-            "Identify and terminate long-running queries or leaked connections causing pool exhaustion",
-            "Verify life support monitoring systems are receiving data — oxygen recycler dashboard gap is the top concern",
-            "Increase connection pool size or restart the primary node as immediate mitigation",
-            "Confirm backup node health and verify it is handling redirected traffic",
-            "Post-incident: conduct root cause analysis on connection pool exhaustion and add alerting on pool usage thresholds"
+            "Investigate connection pool configuration on the primary telemetry data node immediately — the crew member said 'low priority' but the oxygen recycler dashboard disagrees, and between the two opinions, the one attached to life support wins",
+            "Identify and terminate long-running queries or leaked connections causing pool exhaustion — somewhere a query is hoarding connections like a crew member hoarding protein cubes before a supply shuttle delay",
+            "Verify life support monitoring systems are receiving data — the oxygen recycler dashboard hasn't updated in 2 hours, which is exactly the kind of sentence that should make your heart rate increase",
+            "Increase connection pool size or restart the primary data node as immediate mitigation — the backup node is handling overflow but it's the backup for a reason, and that reason is 'please don't make this my full-time job'",
+            "Confirm backup node health and verify it is handling redirected traffic without developing its own pool exhaustion — cascading failures in space are less forgiving than on Earth because there's no 'step outside for fresh air' option",
+            "Post-incident: conduct root cause analysis and add alerting on connection pool usage thresholds — so next time, the station finds out about the problem from a dashboard, not from the oxygen recycler going quiet"
         ]
     },
     {
@@ -215,11 +215,11 @@
         ],
         "next_best_action": "Investigate sensor array display flickering as primary issue — likely hardware or data conduit fault, though the possibility of the void winking at the crew member cannot be entirely ruled out. Route the NavStar Pro license expiry as a separate signal to Mission Software Operations.",
         "remediation_steps": [
-            "Test with a replacement data conduit cable to rule out cable fault",
-            "Test display with a different source terminal to isolate whether it's the display or the console",
-            "Check for electromagnetic interference from nearby station systems that could cause intermittent flickering — the proximity to the atmospheric processor is suspicious",
-            "If flickering persists with new cable and source, schedule display replacement",
-            "Create a separate signal for the NavStar Pro license expiry and route to Mission Software Operations"
+            "Test with a replacement data conduit cable to rule out cable fault — the intermittent flickering every 5-10 minutes has the rhythm of something that's dying slowly and dramatically, like a soap opera character",
+            "Test display with a different source terminal to isolate whether it's the display or the console — elimination of variables is how we do diagnostics in space, not 'wiggle things until it stops'",
+            "Check for electromagnetic interference from nearby station systems — the proximity of the long-range sensor array to the reactor coolant system on that deck is exactly the kind of design decision that seemed fine on the blueprints and regrettable in practice",
+            "If flickering persists with new cable and source, schedule display replacement before the intermittent problem becomes a permanent one — entropy always wins, but there's no reason to give it a head start",
+            "Create a separate signal for the NavStar Pro license expiry and route to Mission Software Operations — one problem per signal, like one crisis per shift, is a goal this station aspires to but never achieves"
         ]
     },
     {
@@ -232,12 +232,12 @@
         "missing_information": [],
         "next_best_action": "Initiate data breach investigation immediately. This is the kind of incident that generates three-letter acronyms, mandatory reporting deadlines, and pointed questions from people with more stars on their uniform than you have on your performance review. Classified PII exposure of 1,200 crew personnel under Space Authority data protection regulations. Determine scope of unauthorized access, identify who created the sharing link (and schedule their 'learning opportunity'), and assess notification obligations.",
         "remediation_steps": [
-            "Confirm the unsecured sharing permissions have been fully revoked and verify no other archives have similar settings",
-            "Pull data archive audit logs to identify who created the public sharing link and when",
-            "Analyze audit logs for any unauthorized access to the archive between February 15 and today",
-            "Engage Tactical Operations and Legal to assess Space Authority notification obligations",
-            "Document findings for the incident report and regulatory record",
-            "Conduct a broader data archive permissions audit across all archives containing classified crew PII"
+            "Confirm the unsecured sharing permissions have been fully revoked — every second that archive stays open is another second the Admiral's classified fitness reports are available to anyone with curiosity and a data terminal",
+            "Pull data archive audit logs to identify who created the public sharing link and when — someone turned classified PII into a spectator sport, and the station data protection officer needs to have a conversation about that",
+            "Analyze audit logs for any unauthorized access to the archive between February 15 and today — because 'nobody probably noticed' is not an acceptable finding in a crew data breach investigation",
+            "Engage Tactical Operations and Legal to assess Space Authority notification obligations — data breach regulations apply in deep space too, and the regulators don't accept 'we were 0.3 AU from Earth' as an excuse",
+            "Document findings for the incident report and regulatory record — because if there's one thing that survives longer than a space station, it's the paperwork from a data breach",
+            "Conduct a broader data archive permissions audit across all archives containing classified crew PII — if one archive was misconfigured, assume others are too until proven innocent"
         ]
     },
     {
@@ -419,11 +419,11 @@
         ],
         "next_best_action": "Investigate terminal performance degradation before the crew member's imagination turns a stuck system update into a galactic cyber-incident. Symptoms (slow performance, fan running, pop-ups about 'updating system components') are more consistent with a stuck system update or background compliance scan than malware, especially since the onboard security scanner found nothing. Check update history and system resource usage. Also investigate that transmission they opened — the one from 'defin1tely-not-malware@cdss.space.'",
         "remediation_steps": [
-            "Check system update history -- verify whether recent patches completed or are stuck retrying",
-            "Review system monitor for high CPU/disk processes (likely system update or compliance scan)",
-            "If updates are stuck, run system update troubleshooter or manually reset the update components",
-            "Verify security scanner definitions are current and run a diagnostic scan to confirm no threats",
-            "If the crew member opened a suspicious transmission, forward the transmission to security@cdss.space and notify Threat Response Command as a precaution"
+            "Check system update history — verify whether recent patches completed or are stuck retrying in an infinite loop of optimism and failure, which is also how the nutrient synthesizer handles recipe requests",
+            "Review system monitor for high CPU/disk processes — the fan running at escape velocity and the slow load times point to either a stuck update or something mining cryptocurrency, and in deep space, both are equally unwelcome",
+            "If updates are stuck, run system update troubleshooter or manually reset the update components — the pop-ups about 'updating system components' are almost certainly legitimate, but the crew member's paranoia is understandable given the sender address 'defin1tely-not-malware@cdss.space'",
+            "Verify security scanner definitions are current and run a full diagnostic scan — the scanner that couldn't find the Deck 9 cats for six months deserves skepticism, but it's still better than nothing",
+            "If the crew member did open a suspicious transmission, forward it to security@cdss.space and notify Threat Response Command — even if it's just a stuck update, the social engineering vector should be documented so Lt. Mehta can add it to his increasingly long list of things crew members should not click on"
         ]
     },
     {
@@ -452,12 +452,12 @@
         "missing_information": [],
         "next_best_action": "Investigate compute node prod-analytics-01 stuck at 'Applying configuration' after scheduled OS patching reboot. The node has been meditating peacefully for 3 hours while the command analytics dashboard remains empty. Commander briefing in 2 hours — the data needs to be there, or the person responsible for the data not being there needs to not be there either.",
         "remediation_steps": [
-            "Check boot diagnostics console output for the stuck configuration state",
-            "Attempt to connect via diagnostic serial console to bypass the stuck boot screen",
-            "If serial console access is possible, check if a startup policy or initialization script is hanging",
-            "If the node is unrecoverable, redeploy from the latest snapshot or restore from backup",
-            "Verify the command analytics dashboard is accessible once the node is restored",
-            "Post-incident: review the OS patching procedure to prevent boot failures after scheduled updates"
+            "Check boot diagnostics console output for the stuck 'Applying configuration' state — the node has been meditating for 3 hours and shows no signs of enlightenment",
+            "Attempt to connect via diagnostic serial console to bypass the stuck boot screen — if the serial port also ghosts you, the node has committed fully to its vow of silence",
+            "If serial console access is possible, check whether a startup policy or initialization script is hanging — the OS patch may have introduced a new dependency that the boot sequence is waiting for with infinite patience and zero urgency",
+            "If the node is unrecoverable via console, redeploy from the latest snapshot or restore from backup — the command analytics team's dashboard has been dark since 0500 and Commander Kapoor's morning briefing runs on those dashboards like the station runs on oxygen",
+            "Verify the command analytics dashboard is accessible once the node is restored — and apologize to the analytics team for their 3 hours of existential uncertainty",
+            "Post-incident: review the OS patching procedure to prevent boot failures — a patching reboot that doesn't come back is not a patch, it's a retirement"
         ]
     }
 ]
