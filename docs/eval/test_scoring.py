@@ -963,16 +963,4 @@ def test_submission_all_categories_and_teams():
 # ── Runner ────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    tests = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
-    passed = 0
-    failed = 0
-    for t in tests:
-        try:
-            t()
-            passed += 1
-            print(f"  ✓ {t.__name__}")
-        except AssertionError as e:
-            failed += 1
-            print(f"  ✗ {t.__name__}: {e}")
-    print(f"\n{passed} passed, {failed} failed")
-    sys.exit(1 if failed else 0)
+    sys.exit(pytest.main([__file__, "-v"]))
