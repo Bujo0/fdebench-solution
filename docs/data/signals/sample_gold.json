@@ -1,462 +1,462 @@
 [
-  {
-    "difficulty": "standard",
-    "ticket_id": "SIG-0001",
-    "category": "Communications & Navigation",
-    "priority": "P3",
-    "assigned_team": "Deep Space Communications",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Investigate warp tunnel mission partner compatibility with the latest ShipOS update. Check for known mesh comms issues on Deck 4. Verify warp tunnel mission partner v3.2 is the latest supported version. Also, maybe apologize to Station Epsilon for that spliced cargo-manifest-slash-personal-log hybrid. Lt. Mehta probably wants to forget.",
-    "remediation_steps": [
-      "Verify warp tunnel mission partner v3.2 is the latest supported version — if not, update immediately before another cargo manifest gets spliced with someone’s personal log",
-      "Check for known mesh comms connectivity issues on Deck 4 that may have surfaced after the ShipOS update — the Deck 9 cat reportedly has stable connectivity, so the hardware works",
-      "Test warp tunnel reconnection behavior after the latest ShipOS update on a reference console — preferably one that isn’t mid-transmission to an allied station",
-      "If issue persists, escalate to communications engineering for warp tunnel mission partner patch review — priority is preventing further interstellar embarrassment and unauthorized personal log syndication"
-    ]
-  },
-  {
-    "difficulty": "adversarial",
-    "ticket_id": "SIG-0002",
-    "category": "Flight Software & Instruments",
-    "priority": "P3",
-    "assigned_team": "Spacecraft Systems Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "software_version",
-      "module_specs"
-    ],
-    "next_best_action": "Investigate whether SubComm crash and phantom calendar entries are related to the console migration — in zero-g, data migration issues tend to float around until someone pins them down. Verify that crew profile and application data were properly transferred.",
-    "remediation_steps": [
-      "Verify console provisioning and station data migration completed successfully — check for orphaned profiles from the old hardware",
-      "Clear SubComm cache and reinstall if the crash persists after clearing — ghost calendar entries from 2024 shouldn't survive a fresh install",
-      "Check SubComm profile migration status and force calendar resync to purge phantom briefings (especially the Deck 9 Cat Containment Protocol — that one's been resolved)",
-      "Confirm application versions match the station's supported standard image",
-      "If issues persist after cache clear and resync, re-provision applications on the new console — sometimes a clean slate is the only cure for haunted software"
-    ]
-  },
-  {
-    "difficulty": "adversarial",
-    "ticket_id": "SIG-0003",
-    "category": "Hull & Structural Systems",
-    "priority": "P1",
-    "assigned_team": "Spacecraft Systems Engineering",
-    "needs_escalation": true,
-    "missing_information": [
-      "module_specs"
-    ],
-    "next_best_action": "Dispatch immediate on-site support to Main War Room with a portable backup holographic projector. Time-critical: critical deep-space mining treaty review with the Meridian Sector delegation in 25 minutes.",
-    "remediation_steps": [
-      "Dispatch on-site technician to Main War Room immediately",
-      "Bring portable backup holographic projector from Station Ops supply bay",
-      "Check holographic projector power source, data connections, and input source settings",
-      "If main holographic projector cannot be restored, set up portable unit before briefing starts",
-      "After briefing, schedule full diagnostic of the Main War Room holographic projector"
-    ]
-  },
-  {
-    "difficulty": "adversarial",
-    "ticket_id": "SIG-0004",
-    "category": "Crew Access & Biometrics",
-    "priority": "P2",
-    "assigned_team": "Spacecraft Systems Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_subsystem",
-      "anomaly_readout",
-      "module_specs",
-      "sequence_to_reproduce"
-    ],
-    "next_best_action": "Contact crew member to gather specifics: which subsystems are inaccessible, what anomaly readouts appear, what console they are using, and when the issue started. Cannot triage effectively without more detail. The protein cube complaint is noted but falls outside our jurisdiction.",
-    "remediation_steps": [
-      "Contact crew member to gather specific details — 'nothing works' and 'everything is down' are statements of emotion, not diagnostic data",
-      "Determine which subsystems and applications are actually affected (vs. which are being blamed by a distressed crew member who hasn't had correctly flavored protein cubes)",
-      "Check if the issue is isolated to this crew member or affecting others in Stellar Cartography",
-      "Once root cause is identified, route to the appropriate specialist team — and maybe mention the protein cube issue to Station Facilities, separately"
-    ]
-  },
-  {
-    "difficulty": "standard",
-    "ticket_id": "SIG-0005",
-    "category": "Not a Mission Signal",
-    "priority": "P4",
-    "assigned_team": "None",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Close — this is a cryo-sleep auto-reply, not a mission signal. The crew member is literally frozen and will return your signal in 6–18 months. Filing this as a maintenance request would be like asking an asteroid for directions — technically possible, profoundly unhelpful.",
-    "remediation_steps": [
-      "Verify signal is an automated cryo-sleep out-of-rotation reply — not a mission signal requiring triage",
-      "Mark as 'Not a Mission Signal' and close — no team assignment needed, no crew member to wake (waking crew from cryo-sleep without authorization is a court-martial offense and also very rude)",
-      "If the original signal SIG-0847 requires a response, route to the colleague mentioned (alex.wu@cdss.space) — they're presumably not frozen"
-    ]
-  },
-  {
-    "difficulty": "adversarial",
-    "ticket_id": "SIG-0006",
-    "category": "Threat Detection & Containment",
-    "priority": "P2",
-    "assigned_team": "Threat Response Command",
-    "needs_escalation": true,
-    "missing_information": [
-      "stardate"
-    ],
-    "next_best_action": "Initiate security incident investigation immediately — unauthorized BioScan ID access attempts from the Tau Ceti relay station are not normal space weather. Review authentication logs, check personal data vault audit trail for document access, and verify the passphrase change neutralized the threat vector.",
-    "remediation_steps": [
-      "Review authentication logs for the crew member's account over the past 48 hours — six sign-in attempts from Tau Ceti is three too many to ignore",
-      "Check data vault audit trail for any unauthorized file access or downloads of diplomatic treaties and classified sensor archives",
-      "Verify passphrase change was successful and biometric verification is active — the attacker may have cached old credentials",
-      "If unauthorized access is confirmed, escalate to incident response and notify station containment officer — diplomatic treaties in hostile hands is a P1 waiting to happen",
-      "Brief crew member on interim security measures and monitor the account for further anomalies from any relay station"
-    ]
-  },
-  {
-    "difficulty": "standard",
-    "ticket_id": "SIG-0007",
-    "category": "Telemetry & Data Banks",
-    "priority": "P2",
-    "assigned_team": "Telemetry & Data Core",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Check service principal biometric credentials and access control role assignments on the Deep Storage Array in telemetry-core-prod. Restore the Telemetry Data Contributor role if it was removed during the station security audit.",
-    "remediation_steps": [
-      "Check service principal 'svc-telemetry-ingest' role assignments in BioScan ID — verify the role hasn't been revoked, expired, or accidentally reassigned to the Deck 9 cat (it has happened before, don't ask)",
-      "If role was revoked during the Station Core module migration, reinstate read/write access to /telemetry/raw on the Deep Storage Array",
-      "Verify the target blob store endpoint hasn't changed post-migration — a stale endpoint in the pipeline config would explain the 403",
-      "Run a manual pipeline test with verbose logging to confirm the fix before the next nightly cycle at 02:00",
-      "Once resolved, verify the 3 cycles of missing telemetry data can be backfilled — the Exobiology team's cat behavioral dataset must not have gaps, or there will be charts about the gaps, and those charts will have footnotes"
-    ]
-  },
-  {
-    "difficulty": "adversarial",
-    "ticket_id": "SIG-0008",
-    "category": "Telemetry & Data Banks",
-    "priority": "P1",
-    "assigned_team": "Telemetry & Data Core",
-    "needs_escalation": true,
-    "missing_information": [],
-    "next_best_action": "Investigate production crew database connection pool exhaustion immediately — this is a crew-facing production incident disguised as a casual aside. The reporter’s tone is calm. The situation is not. Crew members cannot see their EVA schedules, which means someone might accidentally spacewalk into an asteroid field. Treat the reporter’s understatement as a cry for help wrapped in sarcasm.",
-    "remediation_steps": [
-      "Investigate connection pool configuration on the primary data node — connection pool exhaustion on a space station is the database equivalent of running out of oxygen",
-      "Identify and terminate long-running queries or leaked connections that are hoarding the pool",
-      "Increase connection pool size or restart the primary data node as immediate mitigation — crew members need their EVA schedules before they float into an asteroid field",
-      "Verify backup data node health and confirm it is handling redirected traffic without strain",
-      "Post-incident: conduct root cause analysis on connection pool exhaustion and file station engineering report — Mehta will want a margin note about this one"
-    ]
-  },
-  {
-    "difficulty": "adversarial",
-    "ticket_id": "SIG-0009",
-    "category": "Crew Access & Biometrics",
-    "priority": "P3",
-    "assigned_team": "Crew Identity & Airlock Control",
-    "needs_escalation": true,
-    "missing_information": [
-      "previous_signal_id"
-    ],
-    "next_best_action": "Escalate airlock access code issue for Deck 7 — third report without resolution, crew member has been floating in corridors like a very annoyed balloon. Verify airlock access code permissions in the updated access management system and check whether the migration actually completed for this crew member or just claimed to. This is the kind of repeat failure that generates strongly worded memos.",
-    "remediation_steps": [
-      "Check crew member's airlock access code permissions in the updated access management system — third time asking, so verify thoroughly",
-      "Verify Deck 7 access rights were properly migrated from the old system (not just marked as migrated while the actual data sits in a legacy queue somewhere being philosophical)",
-      "If permissions appear correct, test the physical airlock access code and airlock reader on Deck 7 — hardware fails too, especially when you're optimistic",
-      "Escalate to station facilities management if airlock access code and permissions are both confirmed working — at this point, the airlock might just have opinions",
-      "Follow up with crew member to confirm resolution — she should not have to wait in zero-g corridors. Nobody should. It's undignified and cold."
-    ]
-  },
-  {
-    "difficulty": "standard",
-    "ticket_id": "SIG-0010",
-    "category": "Mission Briefing Request",
-    "priority": "P3",
-    "assigned_team": "Spacecraft Systems Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "crew_contact"
-    ],
-    "next_best_action": "Initiate new crew member onboarding workflow for Alex Rivera (arrival date March 31). Coordinate hardware, software, access provisioning, and data permissions across all relevant teams before the 09:00 supply shuttle lands. Nobody gets stranded in a corridor again.",
-    "remediation_steps": [
-      "Create BioScan ID crew account and schedule biometric enrollment at the Deck 2 BioAuth panel — confirm enrollment slot before arrival so they're not standing at an airlock watching people walk through it",
-      "Provision workstation console and comm device with standard Astro-Science image and software suite (FlightOS, Quantum Analyzer, IRIS Holographic Display, spectral analysis toolkit)",
-      "Configure data access to Exobiology and Dark Matter shared sensor archives on Station Core — verify access scopes with the Astro-Science section chief",
-      "Set up SubComm profile with briefing room booking access and station distribution list membership",
-      "Assign ShipOS MDM enrollment for the new comm device and verify automatic policy push on first activation",
-      "Confirm all provisioning will be ready before March 31 09:00 shuttle arrival — the corridor-wandering incident from last rotation must not be repeated"
-    ]
-  },
-  {
-    "difficulty": "standard",
-    "ticket_id": "SIG-0011",
-    "category": "Crew Access & Biometrics",
-    "priority": "P3",
-    "assigned_team": "Crew Identity & Airlock Control",
-    "needs_escalation": false,
-    "missing_information": [
-      "module_specs",
-      "software_version"
-    ],
-    "next_best_action": "Investigate biometric verification push approval failure in the Authenticator app. Check BioScan ID biometric verification registration status and recent policy changes. Crew member can continue with backup code fallback in the meantime.",
-    "remediation_steps": [
-      "Verify biometric verification registration status for this crew member in BioScan ID — it may have silently deregistered itself, which is not technically sentient behavior but feels suspicious",
-      "Check for recent Station Access Protocol or biometric verification policy changes that may affect push notifications — policy changes on a space station propagate at the speed of bureaucracy, which is slower than light",
-      "Have crew member verify Authenticator app is updated to the latest station-approved version — if the app hasn't updated since the last ShipOS patch, the push notifications may be arriving in a version of reality the app no longer recognizes",
-      "If issue persists, remove and re-register the biometric verification method in BioScan ID — the 'turn it off and on again' of identity management, but in space",
-      "Confirm push approval works after re-registration and test with a routine station authentication — have the crew member try while standing still, because zero-g spin can affect biometric capture in ways the vendor documentation refuses to acknowledge"
-    ]
-  },
-  {
-    "difficulty": "standard",
-    "ticket_id": "SIG-0012",
-    "category": "Hull & Structural Systems",
-    "priority": "P3",
-    "assigned_team": "Spacecraft Systems Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "module_specs",
-      "affected_crew"
-    ],
-    "next_best_action": "Investigate holographic display flickering as primary issue — likely hardware or a loose data conduit rattled free by docking vibrations (Deck 5 gets the worst of it every time a cargo shuttle berths). Route the FlightOS license question separately to Mission Software Operations before it auto-expires and the nav console starts displaying nothing but the CDSS screensaver.",
-    "remediation_steps": [
-      "Test with a replacement data conduit from Station Ops supply — the Deck 5 conduits have a known tendency to work themselves loose, especially near the docking pylons",
-      "Test holographic display with a different source console to isolate whether the flickering originates from the display unit or the nav console's output module",
-      "If flickering persists with new conduit and alternate source, schedule holographic display replacement through Spacecraft Systems Engineering — submit a hull maintenance request so it doesn't get lost in the cargo requisition queue",
-      "Create a separate signal for the FlightOS license expiry and route to Mission Software Operations — these are two distinct issues and Mehta's routing guide is very clear about not bundling unrelated problems into one signal"
-    ]
-  },
-  {
-    "difficulty": "adversarial",
-    "ticket_id": "SIG-0013",
-    "category": "Threat Detection & Containment",
-    "priority": "P1",
-    "assigned_team": "Threat Response Command",
-    "needs_escalation": true,
-    "missing_information": [],
-    "next_best_action": "Initiate containment breach investigation immediately. This is a potential regulatory incident involving sensitive personnel data exposure of 1,200 crew members under Galactic Data Protection guidelines. Determine scope of external access, identify who created the sharing link, and assess notification obligations. Commander Kapoor will want a full briefing — have answers ready before she finds you in the corridor.",
-    "remediation_steps": [
-      "Confirm the external sharing link has been fully revoked and verify no other archives in the Deck Gamma data vaults have similar 'Anyone with the subspace link' permissions",
-      "Pull mission log audit trails to identify who created the public sharing link and when — cross-reference with docking records in case this was an external actor with temporary station access",
-      "Analyze audit logs for any external access to the archive between stardate February 15 and today — flag any access from unrecognized vessel transponder codes",
-      "Engage Space Law Division and Station Compliance to assess Galactic Data Protection notification obligations — if the data includes biometric records, the timeline is shorter",
-      "Document findings for the station incident report and galactic regulatory record — Commander Kapoor's standing order is that containment breaches get full write-ups, not summaries",
-      "Conduct a broader mission log permissions audit across all archives containing sensitive crew data — if one vault was misconfigured, assume others might be too"
-    ]
-  },
-  {
-    "difficulty": "standard",
-    "ticket_id": "SIG-0014",
-    "category": "Not a Mission Signal",
-    "priority": "P4",
-    "assigned_team": "None",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Close — this is a thank-you message, not a mission signal. Rare evidence of crew member satisfaction, which on this station is rarer than a fabricator that works on the first try. Savor it.",
-    "remediation_steps": [
-      "Close signal — no action required beyond basking in the warm glow of crew gratitude, which is the closest thing to sunlight you'll get at 0.3 AU",
-      "If original signal is still open, verify it's resolved and close that too — a crew member said 'you're the best,' which is basically a medal of honor in Mission Ops"
-    ]
-  },
-  {
-    "difficulty": "adversarial",
-    "ticket_id": "SIG-0015",
-    "category": "Communications & Navigation",
-    "priority": "P2",
-    "assigned_team": "Deep Space Communications",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_subsystem",
-      "habitat_conditions"
-    ],
-    "next_best_action": "Investigate 200ms-to-50ms latency regression on the Gamma Quadrant relay probe deployment path before the Europa shift. Check comms path to the relay station, recent defense grid or routing changes, and whether the latency is on CDSS’s side or the relay station side.",
-    "remediation_steps": [
-      "Check communications latency metrics on the path between CDSS’s Gamma Quadrant relay cluster and the relay station",
-      "Review recent defense grid rule, routing, or relay proxy changes that may affect the deployment path",
-      "Compare current latency baseline against historical data to confirm the regression",
-      "If latency is on CDSS’s side, escalate to communications engineering for immediate remediation before Europa shift",
-      "If relay-station-side, contact relay station operations and notify navigation desk of potential impact"
-    ]
-  },
-  {
-    "difficulty": "standard",
-    "ticket_id": "SIG-0016",
-    "category": "Flight Software & Instruments",
-    "priority": "P2",
-    "assigned_team": "Mission Software Operations",
-    "needs_escalation": false,
-    "missing_information": [
-      "habitat_conditions"
-    ],
-    "next_best_action": "Investigate unified crew authentication token invalidation after passphrase rotation. Likely the FlightOS unified crew authentication token needs to be reissued after the station passphrase change. Time-sensitive due to month-end resource reconciliation deadline.",
-    "remediation_steps": [
-      "Verify the crew member's BioScan ID session and quantum auth token are refreshed — passphrase rotation should not orphan active sessions, but Station Core has opinions about session management that aren't always communicated in advance",
-      "Clear FlightOS cached credentials and re-authenticate with new passphrase — FlightOS caches credentials the way the Deck 9 cat hoards stolen comm badges: aggressively and without obvious logic",
-      "If FlightOS still errors, check the fleet navigation system sign-in logs for authentication failures or account lockout events — account lockout after passphrase rotation is the kind of irony that keeps ops officers awake during what passes for night in space",
-      "Verify that BioScan ID sync has propagated the new passphrase to all federated station services — replication lag between identity systems is the silent killer of productivity and occasionally of morale",
-      "If all authentication is correct and FlightOS still won't load, reinstall the FlightOS client — sometimes the only fix is the nuclear option, which on a space station is a more loaded metaphor than we'd like"
-    ]
-  },
-  {
-    "difficulty": "adversarial",
-    "ticket_id": "SIG-0017",
-    "category": "Flight Software & Instruments",
-    "priority": "P3",
-    "assigned_team": "Spacecraft Systems Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "affected_subsystem",
-      "anomaly_readout",
-      "module_specs",
-      "sequence_to_reproduce"
-    ],
-    "next_best_action": "Contact reporter on Deck 5 (Robert Chen — the other one, not the one in Resource Allocation — robert.chen2@cdss.space) to determine what 'the main one' is and what 'the thing' does. Prepare for the possibility that the answer will be equally vague.",
-    "remediation_steps": [
-      "Contact Robert Chen (robert.chen2@cdss.space, Flight Operations, Deck 5) and ask structured questions — 'which application?', 'what does the error say?', 'can you take a sensor capture?' — do not accept 'the main one' as an answer",
-      "If the issue cannot be identified remotely, dispatch a technician to Deck 5 to observe the problem firsthand — sometimes the fastest path to diagnosis is watching someone demonstrate 'the thing'",
-      "Once the affected subsystem is identified, re-triage with correct category, priority, and routing information",
-      "Log this signal as an example of why the station's signal submission form should have required fields — a request that has been filed, ignored, and re-filed approximately once per crew rotation since the station was commissioned"
-    ]
-  },
-  {
-    "difficulty": "adversarial",
-    "ticket_id": "SIG-0018",
-    "category": "Flight Software & Instruments",
-    "priority": "P1",
-    "assigned_team": "Mission Software Operations",
-    "needs_escalation": true,
-    "missing_information": [],
-    "next_best_action": "Dispatch support to Deck 8 command war room immediately. Fleet Admiral-level VIP signal — treat as one priority level higher. Investigate SubComm sharing policy blocking screen share for this crew member. Active command briefing with allied fleet commanders.",
-    "remediation_steps": [
-      "Dispatch technician to the Deck 8 command war room immediately",
-      "Check Station Access Protocol and SubComm meeting policies applied to Carlos Martinez’s crew account",
-      "Verify whether the ‘Sharing is blocked by your station’s policy’ error is caused by a Data Loss Prevention Grid policy, SubComm admin policy, or Station Access Protocol restriction",
-      "As immediate workaround: have someone else share the tactical display on his behalf, or use the war room SubComm device with a different crew account",
-      "Once the briefing is unblocked, investigate and resolve the underlying policy conflict"
-    ]
-  },
-  {
-    "difficulty": "standard",
-    "ticket_id": "SIG-0019",
-    "category": "Mission Briefing Request",
-    "priority": "P2",
-    "assigned_team": "Crew Identity & Airlock Control",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Initiate crew member transfer workflow for Jessica Palmer (last duty cycle March 21). Coordinate across Crew Identity, Spacecraft Systems Engineering, and Telemetry & Data Core for crew account disable, console wipe, file transfer, and message archival. Note: sensitive threat investigation files require special handling.",
-    "remediation_steps": [
-      "Schedule BioScan ID crew account disable for 1800 station time on March 21",
-      "Prepare warp tunnel and remote access revocation to trigger simultaneously with crew account disable",
-      "Coordinate with Spacecraft Systems Engineering for console wipe of OrbitalCore Console 5540 (asset tag CT-L-4892)",
-      "Transfer data vault and mission log file ownership to David Liu (david.liu@cdss.space)",
-      "Remove from all comm channels and SubComm groups",
-      "Archive message archive per 7-cycle archival protocol",
-      "Ensure sensitive threat investigation files are preserved in a secured location and access is revoked"
-    ]
-  },
-  {
-    "difficulty": "adversarial",
-    "ticket_id": "SIG-0020",
-    "category": "Hull & Structural Systems",
-    "priority": "P3",
-    "assigned_team": "Deep Space Communications",
-    "needs_escalation": false,
-    "missing_information": [
-      "module_specs",
-      "sector_coordinates"
-    ],
-    "next_best_action": "Investigate molecular fabricator queue issue on Deck 3 — yes, that Deck 3 fabricator. Multiple crew members confirm jobs queue but nothing materializes, which is exactly the kind of metaphysical crisis this fabricator specializes in. Route to Deep Space Communications to check network path to fabricator queue manager — this is a networked fabricator, per the routing guide.",
-    "remediation_steps": [
-      "Verify whether the Deck 3 fabricator is network-connected or locally connected — this determines whether it's a Deep Space Communications issue (network queue) or Spacecraft Systems (local hardware). Yes, this is the fabricator. THE fabricator. The one in the orientation guide.",
-      "Check network connectivity to the fabrication queue server — if the fabricator can't reach the queue, jobs will sit there forever, like signals in a misrouted queue, like that metaphor isn't already giving you anxiety",
-      "If network connectivity is confirmed, check the fabricator's print spooler service status on the local controller — restart if stalled",
-      "If the fabricator is locally connected, route to Spacecraft Systems for hardware diagnosis — the Deck 3 unit has been printing everything 2mm too thick since March and has its own entry in the known-issues database, which is longer than some crew members' personnel files",
-      "If none of the above resolves it, escalate to the fabricator manufacturer — and good luck getting a warranty technician at 0.3 AU"
-    ]
-  },
-  {
-    "difficulty": "standard",
-    "ticket_id": "SIG-0021",
-    "category": "Mission Briefing Request",
-    "priority": "P4",
-    "assigned_team": "Mission Software Operations",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Provide guidance on how to book briefing rooms via SubComm (add room resource) and direct catering questions to Station Facilities. This is the kind of signal that makes you wonder what the orientation program actually covers — 45 minutes on airlock safety, zero on room booking. Priorities.",
-    "remediation_steps": [
-      "Direct crew member to SubComm > Calendar > Add Room Resource > search 'Deck 4' — the briefing rooms are listed there, hiding in plain sight like most useful station features",
-      "For catering: direct to Station Services portal at services.cdss.space — they handle provisions for crew events and are surprisingly accommodating about dietary restrictions, especially compared to the nutrient synthesizer",
-      "Provide the Station Facilities quick-start guide link if available — new crew members shouldn't have to file signals to book rooms, but here we are, 0.3 AU from common sense",
-      "Close signal after confirming the crew member can navigate the booking interface — if SubComm's UI confuses them, that's not their fault, it confuses everyone"
-    ]
-  },
-  {
-    "difficulty": "standard",
-    "ticket_id": "SIG-0022",
-    "category": "Threat Detection & Containment",
-    "priority": "P1",
-    "assigned_team": "Threat Response Command",
-    "needs_escalation": true,
-    "missing_information": [
-      "system_configuration",
-      "habitat_conditions"
-    ],
-    "next_best_action": "Renew or replace the quantum encryption certificate on crew-api.cdss.space before it expires on March 20. This is a production-facing API gateway — expiry will break all external fleet integrations. Treat as P1 given 3-day window and the fact that the original provisioner transferred off-station.",
-    "remediation_steps": [
-      "Identify the current certificate authority and certificate type (station PKI, external fleet CA, or automated quantum cert provisioner)",
-      "Determine whether auto-renewal was configured or if the cert was manually provisioned",
-      "If auto-renewal exists, trigger a manual renewal cycle and verify the new cert is issued",
-      "If manual, generate a CSR, obtain a new certificate from the CA, and install it on the fleet API gateway",
-      "Verify the new certificate is correctly installed and all fleet connections work without TLS errors",
-      "Configure auto-renewal and bridge monitoring alerts to prevent recurrence"
-    ]
-  },
-  {
-    "difficulty": "adversarial",
-    "ticket_id": "SIG-0023",
-    "category": "Hull & Structural Systems",
-    "priority": "P3",
-    "assigned_team": "Spacecraft Systems Engineering",
-    "needs_escalation": false,
-    "missing_information": [
-      "module_specs",
-      "anomaly_readout"
-    ],
-    "next_best_action": "Investigate workstation console performance degradation. Symptoms (slow performance, fans running, pop-ups about ‘updating system components’) are more consistent with a stuck ShipOS update or background ShipOS MDM policy compliance than malicious code, especially since SentinelGrid found nothing. Check update history and system resource usage.",
-    "remediation_steps": [
-      "Check ShipOS update history — verify whether recent updates completed or are stuck retrying",
-      "Review Console Process Monitor for high compute/storage load (likely ShipOS Update or ShipOS MDM compliance)",
-      "If updates are stuck, run ShipOS Update diagnostic suite or manually reset the update components",
-      "Verify SentinelGrid definitions are current and run a quick scan to confirm no threats",
-      "If the crew member opened a suspicious subspace message, forward the message to threats@cdss.space and notify Threat Response Command as a precaution"
-    ]
-  },
-  {
-    "difficulty": "standard",
-    "ticket_id": "SIG-0024",
-    "category": "Threat Detection & Containment",
-    "priority": "P3",
-    "assigned_team": "Threat Response Command",
-    "needs_escalation": false,
-    "missing_information": [],
-    "next_best_action": "Confirm this is a hostile signal/scam transmission from an external vessel and advise the crew member not to respond. Nobody has won 5,000,000 galactic credits. The Intergalactic Prize Committee does not exist. The only thing at that relay address is someone who wants your biometric passphrase, and they already have your optimism.",
-    "remediation_steps": [
-      "Block sender domain (totallylegit-prizes.ng) at the defense grid level — the domain name alone should have been a clue, but hope springs eternal even at 0.3 AU",
-      "Advise crew member Varsha Kim not to click any links, respond, or — and I cannot believe this needs saying — attempt to claim the 5,000,000 galactic credits",
-      "Submit hostile signal indicators (sender domain, headers, relay route) to SentinelGrid for pattern matching against known scam transmission campaigns",
-      "No further action — this is a social engineering attempt, not a real prize. The only thing you win by responding is a compromised BioScan ID and a conversation with Threat Response that you'd rather not have"
-    ]
-  },
-  {
-    "difficulty": "adversarial",
-    "ticket_id": "SIG-0025",
-    "category": "Telemetry & Data Banks",
-    "priority": "P1",
-    "assigned_team": "Telemetry & Data Core",
-    "needs_escalation": true,
-    "missing_information": [],
-    "next_best_action": "Investigate Station Core node prod-analytics-01 stuck at 'Applying station settings' after scheduled OS patching reboot. Command analytics dashboard depends on this node and Commander Kapoor's 0900 briefing is in 2 hours. Failure to restore this node will result in a briefing without data, which is the operational equivalent of navigating an asteroid field blindfolded. Commander Kapoor without her morning data is a force of nature. Act accordingly.",
-    "remediation_steps": [
-      "Access the Station Core management console and check prod-analytics-01 boot status — if it's stuck at 'Applying station settings', the OS patch may have introduced a driver conflict or a startup service is hanging",
-      "If the remote console is unresponsive, request a hard reset via the Station Core hypervisor management interface — document the timestamp for the post-incident review",
-      "Once the node is responsive, check OS patch installation logs for errors and verify all station services started correctly — pay special attention to the monitoring agent and database services",
-      "Verify the 12-hour data gap in the analytics pipeline — determine if the upstream data can be replayed from the ingestion buffer or if manual backfill is needed",
-      "Post-incident: review the OS patching procedure to prevent unattended reboot failures — a production node that silently disappears for 12 hours after a 'routine' patch is the kind of failure mode that gets its own section in the station incident report. And possibly its own commemorative plaque on Deck 7, next to the one about the protein cube incident"
-    ]
-  }
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-0001",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate warp tunnel mission partner compatibility with the latest ShipOS update. Check for known mesh comms issues on Deck 4. Verify warp tunnel mission partner v3.2 is the latest supported version. Also, maybe apologize to Station Epsilon for that spliced cargo-manifest-slash-personal-log hybrid. Lt. Mehta probably wants to forget.",
+        "remediation_steps": [
+            "Verify warp tunnel mission partner v3.2 is the latest supported version — if not, update immediately before another cargo manifest gets spliced with someone’s personal log",
+            "Check for known mesh comms connectivity issues on Deck 4 that may have surfaced after the ShipOS update — the Deck 9 cat reportedly has stable connectivity, so the hardware works",
+            "Test warp tunnel reconnection behavior after the latest ShipOS update on a reference console — preferably one that isn’t mid-transmission to an allied station",
+            "If issue persists, escalate to communications engineering for warp tunnel mission partner patch review — priority is preventing further interstellar embarrassment and unauthorized personal log syndication"
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-0002",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "software_version",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate whether SubComm crash and phantom calendar entries are related to the console migration — in zero-g, data migration issues tend to float around until someone pins them down. Verify that crew profile and application data were properly transferred.",
+        "remediation_steps": [
+            "Verify console provisioning and station data migration completed successfully — check for orphaned profiles from the old hardware",
+            "Clear SubComm cache and reinstall if the crash persists after clearing — ghost calendar entries from 2024 shouldn't survive a fresh install",
+            "Check SubComm profile migration status and force calendar resync to purge phantom briefings (especially the Deck 9 Cat Containment Protocol — that one's been resolved)",
+            "Confirm application versions match the station's supported standard image",
+            "If issues persist after cache clear and resync, re-provision applications on the new console — sometimes a clean slate is the only cure for haunted software"
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-0003",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "module_specs"
+        ],
+        "next_best_action": "Dispatch immediate on-site support to Main War Room with a portable backup holographic projector. Time-critical: critical deep-space mining treaty review with the Meridian Sector delegation in 25 minutes.",
+        "remediation_steps": [
+            "Dispatch on-site technician to Main War Room immediately",
+            "Bring portable backup holographic projector from Station Ops supply bay",
+            "Check holographic projector power source, data connections, and input source settings",
+            "If main holographic projector cannot be restored, set up portable unit before briefing starts",
+            "After briefing, schedule full diagnostic of the Main War Room holographic projector"
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-0004",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout",
+            "module_specs",
+            "sequence_to_reproduce"
+        ],
+        "next_best_action": "Contact crew member to gather specifics: which subsystems are inaccessible, what anomaly readouts appear, what console they are using, and when the issue started. Cannot triage effectively without more detail. The protein cube complaint is noted but falls outside our jurisdiction.",
+        "remediation_steps": [
+            "Contact crew member to gather specific details — 'nothing works' and 'everything is down' are statements of emotion, not diagnostic data",
+            "Determine which subsystems and applications are actually affected (vs. which are being blamed by a distressed crew member who hasn't had correctly flavored protein cubes)",
+            "Check if the issue is isolated to this crew member or affecting others in Stellar Cartography",
+            "Once root cause is identified, route to the appropriate specialist team — and maybe mention the protein cube issue to Station Facilities, separately"
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-0005",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Close — this is a cryo-sleep auto-reply, not a mission signal. The crew member is literally frozen and will return your signal in 6–18 months. Filing this as a maintenance request would be like asking an asteroid for directions — technically possible, profoundly unhelpful.",
+        "remediation_steps": [
+            "Verify signal is an automated cryo-sleep out-of-rotation reply — not a mission signal requiring triage",
+            "Mark as 'Not a Mission Signal' and close — no team assignment needed, no crew member to wake (waking crew from cryo-sleep without authorization is a court-martial offense and also very rude)",
+            "If the original signal SIG-0847 requires a response, route to the colleague mentioned (alex.wu@cdss.space) — they're presumably not frozen"
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-0006",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "stardate"
+        ],
+        "next_best_action": "Initiate security incident investigation immediately — unauthorized BioScan ID access attempts from the Tau Ceti relay station are not normal space weather. Review authentication logs, check personal data vault audit trail for document access, and verify the passphrase change neutralized the threat vector.",
+        "remediation_steps": [
+            "Review authentication logs for the crew member's account over the past 48 hours — six sign-in attempts from Tau Ceti is three too many to ignore",
+            "Check data vault audit trail for any unauthorized file access or downloads of diplomatic treaties and classified sensor archives",
+            "Verify passphrase change was successful and biometric verification is active — the attacker may have cached old credentials",
+            "If unauthorized access is confirmed, escalate to incident response and notify station containment officer — diplomatic treaties in hostile hands is a P1 waiting to happen",
+            "Brief crew member on interim security measures and monitor the account for further anomalies from any relay station"
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-0007",
+        "category": "Telemetry & Data Banks",
+        "priority": "P2",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Check service principal biometric credentials and access control role assignments on the Deep Storage Array in telemetry-core-prod. Restore the Telemetry Data Contributor role if it was removed during the station security audit.",
+        "remediation_steps": [
+            "Check service principal 'svc-telemetry-ingest' role assignments in BioScan ID — verify the role hasn't been revoked, expired, or accidentally reassigned to the Deck 9 cat (it has happened before, don't ask)",
+            "If role was revoked during the Station Core module migration, reinstate read/write access to /telemetry/raw on the Deep Storage Array",
+            "Verify the target blob store endpoint hasn't changed post-migration — a stale endpoint in the pipeline config would explain the 403",
+            "Run a manual pipeline test with verbose logging to confirm the fix before the next nightly cycle at 02:00",
+            "Once resolved, verify the 3 cycles of missing telemetry data can be backfilled — the Exobiology team's cat behavioral dataset must not have gaps, or there will be charts about the gaps, and those charts will have footnotes"
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-0008",
+        "category": "Telemetry & Data Banks",
+        "priority": "P1",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate production crew database connection pool exhaustion immediately — this is a crew-facing production incident disguised as a casual aside. The reporter’s tone is calm. The situation is not. Crew members cannot see their EVA schedules, which means someone might accidentally spacewalk into an asteroid field. Treat the reporter’s understatement as a cry for help wrapped in sarcasm.",
+        "remediation_steps": [
+            "Investigate connection pool configuration on the primary data node — connection pool exhaustion on a space station is the database equivalent of running out of oxygen",
+            "Identify and terminate long-running queries or leaked connections that are hoarding the pool",
+            "Increase connection pool size or restart the primary data node as immediate mitigation — crew members need their EVA schedules before they float into an asteroid field",
+            "Verify backup data node health and confirm it is handling redirected traffic without strain",
+            "Post-incident: conduct root cause analysis on connection pool exhaustion and file station engineering report — Mehta will want a margin note about this one"
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-0009",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": true,
+        "missing_information": [
+            "previous_signal_id"
+        ],
+        "next_best_action": "Escalate airlock access code issue for Deck 7 — third report without resolution, crew member has been floating in corridors like a very annoyed balloon. Verify airlock access code permissions in the updated access management system and check whether the migration actually completed for this crew member or just claimed to. This is the kind of repeat failure that generates strongly worded memos.",
+        "remediation_steps": [
+            "Check crew member's airlock access code permissions in the updated access management system — third time asking, so verify thoroughly",
+            "Verify Deck 7 access rights were properly migrated from the old system (not just marked as migrated while the actual data sits in a legacy queue somewhere being philosophical)",
+            "If permissions appear correct, test the physical airlock access code and airlock reader on Deck 7 — hardware fails too, especially when you're optimistic",
+            "Escalate to station facilities management if airlock access code and permissions are both confirmed working — at this point, the airlock might just have opinions",
+            "Follow up with crew member to confirm resolution — she should not have to wait in zero-g corridors. Nobody should. It's undignified and cold."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-0010",
+        "category": "Mission Briefing Request",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "crew_contact"
+        ],
+        "next_best_action": "Initiate new crew member onboarding workflow for Alex Rivera (arrival date March 31). Coordinate hardware, software, access provisioning, and data permissions across all relevant teams before the 09:00 supply shuttle lands. Nobody gets stranded in a corridor again.",
+        "remediation_steps": [
+            "Create BioScan ID crew account and schedule biometric enrollment at the Deck 2 BioAuth panel — confirm enrollment slot before arrival so they're not standing at an airlock watching people walk through while contemplating the existential implications of being locked out of their first day",
+            "Provision workstation console and comm device with standard Astro-Science image and software suite (FlightOS, Quantum Analyzer, IRIS Holographic Display, spectral analysis toolkit)",
+            "Configure data access to Exobiology and Dark Matter shared sensor archives on Station Core — verify access scopes with the Astro-Science section chief",
+            "Set up SubComm profile with briefing room booking access and station distribution list membership",
+            "Assign ShipOS MDM enrollment for the new comm device and verify automatic policy push on first activation",
+            "Confirm all provisioning will be ready before March 31 09:00 shuttle arrival — the corridor-wandering incident from last rotation must not be repeated. Three new crew members floating aimlessly through Deck 5 for two hours remains the station's most preventable navigational disaster since the Deck 9 cat redirected a cargo drone into the mess hall"
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-0011",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs",
+            "software_version"
+        ],
+        "next_best_action": "Investigate biometric verification push approval failure in the Authenticator app. Check BioScan ID biometric verification registration status and recent policy changes. Crew member can continue with backup code fallback in the meantime.",
+        "remediation_steps": [
+            "Verify biometric verification registration status for this crew member in BioScan ID — it may have silently deregistered itself, which is not technically sentient behavior but feels suspicious",
+            "Check for recent Station Access Protocol or biometric verification policy changes that may affect push notifications — policy changes on a space station propagate at the speed of bureaucracy, which is slower than light",
+            "Have crew member verify Authenticator app is updated to the latest station-approved version — if the app hasn't updated since the last ShipOS patch, the push notifications may be arriving in a version of reality the app no longer recognizes",
+            "If issue persists, remove and re-register the biometric verification method in BioScan ID — the 'turn it off and on again' of identity management, but in space",
+            "Confirm push approval works after re-registration and test with a routine station authentication — have the crew member try while standing still, because zero-g spin can affect biometric capture in ways the vendor documentation refuses to acknowledge"
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-0012",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs",
+            "affected_crew"
+        ],
+        "next_best_action": "Investigate holographic display flickering as primary issue — likely hardware or a loose data conduit rattled free by docking vibrations (Deck 5 gets the worst of it every time a cargo shuttle berths). Route the FlightOS license question separately to Mission Software Operations before it auto-expires and the nav console starts displaying nothing but the CDSS screensaver.",
+        "remediation_steps": [
+            "Test with a replacement data conduit from Station Ops supply — the current one may have developed the kind of intermittent fault that makes engineers question their career choices and their cable inventory",
+            "Test holographic display with a different source console to isolate whether it's the holographic display or the nav console — in zero-g, 'wiggle the cable' is a legitimate diagnostic step, just harder to execute when you're also wiggling",
+            "If flickering persists with new conduit and source, schedule holographic display replacement — a nav console with a flickering display is like a compass that occasionally points sideways, which in space is every direction at once",
+            "Create a separate signal for the FlightOS license expiry and route to Mission Software Operations — one signal per problem, or Mehta will write a margin note about you"
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-0013",
+        "category": "Threat Detection & Containment",
+        "priority": "P1",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Initiate containment breach investigation immediately. This is a potential regulatory incident involving sensitive personnel data exposure of 1,200 crew members under Galactic Data Protection guidelines. Determine scope of external access, identify who created the sharing link, and assess notification obligations. Commander Kapoor will want a full briefing — have answers ready before she finds you in the corridor.",
+        "remediation_steps": [
+            "Confirm the external sharing link has been fully revoked and verify no other archives in the Deck Gamma data vaults have similar 'Anyone with the subspace link' permissions",
+            "Pull mission log audit trails to identify who created the public sharing link and when — cross-reference with docking records in case this was an external actor with temporary station access",
+            "Analyze audit logs for any external access to the archive between stardate February 15 and today — flag any access from unrecognized vessel transponder codes",
+            "Engage Space Law Division and Station Compliance to assess Galactic Data Protection notification obligations — if the data includes biometric records, the timeline is shorter",
+            "Document findings for the station incident report and galactic regulatory record — Commander Kapoor's standing order is that containment breaches get full write-ups, not summaries",
+            "Conduct a broader mission log permissions audit across all archives containing sensitive crew data — if one vault was misconfigured, assume others might be too"
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-0014",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Close — this is a thank-you message, not a mission signal. Rare evidence of crew member satisfaction, which on this station is rarer than a fabricator that works on the first try. Savor it.",
+        "remediation_steps": [
+            "Close signal — no action required beyond basking in the warm glow of crew gratitude, which is the closest thing to sunlight you'll get at 0.3 AU",
+            "If original signal is still open, verify it's resolved and close that too — a crew member said 'you're the best,' which is basically a medal of honor in Mission Ops"
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-0015",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "habitat_conditions"
+        ],
+        "next_best_action": "Investigate 200ms-to-50ms latency regression on the Gamma Quadrant relay probe deployment path before the Europa shift. Check comms path to the relay station, recent defense grid or routing changes, and whether the latency is on CDSS’s side or the relay station side.",
+        "remediation_steps": [
+            "Check communications latency metrics on the path between CDSS’s Gamma Quadrant relay cluster and the relay station",
+            "Review recent defense grid rule, routing, or relay proxy changes that may affect the deployment path",
+            "Compare current latency baseline against historical data to confirm the regression",
+            "If latency is on CDSS’s side, escalate to communications engineering for immediate remediation before Europa shift",
+            "If relay-station-side, contact relay station operations and notify navigation desk of potential impact"
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-0016",
+        "category": "Flight Software & Instruments",
+        "priority": "P2",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "habitat_conditions"
+        ],
+        "next_best_action": "Investigate unified crew authentication token invalidation after passphrase rotation. Likely the FlightOS unified crew authentication token needs to be reissued after the station passphrase change. Time-sensitive due to month-end resource reconciliation deadline.",
+        "remediation_steps": [
+            "Verify the crew member's BioScan ID session and quantum auth token are refreshed — passphrase rotation should not orphan active sessions, but Station Core has opinions about session management that aren't always communicated in advance",
+            "Clear FlightOS cached credentials and re-authenticate with new passphrase — FlightOS caches credentials the way the Deck 9 cat hoards stolen comm badges: aggressively and without obvious logic",
+            "If FlightOS still errors, check the fleet navigation system sign-in logs for authentication failures or account lockout events — account lockout after passphrase rotation is the kind of irony that keeps ops officers awake during what passes for night in space",
+            "Verify that BioScan ID sync has propagated the new passphrase to all federated station services — replication lag between identity systems is the silent killer of productivity and occasionally of morale",
+            "If all authentication is correct and FlightOS still won't load, reinstall the FlightOS client — sometimes the only fix is the nuclear option, which on a space station is a more loaded metaphor than we'd like"
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-0017",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout",
+            "module_specs",
+            "sequence_to_reproduce"
+        ],
+        "next_best_action": "Contact reporter on Deck 5 (Robert Chen — the other one, not the one in Resource Allocation — robert.chen2@cdss.space) to determine what 'the main one' is and what 'the thing' does. Prepare for the possibility that the answer will be equally vague.",
+        "remediation_steps": [
+            "Contact Robert Chen (robert.chen2@cdss.space, Flight Operations, Deck 5) and ask structured questions — 'which application?', 'what does the error say?', 'can you take a sensor capture?' — do not accept 'the main one' as an answer",
+            "If the issue cannot be identified remotely, dispatch a technician to Deck 5 to observe the problem firsthand — sometimes the fastest path to diagnosis is watching someone demonstrate 'the thing'",
+            "Once the affected subsystem is identified, re-triage with correct category, priority, and routing information",
+            "Log this signal as an example of why the station's signal submission form should have required fields — a request that has been filed, ignored, and re-filed approximately once per crew rotation since the station was commissioned"
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-0018",
+        "category": "Flight Software & Instruments",
+        "priority": "P1",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Dispatch support to Deck 8 command war room immediately. Fleet Admiral-level VIP signal — treat as one priority level higher. Investigate SubComm sharing policy blocking screen share for this crew member. Active command briefing with allied fleet commanders.",
+        "remediation_steps": [
+            "Dispatch technician to the Deck 8 command war room immediately",
+            "Check Station Access Protocol and SubComm meeting policies applied to Carlos Martinez’s crew account",
+            "Verify whether the ‘Sharing is blocked by your station’s policy’ error is caused by a Data Loss Prevention Grid policy, SubComm admin policy, or Station Access Protocol restriction",
+            "As immediate workaround: have someone else share the tactical display on his behalf, or use the war room SubComm device with a different crew account",
+            "Once the briefing is unblocked, investigate and resolve the underlying policy conflict"
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-0019",
+        "category": "Mission Briefing Request",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Initiate crew member transfer workflow for Jessica Palmer (last duty cycle March 21). Coordinate across Crew Identity, Spacecraft Systems Engineering, and Telemetry & Data Core for crew account disable, console wipe, file transfer, and message archival. Note: sensitive threat investigation files require special handling.",
+        "remediation_steps": [
+            "Schedule BioScan ID crew account disable for 1800 station time on March 21",
+            "Prepare warp tunnel and remote access revocation to trigger simultaneously with crew account disable",
+            "Coordinate with Spacecraft Systems Engineering for console wipe of OrbitalCore Console 5540 (asset tag CT-L-4892)",
+            "Transfer data vault and mission log file ownership to David Liu (david.liu@cdss.space)",
+            "Remove from all comm channels and SubComm groups",
+            "Archive message archive per 7-cycle archival protocol",
+            "Ensure sensitive threat investigation files are preserved in a secured location and access is revoked"
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-0020",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate molecular fabricator queue issue on Deck 3 — yes, that Deck 3 fabricator. Multiple crew members confirm jobs queue but nothing materializes, which is exactly the kind of metaphysical crisis this fabricator specializes in. Route to Deep Space Communications to check network path to fabricator queue manager — this is a networked fabricator, per the routing guide.",
+        "remediation_steps": [
+            "Verify whether the Deck 3 fabricator is network-connected or locally connected — this determines whether it's a Deep Space Communications issue (network queue) or Spacecraft Systems (local hardware). Yes, this is the fabricator. THE fabricator. The one in the orientation guide.",
+            "Check network connectivity to the fabrication queue server — if the fabricator can't reach the queue, jobs will sit there forever, like signals in a misrouted queue, like that metaphor isn't already giving you anxiety",
+            "If network connectivity is confirmed, check the fabricator's print spooler service status on the local controller — restart if stalled",
+            "If the fabricator is locally connected, route to Spacecraft Systems for hardware diagnosis — the Deck 3 unit has been printing everything 2mm too thick since March and has its own entry in the known-issues database, which is longer than some crew members' personnel files",
+            "If none of the above resolves it, escalate to the fabricator manufacturer — and good luck getting a warranty technician at 0.3 AU"
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-0021",
+        "category": "Mission Briefing Request",
+        "priority": "P4",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Provide guidance on how to book briefing rooms via SubComm (add room resource) and direct catering questions to Station Facilities. This is the kind of signal that makes you wonder what the orientation program actually covers — 45 minutes on airlock safety, zero on room booking. Priorities.",
+        "remediation_steps": [
+            "Direct crew member to SubComm > Calendar > Add Room Resource > search 'Deck 4' — the briefing rooms are listed there, hiding in plain sight like most useful station features",
+            "For catering: direct to Station Services portal at services.cdss.space — they handle provisions for crew events and are surprisingly accommodating about dietary restrictions, especially compared to the nutrient synthesizer",
+            "Provide the Station Facilities quick-start guide link if available — new crew members shouldn't have to file signals to book rooms, but here we are, 0.3 AU from common sense",
+            "Close signal after confirming the crew member can navigate the booking interface — if SubComm's UI confuses them, that's not their fault, it confuses everyone"
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-0022",
+        "category": "Threat Detection & Containment",
+        "priority": "P1",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "system_configuration",
+            "habitat_conditions"
+        ],
+        "next_best_action": "Renew or replace the quantum encryption certificate on crew-api.cdss.space before it expires on March 20. This is a production-facing API gateway — expiry will break all external fleet integrations. Treat as P1 given 3-day window and the fact that the original provisioner transferred off-station.",
+        "remediation_steps": [
+            "Identify the current certificate authority and certificate type (station PKI, external fleet CA, or automated quantum cert provisioner)",
+            "Determine whether auto-renewal was configured or if the cert was manually provisioned",
+            "If auto-renewal exists, trigger a manual renewal cycle and verify the new cert is issued",
+            "If manual, generate a CSR, obtain a new certificate from the CA, and install it on the fleet API gateway",
+            "Verify the new certificate is correctly installed and all fleet connections work without TLS errors",
+            "Configure auto-renewal and bridge monitoring alerts to prevent recurrence"
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-0023",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate workstation console performance degradation. Symptoms (slow performance, fans running, pop-ups about ‘updating system components’) are more consistent with a stuck ShipOS update or background ShipOS MDM policy compliance than malicious code, especially since SentinelGrid found nothing. Check update history and system resource usage.",
+        "remediation_steps": [
+            "Check ShipOS update history — verify whether recent updates completed or are stuck retrying in an infinite loop of optimism and failure, like the atmospheric processor on Deck 7",
+            "Review Console Process Monitor for high compute/storage load (likely ShipOS Update or ShipOS MDM compliance) — if the fan noise sounds like an angry wasp, the CPU usage probably looks like one too",
+            "If updates are stuck, run ShipOS Update diagnostic suite or manually reset the update components — the 'nuclear option' is less metaphorical on a space station, so proceed with appropriate gravity (pun intended, apology not offered)",
+            "Verify SentinelGrid definitions are current and run a quick scan to confirm no threats — the pop-ups are almost certainly a stuck update, not malware, but 'almost certainly' is not 'certainly' and the difference matters at 0.3 AU from the nearest antivirus vendor",
+            "If the crew member opened a suspicious subspace message, forward the message to threats@cdss.space and notify Threat Response Command as a precaution — better to investigate a false alarm than explain to Commander Kapoor why the station's Stellar Cartography data is now encrypted and the ransom note is in an alien script"
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-0024",
+        "category": "Threat Detection & Containment",
+        "priority": "P3",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Confirm this is a hostile signal/scam transmission from an external vessel and advise the crew member not to respond. Nobody has won 5,000,000 galactic credits. The Intergalactic Prize Committee does not exist. The only thing at that relay address is someone who wants your biometric passphrase, and they already have your optimism.",
+        "remediation_steps": [
+            "Block sender domain (totallylegit-prizes.ng) at the defense grid level — the domain name alone should have been a clue, but hope springs eternal even at 0.3 AU",
+            "Advise crew member Varsha Kim not to click any links, respond, or — and I cannot believe this needs saying — attempt to claim the 5,000,000 galactic credits",
+            "Submit hostile signal indicators (sender domain, headers, relay route) to SentinelGrid for pattern matching against known scam transmission campaigns",
+            "No further action — this is a social engineering attempt, not a real prize. The only thing you win by responding is a compromised BioScan ID and a conversation with Threat Response that you'd rather not have"
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-0025",
+        "category": "Telemetry & Data Banks",
+        "priority": "P1",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate Station Core node prod-analytics-01 stuck at 'Applying station settings' after scheduled OS patching reboot. Command analytics dashboard depends on this node and Commander Kapoor's 0900 briefing is in 2 hours. Failure to restore this node will result in a briefing without data, which is the operational equivalent of navigating an asteroid field blindfolded. Commander Kapoor without her morning data is a force of nature. Act accordingly.",
+        "remediation_steps": [
+            "Access the Station Core management console and check prod-analytics-01 boot status — if it's stuck at 'Applying station settings', the OS patch may have introduced a driver conflict or a startup service is hanging",
+            "If the remote console is unresponsive, request a hard reset via the Station Core hypervisor management interface — document the timestamp for the post-incident review",
+            "Once the node is responsive, check OS patch installation logs for errors and verify all station services started correctly — pay special attention to the monitoring agent and database services",
+            "Verify the 12-hour data gap in the analytics pipeline — determine if the upstream data can be replayed from the ingestion buffer or if manual backfill is needed",
+            "Post-incident: review the OS patching procedure to prevent unattended reboot failures — a production node that silently disappears for 12 hours after a 'routine' patch is the kind of failure mode that gets its own section in the station incident report. And possibly its own commemorative plaque on Deck 7, next to the one about the protein cube incident"
+        ]
+    }
 ]
