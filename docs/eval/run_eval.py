@@ -87,23 +87,23 @@ WEIGHTS = {
 # ── Closed label sets (must match the platform) ─────────────────────
 
 CATEGORIES = (
-    "Access & Authentication",
-    "Hardware & Peripherals",
-    "Network & Connectivity",
-    "Software & Applications",
-    "Security & Compliance",
-    "Data & Storage",
-    "General Inquiry",
-    "Not a Support Ticket",
+    "Crew Access & Biometrics",
+    "Hull & Structural Systems",
+    "Communications & Navigation",
+    "Flight Software & Instruments",
+    "Threat Detection & Containment",
+    "Telemetry & Data Banks",
+    "Mission Briefing Request",
+    "Not a Mission Signal",
 )
 
 TEAMS = (
-    "Identity & Access Management",
-    "Endpoint Engineering",
-    "Network Operations",
-    "Enterprise Applications",
-    "Security Operations",
-    "Data Platform",
+    "Crew Identity & Airlock Control",
+    "Spacecraft Systems Engineering",
+    "Deep Space Communications",
+    "Mission Software Operations",
+    "Threat Response Command",
+    "Telemetry & Data Core",
     "None",
 )
 

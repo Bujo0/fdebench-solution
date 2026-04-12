@@ -10,7 +10,7 @@ This is the same scoring logic the platform uses. Run it locally, see exactly ho
 ```bash
 cd docs/eval
 
-# Score against the 25 sample tickets (with gold answers)
+# Score against the 25 sample signals (with gold answers)
 uv run python run_eval.py \
   --endpoint http://localhost:8000 \
   --dataset ../data/tickets/sample.json \
@@ -33,11 +33,11 @@ The local eval harness computes the **classification** portion. The platform add
 
 | Dimension | Weight | Metric | Scoring logic |
 |---|---|---|---|
-| `category` | 20% | **Macro F1** | Per-class F1, averaged across 8 categories |
+| `category` | 20% | **Macro F1** | Per-class F1, averaged across 8 anomaly categories |
 | `priority` | 20% | **Mean partial credit** | Exact = 1.0, off-by-one = 0.67, off-by-two+ = 0.0 |
-| `routing` | 20% | **Macro F1** | Per-class F1, averaged across 7 teams |
-| `missing_info` | 15% | **Mean set F1** | Per-ticket F1 on constrained vocabulary, then averaged |
-| `escalation` | 10% | **Binary F1** | F1 for the positive class across all tickets |
+| `routing` | 20% | **Macro F1** | Per-class F1, averaged across 7 response divisions |
+| `missing_info` | 15% | **Mean set F1** | Per-signal F1 on constrained vocabulary, then averaged |
+| `escalation` | 10% | **Binary F1** | F1 for the positive class across all signals |
 
 The classification score is:
 
@@ -51,7 +51,7 @@ classification_pts = (weighted / 0.85) × 85  →  range [0, 85]
 | Dimension | Weight | Best (1.0) | Worst (0.0) |
 |---|---|---|---|
 | Latency | 10% | p50 ≤ 200ms | p50 ≥ 2000ms |
-| Cost | 5% | ≤ $0.001/ticket | ≥ $0.05/ticket |
+| Cost | 5% | ≤ $0.001/signal | ≥ $0.05/signal |
 
 The harness shows latency stats so you can keep an eye on it, but doesn't fold them into the score.
 
@@ -68,7 +68,7 @@ You get credit for being close, but only one level off. Two or more? Zero.
 
 ### Missing info set F1
 
-Exact string match on the 16-value vocabulary from the [output schema](../data/schemas/output.json). No fuzzy matching, no synonyms. If you return `"error_msg"` instead of `"error_message"`, that's a miss.
+Exact string match on the 16-value vocabulary from the [output schema](../data/schemas/output.json). No fuzzy matching, no synonyms. If you return `"anomaly_reading"` instead of `"anomaly_readout"`, that's a miss.
 
 ```
 precision = |pred ∩ gold| / |pred|
@@ -93,7 +93,7 @@ People return weird stuff from APIs. The harness handles the common ones so you 
 
 ## Usage
 
-### 25 sample tickets (with gold answers)
+### 25 sample signals (with gold answers)
 
 This is your main dev loop. Run it early, run it often.
 
@@ -105,9 +105,9 @@ uv run python run_eval.py \
   --gold ../data/tickets/sample_gold.json
 ```
 
-### 100 public eval tickets (no gold answers)
+### 100 public eval signals (no gold answers)
 
-Run this before you submit. There's no gold file so you won't get a score, but it'll catch crashes, timeouts, and schema issues on tickets you haven't seen.
+Run this before you submit. There's no gold file so you won't get a score, but it'll catch crashes, timeouts, and schema issues on signals you haven't seen.
 
 ```bash
 cd docs/eval
@@ -121,23 +121,23 @@ uv run python run_eval.py \
 ```bash
 uv run python run_eval.py \
   --endpoint http://localhost:8000 \
-  --dataset path/to/tickets.json \
+  --dataset path/to/signals.json \
   --gold path/to/gold.json
 ```
 
 ## Sample Output
 
-Each ticket shows its per-ticket classification score (max 85 pts):
+Each signal shows its per-signal classification score (max 85 pts):
 
 ```
-Loaded 25 tickets, 25 gold answers
+Loaded 25 signals, 25 gold answers
 Endpoint: http://localhost:8000
 
 Health check: ✓ OK
 
-  INC-0001  [ 85.0]  cat=✓ pri=✓ route=✓ esc=✓ miss=✓(1.00)  142ms
-  INC-0002  [ 60.1]  cat=✓ pri=✓ route=✗ esc=✓ miss=~(0.67)  198ms
-  INC-0003  [ 51.7]  cat=✓ pri=~ route=✓ esc=✗ miss=✗(0.00)  156ms
+  SIG-0001  [ 85.0]  cat=✓ pri=✓ route=✓ esc=✓ miss=✓(1.00)  142ms
+  SIG-0002  [ 60.1]  cat=✓ pri=✓ route=✗ esc=✓ miss=~(0.67)  198ms
+  SIG-0003  [ 51.7]  cat=✓ pri=~ route=✓ esc=✗ miss=✗(0.00)  156ms
   ...
 
   ════════════════════════════════════════════════════════════
@@ -169,7 +169,7 @@ Health check: ✓ OK
   Results saved to eval_results.json
 ```
 
-The `eval_results.json` file contains full per-ticket breakdowns for error analysis.
+The `eval_results.json` file contains full per-signal breakdowns for error analysis.
 
 ## Running the Tests
 
