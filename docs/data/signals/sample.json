@@ -15,7 +15,7 @@
     {
         "ticket_id": "SIG-0002",
         "subject": "Mission Planner crashes and Star Chart shows old waypoints",
-        "description": "Two problems since the terminal swap yesterday: (1) Mission Planner shows a white screen then crashes on launch -- tried rebooting the console twice. (2) Star Chart is displaying old waypoints from 2024 that were purged months ago. Both started right after the terminal swap. Might be related, might not.",
+        "description": "Two problems since the terminal swap yesterday: (1) Mission Planner shows a white screen then crashes on launch — tried rebooting the console twice, which in retrospect was just a way to experience the same disappointment faster. (2) Star Chart is displaying old waypoints from 2024 that were purged months ago — I'm looking at navigation data for asteroid fields that don't exist anymore, which is either a software bug or a ghost story. Both started right after the terminal swap. Might be related, might not. Either way, I'm navigating by memory and vibes, which is not in the operations manual.",
         "reporter": {
             "name": "Marcus Rodriguez",
             "email": "marcus.rodriguez@cdss.space",
@@ -28,7 +28,7 @@
     {
         "ticket_id": "SIG-0003",
         "subject": "Holographic display not working in main briefing chamber",
-        "description": "The holographic projector in the main briefing chamber won't activate. Tried the remote initializer and the manual switch on the emitter housing. Deep Space Command delegation arriving in ~25 minutes for the final review on a 2.3B-credit colony contract -- our Mission Director is presenting. No backup chamber seats 12. Can someone respond immediately?",
+        "description": "The holographic projector in the main briefing chamber won't activate. Tried the remote initializer and the manual switch on the emitter housing — it made a noise that I can only describe as 'mechanical sigh' and went dark. Deep Space Command delegation arriving in ~25 minutes for the final review on a 2.3B-credit colony contract — our Mission Director is presenting and has rehearsed this presentation eleven times, including once in the shower (don't ask how I know). No backup chamber seats 12. Can someone respond immediately? Preferably someone who can perform miracles with AV equipment under pressure.",
         "reporter": {
             "name": "Diana Marsh",
             "email": "diana.marsh@cdss.space",
@@ -67,7 +67,7 @@
     {
         "ticket_id": "SIG-0006",
         "subject": "Unauthorized biometric scan attempts on my profile",
-        "description": "Got 6 biometric scan alert notifications this morning -- someone attempted to authenticate against my crew profile from an unregistered terminal in Sector 7-G. I haven't been in that sector. Already reset my access codes but worried the profile may already be compromised. I have classified mission briefings and tactical operations documents in my secure data vault. Should I be concerned about data exposure?",
+        "description": "Got 6 biometric scan alert notifications this morning — someone attempted to authenticate against my crew profile from an unregistered terminal in Sector 7-G. I haven't been in that sector. Nobody has. Sector 7-G has been 'under renovation' for three years and the only things in there are dust, a broken atmospheric recycler, and whatever Lt. Mehta stores in the locked cabinet he claims doesn't exist. Already reset my access codes but worried the profile may already be compromised. I have classified mission briefings and tactical operations documents in my secure data vault. Should I be concerned about data exposure?",
         "reporter": {
             "name": "Thomas Wright",
             "email": "thomas.wright@cdss.space",
@@ -234,7 +234,7 @@
     {
         "ticket_id": "SIG-0018",
         "subject": "Commander Martinez can't project holo-display in command briefing -- happening now",
-        "description": "Commander Martinez (Mission Commander, Deep Space Operations) is in the command briefing right now and can't project his holographic display. The briefing is with the admiralty and allied fleet commanders. He's tried projecting from both his personal terminal and the chamber's integrated holo-emitter. Other participants can project fine. His terminal shows 'Display sharing blocked by station policy.' Briefing has been going on for 10 minutes without his presentation. He's requesting someone report to the command deck briefing chamber immediately.",
+        "description": "Commander Martinez (Mission Commander, Deep Space Operations) is in the command briefing right now and can't project his holographic display. The briefing is with the admiralty and allied fleet commanders — the kind of meeting where career trajectories are determined and someone always ends up reassigned to a supply depot in the Kuiper Belt. He's tried projecting from both his personal terminal and the chamber's integrated holo-emitter. Other participants can project fine, which is the most humiliating part. His terminal shows 'Display sharing blocked by station policy.' Briefing has been going on for 10 minutes without his presentation. He's requesting someone report to the command deck briefing chamber immediately. His exact words were 'immediately' but the way he said it suggested something closer to 'five minutes ago.'",
         "reporter": {
             "name": "Patricia Gomez",
             "email": "patricia.gomez@cdss.space",
