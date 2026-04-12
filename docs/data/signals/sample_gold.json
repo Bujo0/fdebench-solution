@@ -6,7 +6,7 @@
         "assigned_team": "Deep Space Communications",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Investigate comms relay compatibility with the latest station firmware update. Check for known RF mesh antenna issues on Deck 4. Verify SubComm v3.2 is the latest supported version.",
+        "next_best_action": "Investigate comms relay compatibility with the latest station firmware update — the one that nobody asked for and that appears to have broken things that were previously working, which is the firmware update tradition dating back to pre-spaceflight Earth. Check for known RF mesh antenna issues on Deck 4. Verify SubComm v3.2 is the latest supported version.",
         "remediation_steps": [
             "Verify SubComm v3.2 is the latest supported version for the station firmware",
             "Check for known RF mesh antenna connectivity issues on Deck 4",
@@ -108,7 +108,7 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Check service credentials and role assignments on the station data archive in data-core-prod. Restore the Data Contributor role if it was removed during the archive cleanup.",
+        "next_best_action": "Check service credentials and role assignments on the station data archive in data-core-prod. Restore the Data Contributor role if it was removed during the archive cleanup — which it probably was, because 'routine maintenance' and 'accidentally deleting credentials' are apparently synonyms on this station.",
         "remediation_steps": [
             "Verify service credential expiration for the telemetry pipeline identity",
             "Check role assignments on the station data archive in data-core-prod",
@@ -217,7 +217,7 @@
         "assigned_team": "Threat Response Command",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Initiate data breach investigation immediately. This is a potential regulatory incident involving classified PII exposure of 1,200 crew personnel under Space Authority data protection regulations. Determine scope of unauthorized access, identify who created the sharing link, and assess notification obligations.",
+        "next_best_action": "Initiate data breach investigation immediately. This is the kind of incident that generates three-letter acronyms, mandatory reporting deadlines, and pointed questions from people with more stars on their uniform than you have on your performance review. Classified PII exposure of 1,200 crew personnel under Space Authority data protection regulations. Determine scope of unauthorized access, identify who created the sharing link (and schedule their 'learning opportunity'), and assess notification obligations.",
         "remediation_steps": [
             "Confirm the unsecured sharing permissions have been fully revoked and verify no other archives have similar settings",
             "Pull data archive audit logs to identify who created the public sharing link and when",
@@ -249,7 +249,7 @@
             "affected_subsystem",
             "habitat_conditions"
         ],
-        "next_best_action": "Investigate 200ms to 50ms latency regression on the Gamma Sector navigation relay before the Centauri transit window. Check relay path to the navigation beacon, recent routing or signal barrier changes, and whether the latency is on the station's side or the beacon side.",
+        "next_best_action": "Investigate 200ms→50ms latency regression on the Gamma Sector navigation relay before it graduates to 500ms and ruins the Centauri transit window. Check relay path to the navigation beacon, recent routing or signal barrier changes, and whether the latency is on the station's side or the beacon's side. If it's the beacon, someone should probably tell the beacon operators before the helm officers start sending strongly-worded subspace messages.",
         "remediation_steps": [
             "Check navigation relay latency metrics on the path between the station's Gamma Sector relay and the navigation beacon",
             "Review recent signal barrier, routing, or relay configuration changes that may affect the navigation path",
@@ -267,7 +267,7 @@
         "missing_information": [
             "habitat_conditions"
         ],
-        "next_best_action": "Investigate SSO token invalidation after credential rotation. Likely the FlightOS authentication ticket needs to be reissued after the station credential change. Time-sensitive due to end-of-cycle trajectory calculation deadline.",
+        "next_best_action": "Investigate SSO token invalidation after credential rotation. FlightOS apparently does not handle credential changes gracefully — it takes them personally. Likely the FlightOS authentication ticket needs to be reissued after the station credential change. Time-sensitive: end-of-cycle trajectory calculation deadline today, and the orbital window for the resupply corridor is not going to wait for SSO to sort out its feelings.",
         "remediation_steps": [
             "Verify the crew member's station session and authentication ticket are refreshed after the credential rotation",
             "Check FlightOS SSO configuration -- confirm whether FlightOS uses token-based or certificate-based SSO",

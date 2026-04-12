@@ -206,7 +206,7 @@
     {
         "ticket_id": "SIG-0016",
         "subject": "FlightOS won't load after credential rotation",
-        "description": "Rotated my station credentials this morning per the quarterly rotation protocol. Now FlightOS gives me 'SSO token invalid -- contact your system administrator.' Tried logging out and back in to the terminal, same issue. Other applications (CommLink, Star Chart, DataVault) work fine. I need FlightOS to process end-of-cycle trajectory calculations -- close of business today is the deadline.",
+        "description": "Rotated my station credentials this morning per the quarterly rotation protocol — because apparently the most important thing about flying a deep-space station is making sure everyone changes their passwords every 90 days, even if the password was working perfectly and nobody asked for this. Now FlightOS gives me 'SSO token invalid -- contact your system administrator.' I contacted you. You're the system administrator. This is me contacting you. Tried logging out and back in to the terminal, same issue. Other applications (CommLink, Star Chart, DataVault) work fine — they accepted the new credentials like normal, well-adjusted software. FlightOS, apparently, took the credential rotation personally. I need FlightOS to process end-of-cycle trajectory calculations -- close of business today is the deadline, and by 'close of business' I mean 'the orbital window for the resupply corridor closes and we don't get another one for 9 days.'",
         "reporter": {
             "name": "Linda Park",
             "email": "linda.park@cdss.space",
@@ -288,7 +288,7 @@
     {
         "ticket_id": "SIG-0022",
         "subject": "Comms encryption cert expiring on relay-gateway.cdss.space -- 3 days left",
-        "description": "Station monitoring flagged that the encryption certificate on relay-gateway.cdss.space expires on March 20. This is the primary relay gateway that all external comms and allied fleet integrations route through. If the cert expires, every external communication link will start failing with encryption handshake errors. The cert was originally provisioned manually by an engineer who transferred off-station 6 months ago. I don't know if auto-renewal was ever configured. We need to renew or replace it before Thursday.",
+        "description": "Station monitoring flagged that the encryption certificate on relay-gateway.cdss.space expires on March 20. This is not a drill. This is the primary relay gateway that all external comms and allied fleet integrations route through — every subspace transmission to Earth, every allied fleet coordination channel, every 'please send more protein cubes' requisition form. If the cert expires, every external communication link will start failing with encryption handshake errors, and the station will go from 'humanity's furthest outpost' to 'humanity's furthest outpost that can't talk to anyone.' The cert was originally provisioned manually by an engineer who transferred off-station 6 months ago and left behind no documentation, no runbook, and — I'm now discovering — no auto-renewal configuration. We have exactly 72 hours. The clock is not metaphorical. It's on my dashboard. It's red. It blinks.",
         "reporter": {
             "name": "Nina Volkov",
             "email": "nina.volkov@cdss.space",
@@ -303,7 +303,7 @@
     {
         "ticket_id": "SIG-0023",
         "subject": "I think my terminal has malware",
-        "description": "My terminal has been super slow for two days. Programs take forever to load, the cooling fan runs constantly, and I got a couple of weird pop-ups that said something about 'updating system components.' I think I might have picked up malware from that suspicious transmission I accidentally opened last week. I ran the onboard security scanner and it didn't find anything but I'm still worried. Should I stop using the terminal until someone checks it?",
+        "description": "My terminal has been super slow for two days. Programs take forever to load, the cooling fan runs constantly like it's trying to achieve escape velocity on its own, and I got a couple of weird pop-ups that said something about 'updating system components' — which is either a legitimate system update or the digital equivalent of a stranger saying 'trust me, I'm a doctor' while wearing a lab coat they clearly found in a dumpster. I think I might have picked up malware from that suspicious transmission I accidentally opened last week. In my defense, the subject line said 'URGENT: Required Security Update from Station Command' and the sender was 'defin1tely-not-malware@cdss.space' which in retrospect was perhaps a clue. I ran the onboard security scanner and it didn't find anything but I'm still worried. The scanner also didn't find the Deck 9 cats for six months, so its track record on detecting hidden threats is mixed. Should I stop using the terminal until someone checks it?",
         "reporter": {
             "name": "Rachel Green",
             "email": "rachel.green@cdss.space",
@@ -329,7 +329,7 @@
     {
         "ticket_id": "SIG-0025",
         "subject": "Station compute node 'prod-analytics-01' unreachable since reboot",
-        "description": "Compute node prod-analytics-01 (High-Performance E16 class, Sector Alpha, analytics-core-prod) became unreachable after a scheduled reboot at 05:00 UTC for OS patching. Remote shell and diagnostic ports both timeout. Station system manager shows node status as 'Running' but boot diagnostics show it stuck at 'Applying configuration.' Signal barrier rules haven't changed. This node powers the command analytics dashboard that the senior staff uses for the morning mission briefing at 9 AM EST. We have about 2 hours.",
+        "description": "Compute node prod-analytics-01 (High-Performance E16 class, Sector Alpha, analytics-core-prod) became unreachable after a scheduled reboot at 05:00 UTC for OS patching. Remote shell and diagnostic ports both timeout — the node has essentially ghosted us, which is an impressive emotional response from a machine that doesn't have emotions. Station system manager shows node status as 'Running' but boot diagnostics show it stuck at 'Applying configuration' — a state it has maintained with Zen-like tranquility for the past 3 hours. Signal barrier rules haven't changed. This node powers the command analytics dashboard that the senior staff uses for the morning mission briefing at 9 AM EST. We have about 2 hours before the Commander walks into the briefing room, looks at the blank dashboard, and asks the question that nobody in ops ever wants to hear: 'Wasn't there supposed to be data on this screen?' The answer is yes. The data is on a node that is currently meditating. Please help.",
         "reporter": {
             "name": "Alex Petrov",
             "email": "alex.petrov@cdss.space",
