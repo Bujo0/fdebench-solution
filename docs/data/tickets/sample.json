@@ -41,7 +41,7 @@
     {
         "ticket_id": "SIG-0004",
         "subject": "RED ALERT -- all systems failing!!!",
-        "description": "Nothing works. I cant access anything. My console is just spinning. Please fix ASAP i have mission deadlines today and my commanding officer is already asking for the deliverable.",
+        "description": "Nothing works. I cant access anything. My console is just spinning. I've been floating here for 20 minutes tapping the screen like it owes me money. The holographic display flickers and then shows me a loading cursor that I swear is mocking me. Please fix ASAP i have mission deadlines today and my commanding officer is already asking for the deliverable. I tried rebooting but the console just played the startup chime and went right back to spinning. Even the nutrient synthesizer next to my station is giving me attitude — I asked for coffee and it dispensed what I can only describe as warm disappointment.",
         "reporter": {
             "name": "Jordan Lee",
             "email": "jordan.lee@cdss.space",
@@ -54,7 +54,7 @@
     {
         "ticket_id": "SIG-0005",
         "subject": "Re: [Signal SIG-0847] Scheduled maintenance notification",
-        "description": "Thank you for letting me know. I will be on shore leave from March 24-28 with limited access to subspace relay. For urgent matters, please contact my colleague Alex at alex.wu@cdss.space.\n\nBest regards,\nPriya Sharma\nDirector of Astrogation",
+        "description": "Thank you for your transmission. I am currently on scheduled shore leave at Titan Station from March 24-28 with limited access to subspace relay (the signal lag from Saturn orbit is approximately 76 minutes each way, so please factor that into your expectations for a timely reply). For urgent matters during my absence, please contact my colleague Alex at alex.wu@cdss.space. For non-urgent matters, I will respond upon my return — assuming the shuttle back doesn't get rerouted again. Last time it took three extra days because someone forgot to file the flight plan and we ended up orbiting Enceladus while the pilot 'recalculated.'\n\nBest regards,\nPriya Sharma\nDirector of Astrogation\n\nP.S. — If the Centauri transit window calculations look wrong while I'm gone, do NOT attempt to correct them manually. Just wait. Trust me on this.",
         "reporter": {
             "name": "Priya Sharma",
             "email": "priya.sharma@cdss.space",
@@ -97,7 +97,7 @@
     {
         "ticket_id": "SIG-0008",
         "subject": "Low priority -- small database issue",
-        "description": "Hey team. The production telemetry database has been returning timeout errors for 2 hours. ~40% of sensor queries to the data banks are failing with 500 errors. Life support monitoring systems are seeing intermittent data gaps. Station diagnostics show connection pool exhaustion on the primary data node. Marked as low priority since the backup node is still handling some traffic. Let me know when you get a chance.",
+        "description": "Hey team. The production telemetry database has been returning timeout errors for 2 hours. ~40% of sensor queries to the data banks are failing with 500 errors. Life support monitoring systems are seeing intermittent data gaps — nothing critical yet, but the oxygen recycler dashboard hasn't updated in 45 minutes, which is the kind of sentence that should probably concern me more than it does. Station diagnostics show connection pool exhaustion on the primary data node. Marked as low priority since the backup node is still handling some traffic.\n\nLet me know when you get a chance. No rush. Unless the oxygen thing turns out to be a real thing, in which case: rush.",
         "reporter": {
             "name": "Kim Nguyen",
             "email": "kim.nguyen@cdss.space",
@@ -112,7 +112,7 @@
     {
         "ticket_id": "SIG-0009",
         "subject": "Re: SIG-2834 -- Airlock badge still broken, Deck 7",
-        "description": "Following up on SIG-2834 from last week. Biometric badge still doesn't work for the Deck 7 airlock after the access system migration. Was told it'd be fixed by Friday -- it's Monday and I still can't cycle through. Have to wait for someone to manually override the door every morning. Third time reporting this.",
+        "description": "Following up on SIG-2834 from last week. Biometric badge still doesn't work for the Deck 7 airlock after the access system migration. Was told it'd be fixed by Friday — it's Monday and I still can't cycle through. Have to wait for someone to manually override the door every morning, which means standing in the corridor in my EVA undersuit while the atmospheric processor hums judgmentally above my head. Third time reporting this. At this point I've spent more time filing signals about this airlock than actually passing through it. I'm starting to think the airlock has a personal grudge.",
         "reporter": {
             "name": "Elena Vasquez",
             "email": "elena.vasquez@cdss.space",
@@ -125,7 +125,7 @@
     {
         "ticket_id": "SIG-0010",
         "subject": "New crew member arriving March 31 -- full setup needed",
-        "description": "New senior science officer (Alex Rivera) reporting for duty March 31. Needs:\n- Dedicated console terminal (high-spec, 32GB memory core)\n- Standard flight software + SciAnalytics/SpectraLab suite\n- Telemetry workspace access (lab-science-prod)\n- Data archive read access\n- Deck 3 quarters assignment and lab badge\n- Added to science-team comm channel and briefing distribution\n\nReports to me. Please have everything ready by March 28 for orientation walkthrough.",
+        "description": "New senior science officer (Alex Rivera) reporting for duty March 31. Arriving on the 0600 supply shuttle from Earth — assuming the shuttle is on time, which it hasn't been since the Q3 schedule change. Needs:\n- Dedicated console terminal (high-spec, 32GB memory core) — the science team's last new arrival got a terminal that predates the station refit and it took 4 minutes to render a molecular model\n- Standard flight software + SciAnalytics/SpectraLab suite\n- Telemetry workspace access (lab-science-prod)\n- Data archive read access\n- Deck 3 quarters assignment and lab badge — please not the quarters next to the atmospheric processor, the last person in those quarters transferred off-station citing 'persistent vibrational disturbance' which is a polite way of saying 'the wall shakes all night'\n- Added to science-team comm channel and briefing distribution\n\nReports to me. Please have everything ready by March 28 for orientation walkthrough. Last time we onboarded someone, they arrived to find no biometric profile, no terminal, and a quarters assignment on a deck that was being renovated. Let's not do that again.",
         "reporter": {
             "name": "Dr. Yuki Tanaka",
             "email": "yuki.tanaka@cdss.space",
@@ -138,7 +138,7 @@
     {
         "ticket_id": "SIG-0011",
         "subject": "Biometric scanner not accepting my iris scan",
-        "description": "I'm getting an error every time I try to authenticate via the iris scanner. The BioAuth panel shows the scan prompt but when I look into it, it says 'Biometric match failed -- recalibration required.' Tried re-registering my iris pattern in the system, same result. I can still get through using the backup PIN code but that's slower. Not super urgent, just annoying.",
+        "description": "I'm getting an error every time I try to authenticate via the iris scanner outside the Flight Deck. The BioAuth panel shows the scan prompt but when I look into it, it says 'Biometric match failed — recalibration required.' Tried re-registering my iris pattern in the system, same result. My colleague suggested it might be because I just came back from a 6-hour EVA and my eyes are still adjusting to station lighting — but I've had 2 hours of rest and it's still not working. I can still get through using the backup PIN code but that's slower, and there's always a line of people behind me sighing audibly while I type it in like some kind of pre-spaceflight cave dweller. Not super urgent, just annoying and mildly humiliating.",
         "reporter": {
             "name": "David Kim",
             "email": "david.kim@cdss.space",
@@ -151,7 +151,7 @@
     {
         "ticket_id": "SIG-0012",
         "subject": "FYI -- Long-range sensor array display flickering",
-        "description": "Display on the long-range sensor array console started flickering around 10am. It's not constant -- happens for a few seconds every 5-10 minutes. I swapped the data conduit to a different port and it still does it. Sensor data itself seems fine, readings are updating normally. Just the display. Also, unrelated -- can you check if my NavStar Pro license is still active? I got an expiry warning last week but I can still log in.",
+        "description": "Display on the long-range sensor array console started flickering around 10am station time. It's not constant — happens for a few seconds every 5-10 minutes, which is exactly often enough to be infuriating but not often enough to be obviously broken. I swapped the data conduit to a different port and it still does it. Sensor data itself seems fine, readings are updating normally. Just the display. The flickering does make it look like the deep-space void is winking at me, which is either a hardware fault or an existential crisis waiting to happen.\n\nAlso, unrelated — can you check if my NavStar Pro license is still active? I got an expiry warning last week but I can still log in. Knowing this station's licensing system, it'll let me in right up until I'm in the middle of a critical trajectory calculation and then lock me out mid-equation.",
         "reporter": {
             "name": "Anna Brooks",
             "email": "anna.brooks@cdss.space",
@@ -180,7 +180,7 @@
     {
         "ticket_id": "SIG-0014",
         "subject": "thanks!",
-        "description": "got it working, appreciate the quick turnaround. you guys are the best!!",
+        "description": "got it working, appreciate the quick turnaround. the atmospheric recycler on Deck 4 is humming normally again and the corridor no longer smells like burnt ozone and regret. you guys are the best!! 🚀",
         "reporter": {
             "name": "Mike Torres",
             "email": "mike.torres@cdss.space",
@@ -247,7 +247,7 @@
     {
         "ticket_id": "SIG-0019",
         "subject": "Crew member departure -- access revocation needed, last day March 21",
-        "description": "Jessica Palmer (jessica.palmer@cdss.space) in the Tactical Operations division has submitted her transfer orders. Her last duty day is Friday March 21. Please:\n- Disable her BioScan ID at 18:00 EST on March 21\n- Revoke airlock access and all remote terminal privileges\n- Wipe her assigned console terminal (StarTerm X-40, asset tag SS-T-4892)\n- Transfer ownership of her data vault files to her supervisor David Liu (david.liu@cdss.space)\n- Remove her from all comm channels and briefing distribution lists\n- Archive her message logs per our 7-year retention protocol\n\nNote: Jessica has access to classified investigation files. Please ensure these are preserved but not accessible after her departure.",
+        "description": "Jessica Palmer (jessica.palmer@cdss.space) in the Tactical Operations division has received transfer orders to the Kepler Station outpost. Her last duty day aboard CDSS is Friday March 21 — she's on the 1800 shuttle. Please:\n- Disable her BioScan ID at 18:00 EST on March 21 (not before — she needs airlock access to get to the shuttle bay, and locking her out early would be both awkward and logistically complicated)\n- Revoke airlock access and all remote terminal privileges\n- Wipe her assigned console terminal (StarTerm X-40, asset tag SS-T-4892)\n- Transfer ownership of her data vault files to her supervisor David Liu (david.liu@cdss.space)\n- Remove her from all comm channels and briefing distribution lists\n- Archive her message logs per our 7-year retention protocol\n\nNote: Jessica has access to classified investigation files related to the Sector 7-G incident. Please ensure these are preserved but not accessible after her departure. Last thing we need is classified tactical data floating around on an unattended terminal.",
         "reporter": {
             "name": "David Liu",
             "email": "david.liu@cdss.space",
@@ -262,7 +262,7 @@
     {
         "ticket_id": "SIG-0020",
         "subject": "Fabricator on Deck 3 not working",
-        "description": "The main fabricator near the mess hall on Deck 3 stopped producing. Jobs queue up in the system but nothing materializes in the output bay. I tried submitting from my personal terminal and from the shared console next to it -- same result. The fabricator display shows 'Ready' and feedstock hoppers are full. Other crew on the deck are having the same issue. We need it for replacement parts going out today.",
+        "description": "The main fabricator near the mess hall on Deck 3 stopped producing. Jobs queue up in the system but nothing materializes in the output bay — the fabricator just sits there humming contentedly like it's meditating. I tried submitting from my personal terminal and from the shared console next to it — same result. The fabricator display shows 'Ready' and feedstock hoppers are full, which is the fabricator equivalent of \"I'm fine\" when it clearly isn't.\n\nOther crew on the deck are having the same issue. We need it for replacement hull gaskets going out for a scheduled repair on the observation deck viewport — the current gaskets are rated for another 72 hours before they drop below spec. Not an emergency yet, but \"not an emergency yet\" is how every emergency on this station started.",
         "reporter": {
             "name": "Sam Williams",
             "email": "sam.williams@cdss.space",
@@ -275,7 +275,7 @@
     {
         "ticket_id": "SIG-0021",
         "subject": "How do I reserve a briefing chamber?",
-        "description": "Hi, I just came aboard the station last week and I need to reserve the large briefing chamber on Deck 4 for a crew social on Friday. I checked the station scheduling system but I can't figure out how to book it. Is there a special reservation protocol or something? Also, do I need to order catering through Mission Control or is that a different department? Thanks!",
+        "description": "Hi, I just came aboard the station last week from the Earth rotation and I need to reserve the large briefing chamber on Deck 4 for a crew social on Friday. I checked the station scheduling system but I can't figure out how to book it — every time I click 'Reserve' it asks for a Mission Justification Code and I don't have one because this is a social event, not a mission. Do I need a code for pizza night? Is pizza night a mission? (Honestly, for morale purposes, it probably should be.)\n\nAlso, do I need to order catering through Mission Control or is that a different department? The nutrient synthesizer can technically make pizza but the results are... aspirational at best. Someone told me there's an actual kitchen on Deck 6 but I haven't found it yet. This station is not well-signed for new arrivals. Thanks!",
         "reporter": {
             "name": "Chris Taylor",
             "email": "chris.taylor@cdss.space",
