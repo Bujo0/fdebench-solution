@@ -173,11 +173,11 @@ The `eval_results.json` file contains full per-signal breakdowns for error analy
 
 ## Running the Tests
 
-The scoring functions have their own test suite (84 tests covering every edge case). Run them if you want to understand exactly how scoring works, or if you've been tinkering with the harness code:
+The scoring functions have their own test suite (87 tests covering every edge case). Run them if you want to understand exactly how scoring works, or if you've been tinkering with the harness code:
 
 ```bash
 cd docs/eval
 python test_scoring.py
 ```
 
-All 84 should pass. If they don't, something's wrong with your environment, not the tests.
+All 87 should pass. If they don't, something's wrong with your environment, not the tests.
