@@ -941,7 +941,15 @@ def _print_dimension_commentary(dim_scores: dict[str, float]) -> None:
         print("    ✦ Category: Anomaly classification is surgical. Your system distinguishes")
         print("      hull breaches from protein cube complaints like Mehta distinguishes")
         print("      genuine emergencies from Ensign Torres's weekly lockout drama.")
-    elif dim_scores["category"] < 0.5:
+    elif dim_scores["category"] >= 0.7:
+        print("    ◆ Category: Solid anomaly classification — most signal types routed to the")
+        print("      right neighborhood, but a few edge cases are slipping through like the")
+        print("      Deck 9 cat through a maintenance hatch. Check your rare-class handling.")
+    elif dim_scores["category"] >= 0.5:
+        print("    ◇ Category: Anomaly classification is... present. Your system gets the")
+        print("      common types right but guesses on the rest, like a duty officer who can")
+        print("      identify a hull breach but thinks everything else is 'probably software.'")
+    else:
         print("    ⚠ Category: Your system confuses anomaly types like a cadet who thinks")
         print("      every warning light means 'hull breach.' Threat Response just got")
         print("      dispatched to a nutrient synthesizer jam. They are armed. And annoyed.")
@@ -950,7 +958,15 @@ def _print_dimension_commentary(dim_scores: dict[str, float]) -> None:
         print("    ✦ Priority: Threat assessment is on point. You correctly identified that")
         print("      'URGENT!!!' usually means 'mild inconvenience' and 'probably nothing'")
         print("      means 'the deck is depressurizing.' Exclamation points: decoded.")
-    elif dim_scores["priority"] < 0.5:
+    elif dim_scores["priority"] >= 0.7:
+        print("    ◆ Priority: Threat assessment is close — you're mostly in the right solar")
+        print("      system. A few off-by-ones suggest your system trusts the reporter's tone")
+        print("      more than the signal content. Remember: calm crew ≠ calm situation.")
+    elif dim_scores["priority"] >= 0.5:
+        print("    ◇ Priority: Your threat model needs recalibration. Some hull breaches are")
+        print("      being flagged as Standard Ops, and some protein cube complaints are getting")
+        print("      the Red Alert treatment. The crew is confused. The scoring computer is not.")
+    else:
         print("    ⚠ Priority: You rated a hull breach as Routine and a protein cube shortage")
         print("      as Red Alert. The crew is evacuating Deck 3 over a seasoning error while")
         print("      actual vacuum seeps through Deck 7. Recalibrate your threat model.")
@@ -959,7 +975,15 @@ def _print_dimension_commentary(dim_scores: dict[str, float]) -> None:
         print("    ✦ Routing: Signals reaching the right teams like a precision-guided probe.")
         print("      Deep Space Comms gets comms issues. Threat Response gets threats. Nobody")
         print("      is staring at a fabricator jam wondering why Security was summoned.")
-    elif dim_scores["routing"] < 0.5:
+    elif dim_scores["routing"] >= 0.7:
+        print("    ◆ Routing: Most signals find their team, but the ambiguous ones — BioAuth")
+        print("      panel failures, SubComm crashes, networked fabricators — are causing")
+        print("      routing turbulence. Re-read Mehta's margin notes. They help. Reluctantly.")
+    elif dim_scores["routing"] >= 0.5:
+        print("    ◇ Routing: Signals are reaching teams with the accuracy of the Deck 3")
+        print("      fabricator printing coordinates — close enough to seem functional, but")
+        print("      consistently off in ways that compound into real operational problems.")
+    else:
         print("    ⚠ Routing: Signals arriving at the wrong teams like a malfunctioning")
         print("      turbolift that exclusively visits decks where the problem isn't. Deep")
         print("      Space Comms just received a containment breach. They have questions.")
@@ -968,7 +992,15 @@ def _print_dimension_commentary(dim_scores: dict[str, float]) -> None:
         print("    ✦ Missing info: Intel requests are precise. You ask for exactly what's")
         print("      missing — no more, no less. The crew appreciates not being interrogated")
         print("      about things they already told you. Their patience is finite. So is oxygen.")
-    elif dim_scores["missing_info"] < 0.5:
+    elif dim_scores["missing_info"] >= 0.7:
+        print("    ◆ Missing info: Intel requests are mostly on target — you identify the key")
+        print("      gaps but occasionally ask for data that was already in the signal, like")
+        print("      asking which deck when the reporter literally said 'Deck 7 is on fire.'")
+    elif dim_scores["missing_info"] >= 0.5:
+        print("    ◇ Missing info: Your intel requests are a mixed bag — some precise, some")
+        print("      hallucinated. The crew is getting asked for 'anomaly_readout' when they")
+        print("      already pasted the full diagnostic dump. Read the signal before requesting.")
+    else:
         print("    ⚠ Missing info: Either demanding data the signal already provided (the crew")
         print("      can hear you asking their name from 0.3 AU away, and they are not amused)")
         print("      or missing critical gaps like 'which deck is currently on fire.'")
@@ -977,7 +1009,15 @@ def _print_dimension_commentary(dim_scores: dict[str, float]) -> None:
         print("    ✦ Escalation: Commander Kapoor sleeps through the night undisturbed by")
         print("      false alarms, and wakes precisely when actual threats materialize.")
         print("      This is the dream. The Admiral is satisfied. Mehta almost smiles.")
-    elif dim_scores["escalation"] < 0.5:
+    elif dim_scores["escalation"] >= 0.7:
+        print("    ◆ Escalation: Mostly correct — the real emergencies get flagged, but a few")
+        print("      containment incidents are slipping through unmarked. In space, a missed")
+        print("      escalation is how routine anomalies become Admiral-level memos.")
+    elif dim_scores["escalation"] >= 0.5:
+        print("    ◇ Escalation: Your escalation logic is a coin flip. Some containment signals")
+        print("      escalate correctly; others pass quietly into the night while the Admiral")
+        print("      discovers the breach from the morning status report. Awkward for everyone.")
+    else:
         print("    ⚠ Escalation: Missing real emergencies or crying wolf on routine maintenance.")
         print("      Commander Kapoor was woken at 0300 for a font rendering issue, and slept")
         print("      through an actual hostile contact. She has opinions about this. Strong ones.")

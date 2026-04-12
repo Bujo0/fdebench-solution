@@ -63,12 +63,12 @@ When a signal comes in, identify the **issue type** from the table below and rou
 
 | Issue type | Route to | Notes |
 |---|---|---|
-| FlightOS errors or access | Mission Software Operations | — |
+| FlightOS errors or access | Mission Software Operations | *Mehta's note: FlightOS is the one piece of software where 'it works on my console' is not a valid diagnostic. If FlightOS is broken, we're navigating by starlight and instinct. Neither is great at 0.3 AU.* |
 | Navigation suite issues | Mission Software Operations | *Mehta's note: If navigation is wrong, escalate to P1 immediately. We are in space. "Slightly off course" is not a P3.* |
 | Sensor platform calibration | Mission Software Operations | Physical hardware issues go to Spacecraft Systems Engineering |
 | Mission Suite issues | Mission Software Operations | Licensing issues specifically — general Mission Suite outages are Deep Space Comms |
-| Internal tool bugs | Mission Software Operations | — |
-| Application licensing | Mission Software Operations | — |
+| Internal tool bugs | Mission Software Operations | *Mehta's note: If it's an internal tool nobody remembers building, check who owns it first. Last time, we discovered the tool was maintained by a crew member who transferred off-station two rotations ago and the documentation was a single sticky note on a console on Deck 4 that said 'don't reboot.'* |
+| Application licensing | Mission Software Operations | *Mehta's note: License audits are like asteroid showers — they come around on a schedule, everyone knows they're coming, and somehow we're still scrambling at the last minute. Check the manifest first.* |
 
 ### Threat Response Command
 
@@ -77,18 +77,18 @@ When a signal comes in, identify the **issue type** from the table below and rou
 | Hostile signal received | Threat Response Command | Quarantine signal immediately in SentinelGrid. Do NOT open attachments. *Mehta's note: I cannot believe I have to write this, but do NOT open attachments from unknown vessels. Last time someone did, we spent 72 hours purging the environmental controls. The atmospheric processor on Deck 7 still smells like burnt toast and we're pretty sure it's related.* |
 | Malware / suspicious activity | Threat Response Command | Isolate affected module from the network immediately |
 | Data loss / unauthorized access | Threat Response Command | Mandatory P1 escalation. No exceptions. Not even if the Commander says it's fine. (The Commander will never say it's fine.) |
-| Security certificate issues | Threat Response Command | — |
-| Containment / audit requests | Threat Response Command | — |
+| Security certificate issues | Threat Response Command | *Mehta's note: Certificate expiration is the silent hull breach of cybersecurity. It makes no noise, gives you a 90-day warning, and then suddenly every fleet connection fails at 0300 and the Admiral is composing a memo before you've even finished your protein cube.* |
+| Containment / audit requests | Threat Response Command | *Mehta's note: If the Terran Space Authority auditors are involved, treat it like a P2 minimum. The only thing scarier than a hull breach is a compliance finding. At least hull breaches are quick.* |
 
 ### Telemetry & Data Core
 
 | Issue type | Route to | Notes |
 |---|---|---|
-| Sensor archive access | Telemetry & Data Core | — |
+| Sensor archive access | Telemetry & Data Core | *Mehta's note: Half these requests are from researchers who forgot their data access expired three rotations ago. Check permissions first, route second.* |
 | Crew file store sync issues | Telemetry & Data Core | Large dataset sync problems are common; check storage allocation limits. *Mehta's note: The Exobiology team is storing 4.7 TB of cat behavioral data. Yes, that cat. No, I don't know why.* |
 | Data core access request | Telemetry & Data Core | Requires data owner approval |
-| Backup / restore request | Telemetry & Data Core | — |
-| Legacy archive access | Telemetry & Data Core | Legacy sensor archives only; new data requests should use the standard sensor archive platform |
+| Backup / restore request | Telemetry & Data Core | *Mehta's note: The last time someone tried to restore from backup without checking the timestamp, they recovered data from before the Great Fabricator Recalibration of January 2026. Three weeks of telemetry data just... vanished. Into the void. Where everything goes eventually.* |
+| Legacy archive access | Telemetry & Data Core | Legacy sensor archives only; new data requests should use the standard sensor archive platform. *Mehta's note: The legacy archives run on systems from the original station build. They work. Nobody knows how. Nobody touches them. This is the arrangement.* |
 
 ---
 
