@@ -47,11 +47,11 @@
         ],
         "next_best_action": "Dispatch immediate on-site support to Main War Room with a portable backup holographic projector. Time-critical: critical deep-space mining treaty review with the Meridian Sector delegation in 25 minutes.",
         "remediation_steps": [
-            "Dispatch on-site technician to Main War Room immediately — the Meridian Sector delegation includes a Rigelian ambassador with atmospheric requirements that make 'find another room' approximately as practical as 'find another space station'",
-            "Bring portable backup holographic projector from Station Ops supply bay — if someone borrowed it for movie night again, Mehta will have words",
-            "Check holographic projector power source, data connections, and input source settings — the Main War Room projector has been known to enter a philosophical state where it technically has power but declines to project anything, like a very expensive mood lamp",
-            "If main holographic projector cannot be restored, set up portable unit before briefing starts — a 2.3M credit mining pact presentation on a backup projector is not ideal, but it's better than the Fleet Admiral performing the tactical overlay as interpretive dance",
-            "After briefing, schedule full diagnostic of the Main War Room holographic projector — and consider a backup-backup plan for future high-stakes presentations, because the universe has opinions about single points of failure"
+            "Dispatch on-site technician to Main War Room immediately — the Meridian Sector delegation includes a Rigelian ambassador with atmospheric requirements that make 'find another room' approximately as practical as 'find another space station.' Time is measured in minutes and diplomatic patience is measured in less than that",
+            "Bring portable backup holographic projector from Station Ops supply bay — if someone borrowed it for movie night again, Mehta will have words. He will also have a margin note. The margin note will be preserved for future generations as a cautionary tale about requisition protocols",
+            "Check holographic projector power source, data connections, and input source settings — the Main War Room projector has been known to enter a philosophical state where it technically has power but declines to project anything, like a very expensive mood lamp contemplating the futility of visual presentation in the vast emptiness of space",
+            "If main holographic projector cannot be restored, set up portable unit before briefing starts — a 2.3M credit mining pact presentation on a backup projector is not ideal, but it's considerably better than the Fleet Admiral performing the tactical overlay as interpretive dance while the Rigelian ambassador corrodes the ventilation ducts with disapproval",
+            "After briefing, schedule full diagnostic of the Main War Room holographic projector — and consider a backup-backup plan for future high-stakes presentations, because the universe has opinions about single points of failure and expresses them exclusively at the worst possible time"
         ]
     },
     {
@@ -85,9 +85,9 @@
         "missing_information": [],
         "next_best_action": "Close — this is a cryo-sleep auto-reply, not a mission signal. The crew member is literally frozen and will return your signal in 6–18 months. Filing this as a maintenance request would be like asking an asteroid for directions — technically possible, profoundly unhelpful.",
         "remediation_steps": [
-            "Verify signal is an automated cryo-sleep out-of-rotation reply — not a mission signal requiring triage",
-            "Mark as 'Not a Mission Signal' and close — no team assignment needed, no crew member to wake (waking crew from cryo-sleep without authorization is a court-martial offense and also very rude)",
-            "If the original signal SIG-0847 requires a response, route to the colleague mentioned (alex.wu@cdss.space) — they're presumably not frozen"
+            "Verify signal is an automated cryo-sleep out-of-rotation reply — not a mission signal requiring triage. The giveaway is the phrase 'I will be frozen' — that's not a metaphor at 0.3 AU, it's a literal description of their current molecular state",
+            "Mark as 'Not a Mission Signal' and close — no team assignment needed, no crew member to wake (waking crew from cryo-sleep without authorization is a court-martial offense and also very rude — the thawing paperwork alone takes longer than the actual cryo cycle)",
+            "If the original signal SIG-0847 requires a response, route to the colleague mentioned (alex.wu@cdss.space) — they're presumably not frozen and therefore capable of responding to signals, which is a lower bar than it sounds but a meaningful one"
         ]
     },
     {
@@ -155,11 +155,11 @@
         ],
         "next_best_action": "Escalate airlock access code issue for Deck 7 — third report without resolution, crew member has been floating in corridors like a very annoyed balloon. Verify airlock access code permissions in the updated access management system and check whether the migration actually completed for this crew member or just claimed to. This is the kind of repeat failure that generates strongly worded memos.",
         "remediation_steps": [
-            "Check crew member's airlock access code permissions in the updated access management system — third time asking, so verify thoroughly",
-            "Verify Deck 7 access rights were properly migrated from the old system (not just marked as migrated while the actual data sits in a legacy queue somewhere being philosophical)",
-            "If permissions appear correct, test the physical airlock access code and airlock reader on Deck 7 — hardware fails too, especially when you're optimistic",
-            "Escalate to station facilities management if airlock access code and permissions are both confirmed working — at this point, the airlock might just have opinions",
-            "Follow up with crew member to confirm resolution — she should not have to wait in zero-g corridors. Nobody should. It's undignified and cold."
+            "Check crew member's airlock access code permissions in the updated access management system — third time asking, so verify thoroughly. If you find a note that says 'resolved' but the crew member is still floating in corridors, that's not resolution, that's fiction",
+            "Verify Deck 7 access rights were properly migrated from the old system (not just marked as migrated while the actual data sits in a legacy queue somewhere being philosophical about the nature of access control)",
+            "If permissions appear correct, test the physical airlock access code and airlock reader on Deck 7 — hardware fails too, especially hardware that was installed during the original station build and has been 'working fine' for long enough that nobody remembers what 'fine' looked like",
+            "Escalate to station facilities management if airlock access code and permissions are both confirmed working — at this point, the airlock might just have opinions. The Deck 9 cat gets through that same airlock twice daily without a code, which is either a security flaw or a sign that the cat outranks us all",
+            "Follow up with crew member to confirm resolution — she has memorized every rivet on that bulkhead and bonded with the cat over shared disappointment. Nobody should have to earn a structural engineering degree waiting for an airlock code to work"
         ]
     },
     {
@@ -235,12 +235,12 @@
         "missing_information": [],
         "next_best_action": "Initiate containment breach investigation immediately. This is a potential regulatory incident involving sensitive personnel data exposure of 1,200 crew members under Galactic Data Protection guidelines. Determine scope of external access, identify who created the sharing link, and assess notification obligations. Commander Kapoor will want a full briefing — have answers ready before she finds you in the corridor.",
         "remediation_steps": [
-            "Confirm the external sharing link has been fully revoked and verify no other archives in the Deck Gamma data vaults have similar 'Anyone with the subspace link' permissions",
-            "Pull mission log audit trails to identify who created the public sharing link and when — cross-reference with docking records in case this was an external actor with temporary station access",
-            "Analyze audit logs for any external access to the archive between stardate February 15 and today — flag any access from unrecognized vessel transponder codes",
-            "Engage Space Law Division and Station Compliance to assess Galactic Data Protection notification obligations — if the data includes biometric records, the timeline is shorter",
-            "Document findings for the station incident report and galactic regulatory record — Commander Kapoor's standing order is that containment breaches get full write-ups, not summaries",
-            "Conduct a broader mission log permissions audit across all archives containing sensitive crew data — if one vault was misconfigured, assume others might be too"
+            "Confirm the external sharing link has been fully revoked and verify no other archives in the Deck Gamma data vaults have similar 'Anyone with the subspace link' permissions — one misconfigured vault is a mistake, two is a pattern, and three is a conversation with Commander Kapoor that nobody wants to have",
+            "Pull mission log audit trails to identify who created the public sharing link and when — cross-reference with docking records in case this was an external actor with temporary station access. If it was an internal crew member, they owe the station a very thorough explanation and possibly a formal apology to 1,200 people whose biometric data has been sightseeing across open space",
+            "Analyze audit logs for any external access to the archive between stardate February 15 and today — flag any access from unrecognized vessel transponder codes. If something from the Tau Ceti relay accessed 1,200 crew personnel files, that's not curiosity, that's reconnaissance",
+            "Engage Space Law Division and Station Compliance to assess Galactic Data Protection notification obligations — if the data includes biometric records, the timeline is shorter than the attention span of the Deck 9 cat, and considerably less forgiving",
+            "Document findings for the station incident report and galactic regulatory record — Commander Kapoor's standing order is that containment breaches get full write-ups, not summaries. She reads them the way navigators read asteroid trajectory data: thoroughly, with consequences for errors",
+            "Conduct a broader mission log permissions audit across all archives containing sensitive crew data — if one vault was misconfigured, assume others might be too. Optimism is a wonderful trait in crew members. In security auditors, it's a liability"
         ]
     },
     {
@@ -253,8 +253,8 @@
         "missing_information": [],
         "next_best_action": "Close — this is a thank-you message, not a mission signal. Rare evidence of crew member satisfaction, which on this station is rarer than a fabricator that works on the first try. Savor it.",
         "remediation_steps": [
-            "Close signal — no action required beyond basking in the warm glow of crew gratitude, which is the closest thing to sunlight you'll get at 0.3 AU",
-            "If original signal is still open, verify it's resolved and close that too — a crew member said 'you're the best,' which is basically a medal of honor in Mission Ops"
+            "Close signal — no action required beyond basking in the warm glow of crew gratitude, which is the closest thing to sunlight you'll get at 0.3 AU from the nearest star that isn't trying to irradiate you",
+            "If the original signal referenced is still open, verify it's resolved and close that too — a crew member saying 'you're the best' is rare enough to warrant a moment of quiet reflection, like spotting a comet. Document and appreciate before it vanishes into the void"
         ]
     },
     {
@@ -269,7 +269,7 @@
             "habitat_conditions",
             "mission_impact"
         ],
-        "next_best_action": "Investigate 200ms-to-50ms latency regression on the Gamma Quadrant relay probe deployment path before the Europa shift. Determine mission impact: are active survey missions affected, or are we one delayed command away from losing another drone to ‘latency-related involuntary lithobraking’? Check comms path, recent changes, and which side of the relay the latency lives on.",
+        "next_best_action": "Investigate 200ms-to-50ms latency regression on the Gamma Quadrant relay probe deployment path before the Europa shift. Determine mission impact: are active survey missions affected, or are we one delayed command away from losing another drone to 'latency-related involuntary lithobraking'? The last drone that experienced this became a permanent geological feature of an asteroid. Check comms path, recent changes, and which side of the relay the latency lives on.",
         "remediation_steps": [
             "Assess mission impact: determine if active probe deployments or survey missions are currently affected by the latency — 200ms may be tolerable for routine telemetry, but for real-time navigation commands it’s the difference between ‘avoid that asteroid’ and ‘you are now part of that asteroid’",
             "Check communications latency metrics on the path between CDSS’s Gamma Quadrant relay cluster and the relay station",
@@ -385,12 +385,12 @@
         "assigned_team": "Mission Software Operations",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Provide guidance on how to book briefing rooms via SubComm (add room resource) and direct catering questions to Station Facilities. This is the kind of signal that makes you wonder what the orientation program actually covers — 45 minutes on airlock safety, zero on room booking. Priorities.",
+        "next_best_action": "Provide guidance on how to book briefing rooms via SubComm (add room resource) and direct catering questions to Station Facilities. This is the kind of signal that makes you wonder what the orientation program actually covers — 45 minutes on airlock safety, zero on room booking. The station's priorities are technically correct but socially mystifying.",
         "remediation_steps": [
-            "Direct crew member to SubComm > Calendar > Add Room Resource > search 'Deck 4' — the briefing rooms are listed there, hiding in plain sight like most useful station features",
-            "For catering: direct to Station Services portal at services.cdss.space — they handle provisions for crew events and are surprisingly accommodating about dietary restrictions, especially compared to the nutrient synthesizer",
-            "Provide the Station Facilities quick-start guide link if available — new crew members shouldn't have to file signals to book rooms, but here we are, 0.3 AU from common sense",
-            "Close signal after confirming the crew member can navigate the booking interface — if SubComm's UI confuses them, that's not their fault, it confuses everyone"
+            "Direct crew member to SubComm > Calendar > Add Room Resource > search 'Deck 4' — the briefing rooms are listed there, hiding in plain sight like most useful station features. The UI was designed by someone who believed that if a feature is important enough, people will find it. That person has never met a new crew member.",
+            "For catering: direct to Station Services portal at services.cdss.space — they handle provisions for crew events and are surprisingly accommodating about dietary restrictions, especially compared to the nutrient synthesizer, which treats every dietary preference as a creative suggestion to be cheerfully ignored",
+            "Provide the Station Facilities quick-start guide link if available — new crew members shouldn't have to file signals to book rooms, but here we are, 0.3 AU from common sense and apparently even further from a functional orientation program",
+            "Close signal after confirming the crew member can navigate the booking interface — if SubComm's UI confuses them, that's not their fault, it confuses everyone. Mehta once spent 20 minutes trying to book a room and ended up accidentally requisitioning a cargo shuttle. We don't talk about it."
         ]
     },
     {
@@ -406,12 +406,12 @@
         ],
         "next_best_action": "Renew or replace the quantum encryption certificate on crew-api.cdss.space before it expires on March 20. This is a production-facing API gateway — expiry will sever all external fleet integrations, and 'our certificates expired' is not something you want to explain to the Admiral while the fleet command channel goes dark. The original provisioner transferred off-station, so this is now everyone's problem and nobody's specialty. Classic space station operations.",
         "remediation_steps": [
-            "Identify the current certificate authority and certificate type (station PKI, external fleet CA, or automated quantum cert provisioner) — the original provisioner left for the Tau Ceti outpost and apparently took the documentation with them, or more likely never wrote any, because nobody documents certificate infrastructure until it's on fire. In space, 'on fire' is not always a metaphor.",
-            "Determine whether auto-renewal was configured or if the cert was manually provisioned — manually provisioned certificates are the landmines of station infrastructure: they sit there quietly for exactly as long as you forget about them, then detonate at the worst possible moment, like during the Admiral's fleet-wide briefing",
-            "If auto-renewal exists, trigger a manual renewal cycle and verify the new cert is issued — if the auto-renewal agent is itself authenticated via a certificate that has expired, congratulations, you've discovered a certification paradox. The station has several. They are not charming.",
-            "If manual, generate a CSR, obtain a new certificate from the CA, and install it on the fleet API gateway — the fleet CA's turnaround time is 'anywhere between 30 minutes and heat death of the universe,' so submit the request immediately and consider preparing a backup plan that doesn't involve the phrase 'self-signed'",
-            "Verify the new certificate is correctly installed and all fleet connections are handshaking without TLS errors — test from multiple relay stations, not just the local console, because 'it works from my terminal' is not a valid certificate validation strategy at 0.3 AU from Earth",
-            "Configure auto-renewal, set up bridge monitoring alerts at 30-day and 7-day thresholds, and update the station runbook — because the next person to deal with this will be equally unprepared, equally stressed, and equally likely to curse the name of whoever set this up originally. That person is you now. Write the docs."
+            "Verify certificate expiration date and current certificate status on crew-api.cdss.space — if it's truly 3 days out, this is the security equivalent of noticing the oxygen is running low: technically you have time, but procrastination has never been less advisable",
+            "Contact the certificate management team to initiate emergency renewal or replacement — quantum encryption certificates don't renew themselves, despite what the vendor's marketing materials imply. The vendor is also 0.3 AU away and therefore not going to help you at 0200 station time",
+            "Identify the full blast radius: document all external fleet integrations and internal services dependent on crew-api.cdss.space — an expired certificate on the production gateway doesn't just break one thing, it breaks everything downstream, like a hull breach that starts small and then introduces vacuum to places that prefer atmosphere",
+            "Prepare a rollback plan in case the new certificate causes integration issues with external fleet partners — some partner vessels run certificate validation that was last updated when Titan Outpost was still a going concern",
+            "Schedule a post-incident review of the certificate monitoring and renewal process — a 3-day warning on a production certificate suggests the monitoring was either misconfigured, ignored, or both. Mehta will want to know which. Mehta always wants to know which.",
+            "Implement automated alerting at 30/14/7 day thresholds for all production certificates — because discovering certificate expiry with less than a week to go is the cryptographic equivalent of discovering hull micro-fractures by hearing wind in the corridor"
         ]
     },
     {
