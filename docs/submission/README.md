@@ -4,7 +4,7 @@
 
 1. **Fork** this repo (your fork must be **public**)
 2. **Build** your solution
-3. **Deploy** it somewhere callable via HTTPS
+3. **Deploy** it somewhere callable via HTTPS — not localhost, not your quarters terminal
 4. **Test** with the eval harness: sample set for scoring, public eval for smoke testing
 5. **Write** your three docs: `docs/architecture.md`, `docs/methodology.md`, `docs/evals.md`
 6. **Create** `submission.json` at the root (see below)
@@ -24,11 +24,11 @@ your-repo/
 └── ...                      # Your code, tests, infrastructure
 ```
 
-**All three docs are mandatory.** Missing one is a big hit in engineering review.
+**All three docs are mandatory.** Missing one is a big hit in engineering review. Like showing up to a mission briefing without your flight plan.
 
 Important nuance: the hidden signals are for the **0-100 functional score**. Engineering review happens separately from what is in your repo after you submit.
 
-What we want to see is not just that you got a decent score. We want to see how you built a system: clear design, sensible model usage, attention to latency and cost, tests that cover real failure modes, and engineering choices that would hold up in front of a mission control team.
+What we want to see is not just that you got a decent score. We want to see how you built a system: clear design, sensible model usage, attention to latency and cost, tests that cover real failure modes, and engineering choices that would hold up in front of a mission control team. The kind of work that makes the Admiral nod approvingly instead of reaching for the airlock controls.
 
 ## submission.json
 
@@ -63,7 +63,7 @@ See [challenge README: Engineering Review](../challenge/README.md#engineering-re
 | `docs/methodology.md` | How you approached it, what you tried, what failed, how you spent your time |
 | `docs/evals.md` | Your actual numbers, which signals you got wrong and why, where your system breaks |
 
-> **Seriously:** a clean, simple solution with honest error analysis beats a complex system with no explanation. Every single time. In space, clarity saves lives.
+> **Real talk:** a clean, simple solution with honest error analysis beats a complex system with no explanation. Every single time. In space, clarity saves lives. On the leaderboard, clarity saves scores.
 
 ## Before You Submit
 
@@ -88,11 +88,13 @@ See [challenge README: Engineering Review](../challenge/README.md#engineering-re
 ## Tips
 
 - **Deploy early.** Get something live in hour 2 and iterate. The number of people who deploy at hour 23 and then panic is... nonzero. Don't let your mission launch at T-minus-nothing.
-- **Run the eval harness constantly.** It's the same scoring logic as the platform. Trust the numbers.
-- **Read the mission briefing.** Candidates who skip it produce noticeably worse output. The mission context matters for routing and remediation.
-- **Handle the weird signals.** The hidden eval has stuff you haven't seen: vague signals, multi-issue signals, space noise. If your system 500s on a confusing signal, that's a zero on every dimension.
-- **Return valid JSON even when confused.** A reasonable default beats a stack trace.
-- **Explain your decisions.** "I chose X because Y" is worth more than a polished README that says nothing. We want to see how you think.
-- **Send the cost headers.** It's only 5% of the score, but it signals you actually read the spec.
-- **Treat the repo like part of the mission.** The endpoint drives your functional score. The repo is what reviewers use to judge the engineering.
-- **Show engineering judgment.** Good submissions usually have explicit timeouts, validation, useful tests, clean config, and a believable story for scale, security, and operability.
+- **Run the eval harness constantly.** It's the same scoring logic as the platform. Trust the numbers. The scoring computer doesn't lie — it doesn't know how.
+- **Read the mission briefing.** Candidates who skip it produce noticeably worse output. The mission context matters for routing and remediation. Commander Kapoor wrote it for a reason.
+- **Handle the weird signals.** The hidden eval has stuff you haven't seen: vague signals, multi-issue signals, space noise, social engineering attempts. If your system 500s on a confusing signal, that's a zero on every dimension.
+- **Return valid JSON even when confused.** A reasonable default beats a stack trace. The crew doesn't care about your exception — they care about getting triaged.
+- **Explain your decisions.** "I chose X because Y" is worth more than a polished README that says nothing. We want to see how you think, not how you format.
+- **Send the cost headers.** It's only 5% of the score, but it signals you actually read the spec. (Pun intended.)
+- **Treat the repo like part of the mission.** The endpoint drives your functional score. The repo is what reviewers use to judge the engineering. Both matter.
+- **Show engineering judgment.** Good submissions usually have explicit timeouts, validation, useful tests, clean config, and a believable story for scale, security, and operability. The kind of system a mission control team could actually operate without praying.
+
+> **Final transmission:** In space, nobody can hear you 500. But the scoring computer can. And it remembers. 🛰️

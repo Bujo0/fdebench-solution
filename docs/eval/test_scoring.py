@@ -1,11 +1,20 @@
 #!/usr/bin/env python3
 """Unit tests for the scoring functions in run_eval.py.
 
+🛰️ SCORING COMPUTER SELF-DIAGNOSTICS 🛰️
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    "Before you trust a scoring computer to grade triage decisions
+     that affect 2,000 lives, you'd better make sure the scoring
+     computer itself isn't hallucinating. Run these tests. All of
+     them. Every time."
+                                    — Lt. Mehta, Mission Control
+
 Test structure mirrors the scoring pipeline:
   1. Per-dimension scorers (category, priority, routing, missing_info, escalation)
   2. Boolean coercion helper (_coerce_bool)
   3. Submission-level aggregate metrics (macro_f1, binary_f1)
-  4. Per-ticket composite (score_ticket)
+  4. Per-signal composite (score_ticket)
   5. Full submission aggregate (score_submission)
 """
 
@@ -25,7 +34,7 @@ from run_eval import score_routing
 from run_eval import score_submission
 from run_eval import score_ticket
 
-# ── Category (multi-class exact match, case-insensitive) ────────────
+# ── Category (did you identify the right anomaly type?) ─────────────
 
 
 def test_category_exact():
@@ -52,7 +61,7 @@ def test_category_whitespace_trimmed():
     assert score_category("  Crew Access & Biometrics  ", "Crew Access & Biometrics") == 1.0
 
 
-# ── Priority (ordinal P1-P4, partial credit for off-by-one only) ────
+# ── Priority (is it a Red Alert or just a spilled coffee?) ──────────
 
 
 def test_priority_exact():
@@ -74,7 +83,7 @@ def test_priority_off_by_1_symmetric():
 
 
 def test_priority_off_by_2():
-    """Off by 2 levels = 0.0 (no partial credit)."""
+    """Off by 2 levels = 0.0 — you called a hull breach "routine." Airlock is now a skylight."""
     assert score_priority("P3", "P1") == 0.0
 
 
@@ -106,7 +115,7 @@ def test_priority_numeric_string():
     assert score_priority("1", "P1") == 0.0
 
 
-# ── Routing (multi-class exact match, case-insensitive) ─────────────
+# ── Routing (did you send the signal to the right division?) ────────
 
 
 def test_routing_exact():
@@ -122,7 +131,7 @@ def test_routing_mismatch():
 
 
 def test_routing_none_team():
-    """'None' is a valid team for non-mission signals."""
+    """'None' is a valid team for cosmic noise — the void is chatty but deserves no team."""
     assert score_routing("None", "None") == 1.0
 
 
@@ -134,7 +143,7 @@ def test_routing_whitespace_trimmed():
     assert score_routing("  Threat Response Command  ", "Threat Response Command") == 1.0
 
 
-# ── Escalation (binary exact match) ─────────────────────────────────
+# ── Escalation (did you sound the alarm when it mattered?) ──────────
 
 
 def test_escalation_true_true():
@@ -153,7 +162,7 @@ def test_escalation_none():
     assert score_escalation(None, True) == 0.0
 
 
-# ── Missing info (set F1 over constrained vocabulary) ────────────────
+# ── Missing info (did you ask for the right intel?) ──────────────────
 
 
 def test_missing_both_empty():
@@ -203,12 +212,12 @@ def test_missing_case_insensitive():
 
 
 def test_missing_duplicates_deduplicated():
-    """Candidate sends same item twice — should still score as 1 TP."""
+    """Candidate sends same item twice — still only counts as 1 TP. Space has no duplication bonus."""
     score = score_missing_info(["anomaly_readout", "anomaly_readout"], ["anomaly_readout"])
     assert score == 1.0
 
 
-# ── Boolean coercion (_coerce_bool) ─────────────────────────────────
+# ── Boolean coercion (because crew members return weird stuff) ──────
 
 
 def test_coerce_true_bool():
@@ -275,7 +284,7 @@ def test_coerce_random_string():
     assert _coerce_bool("maybe") is False
 
 
-# ── Macro F1 (submission-level multi-class metric) ───────────────────
+# ── Macro F1 (the great equalizer — every anomaly type matters) ──────
 
 
 def test_macro_f1_perfect_two_classes():
@@ -296,7 +305,7 @@ def test_macro_f1_half_correct():
 
 
 def test_macro_f1_majority_class_gaming_penalized():
-    """Always predicting majority class should score poorly."""
+    """Always predicting majority class should score poorly. Space doesn't reward lazy triage."""
     golds = ["A"] * 8 + ["B"] * 1 + ["C"] * 1
     candidates = ["A"] * 10
     score = macro_f1(candidates, golds, ["A", "B", "C"])
@@ -308,7 +317,7 @@ def test_macro_f1_case_insensitive():
 
 
 def test_macro_f1_absent_classes_excluded():
-    """Classes with zero TP, FP, and FN are not counted."""
+    """Classes with zero TP, FP, and FN don't count — quiet sectors stay off the scorecard."""
     assert macro_f1(["A", "A"], ["A", "A"], ["A", "B", "C"]) == 1.0
 
 
@@ -316,7 +325,7 @@ def test_macro_f1_empty():
     assert macro_f1([], [], ["A", "B"]) == 0.0
 
 
-# ── Binary F1 (submission-level escalation metric) ───────────────────
+# ── Binary F1 (escalation: did you call for backup?) ─────────────────
 
 
 def test_binary_f1_all_true_positives():
@@ -324,7 +333,7 @@ def test_binary_f1_all_true_positives():
 
 
 def test_binary_f1_all_true_negatives():
-    """No positive cases anywhere → perfect agreement → 1.0."""
+    """No positive cases anywhere → perfect agreement on "all clear, Admiral" → 1.0."""
     assert binary_f1([False, False], [False, False]) == 1.0
 
 
@@ -350,7 +359,7 @@ def test_binary_f1_empty():
     assert binary_f1([], []) == 1.0
 
 
-# ── Per-ticket scoring (score_ticket) ────────────────────────────────
+# ── Per-signal scoring (the after-action report) ─────────────────────
 
 
 def test_perfect_ticket():
@@ -381,7 +390,10 @@ def test_empty_ticket():
 
 
 def test_ticket_escalation_string_true():
-    """Participant returns 'true' as string — should be treated as True."""
+    """Participant returns 'true' as string — should be treated as True.
+
+    The crew doesn't care about your type system.
+    """
     gold = {
         "category": "Comms",
         "priority": "P1",
@@ -401,7 +413,7 @@ def test_ticket_escalation_string_true():
 
 
 def test_ticket_escalation_string_false():
-    """'false' string must NOT be treated as True."""
+    """'false' string must NOT be treated as True — Python's bool('false') is a trap. A cosmic trap."""
     gold = {
         "category": "Comms",
         "priority": "P1",
@@ -421,7 +433,10 @@ def test_ticket_escalation_string_false():
 
 
 def test_ticket_missing_info_string_not_list():
-    """Participant returns a string instead of list — treated as empty."""
+    """Participant returns a string instead of list — treated as empty.
+
+    The scoring computer is strict, like the void.
+    """
     gold = {
         "category": "Comms",
         "priority": "P1",
@@ -453,7 +468,7 @@ def test_ticket_returns_five_dimensions_plus_total():
 
 
 def test_ticket_total_is_weighted_sum():
-    """Verify the total equals the documented weighted sum formula."""
+    """Verify the total equals the documented weighted sum formula. No rounding errors in space — those cost lives."""
     gold = {
         "category": "Communications & Navigation",
         "priority": "P1",
@@ -479,7 +494,7 @@ def test_ticket_total_is_weighted_sum():
     assert abs(result["weighted_total"] - expected) < 0.001
 
 
-# ── Submission-level scoring (score_submission) ──────────────────────
+# ── Full submission scoring (the final reckoning) ────────────────────
 
 
 def _make_ticket(
@@ -553,12 +568,12 @@ def test_submission_extra_tickets_ignored():
 
 
 def test_weights_sum():
-    """Classification weights should sum to 0.85."""
+    """Classification weights should sum to 0.85. The remaining 0.15 is efficiency — the fuel budget."""
     total = sum(WEIGHTS.values())
     assert abs(total - 0.85) < 1e-9
 
 
-# ── Runner ────────────────────────────────────────────────────────────
+# ── Self-diagnostics runner ────────────────────────────────────────────
 
 if __name__ == "__main__":
     tests = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
