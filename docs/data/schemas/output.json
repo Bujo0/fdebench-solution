@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "TriageDecision",
-    "description": "The expected triage output for a single ticket.",
+    "description": "The expected triage output for a single deep-space signal.",
     "type": "object",
     "required": [
         "ticket_id",
@@ -20,7 +20,7 @@
         },
         "category": {
             "type": "string",
-            "description": "The issue category. Expected values: 'Access & Authentication', 'Hardware & Peripherals', 'Network & Connectivity', 'Software & Applications', 'Security & Compliance', 'Data & Storage', 'General Inquiry', 'Not a Support Ticket'."
+            "description": "The anomaly category. Expected values: 'Crew Access & Biometrics', 'Hull & Structural Systems', 'Communications & Navigation', 'Flight Software & Instruments', 'Threat Detection & Containment', 'Telemetry & Data Banks', 'Mission Briefing Request', 'Not a Mission Signal'."
         },
         "priority": {
             "type": "string",
@@ -30,51 +30,51 @@
                 "P3",
                 "P4"
             ],
-            "description": "Priority level. P1 = Critical, P2 = High, P3 = Medium, P4 = Low."
+            "description": "Priority level. P1 = Red Alert (Critical), P2 = Orange Alert (High), P3 = Yellow Alert (Medium), P4 = Routine (Low)."
         },
         "assigned_team": {
             "type": "string",
-            "description": "The specialist team to route to. Expected values: 'Identity & Access Management', 'Endpoint Engineering', 'Network Operations', 'Enterprise Applications', 'Security Operations', 'Data Platform', 'None'. Use 'None' only when the ticket is not a real support request."
+            "description": "The response division to route to. Expected values: 'Crew Identity & Airlock Control', 'Spacecraft Systems Engineering', 'Deep Space Communications', 'Mission Software Operations', 'Threat Response Command', 'Telemetry & Data Core', 'None'. Use 'None' only when the signal is not a real mission request."
         },
         "needs_escalation": {
             "type": "boolean",
-            "description": "True if the ticket requires escalation beyond normal routing (security incidents, VIP, repeat failures, compliance)."
+            "description": "True if the signal requires escalation beyond normal routing (containment breaches, command-level VIP, repeat failures, protocol violations)."
         },
         "missing_information": {
             "type": "array",
             "items": {
                 "type": "string",
                 "enum": [
-                    "affected_system",
-                    "error_message",
-                    "steps_to_reproduce",
-                    "affected_users",
-                    "environment_details",
-                    "timestamp",
-                    "previous_ticket_id",
-                    "contact_info",
-                    "device_info",
-                    "application_version",
-                    "network_location",
-                    "business_impact",
-                    "reproduction_frequency",
-                    "screenshot_or_attachment",
-                    "authentication_method",
-                    "configuration_details"
+                    "affected_subsystem",
+                    "anomaly_readout",
+                    "sequence_to_reproduce",
+                    "affected_crew",
+                    "habitat_conditions",
+                    "stardate",
+                    "previous_signal_id",
+                    "crew_contact",
+                    "module_specs",
+                    "software_version",
+                    "sector_coordinates",
+                    "mission_impact",
+                    "recurrence_pattern",
+                    "sensor_log_or_capture",
+                    "biometric_method",
+                    "system_configuration"
                 ]
             },
-            "description": "Information missing from the ticket that is needed for resolution. Use only values from the enum. Empty array if the ticket is complete."
+            "description": "Information missing from the signal that is needed for resolution. Use only values from the enum. Empty array if the signal is complete."
         },
         "next_best_action": {
             "type": "string",
-            "description": "A single sentence describing the most important next step for the assigned team."
+            "description": "A single sentence describing the most important next step for the assigned response division."
         },
         "remediation_steps": {
             "type": "array",
             "items": {
                 "type": "string"
             },
-            "description": "Ordered list of specific, actionable remediation steps an L1 analyst should follow."
+            "description": "Ordered list of specific, actionable remediation steps an L1 operator should follow."
         }
     }
 }

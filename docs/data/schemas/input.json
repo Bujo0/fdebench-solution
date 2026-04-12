@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Ticket",
-    "description": "An IT support ticket submitted to Contoso Financial Services.",
+    "title": "Signal",
+    "description": "An incoming deep-space signal submitted to Contoso Deep Space Station (CDSS) Mission Operations.",
     "type": "object",
     "required": [
         "ticket_id",
@@ -14,16 +14,16 @@
     "properties": {
         "ticket_id": {
             "type": "string",
-            "description": "Unique ticket identifier (e.g., INC-4829).",
-            "pattern": "^INC-[0-9]+$"
+            "description": "Unique signal identifier (e.g., SIG-4829).",
+            "pattern": "^SIG-[0-9]+$"
         },
         "subject": {
             "type": "string",
-            "description": "Short summary or subject line of the ticket. May be missing, vague, or misleading."
+            "description": "Short summary or subject line of the signal. May be missing, vague, or misleading."
         },
         "description": {
             "type": "string",
-            "description": "Full ticket body. Quality varies: may be detailed, terse, garbled, or empty."
+            "description": "Full signal body. Quality varies: may be detailed, terse, garbled, or empty."
         },
         "reporter": {
             "type": "object",
@@ -44,31 +44,31 @@
                 },
                 "department": {
                     "type": "string",
-                    "description": "Business department (e.g., Wealth Management, Trading, Compliance, HR, IT, Finance)."
+                    "description": "Station division (e.g., Navigation Command, Resource Trading, Mission Compliance, Crew Welfare)."
                 }
             }
         },
         "created_at": {
             "type": "string",
             "format": "date-time",
-            "description": "ISO 8601 timestamp of when the ticket was created."
+            "description": "ISO 8601 timestamp of when the signal was received."
         },
         "channel": {
             "type": "string",
             "enum": [
-                "email",
-                "chat",
-                "portal",
-                "phone"
+                "subspace_relay",
+                "holodeck_comm",
+                "bridge_terminal",
+                "emergency_beacon"
             ],
-            "description": "How the ticket was submitted."
+            "description": "How the signal was transmitted."
         },
         "attachments": {
             "type": "array",
             "items": {
                 "type": "string"
             },
-            "description": "Filenames of attachments mentioned in the ticket. Actual files are not provided — only names."
+            "description": "Filenames of attachments included in the signal. Actual files are not provided — only names."
         }
     }
 }
