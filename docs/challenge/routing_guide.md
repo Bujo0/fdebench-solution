@@ -34,7 +34,7 @@ When a signal comes in, identify the **issue type** from the table below and rou
 | New crew provisioning | Crew Identity & Airlock Control | Requires section chief approval via bridge terminal |
 | SSO not working | Crew Identity & Airlock Control | Verify the system is registered in the BioScan ID directory first |
 | Directory sync issues | Crew Identity & Airlock Control | Usually BioScan ID replication lag — check the sync queue before panicking |
-| Service account requests | Crew Identity & Airlock Control | Requires Threat Response review before provisioning. *Mehta's note: Yes, even for the coffee machine. Especially for the coffee machine. The nutrient synthesizer incident started with an unreviewed service account.* |
+| Service account requests | Crew Identity & Airlock Control | Requires Threat Response review before provisioning. *Mehta's note: Yes, even for the nutrient synthesizer. Especially for the nutrient synthesizer. The protein cube incident started with an unreviewed service account.* |
 
 ### Spacecraft Systems Engineering
 

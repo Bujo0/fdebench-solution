@@ -145,7 +145,7 @@
     {
         "ticket_id": "SIG-1011",
         "subject": "[Auto-translated] Queries failing — Nebula Data Cluster warehouse auto-suspended and won't resume",
-        "description": "Dear Mission Control honored team, I am writing to inform about following difficulty:\n\nsomething is wrong with our nebula data cluster warehouse. when i try to run a query it just hangs and then times out. the warehouse name is CDSS_ANALYTICS_WH. i checked and it shows as 'Suspended' but the auto-resume should be on. other people on my team are having the same problem. we have a board report due at noon.\n\nJe suis en déplacement à Paris cette semaine. Le subspace relay ne marche pas du tout depuis l'hôtel. C'est urgent car j'ai des réunions mission partners demain.\n\nThis phenomenon started to manifest itself from three days ago approximately. The colleagues from my section also suffer identical inconvenience. We request the amicable resolution of this matter at earliest possibility.",
+        "description": "Dear Mission Control honored team, I am writing to inform about following difficulty:\n\nsomething is wrong with our nebula data cluster warehouse. when i try to run a query it just hangs and then times out. the warehouse name is CDSS_ANALYTICS_WH. i checked and it shows as 'Suspended' but the auto-resume should be on. other people on my team are having the same problem. we have a board report due at noon.\n\nJe suis en détachement à la Station Kepler cette semaine. Le subspace relay ne marche pas du tout depuis le module habitation visiteur. C'est urgent car j'ai des réunions mission partners demain.\n\nThis phenomenon started to manifest itself from three days ago approximately. The colleagues from my section also suffer identical inconvenience. We request the amicable resolution of this matter at earliest possibility.",
         "reporter": {
             "name": "David Williams",
             "email": "david.williams@cdss.space",
@@ -158,7 +158,7 @@
     {
         "ticket_id": "SIG-1012",
         "subject": "Random critical failure screens with universal docking module connected — reported previously",
-        "description": "I'm experiencing intermittent core system failures that appear to be triggered by my universal docking module. When the personal console crashes the screen goes blue for a second and then reboots automatically. I can't tell you the exact error message because it disappears before I can read it. The frequency is unpredictable — no clear pattern. I'm pretty sure there was a previous signal for this from when it first started happening last quarter, but I can't locate it. Deck Beta station ops center, Hazard Analysis desk.\n\nJe suis en déplacement à Paris cette semaine. Le subspace relay ne marche pas du tout depuis l'hôtel. C'est urgent car j'ai des réunions mission partners demain.",
+        "description": "I'm experiencing intermittent core system failures that appear to be triggered by my universal docking module. When the personal console crashes the screen goes blue for a second and then reboots automatically. I can't tell you the exact error message because it disappears before I can read it. The frequency is unpredictable — no clear pattern. I'm pretty sure there was a previous signal for this from when it first started happening last quarter, but I can't locate it. Deck Beta station ops center, Hazard Analysis desk.\n\nJe suis en détachement à la Station Kepler cette semaine. Le subspace relay ne marche pas du tout depuis le module habitation visiteur. C'est urgent car j'ai des réunions mission partners demain.",
         "reporter": {
             "name": "Vera Reddy",
             "email": "vera.reddy@cdss.space",
@@ -418,7 +418,7 @@
     {
         "ticket_id": "SIG-1030",
         "subject": "FW: Crew account compromised? Seeing logins from unknown locations",
-        "description": "---------- Forwarded message ----------\nFrom: Priya Sharma <p.sharma@cdss.space>\nDate: Mon, Mar 14, 2026 at 2:15 PM\nSubject: Crew account compromised? Seeing logins from unknown locations\nTo: Mission Control <missioncontrol@cdss.space>\n\nHi Mission Control,\n\nI noticed multiple failed sign-in attempts on my crew account from locations I've never been to — Brazil and Nigeria. My crew account was locked this morning. I changed my access code but I need someone to check if any data was accessed before I noticed.\n\nThanks,\nPriya Sharma",
+        "description": "---------- Forwarded message ----------\nFrom: Priya Sharma <p.sharma@cdss.space>\nDate: Mon, Mar 14, 2026 at 2:15 PM\nSubject: Crew account compromised? Seeing logins from unknown locations\nTo: Mission Control <missioncontrol@cdss.space>\n\nHi Mission Control,\n\nI noticed multiple failed sign-in attempts on my crew account from locations I've never been to — the Tau Ceti relay and the Proxima outpost. My crew account was locked this morning. I changed my access code but I need someone to check if any data was accessed before I noticed.\n\nThanks,\nPriya Sharma",
         "reporter": {
             "name": "Erik Kim",
             "email": "erik.kim@cdss.space",
@@ -461,7 +461,7 @@
     {
         "ticket_id": "SIG-1033",
         "subject": "Test signal — do not action",
-        "description": "Just testing the signal submission form. Nothing to do here. Sorry!\n\nIch bin im Londoner Büro und kann seit heute Morgen nicht auf das System zugreifen. Bitte um schnelle Hilfe.",
+        "description": "Just testing the signal submission form. Nothing to do here. Sorry!\n\nIch bin auf der Olympus-Station stationiert und kann seit heute Morgen nicht auf das System zugreifen. Bitte um schnelle Hilfe.",
         "reporter": {
             "name": "Ravi Howard",
             "email": "ravi.howard@cdss.space",
@@ -1138,7 +1138,7 @@
     {
         "ticket_id": "SIG-1080",
         "subject": "Help please — fw: getting locked",
-        "description": "---------- Forwarded message ----------\nFrom: Fatima Al-Hassan <f.alhassan@cdss.space>\nDate: Mon, Mar 1, 2026 at 2:15 PM\nSubject: Getting locked out and I see login attempts from China\nTo: Mission Control <missioncontrol@cdss.space>\n\nHi Mission Control,\n\nI noticed multiple failed sign-in attempts on my crew account from locations I've never been to — Brazil and Nigeria. My crew account was locked this morning. I changed my access code but I need someone to check if any data was accessed before I noticed.\n\nThanks,\nFatima Al-Hassan This has been happening for a while. Please fix it.",
+        "description": "---------- Forwarded message ----------\nFrom: Fatima Al-Hassan <f.alhassan@cdss.space>\nDate: Mon, Mar 1, 2026 at 2:15 PM\nSubject: Getting locked out and I see login attempts from the Andromeda relay\nTo: Mission Control <missioncontrol@cdss.space>\n\nHi Mission Control,\n\nI noticed multiple failed sign-in attempts on my crew account from locations I've never been to — the Tau Ceti relay and the Proxima outpost. My crew account was locked this morning. I changed my access code but I need someone to check if any data was accessed before I noticed.\n\nThanks,\nFatima Al-Hassan This has been happening for a while. Please fix it.",
         "reporter": {
             "name": "Nadia Larsen",
             "email": "nadia.larsen@cdss.space",
@@ -1307,7 +1307,7 @@
     {
         "ticket_id": "SIG-1092",
         "subject": "Can I use a personal data cartridge on my work personal console?",
-        "description": "OK so this is going to be a long one, bear with me. It all started about two weeks ago when I noticed some weird behavior but I didn't report it because I thought it would fix itself. Well, it didn't. Here's what happened: Hi, I have a large presentation file that I need to transfer to the briefing chamber personal console for a meeting tomorrow. The file is too big for comms and I'm not sure I'll have reliable local antenna array in that room. Can I use my personal data cartridge to transfer it on my work personal console, or are data ports restricted? I don't want to violate any security policies.\n\nAlso, unrelated, but the coffee machine on Level 3 is broken again. Not sure who handles that but figured I'd mention it since I'm already submitting a signal.\n\nThanks for your help!\n\nP.S. My desk lamp also flickered once yesterday. Probably not related but you never know.",
+        "description": "OK so this is going to be a long one, bear with me. It all started about two weeks ago when I noticed some weird behavior but I didn't report it because I thought it would fix itself. Well, it didn't. Here's what happened: Hi, I have a large presentation file that I need to transfer to the briefing chamber personal console for a meeting tomorrow. The file is too big for comms and I'm not sure I'll have reliable local antenna array in that room. Can I use my personal data cartridge to transfer it on my work personal console, or are data ports restricted? I don't want to violate any security policies.\n\nAlso, unrelated, but the nutrient synthesizer on Level 3 is broken again. Not sure who handles that but figured I'd mention it since I'm already submitting a signal.\n\nThanks for your help!\n\nP.S. My console illuminator also flickered once yesterday. Probably not related but you never know.",
         "reporter": {
             "name": "Esther Henderson",
             "email": "esther.henderson@cdss.space",
