@@ -220,8 +220,6 @@ def score_category(pred: str | None, gold: str) -> float:
     arrives at a fabricator jam while an actual hull breach goes unattended.
     Congratulations, you've invented a new way to fail.
     """
-    if not pred:
-        return 0.0
     return 1.0 if _normalize(pred) == _normalize(gold) else 0.0
 
 
@@ -252,8 +250,6 @@ def score_routing(pred: str | None, gold: str) -> float:
     """Route-to-team match — send a signal to the wrong division and watch
     chaos unfold in zero gravity. Case-insensitive exact match. 0.0 or 1.0.
     """
-    if not pred:
-        return 0.0
     return 1.0 if _normalize(pred) == _normalize(gold) else 0.0
 
 

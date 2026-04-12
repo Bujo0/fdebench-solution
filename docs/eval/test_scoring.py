@@ -70,6 +70,16 @@ def test_category_trailing_punctuation_stripped():
     assert score_category("Crew Access & Biometrics.", "Crew Access & Biometrics") == 1.0
 
 
+def test_category_both_empty():
+    """Both empty strings should match — absence agrees with absence."""
+    assert score_category("", "") == 1.0
+
+
+def test_category_whitespace_only_vs_real():
+    """Whitespace-only candidate should not match a real category."""
+    assert score_category("   ", "Communications & Navigation") == 0.0
+
+
 # ── Priority (ordinal P1-P4, partial credit for off-by-one only) ────
 
 
@@ -122,6 +132,16 @@ def test_priority_case_insensitive():
 
 def test_priority_numeric_string():
     assert score_priority("1", "P1") == 0.0
+
+
+def test_priority_invalid_gold():
+    """Invalid gold label should return 0.0."""
+    assert score_priority("P1", "CRITICAL") == 0.0
+
+
+def test_priority_both_invalid():
+    """Both invalid labels should return 0.0."""
+    assert score_priority("HIGH", "LOW") == 0.0
 
 
 # ── Routing (multi-class exact match, case-insensitive) ─────────────
@@ -229,6 +249,16 @@ def test_missing_duplicates_deduplicated():
     """Candidate sends same item twice — should still score as 1 TP."""
     score = score_missing_info(["anomaly_readout", "anomaly_readout"], ["anomaly_readout"])
     assert score == 1.0
+
+
+def test_missing_superset_penalizes_precision():
+    """Candidate returns all gold items plus extras — precision drops."""
+    score = score_missing_info(
+        ["anomaly_readout", "module_specs", "sensor_log_or_capture", "stardate"],
+        ["anomaly_readout", "module_specs"],
+    )
+    # 2 TP, 2 FP → precision=0.5, recall=1.0, F1=0.667
+    assert 0.6 < score < 0.7
 
 
 # ── Boolean coercion (_coerce_bool) ─────────────────────────────────
@@ -502,6 +532,83 @@ def test_signal_total_is_weighted_sum():
     assert abs(result["weighted_total"] - expected) < 0.001
 
 
+def test_signal_completely_wrong():
+    """All dimensions wrong — a catastrophic triage failure."""
+    gold = {
+        "category": "Communications & Navigation",
+        "priority": "P1",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": True,
+        "missing_information": ["anomaly_readout"],
+    }
+    cand = {
+        "category": "Hull & Structural Systems",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": False,
+        "missing_information": ["module_specs"],
+    }
+    result = score_signal(cand, gold)
+    assert result["weighted_total"] < 0.1
+    assert result["category"] == 0.0
+    assert result["routing"] == 0.0
+    assert result["escalation"] == 0.0
+
+
+def test_signal_missing_all_fields():
+    """Candidate returns empty dict — should score 0 on everything."""
+    gold = {
+        "category": "Threat Detection & Containment",
+        "priority": "P1",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": True,
+        "missing_information": ["anomaly_readout"],
+    }
+    result = score_signal({}, gold)
+    assert result["category"] == 0.0
+    assert result["priority"] == 0.0
+    assert result["routing"] == 0.0
+    assert result["escalation"] == 0.0
+    assert result["missing_info"] == 0.0
+
+
+def test_signal_none_missing_information():
+    """Candidate returns None for missing_information — treated as empty list."""
+    gold = {
+        "category": "Net",
+        "priority": "P1",
+        "assigned_team": "Ops",
+        "needs_escalation": False,
+        "missing_information": [],
+    }
+    cand = {
+        "category": "Net",
+        "priority": "P1",
+        "assigned_team": "Ops",
+        "needs_escalation": False,
+        "missing_information": None,
+    }
+    result = score_signal(cand, gold)
+    assert result["missing_info"] == 1.0  # Both effectively empty → 1.0
+
+
+def test_signal_extra_fields_ignored():
+    """remediation_steps and other fields should not affect scoring."""
+    signal = {
+        "category": "Communications & Navigation",
+        "priority": "P1",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": False,
+        "missing_information": [],
+        "remediation_steps": ["Reboot the subspace relay"],
+        "confidence": 0.95,
+    }
+    result = score_signal(signal, signal)
+    assert result["weighted_total"] > 0.84
+    assert "remediation" not in result
+    assert "confidence" not in result
+
+
 # ── Submission-level scoring (score_submission) ──────────────────────
 
 
@@ -579,6 +686,129 @@ def test_weights_sum():
     """Classification weights should sum to 0.85."""
     total = sum(WEIGHTS.values())
     assert abs(total - 0.85) < 1e-9
+
+
+def test_submission_empty_gold_raises():
+    """Empty gold answer set should raise ValueError — can't score nothing."""
+    try:
+        score_submission([], [])
+        raise AssertionError("Should have raised ValueError")
+    except ValueError:
+        pass
+
+
+def test_submission_per_signal_list_length():
+    """per_signal list should match gold answer count."""
+    gold = [_make_signal(f"SIG-{i:04d}") for i in range(5)]
+    result = score_submission(gold, gold)
+    assert len(result["per_signal"]) == 5
+
+
+def test_submission_duplicate_ids_in_candidate():
+    """If candidate has duplicate IDs, last occurrence is used (dict overwrite)."""
+    gold = [_make_signal("SIG-0001", category="Communications & Navigation")]
+    cands = [
+        _make_signal("SIG-0001", category="Hull & Structural Systems"),
+        _make_signal("SIG-0001", category="Communications & Navigation"),
+    ]
+    result = score_submission(cands, gold)
+    assert result["dimension_scores"]["category"] == 1.0
+
+
+def test_submission_errors_describe_missing_signals():
+    """Error messages should mention missing signal IDs."""
+    gold = [_make_signal("SIG-0001"), _make_signal("SIG-0002")]
+    cands = [_make_signal("SIG-0001")]
+    result = score_submission(cands, gold)
+    assert len(result["errors"]) == 1
+    assert "SIG-0002" in result["errors"][0]
+
+
+def test_submission_half_correct_half_wrong():
+    """2 signals: one perfect, one completely wrong → roughly half score."""
+    gold = [
+        _make_signal("SIG-0001"),
+        _make_signal(
+            "SIG-0002",
+            category="Flight Software & Instruments",
+            priority="P2",
+            assigned_team="Mission Software Operations",
+        ),
+    ]
+    cands = [
+        _make_signal("SIG-0001"),
+        _make_signal(
+            "SIG-0002",
+            category="Hull & Structural Systems",
+            priority="P4",
+            assigned_team="Spacecraft Systems Engineering",
+        ),
+    ]
+    result = score_submission(cands, gold)
+    assert 20 < result["classification_score"] < 55
+
+
+def test_submission_classification_never_exceeds_85():
+    """Classification-only max is 85 points (efficiency added externally)."""
+    gold = [_make_signal(f"SIG-{i:04d}") for i in range(100)]
+    result = score_submission(gold, gold)
+    assert result["classification_score"] == 85.0
+
+
+def test_submission_all_wrong_scores_low():
+    """All wrong predictions should score near zero."""
+    gold = [
+        _make_signal(
+            "SIG-0001",
+            category="Threat Detection & Containment",
+            priority="P1",
+            assigned_team="Threat Response Command",
+        )
+    ]
+    cands = [
+        {
+            "ticket_id": "SIG-0001",
+            "category": "Hull & Structural Systems",
+            "priority": "P4",
+            "assigned_team": "Spacecraft Systems Engineering",
+            "needs_escalation": True,
+            "missing_information": ["wrong"],
+        }
+    ]
+    result = score_submission(cands, gold)
+    assert result["classification_score"] < 5.0
+
+
+def test_submission_majority_class_gaming_penalized():
+    """Always predicting the same category should score poorly on macro F1."""
+    gold = [
+        _make_signal("SIG-0001", category="Flight Software & Instruments"),
+        _make_signal("SIG-0002", category="Flight Software & Instruments"),
+        _make_signal("SIG-0003", category="Flight Software & Instruments"),
+        _make_signal("SIG-0004", category="Flight Software & Instruments"),
+        _make_signal("SIG-0005", category="Not a Mission Signal"),
+        _make_signal("SIG-0006", category="Threat Detection & Containment"),
+    ]
+    cands = [_make_signal(f"SIG-{i:04d}", category="Flight Software & Instruments") for i in range(1, 7)]
+    result = score_submission(cands, gold)
+    assert result["dimension_scores"]["category"] < 0.5
+
+
+def test_submission_uses_macro_f1_not_accuracy():
+    """Verify submission score uses macro F1, not mean accuracy, for category."""
+    gold = [
+        _make_signal("SIG-0001", category="A"),
+        _make_signal("SIG-0002", category="B"),
+    ]
+    cands = [
+        _make_signal("SIG-0001", category="A"),
+        _make_signal("SIG-0002", category="A"),
+    ]
+    result = score_submission(cands, gold)
+    # Mean accuracy would be 0.5 (1/2 correct).
+    # Macro F1: class A → TP=1, FP=1, FN=0 → F1=0.667; class B → TP=0, FP=0, FN=1 → F1=0
+    # Macro F1 = (0.667 + 0) / 2 = 0.333 — lower than accuracy
+    assert result["dimension_scores"]["category"] < 0.4
 
 
 # ── Runner ────────────────────────────────────────────────────────────
