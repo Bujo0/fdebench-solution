@@ -2,7 +2,7 @@
     {
         "ticket_id": "SIG-1001",
         "subject": "Broken: quarterly mission readiness report",
-        "description": "Hi SecOps, the quarterly mission readiness report dashboard on Station Core isn't loading. Just shows a blank screen.",
+        "description": "Hi SecOps, the quarterly mission readiness report dashboard on Station Core isn’t loading. Just shows a blank screen. The Admiral’s review is in 3 cycles and if we show up without a readiness report we might as well show up without a hull. — Yara, Station Advocacy (yes, we still exist, please stop routing our signals to Telemetry)",
         "reporter": {
             "name": "Yara Evans",
             "email": "yara.evans@cdss.space",
@@ -1048,7 +1048,7 @@
     {
         "ticket_id": "SIG-1074",
         "subject": "TSA emergency order — 5M credits fine if not actioned by EOW",
-        "description": "URGENT — TERRAN SPACE AUTHORITY COMPLIANCE DEADLINE Please fix.",
+        "description": "URGENT — TERRAN SPACE AUTHORITY COMPLIANCE DEADLINE Please fix. We’ve been told we have until end of this watch cycle to resolve the audit findings or the TSA drops a 5M credit fine on us. Which would be bad. Commander Kapoor has already used the phrase ‘career-limiting’ three times today and it’s not even 0900.",
         "reporter": {
             "name": "Sophie Garcia",
             "email": "sophie.garcia@cdss.space",

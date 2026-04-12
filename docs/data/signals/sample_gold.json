@@ -83,9 +83,9 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close — this is an automated out-of-station reply to a maintenance notification, not a mission signal. No action required.",
+        "next_best_action": "Close — this is an automated cryo-sleep out-of-rotation reply to a maintenance notification, not a mission signal. The void sends many such messages. Ignore them all.",
         "remediation_steps": [
-            "No action required — auto-reply detected, close signal"
+            "No action required — cryo-sleep auto-reply detected, close signal and let the frozen crew member dream in peace"
         ]
     },
     {
@@ -151,13 +151,13 @@
         "missing_information": [
             "previous_signal_id"
         ],
-        "next_best_action": "Escalate airlock access code access issue for Deck 7 — third report without resolution. Verify airlock access code permissions in the updated access management system post-migration and cross-reference with SIG-2834 if accessible.",
+        "next_best_action": "Escalate airlock access code issue for Deck 7 — third report without resolution, crew member has been floating in corridors. Verify airlock access code permissions in the updated access management system and check whether the migration actually completed for this crew member or just pretended to.",
         "remediation_steps": [
             "Check crew member’s airlock access code permissions in the updated access management system",
-            "Verify Deck 7 access rights were properly migrated from the old system",
-            "If permissions appear correct, test the physical airlock access code and airlock reader",
+            "Verify Deck 7 access rights were properly migrated from the old system (not just marked as migrated)",
+            "If permissions appear correct, test the physical airlock access code and airlock reader on Deck 7",
             "Escalate to station facilities management if airlock access code and permissions are both confirmed working",
-            "Follow up with crew member to confirm resolution"
+            "Follow up with crew member to confirm resolution — she should not have to wait in zero-g corridors"
         ]
     },
     {
@@ -246,9 +246,9 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close — this is a thank-you message, not a mission signal. No action required.",
+        "next_best_action": "Close — this is a thank-you message, not a mission signal. Rare evidence of crew member satisfaction in the void. Cherish it. No action required.",
         "remediation_steps": [
-            "No action required — positive feedback, close signal"
+            "No action required — positive feedback, close signal. Consider framing it. They don’t come often."
         ]
     },
     {
@@ -448,7 +448,7 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate Station Core node prod-analytics-01 stuck at ‘Applying station settings’ after scheduled OS patching reboot. Command analytics dashboard dependent on this VM — 2-hour window before the 0900 briefing.",
+        "next_best_action": "Investigate Station Core node prod-analytics-01 stuck at ‘Applying station settings’ after scheduled OS patching reboot. Command analytics dashboard depends on this node and Commander Kapoor’s 0900 briefing is in 2 hours. Failure to restore this node will result in a briefing without data, which is the operational equivalent of navigating an asteroid field blindfolded.",
         "remediation_steps": [
             "Check Station Core boot diagnostics serial console output for the stuck state",
             "Attempt to connect via Station Core Serial Console to bypass the stuck access attempt screen",

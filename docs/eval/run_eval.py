@@ -444,7 +444,7 @@ def call_endpoint(client: httpx.Client, endpoint: str, signal: dict) -> tuple[di
         return resp.json(), elapsed_ms
     except Exception as e:
         elapsed_ms = (time.monotonic() - start) * 1000
-        print(f"  ✗ {signal['ticket_id']}: SIGNAL LOST — {e}")
+        print(f"  ✗ {signal['ticket_id']}: SIGNAL LOST TO THE VOID — {e}")
         return None, elapsed_ms
 
 
@@ -529,14 +529,18 @@ def main() -> int:
     # ── Health check ──────────────────────────────────────────────────
     client = httpx.Client()
     healthy = check_health(client, args.endpoint)
-    status = "✓ LIFE SIGNS DETECTED" if healthy else "✗ NO LIFE SIGNS — FLATLINE"
+    if healthy:
+        status = "✓ LIFE SIGNS DETECTED — the station breathes"
+    else:
+        status = "✗ NO LIFE SIGNS — FLATLINE — check the reactor"
     print(f"  Health check: {status}")
     if not healthy:
         print("  ⚠ Warning: GET /health did not return 200. Proceeding with scoring anyway...")
+        print("  (The scoring computer is brave. Or indifferent. Same thing in space.)")
     print()
 
     # ── Score each signal ─────────────────────────────────────────────
-    print("  Transmitting signals to triage endpoint...")
+    print("  Transmitting signals to triage endpoint... stand by for contact.")
     print()
     results: list[dict] = []
     responses: list[dict] = []
@@ -621,13 +625,17 @@ def main() -> int:
     print("  │  Engineering review: evaluated separately from your repo   │")
     print("  │                                                            │")
     if classification_score >= 75:
-        print("  │  Status: 🟢 Strong signal — the crew approves.            │")
+        print("  │  Status: 🟢 Strong signal — the crew salutes you.         │")
+        print("  │  Commander Kapoor nods approvingly. This is rare.          │")
     elif classification_score >= 55:
         print("  │  Status: 🟡 Moderate — some signals lost in static.       │")
+        print("  │  The crew survives, but Mehta is writing margin notes.     │")
     elif classification_score >= 30:
         print("  │  Status: 🟠 Weak signal — review your triage logic.       │")
+        print("  │  Hull breaches going to the wrong team. People notice.     │")
     else:
         print("  │  Status: 🔴 Critical — Commander Kapoor has been notified.│")
+        print("  │  She is 0.3 AU away and she is not patient.               │")
     print("  └─────────────────────────────────────────────────────────────┘")
     print()
 
@@ -647,6 +655,7 @@ def main() -> int:
     print(f"  📡 Results transmitted to {output_path}")
     print()
     print("  End of scoring run. The void awaits your submission.")
+    print("  May the scoring computer be less merciless next time. (It won't be.)")
     print()
 
     return 0

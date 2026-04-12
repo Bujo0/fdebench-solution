@@ -137,9 +137,9 @@ Each signal shows its per-signal classification score (max 85 pts):
   Gold answers:      25
   Target endpoint:   http://localhost:8000
 
-  Health check: ✓ LIFE SIGNS DETECTED
+  Health check: ✓ LIFE SIGNS DETECTED — the station breathes
 
-  Transmitting signals to triage endpoint...
+  Transmitting signals to triage endpoint... stand by for contact.
 
   SIG-0001  [ 85.0]  cat=✓ pri=✓ route=✓ esc=✓ miss=✓(1.00)  142ms
   SIG-0002  [ 60.1]  cat=✓ pri=✓ route=✗ esc=✓ miss=~(0.67)  198ms
@@ -174,11 +174,13 @@ Each signal shows its per-signal classification score (max 85 pts):
   │  Engineering review: evaluated separately from your repo   │
   │                                                            │
   │  Status: 🟡 Moderate — some signals lost in static.       │
+  │  The crew survives, but Mehta is writing margin notes.     │
   └─────────────────────────────────────────────────────────────┘
 
   📡 Results transmitted to eval_results.json
 
   End of scoring run. The void awaits your submission.
+  May the scoring computer be less merciless next time. (It won't be.)
 ```
 
 The `eval_results.json` file contains full per-signal breakdowns for error analysis.
