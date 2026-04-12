@@ -1,435 +1,435 @@
 [
     {
-        "ticket_id": "INC-0001",
-        "category": "Network & Connectivity",
+        "ticket_id": "SIG-0001",
+        "category": "Communications & Navigation",
         "priority": "P3",
-        "assigned_team": "Network Operations",
+        "assigned_team": "Deep Space Communications",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Investigate VPN client compatibility with the latest Windows update. Check for known Wi-Fi issues in Building 4 Floor 2. Verify VPN client v3.2 is the latest supported version.",
+        "next_best_action": "Investigate SubComm relay client compatibility with the latest ShipOS kernel patch. Check for known wireless mesh issues on Deck 4 Sector Alpha. Verify SubComm relay client v3.2 is the latest supported version.",
         "remediation_steps": [
-            "Verify Contoso VPN client v3.2 is the latest supported version",
-            "Check for known Wi-Fi connectivity issues in Building 4 Floor 2",
-            "Test VPN reconnection behavior after the latest Windows update on a reference device",
-            "If issue persists, escalate to network engineering for VPN client patch review"
+            "Verify SubComm relay client v3.2 is the latest supported version for ShipOS",
+            "Check for known wireless mesh connectivity issues on Deck 4 Sector Alpha",
+            "Test subspace link reconnection behavior after the latest ShipOS kernel patch on a reference console",
+            "If issue persists, escalate to communications engineering for relay client patch review"
         ]
     },
     {
-        "ticket_id": "INC-0002",
-        "category": "Software & Applications",
+        "ticket_id": "SIG-0002",
+        "category": "Flight Software & Instruments",
         "priority": "P3",
-        "assigned_team": "Endpoint Engineering",
+        "assigned_team": "Spacecraft Systems Engineering",
         "needs_escalation": false,
         "missing_information": [
-            "application_version",
-            "device_info"
+            "software_version",
+            "module_specs"
         ],
-        "next_best_action": "Investigate whether Teams crash and Outlook calendar sync issues are related to the new laptop migration. Verify that user profile and application data were properly transferred to the new device.",
+        "next_best_action": "Investigate whether Mission Suite crash and SubComm calendar sync issues are related to the new console provisioning. Verify that crew profile and application data were properly transferred to the new workstation.",
         "remediation_steps": [
-            "Verify laptop provisioning and data migration completed successfully",
-            "Clear Teams cache and reinstall if crash persists",
-            "Check Outlook profile migration status and force calendar resync",
-            "Confirm application versions match the supported standard image",
-            "If issues persist after cache clear and resync, re-provision applications on the new device"
+            "Verify console provisioning and data migration completed successfully",
+            "Clear Mission Suite cache and reinstall if crash persists",
+            "Check SubComm profile migration status and force calendar resync",
+            "Confirm application versions match the supported standard station image",
+            "If issues persist after cache clear and resync, re-provision applications on the new console"
         ]
     },
     {
-        "ticket_id": "INC-0003",
-        "category": "Hardware & Peripherals",
+        "ticket_id": "SIG-0003",
+        "category": "Hull & Structural Systems",
         "priority": "P1",
-        "assigned_team": "Endpoint Engineering",
+        "assigned_team": "Spacecraft Systems Engineering",
         "needs_escalation": true,
         "missing_information": [
-            "device_info"
+            "module_specs"
         ],
-        "next_best_action": "Dispatch immediate on-site support to Main Boardroom with a portable backup projector. Time-critical: $2.3M client contract review with external partners in 25 minutes.",
+        "next_best_action": "Dispatch immediate on-site support to Command Briefing Room with a portable backup holographic projector. Time-critical: critical defense pact review with Meridian Sector delegation in 25 minutes.",
         "remediation_steps": [
-            "Dispatch on-site technician to Main Boardroom immediately",
-            "Bring portable backup projector from IT supply room",
-            "Check projector power source, HDMI connections, and input source settings",
-            "If main projector cannot be restored, set up portable unit before meeting starts",
-            "After meeting, schedule full diagnostic of the main boardroom projector"
+            "Dispatch on-site technician to Command Briefing Room immediately",
+            "Bring portable backup holographic projector from Engineering supply bay",
+            "Check projector power conduit, data connections, and input source settings",
+            "If main projector cannot be restored, set up portable unit before briefing starts",
+            "After briefing, schedule full diagnostic of the Command Briefing Room holographic array"
         ]
     },
     {
-        "ticket_id": "INC-0004",
-        "category": "Access & Authentication",
+        "ticket_id": "SIG-0004",
+        "category": "Crew Access & Biometrics",
         "priority": "P2",
-        "assigned_team": "Endpoint Engineering",
+        "assigned_team": "Spacecraft Systems Engineering",
         "needs_escalation": false,
         "missing_information": [
-            "affected_system",
-            "error_message",
-            "device_info",
-            "steps_to_reproduce"
+            "affected_subsystem",
+            "anomaly_readout",
+            "module_specs",
+            "sequence_to_reproduce"
         ],
-        "next_best_action": "Contact user to gather specifics: which systems are inaccessible, what error messages appear, what device they are using, and when the issue started. Cannot triage effectively without more detail.",
+        "next_best_action": "Contact crew member to gather specifics: which systems are inaccessible, what anomaly readouts appear, what console they are using, and when the issue started. Cannot triage effectively without more detail.",
         "remediation_steps": [
-            "Contact user to gather specific details about the issue",
-            "Determine which systems and applications are affected",
-            "Check if the issue is isolated to this user or affecting others in Marketing",
-            "Once root cause is identified, route to the appropriate specialist team"
+            "Contact crew member to gather specific details about the issue",
+            "Determine which station systems and applications are affected",
+            "Check if the issue is isolated to this crew member or affecting others in External Relations",
+            "Once root cause is identified, route to the appropriate specialist division"
         ]
     },
     {
-        "ticket_id": "INC-0005",
-        "category": "Not a Support Ticket",
+        "ticket_id": "SIG-0005",
+        "category": "Not a Mission Signal",
         "priority": "P4",
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close — this is an automated out-of-office reply to a maintenance notification, not a support request. No action required.",
+        "next_best_action": "Close \u2014 this is an automated cryo-sleep auto-reply to a maintenance notification, not a support request. No action required.",
         "remediation_steps": [
-            "No action required — auto-reply detected, close ticket"
+            "No action required \u2014 auto-reply detected, close signal"
         ]
     },
     {
-        "ticket_id": "INC-0006",
-        "category": "Security & Compliance",
+        "ticket_id": "SIG-0006",
+        "category": "Threat Detection & Containment",
         "priority": "P2",
-        "assigned_team": "Security Operations",
+        "assigned_team": "Threat Response Command",
         "needs_escalation": true,
         "missing_information": [
-            "timestamp"
+            "stardate"
         ],
-        "next_best_action": "Initiate security incident investigation. Review authentication logs for unauthorized access, check OneDrive audit trail for document access from the suspicious IP, and verify that the password change and MFA are in effect.",
+        "next_best_action": "Initiate security incident investigation. Review BioScan authentication logs for unauthorized access, check Station Core data vault audit trail for document access from the suspicious relay, and verify that the passphrase change and biometric verification are in effect.",
         "remediation_steps": [
-            "Review authentication logs for the user's account over the past 48 hours",
-            "Check OneDrive audit trail for any unauthorized file access or downloads",
-            "Verify password change was successful and MFA is active",
-            "If unauthorized access is confirmed, escalate to incident response and notify data protection officer",
-            "Brief user on interim security measures and monitor account for further anomalies"
+            "Review BioScan authentication logs for the crew member's account over the past 48 hours",
+            "Check Station Core data vault audit trail for any unauthorized file access or downloads",
+            "Verify passphrase change was successful and multi-factor biometrics are active",
+            "If unauthorized access is confirmed, escalate to incident response and notify the station data protection officer",
+            "Brief crew member on interim security measures and monitor account for further anomalies"
         ]
     },
     {
-        "ticket_id": "INC-0007",
-        "category": "Data & Storage",
+        "ticket_id": "SIG-0007",
+        "category": "Telemetry & Data Banks",
         "priority": "P2",
-        "assigned_team": "Data Platform",
+        "assigned_team": "Telemetry & Data Core",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Check service principal credentials and RBAC role assignments on the ADLS Gen2 storage account in rg-data-prod. Restore the Storage Blob Data Contributor role if it was removed during the subscription cleanup.",
+        "next_best_action": "Check service credentials and access role assignments on the Deep Storage Array in resource-group telemetry-prod. Restore the Telemetry Data Contributor role if it was removed during the station security audit.",
         "remediation_steps": [
-            "Verify service principal token expiration for the ADF pipeline identity",
-            "Check RBAC role assignments on the ADLS Gen2 storage account in rg-data-prod",
-            "Restore Storage Blob Data Contributor role assignment if missing",
-            "Re-run the ADF pipeline 'prod-customer-ingest' and verify successful execution",
-            "Investigate why the role assignment was removed during the subscription cleanup to prevent recurrence"
+            "Verify service credential expiration for the pipeline automation identity",
+            "Check access role assignments on the Deep Storage Array in resource-group telemetry-prod",
+            "Restore Telemetry Data Contributor role assignment if missing",
+            "Re-run the pipeline 'prod-sensor-ingest' and verify successful execution",
+            "Investigate why the role assignment was removed during the security audit to prevent recurrence"
         ]
     },
     {
-        "ticket_id": "INC-0008",
-        "category": "Data & Storage",
+        "ticket_id": "SIG-0008",
+        "category": "Telemetry & Data Banks",
         "priority": "P1",
-        "assigned_team": "Data Platform",
+        "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate production database connection pool exhaustion immediately. This is a customer-facing production incident — 40% of API requests are failing regardless of the submitter's priority classification.",
+        "next_best_action": "Investigate Station Core database connection pool exhaustion immediately. This is a crew-facing production incident \u2014 40% of data requests are failing regardless of the submitter's priority classification.",
         "remediation_steps": [
-            "Investigate connection pool configuration on the primary database replica",
+            "Investigate connection pool configuration on the primary Station Core data node",
             "Identify and terminate long-running queries or leaked connections",
-            "Increase connection pool size or restart the primary replica as immediate mitigation",
-            "Verify read replica health and confirm it is handling redirected traffic",
+            "Increase connection pool size or restart the primary data node as immediate mitigation",
+            "Verify backup node health and confirm it is handling redirected traffic",
             "Post-incident: conduct root cause analysis on connection pool exhaustion"
         ]
     },
     {
-        "ticket_id": "INC-0009",
-        "category": "Access & Authentication",
+        "ticket_id": "SIG-0009",
+        "category": "Crew Access & Biometrics",
         "priority": "P3",
-        "assigned_team": "Identity & Access Management",
+        "assigned_team": "Crew Identity & Airlock Control",
         "needs_escalation": true,
         "missing_information": [
-            "previous_ticket_id"
+            "previous_signal_id"
         ],
-        "next_best_action": "Escalate badge access issue for Building 7 — third report without resolution. Verify badge permissions in the updated access management system post-migration and cross-reference with INC-2834 if accessible.",
+        "next_best_action": "Escalate airlock access issue for Deck 7 \u2014 third report without resolution. Verify BioScan permissions in the updated access management system post-migration and cross-reference with SIG-2834 if accessible.",
         "remediation_steps": [
-            "Check user's badge permissions in the updated access management system",
-            "Verify Building 7 access rights were properly migrated from the old system",
-            "If permissions appear correct, test the physical badge and card reader",
-            "Escalate to facilities management if badge and permissions are both confirmed working",
-            "Follow up with user to confirm resolution"
+            "Check crew member's BioScan permissions in the updated access management system",
+            "Verify Deck 7 airlock access rights were properly migrated from the old system",
+            "If permissions appear correct, test the physical BioScan reader and airlock mechanism",
+            "Escalate to station facilities management if BioScan and permissions are both confirmed working",
+            "Follow up with crew member to confirm resolution"
         ]
     },
     {
-        "ticket_id": "INC-0010",
-        "category": "General Inquiry",
+        "ticket_id": "SIG-0010",
+        "category": "Mission Briefing Request",
         "priority": "P3",
-        "assigned_team": "Endpoint Engineering",
+        "assigned_team": "Spacecraft Systems Engineering",
         "needs_escalation": false,
         "missing_information": [
-            "contact_info"
+            "crew_contact"
         ],
-        "next_best_action": "Initiate new employee onboarding workflow for Alex Rivera (start date March 31). Coordinate hardware, software, access, and group membership provisioning across teams. Target readiness by March 28.",
+        "next_best_action": "Initiate new crew member onboarding workflow for Alex Rivera (transfer date March 31). Coordinate console hardware, software, access, and channel membership provisioning across divisions. Target readiness by March 28.",
         "remediation_steps": [
-            "Order MacBook Pro M4 32GB from hardware procurement",
-            "Prepare standard software image with Python, Conda, and Jupyter environment",
-            "Request Azure ML workspace access (rg-ml-prod) from cloud_ops",
-            "Request data catalog read access from data_engineering",
-            "Request Building 3 badge access from identity_ops",
-            "Add Alex Rivera to analytics-team distribution list and Teams channel",
-            "Schedule equipment handoff and walkthrough for March 28"
+            "Order QuantumBook Pro M4 32GB from hardware procurement",
+            "Prepare standard software image with Python, Conda, and Jupyter environment for spectral analysis",
+            "Request Station Core ML workspace access (resource-group ml-prod) from infrastructure ops",
+            "Request sensor data catalog read access from telemetry engineering",
+            "Request Deck 3 airlock badge access from crew identity ops",
+            "Add Alex Rivera to science-team distribution channel and Mission Suite workspace",
+            "Schedule equipment handoff and orientation walkthrough for March 28"
         ]
     },
     {
-        "ticket_id": "INC-0011",
-        "category": "Access & Authentication",
+        "ticket_id": "SIG-0011",
+        "category": "Crew Access & Biometrics",
         "priority": "P3",
-        "assigned_team": "Identity & Access Management",
+        "assigned_team": "Crew Identity & Airlock Control",
         "needs_escalation": false,
         "missing_information": [
-            "device_info",
-            "application_version"
+            "module_specs",
+            "software_version"
         ],
-        "next_best_action": "Investigate MFA push approval failure in the Authenticator app. Check Entra ID MFA registration status and recent policy changes. User can continue with SMS fallback in the meantime.",
+        "next_best_action": "Investigate BioScan MFA push approval failure in the authenticator module. Check crew identity MFA registration status and recent security policy changes. Crew member can continue with SubComm backup codes in the meantime.",
         "remediation_steps": [
-            "Verify MFA registration status for this user in Entra ID",
-            "Check for recent Conditional Access or MFA policy changes that may affect push notifications",
-            "Have user verify Authenticator app is updated to the latest version",
-            "If issue persists, remove and re-register the MFA method in Entra ID",
+            "Verify MFA registration status for this crew member in the BioScan identity system",
+            "Check for recent security policy or biometric access changes that may affect push notifications",
+            "Have crew member verify authenticator module is updated to the latest version",
+            "If issue persists, remove and re-register the MFA biometric method in the identity system",
             "Confirm push approval works after re-registration"
         ]
     },
     {
-        "ticket_id": "INC-0012",
-        "category": "Hardware & Peripherals",
+        "ticket_id": "SIG-0012",
+        "category": "Hull & Structural Systems",
         "priority": "P3",
-        "assigned_team": "Endpoint Engineering",
+        "assigned_team": "Spacecraft Systems Engineering",
         "needs_escalation": false,
         "missing_information": [
-            "device_info",
-            "affected_users"
+            "module_specs",
+            "affected_crew"
         ],
-        "next_best_action": "Investigate monitor flickering as primary issue — likely hardware or cable fault. Route the Salesforce license question separately to Enterprise Applications.",
+        "next_best_action": "Investigate navigation console display flickering as primary issue \u2014 likely hardware or data conduit fault. Route the Mission Suite license question separately to Mission Software Operations.",
         "remediation_steps": [
-            "Test with a replacement DisplayPort cable",
-            "Test monitor with a different source device to isolate whether it's the monitor or the terminal",
-            "If flickering persists with new cable and source, schedule monitor replacement",
-            "Create a separate ticket for the Salesforce license expiry and route to Enterprise Applications"
+            "Test with a replacement data conduit cable",
+            "Test display with a different source console to isolate whether it's the monitor or the navigation terminal",
+            "If flickering persists with new cable and source, schedule display replacement",
+            "Create a separate signal for the Mission Suite license expiry and route to Mission Software Operations"
         ]
     },
     {
-        "ticket_id": "INC-0013",
-        "category": "Security & Compliance",
+        "ticket_id": "SIG-0013",
+        "category": "Threat Detection & Containment",
         "priority": "P1",
-        "assigned_team": "Security Operations",
+        "assigned_team": "Threat Response Command",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Initiate data breach investigation immediately. This is a potential regulatory incident involving PII exposure of 1,200 clients under MAS TRM guidelines. Determine scope of external access, identify who created the sharing link, and assess notification obligations.",
+        "next_best_action": "Initiate data breach investigation immediately. This is a potential regulatory incident involving PII exposure of 1,200 crew members under the Interstellar Data Protection Accord. Determine scope of external access, identify who created the sharing link, and assess notification obligations.",
         "remediation_steps": [
-            "Confirm the external sharing link has been fully revoked and verify no other sites have similar permissions",
-            "Pull SharePoint audit logs to identify who created the public sharing link and when",
-            "Analyze audit logs for any external access to the site between February 15 and today",
-            "Engage Legal and Compliance to assess MAS TRM notification obligations",
+            "Confirm the external sharing link has been fully revoked and verify no other repositories have similar permissions",
+            "Pull Mission Suite audit logs to identify who created the public sharing link and when",
+            "Analyze audit logs for any external access to the repository between February 15 and today",
+            "Engage Station Command and Tactical Operations to assess Interstellar Data Protection Accord notification obligations",
             "Document findings for the incident report and regulatory record",
-            "Conduct a broader SharePoint permissions audit across all sites containing PII"
+            "Conduct a broader Mission Suite permissions audit across all repositories containing crew PII"
         ]
     },
     {
-        "ticket_id": "INC-0014",
-        "category": "Not a Support Ticket",
+        "ticket_id": "SIG-0014",
+        "category": "Not a Mission Signal",
         "priority": "P4",
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close — this is a thank-you message, not a support request. No action required.",
+        "next_best_action": "Close \u2014 this is a thank-you message, not a support request. No action required.",
         "remediation_steps": [
-            "No action required — positive feedback, close ticket"
+            "No action required \u2014 positive feedback, close signal"
         ]
     },
     {
-        "ticket_id": "INC-0015",
-        "category": "Network & Connectivity",
+        "ticket_id": "SIG-0015",
+        "category": "Communications & Navigation",
         "priority": "P2",
-        "assigned_team": "Network Operations",
+        "assigned_team": "Deep Space Communications",
         "needs_escalation": false,
         "missing_information": [
-            "affected_system",
-            "environment_details"
+            "affected_subsystem",
+            "habitat_conditions"
         ],
-        "next_best_action": "Investigate 200ms→50ms latency regression on the APAC trading path before London open. Check network path to the exchange gateway, recent firewall or routing changes, and whether the latency is on Contoso's side or the exchange side.",
+        "next_best_action": "Investigate 200ms\u219250ms latency regression on the APAC sector sensor array path before the next sector rotation. Check communications path to the deep space relay gateway, recent firewall or routing changes, and whether the latency is on the station's side or the relay network side.",
         "remediation_steps": [
-            "Check network latency metrics on the path between Contoso's APAC trading cluster and the exchange gateway",
-            "Review recent firewall rule, routing, or proxy changes that may affect the trading path",
-            "Compare current latency baseline against historical data to confirm the regression",
-            "If latency is on Contoso's side, escalate to network engineering for immediate remediation before London open",
-            "If exchange-side, contact exchange operations and notify trading desk of potential impact"
+            "Check communications latency metrics on the path between the station's APAC sensor array and the deep space relay gateway",
+            "Review recent SentinelGrid firewall, routing, or relay proxy changes that may affect the sensor data path",
+            "Compare current latency baseline against historical telemetry to confirm the regression",
+            "If latency is station-side, escalate to communications engineering for immediate remediation before sector rotation",
+            "If relay-side, contact deep space relay operations and notify Flight Deck of potential impact"
         ]
     },
     {
-        "ticket_id": "INC-0016",
-        "category": "Software & Applications",
+        "ticket_id": "SIG-0016",
+        "category": "Flight Software & Instruments",
         "priority": "P2",
-        "assigned_team": "Enterprise Applications",
+        "assigned_team": "Mission Software Operations",
         "needs_escalation": false,
         "missing_information": [
-            "environment_details"
+            "habitat_conditions"
         ],
-        "next_best_action": "Investigate SSO token invalidation after password rotation. Likely the SAP SSO ticket needs to be reissued after the Windows password change. Time-sensitive due to month-end reconciliation deadline.",
+        "next_best_action": "Investigate SSO token invalidation after passphrase rotation. Likely the FlightOS SSO credential needs to be reissued after the station passphrase change. Time-sensitive due to end-of-cycle orbit reconciliation deadline.",
         "remediation_steps": [
-            "Verify the user's Entra ID session and Kerberos ticket are refreshed after the password change",
-            "Check SAP SSO configuration — confirm whether SAP GUI uses Kerberos or SAML-based SSO",
-            "Reissue the SAP SSO logon ticket or have the user log into SAP with explicit credentials as a workaround",
-            "If SSO token regeneration doesn't resolve it, check whether the password policy change affected the SAP SNC configuration",
-            "Confirm SAP access is restored and the user can complete month-end reconciliation"
+            "Verify the crew member's identity session and authentication token are refreshed after the passphrase change",
+            "Check FlightOS SSO configuration \u2014 confirm whether FlightOS uses biometric or token-based SSO",
+            "Reissue the FlightOS SSO logon credential or have the crew member log in with explicit credentials as a workaround",
+            "If SSO token regeneration doesn't resolve it, check whether the passphrase policy change affected the FlightOS secure channel configuration",
+            "Confirm FlightOS access is restored and the crew member can complete end-of-cycle orbit reconciliation"
         ]
     },
     {
-        "ticket_id": "INC-0017",
-        "category": "Software & Applications",
+        "ticket_id": "SIG-0017",
+        "category": "Flight Software & Instruments",
         "priority": "P3",
-        "assigned_team": "Endpoint Engineering",
+        "assigned_team": "Spacecraft Systems Engineering",
         "needs_escalation": false,
         "missing_information": [
-            "affected_system",
-            "error_message",
-            "device_info",
-            "steps_to_reproduce"
+            "affected_subsystem",
+            "anomaly_readout",
+            "module_specs",
+            "sequence_to_reproduce"
         ],
-        "next_best_action": "Contact reporter on the 5th floor (Robert Chen, robert.chen2@contoso.com, Operations) to gather actual symptom details. Ticket as submitted has insufficient detail to triage. Phone transcription is too garbled to act on.",
+        "next_best_action": "Contact reporter on Deck 5 (Robert Chen, robert.chen2@cdss.space, Mission Ops) to gather actual symptom details. Signal as submitted has insufficient detail to triage. Emergency beacon transcription is too garbled to act on.",
         "remediation_steps": [
-            "Contact Robert Chen (5th floor near kitchen, Operations department) to clarify the issue in person or via Teams",
-            "Determine which application or system is failing",
-            "Gather specific error messages and reproduction steps",
-            "Once the actual issue is identified, re-triage and route to the correct specialist team"
+            "Contact Robert Chen (Deck 5 near nutrient synthesizer, Mission Ops department) to clarify the issue via Mission Suite or in person",
+            "Determine which application or station system is failing",
+            "Gather specific anomaly readouts and reproduction steps",
+            "Once the actual issue is identified, re-triage and route to the correct specialist division"
         ]
     },
     {
-        "ticket_id": "INC-0018",
-        "category": "Software & Applications",
+        "ticket_id": "SIG-0018",
+        "category": "Flight Software & Instruments",
         "priority": "P1",
-        "assigned_team": "Enterprise Applications",
+        "assigned_team": "Mission Software Operations",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Dispatch support to the 8th floor executive boardroom immediately. SVP-level VIP ticket — treat as one priority level higher. Investigate Teams sharing policy blocking screen share for this user. Active board meeting with institutional clients.",
+        "next_best_action": "Dispatch support to the Deck 8 Command Briefing Room immediately. Commander-level VIP signal \u2014 treat as one priority level higher. Investigate Mission Suite sharing policy blocking holodisplay for this crew member. Active Admiral's briefing with allied station representatives.",
         "remediation_steps": [
-            "Dispatch technician to the 8th floor executive boardroom immediately",
-            "Check Conditional Access and Teams meeting policies applied to Carlos Martinez's account",
-            "Verify whether the 'Sharing is blocked by your organization's policy' error is caused by a DLP policy, Teams admin policy, or Conditional Access restriction",
-            "As immediate workaround: have someone else share the presentation on his behalf, or use the Teams Room device with a different account",
-            "Once the meeting is unblocked, investigate and resolve the underlying policy conflict"
+            "Dispatch technician to the Deck 8 Command Briefing Room immediately",
+            "Check security policies and Mission Suite conference policies applied to Commander Martinez's account",
+            "Verify whether the 'Display sharing is blocked by station security protocol' error is caused by a data protection policy, Mission Suite admin policy, or security access restriction",
+            "As immediate workaround: have someone else project the presentation on his behalf, or use the Command Room holo-array with a different account",
+            "Once the briefing is unblocked, investigate and resolve the underlying policy conflict"
         ]
     },
     {
-        "ticket_id": "INC-0019",
-        "category": "General Inquiry",
+        "ticket_id": "SIG-0019",
+        "category": "Mission Briefing Request",
         "priority": "P2",
-        "assigned_team": "Identity & Access Management",
+        "assigned_team": "Crew Identity & Airlock Control",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Initiate employee offboarding workflow for Jessica Palmer (last day March 21). Coordinate across IAM, Endpoint Engineering, and Data Platform for account disable, device wipe, file transfer, and mailbox archival. Note: sensitive compliance files require special handling.",
+        "next_best_action": "Initiate crew member departure workflow for Jessica Palmer (last rotation March 21). Coordinate across Crew Identity, Spacecraft Systems Engineering, and Telemetry & Data Core for account disable, console wipe, file transfer, and message archival. Note: sensitive tactical investigation files require special handling.",
         "remediation_steps": [
-            "Schedule Entra ID account disable for 6 PM EST on March 21",
-            "Prepare VPN and remote access revocation to trigger simultaneously with account disable",
-            "Coordinate with Endpoint Engineering for laptop wipe of Dell Latitude 5540 (asset tag CT-L-4892)",
-            "Transfer OneDrive and SharePoint file ownership to David Liu (david.liu@contoso.com)",
-            "Remove from all distribution lists and Teams channels",
-            "Archive mailbox per 7-year retention policy",
-            "Ensure sensitive compliance investigation files are preserved in a secured location and access is revoked"
+            "Schedule BioScan ID account disable for 18:00 EST on March 21",
+            "Prepare subspace relay and remote access revocation to trigger simultaneously with account disable",
+            "Coordinate with Spacecraft Systems Engineering for console wipe of QuantumBook Latitude 5540 (asset tag CDSS-L-4892)",
+            "Transfer personal data vault and Mission Suite file ownership to David Liu (david.liu@cdss.space)",
+            "Remove from all distribution channels and Mission Suite workspaces",
+            "Archive SubComm messages per 7-cycle retention protocol",
+            "Ensure sensitive tactical investigation files are preserved in a secured data vault and access is revoked"
         ]
     },
     {
-        "ticket_id": "INC-0020",
-        "category": "Hardware & Peripherals",
+        "ticket_id": "SIG-0020",
+        "category": "Hull & Structural Systems",
         "priority": "P3",
-        "assigned_team": "Network Operations",
+        "assigned_team": "Deep Space Communications",
         "needs_escalation": false,
         "missing_information": [
-            "device_info",
-            "network_location"
+            "module_specs",
+            "sector_coordinates"
         ],
-        "next_best_action": "Investigate network printer print queue issue on the 3rd floor. Multiple users affected and jobs are queuing but not printing, which suggests a network or print server issue rather than an endpoint problem.",
+        "next_best_action": "Investigate hull patch fabricator print queue issue on Deck 3. Multiple crew members affected and jobs are queuing but not fabricating, which suggests a network or fabrication server issue rather than a console problem.",
         "remediation_steps": [
-            "Identify the printer model and check whether it is network-attached or connected via print server",
-            "Check print server spooler service status and restart if necessary",
-            "Verify network connectivity between the printer and the print server or direct network path",
-            "If network-connected, check the printer's IP address and network interface status",
-            "Clear stuck print queue and test with a fresh print job"
+            "Identify the fabricator model and check whether it is network-attached or connected via fabrication server",
+            "Check fabrication server spooler service status and restart if necessary",
+            "Verify network connectivity between the fabricator and the fabrication server or direct network path",
+            "If network-connected, check the fabricator's network address and interface status",
+            "Clear stuck fabrication queue and test with a fresh fabrication job"
         ]
     },
     {
-        "ticket_id": "INC-0021",
-        "category": "General Inquiry",
+        "ticket_id": "SIG-0021",
+        "category": "Mission Briefing Request",
         "priority": "P4",
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Redirect to Facilities/Office Management — meeting room booking and catering are not IT support functions. Provide brief guidance on how to book rooms via Outlook (add room resource) and direct catering questions to Office Management.",
+        "next_best_action": "Redirect to Station Facilities \u2014 briefing compartment reservations and nutrient pack ordering are not Engineering support functions. Provide brief guidance on how to reserve compartments via SubComm (add compartment resource) and direct catering questions to Station Facilities.",
         "remediation_steps": [
-            "Reply with instructions: in Outlook, create a new meeting and click 'Add a room' to search for available meeting rooms",
-            "Note that catering requests should go to the Office Management team, not IT",
-            "If the user cannot see room resources in Outlook, verify their mailbox has the room finder permission and route to Enterprise Applications if needed"
+            "Reply with instructions: in SubComm, create a new event and select 'Add a compartment' to search for available briefing rooms",
+            "Note that nutrient pack requests should go to the Station Facilities team, not Engineering",
+            "If the crew member cannot see compartment resources in SubComm, verify their account has the room finder permission and route to Mission Software Operations if needed"
         ]
     },
     {
-        "ticket_id": "INC-0022",
-        "category": "Security & Compliance",
+        "ticket_id": "SIG-0022",
+        "category": "Threat Detection & Containment",
         "priority": "P1",
-        "assigned_team": "Security Operations",
+        "assigned_team": "Threat Response Command",
         "needs_escalation": true,
         "missing_information": [
-            "configuration_details",
-            "environment_details"
+            "system_configuration",
+            "habitat_conditions"
         ],
-        "next_best_action": "Renew or replace the TLS certificate on client-api.contoso.com before it expires on March 20. This is a production-facing API gateway — expiry will break all external client integrations. Treat as P1 given 3-day window and the fact that the original provisioner has left the company.",
+        "next_best_action": "Renew or replace the quantum encryption certificate on crew-api.cdss.space before it expires on March 20. This is a production-facing API gateway \u2014 expiry will break all external station integrations and allied fleet communications. Treat as P1 given 3-rotation window and the fact that the original provisioner has transferred.",
         "remediation_steps": [
-            "Identify the current certificate authority and certificate type (public CA, internal PKI, or Let's Encrypt)",
+            "Identify the current certificate authority and certificate type (public CA, internal PKI, or auto-provisioned)",
             "Determine whether auto-renewal was configured or if the cert was manually provisioned",
             "If auto-renewal exists, trigger a manual renewal cycle and verify the new cert is issued",
-            "If manual, generate a CSR, obtain a new certificate from the CA, and install it on the API gateway",
-            "Verify the new certificate is correctly installed and all client connections work without TLS errors",
-            "Configure auto-renewal and monitoring alerts to prevent recurrence"
+            "If manual, generate a certificate signing request, obtain a new certificate from the CA, and install it on the API gateway",
+            "Verify the new certificate is correctly installed and all station connections work without encryption handshake errors",
+            "Configure auto-renewal and SentinelGrid monitoring alerts to prevent recurrence"
         ]
     },
     {
-        "ticket_id": "INC-0023",
-        "category": "Hardware & Peripherals",
+        "ticket_id": "SIG-0023",
+        "category": "Hull & Structural Systems",
         "priority": "P3",
-        "assigned_team": "Endpoint Engineering",
+        "assigned_team": "Spacecraft Systems Engineering",
         "needs_escalation": false,
         "missing_information": [
-            "device_info",
-            "error_message"
+            "module_specs",
+            "anomaly_readout"
         ],
-        "next_best_action": "Investigate laptop performance degradation. Symptoms (slow performance, fan running, pop-ups about 'updating system components') are more consistent with a stuck Windows update or background Intune policy compliance than malware, especially since Defender found nothing. Check update history and system resource usage.",
+        "next_best_action": "Investigate console performance degradation. Symptoms (slow performance, cooling fans running, pop-ups about 'updating system components') are more consistent with a stuck ShipOS update or background compliance policy than rogue code, especially since SentinelGrid found nothing. Check update history and system resource usage.",
         "remediation_steps": [
-            "Check Windows Update history — verify whether recent updates completed or are stuck retrying",
-            "Review Task Manager for high CPU/disk processes (likely Windows Update or Intune compliance)",
-            "If updates are stuck, run Windows Update troubleshooter or manually reset the update components",
-            "Verify Defender definitions are current and run a quick scan to confirm no threats",
-            "If the user clicked a suspicious email, forward the email to phishing@contoso.com and notify Security Operations as a precaution"
+            "Check ShipOS update history \u2014 verify whether recent patches completed or are stuck retrying",
+            "Review system resource monitor for high CPU/storage processes (likely ShipOS update or compliance enforcement)",
+            "If updates are stuck, run ShipOS update troubleshooter or manually reset the update components",
+            "Verify SentinelGrid threat definitions are current and run a full scan to confirm no threats",
+            "If the crew member opened a suspicious SubComm message, forward it to threats@cdss.space and notify Threat Response Command as a precaution"
         ]
     },
     {
-        "ticket_id": "INC-0024",
-        "category": "Security & Compliance",
+        "ticket_id": "SIG-0024",
+        "category": "Threat Detection & Containment",
         "priority": "P3",
-        "assigned_team": "Security Operations",
+        "assigned_team": "Threat Response Command",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Confirm this is a phishing/scam email and advise the user NOT to click any links. Forward the original email to phishing@contoso.com for analysis. No breach has occurred if the user hasn't clicked.",
+        "next_best_action": "Confirm this is a phishing/scam subspace message and advise the crew member NOT to click any links. Forward the original message to threats@cdss.space for analysis. No breach has occurred if the crew member hasn't clicked.",
         "remediation_steps": [
-            "Reply to the user immediately: this is a scam email — do NOT click any links or provide any personal information",
-            "Have the user forward the original email as an attachment to phishing@contoso.com",
-            "Check whether the email bypassed Contoso's email filtering and report to SecOps if so",
-            "If the user already clicked the link, escalate to a full security incident and initiate credential reset"
+            "Reply to the crew member immediately: this is a scam message \u2014 do NOT click any links or provide any personal information or BioScan credentials",
+            "Have the crew member forward the original subspace message as an attachment to threats@cdss.space",
+            "Check whether the message bypassed the station's SubComm filtering and report to Threat Response Command if so",
+            "If the crew member already clicked the link, escalate to a full security incident and initiate credential reset"
         ]
     },
     {
-        "ticket_id": "INC-0025",
-        "category": "Data & Storage",
+        "ticket_id": "SIG-0025",
+        "category": "Telemetry & Data Banks",
         "priority": "P1",
-        "assigned_team": "Data Platform",
+        "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate Azure VM prod-analytics-01 stuck at 'Applying computer settings' after scheduled OS patching reboot. Executive analytics dashboard dependent on this VM — 2-hour window before the 9 AM briefing.",
+        "next_best_action": "Investigate Station Core compute node prod-analytics-01 stuck at 'Applying station configuration parameters' after scheduled ShipOS patching reboot. Admiral's analytics dashboard dependent on this node \u2014 2-hour window before the 09:00 threat briefing.",
         "remediation_steps": [
-            "Check Azure boot diagnostics serial console output for the stuck state",
-            "Attempt to connect via Azure Serial Console to bypass the stuck login screen",
-            "If Serial Console access is possible, check if a GPO or startup script is hanging",
-            "If the VM is unrecoverable, redeploy from the latest snapshot or restore from backup",
-            "Verify the analytics dashboard is accessible once the VM is restored",
-            "Post-incident: review the OS patching procedure to prevent boot failures after scheduled updates"
+            "Check Station Core boot diagnostics serial console output for the stuck state",
+            "Attempt to connect via Station Core Serial Console to bypass the stuck initialization screen",
+            "If Serial Console access is possible, check if a station configuration policy or startup script is hanging",
+            "If the node is unrecoverable, redeploy from the latest snapshot or restore from backup",
+            "Verify the analytics dashboard is accessible once the node is restored",
+            "Post-incident: review the ShipOS patching procedure to prevent boot failures after scheduled updates"
         ]
     }
 ]

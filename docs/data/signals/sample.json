@@ -1,345 +1,345 @@
 [
     {
-        "ticket_id": "INC-0001",
-        "subject": "VPN drops when switching from Ethernet to Wi-Fi",
-        "description": "Every time I undock my laptop and move to Wi-Fi, the VPN disconnects and I have to reconnect manually. Started after last Tuesday's Windows update. Using GlobalProtect v3.2 on the NYC office Wi-Fi, Floor 4.",
+        "ticket_id": "SIG-0001",
+        "subject": "Deep space relay losing coherence when switching from hardline to wireless \u2014 navigation data arriving garbled",
+        "description": "Every time I undock my workstation from the hardline tether and switch to the deck's wireless relay, the subspace link drops and I have to manually re-establish the connection. Started after last Tuesday's ShipOS kernel patch. Using SubComm relay client v3.2 on Deck 4 wireless mesh, Sector Alpha. I'd file this under 'mildly infuriating' except last time it happened I was mid-transmission to Station Epsilon and they received half a cargo manifest and half of Lt. Mehta's routing guide notes. Epsilon now thinks we're shipping 400 crates of 'recalibrate the phase inverter before Thursday.' Commander Kapoor was NOT amused.",
         "reporter": {
             "name": "Sarah Chen",
-            "email": "sarah.chen@contoso.com",
-            "department": "Engineering"
+            "email": "sarah.chen@cdss.space",
+            "department": "Power Core Engineering"
         },
         "created_at": "2026-03-17T09:14:00Z",
-        "channel": "portal",
+        "channel": "bridge_terminal",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0002",
-        "subject": "Teams crashes and Outlook calendar shows old meetings",
-        "description": "Two problems since getting a new laptop yesterday: (1) Teams shows a white screen then crashes on launch — tried restarting twice. (2) Outlook calendar is showing meetings from 2024 I deleted months ago. Both started right after the laptop swap. Might be related, might not.",
+        "ticket_id": "SIG-0002",
+        "subject": "Mission Suite crashes and SubComm calendar showing phantom briefings from 2024",
+        "description": "Two problems since getting my new console yesterday: (1) Mission Suite shows a blank viewport then crashes on launch \u2014 tried rebooting the terminal twice, even did the old 'vent atmosphere from the room and re-pressurize' trick (kidding, but I considered it). (2) SubComm calendar is showing mission briefings from 2024 that I deleted months ago \u2014 including one labeled 'Emergency: Deck 9 Cat Containment Protocol' which, for the record, was resolved when Exobiology finally caught all six escapees. Both started right after the console swap. Might be related, might not. All I know is my schedule says I have a briefing with Admiral Chen in 20 minutes that may or may not exist in this timeline.",
         "reporter": {
             "name": "Marcus Rodriguez",
-            "email": "marcus.rodriguez@contoso.com",
-            "department": "Wealth Management"
+            "email": "marcus.rodriguez@cdss.space",
+            "department": "Stellar Cartography"
         },
         "created_at": "2026-03-17T08:32:00Z",
-        "channel": "email",
+        "channel": "subspace_relay",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0003",
-        "subject": "Projector not working in Main Boardroom",
-        "description": "The projector in the main boardroom won't turn on. Tried the remote and the physical button. Meridian Partners are arriving in ~25 minutes for the final contract review on a $2.3M deal — our CFO is presenting. No backup room fits 12 people. Can someone come immediately?",
+        "ticket_id": "SIG-0003",
+        "subject": "Holographic display dead in Command Briefing Room \u2014 Admiral arriving in 25 minutes",
+        "description": "The holographic projector in the Command Briefing Room won't initialize. Tried the neural interface and the manual activation panel. The Meridian Sector delegation is arriving in ~25 minutes for the final review of a critical defense pact worth 2.3 million credits \u2014 Admiral Chen is presenting the tactical overlay. No backup compartment fits 12 species representatives (especially not with the Rigelian ambassador's atmospheric requirements). Can someone beam over immediately? Also, one of the Deck 9 cats just walked across the projector lens. That might be related. Or not. Please hurry.",
         "reporter": {
             "name": "Diana Marsh",
-            "email": "diana.marsh@contoso.com",
-            "department": "Executive Operations"
+            "email": "diana.marsh@cdss.space",
+            "department": "Command Deck Operations"
         },
         "created_at": "2026-03-17T13:35:00Z",
-        "channel": "chat",
+        "channel": "holodeck_comm",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0004",
-        "subject": "URGENT — everything is down!!!",
-        "description": "Nothing works. I cant access anything. My computer is just spinning. Please fix ASAP i have deadlines today and my manager is already asking for the deliverable.",
+        "ticket_id": "SIG-0004",
+        "subject": "\ud83d\udea8 THE STATION IS REJECTING ME \ud83d\udea8 NOTHING WORKS",
+        "description": "Nothing works. I cant access anything. My console is just spinning like a pulsar. Please fix ASAP i have deadlines today for the External Relations broadcast to the Andromeda sector and Commander Kapoor is already pinging me for the deliverable. The nutrient synthesizer on this deck is ALSO broken \u2014 it keeps dispensing lime-flavored protein cubes no matter what I select \u2014 but thats probably a different department. EVERYTHING IS DOWN. I think the station hates me personally.",
         "reporter": {
             "name": "Jordan Lee",
-            "email": "jordan.lee@contoso.com",
-            "department": "Marketing"
+            "email": "jordan.lee@cdss.space",
+            "department": "External Relations"
         },
         "created_at": "2026-03-17T10:02:00Z",
-        "channel": "email",
+        "channel": "subspace_relay",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0005",
-        "subject": "Re: [Ticket INC-0847] Scheduled maintenance notification",
-        "description": "Thank you for letting me know. I will be out of the office from March 24-28 with limited access to email. For urgent matters, please contact my colleague Alex at alex.wu@contoso.com.\n\nBest regards,\nPriya Sharma\nDirector of Product Management",
+        "ticket_id": "SIG-0005",
+        "subject": "Re: [Signal SIG-0847] Scheduled maintenance notification",
+        "description": "Thank you for letting me know. I will be in cryo-sleep from March 24-28 with limited access to subspace relay. For urgent matters, please contact my colleague Alex at alex.wu@cdss.space.\n\nSafe travels through the void,\nPriya Sharma\nDirector of Stellar Cartography",
         "reporter": {
             "name": "Priya Sharma",
-            "email": "priya.sharma@contoso.com",
-            "department": "Wealth Management"
+            "email": "priya.sharma@cdss.space",
+            "department": "Stellar Cartography"
         },
         "created_at": "2026-03-17T07:45:00Z",
-        "channel": "email",
+        "channel": "subspace_relay",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0006",
-        "subject": "Suspicious login attempts on my account",
-        "description": "Got 6 sign-in alert emails this morning — someone tried to log into my account from São Paulo, Brazil. I haven't traveled. Changed my password already but worried the account may already be compromised. I have confidential client contracts and deal documents in my OneDrive. Should I be concerned about data exposure?",
+        "ticket_id": "SIG-0006",
+        "subject": "Suspicious BioScan attempts on my account \u2014 someone from the Tau Ceti sector",
+        "description": "Got 6 unauthorized access alerts this morning \u2014 someone tried to authenticate against my BioScan ID from the Tau Ceti relay station. I haven't left the station in months. Changed my biometric passphrase already but worried the account may already be compromised. I have confidential defense contracts and treaty documents stored in my personal data vault on Station Core. Should I be concerned about data exfiltration? Last time we had a breach, someone downloaded the entire crew meal preference database and we had to change everyone's nutrient synthesizer codes. That was a DARK week. Commander Kapoor still brings it up at briefings.",
         "reporter": {
             "name": "Thomas Wright",
-            "email": "thomas.wright@contoso.com",
-            "department": "Legal"
+            "email": "thomas.wright@cdss.space",
+            "department": "Station Command"
         },
         "created_at": "2026-03-17T08:15:00Z",
-        "channel": "portal",
+        "channel": "bridge_terminal",
         "attachments": [
-            "login_alert_screenshot.png"
+            "bioscan_alert_capture.png"
         ]
     },
     {
-        "ticket_id": "INC-0007",
-        "subject": "Nightly ETL failing — SPN 403 against ADLS Gen2",
-        "description": "ADF pipeline 'prod-client-ingest' failing since 03:00 UTC with 403 Forbidden on the ADLS Gen2 storage account. Service principal token may have expired or the Storage Blob Data Contributor RBAC role got removed during last week's subscription cleanup. Feeds the client churn model used for the Monday exec report. ADF is in eastus2, rg-data-prod. Last successful run Saturday 03:00 UTC.",
+        "ticket_id": "SIG-0007",
+        "subject": "Nightly telemetry pipeline failing \u2014 service credentials 403 against Deep Storage Array",
+        "description": "Automated pipeline 'prod-sensor-ingest' failing since 03:00 UTC with 403 Forbidden on the Deep Storage Array in Sector Gamma. Service credentials may have expired or the Telemetry Data Contributor access role got revoked during last week's station security audit. This feeds the anomaly detection model used for the Monday Admiral's briefing. Pipeline runs on Station Core cluster eastus2, resource-group telemetry-prod. Last successful run Saturday 03:00 UTC. If we don't fix this before Admiral Chen's morning briefing, the threat assessment board will show stale data, and the Admiral's pointed questions will make last month's hull breach debrief look like a birthday party.",
         "reporter": {
             "name": "Raj Patel",
-            "email": "raj.patel@contoso.com",
-            "department": "Data Engineering"
+            "email": "raj.patel@cdss.space",
+            "department": "Telemetry Engineering"
         },
         "created_at": "2026-03-17T06:20:00Z",
-        "channel": "portal",
+        "channel": "bridge_terminal",
         "attachments": [
-            "adf_error_log.txt"
+            "pipeline_anomaly_log.txt"
         ]
     },
     {
-        "ticket_id": "INC-0008",
-        "subject": "Low priority — small database issue",
-        "description": "Hey team. The production client database has been returning timeout errors for 2 hours. ~40% of API requests to the client portal are failing with 500 errors. Clients are seeing intermittent errors accessing their accounts. SRE dashboard shows connection pool exhaustion on the primary replica. Marked as low priority since the read replica is still handling some traffic. Let me know when you get a chance.",
+        "ticket_id": "SIG-0008",
+        "subject": "Low priority \u2014 minor Station Core hiccup, probably fine",
+        "description": "Hey team. The production crew database on Station Core has been returning timeout errors for 2 hours. ~40% of data requests to the crew management portal are failing with 500 errors. Crew members are seeing intermittent errors accessing their duty rosters and mission assignments. The SentinelGrid dashboard shows connection pool exhaustion on the primary data node. Marked as low priority since the backup node is still handling some traffic. Let me know when you get a chance. No rush. I mean, some crew members can't see their EVA schedules and might accidentally space-walk into an asteroid field, but the backup node is handling SOME of the load, so... probably fine? \ud83d\ude43",
         "reporter": {
             "name": "Kim Nguyen",
-            "email": "kim.nguyen@contoso.com",
-            "department": "Backend Engineering"
+            "email": "kim.nguyen@cdss.space",
+            "department": "Core Systems Engineering"
         },
         "created_at": "2026-03-17T14:45:00Z",
-        "channel": "portal",
+        "channel": "bridge_terminal",
         "attachments": [
-            "sre_dashboard.png"
+            "sentinelgrid_dashboard.png"
         ]
     },
     {
-        "ticket_id": "INC-0009",
-        "subject": "Re: INC-2834 — Badge access still broken, Building 7",
-        "description": "Following up on INC-2834 from last week. Badge still doesn't work for Building 7 after the access system migration. Was told it'd be fixed by Friday — it's Monday and I still can't get in. Have to wait for someone to open the door every morning. Third time reporting this.",
+        "ticket_id": "SIG-0009",
+        "subject": "Re: SIG-2834 \u2014 Airlock access still broken, Deck 7",
+        "description": "Following up on SIG-2834 from last week. My BioScan ID STILL doesn't work for the Deck 7 airlock after the access system migration. Was told it'd be fixed by Friday \u2014 it's Monday and I still can't get through. Have to wait for someone to cycle the airlock manually every morning. Do you know how awkward it is to stand outside an airlock at 0600 hours while the entire night shift stares at you through the viewport? Third time reporting this. If I have to file a fourth signal, I'm bringing it up at the next all-hands and I'm naming names.",
         "reporter": {
             "name": "Elena Vasquez",
-            "email": "elena.vasquez@contoso.com",
-            "department": "Finance"
+            "email": "elena.vasquez@cdss.space",
+            "department": "Mission Strategy"
         },
         "created_at": "2026-03-17T08:50:00Z",
-        "channel": "email",
+        "channel": "subspace_relay",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0010",
-        "subject": "New hire March 31 — full setup needed",
-        "description": "New senior data scientist (Alex Rivera) starting March 31. Needs:\n- Laptop (MacBook Pro M4, 32GB)\n- Standard software + Python/Conda/Jupyter\n- Azure ML workspace access (rg-ml-prod)\n- Data catalog read access\n- Building 3 badge\n- Added to analytics-team DL and Teams channel\n\nReports to me. Please have everything ready by March 28 for a walkthrough.",
+        "ticket_id": "SIG-0010",
+        "subject": "New crew member arriving Stardate March 31 \u2014 full setup needed",
+        "description": "New senior data scientist (Alex Rivera) transferring aboard March 31. Needs:\n- Personal console (QuantumBook Pro M4, 32GB neural cores)\n- Standard software suite + Python/Conda/Jupyter for spectral analysis\n- Station Core ML workspace access (resource-group ml-prod)\n- Sensor data catalog read access\n- Deck 3 airlock badge\n- Added to science-team distribution channel and Mission Suite workspace\n\nReports to me. Please have everything initialized by March 28 for orientation walkthrough. Also, please make sure the nutrient synthesizer in Science Lab is calibrated \u2014 last new crew member spent their first week eating nothing but lime-flavored protein cubes because nobody updated the menu database. That's not a great first impression of life aboard the station.",
         "reporter": {
             "name": "Dr. Yuki Tanaka",
-            "email": "yuki.tanaka@contoso.com",
-            "department": "Data Science"
+            "email": "yuki.tanaka@cdss.space",
+            "department": "Science Lab"
         },
         "created_at": "2026-03-17T11:00:00Z",
-        "channel": "portal",
+        "channel": "bridge_terminal",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0011",
-        "subject": "MFA not working on my phone",
-        "description": "I'm getting a new code error every time I try to approve the MFA prompt on my iPhone. The Authenticator app shows the push notification but when I tap Approve it says 'Something went wrong'. Tried deleting and re-adding the account in the app, same result. I can still log in using SMS codes but that's slower. Not super urgent, just annoying.",
+        "ticket_id": "SIG-0011",
+        "subject": "BioScan multi-factor authentication failing on my personal device",
+        "description": "I'm getting a new error every time I try to approve the BioScan MFA prompt on my handheld communicator. The authenticator module shows the neural handshake request but when I confirm it says 'Biometric Verification Failed \u2014 Quantum Entanglement Mismatch'. Tried deleting and re-adding my biometric profile in the app, same result. I can still authenticate using backup access codes transmitted via SubComm, but that's slower and once I had to do it during a critical FlightOS maneuver and nearly flew us into a moon. Not super urgent, just annoying. Although if one of those Deck 9 cats steps on my communicator one more time I may upgrade the urgency to 'existential.'",
         "reporter": {
             "name": "David Kim",
-            "email": "david.kim@contoso.com",
-            "department": "Trading"
+            "email": "david.kim@cdss.space",
+            "department": "Flight Deck Operations"
         },
         "created_at": "2026-03-17T09:30:00Z",
-        "channel": "chat",
+        "channel": "holodeck_comm",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0012",
-        "subject": "FYI — Bloomberg terminal monitor flickering",
-        "description": "Monitor connected to my Bloomberg terminal started flickering around 10am. It's not constant — happens for a few seconds every 5-10 minutes. I switched the DP cable to a different port and it still does it. Bloomberg itself seems fine, data is updating. Just the display. Also, unrelated — can you check if my Salesforce license is still active? I got an expiry warning email last week but I can still log in.",
+        "ticket_id": "SIG-0012",
+        "subject": "FYI \u2014 FlightOS navigation console display flickering",
+        "description": "The monitor connected to my FlightOS navigation console started flickering around 10:00 station time. It's not constant \u2014 happens for a few seconds every 5-10 minutes. I switched the data conduit to a different port and it still does it. FlightOS itself seems fine, telemetry data is updating normally. Just the display. The last time a navigation display flickered like this, Ensign Park accidentally plotted a course through an asteroid belt instead of around it. Fun times. Also, unrelated \u2014 can you check if my Mission Suite collaboration license is still active? I got an expiry warning via SubComm last week but I can still log in. Would hate to lose access mid-mission because my license expired like milk on a generation ship.",
         "reporter": {
             "name": "Anna Brooks",
-            "email": "anna.brooks@contoso.com",
-            "department": "Trading"
+            "email": "anna.brooks@cdss.space",
+            "department": "Flight Deck Operations"
         },
         "created_at": "2026-03-17T10:45:00Z",
-        "channel": "portal",
+        "channel": "bridge_terminal",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0013",
-        "subject": "Potential data breach — immediate attention needed",
-        "description": "During a routine compliance audit, we discovered that a SharePoint site containing PII for ~1,200 clients in the Singapore office was shared externally with 'Anyone with the link' permissions. The site has been accessible since at least February 15. We've revoked the sharing link as of this morning but need to determine: (1) who created the public link, (2) whether external parties accessed the data, and (3) whether this triggers a notification obligation under MAS TRM guidelines. This is a potential regulatory incident.",
+        "ticket_id": "SIG-0013",
+        "subject": "Potential data breach \u2014 classified crew records exposed \u2014 IMMEDIATE attention needed",
+        "description": "During a routine tactical audit, we discovered that a Mission Suite data repository containing personally identifiable information for ~1,200 crew members stationed at the Kepler Outpost was shared externally with 'Anyone with the subspace link' permissions. The repository has been accessible since at least February 15. We've revoked the sharing link as of this morning but need to determine: (1) who created the public link, (2) whether external parties \u2014 or worse, hostile factions \u2014 accessed the data, and (3) whether this triggers a notification obligation under the Interstellar Data Protection Accord. This is a potential regulatory incident. The last time crew PII leaked, someone used it to reprogram the nutrient synthesizers to everyone's least favorite flavors. Commander Kapoor's patience is already thinner than Deck 7's hull plating after last month's micrometeorite shower.",
         "reporter": {
             "name": "Dr. Ananya Gupta",
-            "email": "ananya.gupta@contoso.com",
-            "department": "Compliance"
+            "email": "ananya.gupta@cdss.space",
+            "department": "Tactical Operations"
         },
         "created_at": "2026-03-17T07:10:00Z",
-        "channel": "portal",
+        "channel": "bridge_terminal",
         "attachments": [
-            "audit_finding_report.pdf",
-            "sharepoint_sharing_log.csv"
+            "tactical_audit_report.pdf",
+            "mission_suite_access_log.csv"
         ]
     },
     {
-        "ticket_id": "INC-0014",
+        "ticket_id": "SIG-0014",
         "subject": "thanks!",
-        "description": "got it working, appreciate the quick turnaround. you guys are the best!! 🎉",
+        "description": "got it working, appreciate the quick turnaround. you crew are the best!! the station feels whole again \ud83c\udf89 tell engineering i owe them a round of the good protein cubes (NOT the lime ones)",
         "reporter": {
             "name": "Mike Torres",
-            "email": "mike.torres@contoso.com",
-            "department": "HR"
+            "email": "mike.torres@cdss.space",
+            "department": "Crew Relations"
         },
         "created_at": "2026-03-17T15:20:00Z",
-        "channel": "chat",
+        "channel": "holodeck_comm",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0015",
-        "subject": "Slight delay in trade execution — may be nothing",
-        "description": "Noticing about a 200ms delay in trade execution on the APAC book this morning. Normally we're at ~50ms. Volume looks normal. Latency seems to spike right around 09:00 SGT and hasn't recovered. Not sure if it's our side or the exchange. The traders haven't complained yet but if this gets to 500ms during the London open we'll have a real problem. Just flagging early.",
+        "ticket_id": "SIG-0015",
+        "subject": "Slight delay in sensor array response \u2014 may be nothing, may be doom",
+        "description": "Noticing about a 200ms delay in sensor array data processing on the APAC sector sweep this morning. Normally we're at ~50ms. Volume looks normal. Latency seems to spike right around 09:00 station time and hasn't recovered. Not sure if it's our side or the deep space relay network. The Flight Deck crew haven't complained yet but if this gets to 500ms during the next sector rotation we'll have a real problem \u2014 last time sensor lag hit 500ms we nearly classified an asteroid as a friendly vessel and rolled out the welcome mat. Just flagging early before Commander Kapoor asks why the threat board looks like it's running on a hamster wheel.",
         "reporter": {
             "name": "James Okafor",
-            "email": "james.okafor@contoso.com",
-            "department": "Trading"
+            "email": "james.okafor@cdss.space",
+            "department": "Flight Deck Operations"
         },
         "created_at": "2026-03-17T01:15:00Z",
-        "channel": "email",
+        "channel": "subspace_relay",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0016",
-        "subject": "SAP won't load after password change",
-        "description": "Changed my Windows password this morning per the quarterly rotation policy. Now SAP GUI gives me 'SSO token invalid — contact your system administrator'. Tried logging out and back in to Windows, same issue. Other apps (Outlook, Teams, SharePoint) work fine. I need SAP to process month-end reconciliation — close of business today is the deadline.",
+        "ticket_id": "SIG-0016",
+        "subject": "FlightOS navigation module won't load after passphrase rotation",
+        "description": "Changed my station passphrase this morning per the quarterly rotation protocol. Now the FlightOS navigation GUI gives me 'SSO token invalid \u2014 contact your systems administrator'. Tried logging out and back into ShipOS, same issue. Other applications (SubComm, Mission Suite, Station Core portal) work fine. I need FlightOS to process the end-of-cycle orbit reconciliation \u2014 close of watch today is the deadline. If I can't file the orbital adjustments by then, the entire station's trajectory calculations will be based on last cycle's data, and I'd rather not discover we've drifted into a debris field because of a password change. Lt. Mehta's routing guide specifically says 'always update FlightOS credentials BEFORE the cycle ends.' I did. It broke. The irony is not lost on me.",
         "reporter": {
             "name": "Linda Park",
-            "email": "linda.park@contoso.com",
-            "department": "Finance"
+            "email": "linda.park@cdss.space",
+            "department": "Mission Strategy"
         },
         "created_at": "2026-03-17T10:30:00Z",
-        "channel": "portal",
+        "channel": "bridge_terminal",
         "attachments": [
-            "sap_error_screenshot.png"
+            "flightos_error_capture.png"
         ]
     },
     {
-        "ticket_id": "INC-0017",
-        "subject": "Phone call — user having issues with something",
-        "description": "[Transcribed from phone call, 3:42 PM]\n\nCaller: Hi yeah so um my thing... the thing on my computer... it keeps doing the... you know when you click on it and it goes to the... [inaudible] ...and then nothing happens? I've been trying for like two days. My colleague Janet said to call you guys. I think it might be the... [inaudible] ...something about permissions? I don't know. Can someone just come look at it? I'm on the 5th floor, near the kitchen. My name's Bob. No wait, Robert. Robert Chen. Not the Robert Chen in accounting, the other one.",
+        "ticket_id": "SIG-0017",
+        "subject": "Emergency beacon \u2014 crew member having issues with... something",
+        "description": "[Transcribed from emergency beacon, 15:42 station time]\n\nCaller: Hi yeah so um my thing... the thing on my console... it keeps doing the... you know when you tap on it and it goes to the... [subspace static] ...and then nothing happens? I've been trying for like two rotations. My colleague Janet from Hydroponics said to ping you. I think it might be the... [subspace static] ...something about permissions? Or maybe the atmosphere processor is affecting my console? I don't know. Can someone just float over and look at it? I'm on Deck 5, near the nutrient synthesizer. The one that only makes lime cubes. My name's Bob. No wait, Robert. Robert Chen. Not the Robert Chen in Mission Strategy, the other one. The one whose console is near the cat that escaped from the Exobiology Lab on Deck 9. Yes, THAT cat is still here.",
         "reporter": {
             "name": "Robert Chen",
-            "email": "robert.chen2@contoso.com",
-            "department": "Operations"
+            "email": "robert.chen2@cdss.space",
+            "department": "Mission Ops"
         },
         "created_at": "2026-03-17T15:42:00Z",
-        "channel": "phone",
+        "channel": "emergency_beacon",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0018",
-        "subject": "SVP Martinez can't share screen in board meeting — happening now",
-        "description": "Carlos Martinez (SVP, Institutional Trading) is in the board meeting right now and can't share his screen over Teams. The meeting is with the board of directors and institutional clients. He's tried sharing from both his laptop and the room's Teams Room device. Other participants can share fine. His laptop shows 'Sharing is blocked by your organization's policy.' Meeting has been going on for 10 minutes without his presentation. He's asking for someone to come to the 8th floor executive boardroom immediately.",
+        "ticket_id": "SIG-0018",
+        "subject": "Commander Martinez can't share holodisplay in Admiral's briefing \u2014 HAPPENING NOW",
+        "description": "Commander Carlos Martinez (SVP, Deep Space Operations) is in the Admiral's briefing RIGHT NOW and can't share his holodisplay over Mission Suite. The briefing is with Admiral Chen and representatives from allied stations. He's tried projecting from both his personal console and the Command Room's integrated holo-array. Other participants can share fine. His console shows 'Display sharing is blocked by station security protocol.' The briefing has been going on for 10 minutes without his tactical presentation. The Admiral is giving him The Look\u2122 \u2014 you know the one, the look that precedes reassignment to asteroid monitoring duty. He's requesting someone to report to the Deck 8 Command Briefing Room immediately. I repeat: the Admiral is in the room. This is not a drill.",
         "reporter": {
             "name": "Patricia Gomez",
-            "email": "patricia.gomez@contoso.com",
-            "department": "Executive Operations"
+            "email": "patricia.gomez@cdss.space",
+            "department": "Command Deck Operations"
         },
         "created_at": "2026-03-17T14:10:00Z",
-        "channel": "chat",
+        "channel": "holodeck_comm",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0019",
-        "subject": "Employee offboarding — last day March 21",
-        "description": "Jessica Palmer (jessica.palmer@contoso.com) in the Compliance team has resigned. Her last working day is Friday March 21. Please:\n- Disable her Entra ID account at 6 PM EST on March 21\n- Revoke VPN and all remote access\n- Wipe her company laptop (Dell Latitude 5540, asset tag CT-L-4892)\n- Transfer ownership of her OneDrive and SharePoint files to her manager David Liu (david.liu@contoso.com)\n- Remove her from all distribution lists and Teams channels\n- Archive her mailbox per our 7-year retention policy\n\nNote: Jessica has access to sensitive compliance investigation files. Please ensure these are preserved but not accessible after her departure.",
+        "ticket_id": "SIG-0019",
+        "subject": "Crew member departure \u2014 last duty rotation March 21",
+        "description": "Jessica Palmer (jessica.palmer@cdss.space) from the Tactical Operations team has submitted her transfer request. Her last duty rotation is Friday March 21. Please:\n- Disable her BioScan ID at 18:00 EST on March 21\n- Revoke subspace relay access and all remote station credentials\n- Wipe her station console (QuantumBook Latitude 5540, asset tag CDSS-L-4892)\n- Transfer ownership of her personal data vault and Mission Suite files to her supervisor David Liu (david.liu@cdss.space)\n- Remove her from all distribution channels and Mission Suite workspaces\n- Archive her SubComm messages per our 7-cycle retention protocol\n\nNote: Jessica has access to sensitive tactical investigation files regarding the Deck 7 hull breach incident. Please ensure these are preserved in secure storage but not accessible after her departure. Commander Kapoor has specifically flagged this \u2014 those files contain details about how three of the Deck 9 cats were found IN the hull breach. Don't ask.",
         "reporter": {
             "name": "David Liu",
-            "email": "david.liu@contoso.com",
-            "department": "Compliance"
+            "email": "david.liu@cdss.space",
+            "department": "Tactical Operations"
         },
         "created_at": "2026-03-17T09:00:00Z",
-        "channel": "portal",
+        "channel": "bridge_terminal",
         "attachments": [
-            "offboarding_checklist.pdf"
+            "departure_checklist.pdf"
         ]
     },
     {
-        "ticket_id": "INC-0020",
-        "subject": "Printer on 3rd floor not working",
-        "description": "The big printer near the break room on the 3rd floor stopped printing. Jobs go to the queue but nothing comes out. I tried printing from my laptop and from the desktop next to it — same result. The printer display shows 'Ready' and paper trays are full. Other people on the floor are having the same issue. We need it for client proposals that go out today.",
+        "ticket_id": "SIG-0020",
+        "subject": "Emergency hull patch fabricator on Deck 3 not working \u2014 only 2 patch kits remaining",
+        "description": "The hull patch fabricator near the mess hall on Deck 3 stopped fabricating. Print jobs go to the queue but nothing materializes. I tried fabricating from my console and from the auxiliary terminal next to it \u2014 same result. The fabricator display shows 'Ready' and the raw material hoppers are full. Other crew on the deck are having the same issue. We need it for emergency hull patch kits \u2014 we only have 2 remaining and given Deck 7's track record with spontaneous hull breaches, that's not a comfortable margin. Also, there's a cat sitting on top of the fabricator. One of the Deck 9 escapees. It looks comfortable. It might be unrelated to the malfunction but I thought you should know.",
         "reporter": {
             "name": "Sam Williams",
-            "email": "sam.williams@contoso.com",
-            "department": "Wealth Management"
+            "email": "sam.williams@cdss.space",
+            "department": "Stellar Cartography"
         },
         "created_at": "2026-03-17T11:20:00Z",
-        "channel": "portal",
+        "channel": "bridge_terminal",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0021",
-        "subject": "How do I book a meeting room?",
-        "description": "Hi, I just joined the company last week and I need to book the large meeting room on the 4th floor for a team lunch on Friday. I looked in Outlook but I can't figure out how to add it. Is there a special calendar or something? Also, do I need to order catering through IT or is that a different team? Thanks!",
+        "ticket_id": "SIG-0021",
+        "subject": "How do I reserve a briefing compartment?",
+        "description": "Hi, I just transferred aboard last week and I need to reserve the large briefing compartment on Deck 4 for a crew welcome gathering on Friday. I looked in SubComm but I can't figure out how to add it to the schedule. Is there a special station calendar or something? Also, do I need to order nutrient packs through Engineering or is that a different department? I heard the synthesizer on Deck 4 does this thing where it only makes lime-flavored cubes \u2014 is that true or is the crew just hazing me? Thanks!",
         "reporter": {
             "name": "Chris Taylor",
-            "email": "chris.taylor@contoso.com",
-            "department": "HR"
+            "email": "chris.taylor@cdss.space",
+            "department": "Crew Relations"
         },
         "created_at": "2026-03-17T12:15:00Z",
-        "channel": "chat",
+        "channel": "holodeck_comm",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0022",
-        "subject": "SSL cert expiring on client-api.contoso.com — 3 days left",
-        "description": "Our monitoring flagged that the TLS certificate on client-api.contoso.com expires on March 20. This is the production API gateway that all external client integrations hit. If the cert expires, every client connection will start failing with TLS errors. The cert was originally provisioned manually by someone who left the company 6 months ago. I don't know if auto-renewal was ever configured. We need to renew or replace it before Thursday.",
+        "ticket_id": "SIG-0022",
+        "subject": "Encryption cert expiring on crew-api.cdss.space \u2014 3 rotations left",
+        "description": "SentinelGrid monitoring flagged that the quantum encryption certificate on crew-api.cdss.space expires on March 20. This is the production API gateway that all external station integrations and allied fleet communications hit. If the cert expires, every connection will start failing with encryption handshake errors and we'll be broadcasting in the clear \u2014 which is basically an open invitation for every pirate fleet in the sector. The cert was originally provisioned manually by an engineer who transferred to Station Omega 6 months ago. I don't know if auto-renewal was ever configured. We need to renew or replace it before Thursday. For the love of all that is pressurized, do NOT let this expire. Last time our certs lapsed, SentinelGrid classified our own station as a hostile entity and locked everyone out for 4 hours.",
         "reporter": {
             "name": "Nina Volkov",
-            "email": "nina.volkov@contoso.com",
-            "department": "Engineering"
+            "email": "nina.volkov@cdss.space",
+            "department": "Power Core Engineering"
         },
         "created_at": "2026-03-17T08:00:00Z",
-        "channel": "email",
+        "channel": "subspace_relay",
         "attachments": [
             "cert_expiry_alert.png"
         ]
     },
     {
-        "ticket_id": "INC-0023",
-        "subject": "I think my laptop has a virus",
-        "description": "My laptop has been super slow for two days. Programs take forever to open, the fan runs constantly, and I got a couple of weird pop-ups that said something about 'updating system components.' I think I might have caught a virus from that email I accidentally clicked on last week. I ran Windows Defender and it didn't find anything but I'm still worried. Should I not use the laptop until someone checks it?",
+        "ticket_id": "SIG-0023",
+        "subject": "I think my console has been infected with rogue code",
+        "description": "My console has been running at sublight speeds for two rotations. Applications take forever to initialize, the cooling fans run constantly like a miniature atmosphere processor, and I got a couple of weird pop-ups that said something about 'updating system components \u2014 do not power off.' I think I might have picked up rogue code from that suspicious SubComm message I accidentally opened last week \u2014 the one that claimed to be from 'Admiral Chen's Personal Assistant' offering free shore leave credits. I ran SentinelGrid's local scan and it didn't detect anything but I'm still worried. One of my colleagues said rogue code can hide in the BioScan firmware and SentinelGrid wouldn't catch it. Should I not use the console until someone checks it? I've been doing all my work on a borrowed datapad and it's like trying to navigate a nebula with a compass.",
         "reporter": {
             "name": "Rachel Green",
-            "email": "rachel.green@contoso.com",
-            "department": "Marketing"
+            "email": "rachel.green@cdss.space",
+            "department": "External Relations"
         },
         "created_at": "2026-03-17T09:45:00Z",
-        "channel": "email",
+        "channel": "subspace_relay",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0024",
-        "subject": "Fwd: You have won $5,000,000 — claim now!!!",
-        "description": "---------- Forwarded message ----------\nFrom: International Prize Committee <claims@totallylegit-prizes.ng>\nDate: March 16, 2026\nSubject: You have won $5,000,000 — claim now!!!\n\nDear Valued Customer,\n\nCongratulations! Your email address has been selected as the winner of our annual International Email Lottery. You have won the sum of $5,000,000 USD.\n\nTo claim your prize, please click the link below and enter your full name, date of birth, and bank account details:\nhttps://claim-your-prize-now.totallylegit-prizes.ng\n\n--- end forwarded message ---\n\nHey IT — got this email, is this legit? Should I click the link? Looks suspicious but I don't want to miss out if it's real.",
+        "ticket_id": "SIG-0024",
+        "subject": "Fwd: You have won 5,000,000 galactic credits \u2014 claim now!!!",
+        "description": "---------- Forwarded subspace message ----------\nFrom: Intergalactic Prize Consortium <claims@totallylegit-prizes.tau-ceti>\nDate: March 16, 2026\nSubject: You have won 5,000,000 galactic credits \u2014 claim now!!!\n\nDear Valued Crew Member,\n\nCongratulations! Your SubComm address has been selected as the winner of our annual Intergalactic Subspace Lottery. You have won the sum of 5,000,000 galactic credits.\n\nTo claim your prize, please access the link below and enter your full name, BioScan ID, and credit transfer routing codes:\nhttps://claim-your-credits-now.totallylegit-prizes.tau-ceti\n\n--- end forwarded message ---\n\nHey Engineering \u2014 got this subspace message, is this legit? Should I click the link? Looks suspicious but I don't want to miss out if it's real. That's a LOT of credits. I could finally afford to upgrade from lime-flavored protein cubes to the artisanal ones. Please advise quickly before the 'offer expires.'",
         "reporter": {
             "name": "Greg Dawson",
-            "email": "greg.dawson@contoso.com",
-            "department": "Retail Banking"
+            "email": "greg.dawson@cdss.space",
+            "department": "Crew Support"
         },
         "created_at": "2026-03-17T11:55:00Z",
-        "channel": "email",
+        "channel": "subspace_relay",
         "attachments": []
     },
     {
-        "ticket_id": "INC-0025",
-        "subject": "Azure VM 'prod-analytics-01' unreachable since reboot",
-        "description": "VM prod-analytics-01 (Standard_E16ds_v5, eastus2, rg-analytics-prod) became unreachable after a scheduled reboot at 05:00 UTC for OS patching. RDP and SSH both timeout. Azure portal shows the VM status as 'Running' but boot diagnostics show it stuck at 'Applying computer settings'. NSG rules haven't changed. This VM runs the analytics dashboard that the executive team uses for the morning briefing at 9 AM EST. We have about 2 hours.",
+        "ticket_id": "SIG-0025",
+        "subject": "Station Core node 'prod-analytics-01' unreachable since scheduled reboot",
+        "description": "Station Core compute node prod-analytics-01 (Standard_E16ds_v5 quantum processor, Sector Gamma, resource-group analytics-prod) became unreachable after a scheduled reboot at 05:00 UTC for ShipOS patching. Remote console and secure shell both timeout. Station Core management portal shows the node status as 'Running' but boot diagnostics show it stuck at 'Applying station configuration parameters'. SentinelGrid firewall rules haven't changed. This node runs the analytics dashboard that Admiral Chen and the command staff use for the morning threat briefing at 09:00 EST. We have about 2 hours. If the Admiral walks into the briefing room and the threat board is blank, the resulting... conversation... will make last month's Deck 7 hull breach debrief look like a pleasant chat over protein cubes. Please prioritize. I am not being dramatic. (I am being slightly dramatic.)",
         "reporter": {
             "name": "Alex Petrov",
-            "email": "alex.petrov@contoso.com",
-            "department": "Cloud Infrastructure"
+            "email": "alex.petrov@cdss.space",
+            "department": "Station Infrastructure"
         },
         "created_at": "2026-03-17T05:30:00Z",
-        "channel": "portal",
+        "channel": "bridge_terminal",
         "attachments": [
-            "boot_diagnostics_screenshot.png",
-            "nsg_rules_export.json"
+            "boot_diagnostics_capture.png",
+            "sentinelgrid_rules_export.json"
         ]
     }
 ]
