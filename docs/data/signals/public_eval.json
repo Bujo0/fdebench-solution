@@ -270,7 +270,7 @@
     {
         "ticket_id": "SIG-1020",
         "subject": "AGAIN — same authentication failure, third time this cycle",
-        "description": "This is the third time I've had this authentication issue. There's a previous signal somewhere in the system — the last tech said it was a known problem with my account, which is reassuring in the way that 'known problem' means someone has documented it but not fixed it. I keep getting 'Authentication failed' but no details about what specifically is failing. I've been locked out for two hours now and my supervisor is starting to question whether I actually work here or have been an elaborate hallucination this whole time. I've reset my credentials twice this month already.",
+        "description": "This is the third time this cycle I've had this authentication issue. There's a previous signal somewhere in the system — the last ops tech said it was a known problem with my account, which is reassuring in the way that 'known problem' means someone has documented it but not fixed it. I keep getting 'AUTH FAIL: Biometric token rejected' but no details about what specifically is failing. I've been locked out for two hours now and my supervisor is starting to question whether I actually work here or have been an elaborate hallucination drifting through the corridor this whole time. I've reset my credentials twice this month already. At this point, the station's authentication system has rejected me more times than the airlock on Deck 3 rejects unauthorized entry — and that thing rejected a supply drone last week.",
         "reporter": {
             "name": "Yara Ito",
             "email": "yara.ito@cdss.space",
@@ -560,7 +560,7 @@
     {
         "ticket_id": "SIG-1040",
         "subject": "Question about how the station classifies data",
-        "description": "I'm working on a project for the Station Requisitions team and want to make sure I'm handling documents correctly. Where can I find the data classification policy? I want to understand the difference between confidential and internal-only. No rush — just want to be informed. (Yes, I know this probably didn't need to go through the emergency beacon. The regular terminal had a 47-person queue.)",
+        "description": "I'm working on a data handling task for the Station Requisitions team and want to make sure I'm classifying documents correctly. Where can I find the data classification policy? I want to understand the difference between confidential and internal-only — because I'd rather not accidentally broadcast classified docking coordinates on the station-wide comm channel like that one time on Deck 3. No rush — just want to be informed. (Yes, I know this probably didn't need to go through the emergency beacon. The regular terminal had a 47-person queue and the holodeck comm smelled like someone was reheating fish in zero-g again.)",
         "reporter": {
             "name": "Leo Muller",
             "email": "leo.muller@cdss.space",
