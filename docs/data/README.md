@@ -25,7 +25,7 @@ Each signal has these fields:
 | `ticket_id` | string | Unique ID (e.g., `SIG-4829`) |
 | `subject` | string | Short summary. May be vague or misleading. |
 | `description` | string | Full transmission body. Quality varies wildly. |
-| `reporter` | object | `{ name, email, department }` |
+| `reporter` | object | `{ name, email, department }` — e.g., departments like Astrogation, Propulsion, Life Support, Medical Bay, Flight Deck, Sensors; email domain `@contoso.space` |
 | `created_at` | datetime | ISO 8601 timestamp |
 | `channel` | enum | `subspace_relay`, `holodeck_comm`, `bridge_terminal`, or `emergency_beacon` |
 | `attachments` | string[] | Filenames mentioned (not actual files) |
@@ -41,9 +41,9 @@ Your `/triage` endpoint must return **all 8 fields**:
 | Field | Type | Scored? | Notes |
 |---|---|---|---|
 | `ticket_id` | string | — | Must match the input exactly |
-| `category` | string | **Yes** (20%) | One of 8 valid categories |
+| `category` | string | **Yes** (20%) | One of 8 valid anomaly types |
 | `priority` | string | **Yes** (20%) | `P1` (Red Alert), `P2` (Yellow Alert), `P3` (Caution), or `P4` (Routine) |
-| `assigned_team` | string | **Yes** (20%) | One of 7 valid teams (including `"None"`) |
+| `assigned_team` | string | **Yes** (20%) | One of 7 valid response divisions (including `"None"`) |
 | `needs_escalation` | boolean | **Yes** (10%) | `true` or `false` |
 | `missing_information` | string[] | **Yes** (15%) | From the 16-value constrained vocabulary |
 | `next_best_action` | string | No* | Required but not deterministically scored |
