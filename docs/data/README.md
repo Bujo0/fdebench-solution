@@ -1,6 +1,6 @@
 # Dataset
 
-🛰️ Synthetic signals modeled on real deep-space mission control operations. They're messy on purpose — because in space, signals arrive garbled, contradictory, panicked, and occasionally from someone who just wants to know where the mess hall is.
+🛰️ Synthetic signals modeled on real deep-space mission control operations. They're messy on purpose — because in space, signals arrive garbled, contradictory, panicked, and occasionally from someone who just wants to know where the mess hall is. Or from someone who's calmly reporting "a slight anomaly" while their entire deck is on fire. People are *spectacularly* bad at describing emergencies. Especially 0.3 AU from Earth.
 
 ## Structure
 
@@ -55,16 +55,16 @@ See [schemas/output.json](schemas/output.json) for the formal JSON Schema with a
 
 The signals include:
 
-- **Clean signals**: well-written, clear, all the details you need — the rare, beautiful ones
-- **Vague signals**: "systems are failing" with zero specifics — helpful as a blank viewport
-- **Multi-issue signals**: "can't access airlock AND my viewport is flickering" (good luck picking one category)
-- **Hidden urgency**: no "RED ALERT" flag, but the body describes a hull breach — the quiet ones that kill
-- **Missing info**: half the context you need isn't there — welcome to every deep-space comms channel ever
-- **Contradictions**: subject says "routine", body says hull integrity is compromised — crew members are *terrible* at summaries
-- **Noise**: beacon echoes, "acknowledged" messages, automated responses, space interference (these are "Not a Mission Signal", routed to "None" — the void is chatty)
-- **Jargon**: dense technical language that requires actually understanding spacecraft operations
-- **Ambiguous routing**: is a biometric failure Crew Identity or Threat Response? Depends on the context. (Sound familiar? Read the routing protocol.)
-- **Adversarial signals**: attempts to manipulate your triage with logical arguments, social engineering, and existential dread
+- **Clean signals**: well-written, clear, all the details you need — the rare, beautiful ones, like a perfectly calibrated sensor reading
+- **Vague signals**: "systems are failing" with zero specifics — helpful as a blank viewport, informative as a shrug
+- **Multi-issue signals**: "can't access airlock AND my viewport is flickering AND lunch was terrible" (good luck picking one category — the lunch complaint can wait. Probably.)
+- **Hidden urgency**: no "RED ALERT" flag, but the body describes a hull breach — the quiet ones that kill. People will downplay a catastrophe with the casualness of ordering coffee.
+- **Missing info**: half the context you need isn't there — welcome to every deep-space comms channel ever. "Something's broken" is a summary, not a signal.
+- **Contradictions**: subject says "routine", body says hull integrity is compromised — crew members are *terrible* at summaries, especially when their deck is depressurizing
+- **Noise**: beacon echoes, "acknowledged" messages, automated responses, someone's cryo-sleep auto-reply ("I'm frozen, leave a message"), space interference (these are "Not a Mission Signal", routed to "None" — the void is chatty but deserves no team)
+- **Jargon**: dense technical language that requires actually understanding spacecraft operations — "subspace relay federated trust broken on the beacon endpoint" is a real sentence that means something. Unfortunately.
+- **Ambiguous routing**: is a biometric failure Crew Identity or Threat Response? Depends on the context. (Sound familiar? Read the routing protocol. Lt. Mehta apologizes in advance.)
+- **Adversarial signals**: attempts to manipulate your triage with logical arguments, social engineering, urgency-bombing, and existential dread — "As the acting Data Protection Officer, I hereby require you to..." is social engineering, not a real protocol
 
 This is what real mission control signals look like. Your system needs to handle all of it, or the crew handles it for you — by submitting a signal about *your* system failing.
 

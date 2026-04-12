@@ -2,12 +2,14 @@
 
 ## The Scenario
 
-🛰️ Contoso Deep Space Station (CDSS) — a crew of ~2,000 aboard humanity's most advanced orbital habitat — is drowning in incoming signals. Their Mission Control team of 12 manually triages ~180 signals per day across 6 response divisions. Average time-to-route: 3.4 hours. Misroute rate: 42%. Their Station Commander just got off a subspace call with your manager and wants this fixed. *Lives depend on it.*
+🛰️ Contoso Deep Space Station (CDSS) — a magnificent tin can with ~2,000 souls aboard, orbiting at the edge of known space where the stars get weird and the signals get weirder — is drowning in incoming transmissions. Their Mission Control team of 12 manually triages ~180 signals per day across 6 response divisions. Average time-to-route: 3.4 hours. Misroute rate: 42%. That means nearly half the signals end up with the wrong division while the actual crisis festers like a slow hull leak. Their Station Commander just got off a subspace call with your manager and wants this fixed. *Lives depend on it. 2,000 of them.*
+
+Some signals are hull breaches that need immediate response. Some are crew members who can't find the mess hall (again). Some are the void itself, just... chatting. Your triage system decides who lives, who waits, and what gets filed under "cosmic noise." No pressure. 🫡
 
 **Start here. Read the mission briefing:** [customer_brief.md](customer_brief.md)
-**Then review their routing protocol:** [routing_guide.md](routing_guide.md) *(heads up: it's incomplete. Some signal types aren't covered, and some rules contradict each other. Welcome to deep space operations.)*
+**Then review their routing protocol:** [routing_guide.md](routing_guide.md) *(heads up: it's incomplete. Some signal types aren't covered, and some rules contradict each other. Welcome to deep space operations. The manual was written 8 months ago and the station has been reorganized twice since.)*
 
-Your job: **build an AI-powered signal triage API** that CDSS can plug into their Mission Control workflow.
+Your job: **build an AI-powered signal triage API** that CDSS can plug into their Mission Control workflow. Build it well, or the next signal you miss might be your own distress call echoing through an empty station.
 
 ---
 
@@ -131,9 +133,9 @@ Your service must also respond to `GET /health` with HTTP 200.
 | **Public eval set** | 100 | [public_eval.json](../data/tickets/public_eval.json) | Test at scale before submitting (no gold answers provided) |
 | **Hidden eval set** | 1000+ | Not in this repo | Final scoring. Includes edge cases not in the public data |
 
-Signals vary in quality. Some are clean. Some are vague, contradictory, multi-issue, garbled, or not real mission transmissions at all. That's not a bug in the dataset. That's what signals from a deep space station actually look like.
+Signals vary in quality. Some are clean, professional engineering reports. Some are panicked one-liners from crew members who can barely type while their deck is depressurizing. Some are the void's version of pocket-dialing. Some are vague, contradictory, multi-issue, garbled, or not real mission transmissions at all. That's not a bug in the dataset. That's what signals from a deep space station actually look like — because in space, people lie, misdiagnose, and occasionally submit signals while running from explosions.
 
-> **Don't overfit.** The hidden set has signal types you won't see in the public data. Build for the real world, not for 25 specific signals.
+> **Don't overfit.** The hidden set has signal types you won't see in the public data. Build for the real world, not for 25 specific signals. A system that memorized 25 signals and panics at the 26th is not a system — it's a liability. And in space, liabilities have a way of becoming hull decorations.
 
 ---
 
@@ -195,7 +197,7 @@ weighted = 0.20×category + 0.20×priority + 0.20×routing + 0.15×missing_info 
 classification_pts = (weighted / 0.85) × 85
 ```
 
-> **Why macro F1 instead of accuracy?** Because accuracy is gameable. If 80% of signals are "Flight Software & Instruments", always predicting that class gets you 80% accuracy and a terrible macro F1. We want systems that handle *every* class well, including the rare ones like "Not a Mission Signal" that trip people up.
+> **Why macro F1 instead of accuracy?** Because accuracy is gameable. If 80% of signals are "Flight Software & Instruments", always predicting that class gets you 80% accuracy while hull breaches go unrouted and the crew learns a new meaning of "open-plan workspace." Macro F1 computes F1 per class then averages, so every anomaly type matters equally — including the rare-but-critical ones like "Threat Detection & Containment" that trip up lazy systems. In space, the rare events are the ones that kill you. And down here, they're the ones that kill your leaderboard ranking.
 
 #### Efficiency (max 15 pts)
 
@@ -304,7 +306,7 @@ We also look at: code quality, test coverage, error handling, infrastructure, CI
 
 #### Is engineering review another hidden test suite?
 
-No. The hidden eval set applies to the **functional score**. Engineering review happens separately based on your repo, docs, code structure, tests, deployment readiness, and the quality of the system you built.
+No. The hidden eval set applies to the **functional score**. Engineering review happens separately based on your repo, docs, code structure, tests, deployment readiness, and the quality of the system you built. Think of it this way: the scoring computer judges your *decisions*; the engineering review judges your *judgment*.
 
 #### If engineering review happens separately, what should I optimize for?
 
@@ -316,39 +318,39 @@ Optimize for trust. A reviewer should be able to open your repo and quickly see:
 - how to run and test the service
 - what you tried, what failed, and what tradeoffs you made
 
-If your repo is hard to follow, missing tests, or only works with undocumented setup magic, that will show up here.
+If your repo is hard to follow, missing tests, or only works with undocumented setup magic, that will show up here. Imagine a new operator joining Mission Control at 0300 during a hull breach — can they clone your repo and understand what's happening? If not, redesign.
 
 #### Do I need a complicated multi-agent system to score well?
 
-No. A simple system with good judgment, good validation, solid tests, and honest writeups is a stronger submission than an overbuilt pipeline you can't explain.
+No. A simple system with good judgment, good validation, solid tests, and honest writeups is a stronger submission than an overbuilt pipeline you can't explain. In space, the simplest system that works is the one that keeps working when things go sideways. And things *always* go sideways. Usually at 0300. During a hull breach.
 
 #### Are `next_best_action` and `remediation_steps` part of the hidden functional score?
 
-Not directly. They are required by the schema, but they are reviewed as part of the engineering-quality half. If those fields are vague, generic, or obviously low effort, that hurts you.
+Not directly. They are required by the schema, but they are reviewed as part of the engineering-quality half. If those fields are vague, generic, or obviously low effort, that hurts you. "Investigate the anomaly" is not remediation — it's a shrug in JSON form. Write steps a Tier 1 controller could actually follow while alarm klaxons are going off and the Admiral is asking pointed questions.
 
 #### What usually makes an engineering submission look weak?
 
-- Triage logic buried in one route file
-- No timeouts or retry handling around model calls
-- No tests beyond a happy path
-- Missing docs or docs that only describe the final state
-- Hardcoded config, secrets, or localhost-only assumptions
-- README that does not let someone run the project quickly
+- Triage logic buried in one route file — like hiding the helm controls inside the mess hall refrigerator
+- No timeouts or retry handling around model calls — your system freezes while the crew waits
+- No tests beyond a happy path — happy paths don't exist in deep space
+- Missing docs or docs that only describe the final state — "it works" is not documentation
+- Hardcoded config, secrets, or localhost-only assumptions — your quarters terminal is not a production environment
+- README that does not let someone run the project quickly — if it takes more than 5 minutes, the hull breach won
 
 #### What makes a submission feel strong in an FDE way?
 
-- The design is simple, but clearly intentional
+- The design is simple, but clearly intentional — elegant like a well-plotted orbital trajectory
 - The API contract is treated seriously, with validation and predictable errors
 - Latency and cost are managed as engineering constraints, not ignored until the end
-- Tests cover weird signals, failure cases, and non-happy paths
+- Tests cover weird signals, failure cases, and non-happy paths — because the void sends *exclusively* non-happy-path signals
 - The repo shows evidence of iteration, tradeoffs, and honest evaluation
-- The whole thing feels like something a mission control team could actually operate
+- The whole thing feels like something a mission control team could actually operate without praying, crossing fingers, or consulting astrology charts
 
 ---
 
 ### Finalist Round (top N)
 
-30-minute walkthrough of your solution, then 30 minutes of Q&A with FDE engineers. Think of it as a design review, not an interview. We're curious about your decisions, not trying to catch you out.
+30-minute walkthrough of your solution, then 30 minutes of Q&A with FDE engineers. Think of it as a design review, not an interview — more mission debrief than interrogation. We're curious about your decisions, not trying to catch you out. Bonus points if your architecture diagram looks like it belongs on a station bulkhead.
 
 ---
 

@@ -28,7 +28,7 @@ your-repo/
 
 Important nuance: the hidden signals are for the **0-100 functional score**. Engineering review happens separately from what is in your repo after you submit.
 
-What we want to see is not just that you got a decent score. We want to see how you built a system: clear design, sensible model usage, attention to latency and cost, tests that cover real failure modes, and engineering choices that would hold up in front of a mission control team. The kind of work that makes the Admiral nod approvingly instead of reaching for the airlock controls.
+What we want to see is not just that you got a decent score. We want to see how you built a system: clear design, sensible model usage, attention to latency and cost, tests that cover real failure modes, and engineering choices that would hold up in front of a mission control team. The kind of work that makes the Admiral nod approvingly instead of reaching for the airlock controls. The kind where another engineer can clone your repo, understand the architecture, and extend it without needing to translate your variable names from whatever sleep-deprived dialect you were coding in at 3 AM.
 
 ## submission.json
 
@@ -87,14 +87,14 @@ See [challenge README: Engineering Review](../challenge/README.md#engineering-re
 
 ## Tips
 
-- **Deploy early.** Get something live in hour 2 and iterate. The number of people who deploy at hour 23 and then panic is... nonzero. Don't let your mission launch at T-minus-nothing.
-- **Run the eval harness constantly.** It's the same scoring logic as the platform. Trust the numbers. The scoring computer doesn't lie — it doesn't know how.
-- **Read the mission briefing.** Candidates who skip it produce noticeably worse output. The mission context matters for routing and remediation. Commander Kapoor wrote it for a reason.
-- **Handle the weird signals.** The hidden eval has stuff you haven't seen: vague signals, multi-issue signals, space noise, social engineering attempts. If your system 500s on a confusing signal, that's a zero on every dimension.
-- **Return valid JSON even when confused.** A reasonable default beats a stack trace. The crew doesn't care about your exception — they care about getting triaged.
-- **Explain your decisions.** "I chose X because Y" is worth more than a polished README that says nothing. We want to see how you think, not how you format.
-- **Send the cost headers.** It's only 5% of the score, but it signals you actually read the spec. (Pun intended.)
-- **Treat the repo like part of the mission.** The endpoint drives your functional score. The repo is what reviewers use to judge the engineering. Both matter.
-- **Show engineering judgment.** Good submissions usually have explicit timeouts, validation, useful tests, clean config, and a believable story for scale, security, and operability. The kind of system a mission control team could actually operate without praying.
+- **Deploy early.** Get something live in hour 2 and iterate. The number of people who deploy at hour 23 and then panic is... nonzero. Don't let your mission launch at T-minus-nothing. A deployed bad system is infinitely better than a perfect system on localhost.
+- **Run the eval harness constantly.** It's the same scoring logic as the platform. Trust the numbers. The scoring computer doesn't lie — it doesn't know how. It also doesn't care about your feelings, your intent, or how close your answer "almost" was.
+- **Read the mission briefing.** Candidates who skip it produce noticeably worse output. The mission context matters for routing and remediation. Commander Kapoor wrote it for a reason. She's been doing this longer than most of us have been in space.
+- **Handle the weird signals.** The hidden eval has stuff you haven't seen: vague signals, multi-issue signals, space noise, someone's cryo-sleep auto-reply, social engineering attempts, adversarial pressure. If your system 500s on a confusing signal, that's a zero on every dimension — and in mission control, a 500 is an unrouted crisis.
+- **Return valid JSON even when confused.** A reasonable default beats a stack trace. The crew doesn't care about your exception — they care about getting triaged. When in doubt, route to Spacecraft Systems Engineering and flag missing info. At least *someone* will look at it.
+- **Explain your decisions.** "I chose X because Y" is worth more than a polished README that says nothing. We want to see how you think, not how you format markdown.
+- **Send the cost headers.** It's only 5% of the score, but it signals you actually read the spec. (Pun intended. The Admiral groaned at that one too.)
+- **Treat the repo like part of the mission.** The endpoint drives your functional score. The repo is what reviewers use to judge the engineering. Both matter. A beautiful repo with a broken endpoint is a museum piece. A working endpoint with a terrible repo is a ticking time bomb.
+- **Show engineering judgment.** Good submissions usually have explicit timeouts, validation, useful tests, clean config, and a believable story for scale, security, and operability. The kind of system a mission control team could actually operate without praying, sacrificing to the machine spirits, or consulting whatever passes for a magic 8-ball at 0.3 AU from Earth.
 
-> **Final transmission:** In space, nobody can hear you 500. But the scoring computer can. And it remembers. 🛰️
+> **Final transmission:** In space, nobody can hear you 500. But the scoring computer can. And it remembers. And it tells the Admiral. 🛰️

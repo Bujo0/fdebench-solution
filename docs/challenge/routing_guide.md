@@ -94,13 +94,13 @@ When a signal comes in, identify the **anomaly type** from the table below and r
 
 ## Known gaps in this protocol
 
-> **Lt. Mehta's note:** The following areas still need to be sorted out. For now, use your best judgment or escalate to the Shift Commander.
+> **Lt. Mehta's note:** The following areas still need to be sorted out. For now, use your best judgment or escalate to the Shift Commander. I've been asking for clarity on these for 6 months. The division leads argue about ownership like it's a territorial dispute in the Neutral Zone. Welcome to my world.
 
-- **Biometric scanner failures** — Could be Crew Identity (profile setup), Threat Response (security policy enforcement), or Spacecraft Systems Engineering (scanner hardware). We haven't agreed on a single owner.
-- **Holodeck / recreation issues** — Is it a Deep Space Comms issue (signal quality), Mission Software issue (holodeck program crash), or Spacecraft Systems issue (projector/emitter hardware)? Depends on the symptoms.
-- **Cloud infrastructure requests** — Azure compute access, VM requests, etc. Telemetry & Data Core handles some, but we don't have a formal cloud ops division yet.
-- **Crew onboarding / departure** — Touches Crew Identity (profiles), Spacecraft Systems (hardware), Mission Software (licenses), and Telemetry (data access). There's a workflow for this but it's manual and breaks constantly.
-- **Fabricator and recycler units** — Station-networked fabricators are Deep Space Comms, module-connected recyclers are Spacecraft Systems, scan-to-database failures could be either.
+- **Biometric scanner failures** — Could be Crew Identity (profile setup), Threat Response (security policy enforcement), or Spacecraft Systems Engineering (scanner hardware). We haven't agreed on a single owner. Three divisions, three opinions, zero resolution. The scanners don't care about our org chart.
+- **Holodeck / recreation issues** — Is it a Deep Space Comms issue (signal quality), Mission Software issue (holodeck program crash), or Spacecraft Systems issue (projector/emitter hardware)? Depends on the symptoms. Last time this came up, the crew member's holodeck movie stopped mid-climax and they filed it as a P1. The ensuing jurisdictional argument took longer than the actual fix.
+- **Cloud infrastructure requests** — Azure compute access, VM requests, etc. Telemetry & Data Core handles some, but we don't have a formal cloud ops division yet. The Admiral says we'll "address it in the next reorg." The Admiral has been saying that since Q3.
+- **Crew onboarding / departure** — Touches Crew Identity (profiles), Spacecraft Systems (hardware), Mission Software (licenses), and Telemetry (data access). There's a workflow for this but it's manual and breaks constantly. New crew members sometimes exist in 3 systems and not the 4th. Guess which system they need most urgently.
+- **Fabricator and recycler units** — Station-networked fabricators are Deep Space Comms, module-connected recyclers are Spacecraft Systems, scan-to-database failures could be either. Nobody wants to own the fabricators. They break, they jam, and they once printed a crew member's lunch order as a hull repair part. Don't ask.
 
 ---
 

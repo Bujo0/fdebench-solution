@@ -83,15 +83,17 @@ One empty  → 0.0 (either all false positives or all false negatives)
 
 ### Boolean coercion
 
-Crew members return weird stuff from APIs. The harness handles the common ones so you don't get penalized for returning `"true"` instead of `true`:
-- String `"true"` / `"false"` → boolean (Python's `bool("false")` is `True` — a cosmic trap)
+Crew members return weird stuff from APIs. The scoring computer has seen things. `"true"` as a string. `1` as an integer. `"yes"` as if it's having a conversation. The harness handles the common ones so you don't get penalized for returning `"true"` instead of `true`:
+- String `"true"` / `"false"` → boolean (Python's `bool("false")` is `True` — a cosmic trap that has claimed more victims than the airlock on Deck 3)
 - String `"1"` / `"0"` → boolean
+- String `"yes"` / `"no"` → boolean (the scoring computer respects the classics)
 - Integer `1` / `0` → boolean
 - `None` → `False`
+- Literally anything else → `False` (the scoring computer doesn't negotiate)
 
 ### What about remediation?
 
-`next_best_action` and `remediation_steps` must be in your response (the schema requires them), but the harness doesn't score them. We look at those when we review your repo. A system that says "investigate the anomaly" for every signal is telling us you phoned it in from a comfortable 1 AU away.
+`next_best_action` and `remediation_steps` must be in your response (the schema requires them), but the harness doesn't score them. We look at those when we review your repo. A system that says "investigate the anomaly" for every signal is telling us you phoned it in from a comfortable 1 AU away. Write remediation steps a Tier 1 controller could actually follow while alarm klaxons are blaring and the Admiral is making pointed remarks about "that AI system I was told would fix everything."
 
 ## Usage
 
@@ -178,11 +180,11 @@ The `eval_results.json` file contains full per-signal breakdowns for your post-m
 
 ## Running the Tests
 
-The scoring functions have their own test suite (84 tests covering every edge case — the scoring computer's self-diagnostics). Run them if you want to understand exactly how scoring works, or if you've been poking at the harness code:
+The scoring functions have their own test suite (84 tests covering every edge case the void could conceivably throw at a triage system — the scoring computer's self-diagnostics, if you will). Run them if you want to understand exactly how scoring works, or if you've been poking at the harness code, or if you just enjoy watching 84 green checkmarks cascade down your terminal like stars outside the viewport:
 
 ```bash
 cd docs/eval
 python test_scoring.py
 ```
 
-All 84 should pass. If they don't, something's wrong with your environment, not the tests. The scoring computer has been tested more thoroughly than your station's life support. Probably.
+All 84 should pass. If they don't, something's wrong with your environment, not the tests. The scoring computer has been tested more thoroughly than your station's life support. Probably. (Lt. Mehta would like the record to reflect that he has *also* tested life support. Recently. After an incident.)
