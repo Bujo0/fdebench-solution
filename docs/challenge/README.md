@@ -2,7 +2,7 @@
 
 ## The Scenario
 
-Contoso Deep Space Station (CDSS) (∼4,500 crew members) is drowning in spacecraft signals. Their team of 12 manually triages ∼180 signals per day across 6 specialist divisions. Average time-to-route: 3.4 hours. Misroute rate: 42%. Their Commander of Station Operations just got off a subspace call with your flight director and wants this fixed.
+Contoso Deep Space Station (CDSS) (∼2,000 crew) is drowning in spacecraft signals. Their team of 12 manually triages ∼180 signals per day across 6 specialist divisions. Average time-to-route: 3.4 hours. Misroute rate: 42%. Their Commander of Station Operations just got off a subspace call with your flight director and wants this fixed.
 
 **Start here. Read the mission brief:** [customer_brief.md](customer_brief.md)
 **Then review their signal routing guide:** [routing_guide.md](routing_guide.md) *(heads up: it's incomplete. Some signal types aren't covered, and some rules contradict each other. Welcome to deep space operations.)*
@@ -71,26 +71,26 @@ Your system must use **exactly** these values. The scoring is deterministic: any
 
 | Category | Description |
 |---|---|
-| `Crew Access & Biometrics` | Airlock codes, biometric scanner access, crew identity verification, directory sync |
-| `Hull & Structural Systems` | Hull plating, docking bays, viewport assemblies, external sensor mounts, structural peripherals |
-| `Communications & Navigation` | Subspace relay, local comm arrays, star chart sync, firewall shields, bandwidth allocation, deep space/local networks |
-| `Flight Software & Instruments` | Mission apps, navigation suites, installations, licensing, system integrations |
-| `Threat Detection & Containment` | Hostile scans, malware incursions, data breach containment, compliance protocols, security certificates |
-| `Telemetry & Data Banks` | Sensor archives, crew cloud storage, databases, backup cores, shared data vaults |
-| `Mission Briefing Request` | Questions, how-tos, or issues that don't fit other categories |
-| `Not a Mission Signal` | Auto-replies, cosmic noise, "thanks" messages, out-of-station notices |
+| `Crew Access & Biometrics` | Biometric access, crew authentication, airlock entry, identity core, crew profile sync |
+| `Hull & Structural Systems` | Hull integrity, life support, fabricators, consoles, structural repairs, EVA gear |
+| `Communications & Navigation` | Subspace relay, comm arrays, navigation beacons, antenna, bandwidth, signal routing |
+| `Flight Software & Instruments` | Flight planning, nav computer, science instruments, mission apps, licensing, integrations |
+| `Threat Detection & Containment` | Hostile contacts, containment breaches, spoofed transmissions, security protocols, certificates |
+| `Telemetry & Data Banks` | Data banks, sensor archives, telemetry pipelines, backups, data access requests |
+| `Mission Briefing Request` | Questions, how-tos, or signals that don't fit other categories |
+| `Not a Mission Signal` | Automated echoes, noise, acknowledgment messages, cryo-sleep auto-replies |
 
 **Teams** (7 values):
 
 | Team | When to route |
 |---|---|
-| `Crew Identity & Airlock Control` | Airlock codes, biometric scans, crew provisioning, identity core |
-| `Spacecraft Systems Engineering` | Hull systems, life support, module firmware, structural peripherals, hardware installs |
-| `Deep Space Communications` | Subspace relay, local comm, star chart sync, firewall shields, signal routing |
-| `Mission Software Operations` | Navigation suites, tactical systems, science instruments, mission tools |
-| `Threat Response Command` | Hostile scans, malware incursions, data breach containment, compliance, security certificates |
-| `Telemetry & Data Core` | Sensor archives, crew storage, databases, backup cores, shared data vaults |
-| `None` | Use when the signal is not a real mission request |
+| `Crew Identity & Airlock Control` | Biometric access, crew authentication, airlock provisioning, identity core |
+| `Spacecraft Systems Engineering` | Hull, life support, fabricators, consoles, structural repairs |
+| `Deep Space Communications` | Subspace relay, comm arrays, navigation beacons, antenna, signal routing |
+| `Mission Software Operations` | Flight planning, nav computer, science instruments, mission apps, licensing |
+| `Threat Response Command` | Hostile contacts, containment breaches, spoofed transmissions, security protocols |
+| `Telemetry & Data Core` | Data banks, sensor archives, telemetry pipelines, backups, data access |
+| `None` | Use when the signal is not a real mission signal |
 
 **Priorities** (4 values): `P1` (Critical), `P2` (High), `P3` (Medium), `P4` (Low)
 
@@ -100,21 +100,21 @@ When identifying missing information, use **only** values from this list. The sc
 
 | Value | What it means |
 |---|---|
-| `affected_subsystem` | Which subsystem, instrument, or service is impacted |
-| `anomaly_readout` | Exact error text or diagnostic code observed |
+| `affected_subsystem` | Which subsystem, module, or service is impacted |
+| `anomaly_readout` | Exact error text, alarm code, or readout observed |
 | `sequence_to_reproduce` | How to reproduce the anomaly |
 | `affected_crew` | How many or which crew members are impacted |
-| `habitat_conditions` | OS, sector, environmental config specifics, system IDs |
-| `stardate` | When the anomaly started or was observed |
+| `habitat_conditions` | Deck, module, environmental conditions, system IDs |
+| `stardate` | When the anomaly started or was first observed |
 | `previous_signal_id` | Reference to a prior related signal |
 | `crew_contact` | Reporter contact details or alternate contact |
-| `module_specs` | Module make, model, specs |
-| `software_version` | Software or instrument version number |
-| `sector_coordinates` | Deck, section, network segment, relay address |
-| `mission_impact` | Mission consequence or urgency context |
+| `module_specs` | Module make, model, hardware specifications |
+| `software_version` | Software or firmware version number |
+| `sector_coordinates` | Deck, sector, module location, grid reference |
+| `mission_impact` | Impact on mission objectives or crew safety |
 | `recurrence_pattern` | How often the anomaly occurs |
-| `sensor_log_or_capture` | Visual evidence or diagnostic log file |
-| `biometric_method` | Biometric type, SSO protocol, credential type |
+| `sensor_log_or_capture` | Sensor data, diagnostic capture, or visual evidence |
+| `biometric_method` | Biometric type, authentication method, credential type |
 | `system_configuration` | System config, policy, or setup specifics |
 
 ### Health Check

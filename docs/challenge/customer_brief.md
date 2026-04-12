@@ -39,14 +39,14 @@ We have 6 specialist operations teams:
 
 | Team | What they handle |
 |---|---|
-| **Crew Identity & Airlock Control** | Login issues, SSO, MFA, crew provisioning, Entra ID, biometric directory sync, airlock access codes |
-| **Spacecraft Systems Engineering** | Workstation terminals, mobile consoles, OS issues, Intune device management, peripheral hardware |
-| **Deep Space Communications** | Subspace relay links, local mesh WiFi, DNS, firewall rules, proxy, WAN/LAN, inter-deck and inter-ship connectivity |
-| **Mission Software Operations** | Mission-critical apps (SAP logistics, Salesforce crew services, deep space scanner terminals, internal tools), licensing, integrations |
-| **Threat Response Command** | Phishing attempts, malware, suspicious signal activity, data exfiltration, compliance incidents, certificate management |
-| **Telemetry & Data Core** | Databases, file shares, OneDrive/SharePoint, backup systems, data access requests, ETL pipelines, sensor telemetry streams |
+| **Crew Identity & Airlock Control** | Biometric access, crew authentication, airlock provisioning, identity core sync, crew profile management |
+| **Spacecraft Systems Engineering** | Hull integrity, life support systems, fabricators, consoles, structural repairs, EVA suit maintenance |
+| **Deep Space Communications** | Subspace relay, comm arrays, navigation beacons, antenna alignment, inter-deck and inter-ship connectivity |
+| **Mission Software Operations** | Flight planning, nav computer, science instruments, mission-critical applications, software licensing, integrations |
+| **Threat Response Command** | Hostile contacts, containment breaches, spoofed transmissions, intruder detection, security protocols |
+| **Telemetry & Data Core** | Data banks, sensor archives, telemetry pipelines, backup systems, data access requests |
 
-I've attached our **internal routing guide** — but fair warning, it was written 8 months ago and some things have changed. We've reorganized divisions since the last crew rotation. About 20% of signal types aren't covered in it, and some of the routing rules overlap between teams. My team leads argue about ownership constantly. For example: who handles MFA lockouts — Crew Identity or Threat Response? Depends on whether someone fat-fingered their retinal scan or we have an actual intruder. Honestly, we're not consistent about it ourselves.
+I've attached our **internal routing guide** — but fair warning, it was written 8 months ago and some things have changed. We've reorganized divisions since the last crew rotation. About 20% of signal types aren't covered in it, and some of the routing rules overlap between teams. My team leads argue about ownership constantly. For example: who handles biometric lockouts — Crew Identity or Threat Response? Depends on whether someone fat-fingered their retinal scan or we have an actual intruder. Honestly, we're not consistent about it ourselves.
 
 ## What "good" looks like to us
 
@@ -61,9 +61,9 @@ If you can show me this working on even 50 of our real signals, I can make the b
 
 - Our signals come in through **4 channels**: subspace relay, holodeck comm (Teams), the bridge terminal self-service portal, and emergency beacon (transcribed by our comms center AI). Quality varies wildly. Subspace relays tend to be longer and more detailed. Holodeck comms are short and missing context. Emergency beacon transcriptions are garbled at best.
 - **Some signals aren't real incidents** — we get auto-acknowledgments, "thanks" replies, crew out-of-station notifications, and occasional subspace spam from passing freighters. Our system doesn't filter these before routing.
-- **We use Microsoft's station systems stack**: Entra ID for crew identity, Intune for device management, Microsoft 365 for collaboration, Azure for our core infrastructure. Most of our compute runs on Azure orbital nodes. We recently deployed Defender for Endpoint across all terminals. We still have some legacy on-station systems (SAP logistics, a few local data servers that survived the last solar flare).
+- **We run a mix of station systems**: identity core for crew authentication, central command for device management, station suite for collaboration, and orbital compute nodes for core infrastructure. We recently deployed perimeter defense across all terminals. We still have some legacy on-station systems (navigation logistics, a few local data servers that survived the last solar flare).
 - **Priority is subjective**: Crew over-escalate constantly. "CRITICAL" in the signal header usually isn't. But sometimes a quiet report like "slight vibration in docking ring 4" is actually a hull breach in progress. Context matters more than keywords out here.
-- **Compliance signals are special**: Anything involving potential data breach, regulatory inquiry from Interstellar Safety Command, or audit findings must be escalated to Threat Response Command immediately, regardless of category. Getting this wrong has consequences — and at this altitude, "consequences" can mean losing your oxygen privileges.
+- **Containment signals are special**: Anything involving potential containment breach, hostile contact, classified data exposure, or regulatory inquiry from Interstellar Safety Command must be escalated to Threat Response Command immediately, regardless of category. Getting this wrong has consequences — and at this altitude, "consequences" can mean losing your oxygen privileges.
 
 ## One more thing
 
