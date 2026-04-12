@@ -246,8 +246,8 @@
     },
     {
         "ticket_id": "SIG-0019",
-        "subject": "Crew member offboarding — last duty day March 21",
-        "description": "Jessica Palmer (jessica.palmer@cdss.space) in the Threat Detection team has resigned her commission. Her last duty day is Friday March 21. Please:\n- Disable her BioScan ID crew account at 6 PM EST on March 21\n- Revoke warp tunnel and all remote access\n- Wipe her station console (Quantum Latitude 5540, asset tag CT-L-4892)\n- Transfer ownership of her data vault and mission log files to her commanding officer David Liu (david.liu@cdss.space)\n- Remove her from all comm channels and SubComm groups\n- Archive her message archive per our 7-year retention policy\n\nNote: Jessica has access to sensitive threat investigation files. Please ensure these are preserved but not accessible after her departure.",
+        "subject": "Crew member transfer — last duty cycle March 21",
+        "description": "Jessica Palmer (jessica.palmer@cdss.space) in the Threat Detection team is transferring off-station to the Tau Ceti outpost. Her last duty cycle is Friday March 21. Please:\n- Disable her BioScan ID crew account at 1800 station time on March 21\n- Revoke warp tunnel and all remote access\n- Wipe her station console (OrbitalCore Console 5540, asset tag CT-L-4892)\n- Transfer ownership of her data vault and mission log files to her commanding officer David Liu (david.liu@cdss.space)\n- Remove her from all comm channels and SubComm groups\n- Archive her message archive per our 7-cycle archival protocol\n\nNote: Jessica has access to sensitive threat investigation files. Please ensure these are preserved but not accessible after her transfer.",
         "reporter": {
             "name": "David Liu",
             "email": "david.liu@cdss.space",
@@ -256,7 +256,7 @@
         "created_at": "2026-03-17T09:00:00Z",
         "channel": "bridge_terminal",
         "attachments": [
-            "departure_checklist.pdf"
+            "crew_transfer_checklist.pdf"
         ]
     },
     {
@@ -329,7 +329,7 @@
     {
         "ticket_id": "SIG-0025",
         "subject": "Station Core VM ‘prod-analytics-01’ unreachable since reboot",
-        "description": "VM prod-analytics-01 (Standard_E16ds_v5, sector-eastus2, rg-analytics-prod) became unreachable after a scheduled reboot at 05:00 UTC for OS patching. Remote console and secure shell both timeout. Station Core portal shows the VM status as ‘Running’ but boot diagnostics show it stuck at ‘Applying station settings’. Defense grid rules haven’t changed. This VM runs the analytics dashboard that the command staff uses for the morning briefing at 9 AM EST. We have about 2 hours.",
+        "description": "VM prod-analytics-01 (Standard_E16ds_v5, sector-eastus2, rg-analytics-prod) became unreachable after a scheduled reboot at 05:00 UTC for OS patching. Remote console and secure shell both timeout. Station Core portal shows the VM status as ‘Running’ but boot diagnostics show it stuck at ‘Applying station settings’. Defense grid rules haven’t changed. This VM runs the analytics dashboard that the command staff uses for the morning briefing at 0900 station time. We have about 2 hours.",
         "reporter": {
             "name": "Alex Petrov",
             "email": "alex.petrov@cdss.space",

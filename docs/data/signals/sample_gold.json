@@ -103,7 +103,7 @@
             "Review authentication logs for the crew member’s crew account over the past 48 hours",
             "Check data vault audit trail for any unauthorized file access or downloads",
             "Verify passphrase change was successful and biometric verification is active",
-            "If unauthorized access is confirmed, escalate to incident response and notify data protection officer",
+            "If unauthorized access is confirmed, escalate to incident response and notify station containment officer",
             "Brief crew member on interim security measures and holographic display crew account for further anomalies"
         ]
     },
@@ -336,14 +336,14 @@
         "assigned_team": "Crew Identity & Airlock Control",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Initiate crew member offboarding workflow for Jessica Palmer (last day March 21). Coordinate across Crew Identity, Spacecraft Systems Engineering, and Telemetry & Data Core for crew account disable, console wipe, file transfer, and message archival. Note: sensitive threat investigation files require special handling.",
+        "next_best_action": "Initiate crew member transfer workflow for Jessica Palmer (last duty cycle March 21). Coordinate across Crew Identity, Spacecraft Systems Engineering, and Telemetry & Data Core for crew account disable, console wipe, file transfer, and message archival. Note: sensitive threat investigation files require special handling.",
         "remediation_steps": [
-            "Schedule BioScan ID crew account disable for 6 PM EST on March 21",
+            "Schedule BioScan ID crew account disable for 1800 station time on March 21",
             "Prepare warp tunnel and remote access revocation to trigger simultaneously with crew account disable",
-            "Coordinate with Spacecraft Systems Engineering for console wipe of Quantum Latitude 5540 (asset tag CT-L-4892)",
+            "Coordinate with Spacecraft Systems Engineering for console wipe of OrbitalCore Console 5540 (asset tag CT-L-4892)",
             "Transfer data vault and mission log file ownership to David Liu (david.liu@cdss.space)",
             "Remove from all comm channels and SubComm groups",
-            "Archive message archive per 7-year retention policy",
+            "Archive message archive per 7-cycle archival protocol",
             "Ensure sensitive threat investigation files are preserved in a secured location and access is revoked"
         ]
     },
@@ -448,7 +448,7 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate Station Core VM prod-analytics-01 stuck at ‘Applying station settings’ after scheduled OS patching reboot. Command analytics dashboard dependent on this VM — 2-hour window before the 9 AM briefing.",
+        "next_best_action": "Investigate Station Core VM prod-analytics-01 stuck at ‘Applying station settings’ after scheduled OS patching reboot. Command analytics dashboard dependent on this VM — 2-hour window before the 0900 briefing.",
         "remediation_steps": [
             "Check Station Core boot diagnostics serial console output for the stuck state",
             "Attempt to connect via Station Core Serial Console to bypass the stuck access attempt screen",
