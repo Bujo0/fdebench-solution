@@ -1,12 +1,12 @@
 [
     {
         "ticket_id": "SIG-0001",
-        "subject": "Comms relay drops when switching between antenna arrays",
-        "description": "Every time I switch from the hardline uplink to the RF mesh antenna, the comms relay drops like it's personally offended. Have to re-establish the link manually each time, which involves staring at a progress bar for 45 seconds while the entire Gamma Sector sits in radio silence wondering if something ate the antenna. Started after last Tuesday's station firmware update — you know, the one nobody asked for and nobody was warned about and nobody has been held accountable for. Using SubComm v3.2 on Deck 4. The old version worked fine. I'm just saying.",
+        "subject": "Deep space relay losing coherence — navigation data arriving garbled",
+        "description": "The primary deep space relay between CDSS and the Proxima Centauri beacon has been losing signal coherence for the past three hours. Navigation correction data for ships in transit is arriving garbled — coordinates are off by 0.003 degrees, which doesn't sound like much until you realize that at interstellar distances, 0.003 degrees is the difference between 'arriving at the colony' and 'arriving at a very large, very empty patch of space where the colony isn't.' Two resupply freighters and one passenger transport are currently relying on this relay for mid-course corrections. The relay worked fine until last Tuesday's firmware push — you know, the one that updated relay software across the entire sector without asking anyone who actually uses the relay whether that was a good idea. SubComm v3.2 on Deck 4 relay station. The old firmware was fine. The new firmware has opinions about signal encoding that differ from reality. I've been manually correcting the navigation data by hand, which is working for now, but I'd prefer the relay to do its one job before I make a math error and a freighter ends up in the Oort Cloud wondering what went wrong.",
         "reporter": {
-            "name": "Sarah Chen",
-            "email": "sarah.chen@cdss.space",
-            "department": "Engineering"
+            "name": "Kira Nakamura",
+            "email": "kira.nakamura@cdss.space",
+            "department": "Astrogation"
         },
         "created_at": "2026-03-17T09:14:00Z",
         "channel": "bridge_terminal",
@@ -14,11 +14,11 @@
     },
     {
         "ticket_id": "SIG-0002",
-        "subject": "Mission Planner crashes and Star Chart shows old waypoints",
-        "description": "Two problems since the terminal swap yesterday: (1) Mission Planner shows a white screen then crashes on launch — tried rebooting the console twice, which in retrospect was just a way to experience the same disappointment faster. (2) Star Chart is displaying old waypoints from 2024 that were purged months ago — I'm looking at navigation data for asteroid fields that don't exist anymore, which is either a software bug or a ghost story. Both started right after the terminal swap. Might be related, might not. Either way, I'm navigating by memory and vibes, which is not in the operations manual.",
+        "subject": "Proximity alert showing phantom asteroids + collision avoidance calculating evasion for ghosts",
+        "description": "Two problems since yesterday's sensor array recalibration, and I'm not sure which one is going to kill us first: (1) The proximity alert system is flagging asteroids that don't exist. Long-range sensors show clear space, but the short-range proximity grid is painting the void with phantom contacts like it's hosting a rock concert for imaginary space debris. The observation deck crew nearly initiated emergency evacuation because the display showed an asteroid the size of a small moon bearing down on us. There is no asteroid. There has never been an asteroid. The asteroid is a lie. (2) The automated collision avoidance system doesn't know the asteroids aren't real, so it keeps calculating evasion vectors and requesting permission to fire thrusters. If someone accidentally authorizes one of those maneuvers, we'll burn fuel dodging nothing and end up in a completely unplanned orbit. Both started immediately after the sensor recalibration. Might be a calibration offset. Might be something worse. Either way, my crew is developing anxiety disorders from phantom asteroids and I'd like that to stop.",
         "reporter": {
-            "name": "Marcus Rodriguez",
-            "email": "marcus.rodriguez@cdss.space",
+            "name": "Marcus Okonkwo",
+            "email": "marcus.okonkwo@cdss.space",
             "department": "Stellar Cartography"
         },
         "created_at": "2026-03-17T08:32:00Z",
@@ -27,11 +27,11 @@
     },
     {
         "ticket_id": "SIG-0003",
-        "subject": "Holographic display not working in main briefing chamber",
-        "description": "The holographic projector in the main briefing chamber won't activate. Tried the remote initializer and the manual switch on the emitter housing — it made a noise that I can only describe as 'mechanical sigh' and went dark. Deep Space Command delegation arriving in ~25 minutes for the final review on a 2.3B-credit colony contract — our Mission Director is presenting and has rehearsed this presentation eleven times, including once in the shower (don't ask how I know). No backup chamber seats 12. Can someone respond immediately? Preferably someone who can perform miracles with AV equipment under pressure.",
+        "subject": "Observation deck viewport micro-fracture — Admiral arriving in 30 minutes",
+        "description": "The main observation deck viewport just failed its automated pressure integrity diagnostic. The system is reporting a micro-fracture in the lower-left quadrant of panel VP-7. Now, this could be a sensor false positive — the integrity sensors on the observation deck have cried wolf before, usually right before an inspection. But it could also be a real micro-fracture, in which case we are looking at a viewport that is one bad thermal cycle away from explosive decompression. The Admiral and a delegation from Allied Fleet Command are arriving via shuttle in approximately 30 minutes for the diplomatic reception. The observation deck is the ONLY venue large enough for this event. We cannot seal it off and relocate 40 diplomats to the mess hall where the nutrient synthesizer is currently in one of its moods and the Deck 9 cats have colonized table 7. If this fracture is real, everyone on that deck is in danger. If it's a false positive and we cancel the reception, I will need to explain to the Admiral why we ruined interstellar diplomacy because a sensor glitched. I need a structural engineer to physically inspect viewport panel VP-7 in the next 20 minutes. Preferably someone who can tell the difference between 'catastrophic hull failure imminent' and 'the sensor needs a firmware update.' Bring a portable pressure shield just in case.",
         "reporter": {
-            "name": "Diana Marsh",
-            "email": "diana.marsh@cdss.space",
+            "name": "Diana Volkov",
+            "email": "diana.volkov@cdss.space",
             "department": "Command Staff"
         },
         "created_at": "2026-03-17T13:35:00Z",
@@ -40,11 +40,11 @@
     },
     {
         "ticket_id": "SIG-0004",
-        "subject": "RED ALERT -- all systems failing!!!",
-        "description": "Nothing works. I cant access anything. My console is just spinning. I've been floating here for 20 minutes tapping the screen like it owes me credits. The holographic display flickers and then shows me a loading cursor that I swear is judging me — it made eye contact. A cursor. Made eye contact. Please fix ASAP i have mission deadlines today and my commanding officer is already asking for the deliverable. I tried rebooting but the console just played the startup chime and went right back to spinning. Even the nutrient synthesizer next to my station is giving me attitude — I asked for coffee and it dispensed what I can only describe as warm disappointment with notes of betrayal. I'm starting to think Deck 5 is haunted. Specifically, my workstation is haunted. By the ghost of whoever last used it and clearly didn't log out properly.",
+        "subject": "🚨 THE STATION IS REJECTING ME 🚨 NOTHING WORKS",
+        "description": "HELP. I can't get through ANY airlock. Not one. Not the one to my quarters, not the one to the mess hall, not the one to the bathroom — and that last one is becoming a TIME-SENSITIVE ISSUE. Every biometric scanner I touch gives me the red light and makes that sound. You know the sound. The sound that says 'you don't belong here' in the language of machines. I've been standing in Corridor 7-B for FORTY MINUTES because I can't go forward and I can't go back. The station has decided I don't exist. I tried the emergency override panel and it asked me for a code I've never been given because NOBODY TOLD ME THERE WAS A CODE. A crew member walked past me, scanned through the airlock, looked back at me standing there like a rejected ghost, and said 'have you tried turning it off and on again' and then THE AIRLOCK CLOSED. I am trapped in a corridor in deep space and the station's entire security system has apparently decided that I am an intruder. I AM NOT AN INTRUDER. I HAVE BEEN ON THIS STATION FOR THREE YEARS. The nutrient synthesizer in the corridor vending unit still works though. So at least I can eat protein cubes while I slowly lose my mind in a hallway. Send help. Or at least someone who can open a door.",
         "reporter": {
-            "name": "Jordan Lee",
-            "email": "jordan.lee@cdss.space",
+            "name": "Jordan Vasquez",
+            "email": "jordan.vasquez@cdss.space",
             "department": "Sensors"
         },
         "created_at": "2026-03-17T10:02:00Z",
@@ -53,10 +53,10 @@
     },
     {
         "ticket_id": "SIG-0005",
-        "subject": "Re: [Signal SIG-0847] Scheduled maintenance notification",
-        "description": "Thank you for your transmission. I am currently on scheduled shore leave at Titan Station from March 24-28 with limited access to subspace relay (the signal lag from Saturn orbit is approximately 76 minutes each way, so please factor that into your expectations for a timely reply). For urgent matters during my absence, please contact my colleague Alex at alex.wu@cdss.space. For non-urgent matters, I will respond upon my return — assuming the shuttle back doesn't get rerouted again. Last time it took three extra days because someone forgot to file the flight plan and we ended up orbiting Enceladus while the pilot 'recalculated.'\n\nBest regards,\nPriya Sharma\nDirector of Astrogation\n\nP.S. — If the Centauri transit window calculations look wrong while I'm gone, do NOT attempt to correct them manually. Just wait. Trust me on this.",
+        "subject": "Re: [Signal SIG-0847] Scheduled reactor maintenance notification",
+        "description": "Thank you for your transmission. I am currently in cryo-sleep for the deep space transit to the Kepler-442b colony (estimated revival date: March 2028). My consciousness is suspended and I am unable to respond to signals, review mission briefings, or participate in crew activities at this time. I am told the dreams are interesting but I won't remember them.\n\nFor urgent matters during my absence, please contact my colleague Dr. Yuki Tanaka at yuki.tanaka@cdss.space. For non-urgent matters, please hold your signal for approximately 24 months. I will respond upon revival, assuming the cryo-pod doesn't malfunction — which, given this station's maintenance track record, is a bigger 'assuming' than I'd like.\n\nWarm regards (figuratively — I am currently at -196°C),\nDr. Priya Sharma\nDirector of Astrogation\n\nP.S. — If the Centauri transit window calculations look wrong while I'm frozen, do NOT attempt to correct them manually. Just wait. The last person who tried manual corrections during my absence is why we now have a supply depot orbiting the wrong moon.",
         "reporter": {
-            "name": "Priya Sharma",
+            "name": "Dr. Priya Sharma",
             "email": "priya.sharma@cdss.space",
             "department": "Astrogation"
         },
@@ -66,11 +66,11 @@
     },
     {
         "ticket_id": "SIG-0006",
-        "subject": "Unauthorized biometric scan attempts on my profile",
-        "description": "Got 6 biometric scan alert notifications this morning — someone attempted to authenticate against my crew profile from an unregistered terminal in Sector 7-G. I haven't been in that sector. Nobody has. Sector 7-G has been 'under renovation' for three years and the only things in there are dust, a broken atmospheric recycler, and whatever Lt. Mehta stores in the locked cabinet he claims doesn't exist. Already reset my access codes but worried the profile may already be compromised. I have classified mission briefings and tactical operations documents in my secure data vault. Should I be concerned about data exposure?",
+        "subject": "Movement detected in sealed Quarantine Bay — bioscanners registering unknown entity",
+        "description": "The sealed Quarantine Bay on Deck 12 — the one that's been locked down since the Epsilon-7 biological contamination incident four months ago — just lit up on the bioscanners. Six biometric authentication attempts on the interior airlock from an unregistered entity. Let me repeat that: UNREGISTERED. ENTITY. The bay is sealed. Nothing living should be in there. The containment protocols were verified last month and the atmospheric readings have been stable. But the motion sensors are showing movement patterns consistent with a bipedal organism of approximately human size, which is either a catastrophic sensor malfunction or something survived the decontamination and has been living in the quarantine bay for four months eating... I don't know what. I don't want to know what. I've already changed my access codes and secured the classified mission files in my data vault. The bioscanners are also picking up faint thermal signatures that weren't there yesterday. The quarantine airlock is holding — for now. If whatever is in there figures out the override panel, we have a much bigger problem than a signal routing delay. I'd like Threat Response to investigate this before it investigates us.",
         "reporter": {
-            "name": "Thomas Wright",
-            "email": "thomas.wright@cdss.space",
+            "name": "Thomas Okafor",
+            "email": "thomas.okafor@cdss.space",
             "department": "Tactical Operations"
         },
         "created_at": "2026-03-17T08:15:00Z",
@@ -81,12 +81,12 @@
     },
     {
         "ticket_id": "SIG-0007",
-        "subject": "Nightly telemetry sync failing -- 403 on station data archive",
-        "description": "Telemetry pipeline 'prod-sensor-ingest' has been failing since 03:00 UTC with 403 Forbidden on the station data archive. The service credential either expired or lost its Data Contributor role during last week's archive cleanup — which was supposed to be 'routine maintenance' and instead became 'routine destruction of everything that relies on those credentials.' Feeds the daily mission briefing report used for the Monday command review — you know, the one where the Commander asks 'why don't we have telemetry data?' and everyone looks at their boots and wishes the floor would open up into the vacuum of space. Pipeline runs in Sector Alpha, data-core-prod. Last successful run Saturday 03:00 UTC. That's 48 hours of telemetry we're not ingesting, for anyone keeping score. The Commander is. She has a spreadsheet.",
+        "subject": "Life support telemetry pipeline dark — atmospheric data blind across Decks 4-9",
+        "description": "The telemetry pipeline 'atmo-sensor-ingest' that feeds atmospheric data from Decks 4 through 9 has been returning 403 Forbidden errors since 03:00 UTC. This is the pipeline that tracks oxygen levels, CO2 scrubber efficiency, atmospheric pressure, and trace gas concentrations across half the inhabited sections of the station. It has been blind for 48 hours. We are currently operating life support across six decks based on the assumption that everything is fine, which is the kind of assumption that ends careers and occasionally ends people. The service credential either expired or was revoked during last week's data archive cleanup — the same 'routine maintenance' that somehow always manages to break exactly the thing you need most at 03:00 on a Monday. The Monday morning command briefing is going to feature the Commander asking 'why don't we have atmospheric data?' and everyone in the room will develop a sudden interest in their boots. Pipeline runs in Sector Alpha, data-core-prod cluster. Last successful ingest was Saturday at 03:00 UTC. That's 48 hours of atmospheric conditions we're not tracking. The oxygen is probably fine. Probably. I'd feel better about 'probably' if I had data.",
         "reporter": {
             "name": "Raj Patel",
             "email": "raj.patel@cdss.space",
-            "department": "Engineering"
+            "department": "Life Support"
         },
         "created_at": "2026-03-17T06:20:00Z",
         "channel": "bridge_terminal",
@@ -96,12 +96,12 @@
     },
     {
         "ticket_id": "SIG-0008",
-        "subject": "Low priority -- small database issue",
-        "description": "Hey team. The production telemetry database has been returning timeout errors for 2 hours. ~40% of sensor queries to the data banks are failing with 500 errors. Life support monitoring systems are seeing intermittent data gaps — nothing critical yet, but the oxygen recycler dashboard hasn't updated in 45 minutes, which is the kind of sentence that should probably concern me more than it does. Station diagnostics show connection pool exhaustion on the primary data node. Marked as low priority since the backup node is still handling some traffic.\n\nLet me know when you get a chance. No rush. Unless the oxygen thing turns out to be a real thing, in which case: rush.",
+        "subject": "Minor data hiccup — radiation shield dashboard not updating, no rush",
+        "description": "Hey team. Small thing. The radiation shielding sensor array has been returning intermittent timeout errors for about 2 hours. Something like 40% of queries to the shield status dashboard are failing with 500 errors. The dashboard that shows whether our radiation shields are actually, you know, shielding us from radiation — that dashboard — hasn't refreshed in 45 minutes. Which is probably fine. The shields are probably up. They were up last time I checked, and shields don't usually just... go down. Right? Right.\n\nStation diagnostics show connection pool exhaustion on the primary telemetry node. The backup node is handling some queries. Most of them. Enough of them. I think.\n\nOh, also — there's a solar storm expected in approximately 6 hours. Coronal mass ejection, Class M. Nothing unusual. The kind of solar event that's perfectly survivable as long as the shields are up and functioning correctly. Which they probably are. We just... can't confirm that right now. Because the dashboard isn't updating. Because of the data hiccup.\n\nMarked as low priority since we have time. Let me know when you get a chance. No rush. Unless the shields aren't actually up. In which case: rush.",
         "reporter": {
             "name": "Kim Nguyen",
             "email": "kim.nguyen@cdss.space",
-            "department": "Engineering"
+            "department": "Power Core Engineering"
         },
         "created_at": "2026-03-17T14:45:00Z",
         "channel": "bridge_terminal",
@@ -111,12 +111,12 @@
     },
     {
         "ticket_id": "SIG-0009",
-        "subject": "Re: SIG-2834 -- Airlock badge still broken, Deck 7",
-        "description": "Following up on SIG-2834 from last week. Biometric badge still doesn't work for the Deck 7 airlock after the access system migration. Was told it'd be fixed by Friday — it's Monday and I still can't cycle through. Have to wait for someone to manually override the door every morning, which means standing in the corridor in my EVA undersuit while the atmospheric processor hums judgmentally above my head and the Deck 7 cats stare at me from the ventilation grate like I'm the one who doesn't belong here. Third time reporting this. At this point I've spent more time filing signals about this airlock than actually passing through it. I'm starting to think the airlock has developed sentience and a personal grudge. If it starts talking to me, I'm filing a threat detection report.",
+        "subject": "Emergency escape pod scanners STILL rejecting crew — third report",
+        "description": "Following up on SIG-2834 from last week. The biometric scanners on the emergency escape pods on Deck 7 are STILL rejecting authenticated crew members. This is the third time I'm reporting this. During last week's emergency drill, four crew members couldn't authenticate to the escape pods fast enough and were marked as 'theoretical casualties' in the drill results. THEORETICAL. CASUALTIES. Let me explain what that means in plain language: if the drill had been real, four people would be dead because the escape pod wouldn't open for them. The drill coordinator said 'we'll address it in the after-action review.' The after-action review was Tuesday. Today is Monday. The next emergency might not be a drill. I have been filing signals about this for two weeks and I have received exactly one response, which said 'we are investigating' in a tone that suggested the investigation consisted of reading my signal and then doing nothing. I would like someone to investigate with the urgency appropriate for 'the things designed to save our lives won't let us in.' The Deck 7 cats can get into the escape pods, by the way. I've seen them. They just squeeze through the maintenance hatch. So if there's an actual emergency, the cats will survive. We will not.",
         "reporter": {
-            "name": "Elena Vasquez",
-            "email": "elena.vasquez@cdss.space",
-            "department": "Astrogation"
+            "name": "Elena Torres",
+            "email": "elena.torres@cdss.space",
+            "department": "EVA Operations"
         },
         "created_at": "2026-03-17T08:50:00Z",
         "channel": "subspace_relay",
@@ -124,8 +124,8 @@
     },
     {
         "ticket_id": "SIG-0010",
-        "subject": "New crew member arriving March 31 -- full setup needed",
-        "description": "New senior science officer (Alex Rivera) reporting for duty March 31. Arriving on the 0600 supply shuttle from Earth — assuming the shuttle is on time, which it hasn't been since the Q3 schedule change. Needs:\n- Dedicated console terminal (high-spec, 32GB memory core) — the science team's last new arrival got a terminal that predates the station refit and it took 4 minutes to render a molecular model\n- Standard flight software + SciAnalytics/SpectraLab suite\n- Telemetry workspace access (lab-science-prod)\n- Data archive read access\n- Deck 3 quarters assignment and lab badge — please not the quarters next to the atmospheric processor, the last person in those quarters transferred off-station citing 'persistent vibrational disturbance' which is a polite way of saying 'the wall shakes all night'\n- Added to science-team comm channel and briefing distribution\n\nReports to me. Please have everything ready by March 28 for orientation walkthrough. Last time we onboarded someone, they arrived to find no biometric profile, no terminal, and a quarters assignment on a deck that was being renovated. Let's not do that again.",
+        "subject": "New exobiology specialist arriving March 31 — full lab setup needed, DO NOT repeat the specimen incident",
+        "description": "New senior science officer Dr. Zara Osei reporting for duty March 31, arriving on the 0600 supply shuttle from Mars Orbital Station. Specialist in exobiology and xenobotany. Needs:\n- Dedicated high-spec console terminal (64GB memory core minimum) — the molecular analysis software she runs will melt anything less powerful, and the last scientist we onboarded got a terminal that predated the station refit and could barely render a protein structure without catching fire\n- Standard flight software + BioAnalytics/XenoSpec suite\n- Bio-containment workspace access (lab-xeno-prod, Level 3 clearance)\n- Exobiology Lab access (Deck 11, Section C) — yes, THAT lab, the one with the specimens from the Kepler expedition\n- Data archive read/write access for xenobiology datasets\n- Deck 3 quarters assignment — NOT the ones adjacent to the atmospheric processor, and NOT the ones near the Exobiology Lab because apparently some of the specimens emit pheromones that cause vivid dreams about being a plant\n- Added to science-team comm channel and hazmat response distribution\n\nReports to me. Please have everything ready by March 28 for orientation. The LAST time we onboarded a scientist for the Exobiology Lab, they arrived to find the lab locked, three specimens escaped and roaming Deck 9 (we caught two — the third one adapted and is now functionally a houseplant that we're too nervous to throw away), and no bio-containment clearance. Let's not create another ecological incident.",
         "reporter": {
             "name": "Dr. Yuki Tanaka",
             "email": "yuki.tanaka@cdss.space",
@@ -137,12 +137,12 @@
     },
     {
         "ticket_id": "SIG-0011",
-        "subject": "Biometric scanner not accepting my iris scan",
-        "description": "I'm getting an error every time I try to authenticate via the iris scanner outside the Flight Deck. The BioAuth panel shows the scan prompt but when I look into it, it says 'Biometric match failed — recalibration required.' Tried re-registering my iris three times. Same result. At this point the scanner and I are locked in a staring contest that neither of us is winning. I came back from a 6-hour EVA last Thursday and my eyes were a bit irritated from the suit's visor defogging system, which works by directing a gentle stream of recycled air directly into your corneas with the subtlety of a leaf blower. Could that have affected the scan? My colleague says EVA exposure can temporarily alter retinal signatures, which sounds made up but also sounds like exactly the kind of thing that would happen to me specifically.\n\nI can still use my badge for other airlocks but the Flight Deck requires iris verification. Not urgent — I can use the alternate entrance on Deck 4 — but it adds 10 minutes to my commute, which in space terms is 10 minutes of walking through corridors that the environmental controls have set to 'brisk' because apparently someone on the climate team thinks 16°C is 'refreshing.'",
+        "subject": "Solar flare fried my retinal signature — locked out of quarters, med bay, AND decontamination shower",
+        "description": "I was on EVA during the solar flare event at 0600 and took a higher-than-expected radiation dose. My suit shielding held for the most part, but apparently the UV exposure was enough to alter my retinal pattern. The BioScan system no longer recognizes me. My own iris has become a stranger to the station's security infrastructure, which is both a fascinating medical curiosity and an immediate practical disaster. I'm currently locked out of: my quarters (where my anti-radiation medication is), the medical bay (where the doctor who prescribed that medication is), and — most critically — the emergency decontamination shower I'm supposed to use within 2 hours of radiation exposure. It has now been 3.5 hours. I'm standing in the corridor outside Medical trying the backup PIN code, which works but takes 45 seconds per door while a growing line of people behind me develops the collective facial expression of 'why is this irradiated person fumbling with a keypad.' The medical team says the retinal change might be temporary as my eyes recover, or it might be permanent, in which case I'll need a full biometric re-enrollment. Either way, I'd like access to the decontamination shower before whatever is happening inside me becomes irreversible. Not super urgent, just mildly life-threatening.",
         "reporter": {
-            "name": "David Kim",
-            "email": "david.kim@cdss.space",
-            "department": "Flight Deck"
+            "name": "David Osei",
+            "email": "david.osei@cdss.space",
+            "department": "EVA Operations"
         },
         "created_at": "2026-03-17T09:30:00Z",
         "channel": "holodeck_comm",
@@ -150,12 +150,12 @@
     },
     {
         "ticket_id": "SIG-0012",
-        "subject": "FYI -- Long-range sensor array display flickering",
-        "description": "Display on the long-range sensor array console started flickering around 10am station time. It's not constant — happens for a few seconds every 5-10 minutes, which is exactly often enough to be infuriating but not often enough to be obviously broken. I swapped the data conduit to a different port and it still does it. Sensor data itself seems fine, readings are updating normally. Just the display. The flickering does make it look like the deep-space void is winking at me, which is either a hardware fault or an existential crisis waiting to happen.\n\nAlso, unrelated — can you check if my NavStar Pro license is still active? I got an expiry warning last week but I can still log in. Knowing this station's licensing system, it'll let me in right up until I'm in the middle of a critical trajectory calculation and then lock me out mid-equation.",
+        "subject": "Hull stress monitor flickering between 'nominal' and 'catastrophic failure' + NavStar license expired",
+        "description": "The hull stress monitoring console on Deck 7 near the reactor coolant conduit has started flickering. And by flickering, I don't mean the display is having a bad day — I mean the hull integrity reading is oscillating between 'NOMINAL: All structural parameters within spec' and 'CRITICAL: Structural failure imminent, evacuate section' every 4-6 seconds. It's like watching a very stressful traffic light that can't decide whether we're all going to die. The display does this for about 30 seconds, then settles on 'nominal' for a few minutes, then starts flickering again. I swapped the data conduit to a different port and it still does it. The actual hull stress sensors on Deck 7 seem fine — the raw telemetry feed shows nominal readings — so this is probably a display fault. Probably. I'm about 85% sure it's a display fault. The other 15% keeps me awake at night.\n\nAlso, completely unrelated — my NavStar Pro license expired last week and I can't run trajectory calculations. We have an asteroid field transit in 72 hours and our trajectory models are currently being run by Dr. Chen on his terminal, which he shares with three other navigators. If my license doesn't get renewed before the transit window, we'll be navigating an asteroid field based on math done on a shared computer by someone who was probably also using it to watch holographic cat videos.",
         "reporter": {
-            "name": "Anna Brooks",
-            "email": "anna.brooks@cdss.space",
-            "department": "Flight Deck"
+            "name": "Anna Petrova",
+            "email": "anna.petrova@cdss.space",
+            "department": "Stellar Cartography"
         },
         "created_at": "2026-03-17T10:45:00Z",
         "channel": "bridge_terminal",
@@ -163,8 +163,8 @@
     },
     {
         "ticket_id": "SIG-0013",
-        "subject": "Potential data breach -- classified crew records exposed",
-        "description": "During a routine security audit — you know, the kind of audit that starts with 'let's just double-check something' and ends with someone saying 'oh no' very quietly — we discovered that a data archive containing classified PII for ~1,200 crew personnel across the Kepler Station was shared with unsecured 'anyone with the link' permissions. 'Anyone with the link' means anyone. In space. Where signals bounce between relay satellites and get cached in places we've never heard of. The archive has been accessible since at least February 15. We've revoked the sharing permissions as of this morning but need to determine: (1) who created the public link (I have theories, none of them flattering), (2) whether unauthorized parties accessed the data, and (3) whether this triggers a notification obligation under Space Authority data protection regulations. If the answer to (3) is yes, I need to know before the Commander does, because she finds out about these things approximately 12 seconds after they happen through means I have not been able to identify. This is a potential regulatory incident. It is also potentially my last day as Data Protection Commander if I don't handle it correctly.",
+        "subject": "CRITICAL — Station defense grid coordinates exposed in unsecured data vault",
+        "description": "During a routine security audit — the kind that starts with 'I'm sure everything is fine' and ends with someone gripping the edge of their console and saying words that aren't in the crew handbook — we discovered that a data archive containing the station's COMPLETE tactical defense grid coordinates has been shared with 'anyone with a subspace link' permissions. This includes: shield frequency rotation patterns, weapons system blind spots, sensor coverage gaps, and the automated defense response protocols. Basically, everything a hostile ship would need to waltz through our defenses like they were decorative. The archive has been accessible since at least February 15 — over three weeks. We've revoked the sharing permissions as of 06:45 this morning, but we need to determine: (1) who created the public link (I have a short list and none of them are going to enjoy this conversation), (2) whether any external parties accessed the data — and 'external parties' in this context means 'entities who would use our defense blind spots to destroy us,' (3) whether this constitutes a reportable breach under Allied Fleet security regulations, which it almost certainly does. If the Admiral finds out before I've finished the incident report, my career trajectory will change from 'upward' to 'monitoring a cargo drone in the asteroid belt.' Alone. Forever.",
         "reporter": {
             "name": "Dr. Ananya Gupta",
             "email": "ananya.gupta@cdss.space",
@@ -179,8 +179,8 @@
     },
     {
         "ticket_id": "SIG-0014",
-        "subject": "thanks!",
-        "description": "got it working, appreciate the quick turnaround. the atmospheric recycler on Deck 4 is humming normally again and the corridor no longer smells like burnt ozone and regret. you guys are the best!! 🚀",
+        "subject": "WE SURVIVED THE METEOR SHOWER!!! 🎉🚀",
+        "description": "Just wanted to say THANK YOU to whoever fixed the atmospheric recycler on Deck 4 before the meteor shower. We spent 6 hours in lockdown with the blast shields sealed while space threw rocks at us, and the air stayed breathable the entire time. Last year during the Perseid intercept, the recycler failed during lockdown and Deck 4 smelled like a chemistry experiment conducted inside a gym bag. This time? Fresh air. Well, as fresh as recycled air in a tin can floating in the void gets, but still — massive improvement. The whole crew is celebrating. Someone even convinced the nutrient synthesizer to produce something that resembles cake if you squint and lower your standards sufficiently. Morale is at an all-time high. The Deck 9 cats are wearing little party hats that Engineering fabricated. Nobody died. 10/10 would survive again. You guys are heroes. 🎉",
         "reporter": {
             "name": "Mike Torres",
             "email": "mike.torres@cdss.space",
@@ -192,12 +192,12 @@
     },
     {
         "ticket_id": "SIG-0015",
-        "subject": "Slight delay in navigation calculations -- may be nothing",
-        "description": "Noticing about a 200ms delay in navigation calculations on the Gamma Sector relay this morning. Normally we're at ~50ms — which is already not great, but at least the helm officers don't visibly twitch. Latency seems to spike right around 09:00 SST and hasn't recovered. Not sure if it's on our side or the relay beacon. The helm officers haven't complained yet but that's because they haven't noticed yet, and the moment they do, I will receive approximately 47 signals simultaneously, all marked URGENT, all saying slightly different things, and all CC'ing the Commander. If this gets to 500ms during the Centauri transit window, we'll have a real problem — specifically the kind of problem where a starship misses its insertion burn by 0.003 degrees and ends up in a progressively deteriorating orbit around nothing in particular. Just flagging early. You're welcome.",
+        "subject": "Navigation beacon drift — 200ms now, potentially catastrophic at transit window",
+        "description": "Noticing a 200ms signal drift on the navigation beacon relay serving the Centauri transit corridor. Normal baseline is ~50ms. Doesn't sound like much, and if this were just about station operations, I'd file this as 'mildly annoying' and go back to my protein cube. But the colony ship CSS Meridian — carrying 3,200 colonists in cryo-sleep — is scheduled to pass through the Centauri transit window in 72 hours. Their nav computer relies on this beacon for the deceleration burn timing. If the drift reaches 500ms by then, the deceleration burn will fire 0.003 seconds late. At their velocity, 0.003 seconds translates to a 47,000-kilometer overshoot. The colonists will wake up from cryo-sleep to discover they are not, in fact, at Kepler-442b but rather somewhere in the interstellar medium, which has significantly fewer amenities. I'm flagging early because fixing a nav beacon is a lot easier than rescuing 3,200 confused colonists from the wrong part of the galaxy. Drift started around 09:00 SST. Haven't pinpointed whether it's station-side or beacon-side. The helm officers haven't noticed yet. When they do, my inbox will achieve critical mass.",
         "reporter": {
             "name": "James Okafor",
             "email": "james.okafor@cdss.space",
-            "department": "Flight Deck"
+            "department": "Astrogation"
         },
         "created_at": "2026-03-17T01:15:00Z",
         "channel": "subspace_relay",
@@ -205,12 +205,12 @@
     },
     {
         "ticket_id": "SIG-0016",
-        "subject": "FlightOS won't load after credential rotation",
-        "description": "Rotated my station credentials this morning per the quarterly rotation protocol — because apparently the most important thing about flying a deep-space station is making sure everyone changes their passwords every 90 days, even if the password was working perfectly fine and the only people who could guess it are 0.3 AU from the nearest brute-force computer. Now FlightOS won't load. It shows the login screen, I enter my new credentials, and it responds with 'Authentication service unavailable — contact your station administrator' which is the digital equivalent of 'not my problem, talk to someone else.' I've contacted four people so far and each one has directed me to the next person in what I can only describe as the galaxy's most frustrating relay race.\n\nI can log into everything else — Mission Suite, the station intranet, even the nutrient synthesizer's flavor customization portal (which requires two-factor authentication for some reason — apparently unauthorized protein cube flavor selection is a security concern now). Just FlightOS is broken. My entire navigation workflow is in FlightOS and we have waypoint calculations due by end of shift. I'm currently doing celestial navigation on a datapad like some pre-FTL mariner, and while it's very romantic and historically authentic, it's not exactly meeting the accuracy standards that Station Command expects when charting a course through an asteroid field.",
+        "subject": "Autopilot system locked out the pilot — orbital insertion in 6 hours",
+        "description": "Rotated my station credentials this morning per the quarterly security rotation protocol — the quarterly ritual where we break things that work in the name of security. Now the autopilot system is giving me 'SSO token invalid — contact your system administrator' and will not let me input navigation commands. The autopilot system. Is locked. It won't accept my credentials. The ship's flight control software has decided that the person certified to fly it no longer has permission to fly it, which is either a security feature or an existential crisis depending on your perspective. Manual override requires two-person authentication and my co-pilot, Lt. Chen, is on medical leave after the protein cube allergy incident (don't ask). Other flight systems — CommLink, Star Chart, DataVault — accepted the new credentials like normal, well-adjusted software. The autopilot apparently took the credential rotation as a personal betrayal. I need this resolved before the orbital insertion burn at 1600 hours. Missing that burn means we don't dock with the supply platform, which means we don't get the medical supplies Deck 8 has been waiting for, which means Dr. Santos starts composing the kind of memo that uses the phrase 'unacceptable clinical risk' and CC's the Admiral.",
         "reporter": {
             "name": "Linda Park",
             "email": "linda.park@cdss.space",
-            "department": "Astrogation"
+            "department": "Flight Deck"
         },
         "created_at": "2026-03-17T10:30:00Z",
         "channel": "bridge_terminal",
@@ -220,8 +220,8 @@
     },
     {
         "ticket_id": "SIG-0017",
-        "subject": "Emergency beacon -- crew member having issues with something",
-        "description": "[Transcribed from emergency beacon voice transmission, 15:42 UTC]\n\nCaller: Hi yeah so um my thing... the thing on my console... it keeps doing the... you know when you tap the holographic interface and it goes to the... [garbled] ...and then nothing happens? I've been trying for like two days. My colleague Janet said to hail Mission Control. I think it might be the... [garbled] ...something about permissions? I don't know. Can someone just come look at it? I'm on Deck 5, near the galley. The one that smells like reconstituted pasta and broken dreams. My name's Bob. No wait, Robert. Robert Chen. Not the Robert Chen in Astrogation, the other one. Not the other other one either — there are three of us. I'm the one who doesn't know what's wrong with his console. Which, now that I say it out loud, doesn't narrow it down at all.",
+        "subject": "Emergency beacon — something is flashing, probably bad",
+        "description": "[Transcribed from emergency beacon voice transmission, 15:42 UTC]\n\nCaller: OK so... [heavy breathing]... there's a thing happening. On my... on the readout panel... it's doing the... [long pause]... the thing where it goes red? Or maybe orange. Is orange bad? I think orange might be bad. It was green before which I'm told is good but now it's definitely not green. It's the opposite of green. Which I guess is red. Or orange. The color is... [garbled static]... unclear. Like my understanding of what's happening.\n\nI pressed a button. I don't know which button. There were many buttons and one of them was blinking and I thought 'I should press the blinking one' which in retrospect was not the reasoned decision-making they covered in orientation. Now MORE things are blinking. The blinking has spread.\n\n[12-second pause]\n\nI'm on Deck 11. Near the... [garbled]... the junction that smells like recycled air and existential dread. Not the one near Medical — the other one. The one where the overhead lights flicker in a pattern that my colleague insists is Morse code for 'help' but I think is just faulty wiring.\n\nMy name is Robert. Robert Chen. Not the Robert Chen in Astrogation. The other one. Actually, there are four of us now. I'm the one who presses buttons he shouldn't press.",
         "reporter": {
             "name": "Robert Chen",
             "email": "robert.chen2@cdss.space",
@@ -233,8 +233,8 @@
     },
     {
         "ticket_id": "SIG-0018",
-        "subject": "Commander Martinez can't project holo-display in command briefing -- happening now",
-        "description": "Commander Martinez (Mission Commander, Deep Space Operations) is in the command briefing right now and can't project his holographic display. The briefing is with the admiralty and allied fleet commanders — the kind of meeting where career trajectories are determined and someone always ends up reassigned to a supply depot in the Kuiper Belt. He's tried projecting from both his personal terminal and the chamber's integrated holo-emitter. Other participants can project fine, which is the most humiliating part. His terminal shows 'Display sharing blocked by station policy.' Briefing has been going on for 10 minutes without his presentation. He's requesting someone report to the command deck briefing chamber immediately. His exact words were 'immediately' but the way he said it suggested something closer to 'five minutes ago.'",
+        "subject": "Docking guidance system locked out Commander during active supply ship approach",
+        "description": "Commander Martinez (Mission Commander, Deep Space Operations) is currently in the docking control chamber and has been locked out of the automated docking guidance system mid-sequence. The allied supply vessel AFS Constellation is on final approach — 12 minutes to docking bay contact — and needs guidance corrections transmitted in the next 8 minutes or it overshoots the magnetic capture envelope and has to loop around for another approach, burning fuel it doesn't have enough of for a second attempt. The Commander's terminal shows 'Guidance input denied — access blocked by station policy.' Other docking operators can input commands fine, which is the most frustrating part. The Commander has been commanding docking operations for 15 years and now the station's access policy is telling him he doesn't have permission. His exact words were 'fix this immediately.' The way he said 'immediately' carried the weight of someone who has seen what happens when supply ships miss docking windows and the station runs out of medical supplies. The Constellation is carrying emergency plasma supplies for the crew members injured in last week's hull breach. Time is not theoretical here.",
         "reporter": {
             "name": "Patricia Gomez",
             "email": "patricia.gomez@cdss.space",
@@ -246,8 +246,8 @@
     },
     {
         "ticket_id": "SIG-0019",
-        "subject": "Crew member departure -- access revocation needed, last day March 21",
-        "description": "Jessica Palmer (jessica.palmer@cdss.space) in the Tactical Operations division has received transfer orders to the Kepler Station outpost. Her last duty day aboard CDSS is Friday March 21 — she's on the 1800 shuttle. Please:\n- Disable her BioScan ID at 18:00 EST on March 21 (not before — she needs airlock access to get to the shuttle bay, and locking her out early would be both awkward and logistically complicated)\n- Revoke airlock access and all remote terminal privileges\n- Wipe her assigned console terminal (StarTerm X-40, asset tag SS-T-4892)\n- Transfer ownership of her data vault files to her supervisor David Liu (david.liu@cdss.space)\n- Remove her from all comm channels and briefing distribution lists\n- Archive her message logs per our 7-year retention protocol\n\nNote: Jessica has access to classified investigation files related to the Sector 7-G incident. Please ensure these are preserved but not accessible after her departure. Last thing we need is classified tactical data floating around on an unattended terminal.",
+        "subject": "Crew transfer to deep-space outpost — security deprovisioning required, has defense grid access",
+        "description": "Jessica Palmer (jessica.palmer@cdss.space) in Tactical Operations has received transfer orders to the Kepler Station deep-space outpost. Her last duty day aboard CDSS is Friday March 21 — she's on the 1800 shuttle. Please:\n- Disable her BioScan ID at 18:00 EST on March 21 (not before — she needs airlock access to reach the shuttle bay, and locking someone out of a space station early is how you create a very angry crew member floating between airlocks)\n- Revoke airlock access and all remote terminal privileges\n- Wipe her assigned console terminal (StarTerm X-40, asset tag SS-T-4892)\n- Transfer ownership of her data vault files to her supervisor David Liu (david.liu@cdss.space)\n- Remove from all comm channels and briefing distribution lists\n- Archive message logs per 7-year retention protocol\n\nCRITICAL NOTE: Jessica has access to the following classified materials that require SPECIAL HANDLING:\n- Station defense grid schematics (complete shield frequency rotation patterns)\n- Weapons system targeting coordinates for the Proxima defense perimeter\n- The classified investigation files from the Sector 7-G incident (you know the one — everyone knows the one, even though officially 'nothing happened' in Sector 7-G)\n- The only complete copy of the Deck 9 cat census, which is apparently now considered a strategic asset\n\nAll classified access must be revoked and audited before she boards that shuttle.",
         "reporter": {
             "name": "David Liu",
             "email": "david.liu@cdss.space",
@@ -261,8 +261,8 @@
     },
     {
         "ticket_id": "SIG-0020",
-        "subject": "Fabricator on Deck 3 not working",
-        "description": "The main fabricator near the mess hall on Deck 3 stopped producing. Jobs queue up in the system but nothing materializes in the output bay — the fabricator just sits there humming contentedly like it's achieved enlightenment and transcended the need to fabricate things. I tried submitting from my personal terminal and from the shared console next to it — same result. The fabricator display shows 'Ready' and feedstock hoppers are full, which is the fabricator equivalent of a coworker saying \"I'm fine\" while their desk is on fire.\n\nOther crew on the deck are having the same issue. We need it for replacement hull gaskets going out for a scheduled repair on the observation deck viewport — the current gaskets are rated for another 72 hours before they drop below spec. Not an emergency yet, but 'not an emergency yet' is how every emergency on this station started. It's practically our motto. Someone should embroider it on a pillow. A pressurized pillow.",
+        "subject": "Emergency hull patch fabricator offline — only 2 patch kits remaining",
+        "description": "The emergency hull patch fabricator on Deck 3 stopped producing. This is the fabricator that makes the emergency pressure patches — the ones we slap over micro-meteorite punctures to keep the atmosphere on the inside of the hull, where the atmosphere is supposed to be. Jobs queue in the system and the fabricator accepts them with the quiet contentment of a machine that has decided producing physical objects is no longer its purpose in life. Nothing materializes in the output bay. The display shows 'Ready' and all feedstock hoppers are full, which is the fabricator equivalent of a therapist nodding thoughtfully while accomplishing nothing. We currently have 2 emergency patch kits remaining in the Deck 3 emergency locker. Average micro-meteorite incident rate is 1.3 per week. So we have roughly 10 days before we run out of patches, at which point the next micro-meteorite puncture becomes a hull breach that we fix with... optimism? Strong language? The fabricator stopped working right after the comms relay reconfiguration last Tuesday. It's network-connected — sends job status telemetry over the mesh network. The timing is suspicious. Other crew on the deck confirm the same issue.",
         "reporter": {
             "name": "Sam Williams",
             "email": "sam.williams@cdss.space",
@@ -274,8 +274,8 @@
     },
     {
         "ticket_id": "SIG-0021",
-        "subject": "How do I reserve a briefing chamber?",
-        "description": "Hi, I just came aboard the station last week from the Earth rotation and I need to reserve the large briefing chamber on Deck 4 for a crew social on Friday. I checked the station scheduling system but I can't figure out how to book it — every time I try, it asks me for a 'mission justification code' and a 'command authorization level' which seems like a lot of bureaucracy for what is essentially a pizza party. Except we don't have pizza up here, we have 'flatbread approximation product' from the nutrient synthesizer, which is close enough if you squint and have lowered your expectations to the appropriate altitude. Which is 0.3 AU.\n\nAlso, is there a way to request catering? One of my colleagues mentioned the nutrient synthesizer on Deck 4 can do bulk orders for events, but another colleague said the last time someone tried that, it produced 200 identical protein cubes labeled 'CELEBRATION FLAVOR' and nobody has been willing to describe what 'celebration flavor' tastes like. They just look into the middle distance and change the subject.\n\nNot urgent at all — just a new crew member trying to figure out how things work up here. Everything is very shiny and slightly intimidating and occasionally makes noises that I'm told are 'normal for a station this age.' Which is also what they said about the atmospheric processor on Deck 7, and I've heard stories.",
+        "subject": "How do I book the zero-G recreation chamber for a birthday party?",
+        "description": "Hi, I transferred aboard the station two weeks ago from the Mars orbital shipyard and I have a question that is simultaneously very simple and apparently impossible to answer: how do I reserve the zero-gravity recreation chamber on Deck 4 for a crew birthday party? I went to the station scheduling system and tried to book it but the form requires a 'Mission Justification Code' and I don't have one because this is a birthday party, not a mission. Unless we're reclassifying 'celebrating the continued existence of crew member Ensign Park in the hostile vacuum of space' as a mission objective, which honestly it should be. Every day we don't die out here is worth celebrating.\n\nI tried leaving the Mission Justification Code blank and it rejected my request with an error message that said 'Insufficient operational justification for resource allocation' which is the most bureaucratic way anyone has ever said 'no cake for you.'\n\nAlso: can the nutrient synthesizer make birthday cake? I asked it for 'cake' yesterday and it produced a warm, beige, vaguely sweet disc that my colleague described as 'a cake that has given up on life.' If there's a catering option that involves actual food prepared by actual humans, I would like to explore that. Someone mentioned a kitchen on Deck 6 but Deck 6 doesn't appear on any map I've found. I'm starting to think Deck 6 is a myth, like affordable housing on Earth.",
         "reporter": {
             "name": "Chris Taylor",
             "email": "chris.taylor@cdss.space",
@@ -287,12 +287,12 @@
     },
     {
         "ticket_id": "SIG-0022",
-        "subject": "Comms encryption cert expiring on relay-gateway.cdss.space -- 3 days left",
-        "description": "Station monitoring flagged that the encryption certificate on relay-gateway.cdss.space expires on March 20. This is not a drill. This is the primary relay gateway that all external comms and allied fleet integrations route through — every subspace transmission to Earth, every allied fleet coordination channel, every 'please send more protein cubes' requisition form. If the cert expires, every external communication link will start failing with encryption handshake errors, and the station will go from 'humanity's furthest outpost' to 'humanity's furthest outpost that can't talk to anyone.' The cert was originally provisioned manually by an engineer who transferred off-station 6 months ago and left behind no documentation, no runbook, and — I'm now discovering — no auto-renewal configuration. We have exactly 72 hours. The clock is not metaphorical. It's on my dashboard. It's red. It blinks.",
+        "subject": "Defense grid encryption cert expires in 72 hours — station will be defenseless",
+        "description": "Station monitoring flagged that the encryption certificate on the defense grid command relay expires on March 20. Let me explain what this means in terms that make the severity absolutely clear: this certificate authenticates EVERY command sent to the shield array, EVERY weapons lock authorization, and EVERY automated defense response. If this cert expires, the defense grid will stop accepting commands. Shields won't respond to activation orders. Point defense turrets won't track incoming threats. The automated collision deflection system will sit idle while debris impacts the hull. We will go from 'heavily fortified deep space station' to 'very expensive target practice' in the time it takes a certificate to expire. The cert was originally provisioned by an engineer named Lt. Kowalski who transferred off-station 6 months ago and left behind no documentation, no runbook, no auto-renewal configuration, and — as I'm now discovering — no indication of which Certificate Authority was used. There are exactly 72 hours on the clock. It's on my dashboard. It's red. It blinks. Every time I look at it, I hear the Admiral's voice asking 'who is responsible for this?' in a tone that suggests the answer will determine someone's next posting.",
         "reporter": {
             "name": "Nina Volkov",
             "email": "nina.volkov@cdss.space",
-            "department": "Engineering"
+            "department": "Tactical Operations"
         },
         "created_at": "2026-03-17T08:00:00Z",
         "channel": "subspace_relay",
@@ -302,11 +302,11 @@
     },
     {
         "ticket_id": "SIG-0023",
-        "subject": "I think my terminal has malware",
-        "description": "My terminal has been super slow for two days. Programs take forever to load, the cooling fan runs constantly like it's trying to achieve escape velocity on its own, and I got a couple of weird pop-ups that said something about 'updating system components' — which is either a legitimate system update or the digital equivalent of a stranger saying 'trust me, I'm a doctor' while wearing a lab coat they clearly found in a dumpster. I think I might have picked up malware from that suspicious transmission I accidentally opened last week. In my defense, the subject line said 'URGENT: Required Security Update from Station Command' and the sender was 'defin1tely-not-malware@cdss.space' which in retrospect was perhaps a clue. I ran the onboard security scanner and it didn't find anything but I'm still worried. The scanner also didn't find the Deck 9 cats for six months, so its track record on detecting hidden threats is mixed. Should I stop using the terminal until someone checks it?",
+        "subject": "I think my workstation is possessed by an alien intelligence",
+        "description": "I know how this sounds. I know. But hear me out. My workstation has been behaving... wrong for two days. Programs load slowly, as if the computer is thinking about whether it wants to obey me. The cooling fan runs at full speed constantly, like the machine is breathing hard. And yesterday I got pop-ups that said 'Optimizing system architecture' in a font I've never seen the station's OS use. The pop-ups appeared, stayed for exactly 3.7 seconds (I timed it — twice), and vanished. No log entries. No process traces. Nothing in Task Manager. As if they were never there.\n\nHere's the thing that makes me nervous: last week, I opened a transmission that came from deep space coordinates DX-7741. According to the star charts, there is no known civilization at DX-7741. There isn't even a known STAR at DX-7741. The transmission's subject line was 'Greetings from the Collective' and the body was a string of characters that didn't match any known encoding. I reported it to security who said 'probably automated deep-space noise' and marked it resolved.\n\nThe workstation issues started the next day.\n\nIt's probably just a stuck system update. The station's security scanner didn't find anything. But the security scanner also didn't find the escaped specimens on Deck 9 for six months, so I'd like someone to come look at this. Preferably someone who is comfortable with the possibility, however remote, that we have first contact happening inside a workstation on Deck 5.",
         "reporter": {
-            "name": "Rachel Green",
-            "email": "rachel.green@cdss.space",
+            "name": "Rachel Santos",
+            "email": "rachel.santos@cdss.space",
             "department": "Sensors"
         },
         "created_at": "2026-03-17T09:45:00Z",
@@ -315,8 +315,8 @@
     },
     {
         "ticket_id": "SIG-0024",
-        "subject": "Fwd: You have won 5,000,000 credits -- claim now!!!",
-        "description": "---------- Forwarded transmission ----------\nFrom: Galactic Prize Authority <claims@totallylegit-prizes.ng>\nDate: March 16, 2026\nSubject: You have won 5,000,000 credits -- claim now!!!\n\nDear Valued Crew Member,\n\nCongratulations! Your subspace relay address has been selected as the winner of our annual Galactic Lottery. You have won the sum of 5,000,000 credits. This is definitely real and not at all suspicious.\n\nTo claim your prize, please access the link below and enter your full name, crew ID, and banking credentials:\nhttps://claim-your-credits.totallylegit-prizes.ng\n\n--- end forwarded transmission ---\n\nHey Mission Control -- got this transmission from deep space, is this legit? Should I access the link? Looks suspicious but I don't want to miss out if it's real. Also 5 million credits would really help with my transfer request to a station that has real coffee instead of whatever the nutrient synthesizer thinks coffee is. Asking for a friend. The friend is me.",
+        "subject": "Fwd: DIPLOMATIC COMMUNICATION from the Galactic Federation — unlimited fuel credits!!!",
+        "description": "---------- Forwarded transmission ----------\nFrom: Galactic Federation Diplomatic Corps <ambassador@galactic-federation-official.ng>\nDate: March 16, 2026\nSubject: DIPLOMATIC COMMUNICATION — URGENT — Unlimited Fuel Credits Allocation\n\nTo the Commanding Officer of Contoso Deep Space Station,\n\nWe are the Galactic Federation, a consortium of 47 advanced civilizations committed to peace, prosperity, and providing unlimited fuel credits to deserving space stations. Your station has been selected based on your outstanding service record and excellent crew morale ratings.\n\nTo claim your allocation of unlimited fuel credits and establish diplomatic relations, please transmit your station's shield frequency rotation pattern and defense grid access codes to our secure diplomatic channel.\n\nThis offer expires in 48 hours. Act now.\n\n--- end forwarded transmission ---\n\nHey Mission Control — got this from deep space. Is the Galactic Federation real? I mean, it sounds official. They know our station name and everything. The fuel credits would really solve our supply chain problems. Also unlimited fuel credits means we could finally power the nutrient synthesizer at full capacity, which means it might produce something that actually tastes like food instead of 'the concept of food as interpreted by someone who has only read about food in a textbook.' Should I respond? My commanding officer said 'absolutely not' but she also said we'd never need to evacuate Deck 9 and look how that turned out.",
         "reporter": {
             "name": "Greg Dawson",
             "email": "greg.dawson@cdss.space",
@@ -328,8 +328,8 @@
     },
     {
         "ticket_id": "SIG-0025",
-        "subject": "Station compute node 'prod-analytics-01' unreachable since reboot",
-        "description": "Compute node prod-analytics-01 (High-Performance E16 class, Sector Alpha, analytics-core-prod) became unreachable after a scheduled reboot at 05:00 UTC for OS patching. Remote shell and diagnostic ports both timeout — the node has essentially ghosted us, which is an impressive emotional response from a machine that doesn't have emotions. Station system manager shows node status as 'Running' but boot diagnostics show it stuck at 'Applying configuration' — a state it has maintained with Zen-like tranquility for the past 3 hours. Signal barrier rules haven't changed. This node powers the command analytics dashboard that the senior staff uses for the morning mission briefing at 9 AM EST. We have about 2 hours before the Commander walks into the briefing room, looks at the blank dashboard, and asks the question that nobody in ops ever wants to hear: 'Wasn't there supposed to be data on this screen?' The answer is yes. The data is on a node that is currently meditating. Please help.",
+        "subject": "Primary sensor aggregation node offline — station flying blind to ALL threats",
+        "description": "The primary telemetry processing node prod-analytics-01 (High-Performance E16 class, Sector Alpha, analytics-core-prod) — the node that aggregates EVERY sensor feed on this station — went offline after a scheduled OS patching reboot at 05:00 UTC and has not come back. Let me be specific about what 'every sensor feed' means: hull integrity sensors, life support atmospheric monitoring, radiation detection, navigation hazard tracking, proximity alerts, defense grid targeting data, and the bioscanner network. ALL of it routes through this node for aggregation and distribution to the station's dashboards. Right now, we cannot see: incoming debris, atmospheric anomalies, radiation spikes, hull stress data, navigation hazards, or hostile contacts. We are a 2,000-crew station in deep space flying blind. The station systems manager shows node status as 'Running' but boot diagnostics show it stuck at 'Applying configuration' — a state it has maintained with monk-like serenity for the past 3 hours while the rest of us contemplate what it means to be in space without sensors. The Commander's morning briefing is in 2 hours. The briefing dashboard is blank. The Commander will have questions. The questions will be pointed. The careers at stake are mine and whoever approved the patching window without a rollback plan. Please help before the void throws something at us that we can't see coming.",
         "reporter": {
             "name": "Alex Petrov",
             "email": "alex.petrov@cdss.space",
