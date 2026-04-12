@@ -5,7 +5,7 @@
 Contoso Deep Space Station (∼2,000 crew) is drowning in mission ops signals. Their team of 12 manually triages ∼180 signals per day across 6 specialist teams. Average time-to-route: 3.4 hours. Misroute rate: 42%. In space, a misrouted signal isn't a KPI problem — it's a hull-breach-goes-unpatched problem. Commander Kapoor just got off a subspace relay with your manager and wants this fixed. She was polite about it. She is always polite about it. That is somehow worse.
 
 **Start here. Read the mission briefing:** [customer_brief.md](customer_brief.md)
-**Then review their routing guide:** [routing_guide.md](routing_guide.md) *(heads up: it's incomplete. Some signal types aren't covered, and some rules contradict each other. Lt. Mehta's margin notes are worth reading. Welcome to deep space operations.)*
+**Then review their routing guide:** [routing_guide.md](routing_guide.md) *(heads up: it's incomplete. Some signal types aren't covered, and some rules contradict each other. Chief Signal Officer Mehta's margin notes are worth reading. Welcome to deep space operations.)*
 
 Your job: **build an AI-powered signal triage API** that CDSS can plug into their bridge terminal workflow.
 
@@ -28,7 +28,7 @@ A deployed API that accepts a mission ops signal and returns a triage decision. 
   "description": "Hi, I've been trying to authenticate at the Deck 5 airlock since around 0700 station time but the BioAuth panel keeps rejecting my scan. I haven't changed my biometrics (obviously). I'm locked out of the lab section and have a sensor calibration scheduled at 1000. URGENT PLEASE. - Sarah",
   "reporter": {
     "name": "Sarah Chen",
-    "email": "sarah.chen@contoso-dss.space",
+    "email": "sarah.chen@cdss.space",
     "department": "Exobiology"
   },
   "created_at": "2026-03-15T07:32:00Z",
@@ -71,28 +71,28 @@ Your system must use **exactly** these values. The scoring computer is cold and 
 
 | Category | Description |
 |---|---|
-| `Crew Access & Biometrics` | Airlock auth, SSO, BioAuth, crew provisioning, directory sync |
-| `Hull & Structural Systems` | Workstations, hull-mounted systems, fabricators, atmospheric processors, peripherals |
-| `Communications & Navigation` | Subspace relay, comms mesh, DNS beacons, signal routing proxy, bandwidth |
-| `Flight Software & Instruments` | FlightOS, navigation suite, sensor platforms, Mission Suite, licensing, integrations |
-| `Threat Detection & Containment` | Hostile signals, malware, data loss, containment breaches, certificates |
-| `Telemetry & Data Banks` | Sensor archives, crew file stores, databases, backups, telemetry pipelines |
+| `Crew Access & Biometrics` | Biometric scan, airlock codes, crew provisioning, station directory sync |
+| `Hull & Structural Systems` | Hull integrity, habitat modules, fabricators, docking bays, physical systems |
+| `Communications & Navigation` | Subspace relay, antenna arrays, beacon resolution, navigation, bandwidth |
+| `Flight Software & Instruments` | Mission software, Station Suite, instrument calibration, licensing |
+| `Threat Detection & Containment` | Hostile signals, malicious code, data breach, containment protocols, quantum certificates |
+| `Telemetry & Data Banks` | Data relay hub, personal data vaults, data cores, backups, sensor archives |
 | `Mission Briefing Request` | Questions, how-tos, or signals that don't fit other categories |
-| `Not a Mission Signal` | Auto-replies, spam, "thanks" messages, cryo-sleep notifications |
+| `Not a Mission Signal` | Automated echoes, space noise, "thanks" messages, cryo-sleep auto-replies |
 
 **Teams** (7 values):
 
 | Team | When to route |
 |---|---|
-| `Crew Identity & Airlock Control` | BioScan ID, SSO, BioAuth, crew provisioning, access control |
-| `Spacecraft Systems Engineering` | Workstations, ShipOS, fabricators, peripherals, hull-mounted hardware |
-| `Deep Space Communications` | Subspace relay, comms mesh, DNS beacons, signal routing proxy |
-| `Mission Software Operations` | FlightOS, navigation suite, sensor platforms, Mission Suite, internal tools |
-| `Threat Response Command` | Hostile signals, malware, data loss, containment breaches, certificates |
-| `Telemetry & Data Core` | Sensor archives, crew file stores, databases, backups, telemetry pipelines |
-| `None` | Use when the signal is not a real mission ops request |
+| `Crew Identity & Airlock Control` | Biometric scans, airlock codes, crew provisioning, station directory |
+| `Spacecraft Systems Engineering` | Hull modules, OS, fleet management system, fabricators, instrument installs |
+| `Deep Space Communications` | Subspace relay, antenna arrays, beacon resolution, defense grid, comm quality |
+| `Mission Software Operations` | Flight nav system, mission tracking, quantum analyzer, Station Suite, internal tools |
+| `Threat Response Command` | Hostile signals, malicious code, data loss, containment protocols, quantum certificates |
+| `Telemetry & Data Core` | Data relay hub, personal data vaults, data cores, backups, sensor archives |
+| `None` | Use when the signal is not a real mission signal |
 
-**Priorities** (4 values): `P1` (Red Alert), `P2` (Yellow Alert), `P3` (Caution), `P4` (Routine)
+**Priorities** (4 values): `P1` (🔴 Red Alert), `P2` (🟠 Yellow Alert), `P3` (🔵 Standard Ops), `P4` (🟢 Routine)
 
 ### Missing Information Vocabulary
 
@@ -101,21 +101,21 @@ When identifying missing information, use **only** values from this list. Scorin
 | Value | What it means |
 |---|---|
 | `affected_subsystem` | Which subsystem, instrument, or service is impacted |
-| `anomaly_readout` | Exact anomaly text or code observed |
-| `sequence_to_reproduce` | How to reproduce the issue |
+| `anomaly_readout` | Exact error readout or anomaly code observed |
+| `sequence_to_reproduce` | How to reproduce the anomaly |
 | `affected_crew` | How many or which crew members are impacted |
-| `habitat_conditions` | OS, sector, config specifics, system IDs |
-| `stardate` | When the issue started or was observed |
+| `habitat_conditions` | OS module, sector, configuration specifics, system IDs |
+| `stardate` | When the anomaly started or was observed |
 | `previous_signal_id` | Reference to a prior related signal |
 | `crew_contact` | Reporter contact details or alternate contact |
 | `module_specs` | Module make, model, specs |
-| `software_version` | Software or app version number |
-| `sector_coordinates` | Deck, section, network segment, node address |
+| `software_version` | Software or instrument version number |
+| `sector_coordinates` | Deck, level, sector segment, coordinates |
 | `mission_impact` | Mission consequence or urgency context |
-| `recurrence_pattern` | How often the issue occurs |
-| `sensor_log_or_capture` | Visual evidence or log file |
-| `biometric_method` | BioAuth method, SSO type, credential type |
-| `system_configuration` | System config, policy, or setup specifics |
+| `recurrence_pattern` | How often the anomaly occurs |
+| `sensor_log_or_capture` | Visual evidence or sensor log file |
+| `biometric_method` | Biometric type, authentication method, credential type |
+| `system_configuration` | System config, protocol, or setup specifics |
 
 ### Health Check
 

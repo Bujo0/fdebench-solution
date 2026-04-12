@@ -4,7 +4,7 @@
 
 ---
 
-**From:** Commander Priya Kapoor, Station Operations Chief, Contoso Deep Space Station
+**From:** Commander Priya Kapoor, Station Ops Director, Contoso Deep Space Station
 **To:** Microsoft FDE Mission Support Team
 **Stardate:** March 2026
 **Subject:** Help us fix our signal triage — people are going to die
@@ -17,13 +17,13 @@ Contoso Deep Space Station. ~2,000 crew aboard a research outpost parked 0.3 AU 
 
 ## What's broken
 
-Our Mission Ops desk handles ~180 signals per day. Right now, a human Tier 1 ops controller reads every signal, decides what it is, assigns a priority, and routes it to one of our 6 specialist teams. It takes **3.4 hours on average** to get a signal to the right team. That's before anyone even starts working on it.
+Our Mission Ops desk handles ~180 signals per day. Right now, a human ops officer reads every signal, decides what it is, assigns a priority, and routes it to one of our 6 specialist teams. It takes **3.4 hours on average** to get a signal to the right team. That's before anyone even starts working on it.
 
 In space, 3.4 hours is the difference between "minor atmospheric imbalance" and "Deck 7 is now a vacuum."
 
 **42% of signals get misrouted at least once.** When a signal lands with the wrong team, they bounce it back, and we start over. Some signals take 2-3 bounces before they reach the right place. Every bounce adds a 4-minute light delay for confirmation. I have done the math. It is not good math.
 
-The worst part: our Tier 1 controllers spend so much time triaging that they can't do actual resolution work. They're basically expensive human routers. I could replace them with a particularly motivated houseplant — and we actually have one of those, because three specimens escaped from the Exobiology Lab during Q2 crew rotation, we caught two, and the third adapted. It lives in the hydroponics bay now. It does not route signals, but it has better judgment than some of my crew.
+The worst part: our ops officers spend so much time triaging that they can't do actual resolution work. They're basically expensive human routers. I could replace them with a particularly motivated houseplant — and we actually have one of those, because three specimens escaped from the Exobiology Lab during Q2 crew rotation, we caught two, and the third adapted. It lives in the hydroponics bay now. It does not route signals, but it has better judgment than some of my crew.
 
 ## What we want
 
@@ -33,7 +33,7 @@ We want to **automate first-pass triage** for every incoming signal. Specificall
 2. **Set priority** — how urgent is this, really? (Crew write "URGENT" on everything. The correlation between "URGENT" in the subject line and actual danger is inversely proportional. The loudest signal last week was about the nutrient synthesizer dispensing vanilla protein cubes instead of chocolate. We gave it a P4. The quiet signal about oxygen recycler output dropping 3% on Deck 12? That was the actual emergency.)
 3. **Route** to the correct specialist team — get it right the first time
 4. **Flag what's missing** — half our signals don't include basic info we need. We waste time sending subspace relays back to the reporter to ask "which subsystem?" or "what anomaly readout?" Every round trip is 4 minutes we don't have when something is actively venting atmosphere.
-5. **Give our Tier 1 team a head start on remediation** — even if a human still resolves the signal, tell them what to try first
+5. **Give our ops officers a head start on remediation** — even if a human still resolves the signal, tell them what to try first
 
 ## Our teams
 
@@ -42,20 +42,20 @@ We have 6 specialist operations teams:
 | Team | What they handle |
 |---|---|
 | **Crew Identity & Airlock Control** | BioScan ID failures, airlock authentication, crew provisioning, biometric sync, access revocation (especially important when someone gets spaced — administratively, I mean) |
-| **Spacecraft Systems Engineering** | Workstations, hull-mounted systems, ShipOS issues, fabricator malfunctions, peripheral modules, that one atmospheric processor on Deck 7 that has been "intermittent" since we launched |
-| **Deep Space Communications** | Subspace relay, local comms mesh, DNS beacons, signal routing proxy, bandwidth allocation, external relay uplinks |
-| **Mission Software Operations** | FlightOS, navigation suite, sensor platforms, Mission Suite licensing, internal tools, instrument calibration software |
-| **Threat Response Command** | Hostile signal detection, malware, unauthorized access, containment breaches, compliance incidents, SentinelGrid certificate management |
-| **Telemetry & Data Core** | Sensor archives, crew file stores, databases, backups, data access requests, telemetry pipelines |
+| **Spacecraft Systems Engineering** | Hull modules, hull-mounted systems, ShipOS issues, fabricator malfunctions, peripheral modules, that one atmospheric processor on Deck 7 that has been "intermittent" since we launched |
+| **Deep Space Communications** | Subspace relay, antenna arrays, DNS beacons, signal routing proxy, bandwidth allocation, external relay uplinks |
+| **Mission Software Operations** | FlightOS, navigation suite, sensor platforms, Station Suite licensing, internal tools, instrument calibration software |
+| **Threat Response Command** | Hostile signal detection, malicious code, unauthorized access, containment breaches, compliance incidents, quantum certificate management |
+| **Telemetry & Data Core** | Data relay hub, personal data vaults, data cores, backups, data access requests, sensor archives |
 
-I've attached our **internal signal routing guide** — but fair warning, it was written 8 months ago by Lt. Mehta, and some things have changed. We've also reorganized since then. About 20% of signal types aren't covered in it, and some of the routing rules overlap between teams. My section chiefs argue about ownership constantly. For example: who handles BioAuth panel issues — Crew Identity or Threat Response? Depends on the context, and honestly we're not consistent about it ourselves. Lt. Mehta has opinions. He has written them in the margins. They are colorful.
+I've attached our **internal signal routing guide** — but fair warning, it was written 8 months ago by Chief Signal Officer Mehta, and some things have changed. We've also reorganized since then. About 20% of signal types aren't covered in it, and some of the routing rules overlap between teams. My section chiefs argue about ownership constantly. For example: who handles BioAuth panel issues — Crew Identity or Threat Response? Depends on the context, and honestly we're not consistent about it ourselves. Mehta has opinions. He has written them in the margins. They are colorful.
 
 ## What "good" looks like to us
 
 - **Reduce misrouting from 42% to under 15%** in the first month
 - **Time-to-route under 5 minutes** (from 3.4 hours)
 - **Catch missing information proactively** so we stop playing subspace ping-pong with reporters
-- **Actionable remediation steps** — not generic "investigate the anomaly" but specific things a Tier 1 controller can actually try
+- **Actionable remediation steps** — not generic "investigate the anomaly" but specific things an ops officer can actually try
 
 If you can show me this working on even 50 of our real signals, I can make the case to the Admiral. He has been sending memos. The memos contain phrases like "unacceptable" and "reviewing leadership decisions." The Admiral is 0.3 AU away, which means his pointed questions take 4 minutes to arrive, but they hit just as hard.
 

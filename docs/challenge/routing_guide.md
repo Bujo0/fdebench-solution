@@ -1,23 +1,23 @@
 # CDSS Mission Ops — Internal Signal Routing Guide
 
 > **Last updated:** July 2025
-> **Author:** Lt. Raj Mehta, Mission Ops Desk Lead
+> **Author:** Chief Signal Officer Raj Mehta
 > **Status:** DRAFT — some sections still being finalized after the Q2 crew rotation. If you were expecting a polished document, I regret to inform you that we had a containment breach in Exobiology during the reorg and three cat specimens escaped. We caught two. The third one adapted. It's a long story.
 
 ---
 
 ## How to use this guide
 
-When a signal comes in, identify the **issue type** from the table below and route to the listed **owning team**. If you're unsure, escalate to the Mission Ops Desk Lead (that's me, and I will judge you, but at least the signal won't kill anyone).
+When a signal comes in, identify the **issue type** from the table below and route to the listed **owning team**. If you're unsure, escalate to the Chief Signal Officer (that's me, and I will judge you, but at least the signal won't kill anyone).
 
 ## Priority Definitions
 
 | Priority | Label | Response SLA | Resolution SLA | When to use |
 |---|---|---|---|---|
-| P1 | Red Alert | 15 min | 4 hours | Critical subsystem failure, containment breach in progress, life-support anomaly, Commander-impacting (yes, this is a real priority level — do not ask why) |
-| P2 | Yellow Alert | 1 hour | 8 hours | Major system degraded, no workaround, multiple crew affected |
-| P3 | Caution | 4 hours | 3 business days | Impact with workaround available, single crew member blocked but not in danger of asphyxiation |
-| P4 | Routine | 1 business day | 10 business days | Minor inconvenience, cosmetic issue, feature request, general question, wrong-flavor protein cubes |
+| P1 | 🔴 Red Alert | 15 min | 4 hours | Hull breach, hostile contact in progress, life support failure, command-level emergency |
+| P2 | 🟠 Yellow Alert | 1 hour | 8 hours | Major system failure, no workaround, multiple crew affected |
+| P3 | 🔵 Standard Ops | 4 hours | 3 cycles | Impact with workaround available, single crew member affected but non-urgent |
+| P4 | 🟢 Routine | 1 cycle | 10 cycles | Minor annoyance, cosmetic issue, feature request, general question |
 
 **Override rule:** Any signal mentioning potential hull breach, atmospheric compromise, or containment failure is automatically **P1** regardless of other factors. I don't care if it's phrased politely. I don't care if it says "no rush." If the word "decompression" appears anywhere in the signal, it's a Red Alert. We learned this the hard way. See: Deck 4 corridor incident, January 2026.
 
@@ -106,7 +106,7 @@ When a signal comes in, identify the **issue type** from the table below and rou
 
 ## Escalation rules
 
-1. **P1 (Red Alert) signals** — Must be acknowledged within 15 minutes. If the assigned team doesn't acknowledge, auto-escalate to Mission Ops Desk Lead. *Mehta's note: If I get woken up at 0300 station time because your team didn't acknowledge a Red Alert, we will have a conversation. It will not be a pleasant conversation. There will be no protein cubes.*
+1. **P1 (🔴 Red Alert) signals** — Must be acknowledged within 15 minutes. If the assigned team doesn't acknowledge, auto-escalate to Chief Signal Officer. *Mehta's note: If I get woken up at 0300 station time because your team didn't acknowledge a Red Alert, we will have a conversation. It will not be a pleasant conversation. There will be no protein cubes.*
 2. **Containment incidents** — Always route to Threat Response Command. If it also affects another team's domain (e.g., compromised crew identity = Crew Identity + Threat Response), route to Threat Response as primary and Crew Identity as secondary. The void of space does not wait for org chart debates.
 3. **Command-level signals** — Commander and section chief+ signals are auto-flagged. Treat as one priority level higher than normal assessment. *Mehta's note: Commander Kapoor has never once filed a signal that wasn't genuinely urgent. If you see her name, move fast.*
 4. **Repeat signals** — If the same crew member has filed 3+ signals in 7 days for the same issue, escalate to the section chief for root cause investigation. *Mehta's note: Exception — the atmospheric processor on Deck 7. That one's just like that. We all know. Move on.*
