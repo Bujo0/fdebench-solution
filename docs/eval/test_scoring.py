@@ -61,7 +61,7 @@ def test_category_whitespace_trimmed():
     assert score_category("  Crew Access & Biometrics  ", "Crew Access & Biometrics") == 1.0
 
 
-# ── Priority (is it a Red Alert or just a spilled coffee?) ──────────
+# ── Priority (is it a Red Alert or just a jammed nutrient synthesizer?) ──────────
 
 
 def test_priority_exact():

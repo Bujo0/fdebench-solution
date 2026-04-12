@@ -17,18 +17,18 @@ Contoso Deep Space Station. ~2,000 crew orbiting at the edge of known space acro
 
 ## What's broken
 
-Our Mission Ops team handles ~180 incoming signals per day — anomaly reports, system alerts, crew requests, you name it. Right now, a human Mission Ops operator reads every signal, decides what it is, assigns a priority, and routes it to one of our 6 specialist teams. It takes **3.4 hours on average** to get a signal to the right team. That's before anyone even starts working on it. Out here, 3.4 hours can mean the difference between a minor hull patch and a catastrophic decompression event.
+Our Mission Ops team handles ~180 incoming signals per day — anomaly reports, system alerts, crew requests, noise from passing asteroid debris, you name it. Right now, a human Mission Ops operator reads every signal, decides what it is, assigns a priority, and routes it to one of our 6 specialist teams. It takes **3.4 hours on average** to get a signal to the right team. That's before anyone even starts working on it. Out here, 3.4 hours can mean the difference between a minor hull patch and a catastrophic decompression event. Last Tuesday, it took us 4 hours to route a radiation shielding alert because three different teams kept bouncing it back. By the time it landed with the right division, half of Deck 9 was glowing faintly.
 
-**42% of signals get misrouted at least once.** When a signal lands with the wrong team, they bounce it back, and we start over. Some signals take 2-3 bounces before they reach the right division. Meanwhile, Deck 7 is venting atmosphere and everyone's pointing fingers.
+**42% of signals get misrouted at least once.** When a signal lands with the wrong team, they bounce it back, and we start over. Some signals take 2-3 bounces before they reach the right division. Meanwhile, Deck 7 is venting atmosphere and everyone's pointing fingers at each other through their faceplates.
 
-The worst part: our Mission Ops operators spend so much time triaging that they can't do actual resolution work. They're basically expensive human signal routers floating in zero-G.
+The worst part: our Mission Ops operators spend so much time triaging that they can't do actual resolution work. They're basically expensive human signal routers floating in zero-G, increasingly existential about their career choices.
 
 ## What we want
 
 We want to **automate first-pass triage** for every incoming signal. Specifically:
 
 1. **Classify** the signal into the right category — what kind of anomaly or request is this?
-2. **Set priority** — how urgent is this, really? (Crew members flag "CRITICAL" on everything, including broken coffee dispensers.)
+2. **Set priority** — how urgent is this, really? (Crew members flag "CRITICAL" on everything, including broken nutrient synthesizers. Last week someone filed a P1 because the synthesizer on Deck 5 stopped making their favorite protein shake flavor. Meanwhile, Deck 12 had an *actual* coolant leak.)
 3. **Route** to the correct specialist team — get it right the first time
 4. **Flag what's missing** — half our signals don't include basic info we need. We waste time pinging the reporter back over subspace to ask "which system?" or "what error code?"
 5. **Give our Mission Ops team a head start on remediation** — even if a human still resolves the issue, tell them what to try first before suiting up
@@ -67,6 +67,6 @@ If you can show me this working on even 50 of our real signals, I can make the b
 
 ## One more thing
 
-I don't need a chatbot. I don't need a holographic dashboard. I need **an API I can plug into our Mission Ops workflow** that returns a JSON decision for each signal. Fast, reliable, and right most of the time. If it's not sure, it should say so — we'd rather flag uncertainty than misroute a hull breach report to the coffee machine repair queue.
+I don't need a chatbot. I don't need a holographic dashboard. I need **an API I can plug into our Mission Ops workflow** that returns a JSON decision for each signal. Fast, reliable, and right most of the time. If it's not sure, it should say so — we'd rather flag uncertainty than misroute a hull breach report to the nutrient synthesizer repair queue. (Yes, that actually happened. Deck 7 was venting atmosphere for 47 minutes while someone on Spacecraft Systems was debugging why the soup dispenser wouldn't heat past lukewarm.)
 
 — Commander Kapoor, signing off from the edge of known space

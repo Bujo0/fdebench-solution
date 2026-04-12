@@ -92,13 +92,13 @@ When a signal comes in, identify the **issue type** from the table below and rou
 
 ## Known gaps in this protocol
 
-> **Raj's note:** The following areas still need to be sorted out. For now, use your best judgment or escalate to the Operations Desk Lead.
+> **Raj's note:** The following areas still need to be sorted out. For now, use your best judgment or escalate to the Operations Desk Lead. I've been trying to get the division leads to agree on ownership for six months. At this point, I'm considering just spinning a wheel.
 
-- **Biometric issues** — Could be Crew Identity & Airlock Control (crew profile setup), Threat Response Command (policy enforcement / intruder detection), or Spacecraft Systems Engineering (biometric scanner hardware). We haven't agreed on a single owner.
-- **Comms quality issues** — Is it a Deep Space Communications issue (signal quality), Mission Software Operations issue (software crash), or Spacecraft Systems Engineering issue (hardware)? Depends on the symptoms.
-- **Cloud compute requests** — Orbital compute access, VM requests, etc. Telemetry & Data Core handles some, but we don't have a formal compute ops division yet.
-- **Crew onboarding / offboarding** — Touches Crew Identity & Airlock Control (profiles), Spacecraft Systems Engineering (equipment), Mission Software Operations (licenses), and Telemetry & Data Core (access). There's a workflow for this but it's manual and breaks constantly.
-- **Fabricators** — Networked fabricators are Deep Space Communications, local fabricators are Spacecraft Systems Engineering, scan-to-comms failures could be either.
+- **Biometric issues** — Could be Crew Identity & Airlock Control (crew profile setup), Threat Response Command (policy enforcement / intruder detection), or Spacecraft Systems Engineering (biometric scanner hardware). We haven't agreed on a single owner. Last month, a biometric scanner failure got bounced between all three teams for 11 hours. The crew member eventually just EVA'd around to the cargo airlock. She was not pleased.
+- **Comms quality issues** — Is it a Deep Space Communications issue (signal quality), Mission Software Operations issue (software crash), or Spacecraft Systems Engineering issue (hardware)? Depends on the symptoms. If someone says "comms are broken," good luck. You'll need a crystal ball, and we lost ours in the cargo bay reorganization.
+- **Cloud compute requests** — Orbital compute access, VM requests, etc. Telemetry & Data Core handles some, but we don't have a formal compute ops division yet. Commander Kapoor says it's "on the roadmap." The roadmap is a sticky note on her console that says "TODO: compute." It has been there since before I arrived.
+- **Crew onboarding / offboarding** — Touches Crew Identity & Airlock Control (profiles), Spacecraft Systems Engineering (equipment), Mission Software Operations (licenses), and Telemetry & Data Core (access). There's a workflow for this but it's manual and breaks constantly. A new scientist arrived last month and didn't have access to anything for 3 days. She spent the time naming the bacteria in the Exobiology Lab. They're all named "Kevin" now.
+- **Fabricators** — Networked fabricators are Deep Space Communications, local fabricators are Spacecraft Systems Engineering, scan-to-comms failures could be either. The Deck 2 fabricator has been claimed by nobody for so long that crew members have started leaving offerings near it.
 
 ---
 

@@ -272,7 +272,8 @@ def score_missing_info(pred_list: list[str] | None, gold_list: list[str]) -> flo
 
     Both empty → 1.0 (signal was complete — don't waste the crew's time
     asking for data they already gave you. They're 0.3 AU from the nearest
-    coffee shop and their patience is thinner than the hull plating).
+    nutrient synthesizer refill station and their patience is thinner than
+    the hull plating on Deck 7).
     Gold empty, pred non-empty → 0.0 (all false positives).
     Gold non-empty, pred empty → 0.0 (all false negatives).
     """
