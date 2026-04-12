@@ -63,6 +63,7 @@ Architecture:
 
 import argparse
 import json
+import re
 import sys
 import time
 from collections.abc import Sequence
@@ -121,9 +122,18 @@ TEAMS = (
 )
 
 
-def _normalize(text: str) -> str:
-    """Lowercase and strip for case-insensitive comparison."""
-    return text.strip().lower()
+def _normalize(text: str | None) -> str:
+    """Lowercase, collapse whitespace, strip punctuation edges.
+
+    Matches the platform's normalize_text behavior so local eval scores
+    are consistent with the official scoring computer. Returns empty
+    string for None input — because the void returns nothing.
+    """
+    if text is None:
+        return ""
+    text = str(text).strip().lower()
+    text = re.sub(r"\s+", " ", text)
+    return text.strip(" .;:,")
 
 
 def _coerce_bool(value: object) -> bool:

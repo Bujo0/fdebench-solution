@@ -9,21 +9,29 @@ Test structure mirrors the scoring pipeline:
   5. Full submission aggregate (score_submission)
 """
 
+import importlib.util
 import sys
+from pathlib import Path
 
-sys.path.insert(0, ".")  # noqa: TID251
+# Load run_eval from the same directory as this script, using importlib
+# to avoid sys.path manipulation (banned by project lint rules).
+_EVAL_PATH = Path(__file__).resolve().parent / "run_eval.py"
+_spec = importlib.util.spec_from_file_location("run_eval", _EVAL_PATH)
+_mod = importlib.util.module_from_spec(_spec)
+sys.modules["run_eval"] = _mod
+_spec.loader.exec_module(_mod)
 
-from run_eval import WEIGHTS
-from run_eval import _coerce_bool
-from run_eval import binary_f1
-from run_eval import macro_f1
-from run_eval import score_category
-from run_eval import score_escalation
-from run_eval import score_missing_info
-from run_eval import score_priority
-from run_eval import score_routing
-from run_eval import score_signal
-from run_eval import score_submission
+WEIGHTS = _mod.WEIGHTS
+_coerce_bool = _mod._coerce_bool
+binary_f1 = _mod.binary_f1
+macro_f1 = _mod.macro_f1
+score_category = _mod.score_category
+score_escalation = _mod.score_escalation
+score_missing_info = _mod.score_missing_info
+score_priority = _mod.score_priority
+score_routing = _mod.score_routing
+score_signal = _mod.score_signal
+score_submission = _mod.score_submission
 
 # ── Category (multi-class exact match, case-insensitive) ────────────
 
@@ -50,6 +58,16 @@ def test_category_empty():
 
 def test_category_whitespace_trimmed():
     assert score_category("  Crew Access & Biometrics  ", "Crew Access & Biometrics") == 1.0
+
+
+def test_category_extra_whitespace_collapsed():
+    """Extra internal whitespace should be collapsed to match."""
+    assert score_category("Crew Access  &  Biometrics", "Crew Access & Biometrics") == 1.0
+
+
+def test_category_trailing_punctuation_stripped():
+    """Trailing punctuation should not prevent a match."""
+    assert score_category("Crew Access & Biometrics.", "Crew Access & Biometrics") == 1.0
 
 
 # ── Priority (ordinal P1-P4, partial credit for off-by-one only) ────
@@ -132,6 +150,11 @@ def test_routing_empty():
 
 def test_routing_whitespace_trimmed():
     assert score_routing("  Threat Response Command  ", "Threat Response Command") == 1.0
+
+
+def test_routing_extra_whitespace_collapsed():
+    """Extra internal whitespace should be collapsed to match."""
+    assert score_routing("Threat  Response  Command", "Threat Response Command") == 1.0
 
 
 # ── Escalation (binary exact match) ─────────────────────────────────
