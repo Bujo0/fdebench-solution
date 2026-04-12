@@ -372,14 +372,15 @@
         "ticket_id": "SIG-0021",
         "category": "Mission Briefing Request",
         "priority": "P4",
-        "assigned_team": "None",
+        "assigned_team": "Mission Software Operations",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Redirect to Station Facilities — briefing room booking and catering are not Station Operations functions. Provide brief guidance on how to book rooms via SubComm (add room resource) and direct catering questions to Station Facilities.",
+        "next_best_action": "Provide guidance on how to book briefing rooms via SubComm (add room resource) and direct catering questions to Station Facilities.",
         "remediation_steps": [
-            "Reply with instructions: in SubComm, create a new meeting and click ‘Add a room’ to search for available briefing rooms",
-            "Note that catering requests should go to the Station Facilities team, not Station Operations",
-            "If the crew member cannot see room resources in SubComm, verify their crew account has the room finder permission and route to Mission Software Operations if needed"
+            "Reply with instructions: in SubComm, create a new meeting and click ‘Add a room’ to search for available briefing rooms on Deck 4",
+            "Note that catering requests should be submitted to the Station Facilities team via the bridge terminal kiosk",
+            "If the crew member cannot see room resources in SubComm, verify their crew account has the room finder permission enabled in the Mission Suite admin console",
+            "Confirm crew member can access the briefing room calendar and close the signal"
         ]
     },
     {
