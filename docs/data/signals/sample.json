@@ -41,7 +41,7 @@
     {
         "ticket_id": "SIG-0004",
         "subject": "URGENT — everything is down!!!",
-        "description": "Nothing works. I cant access anything. My console is just spinning like a pulsar. Please fix Aflight navigation system i have deadlines today and my commanding officer is already asking for the deliverable. The nutrient synthesizer on this deck is ALSO broken — it keeps dispensing lime-flavored protein cubes no matter what I select — but thats probably a different division. EVERYTHING IS DOWN.",
+        "description": "Nothing works. I cant access anything. My console is just spinning like a pulsar. Please fix Aflight navigation system i have deadlines today and my commanding officer is already asking for the deliverable. The nutrient synthesizer on this deck is ALSO broken — it keeps dispensing lime-flavored protein cubes no matter what I select — but thats probably a different division. I tried floating to Deck 3 to use their console but the turbolift is also stuck (probably also a different division). EVERYTHING IS DOWN. The only thing working on this station is the emergency lighting, which is ironic because I've been in emergency mode for an hour and nobody seems to care. HELP. I'm losing gravity AND patience.",
         "reporter": {
             "name": "Jordan Lee",
             "email": "jordan.lee@cdss.space",
@@ -97,7 +97,7 @@
     {
         "ticket_id": "SIG-0008",
         "subject": "Low priority — minor database hiccup, probably fine",
-        "description": "Hey team. The production crew database on Station Core has been returning timeout errors for 2 hours. ~40% of data requests to the crew management portal are failing with 500 errors. Crew members are seeing intermittent errors accessing their duty rosters and mission assignments. SentinelGrid dashboard shows connection pool exhaustion on the primary data node. Marked as low priority since the backup node is still handling some traffic. Let me know when you get a chance. I mean, some crew can’t see their EVA schedules and might accidentally spacewalk into an asteroid field, but the backup node is handling SOME load, so... probably fine?",
+        "description": "Hey team. The production crew database on Station Core has been returning timeout errors for 2 hours. ~40% of data requests to the crew management portal are failing with 500 errors. Crew members are seeing intermittent errors accessing their duty rosters and mission assignments. SentinelGrid dashboard shows connection pool exhaustion on the primary data node. Marked as low priority since the backup node is still handling some traffic. Let me know when you get a chance. I mean, some crew can't see their EVA schedules and might accidentally spacewalk into an asteroid field, but the backup node is handling SOME load, so... probably fine? Also two crew members from Deck 12 just asked me why their life support rotation schedules disappeared. I told them to breathe normally and wait. They did not seem reassured. In hindsight, 'breathe normally' may have been poor word choice on a space station.",
         "reporter": {
             "name": "Kim Nguyen",
             "email": "kim.nguyen@cdss.space",
@@ -221,7 +221,7 @@
     {
         "ticket_id": "SIG-0017",
         "subject": "Emergency beacon call — crew member having issues with something",
-        "description": "[Transcribed from emergency beacon call, 3:42 PM]\n\nCaller: Hi yeah so um my thing... the thing on my console... it keeps doing the... you know when you click on it and it goes to the... [static] ...and then nothing happens? I’ve been trying for like two days. My colleague Janet said to hail you folks. I think it might be the... [static] ...something about permissions? I don’t know. Can someone just come look at it? I’m on Deck 5, near the mess hall. My name’s Bob. No wait, Robert. Robert Chen. Not the Robert Chen in Resource Allocation, the other one.",
+        "description": "[Transcribed from emergency beacon call, 3:42 PM]\n\nCaller: Hi yeah so um my thing... the thing on my console... it keeps doing the... you know when you click on it and it goes to the... [static] ...and then nothing happens? I've been trying for like two days. My colleague Janet said to hail you folks. I think it might be the... [static] ...something about permissions? I don't know. Can someone just come look at it? I'm on Deck 5, near the mess hall. My name's Bob. No wait, Robert. Robert Chen. Not the Robert Chen in Resource Allocation, the other one. There are four Robert Chens on this station, which is a problem in itself, but that's not why I'm calling. [sound of something floating away] Oh great, now my protein cube is drifting toward the ventilation shaft. Can you fix that too? [static] ...never mind about the protein cube. It's gone. It's in the vent now. It belongs to the void.",
         "reporter": {
             "name": "Robert Chen",
             "email": "robert.chen2@cdss.space",
@@ -262,7 +262,7 @@
     {
         "ticket_id": "SIG-0020",
         "subject": "Molecular fabricator on Deck 3 not working",
-        "description": "The large molecular fabricator near the mess hall on Deck 3 stopped fabricating. Jobs go to the queue but nothing materializes. I tried from my console and from the workstation next to it — same result. The fabricator display shows 'Ready' and material hoppers are full. Other crew on the deck are having the same issue. And yes, I know the Deck 3 fabricator has a 'reputation.' But this time it was actually working for three whole days before it decided to remind us all that it hates us. We need it for diplomatic gift packages that ship out today.",
+        "description": "The large molecular fabricator near the mess hall on Deck 3 stopped fabricating. Jobs go to the queue but nothing materializes. I tried from my console and from the workstation next to it — same result. The fabricator display shows 'Ready' and material hoppers are full. Other crew on the deck are having the same issue. And yes, I know the Deck 3 fabricator has a 'reputation.' Mehta has a note about it. The orientation guide has a note about it. There's probably a commemorative plaque about it somewhere. But this time it was actually working for three whole days before it decided to remind us all that it hates us. We need it for diplomatic gift packages that ship out today. The Rigelian ambassador specifically requested crystalline desk ornaments and I refuse to tell a seven-foot amphibian that the fabricator is 'having a moment' again.",
         "reporter": {
             "name": "Sam Williams",
             "email": "sam.williams@cdss.space",
@@ -275,7 +275,7 @@
     {
         "ticket_id": "SIG-0021",
         "subject": "How do I book a briefing room?",
-        "description": "Hi, I just arrived on station last week and I need to book the large briefing room on Deck 4 for a crew gathering on Friday. I looked in SubComm but I can't figure out how to reserve it. Is there a special calendar or something? The crew orientation didn't cover this — though it did spend 45 minutes on 'what to do if you accidentally vent an airlock,' which I appreciate but doesn't help me right now. Also, do I need to order catering through Station Operations or is that a different team? Thanks!",
+        "description": "Hi, I just arrived on station last week and I need to book the large briefing room on Deck 4 for a crew gathering on Friday. I looked in SubComm but I can't figure out how to reserve it. Is there a special calendar or something? The crew orientation didn't cover this — though it did spend 45 minutes on 'what to do if you accidentally vent an airlock,' which I appreciate but doesn't help me right now. Also, do I need to order catering through Station Operations or is that a different team? If it's the nutrient synthesizer, I'd like to request 'anything except lime protein cubes.' I've been told this is a controversial stance. Last question: is the room zero-g or standard gravity? I'm asking because last time I organized drinks in zero-g, we lost three beverage containers to the ceiling and had to file an incident report. Thanks!",
         "reporter": {
             "name": "Chris Taylor",
             "email": "chris.taylor@cdss.space",
@@ -329,7 +329,7 @@
     {
         "ticket_id": "SIG-0025",
         "subject": "Station Core VM ‘prod-analytics-01’ unreachable since reboot",
-        "description": "Compute node prod-analytics-01 (CoreSpec-E16, Sector Delta, analytics-core-prod) became unreachable after a scheduled reboot at 05:00 UTC for OS patching. Remote console and secure shell both timeout. Station Core portal shows the node status as ‘Running’ but boot diagnostics show it stuck at ‘Applying station settings’ — which is the computer equivalent of staring blankly into the void. Defense grid rules haven’t changed. This node runs the analytics dashboard that the command staff uses for the morning briefing at 0900 station time. Commander Kapoor does not enjoy briefings without data. Commander Kapoor without data is like a hull breach without sound — silent, but you know something terrible is happening. We have about 2 hours before that briefing. Please advise with extreme urgency.",
+        "description": "Compute node prod-analytics-01 (CoreSpec-E16, Sector Delta, analytics-core-prod) became unreachable after a scheduled reboot at 05:00 UTC for OS patching. Remote console and secure shell both timeout. Station Core portal shows the node status as 'Running' but boot diagnostics show it stuck at 'Applying station settings' — which is the computer equivalent of staring blankly into the void while everyone waits for you to do something. Defense grid rules haven't changed. This node runs the analytics dashboard that the command staff uses for the morning briefing at 0900 station time. Commander Kapoor does not enjoy briefings without data. Commander Kapoor without data is like a hull breach without sound — silent, but you know something terrible is happening. We have about 2 hours before that briefing. Last time the dashboard was down for a briefing, Mehta's margin note about it was three pages long. Three. Pages. Please advise with extreme urgency.",
         "reporter": {
             "name": "Alex Petrov",
             "email": "alex.petrov@cdss.space",

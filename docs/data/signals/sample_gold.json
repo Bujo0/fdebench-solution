@@ -7,12 +7,12 @@
         "assigned_team": "Deep Space Communications",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Investigate warp tunnel mission partner compatibility with the latest ShipOS update. Check for known mesh comms issues on Deck 4. Verify warp tunnel mission partner v3.2 is the latest supported version.",
+        "next_best_action": "Investigate warp tunnel mission partner compatibility with the latest ShipOS update. Check for known mesh comms issues on Deck 4. Verify warp tunnel mission partner v3.2 is the latest supported version. Also, maybe apologize to Station Epsilon for that spliced cargo-manifest-slash-personal-log hybrid. Lt. Mehta probably wants to forget.",
         "remediation_steps": [
-            "Verify warp tunnel mission partner v3.2 is the latest supported version",
-            "Check for known mesh comms connectivity issues on Deck 4",
-            "Test warp tunnel reconnection behavior after the latest ShipOS update on a reference console",
-            "If issue persists, escalate to communications engineering for warp tunnel mission partner patch review"
+            "Verify warp tunnel mission partner v3.2 is the latest supported version — if not, update immediately before another cargo manifest gets spliced with someone's personal log",
+            "Check for known mesh comms connectivity issues on Deck 4 that may have surfaced after the ShipOS update",
+            "Test warp tunnel reconnection behavior after the latest ShipOS update on a reference console — preferably one that isn't mid-transmission to an allied station",
+            "If issue persists, escalate to communications engineering for warp tunnel mission partner patch review — priority is preventing further interstellar embarrassment"
         ]
     },
     {
@@ -26,13 +26,13 @@
             "software_version",
             "module_specs"
         ],
-        "next_best_action": "Investigate whether SubComm crash and calendar sync issues are related to the new console migration. Verify that user profile and application data were properly transferred to the new device.",
+        "next_best_action": "Investigate whether SubComm crash and phantom calendar entries are related to the console migration — in zero-g, data migration issues tend to float around until someone pins them down. Verify that crew profile and application data were properly transferred.",
         "remediation_steps": [
-            "Verify console provisioning and station data migration completed successfully",
-            "Clear SubComm cache and reinstall if crash persists",
-            "Check SubComm profile migration status and force calendar resync",
-            "Confirm application versions match the station’s supported standard image",
-            "If issues persist after cache clear and resync, re-provision applications on the new console"
+            "Verify console provisioning and station data migration completed successfully — check for orphaned profiles from the old hardware",
+            "Clear SubComm cache and reinstall if the crash persists after clearing — ghost calendar entries from 2024 shouldn't survive a fresh install",
+            "Check SubComm profile migration status and force calendar resync to purge phantom briefings (especially the Deck 9 Cat Containment Protocol — that one's been resolved)",
+            "Confirm application versions match the station's supported standard image",
+            "If issues persist after cache clear and resync, re-provision applications on the new console — sometimes a clean slate is the only cure for haunted software"
         ]
     },
     {
@@ -67,12 +67,12 @@
             "module_specs",
             "sequence_to_reproduce"
         ],
-        "next_best_action": "Contact crew member to gather specifics: which subsystems are inaccessible, what anomaly readouts appear, what console they are using, and when the issue started. Cannot triage effectively without more detail.",
+        "next_best_action": "Contact crew member to gather specifics: which subsystems are inaccessible, what anomaly readouts appear, what console they are using, and when the issue started. Cannot triage effectively without more detail. The protein cube complaint is noted but falls outside our jurisdiction.",
         "remediation_steps": [
-            "Contact crew member to gather specific details about the issue",
-            "Determine which subsystems and applications are affected",
+            "Contact crew member to gather specific details — 'nothing works' and 'everything is down' are statements of emotion, not diagnostic data",
+            "Determine which subsystems and applications are actually affected (vs. which are being blamed by a distressed crew member who hasn't had correctly flavored protein cubes)",
             "Check if the issue is isolated to this crew member or affecting others in Stellar Cartography",
-            "Once root cause is identified, route to the appropriate specialist team"
+            "Once root cause is identified, route to the appropriate specialist team — and maybe mention the protein cube issue to Station Facilities, separately"
         ]
     },
     {
@@ -83,9 +83,9 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close — this is an automated cryo-sleep out-of-rotation reply to a maintenance notification, not a mission signal. The void sends many such messages. Ignore them all.",
+        "next_best_action": "Close — this is an automated cryo-sleep out-of-rotation reply to a maintenance notification, not a mission signal. The void sends many such messages. This crew member is literally frozen solid in a tube. They cannot help you. You cannot help them. When they thaw in 6–18 months, they will have opinions about their inbox. That is a future problem.",
         "remediation_steps": [
-            "No action required — cryo-sleep auto-reply detected, close signal and let the frozen crew member dream in peace"
+            "No action required — cryo-sleep auto-reply detected, close signal. Let the frozen crew member dream in peace. When she thaws, she'll have 6–18 months of unread signals. That's her problem, not yours."
         ]
     },
     {
@@ -98,13 +98,13 @@
         "missing_information": [
             "stardate"
         ],
-        "next_best_action": "Initiate security incident investigation. Review authentication logs for unauthorized access, check personal data vault audit trail for document access from the suspicious relay, and verify that the passphrase change and biometric verification are in effect.",
+        "next_best_action": "Initiate security incident investigation immediately — unauthorized BioScan ID access attempts from the Tau Ceti relay station are not normal space weather. Review authentication logs, check personal data vault audit trail for document access, and verify the passphrase change neutralized the threat vector.",
         "remediation_steps": [
-            "Review authentication logs for the crew member’s crew account over the past 48 hours",
-            "Check data vault audit trail for any unauthorized file access or downloads",
-            "Verify passphrase change was successful and biometric verification is active",
-            "If unauthorized access is confirmed, escalate to incident response and notify station containment officer",
-            "Brief crew member on interim security measures and holographic display crew account for further anomalies"
+            "Review authentication logs for the crew member's account over the past 48 hours — six sign-in attempts from Tau Ceti is three too many to ignore",
+            "Check data vault audit trail for any unauthorized file access or downloads of diplomatic treaties and classified sensor archives",
+            "Verify passphrase change was successful and biometric verification is active — the attacker may have cached old credentials",
+            "If unauthorized access is confirmed, escalate to incident response and notify station containment officer — diplomatic treaties in hostile hands is a P1 waiting to happen",
+            "Brief crew member on interim security measures and monitor the account for further anomalies from any relay station"
         ]
     },
     {
@@ -132,13 +132,13 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate production crew database connection pool exhaustion immediately. This is a crew-facing production incident — 40% of data requests are failing regardless of the submitter’s priority classification.",
+        "next_best_action": "Investigate production crew database connection pool exhaustion immediately — this is a crew-facing production incident. 40% of data requests failing means crew can't see EVA schedules, duty rosters, or life support rotations. The submitter's calm tone is inversely proportional to the actual emergency.",
         "remediation_steps": [
-            "Investigate connection pool configuration on the primary data node in the station data core",
-            "Identify and terminate long-running queries or leaked connections",
-            "Increase connection pool size or restart the primary data node as immediate mitigation",
-            "Verify backup data node health and confirm it is handling redirected traffic",
-            "Post-incident: conduct root cause analysis on connection pool exhaustion and file station engineering report"
+            "Investigate connection pool configuration on the primary data node — connection pool exhaustion on a space station is the database equivalent of running out of oxygen",
+            "Identify and terminate long-running queries or leaked connections that are hoarding the pool",
+            "Increase connection pool size or restart the primary data node as immediate mitigation — crew members need their EVA schedules before they float into an asteroid field",
+            "Verify backup data node health and confirm it is handling redirected traffic without strain",
+            "Post-incident: conduct root cause analysis on connection pool exhaustion and file station engineering report — Mehta will want a margin note about this one"
         ]
     },
     {
@@ -151,13 +151,15 @@
         "missing_information": [
             "previous_signal_id"
         ],
-        "next_best_action": "Escalate airlock access code issue for Deck 7 — third report without resolution, crew member has been floating in corridors. Verify airlock access code permissions in the updated access management system and check whether the migration actually completed for this crew member or just pretended to.",
+        "next_best_action": [
+            "Escalate airlock access code issue for Deck 7 — third report without resolution, crew member has been floating in corridors like a very annoyed balloon. Verify airlock access code permissions in the updated access management system and check whether the migration actually completed for this crew member or just claimed to. This is the kind of repeat failure that generates strongly worded memos."
+        ],
         "remediation_steps": [
-            "Check crew member’s airlock access code permissions in the updated access management system",
-            "Verify Deck 7 access rights were properly migrated from the old system (not just marked as migrated)",
-            "If permissions appear correct, test the physical airlock access code and airlock reader on Deck 7",
-            "Escalate to station facilities management if airlock access code and permissions are both confirmed working",
-            "Follow up with crew member to confirm resolution — she should not have to wait in zero-g corridors"
+            "Check crew member's airlock access code permissions in the updated access management system — third time asking, so verify thoroughly",
+            "Verify Deck 7 access rights were properly migrated from the old system (not just marked as migrated while the actual data sits in a legacy queue somewhere being philosophical)",
+            "If permissions appear correct, test the physical airlock access code and airlock reader on Deck 7 — hardware fails too, especially when you're optimistic",
+            "Escalate to station facilities management if airlock access code and permissions are both confirmed working — at this point, the airlock might just have opinions",
+            "Follow up with crew member to confirm resolution — she should not have to wait in zero-g corridors. Nobody should. It's undignified and cold."
         ]
     },
     {
@@ -246,9 +248,9 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close — this is a thank-you message, not a mission signal. Rare evidence of crew member satisfaction in the void. Cherish it. No action required.",
+        "next_best_action": "Close — this is a thank-you message, not a mission signal. Rare evidence of crew member satisfaction in the void. Frame it. Mount it next to the protein cube dispenser as a morale artifact. Show it to the next ops officer who asks 'does anyone even appreciate what we do?' Yes. Once. This is the proof.",
         "remediation_steps": [
-            "No action required — positive feedback, close signal. Consider framing it. They don’t come often."
+            "No action required — positive feedback, close signal. Consider printing it out and taping it to the ops center wall. These are rarer than correctly flavored protein cubes. Treasure it."
         ]
     },
     {
@@ -303,12 +305,12 @@
             "module_specs",
             "sequence_to_reproduce"
         ],
-        "next_best_action": "Contact reporter on Deck 5 (Robert Chen, robert.chen2@cdss.space, Flight Operations) to gather actual symptom details. Signal as submitted has insufficient detail to triage. Emergency beacon transcription is too garbled to act on.",
+        "next_best_action": "Contact reporter on Deck 5 (Robert Chen — the other one, not the one in Resource Allocation — robert.chen2@cdss.space, Flight Operations) to gather actual symptom details. Signal as submitted has insufficient detail to triage. Emergency beacon transcription is a masterclass in not communicating useful information.",
         "remediation_steps": [
-            "Contact Robert Chen (Deck 5 near mess hall, Flight Operations division) to clarify the issue in person or via SubComm",
-            "Determine which application or subsystem is failing",
-            "Gather specific anomaly readouts and reproduction steps",
-            "Once the actual issue is identified, re-triage and route to the correct specialist team"
+            "Contact Robert Chen (Deck 5 near mess hall, Flight Operations division — not the other Robert Chen, he was very clear about this) to clarify the issue in person or via SubComm",
+            "Determine which application or subsystem is failing — 'the thing on my console' is not a diagnostic",
+            "Gather specific anomaly readouts and reproduction steps — 'it goes to the... you know' is not a reproduction step",
+            "Once the actual issue is identified, re-triage and route to the correct specialist team — assuming Robert can describe the problem without static interrupting at the critical moment"
         ]
     },
     {
@@ -358,13 +360,13 @@
             "module_specs",
             "sector_coordinates"
         ],
-        "next_best_action": "Investigate molecular fabricator queue issue on Deck 3. Multiple crew members affected and jobs are queuing but not fabricating, which suggests a network or fabricator server issue rather than a console problem.",
+        "next_best_action": "Investigate molecular fabricator queue issue on Deck 3 — yes, that Deck 3 fabricator. Multiple crew members affected and jobs are queuing but not fabricating, which suggests a network or fabricator server issue rather than a local connectivity problem. It was working for three days. A new record. The fabricator's contempt for the crew is well-documented.",
         "remediation_steps": [
-            "Identify the fabricator model and check whether it is network-attached or connected via fabricator server",
-            "Check fabricator server spooler service status and restart if necessary",
+            "Identify the fabricator model and check whether it is network-attached or connected via fabricator server — the Deck 3 fabricator's exact configuration is a mystery wrapped in a maintenance backlog",
+            "Check fabricator server spooler service status and restart if necessary — the spooler has a complicated relationship with this particular fabricator",
             "Verify network connectivity between the fabricator and the fabricator server or direct network path",
-            "If network-connected, check the fabricator’s comms address and relay interface status",
-            "Clear stuck fabrication queue and test with a fresh job"
+            "If network-connected, check the fabricator's comms address and relay interface status — this fabricator has a history of silently disconnecting",
+            "Clear stuck fabrication queue and test with a fresh job — diplomatic gift packages need to ship today, so urgency is real even if the fabricator doesn't care"
         ]
     },
     {
@@ -375,12 +377,12 @@
         "assigned_team": "Mission Software Operations",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Provide guidance on how to book briefing rooms via SubComm (add room resource) and direct catering questions to Station Facilities.",
+        "next_best_action": "Provide guidance on how to book briefing rooms via SubComm (add room resource) and direct catering questions to Station Facilities. This is the kind of signal that makes you wonder what the orientation program actually covers — 45 minutes on airlock safety, zero on room booking. Priorities.",
         "remediation_steps": [
-            "Reply with instructions: in SubComm, create a new meeting and click ‘Add a room’ to search for available briefing rooms on Deck 4",
-            "Note that catering requests should be submitted to the Station Facilities team via the bridge terminal kiosk",
+            "Reply with instructions: in SubComm, create a new meeting and click 'Add a room' to search for available briefing rooms on Deck 4 — it's less intuitive than it should be, but it works",
+            "Note that catering requests should be submitted to the Station Facilities team via the bridge terminal kiosk — and yes, they can do better than protein cubes if you ask nicely",
             "If the crew member cannot see room resources in SubComm, verify their crew account has the room finder permission enabled in the Mission Suite admin console",
-            "Confirm crew member can access the briefing room calendar and close the signal"
+            "Confirm crew member can access the briefing room calendar and close the signal — welcome to the station, Chris. The airlock safety will come in handy eventually."
         ]
     },
     {
@@ -432,12 +434,12 @@
         "assigned_team": "Threat Response Command",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Confirm this is a hostile signal/scam transmission and advise the crew member NOT to click any links. Forward the original transmission to threats@cdss.space for analysis. No breach has occurred if the crew member hasn’t clicked.",
+        "next_best_action": "Confirm this is a hostile signal/scam transmission and advise the crew member NOT to click any links. Forward the original transmission to threats@cdss.space for analysis. No breach has occurred if the crew member hasn't clicked. Also: no, Greg, you did not win 5,000,000 galactic credits. Nobody wins 5,000,000 galactic credits from an unsolicited subspace message. The void is many things but it is not generous.",
         "remediation_steps": [
-            "Reply to the crew member immediately: this is a scam transmission — do NOT click any links or provide any personal information",
-            "Have the crew member forward the original transmission as an attachment to threats@cdss.space",
-            "Check whether the transmission bypassed CDSS’s comm filtering and report to Threat Response Command if so",
-            "If the crew member already clicked the link, escalate to a full security incident and initiate credential reset"
+            "Reply to the crew member immediately: this is a scam transmission — do NOT click any links or provide any personal information. The Intergalactic Prize Committee is not real. Neither is the 5,000,000 credits.",
+            "Have the crew member forward the original transmission as an attachment to threats@cdss.space for analysis and pattern matching against known hostile signal campaigns",
+            "Check whether the transmission bypassed CDSS's comm filtering and report to Threat Response Command if so — if interstellar spam is getting through, the filters need updating",
+            "If the crew member already clicked the link, escalate to a full security incident, initiate credential reset, and have a conversation about digital literacy in deep space"
         ]
     },
     {
@@ -448,14 +450,14 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate Station Core node prod-analytics-01 stuck at ‘Applying station settings’ after scheduled OS patching reboot. Command analytics dashboard depends on this node and Commander Kapoor’s 0900 briefing is in 2 hours. Failure to restore this node will result in a briefing without data, which is the operational equivalent of navigating an asteroid field blindfolded.",
+        "next_best_action": "Investigate Station Core node prod-analytics-01 stuck at 'Applying station settings' after scheduled OS patching reboot. Command analytics dashboard depends on this node and Commander Kapoor's 0900 briefing is in 2 hours. Failure to restore this node will result in a briefing without data, which is the operational equivalent of navigating an asteroid field blindfolded. Commander Kapoor without her morning data is a force of nature. Act accordingly.",
         "remediation_steps": [
-            "Check Station Core boot diagnostics serial console output for the stuck state",
+            "Check Station Core boot diagnostics serial console output for the stuck state — 'Applying station settings' has been staring into the void for too long",
             "Attempt to connect via Station Core Serial Console to bypass the stuck access attempt screen",
-            "If Serial Console access is possible, check if a policy or startup script is hanging",
-            "If the VM is unrecoverable, redeploy from the latest snapshot or restore from backup",
-            "Verify the analytics dashboard is accessible once the VM is restored",
-            "Post-incident: review the OS patching procedure to prevent boot failures after scheduled updates"
+            "If Serial Console access is possible, check if a policy or startup script is hanging — the VM equivalent of a crew member frozen mid-thought",
+            "If the VM is unrecoverable, redeploy from the latest snapshot or restore from backup — the Commander's briefing is in 2 hours and she does not accept 'the VM is being philosophical' as a status update",
+            "Verify the analytics dashboard is accessible once the VM is restored — brief Commander Kapoor that data will be available. She will nod. This is the highest praise.",
+            "Post-incident: review the OS patching procedure to prevent boot failures after scheduled updates — because next time it might not be just the analytics dashboard at stake"
         ]
     }
 ]
