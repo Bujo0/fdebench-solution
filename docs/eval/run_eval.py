@@ -14,8 +14,8 @@ See exactly how you'll be scored. No surprises on launch day.
 Usage:
     uv run python run_eval.py \\
         --endpoint http://localhost:8000 \\
-        --dataset ../data/tickets/sample.json \\
-        --gold ../data/tickets/sample_gold.json
+        --dataset ../data/signals/sample.json \\
+        --gold ../data/signals/sample_gold.json
 
 Architecture:
     The scoring computer evaluates your submission on 7 dimensions:

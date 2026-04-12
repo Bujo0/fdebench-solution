@@ -249,10 +249,10 @@
             "affected_subsystem",
             "habitat_conditions"
         ],
-        "next_best_action": "Investigate 200ms to 50ms latency regression on the APAC sector navigation relay before the Centauri transit window. Check relay path to the navigation beacon, recent routing or firewall changes, and whether the latency is on the station's side or the beacon side.",
+        "next_best_action": "Investigate 200ms to 50ms latency regression on the APAC sector navigation relay before the Centauri transit window. Check relay path to the navigation beacon, recent routing or signal barrier changes, and whether the latency is on the station's side or the beacon side.",
         "remediation_steps": [
             "Check navigation relay latency metrics on the path between the station's APAC sector relay and the navigation beacon",
-            "Review recent firewall, routing, or relay configuration changes that may affect the navigation path",
+            "Review recent signal barrier, routing, or relay configuration changes that may affect the navigation path",
             "Compare current latency baseline against historical data to confirm the regression",
             "If latency is on the station's side, escalate to communications engineering for immediate remediation before the Centauri transit window",
             "If beacon-side, contact beacon operations and notify helm officers of potential impact"

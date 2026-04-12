@@ -7,7 +7,7 @@ Synthetic signals modeled on real deep-space station operations. They're messy o
 ```
 data/
 ├── README.md                  # This file (you are here, operator)
-├── tickets/
+├── signals/
 │   ├── sample.json            # 25 signals for local development
 │   ├── sample_gold.json       # Gold-standard triage outputs for the sample set
 │   └── public_eval.json       # 100 signals for pre-submission testing

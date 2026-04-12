@@ -15,8 +15,8 @@ cd docs/eval
 # Score against the 25 sample signals (with gold answers)
 uv run python run_eval.py \
   --endpoint http://localhost:8000 \
-  --dataset ../data/tickets/sample.json \
-  --gold ../data/tickets/sample_gold.json
+  --dataset ../data/signals/sample.json \
+  --gold ../data/signals/sample_gold.json
 ```
 
 ## How Scoring Works
@@ -105,8 +105,8 @@ This is your main dev loop. Run it early, run it often. The scoring computer nev
 cd docs/eval
 uv run python run_eval.py \
   --endpoint http://localhost:8000 \
-  --dataset ../data/tickets/sample.json \
-  --gold ../data/tickets/sample_gold.json
+  --dataset ../data/signals/sample.json \
+  --gold ../data/signals/sample_gold.json
 ```
 
 ### 100 public eval signals (no gold answers)
@@ -117,7 +117,7 @@ Run this before you submit. There's no gold file so you won't get a score, but i
 cd docs/eval
 uv run python run_eval.py \
   --endpoint http://localhost:8000 \
-  --dataset ../data/tickets/public_eval.json
+  --dataset ../data/signals/public_eval.json
 ```
 
 ### Custom gold file

@@ -127,8 +127,8 @@ Your service must also respond to `GET /health` with HTTP 200.
 
 | Dataset | Signals | Where | Purpose |
 |---|---|---|---|
-| **Sample + gold answers** | 25 | [sample.json](../data/tickets/sample.json) + [sample_gold.json](../data/tickets/sample_gold.json) | Iterate locally. Compare your output to the correct answers |
-| **Public eval set** | 100 | [public_eval.json](../data/tickets/public_eval.json) | Test at scale before submitting (no gold answers provided) |
+| **Sample + gold answers** | 25 | [sample.json](../data/signals/sample.json) + [sample_gold.json](../data/signals/sample_gold.json) | Iterate locally. Compare your output to the correct answers |
+| **Public eval set** | 100 | [public_eval.json](../data/signals/public_eval.json) | Test at scale before submitting (no gold answers provided) |
 | **Hidden eval set** | 1000+ | Not in this repo | Final scoring. Includes edge cases not in the public data |
 
 Signals vary in quality. Some are clean. Some are vague, contradictory, multi-issue, garbled, or not real distress calls at all. That’s not a bug in the dataset. That’s what real station operations transmissions look like when 2,000 crew are filing signals at 0300 during a solar flare while the lights are flickering and someone down the corridor is yelling about the atmospheric processor again.
@@ -361,8 +361,8 @@ open docs/challenge/customer_brief.md
 open docs/challenge/routing_guide.md
 
 # 2. Look at the sample signals and gold answers
-python -m json.tool docs/data/tickets/sample.json | head -50
-python -m json.tool docs/data/tickets/sample_gold.json | head -50
+python -m json.tool docs/data/signals/sample.json | head -50
+python -m json.tool docs/data/signals/sample_gold.json | head -50
 
 # 3. Build something
 # ... your code ...
@@ -371,13 +371,13 @@ python -m json.tool docs/data/tickets/sample_gold.json | head -50
 cd docs/eval
 uv run python run_eval.py \
   --endpoint http://localhost:8000 \
-  --dataset ../data/tickets/sample.json \
-  --gold ../data/tickets/sample_gold.json
+  --dataset ../data/signals/sample.json \
+  --gold ../data/signals/sample_gold.json
 
 # 5. Stress-test against the 100 public eval signals
 uv run python run_eval.py \
   --endpoint http://localhost:8000 \
-  --dataset ../data/tickets/public_eval.json
+  --dataset ../data/signals/public_eval.json
 
 # 6. Deploy, write your docs, submit at aka.ms/fde/hackathon
 # See docs/submission/

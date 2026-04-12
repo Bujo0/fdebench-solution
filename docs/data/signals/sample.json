@@ -329,7 +329,7 @@
     {
         "ticket_id": "SIG-0025",
         "subject": "Station compute node 'prod-analytics-01' unreachable since reboot",
-        "description": "Compute node prod-analytics-01 (High-Performance E16 class, Sector Alpha, analytics-core-prod) became unreachable after a scheduled reboot at 05:00 UTC for OS patching. Remote shell and diagnostic ports both timeout. Station system manager shows node status as 'Running' but boot diagnostics show it stuck at 'Applying configuration.' Firewall rules haven't changed. This node powers the command analytics dashboard that the senior staff uses for the morning mission briefing at 9 AM EST. We have about 2 hours.",
+        "description": "Compute node prod-analytics-01 (High-Performance E16 class, Sector Alpha, analytics-core-prod) became unreachable after a scheduled reboot at 05:00 UTC for OS patching. Remote shell and diagnostic ports both timeout. Station system manager shows node status as 'Running' but boot diagnostics show it stuck at 'Applying configuration.' Signal barrier rules haven't changed. This node powers the command analytics dashboard that the senior staff uses for the morning mission briefing at 9 AM EST. We have about 2 hours.",
         "reporter": {
             "name": "Alex Petrov",
             "email": "alex.petrov@cdss.space",
@@ -339,7 +339,7 @@
         "channel": "bridge_terminal",
         "attachments": [
             "boot_diagnostics_capture.png",
-            "firewall_rules_export.json"
+            "signal_barrier_rules_export.json"
         ]
     }
 ]
