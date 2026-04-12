@@ -297,7 +297,7 @@ def score_missing_info(pred_list: list[str] | None, gold_list: list[str]) -> flo
 # ── Per-signal scoring ────────────────────────────────────────────────
 
 
-def score_ticket(pred: dict, gold: dict) -> dict[str, float]:
+def score_signal(pred: dict, gold: dict) -> dict[str, float]:
     """Score a single signal response against its gold answer.
 
     Returns per-dimension scores (0.0–1.0 each) and a weighted total.
@@ -360,7 +360,7 @@ def score_submission(
     Returns dict with classification_score (0–85), dimension breakdowns,
     and per-signal details for the post-mission debrief.
     """
-    per_ticket: list[dict[str, float]] = []
+    per_signal: list[dict[str, float]] = []
 
     all_cat_cands: list[str] = []
     all_cat_golds: list[str] = []
@@ -380,7 +380,7 @@ def score_submission(
 
         if cand is None:
             errors.append(f"Missing response for signal {tid}")
-            per_ticket.append({k: 0.0 for k in [*WEIGHTS, "weighted_total"]})
+            per_signal.append({k: 0.0 for k in [*WEIGHTS, "weighted_total"]})
             all_cat_cands.append("")
             all_cat_golds.append(_normalize(str(gold.get("category", ""))))
             all_rte_cands.append("")
@@ -390,8 +390,8 @@ def score_submission(
             all_pri_scores.append(0.0)
             all_miss_scores.append(0.0)
         else:
-            ticket_result = score_ticket(cand, gold)
-            per_ticket.append(ticket_result)
+            signal_result = score_signal(cand, gold)
+            per_signal.append(signal_result)
 
             all_cat_cands.append(_normalize(str(cand.get("category", ""))))
             all_cat_golds.append(_normalize(str(gold.get("category", ""))))
@@ -399,10 +399,10 @@ def score_submission(
             all_rte_golds.append(_normalize(str(gold.get("assigned_team", ""))))
             all_esc_cands.append(_coerce_bool(cand.get("needs_escalation")))
             all_esc_golds.append(_coerce_bool(gold.get("needs_escalation")))
-            all_pri_scores.append(ticket_result["priority"])
-            all_miss_scores.append(ticket_result["missing_info"])
+            all_pri_scores.append(signal_result["priority"])
+            all_miss_scores.append(signal_result["missing_info"])
 
-    n = len(per_ticket)
+    n = len(per_signal)
 
     # Submission-level dimension scores
     category_score = macro_f1(all_cat_cands, all_cat_golds, CATEGORIES)
@@ -430,9 +430,9 @@ def score_submission(
             "missing_info": round(missing_info_score, 4),
             "escalation": round(escalation_score, 4),
         },
-        "tickets_scored": n - len(errors),
-        "tickets_errored": len(errors),
-        "per_ticket": per_ticket,
+        "signals_scored": n - len(errors),
+        "signals_errored": len(errors),
+        "per_signal": per_signal,
         "errors": errors,
     }
 
@@ -440,18 +440,18 @@ def score_submission(
 # ── Comms relay (HTTP client) ─────────────────────────────────────────
 
 
-def call_endpoint(client: httpx.Client, endpoint: str, ticket: dict) -> tuple[dict | None, float]:
+def call_endpoint(client: httpx.Client, endpoint: str, signal: dict) -> tuple[dict | None, float]:
     """Transmit a signal to /triage and await the response. Returns (parsed JSON or None, latency_ms)."""
     url = urljoin(endpoint.rstrip("/") + "/", "triage")
     start = time.monotonic()
     try:
-        resp = client.post(url, json=ticket, timeout=30.0)
+        resp = client.post(url, json=signal, timeout=30.0)
         elapsed_ms = (time.monotonic() - start) * 1000
         resp.raise_for_status()
         return resp.json(), elapsed_ms
     except Exception as e:
         elapsed_ms = (time.monotonic() - start) * 1000
-        print(f"  ✗ {ticket['ticket_id']}: {e}")
+        print(f"  ✗ {signal['ticket_id']}: {e}")
         return None, elapsed_ms
 
 
@@ -496,7 +496,7 @@ def main() -> int:
         print(f"Error: dataset file not found: {dataset_path}")
         return 1
 
-    tickets = json.loads(dataset_path.read_text())
+    signals = json.loads(dataset_path.read_text())
 
     # Resolve gold file
     if args.gold:
@@ -517,14 +517,14 @@ def main() -> int:
     gold_by_id = {g["ticket_id"]: g for g in golds}
 
     # Validate signal/gold alignment
-    ticket_ids = [t["ticket_id"] for t in tickets]
+    signal_ids = [s["ticket_id"] for s in signals]
     gold_ids = set(gold_by_id.keys())
-    missing_gold = [tid for tid in ticket_ids if tid not in gold_ids]
+    missing_gold = [sid for sid in signal_ids if sid not in gold_ids]
     if missing_gold:
         print(f"Error: {len(missing_gold)} signals have no gold answer: {missing_gold[:5]}")
         return 1
 
-    print(f"Loaded {len(tickets)} signals, {len(golds)} gold answers")
+    print(f"Loaded {len(signals)} signals, {len(golds)} gold answers")
     print(f"Endpoint: {args.endpoint}")
     print()
 
@@ -542,11 +542,11 @@ def main() -> int:
     latencies: list[float] = []
     errors = 0
 
-    for ticket in tickets:
-        tid = ticket["ticket_id"]
+    for signal in signals:
+        tid = signal["ticket_id"]
         gold = gold_by_id[tid]
 
-        pred, elapsed_ms = call_endpoint(client, args.endpoint, ticket)
+        pred, elapsed_ms = call_endpoint(client, args.endpoint, signal)
         latencies.append(elapsed_ms)
 
         if pred is None:
@@ -556,12 +556,12 @@ def main() -> int:
             continue
 
         responses.append(pred)
-        scores = score_ticket(pred, gold)
+        scores = score_signal(pred, gold)
         scores["ticket_id"] = tid
         scores["latency_ms"] = round(elapsed_ms, 0)
         results.append(scores)
 
-        # Per-ticket output
+        # Per-signal output
         marks = {k: "✓" if scores[k] >= 0.99 else ("~" if scores[k] >= 0.5 else "✗") for k in WEIGHTS}
         print(
             f"  {tid}  [{scores['weighted_total'] * 100:5.1f}]  "
@@ -578,7 +578,7 @@ def main() -> int:
     dim_scores = sub_result["dimension_scores"]
     classification_score = sub_result["classification_score"]
 
-    n_total = len(tickets)
+    n_total = len(signals)
     n_valid = n_total - errors
 
     # Latency stats
@@ -687,12 +687,12 @@ def main() -> int:
     output = {
         "classification_score": classification_score,
         "dimension_scores": dim_scores,
-        "tickets_scored": n_valid,
-        "tickets_total": n_total,
-        "tickets_errored": errors,
+        "signals_scored": n_valid,
+        "signals_total": n_total,
+        "signals_errored": errors,
         "latency_p50_ms": round(p50, 0),
         "latency_p95_ms": round(p95, 0),
-        "per_ticket": [{k: v for k, v in r.items() if k != "error"} for r in results],
+        "per_signal": [{k: v for k, v in r.items() if k != "error"} for r in results],
     }
     output_path = Path("eval_results.json")
     output_path.write_text(json.dumps(output, indent=2) + "\n")

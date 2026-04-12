@@ -14,7 +14,7 @@ Test structure mirrors the scoring pipeline:
   1. Per-dimension scorers (category, priority, routing, missing_info, escalation)
   2. Boolean coercion helper (_coerce_bool)
   3. Submission-level aggregate metrics (macro_f1, binary_f1)
-  4. Per-signal composite (score_ticket)
+  4. Per-signal composite (score_signal)
   5. Full submission aggregate (score_submission)
 """
 
@@ -37,7 +37,7 @@ score_missing_info = _run_eval.score_missing_info
 score_priority = _run_eval.score_priority
 score_routing = _run_eval.score_routing
 score_submission = _run_eval.score_submission
-score_ticket = _run_eval.score_ticket
+score_signal = _run_eval.score_signal
 
 # ── Category (did you identify the right anomaly type?) ─────────────
 
@@ -387,7 +387,7 @@ def test_binary_f1_empty():
 # ── Per-signal scoring (the after-action report) ─────────────────────
 
 
-def test_perfect_ticket():
+def test_perfect_signal():
     gold = {
         "ticket_id": "SIG-TEST",
         "category": "Threat Detection & Containment",
@@ -396,12 +396,12 @@ def test_perfect_ticket():
         "needs_escalation": True,
         "missing_information": ["stardate"],
     }
-    s = score_ticket(dict(gold), gold)
+    s = score_signal(dict(gold), gold)
     # Weighted total should be 0.85 (classification weight sum)
     assert s["weighted_total"] > 0.84
 
 
-def test_empty_ticket():
+def test_empty_signal():
     gold = {
         "ticket_id": "SIG-TEST",
         "category": "Threat Detection & Containment",
@@ -410,11 +410,11 @@ def test_empty_ticket():
         "needs_escalation": True,
         "missing_information": ["stardate"],
     }
-    s = score_ticket({"ticket_id": "SIG-TEST"}, gold)
+    s = score_signal({"ticket_id": "SIG-TEST"}, gold)
     assert s["weighted_total"] == 0.0
 
 
-def test_ticket_escalation_string_true():
+def test_signal_escalation_string_true():
     """Participant returns 'true' as string — should be treated as True.
 
     The crew doesn't care about your type system.
@@ -433,11 +433,11 @@ def test_ticket_escalation_string_true():
         "needs_escalation": "true",
         "missing_information": [],
     }
-    s = score_ticket(cand, gold)
+    s = score_signal(cand, gold)
     assert s["escalation"] == 1.0
 
 
-def test_ticket_escalation_string_false():
+def test_signal_escalation_string_false():
     """'false' string must NOT be treated as True — Python's bool('false') is a trap.
 
     A cosmic trap that has ended more careers than airlock malfunctions.
@@ -456,11 +456,11 @@ def test_ticket_escalation_string_false():
         "needs_escalation": "false",
         "missing_information": [],
     }
-    s = score_ticket(cand, gold)
+    s = score_signal(cand, gold)
     assert s["escalation"] == 1.0
 
 
-def test_ticket_missing_info_string_not_list():
+def test_signal_missing_info_string_not_list():
     """Participant returns a string instead of list — treated as empty.
 
     The scoring computer is strict, like the void.
@@ -479,11 +479,11 @@ def test_ticket_missing_info_string_not_list():
         "needs_escalation": False,
         "missing_information": "anomaly_readout",
     }
-    s = score_ticket(cand, gold)
+    s = score_signal(cand, gold)
     assert s["missing_info"] == 0.0
 
 
-def test_ticket_returns_five_dimensions_plus_total():
+def test_signal_returns_five_dimensions_plus_total():
     signal = {
         "category": "Comms",
         "priority": "P1",
@@ -491,11 +491,11 @@ def test_ticket_returns_five_dimensions_plus_total():
         "needs_escalation": False,
         "missing_information": [],
     }
-    result = score_ticket(signal, signal)
+    result = score_signal(signal, signal)
     assert set(result.keys()) == {"category", "priority", "routing", "missing_info", "escalation", "weighted_total"}
 
 
-def test_ticket_total_is_weighted_sum():
+def test_signal_total_is_weighted_sum():
     """Verify the total equals the documented weighted sum formula. No rounding errors in space — those cost lives."""
     gold = {
         "category": "Communications & Navigation",
@@ -511,7 +511,7 @@ def test_ticket_total_is_weighted_sum():
         "needs_escalation": True,
         "missing_information": ["anomaly_readout"],
     }
-    result = score_ticket(cand, gold)
+    result = score_signal(cand, gold)
     expected = (
         0.20 * result["category"]
         + 0.20 * result["priority"]
@@ -525,7 +525,7 @@ def test_ticket_total_is_weighted_sum():
 # ── Full submission scoring (the final reckoning) ────────────────────
 
 
-def _make_ticket(
+def _make_signal(
     ticket_id,
     *,
     category="Communications & Navigation",
@@ -546,40 +546,40 @@ def _make_ticket(
 
 def test_submission_perfect_single():
     """One signal, perfect triage — even a broken clock gets one right. But you earned this one."""
-    gold = [_make_ticket("SIG-0001")]
+    gold = [_make_signal("SIG-0001")]
     result = score_submission(gold, gold)
     assert result["classification_score"] == 85.0
-    assert result["tickets_scored"] == 1
-    assert result["tickets_errored"] == 0
+    assert result["signals_scored"] == 1
+    assert result["signals_errored"] == 0
 
 
 def test_submission_perfect_multiple():
     """Ten signals, all perfect — the crew is naming a corridor after you. Or at least thinking about it."""
-    gold = [_make_ticket(f"SIG-{i:04d}") for i in range(10)]
+    gold = [_make_signal(f"SIG-{i:04d}") for i in range(10)]
     result = score_submission(gold, gold)
     assert result["classification_score"] == 85.0
 
 
 def test_submission_missing_response():
     """One signal went unanswered — somewhere on Deck 7, someone is still waiting. The cats are watching."""
-    gold = [_make_ticket("SIG-0001"), _make_ticket("SIG-0002")]
-    cands = [_make_ticket("SIG-0001")]
+    gold = [_make_signal("SIG-0001"), _make_signal("SIG-0002")]
+    cands = [_make_signal("SIG-0001")]
     result = score_submission(cands, gold)
-    assert result["tickets_errored"] == 1
+    assert result["signals_errored"] == 1
     assert result["classification_score"] < 60
 
 
 def test_submission_all_missing():
     """No responses at all — you built a triage system that triages nothing. The void approves. The crew does not."""
-    gold = [_make_ticket("SIG-0001"), _make_ticket("SIG-0002")]
+    gold = [_make_signal("SIG-0001"), _make_signal("SIG-0002")]
     result = score_submission([], gold)
-    assert result["tickets_errored"] == 2
+    assert result["signals_errored"] == 2
     assert result["classification_score"] <= 15
 
 
 def test_submission_dimension_scores_are_fractions():
     """All dimension scores should be 0-1 fractions — not percentages, not credits, not decibels."""
-    gold = [_make_ticket("SIG-0001")]
+    gold = [_make_signal("SIG-0001")]
     result = score_submission(gold, gold)
     for v in result["dimension_scores"].values():
         assert 0.0 <= v <= 1.0
@@ -587,18 +587,18 @@ def test_submission_dimension_scores_are_fractions():
 
 def test_submission_has_five_dimensions():
     """Exactly 5 dimensions — like the 5 decks between you and the nearest airlock if you get these wrong."""
-    gold = [_make_ticket("SIG-0001")]
+    gold = [_make_signal("SIG-0001")]
     result = score_submission(gold, gold)
     expected = {"category", "priority", "routing", "missing_info", "escalation"}
     assert set(result["dimension_scores"].keys()) == expected
 
 
-def test_submission_extra_tickets_ignored():
+def test_submission_extra_signals_ignored():
     """Signals you answered that weren't in the gold set — ignored. The scoring computer does not reward enthusiasm."""
-    gold = [_make_ticket("SIG-0001")]
-    cands = [_make_ticket("SIG-0001"), _make_ticket("SIG-9999")]
+    gold = [_make_signal("SIG-0001")]
+    cands = [_make_signal("SIG-0001"), _make_signal("SIG-9999")]
     result = score_submission(cands, gold)
-    assert result["tickets_scored"] == 1
+    assert result["signals_scored"] == 1
     assert result["classification_score"] == 85.0
 
 
