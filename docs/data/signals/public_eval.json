@@ -326,7 +326,7 @@
     },
     {
         "ticket_id": "SIG-1024",
-        "subject": "RE: Unauthorized third-party app granted access to user comm inboxes",
+        "subject": "RE: Unauthorized third-party app granted access to user comm message logs",
         "description": "<div dir='ltr'><p>Hi Mission Ops Team,</p><p>Crew Identity Core protection flagged a risky consent grant — a third-party auth token application called 'SecureCommsBackup Pro' was granted Comms.Read, Comms.ReadWrite, and Archives.ReadWrite.All permissions by 8 users in the resource exchange division this morning. The app publisher is unverified and the app ID (a3f7c912-4d8e-4b2a-9e1f-6c3d5a8b7e9f) doesn't match any approved applications. This looks like a consent spoofed transmission attack giving the attacker read/write access to comm message logs and Personal Data Vault files.</p><p>Thanks for looking into this.</p></div>\n\n<div style='font-family: Calibri; font-size: 11pt;'><b>Best regards,</b><br><span style='color: #003366;'>Lt. Kira Vasquez</span><br><i>Navigation Officer — Astrogation</i><br>Contoso Deep Space Station | Central Hub Deck<br>Comm: CDSS-0142 | Mobile Relay: MR-0198<br><img src='cid:logo@cdss.space' width='120'><br><span style='font-size: 8pt; color: #999;'>This comm message is confidential. If you received this in error, please delete immediately.</span></div>\n<blockquote style='border-left: 2px solid #ccc; padding-left: 10px;'><b>From:</b> Mission Ops Support &lt;missionops@cdss.space&gt;<br><b>Sent:</b> Yesterday 3:42 PM<br><p>Thanks for contacting Mission Ops Support. Please provide additional details.</p></blockquote>",
         "reporter": {
             "name": "Takeshi Chen",
