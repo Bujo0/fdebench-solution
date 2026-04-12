@@ -1,6 +1,6 @@
 # Dataset
 
-Synthetic signals modeled on real deep-space station operations. They're messy on purpose.
+Synthetic signals modeled on real deep-space station operations. They're messy on purpose. Like the real thing, except nobody dies when you get one wrong.
 
 ## Structure
 
@@ -55,19 +55,19 @@ See [schemas/output.json](schemas/output.json) for the formal JSON Schema with a
 
 ## What to Expect
 
-The signals include:
+The signals include everything you'd see scroll across the Mission Ops terminal at 0300 during a solar flare when half the crew can't sleep and the other half shouldn't be awake:
 
 - **Clean signals**: well-written, clear, all the details you need
-- **Vague signals**: "systems are failing" with zero specifics
-- **Multi-issue signals**: "airlock code broken AND holodisplay flickering" (good luck picking one category)
+- **Vague signals**: "systems are failing" with zero specifics (which systems? all of them? some of them? the vending machine?)
+- **Multi-issue signals**: "airlock code broken AND holodisplay flickering AND also the gravity feels weird" (good luck picking one category)
 - **Hidden urgency**: no "CRITICAL" flag, but the body describes a hull breach
 - **Missing info**: half the context you need isn't there
-- **Contradictions**: subject says "low priority", body says oxygen levels are dropping
-- **Noise**: automated beacon echoes, "thanks" messages, cryo-sleep auto-replies, space noise (these are "Not a Mission Signal", routed to "None")
-- **Jargon**: dense technical space-station terminology that requires actually understanding station operations
+- **Contradictions**: subject says "low priority," body says oxygen levels are dropping. These are the ones that keep ops officers up at night — which, in space, is indistinguishable from the day
+- **Noise**: automated beacon echoes, "thanks" messages, cryo-sleep auto-replies ("I am currently frozen. Please try again in 6–18 months."), and deep space background noise that the comm array occasionally mistakes for a distress signal. These are "Not a Mission Signal," routed to "None"
+- **Jargon**: dense technical space-station terminology that requires actually understanding station operations (no, you cannot Google "BioScan ID connector timeout" from 0.3 AU away)
 - **Ambiguous routing**: is a biometric scanner issue Crew Identity or Threat Response? Depends on the context. (Sound familiar? Read the routing guide.)
 
-This is what real space station signals look like. Your system needs to handle all of it.
+This is what real space station signals look like. Your system needs to handle all of it. Gracefully. Without panicking. Unlike some of the reporters.
 
 ## Dataset Splits
 
@@ -77,4 +77,4 @@ This is what real space station signals look like. Your system needs to handle a
 | **Public eval** | 100 | No | Pre-submission validation, checks for errors and timeouts |
 | **Hidden eval** | 1000+ | No (held back) | Final scoring, includes edge cases not in public data |
 
-> **Don't overfit.** The hidden set has signal types you won't find in the public data. Build for robustness, not memorization.
+> **Don't overfit.** The hidden set has signal types you won't find in the public data. Build for robustness, not memorization. The void doesn't repeat itself, and neither does the hidden eval.

@@ -2,15 +2,15 @@
 
 ## What Is This
 
-A **build challenge** where you tackle the kind of problem FDEs actually solve: a deep-space station is drowning in incoming mission signals, and they need an AI-powered signal triage API. Yesterday. Before the hull breach in Sector 7 gets worse.
+A **build challenge** where you tackle the kind of problem FDEs actually solve: a deep-space station is drowning in incoming mission signals, and they need an AI-powered signal triage API. Yesterday. Before the hull breach in Sector 7 gets worse and the atmospheric processor on Deck 7 finishes whatever it's doing to the air supply.
 
 You'll read their (messy, incomplete) mission briefing, dig through their signal data, build a real deployed API, and ship it. Then we score it against a hidden evaluation set you've never seen.
 
-**This is not a chatbot challenge.** It's an engineering challenge. One endpoint, one JSON in, one JSON out, deployed and callable. The kind of thing you'd actually build for a mission control team.
+**This is not a chatbot challenge.** It's an engineering challenge. One endpoint, one JSON in, one JSON out, deployed and callable. The kind of thing you'd actually build for a mission control team that has 2,000 crew and zero patience for systems that crash under load.
 
 ## Getting Started
 
-1. **Read the mission briefing** → [docs/challenge/customer_brief.md](docs/challenge/customer_brief.md). Understand the mission before you write code
+1. **Read the mission briefing** → [docs/challenge/customer_brief.md](docs/challenge/customer_brief.md). Understand the mission before you write code. Seriously.
 2. **Review the routing protocol** → [docs/challenge/routing_guide.md](docs/challenge/routing_guide.md). Their internal (incomplete) signal routing rules
 3. **Read the challenge spec** → [docs/challenge/](docs/challenge/). API contract, schemas, scoring rubric
 4. **Explore the data** → [docs/data/](docs/data/). Synthetic signals for development and testing
@@ -55,21 +55,21 @@ uvx pre-commit install
 
 ## Rules
 
-- **One submission** per person. Make it count.
+- **One submission** per person. Make it count. No second chances. No "but I meant to deploy the other branch."
 - Any language, any framework, any AI model. Your call.
 - Copilot, Cursor, Claude: all fair game. Use everything you've got.
-- Must be deployed and callable via HTTPS. Not "it works on my machine".
-- Documentation is required. If you can't explain it, you didn't build it.
+- Must be deployed and callable via HTTPS. Not "it works on my machine." Your machine is 0.3 AU from the scoring platform.
+- Documentation is required. If you can't explain it, you didn't build it. If you can't explain it under pressure, you definitely didn't build it.
 
 ## Evaluation
 
 Your hidden-set **functional score** is **0–100**.
 
-Functional scoring is deterministic: **macro F1** for classification and routing, **partial credit** for priority, **set F1** for missing info, **binary F1** for escalation. Plus latency and cost. No LLM judges. No vibes. Just math. See [docs/challenge/](docs/challenge/) for every detail.
+Functional scoring is deterministic: **macro F1** for classification and routing, **partial credit** for priority, **set F1** for missing info, **binary F1** for escalation. Plus latency and cost. No LLM judges. No vibes. Just math — as cold and unforgiving as the void itself. See [docs/challenge/](docs/challenge/) for every detail.
 
 Separately, we review repos for engineering quality: clean design, sensible tradeoffs, attention to latency and cost, real tests, and a system another engineer could trust.
 
-Final rankings use a **hidden evaluation set** with edge cases you haven't seen. Don't overfit to the public data. Build it like it's going to a real mission tomorrow.
+Final rankings use a **hidden evaluation set** with edge cases you haven't seen. Don't overfit to the public data. Build it like it's going to a real mission tomorrow — because in this scenario, it is.
 
 
 ## Before You Submit

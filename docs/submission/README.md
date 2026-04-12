@@ -4,7 +4,7 @@
 
 1. **Fork** this repo (your fork must be **public**)
 2. **Build** your solution
-3. **Deploy** it somewhere callable via HTTPS — not localhost, not your quarters terminal
+3. **Deploy** it somewhere callable via HTTPS — not localhost, not your quarters terminal, not a Raspberry Pi duct-taped to the hull
 4. **Test** with the eval harness: sample set for scoring, public eval for smoke testing
 5. **Write** your three docs: `docs/architecture.md`, `docs/methodology.md`, `docs/evals.md`
 6. **Create** `submission.json` at the root (see below)
@@ -24,7 +24,7 @@ your-repo/
 └── ...                      # Your code, tests, infrastructure
 ```
 
-**All three docs are mandatory.** Missing one is a big hit in engineering review. Like showing up to a mission briefing without your flight plan.
+**All three docs are mandatory.** Missing one is a big hit in engineering review. Like showing up to a mission briefing without your flight plan. Commander Kapoor will give you *the look*. You don't want *the look*.
 
 Important nuance: the hidden signals are for the **0-100 functional score**. Engineering review happens separately from what is in your repo after you submit.
 
@@ -63,7 +63,7 @@ See [challenge README: Engineering Review](../challenge/README.md#engineering-re
 | `docs/methodology.md` | How you approached it, what you tried, what failed, how you spent your time |
 | `docs/evals.md` | Your actual numbers, which signals you got wrong and why, where your system breaks |
 
-> **Real talk:** a clean, simple solution with honest error analysis beats a complex system with no explanation. Every single time. In space, clarity saves lives. On the leaderboard, clarity saves scores.
+> **Real talk:** a clean, simple solution with honest error analysis beats a complex system with no explanation. Every single time. In space, clarity saves lives. On the leaderboard, clarity saves scores. In both cases, "I made it complicated because I could" is not the flex you think it is.
 
 ## Before You Submit
 
@@ -73,8 +73,8 @@ See [challenge README: Engineering Review](../challenge/README.md#engineering-re
 - [ ] `category` values are from the 8 valid anomaly categories
 - [ ] `assigned_team` values are from the 7 valid response divisions (including `"None"`)
 - [ ] `missing_information` values are from the 16-value constrained vocabulary
-- [ ] Your API handles **10 concurrent requests** without errors or timeouts
-- [ ] Each request responds in **under 30 seconds** (that's the timeout, aim for well under)
+- [ ] Your API handles **10 concurrent requests** without errors or timeouts (the scoring platform is not gentle)
+- [ ] Each request responds in **under 30 seconds** (that's the hard timeout — aim for well under, because 29 seconds of silence is 29 seconds of someone wondering if the triage system is also broken)
 - [ ] Eval harness runs against 25 sample signals with gold scoring
 - [ ] Eval harness runs against 100 public eval signals without errors or timeouts
 - [ ] `submission.json` at repo root with correct endpoint URL
@@ -87,12 +87,12 @@ See [challenge README: Engineering Review](../challenge/README.md#engineering-re
 
 ## Tips
 
-- **Deploy early.** Get something live in hour 2 and iterate. The number of people who deploy at hour 23 and then panic is... nonzero.
+- **Deploy early.** Get something live in hour 2 and iterate. The number of people who deploy at hour 23 and then panic is... well, it's the same number that ends up in the "lessons learned" section of every post-mortem. Don't be a lesson.
 - **Run the eval harness constantly.** It's the same scoring logic as the platform. Trust the numbers.
 - **Read the mission brief.** Candidates who skip it produce noticeably worse output. The mission context matters for routing and remediation.
-- **Handle the weird signals.** The hidden eval has stuff you haven't seen: vague signals, multi-issue signals, space noise. If your system 500s on a confusing signal, that's a zero on every dimension.
-- **Return valid JSON even when confused.** A reasonable default beats a stack trace.
+- **Handle the weird signals.** The hidden eval has stuff you haven't seen: vague signals, multi-issue signals, transmissions that are 90% panic and 10% consonants. If your system 500s on a confusing signal, that's a zero on every dimension. The void sends weird signals. Your API should not respond with a stack trace.
+- **Return valid JSON even when confused.** A reasonable default beats a stack trace. An ops officer can work with a wrong answer. They can't work with `500 Internal Server Error`.
 - **Explain your decisions.** "I chose X because Y" is worth more than a polished README that says nothing. We want to see how you think.
-- **Send the cost headers.** It's only 5% of the score, but it signals you actually read the spec.
+- **Send the cost headers.** It's only 5% of the score, but it signals you actually read the spec. In ops, reading the spec is half the battle. The other half is believing it.
 - **Treat the repo like part of the product.** The endpoint drives your functional score. The repo is what reviewers use to judge the engineering.
 - **Show engineering judgment.** Good submissions usually have explicit timeouts, validation, useful tests, clean config, and a believable story for scale, security, and operability.

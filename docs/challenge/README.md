@@ -2,18 +2,18 @@
 
 ## The Scenario
 
-Contoso Deep Space Station (CDSS) — a 2,000-crew research outpost 0.3 AU from Earth — is drowning in incoming signals. Their team of 12 mission ops analysts manually triages ∼180 signals per day across 6 specialist teams. Average time-to-route: 3.4 hours. Misroute rate: 42%. At that distance, a misrouted hull breach signal means someone dies before the right team even reads it. Commander Priya Kapoor, Station Operations Chief, just got off a subspace call with your manager and wants this fixed.
+Contoso Deep Space Station (CDSS) — a 2,000-crew research outpost 0.3 AU from Earth — is drowning in incoming signals. Their team of 12 mission ops analysts manually triages ∼180 signals per day across 6 specialist teams. Average time-to-route: 3.4 hours. Misroute rate: 42%. At that distance, a misrouted hull breach signal means someone dies before the right team even reads it. Commander Priya Kapoor, Station Operations Chief, just got off a subspace call with your manager. She was polite. She was professional. She made it extremely clear that this needs to be fixed before something else vents into the void.
 
 **Start here. Read the mission brief:** [customer_brief.md](customer_brief.md)
-**Then review their routing guide:** [routing_guide.md](routing_guide.md) *(heads up: it’s incomplete. Some signal types aren’t covered, and some rules contradict each other. Welcome to deep space operations.)*
+**Then review their routing guide:** [routing_guide.md](routing_guide.md) *(heads up: it’s incomplete. Some signal types aren’t covered, and some rules contradict each other. Welcome to deep space operations, where the documentation is always six months out of date and everyone has opinions.)*
 
-Your job: **build an AI-powered signal triage API** that CDSS can plug into their station operations workflow.
+Your job: **build an AI-powered signal triage API** that CDSS can plug into their station operations workflow. Commander Kapoor is not asking nicely. She's asking at 0.3 AU, where "asking" and "ordering" are separated by about one hull breach.
 
 ---
 
 ## What You Are Building
 
-A deployed API that accepts an incoming mission signal and returns a triage decision. One endpoint, one JSON in, one JSON out.
+A deployed API that accepts an incoming mission signal and returns a triage decision. One endpoint, one JSON in, one JSON out. No chatbot. No holographic dashboard. No "AI-powered insights platform." Just cold, fast, correct triage — because somewhere on Deck 7, someone is filing a signal about oxygen levels and your system needs to figure out if it's a Red Alert or a complaint about the recycler making a funny noise again.
 
 ### API Contract
 
@@ -65,7 +65,7 @@ See [../data/schemas/](../data/schemas/) for the formal JSON schemas.
 
 ### Valid Values for Classification Fields
 
-Your system must use **exactly** these values. The scoring is deterministic: anything not in these lists scores zero. In space, precision isn’t optional — it’s survival.
+Your system must use **exactly** these values. The scoring is deterministic: anything not in these lists scores zero. In space, precision isn’t optional — it’s survival. The void doesn’t accept partial credit, and the scoring computer has all the empathy of a neutron star.
 
 **Categories** (8 values):
 
@@ -131,9 +131,9 @@ Your service must also respond to `GET /health` with HTTP 200.
 | **Public eval set** | 100 | [public_eval.json](../data/tickets/public_eval.json) | Test at scale before submitting (no gold answers provided) |
 | **Hidden eval set** | 1000+ | Not in this repo | Final scoring. Includes edge cases not in the public data |
 
-Signals vary in quality. Some are clean. Some are vague, contradictory, multi-issue, garbled, or not real distress calls at all. That’s not a bug in the dataset. That’s what real station operations transmissions look like when 2,000 crew are filing signals at 0300 during a solar flare.
+Signals vary in quality. Some are clean. Some are vague, contradictory, multi-issue, garbled, or not real distress calls at all. That’s not a bug in the dataset. That’s what real station operations transmissions look like when 2,000 crew are filing signals at 0300 during a solar flare while the lights are flickering and someone down the corridor is yelling about the atmospheric processor again.
 
-> **Don’t overfit.** The hidden set has signal types you won’t see in the public data. Build for the real void, not for 25 specific signals.
+> **Don’t overfit.** The hidden set has signal types you won’t see in the public data. Build for the real void, not for 25 specific signals. The void is creative. Your system should be too.
 
 ---
 
@@ -149,7 +149,7 @@ Signals vary in quality. Some are clean. Some are vague, contradictory, multi-is
 
 ## How We Score You
 
-Your hidden-set **functional score** is **0–100**. Separately, we also review your repo for engineering quality.
+Your hidden-set **functional score** is **0–100**, computed with the cold, unforgiving precision of the vacuum outside the viewport. Separately, we also review your repo for engineering quality.
 
 | Part | Weight | What we’re looking at |
 |---|---|---|
@@ -158,7 +158,7 @@ Your hidden-set **functional score** is **0–100**. Separately, we also review 
 
 ### Functional Score (0-100)
 
-We call your live endpoint with **1000+ signals you’ve never seen**. Every response is scored deterministically against gold answers. **No LLM judges. No vibes. Same logic as the local eval harness.** You can see exactly how you’ll be scored before you submit.
+We call your live endpoint with **1000+ signals you’ve never seen**. Every response is scored deterministically against gold answers. **No LLM judges. No vibes. No mercy. Same logic as the local eval harness.** You can see exactly how you’ll be scored before you submit.
 
 #### What the platform does when it scores you
 
@@ -320,7 +320,7 @@ If your repo is hard to follow, missing tests, or only works with undocumented s
 
 #### Do I need a complicated multi-agent system to score well?
 
-No. A simple system with good judgment, good validation, solid tests, and honest writeups is a stronger submission than an overbuilt pipeline you can’t explain.
+No. A simple system with good judgment, good validation, solid tests, and honest writeups is a stronger submission than an overbuilt pipeline you can’t explain. “URGENT” in space usually isn’t — but when it is, you’d better have routed it right. Same principle applies to your architecture: simple and correct beats complex and mysterious.
 
 #### Are `next_best_action` and `remediation_steps` part of the hidden functional score?
 
@@ -328,10 +328,10 @@ Not directly. They are required by the schema, but they are reviewed as part of 
 
 #### What usually makes an engineering submission look weak?
 
-- Business logic buried in one route file
-- No timeouts or retry handling around model calls
-- No tests beyond a happy path
-- Missing docs or docs that only describe the final state
+- Business logic buried in one route file (the “monolith of despair”)
+- No timeouts or retry handling around model calls (hope is not a strategy, especially at 0.3 AU)
+- No tests beyond a happy path (the void is mostly unhappy paths)
+- Missing docs or docs that only describe the final state (we want the journey, not just the destination)
 - Hardcoded config, secrets, or localhost-only assumptions
 - README that does not let someone run the project quickly
 
@@ -342,13 +342,13 @@ Not directly. They are required by the schema, but they are reviewed as part of 
 - Latency and cost are managed as engineering constraints, not ignored until the end
 - Tests cover weird signals, failure cases, and non-happy paths
 - The repo shows evidence of iteration, tradeoffs, and honest evaluation
-- The whole thing feels like something a station ops team could actually operate
+- The whole thing feels like something a station ops team could actually operate — at 0300, during a solar flare, while the Admiral is asking pointed questions
 
 ---
 
 ### Finalist Round (top N)
 
-30-minute walkthrough of your solution, then 30 minutes of Q&A with FDE engineers. Think of it as a design review, not an interview. We’re curious about your decisions, not trying to catch you out.
+30-minute walkthrough of your solution, then 30 minutes of Q&A with FDE engineers. Think of it as a mission debrief, not an interrogation — a conversation with people who’ve actually shipped systems that keep stations running. We’re curious about your decisions, not trying to catch you out. We’ve all been the person who deployed at 0200 and discovered their service handles exactly one concurrent request. We just want to know you learned from it.
 
 ---
 

@@ -2,7 +2,7 @@
 
 🛰️ **CDSS SCORING COMPUTER — SELF-SERVICE TERMINAL** 🛰️
 
-This is the same scoring logic the platform uses. Run it locally, see exactly how you'll be scored. No surprises on launch day.
+This is the same scoring logic the platform uses. Run it locally, see exactly how you'll be scored. No surprises on launch day. The only acceptable surprise in space is a birthday party, and even those need to be cleared with ops.
 
 > **What this scores:** The 5 classification dimensions (up to 85 pts).
 > **What it doesn't score:** Efficiency (latency + cost) and the separate engineering review. Those happen after you submit. The scoring computer is cold, unforgiving math — like the vacuum outside the viewport.
@@ -99,7 +99,7 @@ Crew members return weird stuff from APIs. The scoring computer has seen things.
 
 ### 25 sample signals (with gold answers)
 
-This is your main dev loop. Run it early, run it often. The scoring computer never sleeps.
+This is your main dev loop. Run it early, run it often. The scoring computer never sleeps. Neither should your test pipeline.
 
 ```bash
 cd docs/eval
@@ -111,7 +111,7 @@ uv run python run_eval.py \
 
 ### 100 public eval signals (no gold answers)
 
-Run this before you submit. There's no gold file so you won't get a score, but it'll catch crashes, timeouts, and schema issues on signals you haven't seen.
+Run this before you submit. There's no gold file so you won't get a score, but it'll catch crashes, timeouts, and schema issues on signals you haven't seen. Think of it as a pre-flight check. You wouldn't launch without one. You shouldn't submit without one either.
 
 ```bash
 cd docs/eval
