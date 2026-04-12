@@ -2,37 +2,37 @@
 
 ## The Scenario
 
-Contoso Financial Services (∼4,500 employees) is drowning in IT support tickets. Their team of 12 manually triages ∼180 tickets per day across 6 specialist teams. Average time-to-route: 3.4 hours. Misroute rate: 42%. Their VP of IT Operations just got off a call with your manager and wants this fixed.
+Contoso Deep Space Station (∼2,000 crew) is drowning in mission ops signals. Their team of 12 manually triages ∼180 signals per day across 6 specialist teams. Average time-to-route: 3.4 hours. Misroute rate: 42%. In space, a misrouted signal isn't a KPI problem — it's a hull-breach-goes-unpatched problem. Commander Kapoor just got off a subspace relay with your manager and wants this fixed. She was polite about it. She is always polite about it. That is somehow worse.
 
-**Start here. Read the customer brief:** [customer_brief.md](customer_brief.md)
-**Then review their routing guide:** [routing_guide.md](routing_guide.md) *(heads up: it's incomplete. Some ticket types aren't covered, and some rules contradict each other. Welcome to enterprise IT.)*
+**Start here. Read the mission briefing:** [customer_brief.md](customer_brief.md)
+**Then review their routing guide:** [routing_guide.md](routing_guide.md) *(heads up: it's incomplete. Some signal types aren't covered, and some rules contradict each other. Lt. Mehta's margin notes are worth reading. Welcome to deep space operations.)*
 
-Your job: **build an AI-powered ticket triage API** that Contoso can plug into their ServiceNow workflow.
+Your job: **build an AI-powered signal triage API** that CDSS can plug into their bridge terminal workflow.
 
 ---
 
 ## What You Are Building
 
-A deployed API that accepts an IT support ticket and returns a triage decision. One endpoint, one JSON in, one JSON out.
+A deployed API that accepts a mission ops signal and returns a triage decision. One endpoint, one JSON in, one JSON out. Simple as docking procedure. (Docking procedure is not simple. But you get the idea.)
 
 ### API Contract
 
 **Endpoint:** `POST /triage`
 
-**Request body** (a single ticket):
+**Request body** (a single signal):
 
 ```json
 {
-  "ticket_id": "INC-4829",
-  "subject": "cant login since this morning!!!",
-  "description": "Hi, I've been trying to login to the VPN since around 7am but it keeps saying my credentials are wrong. I haven't changed my password. I'm remote today and have a client call at 10. URGENT PLEASE. - Sarah",
+  "ticket_id": "SIG-4829",
+  "subject": "cant get through airlock since this morning!!!",
+  "description": "Hi, I've been trying to authenticate at the Deck 5 airlock since around 0700 station time but the BioAuth panel keeps rejecting my scan. I haven't changed my biometrics (obviously). I'm locked out of the lab section and have a sensor calibration scheduled at 1000. URGENT PLEASE. - Sarah",
   "reporter": {
     "name": "Sarah Chen",
-    "email": "sarah.chen@contoso.com",
-    "department": "Wealth Management"
+    "email": "sarah.chen@contoso-dss.space",
+    "department": "Exobiology"
   },
   "created_at": "2026-03-15T07:32:00Z",
-  "channel": "email",
+  "channel": "subspace_relay",
   "attachments": []
 }
 ```
@@ -41,22 +41,22 @@ A deployed API that accepts an IT support ticket and returns a triage decision. 
 
 ```json
 {
-  "ticket_id": "INC-4829",
-  "category": "Access & Authentication",
+  "ticket_id": "SIG-4829",
+  "category": "Crew Access & Biometrics",
   "priority": "P2",
-  "assigned_team": "Identity & Access Management",
+  "assigned_team": "Crew Identity & Airlock Control",
   "needs_escalation": false,
   "missing_information": [
-    "application_version",
-    "affected_users"
+    "software_version",
+    "affected_crew"
   ],
-  "next_best_action": "Verify account lockout status in Entra ID and check for recent MFA policy changes affecting the Wealth Management OU",
+  "next_best_action": "Verify crew biometric profile status in BioScan ID and check for recent BioAuth policy changes affecting the Exobiology section",
   "remediation_steps": [
-    "Check Entra ID for account lockout or disabled status",
-    "Verify VPN gateway health and recent policy deployments",
-    "If account is locked, unlock and force password reset via self-service portal",
-    "If VPN-specific, verify client version and re-push VPN profile via Intune",
-    "Confirm resolution with reporter and close ticket"
+    "Check BioScan ID for crew profile lockout or disabled status",
+    "Verify Deck 5 airlock BioAuth panel health and recent policy deployments",
+    "If profile is locked, unlock and force biometric recalibration via self-service kiosk",
+    "If airlock-specific, verify panel firmware version and re-push access profile via ShipOS MDM",
+    "Confirm resolution with crew member and close signal"
   ]
 }
 ```
@@ -65,91 +65,91 @@ See [../data/schemas/](../data/schemas/) for the formal JSON schemas.
 
 ### Valid Values for Classification Fields
 
-Your system must use **exactly** these values. The scoring is deterministic: anything not in these lists scores zero.
+Your system must use **exactly** these values. The scoring computer is cold and unforgiving, like the void of space. Anything not in these lists scores zero. The void does not grade on a curve.
 
 **Categories** (8 values):
 
 | Category | Description |
 |---|---|
-| `Access & Authentication` | Login, SSO, MFA, account provisioning, directory sync |
-| `Hardware & Peripherals` | Laptops, desktops, monitors, printers, peripherals |
-| `Network & Connectivity` | VPN, WiFi, DNS, firewall, bandwidth, WAN/LAN |
-| `Software & Applications` | Business apps, M365, installations, licensing, integrations |
-| `Security & Compliance` | Phishing, malware, data loss, compliance, certificates |
-| `Data & Storage` | SharePoint, OneDrive, databases, backups, file shares |
-| `General Inquiry` | Questions, how-tos, or issues that don't fit other categories |
-| `Not a Support Ticket` | Auto-replies, spam, "thanks" messages, out-of-office |
+| `Crew Access & Biometrics` | Airlock auth, SSO, BioAuth, crew provisioning, directory sync |
+| `Hull & Structural Systems` | Workstations, hull-mounted systems, fabricators, atmospheric processors, peripherals |
+| `Communications & Navigation` | Subspace relay, comms mesh, DNS beacons, signal routing proxy, bandwidth |
+| `Flight Software & Instruments` | FlightOS, navigation suite, sensor platforms, Mission Suite, licensing, integrations |
+| `Threat Detection & Containment` | Hostile signals, malware, data loss, containment breaches, certificates |
+| `Telemetry & Data Banks` | Sensor archives, crew file stores, databases, backups, telemetry pipelines |
+| `Mission Briefing Request` | Questions, how-tos, or signals that don't fit other categories |
+| `Not a Mission Signal` | Auto-replies, spam, "thanks" messages, cryo-sleep notifications |
 
 **Teams** (7 values):
 
 | Team | When to route |
 |---|---|
-| `Identity & Access Management` | Login, SSO, MFA, account provisioning, Entra ID |
-| `Endpoint Engineering` | Laptops, OS, Intune, peripherals, software installs |
-| `Network Operations` | VPN, WiFi, DNS, firewall, proxy |
-| `Enterprise Applications` | SAP, Salesforce, Bloomberg, M365, internal tools |
-| `Security Operations` | Phishing, malware, data loss, compliance, certificates |
-| `Data Platform` | SharePoint, OneDrive, databases, backups, file shares |
-| `None` | Use when the ticket is not a real support request |
+| `Crew Identity & Airlock Control` | BioScan ID, SSO, BioAuth, crew provisioning, access control |
+| `Spacecraft Systems Engineering` | Workstations, ShipOS, fabricators, peripherals, hull-mounted hardware |
+| `Deep Space Communications` | Subspace relay, comms mesh, DNS beacons, signal routing proxy |
+| `Mission Software Operations` | FlightOS, navigation suite, sensor platforms, Mission Suite, internal tools |
+| `Threat Response Command` | Hostile signals, malware, data loss, containment breaches, certificates |
+| `Telemetry & Data Core` | Sensor archives, crew file stores, databases, backups, telemetry pipelines |
+| `None` | Use when the signal is not a real mission ops request |
 
-**Priorities** (4 values): `P1` (Critical), `P2` (High), `P3` (Medium), `P4` (Low)
+**Priorities** (4 values): `P1` (Red Alert), `P2` (Yellow Alert), `P3` (Caution), `P4` (Routine)
 
 ### Missing Information Vocabulary
 
-When identifying missing information, use **only** values from this list. Scoring uses exact set matching, so free-text values will not match.
+When identifying missing information, use **only** values from this list. Scoring uses exact set matching, so free-text values will not match. The scoring computer does not interpret creative paraphrasing. It has no imagination. It lives in the void.
 
 | Value | What it means |
 |---|---|
-| `affected_system` | Which system, app, or service is impacted |
-| `error_message` | Exact error text or code observed |
-| `steps_to_reproduce` | How to reproduce the issue |
-| `affected_users` | How many or which users are impacted |
-| `environment_details` | OS, region, config specifics, system IDs |
-| `timestamp` | When the issue started or was observed |
-| `previous_ticket_id` | Reference to a prior related ticket |
-| `contact_info` | Reporter contact details or alternate contact |
-| `device_info` | Device make, model, specs |
-| `application_version` | Software or app version number |
-| `network_location` | Office, floor, network segment, IP address |
-| `business_impact` | Business consequence or urgency context |
-| `reproduction_frequency` | How often the issue occurs |
-| `screenshot_or_attachment` | Visual evidence or log file |
-| `authentication_method` | MFA method, SSO type, credential type |
-| `configuration_details` | System config, policy, or setup specifics |
+| `affected_subsystem` | Which subsystem, instrument, or service is impacted |
+| `anomaly_readout` | Exact anomaly text or code observed |
+| `sequence_to_reproduce` | How to reproduce the issue |
+| `affected_crew` | How many or which crew members are impacted |
+| `habitat_conditions` | OS, sector, config specifics, system IDs |
+| `stardate` | When the issue started or was observed |
+| `previous_signal_id` | Reference to a prior related signal |
+| `crew_contact` | Reporter contact details or alternate contact |
+| `module_specs` | Module make, model, specs |
+| `software_version` | Software or app version number |
+| `sector_coordinates` | Deck, section, network segment, node address |
+| `mission_impact` | Mission consequence or urgency context |
+| `recurrence_pattern` | How often the issue occurs |
+| `sensor_log_or_capture` | Visual evidence or log file |
+| `biometric_method` | BioAuth method, SSO type, credential type |
+| `system_configuration` | System config, policy, or setup specifics |
 
 ### Health Check
 
-Your service must also respond to `GET /health` with HTTP 200.
+Your service must also respond to `GET /health` with HTTP 200. Consider it a life-signs check. If your service doesn't have life signs, we can't score it. Much like crew members without life signs, it will be marked accordingly.
 
 ---
 
 ## The Data
 
-| Dataset | Tickets | Where | Purpose |
+| Dataset | Signals | Where | Purpose |
 |---|---|---|---|
-| **Sample + gold answers** | 25 | [sample.json](../data/tickets/sample.json) + [sample_gold.json](../data/tickets/sample_gold.json) | Iterate locally. Compare your output to the correct answers |
-| **Public eval set** | 100 | [public_eval.json](../data/tickets/public_eval.json) | Test at scale before submitting (no gold answers provided) |
-| **Hidden eval set** | 1000+ | Not in this repo | Final scoring. Includes edge cases not in the public data |
+| **Sample + gold answers** | 25 | [sample.json](../data/signals/sample.json) + [sample_gold.json](../data/signals/sample_gold.json) | Iterate locally. Compare your output to the correct answers |
+| **Public eval set** | 100 | [public_eval.json](../data/signals/public_eval.json) | Test at scale before submitting (no gold answers provided) |
+| **Hidden eval set** | 1000+ | Not in this repo | Final scoring. Includes edge cases not in the public data. The void is creative. |
 
-Tickets vary in quality. Some are clean. Some are vague, contradictory, multi-issue, garbled, or not real support requests at all. That's not a bug in the dataset. That's what enterprise tickets actually look like.
+Signals vary in quality. Some are clean. Some are vague, contradictory, multi-issue, garbled, or not real mission ops requests at all. That's not a bug in the dataset. That's what signals from a 2,000-crew space station actually look like. Someone once filed a Red Alert because the nutrient synthesizer was dispensing vanilla instead of chocolate. Someone else filed a P4 Routine for a hull micro-fracture. Humans are chaos. Space makes it worse.
 
-> **Don't overfit.** The hidden set has ticket types you won't see in the public data. Build for the real world, not for 25 specific tickets.
+> **Don't overfit.** The hidden set has signal types you won't see in the public data. Build for the real void, not for 25 specific signals.
 
 ---
 
 ## Rules
 
-- **One submission.** Make it count.
+- **One submission.** Make it count. There are no second chances. Like airlock procedures.
 - Any language, framework, or AI model.
-- Deployed and callable via HTTPS. Not localhost.
-- AI coding assistants: encouraged. Use everything you've got.
-- All code must be your own work (AI-assisted is fine, copy-pasting someone else's solution is not).
+- Deployed and callable via HTTPS. Not localhost. Localhost is 0.3 AU away and nobody can reach it.
+- AI coding assistants: encouraged. Use everything you've got. We are not above using robots to build robot helpers.
+- All code must be your own work (AI-assisted is fine, copy-pasting someone else's solution is not — Commander Kapoor *will* find out).
 
 ---
 
 ## How We Score You
 
-Your hidden-set **functional score** is **0–100**. Separately, we also review your repo for engineering quality.
+Your hidden-set **functional score** is **0–100**. Separately, we also review your repo for engineering quality. Think of it as two airlocks: one checks if your system works, the other checks if it was built to survive.
 
 | Part | Weight | What we're looking at |
 |---|---|---|
@@ -158,35 +158,35 @@ Your hidden-set **functional score** is **0–100**. Separately, we also review 
 
 ### Functional Score (0-100)
 
-We call your live endpoint with **1000+ tickets you've never seen**. Every response is scored deterministically against gold answers. **No LLM judges. No vibes. Same logic as the local eval harness.** You can see exactly how you'll be scored before you submit.
+We call your live endpoint with **1000+ signals you've never seen**. Every response is scored deterministically against gold answers. **No LLM judges. No vibes. Same logic as the local eval harness.** The scoring computer has no feelings. It has no mercy. It is, in this regard, very much like outer space. You can see exactly how you'll be scored before you submit.
 
 #### What the platform does when it scores you
 
 Here's exactly what happens when you hit "submit" on the platform:
 
-1. **Health check.** `GET /health` must return 200. If it doesn't, scoring fails immediately.
-2. **Warm-up.** We send 3 throwaway requests first. These don't count toward your score. They exist so your cold start / first-request latency doesn't penalize you unfairly.
-3. **Scoring run.** We send all 1000+ tickets to your `POST /triage` endpoint with **up to 10 requests in parallel**. Your API needs to handle concurrent load. If it can only process one request at a time, you'll hit timeouts.
-4. **Timeout.** Each request has a **30-second timeout**. If your endpoint doesn't respond in 30 seconds, that ticket scores zero on all dimensions.
-5. **Retries.** Transient failures (5xx, timeouts) get **2 automatic retries** with backoff. Don't rely on this. Fix your errors instead.
+1. **Health check.** `GET /health` must return 200. If it doesn't, scoring fails immediately. Your service flatlines. Mission aborted.
+2. **Warm-up.** We send 3 throwaway requests first. These don't count toward your score. They exist so your cold start / first-request latency doesn't penalize you unfairly. Think of it as your system emerging from cryo-sleep — we give it a moment to get oriented.
+3. **Scoring run.** We send all 1000+ signals to your `POST /triage` endpoint with **up to 10 requests in parallel**. Your API needs to handle concurrent load. If it can only process one request at a time, you'll hit timeouts. Space doesn't wait, and neither does the scoring harness.
+4. **Timeout.** Each request has a **30-second timeout**. If your endpoint doesn't respond in 30 seconds, that signal scores zero on all dimensions. In space, 30 seconds is an eternity. In API design, it's generous.
+5. **Retries.** Transient failures (5xx, timeouts) get **2 automatic retries** with backoff. Don't rely on this. Fix your errors instead. Hope is not a deployment strategy.
 6. **Latency measurement.** We record the wall-clock time per request. Top and bottom 5% of latencies are trimmed before computing p50/p95 so a single spike doesn't tank your latency score.
-7. **Cost measurement.** We read your `X-Model-Name`, `X-Prompt-Tokens`, and `X-Completion-Tokens` response headers (if present) and compute $/ticket using published model pricing.
+7. **Cost measurement.** We read your `X-Model-Name`, `X-Prompt-Tokens`, and `X-Completion-Tokens` response headers (if present) and compute $/signal using published model pricing.
 
-**Bottom line:** your API should comfortably handle 10 concurrent requests, respond in under 30 seconds each, and not fall over under sustained load. If you're using an LLM, make sure your model endpoint can handle the throughput. Rate limits and cold starts are your problem to solve.
+**Bottom line:** your API should comfortably handle 10 concurrent requests, respond in under 30 seconds each, and not fall over under sustained load. If you're using an LLM, make sure your model endpoint can handle the throughput. Rate limits and cold starts are your problem to solve. The void does not accept excuses about rate limiting.
 
 The functional score has two components:
 
 #### Classification (max 85 pts)
 
-Five dimensions, scored at the **submission level** (not per-ticket):
+Five dimensions, scored at the **submission level** (not per-signal):
 
 | Dimension | Weight | Metric | What it means |
 |---|---|---|---|
-| **Category** | 20% | Macro F1 | Per-class F1 averaged across all 8 categories. Systems that ignore rare classes are penalized. |
-| **Priority** | 20% | Mean partial credit | Exact match = 1.0. Off by one level = 0.67. Off by two or more = 0.0. Averaged across all tickets. |
-| **Routing** | 20% | Macro F1 | Per-class F1 averaged across all 7 teams. Same logic as category. |
-| **Missing info** | 15% | Mean set F1 | Per-ticket F1 over the constrained vocabulary, then averaged. Both empty = 1.0. |
-| **Escalation** | 10% | Binary F1 | F1 for the positive class (`needs_escalation=true`) across all tickets. |
+| **Category** | 20% | Macro F1 | Per-class F1 averaged across all 8 categories. Systems that ignore rare classes are penalized. "Not a Mission Signal" trips everyone up — yes, even the ones who think they're ready. |
+| **Priority** | 20% | Mean partial credit | Exact match = 1.0. Off by one level = 0.67. Off by two or more = 0.0. Averaged across all signals. Calling a hull breach "Routine" is a zero. And also a catastrophe. |
+| **Routing** | 20% | Macro F1 | Per-class F1 averaged across all 7 teams. Same logic as category. Misrouting a containment breach to Telemetry & Data Core is the kind of mistake that ends up in the Admiral's next memo. |
+| **Missing info** | 15% | Mean set F1 | Per-signal F1 over the constrained vocabulary, then averaged. Both empty = 1.0. |
+| **Escalation** | 10% | Binary F1 | F1 for the positive class (`needs_escalation=true`) across all signals. |
 
 The classification score is computed as:
 
@@ -195,16 +195,16 @@ weighted = 0.20×category + 0.20×priority + 0.20×routing + 0.15×missing_info 
 classification_pts = (weighted / 0.85) × 85
 ```
 
-> **Why macro F1 instead of accuracy?** Because accuracy is gameable. If 80% of tickets are "Software & Applications", always predicting that class gets you 80% accuracy and a terrible macro F1. We want systems that handle *every* class well, including the rare ones like "Not a Support Ticket" that trip people up.
+> **Why macro F1 instead of accuracy?** Because accuracy is gameable. If 80% of signals are "Flight Software & Instruments", always predicting that class gets you 80% accuracy and a terrible macro F1. We want systems that handle *every* class well, including the rare ones like "Not a Mission Signal" that trip people up. Much like the Deck 9 cat, rare things still matter.
 
 #### Efficiency (max 15 pts)
 
-Two dimensions measuring whether you built something fast and lean, or something that burns $0.50 of GPT-4 per ticket:
+Two dimensions measuring whether you built something fast and lean, or something that burns through compute credits like a thruster test:
 
 | Dimension | Weight | Best (1.0) | Worst (0.0) |
 |---|---|---|---|
 | **Latency** | 10% | p50 ≤ 200ms | p50 ≥ 2000ms |
-| **Cost** | 5% | ≤ $0.001/ticket | ≥ $0.05/ticket |
+| **Cost** | 5% | ≤ $0.001/signal | ≥ $0.05/signal |
 
 Latency is interpolated linearly. Cost is interpolated on a log scale.
 
@@ -216,7 +216,7 @@ Latency is interpolated linearly. Cost is interpolated on a log scale.
 | `X-Prompt-Tokens` | integer | `1250` |
 | `X-Completion-Tokens` | integer | `340` |
 
-These headers are **optional**. If you don't send them, you get worst-case cost (as if you're running GPT-4 with zero caching). Latency is always measured server-side regardless.
+These headers are **optional**. If you don't send them, you get worst-case cost (as if you're running the most expensive model available with zero caching — like heating your entire deck by venting plasma). Latency is always measured server-side regardless.
 
 #### Total functional score
 
@@ -226,28 +226,28 @@ functional_score = classification_pts + efficiency_pts
                  = 0–100
 ```
 
-This is the 0–100 functional score you should optimize for on the hidden set.
+This is the 0–100 functional score you should optimize for on the hidden set. The closer to 100, the less likely Commander Kapoor is to mention your name in her next status report to the Admiral. (You want to avoid being mentioned.)
 
 #### What about `next_best_action` and `remediation_steps`?
 
-They're **required** in your response (the schema enforces it). But they're **not part of the functional score**. We look at remediation quality when we review your repo. Write good ones anyway. A system that says "investigate the issue" for every ticket is telling us you phoned it in.
+They're **required** in your response (the schema enforces it). But they're **not part of the functional score**. We look at remediation quality when we review your repo. Write good ones anyway. A system that says "investigate the anomaly" for every signal is telling us you phoned it in — and phoning it in has a 4-minute delay out here.
 
 ---
 
 ### Engineering Review
 
-We review your repo the way a senior engineer reviews a pull request. Not a checkbox exercise, but a holistic read of how you think, build, and communicate.
+We review your repo the way Commander Kapoor reviews a mission report. Not a checkbox exercise, but a holistic read of how you think, build, and communicate.
 
 This part is **not** a second hidden deterministic test set. There is no public `run_eng_eval.py` because this half is about the quality of the system you shipped and the reasoning you can show in your repo.
 
 Think of it like this:
 
-- **Functional score** asks: did your live system make the right triage decisions on hidden tickets?
-- **Engineering review** asks: if we opened your repo and reviewed it like teammates, would we trust the engineering?
+- **Functional score** asks: did your live system make the right triage decisions on hidden signals?
+- **Engineering review** asks: if we opened your repo and reviewed it like fellow crew members, would we trust the engineering?
 
-The signal we care about is very FDE-shaped: can you take an ambiguous customer problem, turn it into a clean service, make sensible tradeoffs, and ship something that still looks solid when we ask about latency, cost, failure modes, scale, security, and testing?
+The signal we care about is very FDE-shaped: can you take an ambiguous operations problem, turn it into a clean service, make sensible tradeoffs, and ship something that still looks solid when we ask about latency, cost, failure modes, scale, security, and testing?
 
-We're looking for: clean code, good tests, sensible architecture, infrastructure that works, and documentation that shows you *understood* the problem, not just threw tokens at it.
+We're looking for: clean code, good tests, sensible architecture, infrastructure that works, and documentation that shows you *understood* the problem, not just threw tokens at it like cargo out an airlock.
 
 In practice, the strongest submissions usually do these things well:
 
@@ -259,29 +259,29 @@ In practice, the strongest submissions usually do these things well:
 - Environment-based configuration, no secrets in source, and runnable deployment setup
 - Docs that explain **why** decisions were made, not just what files exist
 
-In other words, we are not just looking for a model call that happens to classify tickets well on a lucky day. We want to see engineering judgment:
+In other words, we are not just looking for a model call that happens to classify signals well on a lucky day. We want to see engineering judgment:
 
 - Can the service stay fast enough to survive the scoring run?
 - Did you think about cost instead of brute-forcing everything with the biggest model?
 - Do you validate inputs and outputs so bad responses do not leak into the API contract?
 - Will the system fail gracefully when the model is slow, wrong, or unavailable?
-- Did you test the edge cases you know customers will hit?
+- Did you test the edge cases you know crew will encounter?
 - Could another engineer clone the repo, understand the design, and extend it without guessing what you meant?
 
-**Three documents are mandatory.** Skip one and it will hurt the engineering review.
+**Three documents are mandatory.** Skip one and it will hurt the engineering review. Commander Kapoor reads all three. She reads quickly. She remembers everything.
 
 #### `docs/architecture.md`
 
-- What does your service do? How does it fit into Contoso's world?
+- What does your service do? How does it fit into CDSS's operations?
 - Draw something. ASCII, Mermaid, napkin sketch, whatever. Show the moving parts.
-- Data flow: ticket goes in, triage comes out, what happened in between?
+- Data flow: signal goes in, triage comes out, what happened in between?
 - AI pipeline: what model(s), why, how do you call them?
 - Tradeoffs: what else did you consider? Why not that?
-- Production readiness: what would you change if this had to handle 10,000 tickets/day?
+- Production readiness: what would you change if this had to handle 10,000 signals/day?
 
 #### `docs/methodology.md`
 
-- How did you read the customer brief? What jumped out?
+- How did you read the mission briefing? What jumped out?
 - What was your strategy? Baseline first? Edge cases early? How did you decide what to do in what order?
 - What did you try that didn't work? What did you change?
 - How did you design and iterate on your prompts?
@@ -292,11 +292,11 @@ In other words, we are not just looking for a model call that happens to classif
 
 - How did you test? Just the gold set, or did you write your own test cases too?
 - Show us your numbers. Per-dimension scores on the sample set.
-- Which tickets did your system get wrong? Why?
-- What are the hardest ticket types for your system?
-- Where does it break? Be honest. We can tell when you're not.
+- Which signals did your system get wrong? Why?
+- What are the hardest signal types for your system?
+- Where does it break? Be honest. We can tell when you're not. Commander Kapoor can *definitely* tell.
 
-> **Real talk:** a straightforward solution with honest error analysis and clear docs will outscore a complex system with no explanation. Every time. We've seen it.
+> **Real talk:** a straightforward solution with honest error analysis and clear docs will outscore a complex system with no explanation. Every time. We've seen it. Like Titan Outpost, complexity without clarity ends badly.
 
 We also look at: code quality, test coverage, error handling, infrastructure, CI/CD, and whether your README actually lets someone else clone and run your system in under 5 minutes.
 
@@ -316,11 +316,11 @@ Optimize for trust. A reviewer should be able to open your repo and quickly see:
 - how to run and test the service
 - what you tried, what failed, and what tradeoffs you made
 
-If your repo is hard to follow, missing tests, or only works with undocumented setup magic, that will show up here.
+If your repo is hard to follow, missing tests, or only works with undocumented setup magic, that will show up here. Much like an undocumented airlock bypass, it will eventually cause problems.
 
 #### Do I need a complicated multi-agent system to score well?
 
-No. A simple system with good judgment, good validation, solid tests, and honest writeups is a stronger submission than an overbuilt pipeline you can't explain.
+No. A simple system with good judgment, good validation, solid tests, and honest writeups is a stronger submission than an overbuilt pipeline you can't explain. Overengineering is the Deck 7 atmospheric processor of software — it creates more problems than it solves.
 
 #### Are `next_best_action` and `remediation_steps` part of the hidden functional score?
 
@@ -340,43 +340,45 @@ Not directly. They are required by the schema, but they are reviewed as part of 
 - The design is simple, but clearly intentional
 - The API contract is treated seriously, with validation and predictable errors
 - Latency and cost are managed as engineering constraints, not ignored until the end
-- Tests cover weird tickets, failure cases, and non-happy paths
+- Tests cover weird signals, failure cases, and non-happy paths
 - The repo shows evidence of iteration, tradeoffs, and honest evaluation
-- The whole thing feels like something a customer team could actually operate
+- The whole thing feels like something a station ops team could actually operate
 
 ---
 
 ### Finalist Round (top N)
 
-30-minute walkthrough of your solution, then 30 minutes of Q&A with FDE engineers. Think of it as a design review, not an interview. We're curious about your decisions, not trying to catch you out.
+30-minute walkthrough of your solution, then 30 minutes of Q&A with FDE engineers. Think of it as a mission debrief, not an interrogation. We're curious about your decisions, not trying to catch you out. (That said, Commander Kapoor may attend. Remain calm.)
 
 ---
 
 ## Quick Start
 
 ```bash
-# 1. Read the customer brief and routing guide first. Seriously. It matters.
+# 1. Read the mission briefing and routing guide first. Seriously. It matters.
+#    People who skip the brief misroute signals. People who misroute signals
+#    end up in the Admiral's memos. You don't want to be in the Admiral's memos.
 open docs/challenge/customer_brief.md
 open docs/challenge/routing_guide.md
 
-# 2. Look at the sample tickets and gold answers
-python -m json.tool docs/data/tickets/sample.json | head -50
-python -m json.tool docs/data/tickets/sample_gold.json | head -50
+# 2. Look at the sample signals and gold answers
+python -m json.tool docs/data/signals/sample.json | head -50
+python -m json.tool docs/data/signals/sample_gold.json | head -50
 
 # 3. Build something
 # ... your code ...
 
-# 4. Score it against the 25 sample tickets
+# 4. Score it against the 25 sample signals
 cd docs/eval
 uv run python run_eval.py \
   --endpoint http://localhost:8000 \
-  --dataset ../data/tickets/sample.json \
-  --gold ../data/tickets/sample_gold.json
+  --dataset ../data/signals/sample.json \
+  --gold ../data/signals/sample_gold.json
 
-# 5. Stress-test against the 100 public eval tickets
+# 5. Stress-test against the 100 public eval signals
 uv run python run_eval.py \
   --endpoint http://localhost:8000 \
-  --dataset ../data/tickets/public_eval.json
+  --dataset ../data/signals/public_eval.json
 
 # 6. Deploy, write your docs, submit at aka.ms/fde/hackathon
 # See docs/submission/
@@ -384,4 +386,4 @@ uv run python run_eval.py \
 
 ## Submission
 
-When you're ready, submit at **[aka.ms/fde/hackathon](https://aka.ms/fde/hackathon)**. Full checklist at [../submission/](../submission/).
+When you're ready, submit at **[aka.ms/fde/hackathon](https://aka.ms/fde/hackathon)**. Full checklist at [../submission/](../submission/). May the void be indifferent in your favor.
