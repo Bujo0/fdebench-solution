@@ -26,11 +26,11 @@
         ],
         "next_best_action": "Investigate whether Mission Planner crash and Star Chart waypoint sync issues are related to the terminal swap. The ghost waypoints from 2024 suggest the data migration brought along some unwanted passengers. Verify terminal provisioning, clear caches, force a waypoint resync, and confirm software versions match the station standard image.",
         "remediation_steps": [
-            "Verify terminal provisioning and data migration completed successfully",
-            "Clear Mission Planner cache and reinstall if crash persists",
-            "Check Star Chart profile migration status and force waypoint database resync",
-            "Confirm software versions match the supported standard station image",
-            "If issues persist after cache clear and resync, re-provision applications on the new terminal"
+            "Verify terminal provisioning and data migration completed successfully — ghost waypoints from 2024 suggest the swap brought passengers nobody invited",
+            "Clear Mission Planner cache and reinstall if crash persists — the white screen of nothingness is not a feature, despite what some engineers claim",
+            "Check Star Chart profile migration status and force waypoint database resync to purge phantom asteroid fields that no longer exist",
+            "Confirm software versions match the supported standard station image — mismatched builds in deep space are how you get navigating by memory and vibes",
+            "If issues persist after cache clear and resync, re-provision applications on the new terminal and verify the old terminal's data ghost isn't haunting the new one"
         ]
     },
     {
@@ -161,15 +161,15 @@
         "missing_information": [
             "crew_contact"
         ],
-        "next_best_action": "Initiate new crew member onboarding workflow for Alex Rivera (arriving 0600 supply shuttle, March 31). Coordinate console terminal, software, access, and quarters provisioning across teams. Target readiness by March 28 for orientation walkthrough.",
+        "next_best_action": "Initiate new crew member onboarding workflow for Alex Rivera (arriving 0600 supply shuttle, March 31). Coordinate console terminal, software, access, and quarters assignment before arrival — because 'welcome to your new deep-space posting, here is nothing we promised you' is not the first impression CDSS is going for.",
         "remediation_steps": [
-            "Requisition high-spec console terminal with 32GB memory core from equipment stores",
-            "Prepare standard flight software image with SciAnalytics and SpectraLab suite",
-            "Request telemetry workspace access (lab-science-prod) from data operations",
-            "Request data archive read access from telemetry engineering",
-            "Request Deck 3 quarters assignment (avoid atmospheric processor-adjacent quarters) and lab badge from crew services",
-            "Add Alex Rivera to science-team comm channel and briefing distribution list",
-            "Schedule equipment handoff and orientation walkthrough for March 28"
+            "Requisition high-spec console terminal (32GB memory core minimum) — assign from engineering reserve, not from the pile of pre-refit relics that take 4 minutes to render a molecule",
+            "Install standard flight software suite plus SciAnalytics and SpectraLab per the science team profile",
+            "Provision BioScan ID profile and biometric enrollment — schedule this for Day 1 orientation so Rivera doesn't spend the first week haunting corridors without credentials",
+            "Grant telemetry workspace access (lab-science-prod) and data archive read access per Dr. Tanaka's approval",
+            "Assign Deck 3 quarters — explicitly NOT the ones adjacent to the atmospheric processor, which previous occupants have described as 'living inside a percussion instrument'",
+            "Add to science-team comm channel and briefing distribution list",
+            "Complete all provisioning by March 28 for orientation walkthrough — leave buffer for the things that inevitably go wrong despite best efforts"
         ]
     },
     {
@@ -340,7 +340,7 @@
             "module_specs",
             "sector_coordinates"
         ],
-        "next_best_action": "Investigate fabricator output queue issue on Deck 3. Multiple crew affected and jobs are queuing but nothing materializes — the fabricator has achieved a zen-like state of acceptance and refuses to produce. Hull gasket fabrication is time-sensitive: current gaskets have 72 hours before dropping below spec.",
+        "next_best_action": "Investigate fabricator output queue issue on Deck 3. Multiple crew affected and jobs are queuing but nothing materializes — the fabricator has achieved a state of philosophical contentment where it accepts print jobs and converts them into silent meditation. This is a shared resource near the mess hall, so the queue includes everything from EVA suit patches to someone's request for a custom coffee mug that says 'I survived the protein cube incident.'",
         "remediation_steps": [
             "Identify the fabricator model and check whether it is network-attached or connected via a fabrication controller",
             "Check fabrication controller spooler service status and restart if necessary — sometimes the spooler achieves enlightenment too",

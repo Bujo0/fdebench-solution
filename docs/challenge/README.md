@@ -356,18 +356,28 @@ Not directly. They are required by the schema, but they are reviewed as part of 
 
 ```bash
 # 1. Read the mission brief and routing guide first. Seriously. It matters.
-#    People’s lives depend on correct signal triage.
+#    People’s lives depend on correct signal triage. Commander Kapoor
+#    was polite about it but the subtext was "fix this or else."
+#    The "or else" was left to your imagination. Use it.
 open docs/challenge/customer_brief.md
 open docs/challenge/routing_guide.md
 
 # 2. Look at the sample signals and gold answers
+#    Note: some of these signals are calm descriptions of emergencies.
+#    Others are ALL-CAPS descriptions of fabricator jams.
+#    Exclamation points are inversely correlated with actual danger.
 python -m json.tool docs/data/signals/sample.json | head -50
 python -m json.tool docs/data/signals/sample_gold.json | head -50
 
 # 3. Build something
+#    A triage API. Not a chatbot. Not a holographic dashboard.
+#    Just cold, fast, correct JSON decisions.
 # ... your code ...
 
 # 4. Score it against the 25 sample signals
+#    The scoring computer is the same cold math the platform uses.
+#    Run it early. Run it often. It never sleeps. Neither should
+#    your test pipeline.
 cd docs/eval
 uv run python run_eval.py \
   --endpoint http://localhost:8000 \
@@ -375,14 +385,19 @@ uv run python run_eval.py \
   --gold ../data/signals/sample_gold.json
 
 # 5. Stress-test against the 100 public eval signals
+#    No gold answers — but it’ll catch crashes, timeouts, and the
+#    kind of schema errors that make the scoring computer contemplate
+#    the heat death of the universe. Which it already does. Constantly.
 uv run python run_eval.py \
   --endpoint http://localhost:8000 \
   --dataset ../data/signals/public_eval.json
 
 # 6. Deploy, write your docs, submit at aka.ms/fde/hackathon
+#    Don’t be the person who deploys at hour 23 and then panics.
+#    That person is now on permanent algae-scrubbing duty on Deck 2.
 # See docs/submission/
 ```
 
 ## Submission
 
-When you’re ready, submit at **[aka.ms/fde/hackathon](https://aka.ms/fde/hackathon)**. Full checklist at [../submission/](../submission/).
+When you’re ready, submit at **[aka.ms/fde/hackathon](https://aka.ms/fde/hackathon)**. Full checklist at [../submission/](../submission/). Commander Kapoor is waiting. She’s patient. Across 0.3 AU. But not *that* patient.

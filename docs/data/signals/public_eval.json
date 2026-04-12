@@ -2,7 +2,7 @@
     {
         "ticket_id": "SIG-1001",
         "subject": "Broken: cycle-end containment compliance report",
-        "description": "Hi Threat Response Command,\n\nHoping this signal reaches you before the next rotation cycle, because the containment compliance report generator has gone dark at the worst possible time.",
+        "description": "Hi Threat Response Command,\n\nHoping this signal reaches you before the next rotation cycle, because the containment compliance report generator has gone dark at the worst possible time. This is the report that proves to Interstellar Safety Command that we're not accidentally venting biohazards into the cosmos — you know, the kind of proof that keeps our operating license valid and our insurance premiums at 'merely astronomical' rather than 'literally incalculable.' The generator ran fine until yesterday's data partition migration, and now it throws a generic 'DATA SOURCE UNAVAILABLE' error that is about as helpful as a compass on a space station. I need this working before the compliance deadline hits and we become the station that can't prove it's not a biohazard. Again.",
         "reporter": {
             "name": "Yara Evans",
             "email": "yara.evans@cdss.space",
@@ -435,7 +435,7 @@
     {
         "ticket_id": "SIG-1031",
         "subject": "Queries failing — Quantum Data Warehouse auto-suspended and won't resume",
-        "description": "something is wrong with our Quantum Data Warehouse. it won't go. i pressed the button. the other button too. still won't go.",
+        "description": "something is wrong with our Quantum Data Warehouse. it won't go. i pressed the button. the other button too. still won't go. the thing just sits there like it's contemplating the meaninglessness of data in an indifferent universe. i tried the third button but that one made a noise like a disappointed robot and then nothing. my manager asked me to 'describe the error' and i said 'it won't go' and she said 'be more specific' and i said 'it won't go... faster?' I don't know what else to tell you. the screen says something about auto-suspend but i don't speak database. please make it go.",
         "reporter": {
             "name": "Yuki Takahashi",
             "email": "yuki.takahashi@cdss.space",
@@ -1048,7 +1048,7 @@
     {
         "ticket_id": "SIG-1074",
         "subject": "Interstellar Safety Command emergency order — 5M credit penalty if not actioned by EOW",
-        "description": "URGENT — REGULATORY CONTAINMENT COMPLIANCE DEADLINE Please fix.",
+        "description": "URGENT — REGULATORY CONTAINMENT COMPLIANCE DEADLINE. Please fix. The fine is 5M credits and my commander says that comes out of someone's stipend and he was looking directly at me when he said it, which seems unfair because I'm just the messenger but apparently being the messenger in deep space comes with financial liability now. I don't even know what system this is about. Someone told me to file this signal and make it sound urgent. Consider it sounded.",
         "reporter": {
             "name": "Sophie Garcia",
             "email": "sophie.garcia@cdss.space",
