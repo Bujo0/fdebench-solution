@@ -206,7 +206,7 @@
     {
         "ticket_id": "SIG-0016",
         "subject": "Flight planner won't load after credential rotation",
-        "description": "Rotated my station credentials this morning per the quarterly security policy. Now the flight planning console gives me 'SSO token invalid — contact your systems administrator'. Tried logging out and back in to the station network, same issue. Other systems (comms, nav display, data archives) work fine. I need the flight planner to finalize the end-of-cycle mission logs — close of shift today is the deadline.",
+        "description": "Rotated my station credentials this morning per the cycle-end security policy. Now the flight planning console gives me 'SSO token invalid — contact your systems administrator'. Tried logging out and back in to the station network, same issue. Other systems (comms, nav display, data archives) work fine. I need the flight planner to finalize the end-of-cycle mission logs — close of shift today is the deadline.",
         "reporter": {
             "name": "Linda Park",
             "email": "linda.park@contoso.com",
