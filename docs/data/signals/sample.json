@@ -1,12 +1,12 @@
 [
     {
         "ticket_id": "SIG-0001",
-        "subject": "Deep space relay losing coherence when switching from hardline to wireless \u2014 navigation data arriving garbled",
-        "description": "Every time I undock my workstation from the hardline tether and switch to the deck's wireless relay, the subspace link drops and I have to manually re-establish the connection. Started after last Tuesday's ShipOS kernel patch. Using SubComm relay client v3.2 on Deck 4 wireless mesh, Sector Alpha. I'd file this under 'mildly infuriating' except last time it happened I was mid-transmission to Station Epsilon and they received half a cargo manifest and half of Lt. Mehta's routing guide notes. Epsilon now thinks we're shipping 400 crates of 'recalibrate the phase inverter before Thursday.' Commander Kapoor was NOT amused.",
+        "subject": "Subspace relay drops when switching between antenna arrays",
+        "description": "Every time I detach my personal console from the primary dock and switch to the auxiliary antenna array, the subspace relay disconnects and I have to reconnect manually. Started after last Tuesday’s OS module update. Using SubspaceLink v3.2 on the Station Alpha comm array, Deck 4.",
         "reporter": {
             "name": "Sarah Chen",
             "email": "sarah.chen@cdss.space",
-            "department": "Power Core Engineering"
+            "department": "Reactor Engineering"
         },
         "created_at": "2026-03-17T09:14:00Z",
         "channel": "bridge_terminal",
@@ -14,12 +14,12 @@
     },
     {
         "ticket_id": "SIG-0002",
-        "subject": "Mission Suite crashes and SubComm calendar showing phantom briefings from 2024",
-        "description": "Two problems since getting my new console yesterday: (1) Mission Suite shows a blank viewport then crashes on launch \u2014 tried rebooting the terminal twice, even did the old 'vent atmosphere from the room and re-pressurize' trick (kidding, but I considered it). (2) SubComm calendar is showing mission briefings from 2024 that I deleted months ago \u2014 including one labeled 'Emergency: Deck 9 Cat Containment Protocol' which, for the record, was resolved when Exobiology finally caught all six escapees. Both started right after the console swap. Might be related, might not. All I know is my schedule says I have a briefing with Admiral Chen in 20 minutes that may or may not exist in this timeline.",
+        "subject": "Crew comms crashes and mission calendar shows old waypoints",
+        "description": "Two problems since getting a new personal console yesterday: (1) Crew comms shows a white screen then crashes on launch — tried restarting twice. (2) Mission calendar is showing waypoints from 2024 I deleted months ago. Both started right after the console swap. Might be related, might not.",
         "reporter": {
             "name": "Marcus Rodriguez",
             "email": "marcus.rodriguez@cdss.space",
-            "department": "Stellar Cartography"
+            "department": "Exoplanet Mining"
         },
         "created_at": "2026-03-17T08:32:00Z",
         "channel": "subspace_relay",
@@ -27,12 +27,12 @@
     },
     {
         "ticket_id": "SIG-0003",
-        "subject": "Holographic display dead in Command Briefing Room \u2014 Admiral arriving in 25 minutes",
-        "description": "The holographic projector in the Command Briefing Room won't initialize. Tried the neural interface and the manual activation panel. The Meridian Sector delegation is arriving in ~25 minutes for the final review of a critical defense pact worth 2.3 million credits \u2014 Admiral Chen is presenting the tactical overlay. No backup compartment fits 12 species representatives (especially not with the Rigelian ambassador's atmospheric requirements). Can someone beam over immediately? Also, one of the Deck 9 cats just walked across the projector lens. That might be related. Or not. Please hurry.",
+        "subject": "Holographic display projector not working in main briefing chamber",
+        "description": "The holographic display projector in the main briefing chamber won’t turn on. Tried the remote and the physical button. Meridian Consortium delegates are arriving in ~25 minutes for the final treaty review on a 2.3M-credit deal — our Station Commander is presenting. No backup chamber fits 12 officers. Can someone come immediately?",
         "reporter": {
             "name": "Diana Marsh",
             "email": "diana.marsh@cdss.space",
-            "department": "Command Deck Operations"
+            "department": "Command Bridge"
         },
         "created_at": "2026-03-17T13:35:00Z",
         "channel": "holodeck_comm",
@@ -40,12 +40,12 @@
     },
     {
         "ticket_id": "SIG-0004",
-        "subject": "\ud83d\udea8 THE STATION IS REJECTING ME \ud83d\udea8 NOTHING WORKS",
-        "description": "Nothing works. I cant access anything. My console is just spinning like a pulsar. Please fix ASAP i have deadlines today for the External Relations broadcast to the Andromeda sector and Commander Kapoor is already pinging me for the deliverable. The nutrient synthesizer on this deck is ALSO broken \u2014 it keeps dispensing lime-flavored protein cubes no matter what I select \u2014 but thats probably a different department. EVERYTHING IS DOWN. I think the station hates me personally.",
+        "subject": "URGENT — all systems failing!!!",
+        "description": "Nothing works. I cant access anything. My console is just spinning. Please fix ASAP i have mission deadlines today and my commanding officer is already asking for the deliverable.",
         "reporter": {
             "name": "Jordan Lee",
             "email": "jordan.lee@cdss.space",
-            "department": "External Relations"
+            "department": "Stellar Cartography"
         },
         "created_at": "2026-03-17T10:02:00Z",
         "channel": "subspace_relay",
@@ -54,11 +54,11 @@
     {
         "ticket_id": "SIG-0005",
         "subject": "Re: [Signal SIG-0847] Scheduled maintenance notification",
-        "description": "Thank you for letting me know. I will be in cryo-sleep from March 24-28 with limited access to subspace relay. For urgent matters, please contact my colleague Alex at alex.wu@cdss.space.\n\nSafe travels through the void,\nPriya Sharma\nDirector of Stellar Cartography",
+        "description": "Thank you for letting me know. I will be in cryo-sleep from March 24–28 with limited access to subspace comms. For urgent matters, please contact my colleague Alex at alex.wu@cdss.space.\n\nBest regards,\nPriya Sharma\nDirector of Mission Planning",
         "reporter": {
             "name": "Priya Sharma",
             "email": "priya.sharma@cdss.space",
-            "department": "Stellar Cartography"
+            "department": "Exoplanet Mining"
         },
         "created_at": "2026-03-17T07:45:00Z",
         "channel": "subspace_relay",
@@ -66,23 +66,23 @@
     },
     {
         "ticket_id": "SIG-0006",
-        "subject": "Suspicious BioScan attempts on my account \u2014 someone from the Tau Ceti sector",
-        "description": "Got 6 unauthorized access alerts this morning \u2014 someone tried to authenticate against my BioScan ID from the Tau Ceti relay station. I haven't left the station in months. Changed my biometric passphrase already but worried the account may already be compromised. I have confidential defense contracts and treaty documents stored in my personal data vault on Station Core. Should I be concerned about data exfiltration? Last time we had a breach, someone downloaded the entire crew meal preference database and we had to change everyone's nutrient synthesizer codes. That was a DARK week. Commander Kapoor still brings it up at briefings.",
+        "subject": "Unauthorized biometric scan attempts on my account",
+        "description": "Got 6 biometric scan alert transmissions this morning — someone tried to access my account from Proxima Station, Sector 9. I haven’t traveled. Changed my access code already but worried the account may already be compromised. I have classified mission documents and treaty files in my personal data vault. Should I be concerned about data exposure?",
         "reporter": {
             "name": "Thomas Wright",
             "email": "thomas.wright@cdss.space",
-            "department": "Station Command"
+            "department": "Station Advocacy"
         },
         "created_at": "2026-03-17T08:15:00Z",
         "channel": "bridge_terminal",
         "attachments": [
-            "bioscan_alert_capture.png"
+            "biometric_alert_capture.png"
         ]
     },
     {
         "ticket_id": "SIG-0007",
-        "subject": "Nightly telemetry pipeline failing \u2014 service credentials 403 against Deep Storage Array",
-        "description": "Automated pipeline 'prod-sensor-ingest' failing since 03:00 UTC with 403 Forbidden on the Deep Storage Array in Sector Gamma. Service credentials may have expired or the Telemetry Data Contributor access role got revoked during last week's station security audit. This feeds the anomaly detection model used for the Monday Admiral's briefing. Pipeline runs on Station Core cluster eastus2, resource-group telemetry-prod. Last successful run Saturday 03:00 UTC. If we don't fix this before Admiral Chen's morning briefing, the threat assessment board will show stale data, and the Admiral's pointed questions will make last month's hull breach debrief look like a birthday party.",
+        "subject": "Nightly telemetry pipeline failing — SPN 403 against sensor data relay",
+        "description": "Telemetry pipeline 'prod-sensor-ingest' failing since 03:00 UTC with 403 Forbidden on the sensor data relay storage bank. Service principal token may have expired or the Sensor Data Contributor RBAC role got removed during last week’s subscription cleanup. Feeds the trajectory prediction model used for the Monday command briefing. Telemetry framework is in eastus2, rg-telemetry-prod. Last successful run Saturday 03:00 UTC.",
         "reporter": {
             "name": "Raj Patel",
             "email": "raj.patel@cdss.space",
@@ -91,13 +91,13 @@
         "created_at": "2026-03-17T06:20:00Z",
         "channel": "bridge_terminal",
         "attachments": [
-            "pipeline_anomaly_log.txt"
+            "telemetry_pipeline_log.txt"
         ]
     },
     {
         "ticket_id": "SIG-0008",
-        "subject": "Low priority \u2014 minor Station Core hiccup, probably fine",
-        "description": "Hey team. The production crew database on Station Core has been returning timeout errors for 2 hours. ~40% of data requests to the crew management portal are failing with 500 errors. Crew members are seeing intermittent errors accessing their duty rosters and mission assignments. The SentinelGrid dashboard shows connection pool exhaustion on the primary data node. Marked as low priority since the backup node is still handling some traffic. Let me know when you get a chance. No rush. I mean, some crew members can't see their EVA schedules and might accidentally space-walk into an asteroid field, but the backup node is handling SOME of the load, so... probably fine? \ud83d\ude43",
+        "subject": "Low priority — small database issue",
+        "description": "Hey team. The production stellar cartography database has been returning timeout errors for 2 hours. ~40% of API requests to the crew portal are failing with 500 errors. Crew members are seeing intermittent errors accessing their accounts. Mission ops dashboard shows connection pool exhaustion on the primary replica. Marked as low priority since the backup replica is still handling some traffic. Let me know when you get a chance.",
         "reporter": {
             "name": "Kim Nguyen",
             "email": "kim.nguyen@cdss.space",
@@ -106,17 +106,17 @@
         "created_at": "2026-03-17T14:45:00Z",
         "channel": "bridge_terminal",
         "attachments": [
-            "sentinelgrid_dashboard.png"
+            "mission_ops_dashboard.png"
         ]
     },
     {
         "ticket_id": "SIG-0009",
-        "subject": "Re: SIG-2834 \u2014 Airlock access still broken, Deck 7",
-        "description": "Following up on SIG-2834 from last week. My BioScan ID STILL doesn't work for the Deck 7 airlock after the access system migration. Was told it'd be fixed by Friday \u2014 it's Monday and I still can't get through. Have to wait for someone to cycle the airlock manually every morning. Do you know how awkward it is to stand outside an airlock at 0600 hours while the entire night shift stares at you through the viewport? Third time reporting this. If I have to file a fourth signal, I'm bringing it up at the next all-hands and I'm naming names.",
+        "subject": "Re: SIG-2834 — Airlock access still not working, Sector 7",
+        "description": "Following up on SIG-2834 from last week. Airlock access code still doesn’t work for Sector 7 after the access system migration. Was told it’d be fixed by Friday — it’s Monday and I still can’t get in. Have to wait for someone to cycle the airlock every morning. Third time reporting this.",
         "reporter": {
             "name": "Elena Vasquez",
             "email": "elena.vasquez@cdss.space",
-            "department": "Mission Strategy"
+            "department": "Resource Allocation"
         },
         "created_at": "2026-03-17T08:50:00Z",
         "channel": "subspace_relay",
@@ -124,12 +124,12 @@
     },
     {
         "ticket_id": "SIG-0010",
-        "subject": "New crew member arriving Stardate March 31 \u2014 full setup needed",
-        "description": "New senior data scientist (Alex Rivera) transferring aboard March 31. Needs:\n- Personal console (QuantumBook Pro M4, 32GB neural cores)\n- Standard software suite + Python/Conda/Jupyter for spectral analysis\n- Station Core ML workspace access (resource-group ml-prod)\n- Sensor data catalog read access\n- Deck 3 airlock badge\n- Added to science-team distribution channel and Mission Suite workspace\n\nReports to me. Please have everything initialized by March 28 for orientation walkthrough. Also, please make sure the nutrient synthesizer in Science Lab is calibrated \u2014 last new crew member spent their first week eating nothing but lime-flavored protein cubes because nobody updated the menu database. That's not a great first impression of life aboard the station.",
+        "subject": "New crew member arriving stardate March 31 — full setup needed",
+        "description": "New senior astro-analyst (Alex Rivera) arriving stardate March 31. Needs:\n- Personal console (HoloBook Pro M4, 32GB)\n- Standard software + Python/Conda/Jupyter\n- Orbital ML workspace access (rg-ml-prod)\n- Sensor data catalog read access\n- Sector 3 access\n- Added to astro-analytics distribution relay and crew comms channel\n\nReports to me. Please have everything ready by March 28 for a walkthrough.",
         "reporter": {
             "name": "Dr. Yuki Tanaka",
             "email": "yuki.tanaka@cdss.space",
-            "department": "Science Lab"
+            "department": "Astro-Analytics"
         },
         "created_at": "2026-03-17T11:00:00Z",
         "channel": "bridge_terminal",
@@ -137,12 +137,12 @@
     },
     {
         "ticket_id": "SIG-0011",
-        "subject": "BioScan multi-factor authentication failing on my personal device",
-        "description": "I'm getting a new error every time I try to approve the BioScan MFA prompt on my handheld communicator. The authenticator module shows the neural handshake request but when I confirm it says 'Biometric Verification Failed \u2014 Quantum Entanglement Mismatch'. Tried deleting and re-adding my biometric profile in the app, same result. I can still authenticate using backup access codes transmitted via SubComm, but that's slower and once I had to do it during a critical FlightOS maneuver and nearly flew us into a moon. Not super urgent, just annoying. Although if one of those Deck 9 cats steps on my communicator one more time I may upgrade the urgency to 'existential.'",
+        "subject": "Retinal scanner not accepting biometric verification",
+        "description": "I’m getting a new code error every time I try to approve the biometric prompt on my personal communicator. The biometric authenticator shows the verification signal but when I tap Approve it says ‘Something went wrong’. Tried deleting and re-adding the account in the app, same result. I can still log in using backup frequency codes but that’s slower. Not super urgent, just annoying.",
         "reporter": {
             "name": "David Kim",
             "email": "david.kim@cdss.space",
-            "department": "Flight Deck Operations"
+            "department": "Quantum Trading"
         },
         "created_at": "2026-03-17T09:30:00Z",
         "channel": "holodeck_comm",
@@ -150,12 +150,12 @@
     },
     {
         "ticket_id": "SIG-0012",
-        "subject": "FYI \u2014 FlightOS navigation console display flickering",
-        "description": "The monitor connected to my FlightOS navigation console started flickering around 10:00 station time. It's not constant \u2014 happens for a few seconds every 5-10 minutes. I switched the data conduit to a different port and it still does it. FlightOS itself seems fine, telemetry data is updating normally. Just the display. The last time a navigation display flickered like this, Ensign Park accidentally plotted a course through an asteroid belt instead of around it. Fun times. Also, unrelated \u2014 can you check if my Mission Suite collaboration license is still active? I got an expiry warning via SubComm last week but I can still log in. Would hate to lose access mid-mission because my license expired like milk on a generation ship.",
+        "subject": "FYI — Sensor array display flickering on the quantum analyzer",
+        "description": "Display connected to my quantum analyzer started flickering around 10am. It’s not constant — happens for a few seconds every 5–10 minutes. I switched the data cable to a different port and it still does it. The quantum analyzer itself seems fine, data is updating. Just the display. Also, unrelated — can you check if my mission tracking system license is still active? I got an expiry warning transmission last week but I can still log in.",
         "reporter": {
             "name": "Anna Brooks",
             "email": "anna.brooks@cdss.space",
-            "department": "Flight Deck Operations"
+            "department": "Quantum Trading"
         },
         "created_at": "2026-03-17T10:45:00Z",
         "channel": "bridge_terminal",
@@ -163,24 +163,24 @@
     },
     {
         "ticket_id": "SIG-0013",
-        "subject": "Potential data breach \u2014 classified crew records exposed \u2014 IMMEDIATE attention needed",
-        "description": "During a routine tactical audit, we discovered that a Mission Suite data repository containing personally identifiable information for ~1,200 crew members stationed at the Kepler Outpost was shared externally with 'Anyone with the subspace link' permissions. The repository has been accessible since at least February 15. We've revoked the sharing link as of this morning but need to determine: (1) who created the public link, (2) whether external parties \u2014 or worse, hostile factions \u2014 accessed the data, and (3) whether this triggers a notification obligation under the Interstellar Data Protection Accord. This is a potential regulatory incident. The last time crew PII leaked, someone used it to reprogram the nutrient synthesizers to everyone's least favorite flavors. Commander Kapoor's patience is already thinner than Deck 7's hull plating after last month's micrometeorite shower.",
+        "subject": "Containment protocol breach — crew personal data exposed via unsecured relay",
+        "description": "During a routine containment audit, we discovered that a data relay hub site containing personal data for ~1,200 crew at the Singapore outpost was shared externally with ‘Anyone with the link’ permissions. The site has been accessible since at least February 15. We’ve revoked the sharing link as of this morning but need to determine: (1) who created the public link, (2) whether external parties accessed the data, and (3) whether this triggers a notification obligation under Galactic Data Protection guidelines. This is a potential regulatory incident.",
         "reporter": {
             "name": "Dr. Ananya Gupta",
             "email": "ananya.gupta@cdss.space",
-            "department": "Tactical Operations"
+            "department": "Mission Compliance"
         },
         "created_at": "2026-03-17T07:10:00Z",
         "channel": "bridge_terminal",
         "attachments": [
-            "tactical_audit_report.pdf",
-            "mission_suite_access_log.csv"
+            "containment_breach_report.pdf",
+            "data_access_audit_log.csv"
         ]
     },
     {
         "ticket_id": "SIG-0014",
         "subject": "thanks!",
-        "description": "got it working, appreciate the quick turnaround. you crew are the best!! the station feels whole again \ud83c\udf89 tell engineering i owe them a round of the good protein cubes (NOT the lime ones)",
+        "description": "got it working, appreciate the quick turnaround. you guys are the best!! 🎉",
         "reporter": {
             "name": "Mike Torres",
             "email": "mike.torres@cdss.space",
@@ -192,12 +192,12 @@
     },
     {
         "ticket_id": "SIG-0015",
-        "subject": "Slight delay in sensor array response \u2014 may be nothing, may be doom",
-        "description": "Noticing about a 200ms delay in sensor array data processing on the APAC sector sweep this morning. Normally we're at ~50ms. Volume looks normal. Latency seems to spike right around 09:00 station time and hasn't recovered. Not sure if it's our side or the deep space relay network. The Flight Deck crew haven't complained yet but if this gets to 500ms during the next sector rotation we'll have a real problem \u2014 last time sensor lag hit 500ms we nearly classified an asteroid as a friendly vessel and rolled out the welcome mat. Just flagging early before Commander Kapoor asks why the threat board looks like it's running on a hamster wheel.",
+        "subject": "Navigation correction delay — may be nothing",
+        "description": "Noticing about a 200ms delay in navigation correction on the APAC sector relay this morning. Normally we’re at ~50ms. Volume looks normal. Latency seems to spike right around 09:00 SGT and hasn’t recovered. Not sure if it’s our side or the relay beacon. The navigators haven’t complained yet but if this gets to 500ms during the Earth orbital window we’ll have a real problem. Just flagging early.",
         "reporter": {
             "name": "James Okafor",
             "email": "james.okafor@cdss.space",
-            "department": "Flight Deck Operations"
+            "department": "Quantum Trading"
         },
         "created_at": "2026-03-17T01:15:00Z",
         "channel": "subspace_relay",
@@ -205,27 +205,27 @@
     },
     {
         "ticket_id": "SIG-0016",
-        "subject": "FlightOS navigation module won't load after passphrase rotation",
-        "description": "Changed my station passphrase this morning per the quarterly rotation protocol. Now the FlightOS navigation GUI gives me 'SSO token invalid \u2014 contact your systems administrator'. Tried logging out and back into ShipOS, same issue. Other applications (SubComm, Mission Suite, Station Core portal) work fine. I need FlightOS to process the end-of-cycle orbit reconciliation \u2014 close of watch today is the deadline. If I can't file the orbital adjustments by then, the entire station's trajectory calculations will be based on last cycle's data, and I'd rather not discover we've drifted into a debris field because of a password change. Lt. Mehta's routing guide specifically says 'always update FlightOS credentials BEFORE the cycle ends.' I did. It broke. The irony is not lost on me.",
+        "subject": "Flight navigation system won’t load after biometric re-enrollment",
+        "description": "Re-enrolled my station biometric credentials this morning per the quarterly rotation policy. Now the flight navigation console gives me ‘SSO token invalid — contact your system administrator’. Tried logging out and back in to my console, same issue. Other apps (mission comms, crew comms, data relay hub) work fine. I need the flight navigation system to process cycle-end course reconciliation — close of business today is the deadline.",
         "reporter": {
             "name": "Linda Park",
             "email": "linda.park@cdss.space",
-            "department": "Mission Strategy"
+            "department": "Resource Allocation"
         },
         "created_at": "2026-03-17T10:30:00Z",
         "channel": "bridge_terminal",
         "attachments": [
-            "flightos_error_capture.png"
+            "flight_nav_anomaly_capture.png"
         ]
     },
     {
         "ticket_id": "SIG-0017",
-        "subject": "Emergency beacon \u2014 crew member having issues with... something",
-        "description": "[Transcribed from emergency beacon, 15:42 station time]\n\nCaller: Hi yeah so um my thing... the thing on my console... it keeps doing the... you know when you tap on it and it goes to the... [subspace static] ...and then nothing happens? I've been trying for like two rotations. My colleague Janet from Hydroponics said to ping you. I think it might be the... [subspace static] ...something about permissions? Or maybe the atmosphere processor is affecting my console? I don't know. Can someone just float over and look at it? I'm on Deck 5, near the nutrient synthesizer. The one that only makes lime cubes. My name's Bob. No wait, Robert. Robert Chen. Not the Robert Chen in Mission Strategy, the other one. The one whose console is near the cat that escaped from the Exobiology Lab on Deck 9. Yes, THAT cat is still here.",
+        "subject": "Garbled emergency beacon transmission — crew member having issues with something",
+        "description": "[Transcribed from emergency beacon, 3:42 PM]\n\nCaller: Hi yeah so um my thing... the thing on my console... it keeps doing the... you know when you click on it and it goes to the... [static] ...and then nothing happens? I’ve been trying for like two days. My crewmate Janet said to hail you guys. I think it might be the... [static] ...something about permissions? I don’t know. Can someone just come look at it? I’m on Deck 5, near the galley. My name’s Bob. No wait, Robert. Robert Chen. Not the Robert Chen in resource allocation, the other one.",
         "reporter": {
             "name": "Robert Chen",
             "email": "robert.chen2@cdss.space",
-            "department": "Mission Ops"
+            "department": "Station Operations"
         },
         "created_at": "2026-03-17T15:42:00Z",
         "channel": "emergency_beacon",
@@ -233,12 +233,12 @@
     },
     {
         "ticket_id": "SIG-0018",
-        "subject": "Commander Martinez can't share holodisplay in Admiral's briefing \u2014 HAPPENING NOW",
-        "description": "Commander Carlos Martinez (SVP, Deep Space Operations) is in the Admiral's briefing RIGHT NOW and can't share his holodisplay over Mission Suite. The briefing is with Admiral Chen and representatives from allied stations. He's tried projecting from both his personal console and the Command Room's integrated holo-array. Other participants can share fine. His console shows 'Display sharing is blocked by station security protocol.' The briefing has been going on for 10 minutes without his tactical presentation. The Admiral is giving him The Look\u2122 \u2014 you know the one, the look that precedes reassignment to asteroid monitoring duty. He's requesting someone to report to the Deck 8 Command Briefing Room immediately. I repeat: the Admiral is in the room. This is not a drill.",
+        "subject": "Commander Martinez can’t share holographic display in admiralty briefing — happening now",
+        "description": "Carlos Martinez (Commander, Institutional Operations) is in the admiralty briefing right now and can’t share his holographic display over crew comms. The meeting is with the admiralty council and allied station commanders. He’s tried sharing from both his personal console and the briefing room holographic system. Other participants can share fine. His console shows ‘Sharing is blocked by your station’s policy.’ Briefing has been going on for 10 minutes without his presentation. He’s asking for someone to come to the Command Deck admiralty chamber immediately.",
         "reporter": {
             "name": "Patricia Gomez",
             "email": "patricia.gomez@cdss.space",
-            "department": "Command Deck Operations"
+            "department": "Command Bridge"
         },
         "created_at": "2026-03-17T14:10:00Z",
         "channel": "holodeck_comm",
@@ -246,27 +246,27 @@
     },
     {
         "ticket_id": "SIG-0019",
-        "subject": "Crew member departure \u2014 last duty rotation March 21",
-        "description": "Jessica Palmer (jessica.palmer@cdss.space) from the Tactical Operations team has submitted her transfer request. Her last duty rotation is Friday March 21. Please:\n- Disable her BioScan ID at 18:00 EST on March 21\n- Revoke subspace relay access and all remote station credentials\n- Wipe her station console (QuantumBook Latitude 5540, asset tag CDSS-L-4892)\n- Transfer ownership of her personal data vault and Mission Suite files to her supervisor David Liu (david.liu@cdss.space)\n- Remove her from all distribution channels and Mission Suite workspaces\n- Archive her SubComm messages per our 7-cycle retention protocol\n\nNote: Jessica has access to sensitive tactical investigation files regarding the Deck 7 hull breach incident. Please ensure these are preserved in secure storage but not accessible after her departure. Commander Kapoor has specifically flagged this \u2014 those files contain details about how three of the Deck 9 cats were found IN the hull breach. Don't ask.",
+        "subject": "Crew departure — last shift stardate March 21",
+        "description": "Jessica Palmer (jessica.palmer@cdss.space) in the Mission Compliance division has resigned. Her last shift is Friday March 21. Please:\n- Disable her crew identity database account at 6 PM EST on March 21\n- Revoke subspace relay and all remote access\n- Wipe her station-issued console (Dell Latitude 5540, asset tag CT-L-4892)\n- Transfer ownership of her personal data vault and data relay hub files to her supervisor David Liu (david.liu@cdss.space)\n- Remove her from all distribution relays and crew comms channels\n- Archive her comm records per our 7-year retention policy\n\nNote: Jessica has access to sensitive mission compliance investigation files. Please ensure these are preserved but not accessible after her departure.",
         "reporter": {
             "name": "David Liu",
             "email": "david.liu@cdss.space",
-            "department": "Tactical Operations"
+            "department": "Mission Compliance"
         },
         "created_at": "2026-03-17T09:00:00Z",
         "channel": "bridge_terminal",
         "attachments": [
-            "departure_checklist.pdf"
+            "crew_departure_checklist.pdf"
         ]
     },
     {
         "ticket_id": "SIG-0020",
-        "subject": "Emergency hull patch fabricator on Deck 3 not working \u2014 only 2 patch kits remaining",
-        "description": "The hull patch fabricator near the mess hall on Deck 3 stopped fabricating. Print jobs go to the queue but nothing materializes. I tried fabricating from my console and from the auxiliary terminal next to it \u2014 same result. The fabricator display shows 'Ready' and the raw material hoppers are full. Other crew on the deck are having the same issue. We need it for emergency hull patch kits \u2014 we only have 2 remaining and given Deck 7's track record with spontaneous hull breaches, that's not a comfortable margin. Also, there's a cat sitting on top of the fabricator. One of the Deck 9 escapees. It looks comfortable. It might be unrelated to the malfunction but I thought you should know.",
+        "subject": "3D fabricator on Deck 3 not producing",
+        "description": "The big 3D fabricator near the mess hall on Deck 3 stopped producing. Jobs go to the queue but nothing comes out. I tried fabricating from my personal console and from the workstation next to it — same result. The fabricator display shows ‘Ready’ and material trays are full. Other crew on the deck are having the same issue. We need it for mission proposal components that go out today.",
         "reporter": {
             "name": "Sam Williams",
             "email": "sam.williams@cdss.space",
-            "department": "Stellar Cartography"
+            "department": "Exoplanet Mining"
         },
         "created_at": "2026-03-17T11:20:00Z",
         "channel": "bridge_terminal",
@@ -274,8 +274,8 @@
     },
     {
         "ticket_id": "SIG-0021",
-        "subject": "How do I reserve a briefing compartment?",
-        "description": "Hi, I just transferred aboard last week and I need to reserve the large briefing compartment on Deck 4 for a crew welcome gathering on Friday. I looked in SubComm but I can't figure out how to add it to the schedule. Is there a special station calendar or something? Also, do I need to order nutrient packs through Engineering or is that a different department? I heard the synthesizer on Deck 4 does this thing where it only makes lime-flavored cubes \u2014 is that true or is the crew just hazing me? Thanks!",
+        "subject": "How do I reserve a briefing chamber?",
+        "description": "Hi, I just joined the station last week and I need to reserve the large briefing chamber on Deck 4 for a crew lunch on Friday. I looked in mission comms but I can’t figure out how to add it. Is there a special schedule or something? Also, do I need to order provisions through Mission Control or is that a different team? Thanks!",
         "reporter": {
             "name": "Chris Taylor",
             "email": "chris.taylor@cdss.space",
@@ -287,27 +287,27 @@
     },
     {
         "ticket_id": "SIG-0022",
-        "subject": "Encryption cert expiring on crew-api.cdss.space \u2014 3 rotations left",
-        "description": "SentinelGrid monitoring flagged that the quantum encryption certificate on crew-api.cdss.space expires on March 20. This is the production API gateway that all external station integrations and allied fleet communications hit. If the cert expires, every connection will start failing with encryption handshake errors and we'll be broadcasting in the clear \u2014 which is basically an open invitation for every pirate fleet in the sector. The cert was originally provisioned manually by an engineer who transferred to Station Omega 6 months ago. I don't know if auto-renewal was ever configured. We need to renew or replace it before Thursday. For the love of all that is pressurized, do NOT let this expire. Last time our certs lapsed, SentinelGrid classified our own station as a hostile entity and locked everyone out for 4 hours.",
+        "subject": "Quantum encryption certificate expiring on comm-relay.cdss.space — 3 days left",
+        "description": "Our monitoring flagged that the quantum encryption certificate on comm-relay.cdss.space expires on March 20. This is the production comm relay gateway that all external station integrations hit. If the cert expires, every station connection will start failing with encryption errors. The cert was originally provisioned manually by someone who left the crew 6 months ago. I don’t know if auto-renewal was ever configured. We need to renew or replace it before Thursday.",
         "reporter": {
             "name": "Nina Volkov",
             "email": "nina.volkov@cdss.space",
-            "department": "Power Core Engineering"
+            "department": "Reactor Engineering"
         },
         "created_at": "2026-03-17T08:00:00Z",
         "channel": "subspace_relay",
         "attachments": [
-            "cert_expiry_alert.png"
+            "quantum_cert_expiry_alert.png"
         ]
     },
     {
         "ticket_id": "SIG-0023",
-        "subject": "I think my console has been infected with rogue code",
-        "description": "My console has been running at sublight speeds for two rotations. Applications take forever to initialize, the cooling fans run constantly like a miniature atmosphere processor, and I got a couple of weird pop-ups that said something about 'updating system components \u2014 do not power off.' I think I might have picked up rogue code from that suspicious SubComm message I accidentally opened last week \u2014 the one that claimed to be from 'Admiral Chen's Personal Assistant' offering free shore leave credits. I ran SentinelGrid's local scan and it didn't detect anything but I'm still worried. One of my colleagues said rogue code can hide in the BioScan firmware and SentinelGrid wouldn't catch it. Should I not use the console until someone checks it? I've been doing all my work on a borrowed datapad and it's like trying to navigate a nebula with a compass.",
+        "subject": "I think my personal console may have been compromised by malware",
+        "description": "My personal console has been super slow for two days. Modules take forever to open, the cooling fan runs constantly, and I got a couple of weird pop-ups that said something about ‘updating system components.’ I think I might have caught malware from that transmission I accidentally opened last week. I ran the station security scanner and it didn’t find anything but I’m still worried. Should I not use the console until someone checks it?",
         "reporter": {
             "name": "Rachel Green",
             "email": "rachel.green@cdss.space",
-            "department": "External Relations"
+            "department": "Stellar Cartography"
         },
         "created_at": "2026-03-17T09:45:00Z",
         "channel": "subspace_relay",
@@ -315,12 +315,12 @@
     },
     {
         "ticket_id": "SIG-0024",
-        "subject": "Fwd: You have won 5,000,000 galactic credits \u2014 claim now!!!",
-        "description": "---------- Forwarded subspace message ----------\nFrom: Intergalactic Prize Consortium <claims@totallylegit-prizes.tau-ceti>\nDate: March 16, 2026\nSubject: You have won 5,000,000 galactic credits \u2014 claim now!!!\n\nDear Valued Crew Member,\n\nCongratulations! Your SubComm address has been selected as the winner of our annual Intergalactic Subspace Lottery. You have won the sum of 5,000,000 galactic credits.\n\nTo claim your prize, please access the link below and enter your full name, BioScan ID, and credit transfer routing codes:\nhttps://claim-your-credits-now.totallylegit-prizes.tau-ceti\n\n--- end forwarded message ---\n\nHey Engineering \u2014 got this subspace message, is this legit? Should I click the link? Looks suspicious but I don't want to miss out if it's real. That's a LOT of credits. I could finally afford to upgrade from lime-flavored protein cubes to the artisanal ones. Please advise quickly before the 'offer expires.'",
+        "subject": "Fwd: You have won 5,000,000 credits — claim now!!!",
+        "description": "---------- Forwarded transmission ----------\nFrom: Galactic Prize Committee <claims@totallylegit-prizes.ng>\nDate: March 16, 2026\nSubject: You have won 5,000,000 credits — claim now!!!\n\nDear Valued Crew Member,\n\nCongratulations! Your comm address has been selected as the winner of our annual Galactic Subspace Lottery. You have won the sum of 5,000,000 credits.\n\nTo claim your prize, please click the link below and enter your full name, date of birth, and financial account details:\nhttps://claim-your-prize-now.totallylegit-prizes.ng\n\n--- end forwarded transmission ---\n\nHey Mission Control — got this transmission, is this legit? Should I click the link? Looks suspicious but I don’t want to miss out if it’s real.",
         "reporter": {
             "name": "Greg Dawson",
             "email": "greg.dawson@cdss.space",
-            "department": "Crew Support"
+            "department": "Crew Services"
         },
         "created_at": "2026-03-17T11:55:00Z",
         "channel": "subspace_relay",
@@ -328,18 +328,18 @@
     },
     {
         "ticket_id": "SIG-0025",
-        "subject": "Station Core node 'prod-analytics-01' unreachable since scheduled reboot",
-        "description": "Station Core compute node prod-analytics-01 (Standard_E16ds_v5 quantum processor, Sector Gamma, resource-group analytics-prod) became unreachable after a scheduled reboot at 05:00 UTC for ShipOS patching. Remote console and secure shell both timeout. Station Core management portal shows the node status as 'Running' but boot diagnostics show it stuck at 'Applying station configuration parameters'. SentinelGrid firewall rules haven't changed. This node runs the analytics dashboard that Admiral Chen and the command staff use for the morning threat briefing at 09:00 EST. We have about 2 hours. If the Admiral walks into the briefing room and the threat board is blank, the resulting... conversation... will make last month's Deck 7 hull breach debrief look like a pleasant chat over protein cubes. Please prioritize. I am not being dramatic. (I am being slightly dramatic.)",
+        "subject": "Analytics module 'astro-analytics-01' unreachable after scheduled restart",
+        "description": "Orbital compute module astro-analytics-01 (Standard_E16ds_v5, eastus2, rg-analytics-prod) became unreachable after a scheduled restart at 05:00 UTC for OS patching. Remote console and secure shell both timeout. Orbital compute dashboard shows the module status as ‘Running’ but boot diagnostics show it stuck at ‘Applying system settings’. Firewall rules haven’t changed. This module runs the analytics holodeck that the command team uses for the morning briefing at 9 AM EST. We have about 2 hours.",
         "reporter": {
             "name": "Alex Petrov",
             "email": "alex.petrov@cdss.space",
-            "department": "Station Infrastructure"
+            "department": "Orbital Infrastructure"
         },
         "created_at": "2026-03-17T05:30:00Z",
         "channel": "bridge_terminal",
         "attachments": [
-            "boot_diagnostics_capture.png",
-            "sentinelgrid_rules_export.json"
+            "module_boot_diagnostics.png",
+            "firewall_rules_export.json"
         ]
     }
 ]
