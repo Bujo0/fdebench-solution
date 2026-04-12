@@ -197,11 +197,11 @@ The `eval_results.json` file contains full per-signal breakdowns for error analy
 
 ## Running the Tests
 
-The scoring functions have their own test suite (107 tests covering every edge case, boundary condition, and creative way a participant might return a boolean value). Run them if you want to understand exactly how scoring works, or if you've been tinkering with the harness code and want to make sure you haven't accidentally made the scoring computer more forgiving. (You haven't. It can't be.)
+The scoring functions have their own test suite (158 tests covering every edge case, boundary condition, and creative way a participant might return a boolean value). Run them if you want to understand exactly how scoring works, or if you've been tinkering with the harness code and want to make sure you haven't accidentally made the scoring computer more forgiving. (You haven't. It can't be.)
 
 ```bash
 cd docs/eval
 python test_scoring.py
 ```
 
-All 107 should pass. If they don't, something's wrong with your environment, not the tests. The tests are deterministic. They are, in this regard, the only thing you can count on in the void.
+All 158 should pass. If they don't, something's wrong with your environment, not the tests. The tests are deterministic. They are, in this regard, the only thing you can count on in the void.
