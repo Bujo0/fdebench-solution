@@ -115,10 +115,10 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Check service principal biometric credentials and access control role assignments on the Deep Storage Array in rg-telemetry-prod. Restore the Telemetry Data Contributor role if it was removed during the station security audit.",
+        "next_best_action": "Check service principal biometric credentials and access control role assignments on the Deep Storage Array in telemetry-core-prod. Restore the Telemetry Data Contributor role if it was removed during the station security audit.",
         "remediation_steps": [
             "Verify service principal token expiration for the data pipeline identity",
-            "Check access control role assignments on the Deep Storage Array in rg-telemetry-prod",
+            "Check access control role assignments on the Deep Storage Array in telemetry-core-prod",
             "Restore Telemetry Data Contributor role assignment if missing",
             "Re-run the data pipeline ‘prod-sensor-ingest’ and verify successful execution",
             "Investigate why the role assignment was removed during the station security audit to prevent recurrence"
@@ -172,9 +172,9 @@
         ],
         "next_best_action": "Initiate new crew member onboarding workflow for Alex Rivera (arrival date March 31). Coordinate hardware, software, access, and group membership provisioning across teams. Target readiness by March 28.",
         "remediation_steps": [
-            "Order Quantum Pro M4 32GB from hardware procurement",
+            "Order OrbitalCore Pro M4 32GB from hardware procurement",
             "Prepare standard software image with Python, Conda, and Jupyter environment",
-            "Request Station Core ML workspace access (rg-ml-prod) from station_ops",
+            "Request Station Core ML workspace access (ml-ops-bay-alpha) from station_ops",
             "Request sensor catalog read access from data_engineering",
             "Request Deck 3 airlock access code from identity_ops",
             "Add Alex Rivera to analytics-team distribution list and SubComm channel",
@@ -448,7 +448,7 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate Station Core VM prod-analytics-01 stuck at ‘Applying station settings’ after scheduled OS patching reboot. Command analytics dashboard dependent on this VM — 2-hour window before the 0900 briefing.",
+        "next_best_action": "Investigate Station Core node prod-analytics-01 stuck at ‘Applying station settings’ after scheduled OS patching reboot. Command analytics dashboard dependent on this VM — 2-hour window before the 0900 briefing.",
         "remediation_steps": [
             "Check Station Core boot diagnostics serial console output for the stuck state",
             "Attempt to connect via Station Core Serial Console to bypass the stuck access attempt screen",

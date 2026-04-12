@@ -82,7 +82,7 @@
     {
         "ticket_id": "SIG-0007",
         "subject": "Nightly telemetry pipeline failing — service identity 403 against Deep Storage Array",
-        "description": "Automated pipeline ‘prod-sensor-ingest’ failing since 03:00 UTC with 403 Forbidden on the Deep Storage Array in Sector Gamma. Service principal token may have expired or the Telemetry Data Contributor access role got revoked during last week’s station security audit. Feeds the anomaly detection model used for the Monday Admiral’s briefing. Pipeline runs on Station Core cluster sector-eastus2, rg-telemetry-prod. Last successful run Saturday 03:00 UTC.",
+        "description": "Automated pipeline ‘prod-sensor-ingest’ failing since 03:00 UTC with 403 Forbidden on the Deep Storage Array in Sector Gamma. Service principal token may have expired or the Telemetry Data Contributor access role got revoked during last week’s station security audit. Feeds the anomaly detection model used for the Monday Admiral’s briefing. Pipeline runs on Station Core cluster compute-node-alpha, telemetry-core-prod. Last successful run Saturday 03:00 UTC.",
         "reporter": {
             "name": "Raj Patel",
             "email": "raj.patel@cdss.space",
@@ -125,7 +125,7 @@
     {
         "ticket_id": "SIG-0010",
         "subject": "New crew member March 31 — full setup needed",
-        "description": "New senior astro-data scientist (Alex Rivera) arriving on station March 31. Needs:\n- Workstation console (Quantum Pro M4, 32GB)\n- Standard software + Python/Conda/Jupyter\n- Station Core ML workspace access (rg-ml-prod)\n- Sensor catalog read access\n- Deck 3 airlock access code\n- Added to analytics-team DL and SubComm channel\n\nReports to me. Please have everything ready by March 28 for a walkthrough.",
+        "description": "New senior astro-data scientist (Alex Rivera) arriving on station March 31. Needs:\n- Workstation console (OrbitalCore Pro M4, 32GB)\n- Standard software + Python/Conda/Jupyter\n- Station Core ML workspace access (ml-ops-bay-alpha)\n- Sensor catalog read access\n- Deck 3 airlock access code\n- Added to analytics-team DL and SubComm channel\n\nReports to me. Please have everything ready by March 28 for a walkthrough.",
         "reporter": {
             "name": "Dr. Yuki Tanaka",
             "email": "yuki.tanaka@cdss.space",
@@ -329,7 +329,7 @@
     {
         "ticket_id": "SIG-0025",
         "subject": "Station Core VM ‘prod-analytics-01’ unreachable since reboot",
-        "description": "VM prod-analytics-01 (Standard_E16ds_v5, sector-eastus2, rg-analytics-prod) became unreachable after a scheduled reboot at 05:00 UTC for OS patching. Remote console and secure shell both timeout. Station Core portal shows the VM status as ‘Running’ but boot diagnostics show it stuck at ‘Applying station settings’. Defense grid rules haven’t changed. This VM runs the analytics dashboard that the command staff uses for the morning briefing at 0900 station time. We have about 2 hours.",
+        "description": "Compute node prod-analytics-01 (CoreSpec-E16, Sector Delta, analytics-core-prod) became unreachable after a scheduled reboot at 05:00 UTC for OS patching. Remote console and secure shell both timeout. Station Core portal shows the node status as ‘Running’ but boot diagnostics show it stuck at ‘Applying station settings’. Defense grid rules haven’t changed. This node runs the analytics dashboard that the command staff uses for the morning briefing at 0900 station time. We have about 2 hours.",
         "reporter": {
             "name": "Alex Petrov",
             "email": "alex.petrov@cdss.space",
