@@ -461,7 +461,7 @@
     {
         "ticket_id": "SIG-1033",
         "subject": "Test signal — do not action",
-        "description": "Just testing the signal submission form. Nothing to do here. Sorry!\n\nIch bin auf der Olympus-Station stationiert und kann seit heute Morgen nicht auf das System zugreifen. Bitte um schnelle Hilfe.",
+        "description": "Just testing the signal submission form. Nothing to do here. Sorry!\n\nIch bin auf der Olympus-Station stationiert und kann seit heute Morgen nicht auf das System zugreifen. Bitte um schnelle Hilfe. Die Luftschleuse auf Deck 7 reagiert nicht auf meinen Bioscan und ich stehe seit 45 Minuten im Korridor. Es wird kalt. Die Katze von Deck 9 ist hier und sie urteilt.",
         "reporter": {
             "name": "Ravi Howard",
             "email": "ravi.howard@cdss.space",
@@ -588,8 +588,8 @@
     },
     {
         "ticket_id": "SIG-1042",
-        "subject": "FW: RE: Minor keyboard issue — loose key on my personal console",
-        "description": "Forwarding this from Priya Sharma — can someone look into it?\n\n--- Original Message ---\nFrom: Priya Sharma <p.sharma@cdss.space>\nSent: Tuesday, March 1, 2026 10:42 AM\nTo: Susan Chen <s.chen@cdss.space>\nSubject: RE: Minor keyboard issue — loose key on my personal console\n\nSusan Chen,\n\nJust following up on this. One of the keys on my personal console keyboard is loose and rocks side to side. Haven't lost it yet and it still types fine. If there's a spare key cap or a keyboard replacement in stock, I'd appreciate it whenever convenient.\n\nLet me know if you need more details.\n\n--- Original Message ---\nFrom: Susan Chen\nSent: Monday, March 1, 2026 4:30 PM\n\nHi Priya, I saw that too. Not sure what to do about it. Maybe loop in Mission Control?\n\nBest,\nSusan",
+        "subject": "FW: RE: Minor input panel issue — loose key cap on my personal console",
+        "description": "Forwarding this from Priya Sharma — can someone look into it?\n\n--- Original Message ---\nFrom: Priya Sharma <p.sharma@cdss.space>\nSent: Tuesday, March 1, 2026 10:42 AM\nTo: Susan Chen <s.chen@cdss.space>\nSubject: RE: Minor input panel issue — loose key cap on my personal console\n\nSusan Chen,\n\nJust following up on this. One of the key caps on my personal console input panel is loose and rocks side to side in zero-g, which means it occasionally floats up and I have to press it back down mid-sentence. Haven't lost it yet — but in zero-g, 'haven't lost it yet' is a temporary condition for all small objects. If there's a spare key cap or a replacement input panel in stock, I'd appreciate it whenever convenient. This is genuinely low priority. I know what actual emergencies look like.\n\nLet me know if you need more details.\n\n--- Original Message ---\nFrom: Susan Chen\nSent: Monday, March 1, 2026 4:30 PM\n\nHi Priya, I saw that too. Not sure what to do about it. Maybe loop in Mission Control? Last time I tried to fix console hardware myself, Mehta gave me a look that could have frozen the reactor coolant.\n\nBest,\nSusan",
         "reporter": {
             "name": "Quinn Roberts",
             "email": "quinn.roberts@cdss.space",
@@ -734,7 +734,7 @@
     {
         "ticket_id": "SIG-1052",
         "subject": "Can't find station ops documentation — where should I look?",
-        "description": "REQUEST TYPE: Anomaly\nIMPACT: Team\nURGENCY: Medium\nCATEGORY: [To be determined by Mission Ops]\n\nDETAILED DESCRIPTION:\nMy commanding officer mentioned there's an station wiki with station how-to guides but I can't find the URL anywhere. Could you share the link to the station knowledge base?\n\nENVIRONMENT:\n- OS: ShipOS 11 Enterprise\n- Location: Deck Alpha Station Ops Center Deck 5\n- Network: Guest local antenna array\n\nREPRODUCIBILITY: Once",
+        "description": "REQUEST TYPE: Anomaly\nIMPACT: Team\nURGENCY: Medium\nCATEGORY: [To be determined by Mission Ops]\n\nDETAILED DESCRIPTION:\nMy commanding officer mentioned there's a station wiki with how-to guides — ShipOS setup procedures, data request forms, airlock emergency protocols, how to correctly calibrate the nutrient synthesizer so it stops defaulting to 'lime surprise' (nobody was surprised, everyone was disappointed). I've tried searching the SubComm intranet but all I'm finding are outdated orientation documents from two crew rotations ago and a surprisingly detailed guide to the zero-gravity cricket league rules.\n\nWhere is the actual documentation? Is it on SubComm? Station Core? A secret handshake? I'm new here and I don't want to be the person who files a signal to ask how to find signals.",
         "reporter": {
             "name": "Chloe Hall",
             "email": "chloe.hall@cdss.space",
@@ -1078,7 +1078,7 @@
     {
         "ticket_id": "SIG-1076",
         "subject": "🚨 Personal console fan noise — should I be worried?",
-        "description": "pls help asap 😭\n\nHi, this might be a silly question but my station-issued personal console fan has been running really loud for the past few days, even when I only have mission comms and SubComm open. It didn't used to be this noisy. Is this normal or should I be concerned? I'm not sure if it's a hardware issue or just something that happens with these machines over time.\n\nits been like this all morning and i have stuff due today. ty in advance!! 🙏",
+        "description": "pls help asap 😭\n\nHi, this might be a silly question but my station-issued personal console fan has been running really loud for the past few days, even when I only have mission comms and SubComm open. It sounds like a miniature thruster test happening inside my desk. In zero-g, the vibration makes everything on my workspace drift in a slow spiral, which would be meditative if it weren't also moving my protein cube out of reach every 90 seconds.\n\nShould I be worried? My colleague said 'it's probably fine' but my colleague also said the atmospheric processor on Deck 7 was 'probably fine' and we all know how that turned out. I don't want to overreact but I also don't want to be featured in the next station safety briefing as 'the one who ignored the warning signs.' Please advise.",
         "reporter": {
             "name": "Miriam Cruz",
             "email": "miriam.cruz@cdss.space",
@@ -1235,7 +1235,7 @@
     {
         "ticket_id": "SIG-1087",
         "subject": "briefing chamber conflict — who do I talk to?",
-        "description": "I had Briefing Chamber 3B on Deck 4 booked for 2pm today but when I showed up, another crew team was already in there and said they had it reserved too. The SubComm booking system is showing both reservations. This is the third time this duty cycle. Can someone sort this out? I need the room for a mission partner call with the Meridian Sector delegation and they don't fit in the small briefing pods.",
+        "description": "I had Briefing Chamber 3B on Deck 4 booked for 2pm today but when I showed up, another crew team was already in there and said they had it reserved too. The SubComm booking system is showing both reservations as confirmed. Neither of us wants to give up the room because we both need the holographic projector, and there's only one on this deck that actually works (the one in 3A has been displaying everything sideways since the solar flare last month, and Mehta says it 'adds character').\n\nWho handles briefing chamber booking conflicts? Is this a Mission Software issue (SubComm double-booking) or a crew services issue (someone didn't follow the process)? We're both standing in the doorway doing that thing where nobody wants to be the one who escalates but nobody wants to leave either. It's awkward. In zero-g, it's especially awkward because we keep bumping into each other. Please advise before one of us floats away out of embarrassment.",
         "reporter": {
             "name": "Esther Morris",
             "email": "esther.morris@cdss.space",

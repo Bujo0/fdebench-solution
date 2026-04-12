@@ -83,9 +83,11 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close — this is an automated cryo-sleep out-of-rotation reply to a maintenance notification, not a mission signal. The void sends many such messages. This crew member is literally frozen solid in a tube. They cannot help you. You cannot help them. When they thaw in 6–18 months, they will have opinions about their inbox. That is a future problem.",
+        "next_best_action": "Close — this is a cryo-sleep out-of-office auto-reply, not a mission signal. The crew member is literally frozen and will return your signal in 6–18 months. Do not route. Do not escalate. Do not attempt to wake them up.",
         "remediation_steps": [
-            "No action required — cryo-sleep auto-reply detected, close signal. Let the frozen crew member dream in peace. When she thaws, she'll have 6–18 months of unread signals. That's her problem, not yours."
+            "Close the signal — it's a cryo-sleep auto-reply and does not require triage, resolution, or existential contemplation",
+            "If the original signal (SIG-0847) was routed elsewhere, verify that signal is being handled by the appropriate team",
+            "No further action required — the reporter is suspended in a cryogenic pod and will emerge refreshed, disoriented, and probably hungry sometime between September and 2027"
         ]
     },
     {
@@ -117,11 +119,11 @@
         "missing_information": [],
         "next_best_action": "Check service principal biometric credentials and access control role assignments on the Deep Storage Array in telemetry-core-prod. Restore the Telemetry Data Contributor role if it was removed during the station security audit.",
         "remediation_steps": [
-            "Verify service principal token expiration for the data pipeline identity",
-            "Check access control role assignments on the Deep Storage Array in telemetry-core-prod",
-            "Restore Telemetry Data Contributor role assignment if missing",
-            "Re-run the data pipeline ‘prod-sensor-ingest’ and verify successful execution",
-            "Investigate why the role assignment was removed during the station security audit to prevent recurrence"
+            "Check service principal 'svc-telemetry-ingest' role assignments in BioScan ID — verify the role hasn't been revoked, expired, or accidentally reassigned to the Deck 9 cat (it has happened before, don't ask)",
+            "If role was revoked during the Station Core module migration, reinstate read/write access to /telemetry/raw on the Deep Storage Array",
+            "Verify the target blob store endpoint hasn't changed post-migration — a stale endpoint in the pipeline config would explain the 403",
+            "Run a manual pipeline test with verbose logging to confirm the fix before the next nightly cycle at 02:00",
+            "Once resolved, verify the 3 cycles of missing telemetry data can be backfilled — the Exobiology team's cat behavioral dataset must not have gaps, or there will be charts about the gaps, and those charts will have footnotes"
         ]
     },
     {
@@ -170,15 +172,14 @@
         "missing_information": [
             "crew_contact"
         ],
-        "next_best_action": "Initiate new crew member onboarding workflow for Alex Rivera (arrival date March 31). Coordinate hardware, software, access, and group membership provisioning across teams. Target readiness by March 28.",
+        "next_best_action": "Initiate new crew member onboarding workflow for Alex Rivera (arrival date March 31). Coordinate hardware, software, access provisioning, and data permissions across all relevant teams before the 09:00 supply shuttle lands. Nobody gets stranded in a corridor again.",
         "remediation_steps": [
-            "Order OrbitalCore Pro M4 32GB from station hardware procurement",
-            "Prepare standard software image with Python, Conda, and Jupyter environment",
-            "Request Station Core ML workspace access (ml-ops-bay-alpha) from station_ops",
-            "Request sensor catalog read access from data_engineering",
-            "Request Deck 3 airlock access code from identity_ops",
-            "Add Alex Rivera to analytics-team station distribution list and SubComm channel",
-            "Schedule station equipment handoff and orientation walkthrough for March 28"
+            "Create BioScan ID crew account and schedule biometric enrollment at the Deck 2 BioAuth panel — confirm enrollment slot before arrival so they're not standing at an airlock watching people walk through it",
+            "Provision workstation console and comm device with standard Astro-Science image and software suite (FlightOS, Quantum Analyzer, IRIS Holographic Display, spectral analysis toolkit)",
+            "Configure data access to Exobiology and Dark Matter shared sensor archives on Station Core — verify access scopes with the Astro-Science section chief",
+            "Set up SubComm profile with briefing room booking access and station distribution list membership",
+            "Assign ShipOS MDM enrollment for the new comm device and verify automatic policy push on first activation",
+            "Confirm all provisioning will be ready before March 31 09:00 shuttle arrival — the corridor-wandering incident from last rotation must not be repeated"
         ]
     },
     {
@@ -246,9 +247,10 @@
         "assigned_team": "None",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Close — this is a thank-you message, not a mission signal. Rare evidence of crew member satisfaction in the void. Frame it. Mount it next to the protein cube dispenser as a morale artifact. Show it to the next ops officer who asks 'does anyone even appreciate what we do?' Yes. Once. This is the proof.",
+        "next_best_action": "Close — this is a thank-you message, not a mission signal. Rare evidence of crew member satisfaction in the void. Frame it. Put it on the wall next to the motivational poster that says 'Teamwork Makes The Station Not Explode.'",
         "remediation_steps": [
-            "No action required — positive feedback, close signal. Consider printing it out and taping it to the ops center wall. These are rarer than correctly flavored protein cubes. Treasure it."
+            "Close the signal with no further action — it's a thank-you message and requires zero triage, zero routing, and zero existential dread",
+            "If the referenced original signal is still open, verify resolution status — someone said 'thanks,' which implies something went right, and we should document this rare occurrence"
         ]
     },
     {
@@ -303,12 +305,12 @@
             "module_specs",
             "sequence_to_reproduce"
         ],
-        "next_best_action": "Contact reporter on Deck 5 (Robert Chen — the other one, not the one in Resource Allocation — robert.chen2@cdss.space, Flight Operations) to gather actual symptom details. Signal as submitted has insufficient detail to triage. Emergency beacon transcription is a masterclass in not communicating useful information.",
+        "next_best_action": "Contact reporter on Deck 5 (Robert Chen — the other one, not the one in Resource Allocation — robert.chen2@cdss.space, Flight Operations) to identify what 'the main one' is and what 'the thing' was. Cannot triage what cannot be described.",
         "remediation_steps": [
-            "Contact Robert Chen (Deck 5 near mess hall, Flight Operations division — not the other Robert Chen, he was very clear about this) to clarify the issue in person or via SubComm",
-            "Determine which application or subsystem is failing — 'the thing on my console' is not a diagnostic",
-            "Gather specific anomaly readouts and reproduction steps — 'it goes to the... you know' is not a reproduction step",
-            "Once the actual issue is identified, re-triage and route to the correct specialist team — assuming Robert can describe the problem without static interrupting at the critical moment"
+            "Contact Robert Chen (robert.chen2@cdss.space, Flight Operations, Deck 5) and ask structured questions — 'which application?', 'what does the error say?', 'can you take a sensor capture?' — do not accept 'the main one' as an answer",
+            "If the issue cannot be identified remotely, dispatch a technician to Deck 5 to observe the problem firsthand — sometimes the fastest path to diagnosis is watching someone demonstrate 'the thing'",
+            "Once the affected subsystem is identified, re-triage with correct category, priority, and routing information",
+            "Log this signal as an example of why the station's signal submission form should have required fields — a request that has been filed, ignored, and re-filed approximately once per crew rotation since the station was commissioned"
         ]
     },
     {
@@ -360,11 +362,11 @@
         ],
         "next_best_action": "Investigate molecular fabricator queue issue on Deck 3 — yes, that Deck 3 fabricator. Multiple crew members affected and jobs are queuing but not fabricating, which suggests a network or fabricator server issue rather than a local connectivity problem. It was working for three days. A new record. The fabricator's contempt for the crew is well-documented.",
         "remediation_steps": [
-            "Identify the fabricator model and check whether it is network-attached or connected via fabricator server — the Deck 3 fabricator's exact configuration is a mystery wrapped in a maintenance backlog",
-            "Check fabricator server spooler service status and restart if necessary — the spooler has a complicated relationship with this particular fabricator",
-            "Verify network connectivity between the fabricator and the fabricator server or direct network path",
-            "If network-connected, check the fabricator's comms address and relay interface status — this fabricator has a history of silently disconnecting",
-            "Clear stuck fabrication queue and test with a fresh job — diplomatic gift packages need to ship today, so urgency is real even if the fabricator doesn't care"
+            "Verify whether the Deck 3 fabricator is network-connected or locally connected — this determines whether it's a Deep Space Communications issue (network queue) or Spacecraft Systems (local hardware). Yes, this is the fabricator. THE fabricator. The one in the orientation guide.",
+            "Check network connectivity to the fabrication queue server — if the fabricator can't reach the queue, jobs will sit there forever, like signals in a misrouted queue, like that metaphor isn't already giving you anxiety",
+            "If network connectivity is confirmed, check the fabricator's print spooler service status on the local controller — restart if stalled",
+            "If the fabricator is locally connected, route to Spacecraft Systems for hardware diagnosis — the Deck 3 unit has been printing everything 2mm too thick since March and has its own entry in the known-issues database, which is longer than some crew members' personnel files",
+            "If none of the above resolves it, escalate to the fabricator manufacturer — and good luck getting a warranty technician at 0.3 AU"
         ]
     },
     {
@@ -432,12 +434,13 @@
         "assigned_team": "Threat Response Command",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Confirm this is a hostile signal/scam transmission and advise the crew member NOT to click any links. Forward the original transmission to threats@cdss.space for analysis. No breach has occurred if the crew member hasn't clicked. Also: no, Greg, you did not win 5,000,000 galactic credits. Nobody wins 5,000,000 galactic credits from an unsolicited subspace message. The void is many things but it is not generous.",
+        "next_best_action": "Confirm this is a hostile signal/scam transmission from an external vessel and advise the crew member NOT to click any links, not to claim any galactic credits, and not to share any station credentials with the 'Intergalactic Prize Committee,' which is not a real committee. Forward the original transmission to SentinelGrid for blocking and domain reputation flagging.",
         "remediation_steps": [
-            "Reply to the crew member immediately: this is a scam transmission — do NOT click any links or provide any personal information. The Intergalactic Prize Committee is not real. Neither is the 5,000,000 credits.",
-            "Have the crew member forward the original transmission as an attachment to threats@cdss.space for analysis and pattern matching against known hostile signal campaigns",
-            "Check whether the transmission bypassed CDSS's comm filtering and report to Threat Response Command if so — if interstellar spam is getting through, the filters need updating",
-            "If the crew member already clicked the link, escalate to a full security incident, initiate credential reset, and have a conversation about digital literacy in deep space"
+            "Advise crew member Greg Dawson that he has not, in fact, won 5,000,000 galactic credits — nobody has, because the Intergalactic Prize Committee does not exist, and if it did, it would not use a .ng domain",
+            "If the crew member clicked any links in the original transmission, escalate to a full security incident, initiate credential reset, and have a quiet conversation about operational security awareness",
+            "Block the sender domain (totallylegit-prizes.ng) in SentinelGrid and add to the station-wide hostile signal filter — though the domain name alone should have been a clue",
+            "Forward the original hostile signal to Threat Response Command for pattern analysis — this merchant vessel has been targeting station crew for months and their subject lines are getting more creative",
+            "Consider adding this signal to the next station-wide security awareness briefing as an example. Greg has graciously volunteered to be the cautionary tale, whether he knows it yet or not"
         ]
     },
     {
@@ -450,12 +453,11 @@
         "missing_information": [],
         "next_best_action": "Investigate Station Core node prod-analytics-01 stuck at 'Applying station settings' after scheduled OS patching reboot. Command analytics dashboard depends on this node and Commander Kapoor's 0900 briefing is in 2 hours. Failure to restore this node will result in a briefing without data, which is the operational equivalent of navigating an asteroid field blindfolded. Commander Kapoor without her morning data is a force of nature. Act accordingly.",
         "remediation_steps": [
-            "Check Station Core boot diagnostics serial console output for the stuck state — 'Applying station settings' has been staring into the void for too long",
-            "Attempt to connect via Station Core Serial Console to bypass the stuck access attempt screen",
-            "If Serial Console access is possible, check if a policy or startup script is hanging — the VM equivalent of a crew member frozen mid-thought",
-            "If the VM is unrecoverable, redeploy from the latest snapshot or restore from backup — the Commander's briefing is in 2 hours and she does not accept 'the VM is being philosophical' as a status update",
-            "Verify the analytics dashboard is accessible once the VM is restored — brief Commander Kapoor that data will be available. She will nod. This is the highest praise.",
-            "Post-incident: review the OS patching procedure to prevent boot failures after scheduled updates — because next time it might not be just the analytics dashboard at stake"
+            "Access the Station Core management console and check prod-analytics-01 boot status — if it's stuck at 'Applying station settings', the OS patch may have introduced a driver conflict or a startup service is hanging",
+            "If the remote console is unresponsive, request a hard reset via the Station Core hypervisor management interface — document the timestamp for the post-incident review",
+            "Once the node is responsive, check OS patch installation logs for errors and verify all station services started correctly — pay special attention to the monitoring agent and database services",
+            "Verify the 12-hour data gap in the analytics pipeline — determine if the upstream data can be replayed from the ingestion buffer or if manual backfill is needed",
+            "Post-incident: review the OS patching procedure to prevent unattended reboot failures — a production node that silently disappears for 12 hours after a 'routine' patch is the kind of failure mode that gets its own section in the station incident report. And possibly its own commemorative plaque on Deck 7, next to the one about the protein cube incident"
         ]
     }
 ]
