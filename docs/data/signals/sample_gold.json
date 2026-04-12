@@ -26,13 +26,13 @@
             "software_version",
             "module_specs"
         ],
-        "next_best_action": "Investigate whether Mission Planner crash and Star Chart waypoint sync issues are related to the terminal swap. The ghost waypoints from 2024 suggest the data migration brought along some unwanted passengers. Verify terminal provisioning, clear caches, force a waypoint resync, and confirm software versions match the station standard image.",
+        "next_best_action": "Investigate whether Mission Suite crash and Star Chart waypoint sync issues are related to the terminal swap. The ghost waypoints from 2024 suggest the data migration brought along some unwanted passengers. Verify ShipOS terminal provisioning, clear Mission Suite caches, force a waypoint resync, and confirm software versions match the station standard image.",
         "remediation_steps": [
-            "Verify terminal provisioning and data migration completed successfully — ghost waypoints from 2024 suggest the swap brought passengers nobody invited",
-            "Clear Mission Planner cache and reinstall if crash persists — the white screen of nothingness is not a feature, despite what some engineers claim",
+            "Verify ShipOS terminal provisioning and data migration completed successfully — ghost waypoints from 2024 suggest the swap brought passengers nobody invited",
+            "Clear Mission Suite cache and reinstall Mission Planner if crash persists — the white screen of nothingness is not a feature, despite what some engineers claim",
             "Check Star Chart profile migration status and force waypoint database resync to purge phantom asteroid fields that no longer exist",
-            "Confirm software versions match the supported standard station image — mismatched builds in deep space are how you get navigating by memory and vibes",
-            "If issues persist after cache clear and resync, re-provision applications on the new terminal and verify the old terminal's data ghost isn't haunting the new one"
+            "Confirm Mission Suite versions match the supported standard ShipOS image — mismatched builds in deep space are how you get navigating by memory and vibes",
+            "If issues persist after cache clear and resync, re-provision Mission Suite applications on the new terminal and verify the old terminal's data ghost isn't haunting the new one"
         ]
     },
     {
@@ -132,14 +132,14 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate production telemetry database connection pool exhaustion immediately. This is a station-critical incident despite the reporter's casual 'low priority' label — 40% of sensor queries are failing and life support monitoring data has gone stale. The oxygen recycler dashboard hasn't updated in 45 minutes, which is the kind of sentence that should be written in all caps with a siren emoji. Override priority to P1.",
+        "next_best_action": "Investigate Station Core production telemetry database connection pool exhaustion immediately. This is a station-critical incident despite the reporter's casual 'low priority' label — 40% of sensor queries are failing and life support monitoring data has gone stale. The oxygen recycler dashboard hasn't updated in 45 minutes, which is the kind of sentence that should be written in all caps with a siren emoji. Override priority to P1.",
         "remediation_steps": [
-            "Investigate connection pool configuration on the primary telemetry data node immediately — the crew member said 'low priority' but the oxygen recycler dashboard disagrees, and between the two opinions, the one attached to life support wins",
-            "Identify and terminate long-running queries or leaked connections causing pool exhaustion — somewhere a query is hoarding connections like a crew member hoarding protein cubes before a supply shuttle delay",
-            "Verify life support monitoring systems are receiving data — the oxygen recycler dashboard hasn't updated in 2 hours, which is exactly the kind of sentence that should make your heart rate increase",
-            "Increase connection pool size or restart the primary data node as immediate mitigation — the backup node is handling overflow but it's the backup for a reason, and that reason is 'please don't make this my full-time job'",
-            "Confirm backup node health and verify it is handling redirected traffic without developing its own pool exhaustion — cascading failures in space are less forgiving than on Earth because there's no 'step outside for fresh air' option",
-            "Post-incident: conduct root cause analysis and add alerting on connection pool usage thresholds — so next time, the station finds out about the problem from a dashboard, not from the oxygen recycler going quiet"
+            "Investigate connection pool configuration on the primary Station Core telemetry data node immediately — the crew member said 'low priority' but the oxygen recycler dashboard disagrees, and between the two opinions, the one attached to life support wins",
+            "Identify and terminate long-running queries or leaked connections causing pool exhaustion — somewhere a query is hoarding Station Core connections like a crew member hoarding protein cubes before a supply shuttle delay",
+            "Verify life support monitoring systems are receiving data from Station Core — the oxygen recycler dashboard hasn't updated in 2 hours, which is exactly the kind of sentence that should make your heart rate increase",
+            "Increase connection pool size or restart the primary Station Core data node as immediate mitigation — the backup node is handling overflow but it's the backup for a reason, and that reason is 'please don't make this my full-time job'",
+            "Confirm backup node health and verify it is handling redirected Station Core traffic without developing its own pool exhaustion — cascading failures in space are less forgiving than on Earth because there's no 'step outside for fresh air' option",
+            "Post-incident: conduct root cause analysis and add SentinelGrid alerting on Station Core connection pool usage thresholds — so next time, the station finds out about the problem from a dashboard, not from the oxygen recycler going quiet"
         ]
     },
     {
@@ -152,13 +152,13 @@
         "missing_information": [
             "previous_signal_id"
         ],
-        "next_best_action": "Escalate airlock biometric badge issue for Deck 7 — third report without resolution. Crew member has been manually overriding every morning while cats judge them from the ventilation grate. Check badge permissions in the updated access management system and verify migration was completed correctly.",
+        "next_best_action": "Escalate airlock biometric badge issue for Deck 7 — third report without resolution. Crew member has been manually overriding every morning while cats judge them from the ventilation grate. Check badge permissions in BioScan ID and verify the access migration completed correctly.",
         "remediation_steps": [
-            "Check crew member's badge permissions in the updated access management system",
-            "Verify Deck 7 airlock access rights were properly migrated from the old system",
-            "If permissions appear correct, test the physical badge and biometric scanner at the airlock",
-            "Escalate to station facilities management if badge and permissions are both confirmed working",
-            "Follow up with crew member to confirm resolution"
+            "Check crew member's badge permissions in BioScan ID — verify the profile is active and Deck 7 airlock is in the authorized zones list",
+            "Verify Deck 7 airlock access rights were properly migrated from the legacy access system to BioScan ID during the Q2 refit",
+            "If BioScan ID permissions appear correct, test the physical badge and biometric scanner at the airlock — the scanner on Deck 7 has been temperamental since the cats discovered it makes a satisfying beep when they walk past",
+            "Escalate to station facilities management if badge and BioScan ID permissions are both confirmed working — at that point it's a hardware issue, and someone needs to have a conversation with the scanner",
+            "Follow up with crew member to confirm resolution — they've been patient for three signals and the cats are getting tired of judging"
         ]
     },
     {
@@ -232,12 +232,12 @@
         "missing_information": [],
         "next_best_action": "Initiate data breach investigation immediately. This is the kind of incident that generates three-letter acronyms, mandatory reporting deadlines, and pointed questions from people with more stars on their uniform than you have on your performance review. Classified PII exposure of 1,200 crew personnel under Space Authority data protection regulations. Determine scope of unauthorized access, identify who created the sharing link (and schedule their 'learning opportunity'), and assess notification obligations.",
         "remediation_steps": [
-            "Confirm the unsecured sharing permissions have been fully revoked — every second that archive stays open is another second the Admiral's classified fitness reports are available to anyone with curiosity and a data terminal",
-            "Pull data archive audit logs to identify who created the public sharing link and when — someone turned classified PII into a spectator sport, and the station data protection officer needs to have a conversation about that",
-            "Analyze audit logs for any unauthorized access to the archive between February 15 and today — because 'nobody probably noticed' is not an acceptable finding in a crew data breach investigation",
+            "Confirm the unsecured sharing permissions have been fully revoked in Data Vault — every second that archive stays open is another second the Admiral's classified fitness reports are available to anyone with curiosity and a data terminal",
+            "Pull SentinelGrid audit logs and Data Vault access records to identify who created the public sharing link and when — someone turned classified PII into a spectator sport, and the station data protection officer needs to have a conversation about that",
+            "Analyze SentinelGrid logs for any unauthorized access to the archive between February 15 and today — because 'nobody probably noticed' is not an acceptable finding in a crew data breach investigation",
             "Engage Tactical Operations and Legal to assess Space Authority notification obligations — data breach regulations apply in deep space too, and the regulators don't accept 'we were 0.3 AU from Earth' as an excuse",
             "Document findings for the incident report and regulatory record — because if there's one thing that survives longer than a space station, it's the paperwork from a data breach",
-            "Conduct a broader data archive permissions audit across all archives containing classified crew PII — if one archive was misconfigured, assume others are too until proven innocent"
+            "Conduct a broader Data Vault permissions audit across all archives containing classified crew PII — if one archive was misconfigured, assume others are too until proven innocent"
         ]
     },
     {
@@ -266,11 +266,11 @@
         ],
         "next_best_action": "Investigate 200ms→50ms latency regression on the Gamma Sector navigation relay before it graduates to 500ms and ruins the Centauri transit window. Check relay path to the navigation beacon, recent routing or signal barrier changes, and whether the latency is on the station's side or the beacon's side. If it's the beacon, someone should probably tell the beacon operators before the helm officers start sending strongly-worded subspace messages.",
         "remediation_steps": [
-            "Check navigation relay latency metrics on the path between the station's Gamma Sector relay and the navigation beacon",
-            "Review recent signal barrier, routing, or relay configuration changes that may affect the navigation path",
-            "Compare current latency baseline against historical data to confirm the regression",
-            "If latency is on the station's side, escalate to communications engineering for immediate remediation before the Centauri transit window",
-            "If beacon-side, contact beacon operations and notify helm officers of potential impact"
+            "Check SubComm navigation relay latency metrics on the path between the station's Gamma Sector relay and the navigation beacon — something between here and there is taking a detour through the scenic route",
+            "Review recent SubComm signal barrier, routing, or relay configuration changes that may affect the navigation path — even 'routine' SubComm changes have a track record of causing non-routine consequences",
+            "Compare current latency baseline against SubComm historical data to confirm the regression — the jump from 50ms to 200ms didn't happen because space got wider",
+            "If latency is on the station's side, escalate to Deep Space Communications engineering for immediate SubComm relay remediation before the Centauri transit window",
+            "If beacon-side, contact beacon operations and notify helm officers of potential impact — they'll want time to compose their strongly-worded subspace messages"
         ]
     },
     {
@@ -323,11 +323,11 @@
         "missing_information": [],
         "next_best_action": "Dispatch support to the command deck briefing chamber immediately. Commander-level VIP signal — treat as one priority level higher than filed. The admiralty is watching a Mission Commander try to present without a holographic display, which is the deep-space equivalent of showing up to a sword fight with a spoon.",
         "remediation_steps": [
-            "Dispatch technician to the command deck briefing chamber immediately",
-            "Check station access policies and holographic display permissions applied to Commander Martinez's account",
-            "Verify whether the 'Display sharing blocked by station policy' error is caused by a security policy, display admin policy, or access restriction",
-            "As immediate workaround: have someone else project the presentation on his behalf, or use the chamber's integrated holo-emitter with a different account",
-            "Once the briefing is unblocked, investigate and resolve the underlying policy conflict"
+            "Dispatch technician to the command deck briefing chamber immediately — bring a backup data pad in case Mission Suite decides to be dramatic about display sharing",
+            "Check ShipOS MDM access policies and Mission Suite holographic display permissions applied to Commander Martinez's account — someone's security policy is feeling overprotective",
+            "Verify whether the 'Display sharing blocked by station policy' error is caused by a ShipOS security policy, Mission Suite display admin policy, or BioScan ID access restriction",
+            "As immediate workaround: have someone else project the presentation via Mission Suite on his behalf, or use the chamber's integrated holo-emitter with a different account",
+            "Once the briefing is unblocked, investigate and resolve the underlying ShipOS MDM policy conflict — the Admiral should never again see a Commander defeated by a dialog box"
         ]
     },
     {
@@ -398,12 +398,12 @@
         ],
         "next_best_action": "Renew or replace the encryption certificate on relay-gateway.cdss.space before it expires on March 20 and turns this station into the galaxy's most expensive paperweight. This is the primary external comms relay gateway — expiry will sever all external communications and allied fleet integrations. Treat as P1 given the 72-hour window and the fact that the original engineer left behind documentation best described as 'theoretical.'",
         "remediation_steps": [
-            "Identify the current certificate authority and certificate type (public CA, internal PKI, or auto-provisioned)",
-            "Determine whether auto-renewal was configured or if the cert was manually provisioned",
-            "If auto-renewal exists, trigger a manual renewal cycle and verify the new cert is issued",
-            "If manual, generate a certificate signing request, obtain a new certificate from the CA, and install it on the relay gateway",
-            "Verify the new certificate is correctly installed and all external comms links work without encryption errors",
-            "Configure auto-renewal and monitoring alerts to prevent recurrence"
+            "Identify the current certificate authority and certificate type (public CA, internal PKI, or auto-provisioned) — the original engineer's documentation consists of a sticky note that says 'it works, don't touch it'",
+            "Determine whether auto-renewal was configured or if the cert was manually provisioned — given the station's track record, assume the worst and prepare for the manual option",
+            "If auto-renewal exists, trigger a manual renewal cycle and verify the new cert is issued — if it fails, at least we'll know why the auto-renewal wasn't auto-renewing",
+            "If manual, generate a certificate signing request, obtain a new certificate from the CA, and install it on the relay gateway — and this time, document it in a place that is not a sticky note",
+            "Verify the new certificate is correctly installed and all external SubComm links work without encryption errors — test against SentinelGrid's certificate validation checks",
+            "Configure auto-renewal and SentinelGrid monitoring alerts on certificate expiry to prevent recurrence — because 'we forgot' is not an acceptable reason for the station to go dark"
         ]
     },
     {
@@ -417,13 +417,13 @@
             "module_specs",
             "anomaly_readout"
         ],
-        "next_best_action": "Investigate terminal performance degradation before the crew member's imagination turns a stuck system update into a galactic cyber-incident. Symptoms (slow performance, fan running, pop-ups about 'updating system components') are more consistent with a stuck system update or background compliance scan than malware, especially since the onboard security scanner found nothing. Check update history and system resource usage. Also investigate that transmission they opened — the one from 'defin1tely-not-malware@cdss.space.'",
+        "next_best_action": "Investigate terminal performance degradation before the crew member's imagination turns a stuck ShipOS update into a galactic cyber-incident. Symptoms (slow performance, fan running, pop-ups about 'updating system components') are more consistent with a stuck ShipOS update or background ShipOS MDM compliance scan than malware, especially since SentinelGrid found nothing. Check update history and system resource usage. Also investigate that transmission they opened — the one from 'defin1tely-not-malware@cdss.space.'",
         "remediation_steps": [
-            "Check system update history — verify whether recent patches completed or are stuck retrying in an infinite loop of optimism and failure, which is also how the nutrient synthesizer handles recipe requests",
-            "Review system monitor for high CPU/disk processes — the fan running at escape velocity and the slow load times point to either a stuck update or something mining cryptocurrency, and in deep space, both are equally unwelcome",
-            "If updates are stuck, run system update troubleshooter or manually reset the update components — the pop-ups about 'updating system components' are almost certainly legitimate, but the crew member's paranoia is understandable given the sender address 'defin1tely-not-malware@cdss.space'",
-            "Verify security scanner definitions are current and run a full diagnostic scan — the scanner that couldn't find the Deck 9 cats for six months deserves skepticism, but it's still better than nothing",
-            "If the crew member did open a suspicious transmission, forward it to security@cdss.space and notify Threat Response Command — even if it's just a stuck update, the social engineering vector should be documented so Lt. Mehta can add it to his increasingly long list of things crew members should not click on"
+            "Check ShipOS update history — verify whether recent patches completed or are stuck retrying in an infinite loop of optimism and failure, which is also how the nutrient synthesizer handles recipe requests",
+            "Review ShipOS system monitor for high CPU/disk processes — the fan running at escape velocity and the slow load times point to either a stuck ShipOS update or something mining cryptocurrency, and in deep space, both are equally unwelcome",
+            "If updates are stuck, run ShipOS update troubleshooter or manually reset the update components — the pop-ups about 'updating system components' are almost certainly legitimate ShipOS MDM compliance, but the crew member's paranoia is understandable given the sender address 'defin1tely-not-malware@cdss.space'",
+            "Verify SentinelGrid definitions are current and run a full diagnostic scan — the scanner that couldn't find the Deck 9 cats for six months deserves skepticism, but it's still better than nothing",
+            "If the crew member did open a suspicious transmission, forward it to security@cdss.space and notify Threat Response Command — even if it's just a stuck ShipOS update, the social engineering vector should be documented so Lt. Mehta can add it to his increasingly long list of things crew members should not click on"
         ]
     },
     {
@@ -450,14 +450,14 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate compute node prod-analytics-01 stuck at 'Applying configuration' after scheduled OS patching reboot. The node has been meditating peacefully for 3 hours while the command analytics dashboard remains empty. Commander briefing in 2 hours — the data needs to be there, or the person responsible for the data not being there needs to not be there either.",
+        "next_best_action": "Investigate Station Core compute node prod-analytics-01 stuck at 'Applying configuration' after scheduled OS patching reboot. The node has been meditating peacefully for 3 hours while the command analytics dashboard remains empty. Commander briefing in 2 hours — the data needs to be there, or the person responsible for the data not being there needs to not be there either.",
         "remediation_steps": [
-            "Check boot diagnostics console output for the stuck 'Applying configuration' state — the node has been meditating for 3 hours and shows no signs of enlightenment",
-            "Attempt to connect via diagnostic serial console to bypass the stuck boot screen — if the serial port also ghosts you, the node has committed fully to its vow of silence",
-            "If serial console access is possible, check whether a startup policy or initialization script is hanging — the OS patch may have introduced a new dependency that the boot sequence is waiting for with infinite patience and zero urgency",
-            "If the node is unrecoverable via console, redeploy from the latest snapshot or restore from backup — the command analytics team's dashboard has been dark since 0500 and Commander Kapoor's morning briefing runs on those dashboards like the station runs on oxygen",
-            "Verify the command analytics dashboard is accessible once the node is restored — and apologize to the analytics team for their 3 hours of existential uncertainty",
-            "Post-incident: review the OS patching procedure to prevent boot failures — a patching reboot that doesn't come back is not a patch, it's a retirement"
+            "Check Station Core boot diagnostics console output for the stuck 'Applying configuration' state — the node has been meditating for 3 hours and shows no signs of enlightenment",
+            "Attempt to connect via Station Core diagnostic serial console to bypass the stuck boot screen — if the serial port also ghosts you, the node has committed fully to its vow of silence",
+            "If serial console access is possible, check whether a startup policy or initialization script is hanging — the Station Core OS patch may have introduced a new dependency that the boot sequence is waiting for with infinite patience and zero urgency",
+            "If the node is unrecoverable via console, redeploy from the latest Station Core snapshot or restore from Data Vault backup — the command analytics team's dashboard has been dark since 0500 and Commander Kapoor's morning briefing runs on those dashboards like the station runs on oxygen",
+            "Verify the command analytics dashboard is accessible once the Station Core node is restored — and apologize to the analytics team for their 3 hours of existential uncertainty",
+            "Post-incident: review the Station Core OS patching procedure to prevent boot failures — a patching reboot that doesn't come back is not a patch, it's a retirement"
         ]
     }
 ]
