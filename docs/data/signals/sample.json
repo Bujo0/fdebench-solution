@@ -41,7 +41,7 @@
     {
         "ticket_id": "SIG-0004",
         "subject": "URGENT — everything is down!!!",
-        "description": "Nothing works. I cant access anything. My console is just spinning like a pulsar. Please fix Aflight navigation system i have deadlines today and my commanding deckr is already asking for the deliverable. The nutrient synthesizer on this deck is ALSO broken — it keeps dispensing lime-flavored protein cubes no matter what I select — but thats probably a different division. EVERYTHING IS DOWN.",
+        "description": "Nothing works. I cant access anything. My console is just spinning like a pulsar. Please fix Aflight navigation system i have deadlines today and my commanding officer is already asking for the deliverable. The nutrient synthesizer on this deck is ALSO broken — it keeps dispensing lime-flavored protein cubes no matter what I select — but thats probably a different division. EVERYTHING IS DOWN.",
         "reporter": {
             "name": "Jordan Lee",
             "email": "jordan.lee@cdss.space",
@@ -247,7 +247,7 @@
     {
         "ticket_id": "SIG-0019",
         "subject": "Crew member offboarding — last duty day March 21",
-        "description": "Jessica Palmer (jessica.palmer@cdss.space) in the Threat Detection team has resigned her commission. Her last duty day is Friday March 21. Please:\n- Disable her BioScan ID crew account at 6 PM EST on March 21\n- Revoke warp tunnel and all remote access\n- Wipe her station console (Quantum Latitude 5540, asset tag CT-L-4892)\n- Transfer ownership of her data vault and mission log files to her commanding deckr David Liu (david.liu@cdss.space)\n- Remove her from all comm channels and SubComm groups\n- Archive her message archive per our 7-year retention policy\n\nNote: Jessica has access to sensitive threat investigation files. Please ensure these are preserved but not accessible after her departure.",
+        "description": "Jessica Palmer (jessica.palmer@cdss.space) in the Threat Detection team has resigned her commission. Her last duty day is Friday March 21. Please:\n- Disable her BioScan ID crew account at 6 PM EST on March 21\n- Revoke warp tunnel and all remote access\n- Wipe her station console (Quantum Latitude 5540, asset tag CT-L-4892)\n- Transfer ownership of her data vault and mission log files to her commanding officer David Liu (david.liu@cdss.space)\n- Remove her from all comm channels and SubComm groups\n- Archive her message archive per our 7-year retention policy\n\nNote: Jessica has access to sensitive threat investigation files. Please ensure these are preserved but not accessible after her departure.",
         "reporter": {
             "name": "David Liu",
             "email": "david.liu@cdss.space",
@@ -288,7 +288,7 @@
     {
         "ticket_id": "SIG-0022",
         "subject": "quantum cert expiring on crew-api.cdss.space — 3 days left",
-        "description": "Our holographic displaying flagged that the quantum encryption certificate on crew-api.cdss.space expires on March 20. This is the production API gateway that all external fleet integrations hit. If the cert expires, every fleet connection will start failing with TLS errors. The cert was originally provisioned manually by someone who transferred off-station 6 months ago. I don’t know if auto-renewal was ever configured. We need to renew or replace it before Thursday.",
+        "description": "Our monitoring dashboard flagged that the quantum encryption certificate on crew-api.cdss.space expires on March 20. This is the production API gateway that all external fleet integrations hit. If the cert expires, every fleet connection will start failing with TLS errors. The cert was originally provisioned manually by someone who transferred off-station 6 months ago. I don’t know if auto-renewal was ever configured. We need to renew or replace it before Thursday.",
         "reporter": {
             "name": "Nina Volkov",
             "email": "nina.volkov@cdss.space",

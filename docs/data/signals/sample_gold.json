@@ -103,7 +103,7 @@
             "Review authentication logs for the crew member’s crew account over the past 48 hours",
             "Check data vault audit trail for any unauthorized file access or downloads",
             "Verify passphrase change was successful and biometric verification is active",
-            "If unauthorized access is confirmed, escalate to incident response and notify data protection deckr",
+            "If unauthorized access is confirmed, escalate to incident response and notify data protection officer",
             "Brief crew member on interim security measures and holographic display crew account for further anomalies"
         ]
     },
@@ -285,7 +285,7 @@
         "remediation_steps": [
             "Verify the crew member’s BioScan ID session and quantum auth ticket are refreshed after the passphrase change",
             "Check FlightOS unified crew authentication configuration — confirm whether FlightOS GUI uses quantum auth or SAML-based unified crew authentication",
-            "Reissue the FlightOS unified crew authentication logon ticket or have the crew member authenticateto FlightOS with explicit biometric credentials as a workaround",
+            "Reissue the FlightOS unified crew authentication logon ticket or have the crew member authenticate to FlightOS with explicit biometric credentials as a workaround",
             "If unified crew authentication token regeneration doesn’t resolve it, check whether the passphrase policy change affected the FlightOS SNC configuration",
             "Confirm FlightOS access is restored and the crew member can complete month-end resource reconciliation"
         ]
@@ -400,7 +400,7 @@
             "If auto-renewal exists, trigger a manual renewal cycle and verify the new cert is issued",
             "If manual, generate a CSR, obtain a new certificate from the CA, and install it on the API gateway",
             "Verify the new certificate is correctly installed and all fleet connections work without TLS errors",
-            "Configure auto-renewal and holographic displaying alerts to prevent recurrence"
+            "Configure auto-renewal and monitoring dashboard alerts to prevent recurrence"
         ]
     },
     {
