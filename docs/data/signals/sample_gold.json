@@ -374,7 +374,7 @@
             "system_configuration",
             "habitat_conditions"
         ],
-        "next_best_action": "Renew or replace the encryption certificate on relay-gateway.cdss.space before it expires on March 20. This is the primary external comms relay gateway -- expiry will break all external communications and allied fleet integrations. Treat as P1 given the 3-day window and the fact that the original engineer has transferred off-station.",
+        "next_best_action": "Renew or replace the encryption certificate on relay-gateway.cdss.space before it expires on March 20 and turns this station into the galaxy's most expensive paperweight. This is the primary external comms relay gateway — expiry will sever all external communications and allied fleet integrations. Treat as P1 given the 72-hour window and the fact that the original engineer left behind documentation best described as 'theoretical.'",
         "remediation_steps": [
             "Identify the current certificate authority and certificate type (public CA, internal PKI, or auto-provisioned)",
             "Determine whether auto-renewal was configured or if the cert was manually provisioned",
@@ -394,7 +394,7 @@
             "module_specs",
             "anomaly_readout"
         ],
-        "next_best_action": "Investigate terminal performance degradation. Symptoms (slow performance, fan running, pop-ups about 'updating system components') are more consistent with a stuck system update or background compliance scan than malware, especially since the onboard security scanner found nothing. Check update history and system resource usage.",
+        "next_best_action": "Investigate terminal performance degradation before the crew member's imagination turns a stuck system update into a galactic cyber-incident. Symptoms (slow performance, fan running, pop-ups about 'updating system components') are more consistent with a stuck system update or background compliance scan than malware, especially since the onboard security scanner found nothing. Check update history and system resource usage. Also investigate that transmission they opened — the one from 'defin1tely-not-malware@cdss.space.'",
         "remediation_steps": [
             "Check system update history -- verify whether recent patches completed or are stuck retrying",
             "Review system monitor for high CPU/disk processes (likely system update or compliance scan)",
@@ -425,7 +425,7 @@
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": true,
         "missing_information": [],
-        "next_best_action": "Investigate compute node prod-analytics-01 stuck at 'Applying configuration' after scheduled OS patching reboot. Command analytics dashboard depends on this node -- 2-hour window before the 9 AM mission briefing.",
+        "next_best_action": "Investigate compute node prod-analytics-01 stuck at 'Applying configuration' after scheduled OS patching reboot. The node has been meditating peacefully for 3 hours while the command analytics dashboard remains empty. Commander briefing in 2 hours — the data needs to be there, or the person responsible for the data not being there needs to not be there either.",
         "remediation_steps": [
             "Check boot diagnostics console output for the stuck configuration state",
             "Attempt to connect via diagnostic serial console to bypass the stuck boot screen",
