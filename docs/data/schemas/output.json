@@ -30,7 +30,7 @@
                 "P3",
                 "P4"
             ],
-            "description": "Priority level. P1 = Critical (Red Alert), P2 = High, P3 = Medium, P4 = Low (Routine)."
+            "description": "Priority level. P1 = Red Alert (critical/life-threatening), P2 = Yellow Alert (major, no workaround), P3 = Standard Ops (impact with workaround), P4 = Routine (minor/cosmetic)."
         },
         "assigned_team": {
             "type": "string",
