@@ -24,6 +24,8 @@ sys.modules["run_eval"] = _mod
 _spec.loader.exec_module(_mod)
 
 WEIGHTS = _mod.WEIGHTS
+CATEGORIES = _mod.CATEGORIES
+TEAMS = _mod.TEAMS
 _coerce_bool = _mod._coerce_bool
 binary_f1 = _mod.binary_f1
 macro_f1 = _mod.macro_f1
@@ -80,6 +82,49 @@ def test_category_both_empty():
 def test_category_whitespace_only_vs_real():
     """Whitespace-only candidate should not match a real category."""
     assert score_category("   ", "Communications & Navigation") == 0.0
+
+
+@pytest.mark.parametrize("category", CATEGORIES)
+def test_category_exact_all_labels(category):
+    """Every category in the closed label set should match itself."""
+    assert score_category(category, category) == 1.0
+
+
+@pytest.mark.parametrize("category", CATEGORIES)
+def test_category_case_insensitive_all_labels(category):
+    """Every category should match its lowercased form."""
+    assert score_category(category.lower(), category) == 1.0
+
+
+def test_categories_label_set_completeness():
+    """Guard against accidental additions or removals in CATEGORIES."""
+    expected = {
+        "Crew Access & Biometrics",
+        "Hull & Structural Systems",
+        "Communications & Navigation",
+        "Flight Software & Instruments",
+        "Threat Detection & Containment",
+        "Telemetry & Data Banks",
+        "Mission Briefing Request",
+        "Not a Mission Signal",
+    }
+    assert set(CATEGORIES) == expected
+    assert len(CATEGORIES) == 8
+
+
+def test_teams_label_set_completeness():
+    """Guard against accidental additions or removals in TEAMS."""
+    expected = {
+        "Crew Identity & Airlock Control",
+        "Spacecraft Systems Engineering",
+        "Deep Space Communications",
+        "Mission Software Operations",
+        "Threat Response Command",
+        "Telemetry & Data Core",
+        "None",
+    }
+    assert set(TEAMS) == expected
+    assert len(TEAMS) == 7
 
 
 # ── Priority (ordinal P1-P4, partial credit for off-by-one only) ────
@@ -179,6 +224,18 @@ def test_routing_extra_whitespace_collapsed():
     assert score_routing("Threat  Response  Command", "Threat Response Command") == 1.0
 
 
+@pytest.mark.parametrize("team", TEAMS)
+def test_routing_exact_all_teams(team):
+    """Every team in the closed label set should match itself."""
+    assert score_routing(team, team) == 1.0
+
+
+@pytest.mark.parametrize("team", TEAMS)
+def test_routing_case_insensitive_all_teams(team):
+    """Every team should match its lowercased form."""
+    assert score_routing(team.lower(), team) == 1.0
+
+
 # ── Escalation (binary exact match) ─────────────────────────────────
 
 
@@ -261,6 +318,46 @@ def test_missing_superset_penalizes_precision():
     )
     # 2 TP, 2 FP → precision=0.5, recall=1.0, F1=0.667
     assert 0.6 < score < 0.7
+
+
+_ALL_MISSING_INFO_VOCAB = [
+    "affected_subsystem",
+    "anomaly_readout",
+    "sequence_to_reproduce",
+    "affected_crew",
+    "habitat_conditions",
+    "stardate",
+    "previous_signal_id",
+    "crew_contact",
+    "module_specs",
+    "software_version",
+    "sector_coordinates",
+    "mission_impact",
+    "recurrence_pattern",
+    "sensor_log_or_capture",
+    "biometric_method",
+    "system_configuration",
+]
+
+
+@pytest.mark.parametrize("term", _ALL_MISSING_INFO_VOCAB)
+def test_missing_each_vocab_term_matches_itself(term):
+    """Every valid missing_information term should match when predicted."""
+    assert score_missing_info([term], [term]) == 1.0
+
+
+def test_missing_full_vocabulary_perfect():
+    """All 16 missing_information terms predicted and gold — perfect F1."""
+    assert score_missing_info(_ALL_MISSING_INFO_VOCAB, _ALL_MISSING_INFO_VOCAB) == 1.0
+
+
+def test_missing_full_vocabulary_subset():
+    """Predicting half the vocab against full vocab gives partial recall."""
+    gold = _ALL_MISSING_INFO_VOCAB
+    pred = _ALL_MISSING_INFO_VOCAB[:8]
+    score = score_missing_info(pred, gold)
+    # 8 TP, 0 FP, 8 FN → P=1.0, R=0.5, F1=0.667
+    assert abs(score - 2 / 3) < 0.01
 
 
 # ── Boolean coercion (_coerce_bool) ─────────────────────────────────
@@ -832,6 +929,35 @@ def test_submission_binary_f1_for_escalation():
     # Per-signal accuracy would be 1/3 = 0.333 (one correct: SIG-0003)
     # Binary F1 on positive class: TP=0, FP=0, FN=2 → F1=0.0
     assert result["dimension_scores"]["escalation"] == 0.0
+
+
+def test_submission_all_categories_and_teams():
+    """Submission with every category and team should score perfectly."""
+    category_team_pairs = [
+        ("Crew Access & Biometrics", "Crew Identity & Airlock Control"),
+        ("Hull & Structural Systems", "Spacecraft Systems Engineering"),
+        ("Communications & Navigation", "Deep Space Communications"),
+        ("Flight Software & Instruments", "Mission Software Operations"),
+        ("Threat Detection & Containment", "Threat Response Command"),
+        ("Telemetry & Data Banks", "Telemetry & Data Core"),
+        ("Mission Briefing Request", "None"),
+        ("Not a Mission Signal", "None"),
+    ]
+    gold = [
+        _make_signal(
+            f"SIG-{i:04d}",
+            category=cat,
+            assigned_team=team,
+            priority=f"P{(i % 4) + 1}",
+            needs_escalation=i % 3 == 0,
+            missing_information=["affected_subsystem", "anomaly_readout"] if i % 2 == 0 else [],
+        )
+        for i, (cat, team) in enumerate(category_team_pairs, start=1)
+    ]
+    result = score_submission(gold, gold)
+    assert result["classification_score"] == 85.0
+    assert result["signals_scored"] == 8
+    assert result["signals_errored"] == 0
 
 
 # ── Runner ────────────────────────────────────────────────────────────
