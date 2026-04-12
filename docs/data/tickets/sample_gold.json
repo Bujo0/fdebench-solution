@@ -286,7 +286,7 @@
             "module_specs",
             "sequence_to_reproduce"
         ],
-        "next_best_action": "Contact reporter on Deck 5 (Robert Chen, robert.chen2@contoso.com, Engineering) to gather actual symptom details. Signal as received has insufficient detail to triage. Emergency beacon transcription is too garbled to act on.",
+        "next_best_action": "Contact reporter on Deck 5 (Robert Chen, robert.chen2@cdss.space, Engineering) to gather actual symptom details. Signal as received has insufficient detail to triage. Emergency beacon transcription is too garbled to act on.",
         "remediation_steps": [
             "Contact Robert Chen (Deck 5 near the galley, Engineering division) to clarify the issue in person or via holodeck comm",
             "Determine which application or subsystem is failing",
@@ -322,7 +322,7 @@
             "Schedule BioScan ID disable for 18:00 EST on March 21",
             "Prepare airlock access and remote terminal privilege revocation to trigger simultaneously with BioScan disable",
             "Coordinate with Spacecraft Systems Engineering for terminal wipe of StarTerm X-40 (asset tag SS-T-4892)",
-            "Transfer data vault file ownership to David Liu (david.liu@contoso.com)",
+            "Transfer data vault file ownership to David Liu (david.liu@cdss.space)",
             "Remove from all comm channels and briefing distribution lists",
             "Archive message logs per 7-year retention protocol",
             "Ensure classified investigation files are preserved in a secured location and access is revoked"
@@ -371,7 +371,7 @@
             "system_configuration",
             "habitat_conditions"
         ],
-        "next_best_action": "Renew or replace the encryption certificate on relay-gateway.contoso.com before it expires on March 20. This is the primary external comms relay gateway -- expiry will break all external communications and allied fleet integrations. Treat as P1 given the 3-day window and the fact that the original engineer has transferred off-station.",
+        "next_best_action": "Renew or replace the encryption certificate on relay-gateway.cdss.space before it expires on March 20. This is the primary external comms relay gateway -- expiry will break all external communications and allied fleet integrations. Treat as P1 given the 3-day window and the fact that the original engineer has transferred off-station.",
         "remediation_steps": [
             "Identify the current certificate authority and certificate type (public CA, internal PKI, or auto-provisioned)",
             "Determine whether auto-renewal was configured or if the cert was manually provisioned",
@@ -397,7 +397,7 @@
             "Review system monitor for high CPU/disk processes (likely system update or compliance scan)",
             "If updates are stuck, run system update troubleshooter or manually reset the update components",
             "Verify security scanner definitions are current and run a diagnostic scan to confirm no threats",
-            "If the crew member opened a suspicious transmission, forward the transmission to security@contoso.com and notify Threat Response Command as a precaution"
+            "If the crew member opened a suspicious transmission, forward the transmission to security@cdss.space and notify Threat Response Command as a precaution"
         ]
     },
     {
@@ -407,10 +407,10 @@
         "assigned_team": "Threat Response Command",
         "needs_escalation": false,
         "missing_information": [],
-        "next_best_action": "Confirm this is a phishing/scam transmission and advise the crew member NOT to access any links. Forward the original transmission to security@contoso.com for analysis. No breach has occurred if the crew member hasn't clicked.",
+        "next_best_action": "Confirm this is a phishing/scam transmission and advise the crew member NOT to access any links. Forward the original transmission to security@cdss.space for analysis. No breach has occurred if the crew member hasn't clicked.",
         "remediation_steps": [
             "Reply to the crew member immediately: this is a scam transmission -- do NOT access any links or provide any personal information",
-            "Have the crew member forward the original transmission as an attachment to security@contoso.com",
+            "Have the crew member forward the original transmission as an attachment to security@cdss.space",
             "Check whether the transmission bypassed the station's comm filtering and report to Threat Response Command if so",
             "If the crew member already accessed the link, escalate to a full security incident and initiate credential reset"
         ]

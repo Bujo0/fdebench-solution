@@ -40,7 +40,7 @@
                 "email": {
                     "type": "string",
                     "format": "email",
-                    "description": "Reporter's email address at contoso.space."
+                    "description": "Reporter's email address at cdss.space."
                 },
                 "department": {
                     "type": "string",

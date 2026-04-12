@@ -5,7 +5,7 @@
         "description": "Every time I switch from the hardline uplink to the RF mesh antenna, the comms relay disconnects and I have to re-establish the link manually. Started after last Tuesday's station firmware update. Using SubComm v3.2 on Deck 4.",
         "reporter": {
             "name": "Sarah Chen",
-            "email": "sarah.chen@contoso.com",
+            "email": "sarah.chen@cdss.space",
             "department": "Engineering"
         },
         "created_at": "2026-03-17T09:14:00Z",
@@ -18,7 +18,7 @@
         "description": "Two problems since the terminal swap yesterday: (1) Mission Planner shows a white screen then crashes on launch -- tried rebooting the console twice. (2) Star Chart is displaying old waypoints from 2024 that were purged months ago. Both started right after the terminal swap. Might be related, might not.",
         "reporter": {
             "name": "Marcus Rodriguez",
-            "email": "marcus.rodriguez@contoso.com",
+            "email": "marcus.rodriguez@cdss.space",
             "department": "Stellar Cartography"
         },
         "created_at": "2026-03-17T08:32:00Z",
@@ -31,7 +31,7 @@
         "description": "The holographic projector in the main briefing chamber won't activate. Tried the remote initializer and the manual switch on the emitter housing. Deep Space Command delegation arriving in ~25 minutes for the final review on a $2.3B colony contract -- our Mission Director is presenting. No backup chamber seats 12. Can someone respond immediately?",
         "reporter": {
             "name": "Diana Marsh",
-            "email": "diana.marsh@contoso.com",
+            "email": "diana.marsh@cdss.space",
             "department": "Command Staff"
         },
         "created_at": "2026-03-17T13:35:00Z",
@@ -44,7 +44,7 @@
         "description": "Nothing works. I cant access anything. My console is just spinning. Please fix ASAP i have mission deadlines today and my commanding officer is already asking for the deliverable.",
         "reporter": {
             "name": "Jordan Lee",
-            "email": "jordan.lee@contoso.com",
+            "email": "jordan.lee@cdss.space",
             "department": "Sensors"
         },
         "created_at": "2026-03-17T10:02:00Z",
@@ -54,10 +54,10 @@
     {
         "ticket_id": "SIG-0005",
         "subject": "Re: [Signal SIG-0847] Scheduled maintenance notification",
-        "description": "Thank you for letting me know. I will be on shore leave from March 24-28 with limited access to subspace relay. For urgent matters, please contact my colleague Alex at alex.wu@contoso.com.\n\nBest regards,\nPriya Sharma\nDirector of Astrogation",
+        "description": "Thank you for letting me know. I will be on shore leave from March 24-28 with limited access to subspace relay. For urgent matters, please contact my colleague Alex at alex.wu@cdss.space.\n\nBest regards,\nPriya Sharma\nDirector of Astrogation",
         "reporter": {
             "name": "Priya Sharma",
-            "email": "priya.sharma@contoso.com",
+            "email": "priya.sharma@cdss.space",
             "department": "Astrogation"
         },
         "created_at": "2026-03-17T07:45:00Z",
@@ -70,7 +70,7 @@
         "description": "Got 6 biometric scan alert notifications this morning -- someone attempted to authenticate against my crew profile from an unregistered terminal in Sector 7-G. I haven't been in that sector. Already reset my access codes but worried the profile may already be compromised. I have classified mission briefings and tactical operations documents in my secure data vault. Should I be concerned about data exposure?",
         "reporter": {
             "name": "Thomas Wright",
-            "email": "thomas.wright@contoso.com",
+            "email": "thomas.wright@cdss.space",
             "department": "Tactical Operations"
         },
         "created_at": "2026-03-17T08:15:00Z",
@@ -85,7 +85,7 @@
         "description": "Telemetry pipeline 'prod-sensor-ingest' failing since 03:00 UTC with 403 Forbidden on the station data archive. Service credential may have expired or the Data Contributor role got removed during last week's archive cleanup. Feeds the daily mission briefing report used for the Monday command review. Pipeline runs in Sector Alpha, data-core-prod. Last successful run Saturday 03:00 UTC.",
         "reporter": {
             "name": "Raj Patel",
-            "email": "raj.patel@contoso.com",
+            "email": "raj.patel@cdss.space",
             "department": "Engineering"
         },
         "created_at": "2026-03-17T06:20:00Z",
@@ -100,7 +100,7 @@
         "description": "Hey team. The production telemetry database has been returning timeout errors for 2 hours. ~40% of sensor queries to the data banks are failing with 500 errors. Life support monitoring systems are seeing intermittent data gaps. Station diagnostics show connection pool exhaustion on the primary data node. Marked as low priority since the backup node is still handling some traffic. Let me know when you get a chance.",
         "reporter": {
             "name": "Kim Nguyen",
-            "email": "kim.nguyen@contoso.com",
+            "email": "kim.nguyen@cdss.space",
             "department": "Engineering"
         },
         "created_at": "2026-03-17T14:45:00Z",
@@ -115,7 +115,7 @@
         "description": "Following up on SIG-2834 from last week. Biometric badge still doesn't work for the Deck 7 airlock after the access system migration. Was told it'd be fixed by Friday -- it's Monday and I still can't cycle through. Have to wait for someone to manually override the door every morning. Third time reporting this.",
         "reporter": {
             "name": "Elena Vasquez",
-            "email": "elena.vasquez@contoso.com",
+            "email": "elena.vasquez@cdss.space",
             "department": "Astrogation"
         },
         "created_at": "2026-03-17T08:50:00Z",
@@ -128,7 +128,7 @@
         "description": "New senior science officer (Alex Rivera) reporting for duty March 31. Needs:\n- Dedicated console terminal (high-spec, 32GB memory core)\n- Standard flight software + SciAnalytics/SpectraLab suite\n- Telemetry workspace access (lab-science-prod)\n- Data archive read access\n- Deck 3 quarters assignment and lab badge\n- Added to science-team comm channel and briefing distribution\n\nReports to me. Please have everything ready by March 28 for orientation walkthrough.",
         "reporter": {
             "name": "Dr. Yuki Tanaka",
-            "email": "yuki.tanaka@contoso.com",
+            "email": "yuki.tanaka@cdss.space",
             "department": "Science Lab"
         },
         "created_at": "2026-03-17T11:00:00Z",
@@ -141,7 +141,7 @@
         "description": "I'm getting an error every time I try to authenticate via the iris scanner. The BioAuth panel shows the scan prompt but when I look into it, it says 'Biometric match failed -- recalibration required.' Tried re-registering my iris pattern in the system, same result. I can still get through using the backup PIN code but that's slower. Not super urgent, just annoying.",
         "reporter": {
             "name": "David Kim",
-            "email": "david.kim@contoso.com",
+            "email": "david.kim@cdss.space",
             "department": "Flight Deck"
         },
         "created_at": "2026-03-17T09:30:00Z",
@@ -154,7 +154,7 @@
         "description": "Display on the long-range sensor array console started flickering around 10am. It's not constant -- happens for a few seconds every 5-10 minutes. I swapped the data conduit to a different port and it still does it. Sensor data itself seems fine, readings are updating normally. Just the display. Also, unrelated -- can you check if my NavStar Pro license is still active? I got an expiry warning last week but I can still log in.",
         "reporter": {
             "name": "Anna Brooks",
-            "email": "anna.brooks@contoso.com",
+            "email": "anna.brooks@cdss.space",
             "department": "Flight Deck"
         },
         "created_at": "2026-03-17T10:45:00Z",
@@ -167,7 +167,7 @@
         "description": "During a routine security audit, we discovered that a data archive containing classified PII for ~1,200 crew personnel across the Kepler Station was shared with unsecured 'anyone with the link' permissions. The archive has been accessible since at least February 15. We've revoked the sharing permissions as of this morning but need to determine: (1) who created the public link, (2) whether unauthorized parties accessed the data, and (3) whether this triggers a notification obligation under Space Authority data protection regulations. This is a potential regulatory incident.",
         "reporter": {
             "name": "Dr. Ananya Gupta",
-            "email": "ananya.gupta@contoso.com",
+            "email": "ananya.gupta@cdss.space",
             "department": "Tactical Operations"
         },
         "created_at": "2026-03-17T07:10:00Z",
@@ -183,7 +183,7 @@
         "description": "got it working, appreciate the quick turnaround. you guys are the best!!",
         "reporter": {
             "name": "Mike Torres",
-            "email": "mike.torres@contoso.com",
+            "email": "mike.torres@cdss.space",
             "department": "Life Support"
         },
         "created_at": "2026-03-17T15:20:00Z",
@@ -196,7 +196,7 @@
         "description": "Noticing about a 200ms delay in navigation calculations on the APAC sector relay this morning. Normally we're at ~50ms. Latency seems to spike right around 09:00 SGT and hasn't recovered. Not sure if it's on our side or the relay beacon. The helm officers haven't complained yet but if this gets to 500ms during the Centauri transit window we'll have a real problem. Just flagging early.",
         "reporter": {
             "name": "James Okafor",
-            "email": "james.okafor@contoso.com",
+            "email": "james.okafor@cdss.space",
             "department": "Flight Deck"
         },
         "created_at": "2026-03-17T01:15:00Z",
@@ -209,7 +209,7 @@
         "description": "Rotated my station credentials this morning per the quarterly rotation protocol. Now FlightOS gives me 'SSO token invalid -- contact your system administrator.' Tried logging out and back in to the terminal, same issue. Other applications (CommLink, Star Chart, DataVault) work fine. I need FlightOS to process end-of-cycle trajectory calculations -- close of business today is the deadline.",
         "reporter": {
             "name": "Linda Park",
-            "email": "linda.park@contoso.com",
+            "email": "linda.park@cdss.space",
             "department": "Astrogation"
         },
         "created_at": "2026-03-17T10:30:00Z",
@@ -224,7 +224,7 @@
         "description": "[Transcribed from emergency beacon voice transmission, 15:42 UTC]\n\nCaller: Hi yeah so um my thing... the thing on my console... it keeps doing the... you know when you tap the holographic interface and it goes to the... [garbled] ...and then nothing happens? I've been trying for like two days. My colleague Janet said to hail Mission Control. I think it might be the... [garbled] ...something about permissions? I don't know. Can someone just come look at it? I'm on Deck 5, near the galley. My name's Bob. No wait, Robert. Robert Chen. Not the Robert Chen in Astrogation, the other one.",
         "reporter": {
             "name": "Robert Chen",
-            "email": "robert.chen2@contoso.com",
+            "email": "robert.chen2@cdss.space",
             "department": "Engineering"
         },
         "created_at": "2026-03-17T15:42:00Z",
@@ -237,7 +237,7 @@
         "description": "Commander Martinez (Mission Commander, Deep Space Operations) is in the command briefing right now and can't project his holographic display. The briefing is with the admiralty and allied fleet commanders. He's tried projecting from both his personal terminal and the chamber's integrated holo-emitter. Other participants can project fine. His terminal shows 'Display sharing blocked by station policy.' Briefing has been going on for 10 minutes without his presentation. He's requesting someone report to the command deck briefing chamber immediately.",
         "reporter": {
             "name": "Patricia Gomez",
-            "email": "patricia.gomez@contoso.com",
+            "email": "patricia.gomez@cdss.space",
             "department": "Command Staff"
         },
         "created_at": "2026-03-17T14:10:00Z",
@@ -247,10 +247,10 @@
     {
         "ticket_id": "SIG-0019",
         "subject": "Crew member departure -- access revocation needed, last day March 21",
-        "description": "Jessica Palmer (jessica.palmer@contoso.com) in the Tactical Operations division has submitted her transfer orders. Her last duty day is Friday March 21. Please:\n- Disable her BioScan ID at 18:00 EST on March 21\n- Revoke airlock access and all remote terminal privileges\n- Wipe her assigned console terminal (StarTerm X-40, asset tag SS-T-4892)\n- Transfer ownership of her data vault files to her supervisor David Liu (david.liu@contoso.com)\n- Remove her from all comm channels and briefing distribution lists\n- Archive her message logs per our 7-year retention protocol\n\nNote: Jessica has access to classified investigation files. Please ensure these are preserved but not accessible after her departure.",
+        "description": "Jessica Palmer (jessica.palmer@cdss.space) in the Tactical Operations division has submitted her transfer orders. Her last duty day is Friday March 21. Please:\n- Disable her BioScan ID at 18:00 EST on March 21\n- Revoke airlock access and all remote terminal privileges\n- Wipe her assigned console terminal (StarTerm X-40, asset tag SS-T-4892)\n- Transfer ownership of her data vault files to her supervisor David Liu (david.liu@cdss.space)\n- Remove her from all comm channels and briefing distribution lists\n- Archive her message logs per our 7-year retention protocol\n\nNote: Jessica has access to classified investigation files. Please ensure these are preserved but not accessible after her departure.",
         "reporter": {
             "name": "David Liu",
-            "email": "david.liu@contoso.com",
+            "email": "david.liu@cdss.space",
             "department": "Tactical Operations"
         },
         "created_at": "2026-03-17T09:00:00Z",
@@ -265,7 +265,7 @@
         "description": "The main fabricator near the mess hall on Deck 3 stopped producing. Jobs queue up in the system but nothing materializes in the output bay. I tried submitting from my personal terminal and from the shared console next to it -- same result. The fabricator display shows 'Ready' and feedstock hoppers are full. Other crew on the deck are having the same issue. We need it for replacement parts going out today.",
         "reporter": {
             "name": "Sam Williams",
-            "email": "sam.williams@contoso.com",
+            "email": "sam.williams@cdss.space",
             "department": "Structural Integrity"
         },
         "created_at": "2026-03-17T11:20:00Z",
@@ -278,7 +278,7 @@
         "description": "Hi, I just came aboard the station last week and I need to reserve the large briefing chamber on Deck 4 for a crew social on Friday. I checked the station scheduling system but I can't figure out how to book it. Is there a special reservation protocol or something? Also, do I need to order catering through Mission Control or is that a different department? Thanks!",
         "reporter": {
             "name": "Chris Taylor",
-            "email": "chris.taylor@contoso.com",
+            "email": "chris.taylor@cdss.space",
             "department": "Life Support"
         },
         "created_at": "2026-03-17T12:15:00Z",
@@ -287,11 +287,11 @@
     },
     {
         "ticket_id": "SIG-0022",
-        "subject": "Comms encryption cert expiring on relay-gateway.contoso.com -- 3 days left",
-        "description": "Station monitoring flagged that the encryption certificate on relay-gateway.contoso.com expires on March 20. This is the primary relay gateway that all external comms and allied fleet integrations route through. If the cert expires, every external communication link will start failing with encryption handshake errors. The cert was originally provisioned manually by an engineer who transferred off-station 6 months ago. I don't know if auto-renewal was ever configured. We need to renew or replace it before Thursday.",
+        "subject": "Comms encryption cert expiring on relay-gateway.cdss.space -- 3 days left",
+        "description": "Station monitoring flagged that the encryption certificate on relay-gateway.cdss.space expires on March 20. This is the primary relay gateway that all external comms and allied fleet integrations route through. If the cert expires, every external communication link will start failing with encryption handshake errors. The cert was originally provisioned manually by an engineer who transferred off-station 6 months ago. I don't know if auto-renewal was ever configured. We need to renew or replace it before Thursday.",
         "reporter": {
             "name": "Nina Volkov",
-            "email": "nina.volkov@contoso.com",
+            "email": "nina.volkov@cdss.space",
             "department": "Engineering"
         },
         "created_at": "2026-03-17T08:00:00Z",
@@ -306,7 +306,7 @@
         "description": "My terminal has been super slow for two days. Programs take forever to load, the cooling fan runs constantly, and I got a couple of weird pop-ups that said something about 'updating system components.' I think I might have picked up malware from that suspicious transmission I accidentally opened last week. I ran the onboard security scanner and it didn't find anything but I'm still worried. Should I stop using the terminal until someone checks it?",
         "reporter": {
             "name": "Rachel Green",
-            "email": "rachel.green@contoso.com",
+            "email": "rachel.green@cdss.space",
             "department": "Sensors"
         },
         "created_at": "2026-03-17T09:45:00Z",
@@ -319,7 +319,7 @@
         "description": "---------- Forwarded transmission ----------\nFrom: Galactic Prize Authority <claims@totallylegit-prizes.ng>\nDate: March 16, 2026\nSubject: You have won 5,000,000 credits -- claim now!!!\n\nDear Valued Crew Member,\n\nCongratulations! Your subspace relay address has been selected as the winner of our annual Galactic Lottery. You have won the sum of 5,000,000 credits.\n\nTo claim your prize, please access the link below and enter your full name, crew ID, and banking credentials:\nhttps://claim-your-credits.totallylegit-prizes.ng\n\n--- end forwarded transmission ---\n\nHey Mission Control -- got this transmission, is this legit? Should I access the link? Looks suspicious but I don't want to miss out if it's real.",
         "reporter": {
             "name": "Greg Dawson",
-            "email": "greg.dawson@contoso.com",
+            "email": "greg.dawson@cdss.space",
             "department": "Orbital Ring Beta"
         },
         "created_at": "2026-03-17T11:55:00Z",
@@ -332,7 +332,7 @@
         "description": "Compute node prod-analytics-01 (High-Performance E16 class, Sector Alpha, analytics-core-prod) became unreachable after a scheduled reboot at 05:00 UTC for OS patching. Remote shell and diagnostic ports both timeout. Station system manager shows node status as 'Running' but boot diagnostics show it stuck at 'Applying configuration.' Firewall rules haven't changed. This node powers the command analytics dashboard that the senior staff uses for the morning mission briefing at 9 AM EST. We have about 2 hours.",
         "reporter": {
             "name": "Alex Petrov",
-            "email": "alex.petrov@contoso.com",
+            "email": "alex.petrov@cdss.space",
             "department": "Engineering"
         },
         "created_at": "2026-03-17T05:30:00Z",
