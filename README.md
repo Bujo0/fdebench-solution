@@ -76,7 +76,7 @@ uvx pre-commit install
 
 ## Rules
 
-- **One submission** per person. Make it count.
+- **Five submission** per person. Make it count.
 - Any language, any framework, any AI model.
 - AI coding assistants (Copilot, Cursor, Claude) are encouraged.
 - Must be deployed and callable via HTTPS.
