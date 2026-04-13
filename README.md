@@ -22,7 +22,7 @@ Have fun with it. Ship something you'd be proud to run in one of our top custome
 2. **Open the task briefs** → [docs/challenge/task1/](docs/challenge/task1/), [docs/challenge/task2/](docs/challenge/task2/), [docs/challenge/task3/](docs/challenge/task3/). Each folder describes one scored endpoint plus supporting context.
 4. **Explore the data contracts** → [py/data/](py/data/). Schemas for all three tasks plus sample data for Task 1.
 5. **Test locally** → [docs/eval/](docs/eval/). The eval harness shows the same Tier 1-style breakdown the challenge expects: per-task Resolution, Efficiency, Robustness, probes, and item counts.
-6. **Deploy and submit** → [docs/submission/](docs/submission/). Push your code, deploy your API, submit at **[aka.ms/fde/hackathon](https://aka.ms/fde/hackathon)**.
+6. **Deploy and submit** → [docs/submission/](docs/submission/). Push your code, deploy your API, submit at **[aka.ms/fde/hackathon](https://aka.ms/fde/hackaton)**.
 
 ## Start Here in 30 Minutes
 
@@ -128,7 +128,7 @@ Full scoring details: [docs/challenge/README.md](docs/challenge/README.md)
 - Deployed via HTTPS, handles 10+ concurrent requests, responds in under 30s
 - Public GitHub repository with README explaining how to install, run, and test
 
-See [docs/submission/](docs/submission/) for the full checklist, then submit at **[aka.ms/fde/hackathon](https://aka.ms/fde/hackathon)**.
+See [docs/submission/](docs/submission/) for the full checklist, then submit at **[aka.ms/fde/hackathon](https://aka.ms/fde/hackaton)**.
 
 ## License
 
