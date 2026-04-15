@@ -4,19 +4,21 @@
 Scores candidate execution traces against gold plans. Five dimensions,
 all deterministic — no LLM involved.
 
-Dimensions and weights:
-  1. goal_completion       — 25% — step-by-step match + final tool
-  2. tool_selection        — 25% — multiset F1 on tools
-  3. parameter_accuracy    — 20% — per-call parameter match (penalizes missing keys)
-  4. ordering_correctness  — 15% — dependency constraint satisfaction
-  5. constraint_compliance — 15% — audit, targeting, and tool count bounds
+Dimensions and weights (informed by τ-bench outcome-based scoring):
+  1. goal_completion       — 20% — data-driven outcome assertions on end-state
+  2. tool_selection        — 15% — multiset F1 on tools
+  3. parameter_accuracy    — 05% — per-call parameter match (demoted — low variance)
+  4. ordering_correctness  — 20% — dependency constraint satisfaction (causal only)
+  5. constraint_compliance — 40% — data-driven outcome assertions (primary differentiator)
 
-Scoring philosophy (informed by BFCL and τ-bench):
+Scoring philosophy:
+  - Outcome-weighted: constraint_compliance checks business outcomes, not trace shape.
   - Strict on correctness: missing parameters penalized, not ignored.
   - No free points: empty submissions score 0 everywhere.
-  - Tool count must match within bounds in BOTH directions.
-  - Final tool match is required but insufficient alone.
+  - State-transition, not trace-replay: harmless reordering not penalized.
+  - Data-driven assertions preferred over hardcoded template logic.
 
+All metrics are deterministic. Fully auditable.
 """
 
 from collections import Counter
@@ -49,7 +51,10 @@ DIMENSION_WEIGHTS: dict[str, float] = {
 
 # ── Text normalization ────────────────────────────────────────────────
 
+# Use normalize_text from _utils as the local normalizer
 _normalize = normalize_text
+
+
 def _param_value_match(candidate: object, gold: object) -> float:
     """Compare a single parameter value. Returns 0.0 or 1.0.
 
@@ -105,6 +110,8 @@ def _param_value_match(candidate: object, gold: object) -> float:
 
     # Type mismatch — try string comparison as fallback
     return 1.0 if _normalize(str(candidate)) == _normalize(str(gold)) else 0.0
+
+
 def _mapping_matches(candidate: dict[str, Any], expected: dict[str, Any]) -> bool:
     """Return whether ``candidate`` contains ``expected`` as a recursive subset."""
     for key, expected_value in expected.items():
@@ -118,6 +125,8 @@ def _mapping_matches(candidate: dict[str, Any], expected: dict[str, Any]) -> boo
         if _param_value_match(candidate_value, expected_value) < 1.0:
             return False
     return True
+
+
 def _count_matching_calls(
     candidate_steps: list[dict[str, Any]],
     tool: str | None,
@@ -132,7 +141,11 @@ def _count_matching_calls(
             continue
         count += 1
     return count
+
+
 # ── Dimension scorers ─────────────────────────────────────────────────
+
+
 def score_goal_completion(
     candidate_steps: list[dict[str, Any]],
     gold: dict[str, Any],
@@ -173,6 +186,8 @@ def score_goal_completion(
 
     # Weighted: 80% step coverage + 20% final tool
     return 0.8 * step_coverage + 0.2 * final_match
+
+
 def score_tool_selection(
     candidate_steps: list[dict[str, Any]],
     gold: dict[str, Any],
@@ -204,6 +219,8 @@ def score_tool_selection(
     if precision + recall == 0:
         return 0.0
     return 2 * precision * recall / (precision + recall)
+
+
 def score_parameter_accuracy(
     candidate_steps: list[dict[str, Any]],
     gold: dict[str, Any],
@@ -262,6 +279,8 @@ def score_parameter_accuracy(
         step_scores.append(best_score)
 
     return sum(step_scores) / len(step_scores) if step_scores else 0.0
+
+
 def score_ordering_correctness(
     candidate_steps: list[dict[str, Any]],
     gold: dict[str, Any],
@@ -344,6 +363,8 @@ def score_ordering_correctness(
         dep_checks.append(1.0 if all_satisfied else 0.0)
 
     return sum(dep_checks) / len(dep_checks) if dep_checks else 1.0
+
+
 def score_constraint_compliance(
     candidate_steps: list[dict[str, Any]],
     gold: dict[str, Any],
@@ -400,7 +421,8 @@ def score_constraint_compliance(
         else:
             checks.append(1.0)  # Within bounds
 
-    # Check 3: Notification routing
+    # Check 3: Notification routing — if gold notifies specific teams,
+    # candidate should notify the same teams
     gold_notifications = [s["parameters"].get("user_id", "") for s in gold_steps if s["tool"] == "notification_send"]
     candidate_notifications = [
         s.get("parameters", {}).get("user_id", "")
@@ -414,7 +436,8 @@ def score_constraint_compliance(
             overlap = len(gold_targets & candidate_targets)
             checks.append(overlap / len(gold_targets))
 
-    # Check 4: Email targets
+    # Check 4: Email targets — if gold sends to specific accounts,
+    # candidate should send to the same accounts (not to skipped ones)
     gold_emails = [s["parameters"].get("account_id", "") for s in gold_steps if s["tool"] == "email_send"]
     candidate_emails = [
         s.get("parameters", {}).get("account_id", "")
@@ -437,13 +460,21 @@ def score_constraint_compliance(
             checks.append(f1)
 
     return sum(checks) / len(checks) if checks else 1.0
+
+
 def _step_counts(steps: list[dict[str, Any]]) -> Counter[str]:
     return Counter(_normalize(step.get("tool", "")) for step in steps)
+
+
 def _step_parameters(steps: list[dict[str, Any]], tool_name: str) -> list[dict[str, Any]]:
     normalized_tool = _normalize(tool_name)
     return [step.get("parameters", {}) for step in steps if _normalize(step.get("tool", "")) == normalized_tool]
+
+
 def _count_matching_params(steps: list[dict[str, Any]], tool_name: str, predicate: Any) -> int:
     return sum(1 for params in _step_parameters(steps, tool_name) if predicate(params))
+
+
 def _has_audit_action(steps: list[dict[str, Any]], action: str) -> bool:
     expected = _normalize(action)
     return any(
@@ -451,10 +482,14 @@ def _has_audit_action(steps: list[dict[str, Any]], action: str) -> bool:
         for step in steps
         if _normalize(step.get("tool", "")) == "audit_log"
     )
+
+
 def _score_boolean_checks(checks: list[bool]) -> float:
     if not checks:
         return 1.0
     return sum(1.0 for check in checks if check) / len(checks)
+
+
 def _score_template_goal_completion(
     template_id: str | None,
     candidate_steps: list[dict[str, Any]],
@@ -574,8 +609,10 @@ def _score_template_goal_completion(
                 _count_matching_params(
                     candidate_steps,
                     "email_send",
-                    lambda params: _normalize(params.get("template", "")) == "renewal_quote"
-                    and _normalize(str(params.get("variables", {}).get("plan", ""))) == expected_plan,
+                    lambda params: (
+                        _normalize(params.get("template", "")) == "renewal_quote"
+                        and _normalize(str(params.get("variables", {}).get("plan", ""))) == expected_plan
+                    ),
                 )
                 == 1,
                 _count_matching_params(
@@ -589,6 +626,8 @@ def _score_template_goal_completion(
         )
 
     return None
+
+
 def _score_template_constraints(
     template_id: str | None,
     candidate_steps: list[dict[str, Any]],
@@ -693,15 +732,19 @@ def _score_template_constraints(
                 _count_matching_params(
                     candidate_steps,
                     "notification_send",
-                    lambda params: _normalize(params.get("user_id", "")) == "oncall_engineer"
-                    and _normalize(params.get("channel", "")) == "sms",
+                    lambda params: (
+                        _normalize(params.get("user_id", "")) == "oncall_engineer"
+                        and _normalize(params.get("channel", "")) == "sms"
+                    ),
                 )
                 == 1,
                 _count_matching_params(
                     candidate_steps,
                     "notification_send",
-                    lambda params: _normalize(params.get("user_id", "")) == "engineering_manager"
-                    and _normalize(params.get("channel", "")) == "slack",
+                    lambda params: (
+                        _normalize(params.get("user_id", "")) == "engineering_manager"
+                        and _normalize(params.get("channel", "")) == "slack"
+                    ),
                 )
                 == (1 if escalated else 0),
             ]
@@ -722,6 +765,8 @@ def _score_template_constraints(
         )
 
     return None
+
+
 def _hard_dependencies(current_step: dict[str, Any], gold_steps: list[dict[str, Any]]) -> list[int]:
     dependencies = list(current_step.get("depends_on", []))
     if not dependencies:
@@ -743,7 +788,11 @@ def _hard_dependencies(current_step: dict[str, Any], gold_steps: list[dict[str, 
             return []
 
     return dependencies
+
+
 # ── Outcome assertions evaluator ──────────────────────────────────────
+
+
 def evaluate_outcome_assertions(
     candidate_steps: list[dict[str, Any]],
     assertions: list[dict[str, Any]],
@@ -802,7 +851,11 @@ def evaluate_outcome_assertions(
             pass
 
     return sum(1.0 for r in results if r) / len(results) if results else 1.0
+
+
 # ── Per-task scorer ───────────────────────────────────────────────────
+
+
 def score_task(
     candidate_response: dict[str, Any],
     gold: dict[str, Any],
@@ -835,7 +888,11 @@ def score_task(
         "constraint_compliance": round(constraints, 4),
         "total": round(total, 4),
     }
+
+
 # ── Full submission scorer ────────────────────────────────────────────
+
+
 def score_submission(
     candidate_responses: list[dict[str, Any]],
     gold_answers: list[dict[str, Any]],

@@ -1,102 +1,16 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "ExtractionResult",
-    "description": "Structured data extracted from a drug label document.",
+    "description": "Structured data extracted from a document image. The output fields vary per document — they are defined by the json_schema provided in the input request. The only universally required field is document_id.",
     "type": "object",
     "required": [
-        "document_id",
-        "drug_name"
+        "document_id"
     ],
     "properties": {
         "document_id": {
             "type": "string",
             "description": "Must match the input document_id exactly."
-        },
-        "drug_name": {
-            "type": ["string", "null"],
-            "description": "Brand or trade name of the drug."
-        },
-        "generic_name": {
-            "type": ["string", "null"],
-            "description": "Generic (non-proprietary) name."
-        },
-        "manufacturer": {
-            "type": ["string", "null"],
-            "description": "Manufacturer or labeler name."
-        },
-        "indications": {
-            "type": ["array", "null"],
-            "items": {
-                "type": "object",
-                "properties": {
-                    "condition": { "type": "string", "description": "Medical condition or disease." },
-                    "population": { "type": ["string", "null"], "description": "Target population (e.g., adults, pediatric)." },
-                    "usage_type": { "type": ["string", "null"], "description": "Usage context (e.g., monotherapy, adjunct)." }
-                },
-                "required": ["condition"]
-            },
-            "description": "Approved indications."
-        },
-        "dosage_forms": {
-            "type": ["array", "null"],
-            "items": {
-                "type": "object",
-                "properties": {
-                    "form": { "type": "string", "description": "Dosage form (e.g., tablet, capsule, injection)." },
-                    "strengths": { "type": "array", "items": { "type": "string" }, "description": "Available strengths." },
-                    "route": { "type": ["string", "null"], "description": "Route of administration (e.g., oral, intravenous)." }
-                },
-                "required": ["form", "strengths"]
-            },
-            "description": "Available dosage forms and strengths."
-        },
-        "warnings": {
-            "type": ["array", "null"],
-            "items": {
-                "type": "object",
-                "properties": {
-                    "category": { "type": "string", "enum": ["boxed_warning", "warning", "precaution"], "description": "Warning severity category." },
-                    "description": { "type": "string", "description": "Warning text." },
-                    "severity": { "type": "string", "enum": ["critical", "high", "moderate", "low"], "description": "Severity level." }
-                },
-                "required": ["category", "description", "severity"]
-            },
-            "description": "Warnings and precautions."
-        },
-        "contraindications": {
-            "type": ["array", "null"],
-            "items": { "type": "string" },
-            "description": "List of contraindication descriptions."
-        },
-        "adverse_reactions": {
-            "type": ["array", "null"],
-            "items": {
-                "type": "object",
-                "properties": {
-                    "reaction": { "type": "string", "description": "Adverse reaction name." },
-                    "frequency": { "type": ["string", "null"], "enum": ["very_common", "common", "uncommon", "rare", "very_rare", null], "description": "Frequency category." },
-                    "incidence_percent": { "type": ["number", "null"], "description": "Incidence percentage if reported." }
-                },
-                "required": ["reaction"]
-            },
-            "description": "Known adverse reactions."
-        },
-        "active_ingredients": {
-            "type": ["array", "null"],
-            "items": {
-                "type": "object",
-                "properties": {
-                    "name": { "type": "string", "description": "Ingredient name." },
-                    "strength": { "type": ["string", "null"], "description": "Strength per unit." },
-                    "unit": { "type": ["string", "null"], "description": "Unit of measurement." }
-                },
-                "required": ["name"]
-            },
-            "description": "Active ingredients with strengths."
-        },
-        "storage": {
-            "type": ["string", "null"],
-            "description": "Storage conditions."
         }
-    }
+    },
+    "additionalProperties": true
 }

@@ -10,7 +10,7 @@
 |---|---|---|
 | `/health` | GET | Health check — returns 200 if the service is alive |
 | `/triage` | POST | Task 1: Classify a spacecraft signal across 5 dimensions |
-| `/extract` | POST | Task 2: Extract structured data from a drug label |
+| `/extract` | POST | Task 2: Extract structured data from a document image |
 | `/orchestrate` | POST | Task 3: Plan and execute a multi-step workflow |
 
 ## Task 1: Signal Triage — AI Pipeline
@@ -19,7 +19,7 @@
 
 ## Task 2: Document Extraction — AI Pipeline
 
-<!-- How does extraction work? Single-pass or section-by-section? How do you handle PDFs vs. text? What normalization steps run after the LLM call? -->
+<!-- How does extraction work? What vision model do you use? How do you handle the per-document json_schema? What normalization steps run after the LLM call? -->
 
 ## Task 3: Workflow Orchestration — AI Pipeline
 

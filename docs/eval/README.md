@@ -4,7 +4,26 @@ Runs the same scoring as the platform, locally. Full Tier 1 breakdown: resolutio
 
 Code: `py/apps/eval/run_eval.py`. Scoring library: `py/common/libs/fdebenchkit/`.
 
+| Guide | What's inside |
+|-------|---------------|
+| **[FDEBench Scoring](fdebench.md)** | Full breakdown of the scoring formula — resolution dimensions per task, efficiency thresholds, robustness probes, Tier 2 engineering review |
+| **[Load Testing](load-testing.md)** | How to stress-test your API locally and in production — hey benchmarks, concurrency tests, cold start checks, performance bottleneck fixes |
+
 ## Quick Start
+
+```bash
+cd py
+
+# All 3 tasks (recommended)
+make eval
+
+# Single task
+make eval-triage
+make eval-extract
+make eval-orchestrate
+```
+
+Or run the harness directly:
 
 ```bash
 cd py/apps/eval
@@ -23,6 +42,8 @@ python run_eval.py \
   --dataset ../../py/data/task1/sample.json \
   --gold ../../py/data/task1/sample_gold.json
 ```
+
+For Task 3 (orchestration), the harness automatically starts a mock tool service on port 9090 that serves deterministic tool responses. Your `/orchestrate` endpoint can call these tools via HTTP during evaluation. See `py/apps/eval/mock_tool_service.py` for details.
 
 ## What It Scores
 
@@ -62,7 +83,7 @@ Located at `py/common/libs/fdebenchkit/`. The harness adds it to `sys.path` auto
 | File | What it does |
 |------|-------------|
 | `scorers/ticket_triage.py` | Task 1 scoring (5 dimensions) |
-| `scorers/document_extraction.py` | Task 2 scoring (8 dimensions) |
+| `scorers/document_extraction.py` | Task 2 scoring (2 dimensions: information accuracy + text fidelity) |
 | `scorers/workflow_orchestration.py` | Task 3 scoring (5 dimensions) |
 | `weights.py` | All Tier 1 weights and formulas |
 | `probes.py` | 7 API resilience probes |

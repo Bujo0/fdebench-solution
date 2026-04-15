@@ -11,6 +11,7 @@ All weights sum to 1.0 for FDEBench Tier 1 consistency.
 Efficiency (latency + cost) is scored separately by the runner at the
 Tier 1 composite level, not baked into per-task resolution.
 
+No free text. No LLM. No randomness. Fully auditable.
 """
 
 from collections.abc import Sequence
@@ -58,6 +59,7 @@ TEAMS = (
 _PRIORITY_ORDER = {"P1": 0, "P2": 1, "P3": 2, "P4": 3}
 
 
+# Use normalize_text from _utils as the local normalizer
 _normalize = normalize_text
 
 

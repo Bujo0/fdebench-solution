@@ -1,11 +1,16 @@
 """Batched async HTTP caller with retries, timeouts, and latency tracking.
 
-Calls a participant endpoint for each eval item. Runs ``concurrency``
-requests in parallel. Records per-call latency for efficiency scoring.
+Calls a participant endpoint for each eval item in the configured task.
+Runs ``concurrency`` requests in parallel using asyncio.Semaphore.
+Records per-call latency for efficiency scoring.
 
-Warm-up requests eliminate cold-start bias. Latency percentiles are
-trimmed (top/bottom 5%) to reduce outlier impact. Cost headers
-(X-Model-Name) are extracted from each response.
+Fairness features:
+  * **Warm-up phase** — sends throwaway requests before timing to eliminate
+    TCP/TLS handshake and model cold-start bias.
+  * **Trimmed percentiles** — excludes top/bottom 5 % latency outliers so a
+    single spike doesn't dominate the score.
+  * **Cost header extraction** — reads ``X-Model-Name``, ``X-Prompt-Tokens``,
+    ``X-Completion-Tokens`` from each response for measured cost scoring.
 """
 
 import asyncio
@@ -31,11 +36,17 @@ def _safe_int(value: str | None, default: int = 0) -> int:
         return default
 
 
+# Default timeout per individual HTTP call (seconds).
 DEFAULT_TIMEOUT = 30.0
+# Default concurrency (max parallel requests).
 DEFAULT_CONCURRENCY = 10
+# Default retry count for transient failures.
 DEFAULT_MAX_RETRIES = 2
+# Retry delay base (exponential backoff).
 _RETRY_BASE_DELAY = 1.0
+# Default warm-up request count.
 DEFAULT_WARM_UP_REQUESTS = 3
+# Default trim percentage for latency outliers.
 DEFAULT_TRIM_PCT = 5.0
 # Max response body size in bytes (10 MB). Protects against OOM from
 # malicious or buggy participant APIs returning unbounded payloads.
@@ -44,7 +55,9 @@ MAX_RESPONSE_BYTES = 10 * 1024 * 1024
 # Prevents wasting minutes of timeout budget on a dead API.
 DEFAULT_CIRCUIT_BREAKER_THRESHOLD = 10
 
-# Fallback warm-up payload when no task-specific one is provided.
+# ── Default warm-up request ──────────────────────────────────────────
+# A minimal valid Task 1 request used when the caller is invoked without
+# a task-specific warm-up payload.
 _DEFAULT_WARMUP_REQUEST: dict[str, Any] = {
     "ticket_id": "__warmup__",
     "subject": "System warm-up request",
@@ -194,7 +207,12 @@ async def call_endpoint(
     async def _call_with_breaker(item: dict[str, Any]) -> TicketResult:
         """Wrap _call_single with circuit breaker tracking."""
         ticket_result = await _call_single(
-            client, semaphore, request_url, item, max_retries, identifier_field,
+            client,
+            semaphore,
+            request_url,
+            item,
+            max_retries,
+            identifier_field,
             abort_event=abort_event,
         )
         if abort_event is not None and ticket_result.error != "circuit_breaker_open":
@@ -204,7 +222,9 @@ async def call_endpoint(
                     abort_event.set()
                     logger.warning(
                         "circuit_breaker_open: consecutive_failures=%d threshold=%d endpoint=%s",
-                        consecutive_failures[0], circuit_breaker_threshold, request_url,
+                        consecutive_failures[0],
+                        circuit_breaker_threshold,
+                        request_url,
                     )
             else:
                 consecutive_failures[0] = 0  # reset on success

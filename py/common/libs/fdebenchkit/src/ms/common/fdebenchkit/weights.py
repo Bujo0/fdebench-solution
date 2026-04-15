@@ -22,8 +22,8 @@ TIER1_WEIGHT_ROBUSTNESS = 0.30
 
 # ── Efficiency sub-weights ────────────────────────────────────────────
 
-EFFICIENCY_WEIGHT_LATENCY = 0.50
-EFFICIENCY_WEIGHT_COST = 0.50
+EFFICIENCY_WEIGHT_LATENCY = 0.60
+EFFICIENCY_WEIGHT_COST = 0.40
 
 # ── Efficiency normalization thresholds ───────────────────────────────
 # Calibrated for LLM workloads: nano models achieve ~400-600ms,
@@ -54,19 +54,21 @@ TIER2_AGENT_WEIGHTS: dict[str, float] = {
 # Per-agent dimension weights (must sum to 1.0 within each agent).
 
 TIER2_CODE_QUALITY_DIMENSIONS: dict[str, float] = {
-    "structure_modularity": 0.25,
+    "structure_modularity": 0.20,
     "type_safety": 0.20,
     "error_handling": 0.20,
-    "testing": 0.25,
+    "testing": 0.20,
     "readability": 0.10,
+    "documentation": 0.10,
 }
 
 TIER2_ARCHITECTURE_DESIGN_DIMENSIONS: dict[str, float] = {
-    "ai_pipeline_design": 0.30,
-    "system_decomposition": 0.25,
+    "ai_pipeline_design": 0.25,
+    "system_decomposition": 0.20,
     "api_design": 0.20,
     "tradeoff_reasoning": 0.15,
     "scalability_thinking": 0.10,
+    "integration": 0.10,
 }
 
 TIER2_AI_PROBLEM_SOLVING_DIMENSIONS: dict[str, float] = {
@@ -78,10 +80,12 @@ TIER2_AI_PROBLEM_SOLVING_DIMENSIONS: dict[str, float] = {
 }
 
 TIER2_ENGINEERING_MATURITY_DIMENSIONS: dict[str, float] = {
-    "deployment_readiness": 0.30,
-    "configuration_secrets": 0.25,
-    "observability": 0.20,
-    "security_awareness": 0.25,
+    "deployment_readiness": 0.25,
+    "configuration_secrets": 0.20,
+    "observability": 0.15,
+    "security_awareness": 0.20,
+    "dependency_management": 0.10,
+    "ci_cd": 0.10,
 }
 
 TIER2_ALL_DIMENSIONS: dict[str, dict[str, float]] = {
@@ -142,7 +146,7 @@ def compute_efficiency(
     """Compute the efficiency score from P95 latency and model-tier cost.
 
     Formula:
-      efficiency = 0.50 × latency_score + 0.50 × cost_score
+      efficiency = 0.60 × latency_score + 0.40 × cost_score
 
     Latency: P95 < 500ms → 1.0, P95 > 5000ms → 0.0 (linear)
     Cost: deterministic model-tier score (0.0–1.0) from ``_MODEL_TIER_SCORES``

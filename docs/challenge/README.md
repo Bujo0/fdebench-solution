@@ -29,7 +29,7 @@ You are building one deployed API with four endpoints:
 |---|---|
 | `GET /health` | Liveness check |
 | `POST /triage` | Task 1: route noisy mission signals correctly |
-| `POST /extract` | Task 2: turn drug-label content into stable JSON |
+| `POST /extract` | Task 2: extract structured data from document images |
 | `POST /orchestrate` | Task 3: execute a constrained multi-step workflow |
 
 Each task is scored independently. Your final FDEBench score is the mean of the three task scores, so consistency matters more than a single standout endpoint.

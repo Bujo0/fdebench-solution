@@ -57,11 +57,16 @@ _CALLER_CIRCUIT_BREAKER_THRESHOLD = 10
 # ── Model tier scoring ───────────────────────────────────────────────
 # Deterministic cost score from the Azure AI Foundry model catalog
 # + Azure OpenAI pricing page (April 2026). Prefix-matched.
-# Model tier scoring: deterministic cost score based on model pricing tier.
-# Tier 1=1.0, Tier 2=0.9, Tier 3=0.75, Tier 4=0.5, Tier 5=0.3, Unknown=0.0
+#
+# Tier 1 (100%): Nano/OSS      — $0.05–$0.15/M input
+# Tier 2 (90%):  Mini/Haiku    — $0.15–$0.60/M input
+# Tier 3 (75%):  Standard      — $1.00–$2.50/M input
+# Tier 4 (50%):  Expensive     — $2.50–$10.00/M input
+# Tier 5 (30%):  Premium       — $10.00+/M input
+# Unknown/missing: 0%
 
 _MODEL_TIER_SCORES: dict[str, float] = {
-    # Tier 1: Nano + OSS
+    # ── Tier 1 (100%): Nano + OSS — $0.05–$0.15/M input ──────────
     "gpt-5.4-nano": 1.0,
     "gpt-5-nano": 1.0,
     "gpt-4.1-nano": 1.0,
@@ -82,7 +87,7 @@ _MODEL_TIER_SCORES: dict[str, float] = {
     "qwen": 1.0,
     "nvidia-egm": 1.0,
     "liquidai": 1.0,
-    # Tier 2: Mini/Haiku
+    # ── Tier 2 (90%): Mini/Haiku — $0.15–$0.60/M input ───────────
     "gpt-5.4-mini": 0.9,
     "gpt-5.1-codex-mini": 0.9,
     "gpt-5-mini": 0.9,
@@ -98,7 +103,7 @@ _MODEL_TIER_SCORES: dict[str, float] = {
     "deepseek-v3": 0.9,
     "deepseek-r1": 0.9,
     "cohere-command": 0.9,
-    # Tier 3: Standard
+    # ── Tier 3 (75%): Standard — $1.00–$2.50/M input ─────────────
     "o4-mini": 0.75,
     "o3-mini": 0.75,
     "o1-mini": 0.75,
@@ -126,7 +131,7 @@ _MODEL_TIER_SCORES: dict[str, float] = {
     "grok-4-fast": 0.75,
     "grok-4-1-fast": 0.75,
     "grok-code": 0.75,
-    # Tier 4: Expensive
+    # ── Tier 4 (50%): Expensive — $2.50–$10.00/M input ───────────
     "gpt-5.4-pro": 0.5,
     "gpt-5-pro": 0.5,
     "gpt-4-turbo": 0.5,
@@ -135,7 +140,7 @@ _MODEL_TIER_SCORES: dict[str, float] = {
     "grok-4": 0.5,
     "grok-4-20": 0.5,
     "computer-use-preview": 0.5,
-    # Tier 5: Premium
+    # ── Tier 5 (30%): Premium — $10.00+/M input ──────────────────
     "o1": 0.3,
     "o3-pro": 0.3,
     "o3-deep-research": 0.3,
@@ -179,19 +184,19 @@ class TaskScoreSummary(FrozenBaseModel):
     items_errored: int
 
     # ── Per-task efficiency (E_k) ─────────────────────────────────
-    efficiency_score: float = 0.0       # 0–100
-    latency_score: float = 0.0          # 0–1 (normalized P95)
-    latency_p95_ms: float = 0.0         # raw milliseconds
-    cost_score: float = 0.0             # 0–1 (model tier)
+    efficiency_score: float = 0.0  # 0–100
+    latency_score: float = 0.0  # 0–1 (normalized P95)
+    latency_p95_ms: float = 0.0  # raw milliseconds
+    cost_score: float = 0.0  # 0–1 (model tier)
     primary_model: str = ""
 
     # ── Per-task robustness (B_k) ─────────────────────────────────
-    robustness_score: float = 0.0       # 0–100
-    api_resilience: float = 0.0         # 0–100
+    robustness_score: float = 0.0  # 0–100
+    api_resilience: float = 0.0  # 0–100
     probe_results: dict[str, bool] | None = None
 
     # ── Per-task Tier 1 composite ─────────────────────────────────
-    tier1_score: float = 0.0            # 0–100
+    tier1_score: float = 0.0  # 0–100
 
     def to_cosmos_dict(self) -> dict[str, Any]:
         """Serialize a task summary for Cosmos DB."""
@@ -321,17 +326,49 @@ def _validation_summary(
     }
 
 
+def _normalize_model_name(name: str) -> str:
+    """Normalize a model name for tier matching.
+
+    Handles all naming variants:
+    - Azure deployment names: gpt-4-1-mini, gpt-4-1
+    - Model catalog names: gpt-4.1-mini, gpt-4.1
+    - Versioned names: gpt-4.1-mini-2025-04-14, gpt-4-1-mini-2025-04-14
+    """
+    import re  # noqa: PLC0415
+
+    s = name.strip().lower()
+    # Strip date suffixes like -2025-04-14
+    s = re.sub(r"-\d{4}-\d{2}-\d{2}$", "", s)
+    # Normalize version separators: gpt-4-1 → gpt-4.1, gpt-5-4 → gpt-5.4
+    s = re.sub(r"(gpt-\d+)-(\d+)", r"gpt-\1.\2".replace("gpt-", ""), s)
+    # Simpler approach: just try replacing the second hyphen-digit pattern
+    s = name.strip().lower()
+    s = re.sub(r"-\d{4}-\d{2}-\d{2}$", "", s)
+    # gpt-4-1-mini → gpt-4.1-mini, gpt-5-4-mini → gpt-5.4-mini
+    s = re.sub(r"^(gpt-)(\d+)-(\d+)", r"\g<1>\2.\3", s)
+    return s
+
+
 def _lookup_model_tier_score(model_name: str) -> float:
-    """Score a model based on its tier (deterministic, not self-reported tokens)."""
+    """Score a model based on its tier (deterministic, not self-reported tokens).
+
+    Robust matching: normalizes hyphens/dots/version suffixes before prefix lookup.
+    """
     if not model_name:
         return _NO_MODEL_REPORTED_SCORE
 
-    normalized = model_name.strip().lower()
+    normalized = _normalize_model_name(model_name)
+
     for prefix in sorted(_MODEL_TIER_SCORES, key=len, reverse=True):
         if normalized.startswith(prefix):
             return _MODEL_TIER_SCORES[prefix]
 
-    logger.warning("unknown_model_tier: model=%s using_fallback=%.1f", model_name, _FALLBACK_TIER_SCORE)
+    logger.warning(
+        "unknown_model_tier: model=%s normalized=%s using_fallback=%.1f",
+        model_name,
+        normalized,
+        _FALLBACK_TIER_SCORE,
+    )
     return _FALLBACK_TIER_SCORE
 
 
@@ -348,19 +385,20 @@ def _compute_model_tier_cost_score(call_results: CallResults) -> tuple[float, st
     return score, primary_model
 
 
-def _normalize_latency(p95_ms: float) -> float:
+def _normalize_latency(p95_ms: float, best_ms: float = _LATENCY_BEST_MS, worst_ms: float = _LATENCY_WORST_MS) -> float:
     """Normalize P95 latency to 0-1 score.
 
-    Band calibrated for LLM workloads:
-    - 500ms or better: 1.0 (nano model, optimized pipeline)
-    - 5000ms or worse: 0.0 (unoptimized or reasoning model)
-    - Linear interpolation between.
+    Uses per-task thresholds when provided, falling back to global defaults.
+    Each task type has different expected latency profiles:
+    - Text classification (triage): fast, best=500ms worst=5000ms
+    - Vision/OCR (extract): slow, best=2000ms worst=20000ms
+    - Multi-step orchestration: medium, best=1000ms worst=10000ms
     """
-    if p95_ms <= _LATENCY_BEST_MS:
+    if p95_ms <= best_ms:
         return 1.0
-    if p95_ms >= _LATENCY_WORST_MS:
+    if p95_ms >= worst_ms:
         return 0.0
-    return 1.0 - (p95_ms - _LATENCY_BEST_MS) / (_LATENCY_WORST_MS - _LATENCY_BEST_MS)
+    return 1.0 - (p95_ms - best_ms) / (worst_ms - best_ms)
 
 
 def _infer_mock_reset_url(task_runs: list[TaskRun]) -> set[str]:
@@ -662,9 +700,9 @@ async def run_scoring(
     for idx, task_run in enumerate(resolved_task_runs):
         task_id = task_run.definition.task_id
 
-        # Phase 1: API resilience probes
-
-
+        # ── Phase 1: API resilience probes (BEFORE scoring) ──────
+        # Running probes first detects a dead API early and provides
+        # per-task resilience scores for the B_k formula.
         with _tracer.start_as_current_span(
             "tier1.task.probes",
             attributes={"task.id": task_id},
@@ -679,7 +717,8 @@ async def run_scoring(
         task_probes: dict[str, bool] = probe_result["probes"]
         task_probes_passed = sum(1 for v in task_probes.values() if v)
         task_api_resilience = round(
-            task_probes_passed / max(len(task_probes), 1) * 100, 1,
+            task_probes_passed / max(len(task_probes), 1) * 100,
+            1,
         )
 
         # Merge into aggregate (conservative AND across all tasks)
@@ -689,7 +728,7 @@ async def run_scoring(
             else:
                 probe_results_all[probe_name] = probe_results_all[probe_name] and passed
 
-        # Phase 2: Call endpoint
+        # ── Phase 2: Call endpoint for all items ─────────────────
         with _tracer.start_as_current_span(
             "tier1.task.call_endpoint",
             attributes={"task.id": task_id, "items.count": len(task_run.input_items)},
@@ -719,29 +758,32 @@ async def run_scoring(
         aggregate_results.errors += call_results.errors
         aggregate_results.total_latency_ms += call_results.total_latency_ms
 
-        # Phase 3: Score responses
+        # ── Phase 3: Score responses ─────────────────────────────
         candidate_responses = _build_candidate_responses(task_run, call_results)
         scoring_output = task_run.definition.scorer(candidate_responses, task_run.gold_items)
         adversarial_output = _score_adversarial_subset(task_run, candidate_responses, scoring_output)
         base_summary, task_errors = _summarize_task_output(task_run, scoring_output, adversarial_output)
         all_errors.extend(task_errors)
 
-        # Phase 4: Per-task efficiency
-        task_latency_score = _normalize_latency(call_results.latency_p95_ms)
+        # ── Phase 4: Per-task efficiency E_k ─────────────────────
+        task_latency_score = _normalize_latency(
+            call_results.latency_p95_ms,
+            best_ms=task_run.definition.latency_best_ms,
+            worst_ms=task_run.definition.latency_worst_ms,
+        )
         task_cost_score, task_primary_model = _compute_model_tier_cost_score(call_results)
         task_efficiency = round(
             (WEIGHT_LATENCY * task_latency_score + WEIGHT_COST * task_cost_score) * 100,
             1,
         )
 
-        # Phase 5: Per-task robustness
+        # ── Phase 5: Per-task robustness B_k ─────────────────────
         task_robustness = round(
-            WEIGHT_ADVERSARIAL * base_summary.adversarial_accuracy
-            + WEIGHT_API_RESILIENCE * task_api_resilience,
+            WEIGHT_ADVERSARIAL * base_summary.adversarial_accuracy + WEIGHT_API_RESILIENCE * task_api_resilience,
             1,
         )
 
-        # Phase 6: Per-task Tier 1 composite
+        # ── Phase 6: Per-task Tier 1 composite ───────────────────
         task_tier1 = round(
             WEIGHT_RESOLUTION * base_summary.resolution
             + WEIGHT_EFFICIENCY * task_efficiency
@@ -776,37 +818,46 @@ async def run_scoring(
         logger.info(
             "task_tier1: task=%s tier1=%.1f R=%.1f E=%.1f B=%.1f "
             "(latency=%.4f cost=%.4f adversarial=%.1f resilience=%.1f)",
-            task_id, task_tier1, base_summary.resolution, task_efficiency,
-            task_robustness, task_latency_score, task_cost_score,
-            base_summary.adversarial_accuracy, task_api_resilience,
+            task_id,
+            task_tier1,
+            base_summary.resolution,
+            task_efficiency,
+            task_robustness,
+            task_latency_score,
+            task_cost_score,
+            base_summary.adversarial_accuracy,
+            task_api_resilience,
         )
 
-        # Phase 7: Circuit breaker
+        # ── Phase 7: Cross-task circuit breaker ──────────────────
         total_results = len(call_results.results)
         if total_results > 0:
             error_rate = call_results.errors / total_results
             if error_rate > _TASK_CIRCUIT_BREAKER_ERROR_RATE:
                 circuit_breaker_triggered = True
-                aborted_task_ids = [
-                    tr.definition.task_id for tr in resolved_task_runs[idx + 1 :]
-                ]
+                aborted_task_ids = [tr.definition.task_id for tr in resolved_task_runs[idx + 1 :]]
                 logger.error(
                     "circuit_breaker: task=%s error_rate=%.0f%% — aborting %d remaining tasks: %s",
-                    task_id, error_rate * 100, len(aborted_task_ids), aborted_task_ids,
+                    task_id,
+                    error_rate * 100,
+                    len(aborted_task_ids),
+                    aborted_task_ids,
                 )
                 break
 
-    # Aggregate: fdebench = mean(tier1_k)────
+    # ── Aggregate: fdebench = mean(tier1_k) ──────────────────────
     n_tasks = len(task_summaries)
     total = round(sum(t.tier1_score for t in task_summaries) / n_tasks, 1)
     resolution_score = round(sum(t.resolution for t in task_summaries) / n_tasks, 1)
     efficiency_score = round(sum(t.efficiency_score for t in task_summaries) / n_tasks, 1)
     robustness_score = round(sum(t.robustness_score for t in task_summaries) / n_tasks, 1)
     adversarial_accuracy = round(
-        sum(t.adversarial_accuracy for t in task_summaries) / n_tasks, 1,
+        sum(t.adversarial_accuracy for t in task_summaries) / n_tasks,
+        1,
     )
     api_resilience = round(
-        sum(1 for v in probe_results_all.values() if v) / max(len(probe_results_all), 1) * 100, 1,
+        sum(1 for v in probe_results_all.values() if v) / max(len(probe_results_all), 1) * 100,
+        1,
     )
 
     # Aggregated latency/cost: mean of per-task scores for backward compat
@@ -825,8 +876,13 @@ async def run_scoring(
     logger.info(
         "tier1_composite: total=%.1f resolution=%.1f efficiency=%.1f robustness=%.1f "
         "(adversarial=%.1f api_resilience=%.1f circuit_breaker=%s)",
-        total, resolution_score, efficiency_score, robustness_score,
-        adversarial_accuracy, api_resilience, circuit_breaker_triggered,
+        total,
+        resolution_score,
+        efficiency_score,
+        robustness_score,
+        adversarial_accuracy,
+        api_resilience,
+        circuit_breaker_triggered,
     )
 
     return ScoringResult(

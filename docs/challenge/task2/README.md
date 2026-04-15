@@ -2,7 +2,7 @@
 
 `POST /extract`
 
-Given an FDA drug label (plain text or base64 PDF), pull out structured JSON that a downstream system can use directly. The scoring cares about getting the right fields with the right structure — not about how pretty your output reads.
+Given a document image (receipt, invoice, form, financial statement, etc.) and a JSON schema describing the expected output structure, extract all relevant data into structured JSON. The scoring cares about getting the right values with the right structure — not about how pretty your output reads.
 
 Read the background:
 
@@ -15,12 +15,9 @@ Read the background:
 Input fields:
 
 - `document_id`
-- `document_type`
-- `content`
-- `content_format`
-- `metadata`
-
-`content_format` can be either `text` or `pdf_base64`.
+- `content` — base64-encoded document image
+- `content_format` — `"image_base64"`
+- `json_schema` — JSON schema describing the expected output structure (each document has a different schema)
 
 See [../../../py/data/task2/input_schema.json](../../../py/data/task2/input_schema.json) for the formal schema.
 
@@ -28,44 +25,43 @@ See [../../../py/data/task2/input_schema.json](../../../py/data/task2/input_sche
 
 Required output fields:
 
-- `document_id`
-- `drug_name`
-- `generic_name`
-- `manufacturer`
-- `indications`
-- `dosage_forms`
-- `warnings`
-- `contraindications`
-- `adverse_reactions`
-- `active_ingredients`
-- `storage`
+- `document_id` — must match the input
+- All fields specified in the `json_schema` from the request
+
+The output schema varies per document. One document might ask for `firstName`, `address`, `phone`. Another might ask for `tableData`, `institution`, `portfolioSummary`. Your endpoint must read the `json_schema` and return matching structured JSON.
 
 See [../../../py/data/task2/output_schema.json](../../../py/data/task2/output_schema.json) for the formal schema.
 
 ## Resolution Scoring
 
 ```
-resolution = (0.15 x drug_name + 0.15 x indications + 0.15 x dosage + 0.05 x warnings + 0.15 x contraindications + 0.20 x adverse_reactions + 0.10 x ingredients + 0.05 x metadata) x 100
+resolution = (0.70 x information_accuracy + 0.30 x text_fidelity) x 100
 ```
 
 | Dimension | Weight | Metric |
 |---|---|---|
-| `drug_name` | 15% | Exact match after normalization |
-| `indications` | 15% | Soft set F1 |
-| `dosage_forms` | 15% | Set F1 |
-| `warnings` | 5% | Set F1 |
-| `contraindications` | 15% | Soft set F1 |
-| `adverse_reactions` | 20% | Token overlap + exact frequency |
-| `active_ingredients` | 10% | Token overlap + exact strength/unit |
-| `metadata` | 5% | Token F1 |
+| `information_accuracy` | 70% | Recursive field F1 with value normalization — did you extract the correct data? |
+| `text_fidelity` | 30% | Recursive field exact-match — did you preserve exact formatting? |
+
+**Information Accuracy** uses a format-stripping normalizer: `$1,234.56` → `1234.56`, `10%` → `10`. If you extract the right value in a different format, you still get credit.
+
+**Text Fidelity** uses a light normalizer (lowercase, collapse whitespace). If you also match the exact formatting, you get the full score.
+
+**Per-field scoring by type:**
+- Strings → token F1 (information) / exact match (fidelity)
+- Numbers → 1% relative tolerance
+- Booleans → exact match
+- Lists → set F1 with fuzzy element alignment (information) / strict set F1 (fidelity)
+- Nested objects → recursive field-mean
 
 ## What's Hard
 
-Long unstructured documents. Table-like content flattened into prose. Inconsistent wording. PDFs on ~30% of the eval set. Deeply nested output with arrays of objects.
+Every document has a different schema — you can't hardcode field names. Receipts, invoices, medical forms, financial statements, charts. Some have tables, some have nested sections. ~36% of documents are adversarial (photographed, scanned, handwritten — degraded image quality).
 
 ## Tips
 
-- Get the schema right first. Downstream consumers expect stable shape.
-- Don't hallucinate missing structure — return null if it's not there.
-- PDFs are a reliability problem, not a separate feature.
-- `adverse_reactions` and `dosage_forms` carry the most weight — focus there.
+- Read the `json_schema` from the request — it tells you exactly what fields to extract.
+- Use a vision model (GPT-4o, GPT-4.1, etc.) — the input is an image, not text.
+- `information_accuracy` is 70% of the score — getting the right value matters more than matching format exactly.
+- Return `null` for fields you can't extract — don't hallucinate.
+- Tables are common. Financial data, medical forms, and invoices all have tabular content.

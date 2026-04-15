@@ -84,14 +84,8 @@ These rows mirror the task summary block printed by the local runner.
 
 | Dimension | Weight | Score | Notes |
 |---|---|---|---|
-| `drug_name` | 15% | | |
-| `indications` | 15% | | |
-| `dosage_forms` | 15% | | |
-| `warnings` | 5% | | |
-| `contraindications` | 15% | | |
-| `adverse_reactions` | 20% | | |
-| `active_ingredients` | 10% | | |
-| `metadata` | 5% | | |
+| `information_accuracy` | 70% | | |
+| `text_fidelity` | 30% | | |
 
 ### Operational Metrics
 

@@ -48,9 +48,10 @@ Four agents read your repo. Scores are **not public** — they inform finalist s
 
 | Agent | Weight | Focus |
 |-------|--------|-------|
-| Code Quality | 35% | Structure, types, error handling, testing, readability |
-| Architecture Design | 40% | AI pipeline, decomposition, API design, tradeoffs |
-| Engineering Maturity | 25% | Deployment, config/secrets, observability, security |
+| Code Quality | 25% | Structure, types, error handling, testing, readability |
+| Architecture Design | 30% | AI pipeline, decomposition, API design, tradeoffs |
+| AI Problem Solving | 25% | Prompt engineering, evaluation methodology, model/cost awareness |
+| Engineering Maturity | 20% | Deployment, config/secrets, observability, security |
 
 See the `engineering_review.md` in each [task folder](../challenge/) for what judges look for per task.
 
@@ -87,9 +88,10 @@ If you use the local runner at `py/apps/eval/run_eval.py` to gather your numbers
 
 ### Task 2: Document Extraction
 
-- [ ] Handles both `text` and `pdf_base64` content formats
-- [ ] Response includes all required fields: `document_id`, `drug_name`, `generic_name`, `manufacturer`, `indications`, `dosage_forms`, `warnings`, `contraindications`, `adverse_reactions`, `active_ingredients`, `storage`
-- [ ] Nested objects properly structured (indications with condition/population, dosage_forms with strengths array)
+- [ ] Handles `image_base64` content format (document images)
+- [ ] Reads `json_schema` from the request and returns matching structured JSON
+- [ ] Response includes `document_id` plus all fields specified by the document's schema
+- [ ] Nested objects and arrays properly structured (tables, lists, sub-objects)
 
 ### Task 3: Workflow Orchestration
 

@@ -2,7 +2,7 @@
 
 What judges look for in your triage code. Tier 2 doesn't affect the leaderboard, but it's how finalists get picked.
 
-## Code Quality (35% of Tier 2)
+## Code Quality (25% of Tier 2)
 
 | Dimension | What judges look for |
 |---|---|
@@ -12,7 +12,7 @@ What judges look for in your triage code. Tier 2 doesn't affect the leaderboard,
 | Testing (25%) | Unit tests for scoring logic, model validation, and API endpoint. LLM client mocked. Adversarial-style inputs tested. |
 | Readability (15%) | System prompt readable and well-commented. Enum values self-documenting. Code navigable. |
 
-## Architecture Design (40% of Tier 2)
+## Architecture Design (30% of Tier 2)
 
 | Dimension | What judges look for |
 |---|---|
@@ -22,7 +22,7 @@ What judges look for in your triage code. Tier 2 doesn't affect the leaderboard,
 | Trade-off reasoning (15%) | Awareness of model selection trade-offs. Prompt tuned for the task, not generic. |
 | Scalability (10%) | Can handle concurrent signals. LLM client async. Connection pooling or load balancing considered. |
 
-## Engineering Maturity (25% of Tier 2)
+## Engineering Maturity (20% of Tier 2)
 
 | Dimension | What judges look for |
 |---|---|

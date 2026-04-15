@@ -8,6 +8,7 @@ from enum import Enum
 from typing import Any
 from typing import Literal
 
+from pydantic import ConfigDict
 from pydantic import EmailStr
 
 from ms.common.models.base import FrozenBaseModel
@@ -87,54 +88,25 @@ class TriageResponse(FrozenBaseModel):
 
 class ExtractRequest(FrozenBaseModel):
     document_id: str
-    document_type: str
-    content: str
-    content_format: Literal["text", "pdf_base64"]
-    metadata: dict[str, Any] = {}
-
-
-class Indication(FrozenBaseModel):
-    condition: str
-    population: str | None = None
-    usage_type: str | None = None
-
-
-class DosageForm(FrozenBaseModel):
-    form: str
-    strengths: list[str]
-    route: str | None = None
-
-
-class Warning(FrozenBaseModel):
-    category: str
-    description: str
-    severity: str
-
-
-class AdverseReaction(FrozenBaseModel):
-    reaction: str
-    frequency: str | None = None
-    incidence_percent: float | None = None
-
-
-class ActiveIngredient(FrozenBaseModel):
-    name: str
-    strength: str | None = None
-    unit: str | None = None
+    content: str  # base64-encoded document image
+    content_format: str = "image_base64"
+    json_schema: str | None = None  # JSON schema describing expected output
 
 
 class ExtractResponse(FrozenBaseModel):
+    """Generic extraction response — fields vary per document.
+
+    The scorer compares your output field-by-field against the gold data.
+    Return document_id plus whatever fields the json_schema specifies.
+    Extra fields are ignored. Missing fields score 0.
+    """
+
     document_id: str
-    drug_name: str | None = None
-    generic_name: str | None = None
-    manufacturer: str | None = None
-    indications: list[Indication] | None = None
-    dosage_forms: list[DosageForm] | None = None
-    warnings: list[Warning] | None = None
-    contraindications: list[str] | None = None
-    adverse_reactions: list[AdverseReaction] | None = None
-    active_ingredients: list[ActiveIngredient] | None = None
-    storage: str | None = None
+    # All other fields are dynamic — use model_extra or return a dict.
+    # The sample stub returns just document_id. A real implementation
+    # would parse json_schema and return matching fields.
+
+    model_config = ConfigDict(extra="allow")
 
 
 # ── Task 3: Workflow Orchestration ───────────────────────────────────
@@ -159,6 +131,7 @@ class OrchestrateRequest(FrozenBaseModel):
     goal: str
     available_tools: list[ToolDefinition]
     constraints: list[str] = []
+    mock_service_url: str | None = None
 
 
 class StepExecuted(FrozenBaseModel):
@@ -173,4 +146,8 @@ class OrchestrateResponse(FrozenBaseModel):
     task_id: str
     status: Literal["completed", "partial", "failed"]
     steps_executed: list[StepExecuted]
+    accounts_processed: int | None = None
+    emails_sent: int | None = None
+    emails_skipped: int | None = None
+    skip_reasons: dict[str, int] | None = None
     constraints_satisfied: list[str] = []

@@ -14,10 +14,10 @@ data/
 │   ├── public_eval_50.json         # 50 signals — public eval set
 │   ├── public_eval_50_gold.json    # Gold answers for public eval
 │   └── public_eval.json            # 100 signals — extended smoke test (no gold)
-├── task2/                          # Document Extraction
+├── task2/                          # Document Extraction (OCR)
 │   ├── input_schema.json           # POST /extract request schema
 │   ├── output_schema.json          # POST /extract response schema
-│   ├── public_eval_50.json         # 50 drug labels — public eval set
+│   ├── public_eval_50.json         # 10 document images — public eval set
 │   └── public_eval_50_gold.json    # Gold answers for public eval
 └── task3/                          # Workflow Orchestration
     ├── input_schema.json           # POST /orchestrate request schema
@@ -53,3 +53,23 @@ Adversarial items are tagged with `"difficulty": "adversarial"` and scored separ
 ## Schemas
 
 Each task directory contains `input_schema.json` and `output_schema.json` defining the request and response contracts. Your endpoints must accept and return JSON matching these schemas.
+
+## Task 3: Mock Tool Responses
+
+The file `task3/public_eval_50_mock_responses.json` contains the deterministic tool responses used by the mock tool service. When you run the eval harness, it starts a local mock server that loads this file and serves canned responses for every tool call in the 50 public eval scenarios.
+
+**You don't need to do anything special with this file** — the eval harness and mock service handle it automatically. But if you want to understand what tools return (e.g., what `crm_search` gives back for `TASK-0170`), open this file and look:
+
+```json
+{
+  "TASK-0170": [
+    {"tool_name": "crm_search", "call_index": 0, "status_code": 200, "response_body": {"accounts": [...]}},
+    {"tool_name": "subscription_check", "call_index": 0, "status_code": 200, "response_body": {...}},
+    ...
+  ]
+}
+```
+
+Each tool can have multiple responses (indexed by `call_index`) for scenarios where the same tool is called more than once. The mock service tracks how many times each tool has been called per scenario and returns the appropriate response.
+
+Some adversarial scenarios include tool failures (`status_code: 500`) — your orchestration logic should handle these gracefully.

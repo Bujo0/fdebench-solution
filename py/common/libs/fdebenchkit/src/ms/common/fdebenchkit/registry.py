@@ -28,6 +28,13 @@ class TaskDefinition:
     response_required_keys: frozenset[str]
     dimension_weights: dict[str, float]
     scorer: ScorerFn
+    # Per-task latency normalization thresholds (P95 ms).
+    # Different tasks have different expected latency profiles:
+    # - Text classification (triage): fast, ~500ms-3s
+    # - Vision/OCR (extract): slow, ~2s-20s
+    # - Multi-step orchestration: medium, ~1s-8s
+    latency_best_ms: float = 500.0
+    latency_worst_ms: float = 5000.0
 
 
 @dataclass(frozen=True)
@@ -81,22 +88,12 @@ TASK_DEFINITIONS: dict[str, TaskDefinition] = {
         endpoint_path="/extract",
         request_id_key="document_id",
         item_label="document",
-        response_required_keys=frozenset(
-            {
-                "document_id",
-                "drug_name",
-                "manufacturer",
-                "indications",
-                "dosage_forms",
-                "warnings",
-                "contraindications",
-                "adverse_reactions",
-                "active_ingredients",
-                "storage",
-            }
-        ),
+        response_required_keys=frozenset({"document_id"}),
         dimension_weights=scoring_document_extraction.DIMENSION_WEIGHTS,
         scorer=scoring_document_extraction.score_submission,
+        # Vision/OCR is inherently slower — calibrate thresholds accordingly
+        latency_best_ms=2000.0,
+        latency_worst_ms=20000.0,
     ),
     "workflow_orchestration": TaskDefinition(
         task_id="workflow_orchestration",
@@ -107,6 +104,9 @@ TASK_DEFINITIONS: dict[str, TaskDefinition] = {
         response_required_keys=frozenset({"task_id", "status", "steps_executed"}),
         dimension_weights=scoring_workflow_orchestration.DIMENSION_WEIGHTS,
         scorer=scoring_workflow_orchestration.score_submission,
+        # Multi-step LLM + tool calls — medium latency expected
+        latency_best_ms=1000.0,
+        latency_worst_ms=10000.0,
     ),
 }
 

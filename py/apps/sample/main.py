@@ -1,12 +1,12 @@
 """Minimal FDEBench starter — stub endpoints that pass schema validation.
 
 Run:
-    cd py/apps/sample
-    uvicorn main:app --port 8000
+    cd py
+    make setup     # once — install deps
+    make run       # start on :8000
 
 Score:
-    cd py/apps/eval
-    python run_eval.py --endpoint http://localhost:8000
+    make eval      # score all 3 tasks (in a second terminal)
 
 Every endpoint returns valid stub JSON. The eval harness will run
 end-to-end and show you the full scoring breakdown. Replace the stub
@@ -67,19 +67,8 @@ async def triage(req: TriageRequest, response: Response) -> TriageResponse:
 @app.post("/extract")
 async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
     _add_headers(response)
-    # TODO: replace with LLM extraction
-    return ExtractResponse(
-        document_id=req.document_id,
-        drug_name=None,
-        manufacturer=None,
-        indications=[],
-        dosage_forms=[],
-        warnings=[],
-        contraindications=[],
-        adverse_reactions=[],
-        active_ingredients=[],
-        storage=None,
-    )
+    # TODO: replace with vision model extraction using req.json_schema
+    return ExtractResponse(document_id=req.document_id)
 
 
 # ── Task 3: Workflow Orchestration ───────────────────────────────────

@@ -2,7 +2,7 @@
 
 What judges look for in your orchestration code. Tier 2 doesn't affect the leaderboard, but it's how finalists get picked.
 
-## Code Quality (35% of Tier 2)
+## Code Quality (25% of Tier 2)
 
 | Dimension | What judges look for |
 |---|---|
@@ -12,7 +12,7 @@ What judges look for in your orchestration code. Tier 2 doesn't affect the leade
 | Testing (25%) | Tests for planning logic, constraint checking, and error recovery. Mock tool responses used to verify workflow execution without real HTTP calls. |
 | Readability (15%) | Planner prompt clearly structured. Execution loop readable. Constraint definitions self-documenting. |
 
-## Architecture Design (40% of Tier 2)
+## Architecture Design (30% of Tier 2)
 
 | Dimension | What judges look for |
 |---|---|
@@ -22,7 +22,7 @@ What judges look for in your orchestration code. Tier 2 doesn't affect the leade
 | Trade-off reasoning (15%) | Awareness of planning-depth vs. cost. Single-pass planning vs. iterative. Parallel vs. sequential execution. Model selection for planning vs. tool-call parsing. |
 | Scalability (10%) | Can handle workflows with many tool calls. Token budget management across multiple LLM turns. Tool calls rate-limited to avoid overwhelming endpoints. |
 
-## Engineering Maturity (25% of Tier 2)
+## Engineering Maturity (20% of Tier 2)
 
 | Dimension | What judges look for |
 |---|---|

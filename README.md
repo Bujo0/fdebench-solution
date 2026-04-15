@@ -13,7 +13,7 @@ Have fun with it. Ship something you'd be proud to run in one of our top custome
 | Task | Endpoint | What you're solving |
 |------|----------|---------------------|
 | Signal Triage | `POST /triage` | Classify and route noisy mission signals — 42% misroute rate today, 3+ hour delay |
-| Document Extraction | `POST /extract` | Turn unstructured drug labels (text or PDF) into clean structured JSON |
+| Document Extraction | `POST /extract` | Extract structured data from document images (receipts, invoices, forms, financial statements) |
 | Workflow Orchestration | `POST /orchestrate` | Execute multi-step business workflows with real tool calls, constraints, and failure handling |
 
 ## Getting Started
@@ -29,14 +29,18 @@ Have fun with it. Ship something you'd be proud to run in one of our top custome
 1. Read [docs/challenge/README.md](docs/challenge/README.md) — the scoring formula and what you're building.
 2. Pick a task folder — [task1/](docs/challenge/task1/), [task2/](docs/challenge/task2/), [task3/](docs/challenge/task3/) — and read the README + support docs.
 3. Look at the data and schemas in [py/data/](py/data/).
-4. Build your endpoints, then score them:
+4. Set up and run:
 
 ```bash
-cd py/apps/eval
-python run_eval.py --endpoint http://localhost:8000
+cd py
+make setup   # install deps (once)
+make run     # start the sample app on :8000 (terminal 1)
+make eval    # score all 3 tasks (terminal 2)
 ```
 
 That gives you the full local FDEBench breakdown — resolution, efficiency, robustness, probes, the works.
+
+You can also score individual tasks: `make eval-triage`, `make eval-extract`, `make eval-orchestrate`.
 
 ## Repository Structure
 
@@ -64,15 +68,17 @@ Work locally or in any cloud-hosted environment. A [devcontainer](.devcontainer/
 Requirements: Python 3.12+, Node.js 22+, [uv](https://docs.astral.sh/uv/), [pnpm](https://pnpm.io/)
 
 ```bash
-# Python
-cd py && uv sync
+# Python — install dependencies and fix namespace packages
+cd py && make setup
 
-# TypeScript
+# TypeScript (optional)
 cd ts && pnpm install
 
-# Pre-commit hooks
+# Pre-commit hooks (optional)
 uvx pre-commit install
 ```
+
+> **macOS note:** If you see `ModuleNotFoundError: No module named 'ms'` after a fresh `uv sync`, run `make setup` — it fixes a macOS quirk where hidden-file flags prevent Python from loading namespace packages.
 
 ## Rules
 

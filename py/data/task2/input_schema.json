@@ -1,49 +1,30 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "DocumentInput",
-    "description": "An unstructured document to extract structured data from.",
+    "description": "A document image to extract structured data from. Each document comes with a json_schema describing the expected output fields.",
     "type": "object",
     "required": [
         "document_id",
-        "document_type",
         "content",
         "content_format"
     ],
     "properties": {
         "document_id": {
             "type": "string",
-            "description": "Unique document identifier (e.g., DOC-FDA-12345)."
-        },
-        "document_type": {
-            "type": "string",
-            "enum": ["drug_label"],
-            "description": "Type of document."
+            "description": "Unique document identifier (e.g., DOC-OCR-0366)."
         },
         "content": {
             "type": "string",
-            "description": "Document content. Plain text when content_format is 'text', base64-encoded PDF when content_format is 'pdf_base64'."
+            "description": "Base64-encoded document image."
         },
         "content_format": {
             "type": "string",
-            "enum": ["text", "pdf_base64"],
+            "enum": ["image_base64"],
             "description": "Format of the content field."
         },
-        "metadata": {
-            "type": "object",
-            "properties": {
-                "source": {
-                    "type": "string",
-                    "description": "Data source identifier."
-                },
-                "pages": {
-                    "type": "integer",
-                    "description": "Number of pages in the original document."
-                },
-                "language": {
-                    "type": "string",
-                    "description": "ISO 639-1 language code."
-                }
-            }
+        "json_schema": {
+            "type": ["string", "null"],
+            "description": "JSON schema (as a string) describing the expected output structure. Each document has a different schema."
         }
     }
 }

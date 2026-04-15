@@ -31,7 +31,11 @@ import argparse
 import asyncio
 import json
 import logging
+import signal
+import socket
+import subprocess
 import sys
+import time
 from pathlib import Path
 
 # Add libraries to the import path
@@ -81,6 +85,82 @@ _TASK_ID_MAP = {
 }
 
 _MOCK_RESPONSES_PATH = _DATA_DIR / "task3" / "public_eval_50_mock_responses.json"
+_MOCK_SERVICE_SCRIPT = Path(__file__).resolve().parent / "mock_tool_service.py"
+_MOCK_SERVICE_PORT = 9090
+_MOCK_BASE_URL = f"http://127.0.0.1:{_MOCK_SERVICE_PORT}/scenario"
+
+
+def _port_in_use(port: int) -> bool:
+    """Check if a port is already in use."""
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        return s.connect_ex(("127.0.0.1", port)) == 0
+
+
+def _start_mock_service() -> subprocess.Popen | None:
+    """Start the mock tool service for Task 3 in a subprocess.
+
+    Returns the process handle, or None if the service is already
+    running or mock data is unavailable.
+    """
+    if not _MOCK_RESPONSES_PATH.exists():
+        logger.warning("Mock responses not found: %s — Task 3 tool calls will fail", _MOCK_RESPONSES_PATH)
+        return None
+
+    if _port_in_use(_MOCK_SERVICE_PORT):
+        logger.info("Mock tool service already running on port %d", _MOCK_SERVICE_PORT)
+        return None
+
+    logger.info("Starting mock tool service on port %d ...", _MOCK_SERVICE_PORT)
+    proc = subprocess.Popen(
+        [sys.executable, str(_MOCK_SERVICE_SCRIPT), "--port", str(_MOCK_SERVICE_PORT)],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.PIPE,
+    )
+    # Wait for the server to be ready (up to 5 seconds)
+    for _ in range(50):
+        if _port_in_use(_MOCK_SERVICE_PORT):
+            logger.info("Mock tool service ready")
+            return proc
+        time.sleep(0.1)
+    logger.warning("Mock tool service did not start within 5s — Task 3 tool calls may fail")
+    return proc
+
+
+def _stop_mock_service(proc: subprocess.Popen | None) -> None:
+    """Gracefully shut down the mock service subprocess."""
+    if proc is None:
+        return
+    proc.send_signal(signal.SIGTERM)
+    try:
+        proc.wait(timeout=3)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+
+
+def _rewrite_task3_urls(items: list[dict]) -> list[dict]:
+    """Replace placeholder tool endpoints with the local mock service URL.
+
+    Each Task 3 item gets a ``mock_service_url`` field pointing at the
+    local mock service (``http://127.0.0.1:9090/scenario/{task_id}``),
+    and each tool's ``endpoint`` is rewritten to the matching mock URL.
+    This is the same rewriting the production platform does.
+    """
+    rewritten: list[dict] = []
+    for item in items:
+        updated = dict(item)
+        task_id = updated.get("task_id", "")
+        mock_url = f"{_MOCK_BASE_URL}/{task_id}"
+        updated["mock_service_url"] = mock_url
+        # Rewrite each tool's endpoint so candidates' code calls the mock
+        if "available_tools" in updated:
+            new_tools = []
+            for tool in updated["available_tools"]:
+                t = dict(tool)
+                t["endpoint"] = f"{mock_url}/{t['name']}"
+                new_tools.append(t)
+            updated["available_tools"] = new_tools
+        rewritten.append(updated)
+    return rewritten
 
 
 def _load_dataset(path: Path, id_field: str) -> list[dict]:
@@ -117,23 +197,17 @@ def _build_task_runs(
             input_items = _load_dataset(paths["input"], definition.request_id_key)
             gold_items = _load_dataset(paths["gold"], definition.request_id_key)
 
-        # Task 3: inject mock service URLs into input items
-        if task_id == "workflow_orchestration" and _MOCK_RESPONSES_PATH.exists():
-            mock_responses = json.loads(_MOCK_RESPONSES_PATH.read_text(encoding="utf-8"))
-            mock_lookup = {}
-            if isinstance(mock_responses, list):
-                mock_lookup = {r.get("task_id"): r for r in mock_responses}
-            for item in input_items:
-                tid = item.get("task_id")
-                if tid and tid in mock_lookup:
-                    # Embed mock responses directly so the scorer can use them
-                    item["_mock_response"] = mock_lookup[tid]
+        # Task 3: rewrite tool endpoints to point at the local mock service
+        if task_id == "workflow_orchestration":
+            input_items = _rewrite_task3_urls(input_items)
 
-        runs.append(TaskRun(
-            definition=definition,
-            input_items=input_items,
-            gold_items=gold_items,
-        ))
+        runs.append(
+            TaskRun(
+                definition=definition,
+                input_items=input_items,
+                gold_items=gold_items,
+            )
+        )
 
     return runs
 
@@ -245,6 +319,7 @@ def parse_args() -> argparse.Namespace:
 
 async def main() -> None:
     args = parse_args()
+    mock_proc: subprocess.Popen | None = None
 
     # Determine which tasks to run
     if args.dataset and args.gold:
@@ -267,6 +342,10 @@ async def main() -> None:
             if not path.exists():
                 logger.error("Missing %s dataset: %s", label, path)
                 sys.exit(1)
+
+    # Start mock tool service if Task 3 is included
+    if any(k == "orchestrate" for k in task_keys):
+        mock_proc = _start_mock_service()
 
     logger.info("Endpoint: %s", args.endpoint)
     logger.info("Tasks: %s", ", ".join(task_keys))
@@ -295,6 +374,9 @@ async def main() -> None:
         sys.exit(1)
 
     _print_report(result)
+
+    # Shut down mock service
+    _stop_mock_service(mock_proc)
 
     # Exit code: 0 if scored, 1 if all items errored
     if result.items_scored == 0:

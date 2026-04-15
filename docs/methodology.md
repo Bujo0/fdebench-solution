@@ -14,7 +14,7 @@
 
 ## Task 2: Document Extraction
 
-<!-- How did you approach parsing drug labels? How do you handle PDFs vs. text? What normalization challenges did you hit? -->
+<!-- How did you approach OCR document extraction? What vision model did you use? How do you handle different document types and schemas? What normalization challenges did you hit? -->
 
 ## Task 3: Workflow Orchestration
 

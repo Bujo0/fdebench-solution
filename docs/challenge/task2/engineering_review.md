@@ -2,27 +2,27 @@
 
 What judges look for in your extraction code. Tier 2 doesn't affect the leaderboard, but it's how finalists get picked.
 
-## Code Quality (35% of Tier 2)
+## Code Quality (25% of Tier 2)
 
 | Dimension | What judges look for |
 |---|---|
-| Structure (25%) | Document parsing separated from LLM interaction. Schema mapping in its own module. Normalization rules factored out, not inline. |
-| Type safety (20%) | Output schema fully typed with nested Pydantic models (`Indication`, `DosageForm`, `Warning`, `AdverseReaction`). Optional fields typed as `T | None`. |
-| Error handling (15%) | Malformed LLM output handled. Fallback logic for missing sections. Per-field failure instead of whole-extraction failure. |
-| Testing (25%) | Tests with sample documents. Normalization rules unit-tested (unit conversion, drug name canonicalization). Edge cases tested (empty document, missing sections). |
+| Structure (25%) | Image processing separated from LLM interaction. Schema parsing in its own module. Normalization rules factored out, not inline. |
+| Type safety (20%) | Dynamic output shaped by `json_schema`. Schema validation on output. Optional fields typed as `T | None`. |
+| Error handling (15%) | Malformed LLM output handled. Fallback logic for unreadable fields. Per-field failure instead of whole-extraction failure. |
+| Testing (25%) | Tests with sample documents. Normalization rules unit-tested (currency stripping, number parsing). Edge cases tested (empty image, missing fields, tables). |
 | Readability (15%) | Extraction prompt clearly structured with target schema. Normalization rules documented. |
 
-## Architecture Design (40% of Tier 2)
+## Architecture Design (30% of Tier 2)
 
 | Dimension | What judges look for |
 |---|---|
-| AI pipeline (30%) | Chunking or section-splitting strategy for long documents. Clear decision on single-pass vs. section-by-section extraction. Post-processing pipeline (LLM output → normalization → validation → response). |
-| Decomposition (25%) | Parser → Extractor → Normalizer → Validator layering. Each stage has a clear responsibility and interface. |
-| API design (20%) | `POST /extract` handles the full document contract. Proper error responses for invalid documents. Consistent output schema whether all fields are present or some are null. |
-| Trade-off reasoning (15%) | Awareness of accuracy-vs-cost trade-off in single-pass vs. multi-pass extraction. Model selection justified for document size. |
-| Scalability (10%) | Can process documents concurrently. Token budget management for very long documents. |
+| AI pipeline (30%) | Vision model integration. Clear decision on single-pass vs. multi-pass extraction. Post-processing pipeline (LLM output → normalization → validation → response). |
+| Decomposition (25%) | Image → OCR/Vision → Extractor → Normalizer → Validator layering. Each stage has a clear responsibility and interface. |
+| API design (20%) | `POST /extract` handles the full document contract. Proper error responses for invalid images. Consistent output schema. |
+| Trade-off reasoning (15%) | Awareness of accuracy-vs-cost trade-off in model selection. Vision model choice justified for document complexity. |
+| Scalability (10%) | Can process documents concurrently. Token budget management for large images. |
 
-## Engineering Maturity (25% of Tier 2)
+## Engineering Maturity (20% of Tier 2)
 
 | Dimension | What judges look for |
 |---|---|
@@ -33,7 +33,7 @@ What judges look for in your extraction code. Tier 2 doesn't affect the leaderbo
 
 ## Tips
 
-- Documents are long (5,000–10,000+ words). Input tokens dominate cost.
-- Some fields (drug name, manufacturer) can be grabbed with regex — save LLM calls for the hard stuff.
-- Prompt caching is less useful here since the document changes every request.
-- Extraction is a pipeline problem. The differentiator is parsing + normalization, not just prompt quality.
+- Documents are images — you need a vision-capable model (GPT-4o, GPT-4.1, etc.).
+- Each document has a different schema. Your prompt should include the `json_schema` so the model knows what to extract.
+- Tables are the hardest part. Financial statements and medical forms have complex tabular data.
+- The scorer is schema-agnostic — it compares your output field-by-field against gold.
