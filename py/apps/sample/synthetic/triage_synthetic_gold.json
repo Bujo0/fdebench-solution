@@ -1,0 +1,3661 @@
+[
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5000",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5001",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the not a mission signal issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the not a mission signal signal details and assess severity.",
+            "Assign to None for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5002",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5003",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the not a mission signal issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the not a mission signal signal details and assess severity.",
+            "Assign to None for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5004",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "habitat_conditions"
+        ],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5005",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "habitat_conditions",
+            "recurrence_pattern",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5006",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5007",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "recurrence_pattern",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5008",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "biometric_method",
+            "sequence_to_reproduce",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5009",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5010",
+        "category": "Flight Software & Instruments",
+        "priority": "P2",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "software_version",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5011",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the telemetry & data banks issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the telemetry & data banks signal details and assess severity.",
+            "Assign to Telemetry & Data Core for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5012",
+        "category": "Flight Software & Instruments",
+        "priority": "P4",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5013",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "previous_signal_id"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5014",
+        "category": "Telemetry & Data Banks",
+        "priority": "P1",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the telemetry & data banks issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the telemetry & data banks signal details and assess severity.",
+            "Assign to Telemetry & Data Core for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5015",
+        "category": "Telemetry & Data Banks",
+        "priority": "P1",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": true,
+        "missing_information": [
+            "mission_impact"
+        ],
+        "next_best_action": "Investigate and resolve the telemetry & data banks issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the telemetry & data banks signal details and assess severity.",
+            "Assign to Telemetry & Data Core for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5016",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout",
+            "module_specs",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5017",
+        "category": "Flight Software & Instruments",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5018",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "recurrence_pattern",
+            "sector_coordinates",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5019",
+        "category": "Communications & Navigation",
+        "priority": "P4",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5020",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the telemetry & data banks issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the telemetry & data banks signal details and assess severity.",
+            "Assign to Telemetry & Data Core for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5021",
+        "category": "Communications & Navigation",
+        "priority": "P4",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs",
+            "sector_coordinates",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5022",
+        "category": "Communications & Navigation",
+        "priority": "P4",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "mission_impact",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5023",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5024",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the not a mission signal issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the not a mission signal signal details and assess severity.",
+            "Assign to None for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5025",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the telemetry & data banks issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the telemetry & data banks signal details and assess severity.",
+            "Assign to Telemetry & Data Core for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5026",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "mission_impact"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5027",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5028",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5029",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the not a mission signal issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the not a mission signal signal details and assess severity.",
+            "Assign to None for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5030",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs",
+            "recurrence_pattern",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5031",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5032",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "mission_impact"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5033",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "module_specs",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5034",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_crew",
+            "stardate"
+        ],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5035",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "previous_signal_id",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5036",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5037",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the not a mission signal issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the not a mission signal signal details and assess severity.",
+            "Assign to None for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5038",
+        "category": "Communications & Navigation",
+        "priority": "P1",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5039",
+        "category": "Mission Briefing Request",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "crew_contact",
+            "stardate"
+        ],
+        "next_best_action": "Investigate and resolve the mission briefing request issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the mission briefing request signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5040",
+        "category": "Telemetry & Data Banks",
+        "priority": "P1",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the telemetry & data banks issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the telemetry & data banks signal details and assess severity.",
+            "Assign to Telemetry & Data Core for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5041",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "biometric_method",
+            "previous_signal_id",
+            "sequence_to_reproduce"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5042",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "mission_impact"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5043",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "stardate",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5044",
+        "category": "Telemetry & Data Banks",
+        "priority": "P4",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the telemetry & data banks issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the telemetry & data banks signal details and assess severity.",
+            "Assign to Telemetry & Data Core for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5045",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5046",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "recurrence_pattern",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5047",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5048",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_crew",
+            "anomaly_readout",
+            "biometric_method",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5049",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5050",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "previous_signal_id",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5051",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5052",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "biometric_method"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5053",
+        "category": "Threat Detection & Containment",
+        "priority": "P3",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5054",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5055",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5056",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_subsystem",
+            "mission_impact",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the telemetry & data banks issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the telemetry & data banks signal details and assess severity.",
+            "Assign to Telemetry & Data Core for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5057",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the not a mission signal issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the not a mission signal signal details and assess severity.",
+            "Assign to None for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5058",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5059",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5060",
+        "category": "Crew Access & Biometrics",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5061",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5062",
+        "category": "Threat Detection & Containment",
+        "priority": "P1",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5063",
+        "category": "Mission Briefing Request",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "mission_impact",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the mission briefing request issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the mission briefing request signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5064",
+        "category": "Flight Software & Instruments",
+        "priority": "P2",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5065",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5066",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "habitat_conditions",
+            "module_specs",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5067",
+        "category": "Communications & Navigation",
+        "priority": "P4",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5068",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5069",
+        "category": "Mission Briefing Request",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "mission_impact"
+        ],
+        "next_best_action": "Investigate and resolve the mission briefing request issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the mission briefing request signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5070",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_crew",
+            "affected_subsystem",
+            "stardate"
+        ],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5071",
+        "category": "Mission Briefing Request",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the mission briefing request issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the mission briefing request signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5072",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "biometric_method",
+            "previous_signal_id"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5073",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "biometric_method"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5074",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the telemetry & data banks issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the telemetry & data banks signal details and assess severity.",
+            "Assign to Telemetry & Data Core for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5075",
+        "category": "Communications & Navigation",
+        "priority": "P4",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "sector_coordinates",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5076",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5077",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "biometric_method",
+            "sequence_to_reproduce"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5078",
+        "category": "Communications & Navigation",
+        "priority": "P1",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": true,
+        "missing_information": [
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5079",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the not a mission signal issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the not a mission signal signal details and assess severity.",
+            "Assign to None for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5080",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "biometric_method"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5081",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5082",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "biometric_method",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5083",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5084",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": false,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "stardate",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5085",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5086",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "mission_impact",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5087",
+        "category": "Flight Software & Instruments",
+        "priority": "P4",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "module_specs",
+            "sequence_to_reproduce"
+        ],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5088",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_crew",
+            "module_specs",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5089",
+        "category": "Mission Briefing Request",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the mission briefing request issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the mission briefing request signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5090",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "anomaly_readout",
+            "module_specs",
+            "previous_signal_id"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5091",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "biometric_method"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5092",
+        "category": "Threat Detection & Containment",
+        "priority": "P1",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "stardate"
+        ],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5093",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "affected_subsystem",
+            "biometric_method"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5094",
+        "category": "Threat Detection & Containment",
+        "priority": "P3",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_crew",
+            "habitat_conditions"
+        ],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5095",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5096",
+        "category": "Communications & Navigation",
+        "priority": "P4",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5097",
+        "category": "Mission Briefing Request",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "crew_contact",
+            "mission_impact",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the mission briefing request issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the mission briefing request signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5098",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5099",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5100",
+        "category": "Mission Briefing Request",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "mission_impact"
+        ],
+        "next_best_action": "Investigate and resolve the mission briefing request issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the mission briefing request signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5101",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5102",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "recurrence_pattern",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5103",
+        "category": "Mission Briefing Request",
+        "priority": "P1",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": true,
+        "missing_information": [
+            "crew_contact",
+            "mission_impact"
+        ],
+        "next_best_action": "Investigate and resolve the mission briefing request issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the mission briefing request signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5104",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "previous_signal_id",
+            "sequence_to_reproduce",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5105",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "affected_subsystem",
+            "previous_signal_id",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5106",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5107",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5108",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the not a mission signal issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the not a mission signal signal details and assess severity.",
+            "Assign to None for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5109",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5110",
+        "category": "Mission Briefing Request",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "crew_contact",
+            "mission_impact",
+            "stardate"
+        ],
+        "next_best_action": "Investigate and resolve the mission briefing request issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the mission briefing request signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5111",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "anomaly_readout",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5112",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": true,
+        "missing_information": [
+            "recurrence_pattern",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5113",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "mission_impact",
+            "module_specs",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5114",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the telemetry & data banks issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the telemetry & data banks signal details and assess severity.",
+            "Assign to Telemetry & Data Core for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5115",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5116",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_crew",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5117",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "sequence_to_reproduce",
+            "software_version",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5118",
+        "category": "Flight Software & Instruments",
+        "priority": "P2",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5119",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "module_specs",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5120",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "biometric_method",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5121",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "affected_subsystem",
+            "biometric_method",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5122",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "mission_impact",
+            "module_specs",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5123",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5124",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the telemetry & data banks issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the telemetry & data banks signal details and assess severity.",
+            "Assign to Telemetry & Data Core for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5125",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "recurrence_pattern",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5126",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5127",
+        "category": "Crew Access & Biometrics",
+        "priority": "P1",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": true,
+        "missing_information": [
+            "module_specs",
+            "previous_signal_id"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5128",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "recurrence_pattern",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5129",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs",
+            "previous_signal_id"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5130",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "anomaly_readout",
+            "biometric_method"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5131",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5132",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "biometric_method",
+            "module_specs",
+            "sequence_to_reproduce",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5133",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "habitat_conditions",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5134",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the not a mission signal issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the not a mission signal signal details and assess severity.",
+            "Assign to None for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5135",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5136",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5137",
+        "category": "Mission Briefing Request",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "crew_contact"
+        ],
+        "next_best_action": "Investigate and resolve the mission briefing request issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the mission briefing request signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5138",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5139",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5140",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5141",
+        "category": "Threat Detection & Containment",
+        "priority": "P3",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5142",
+        "category": "Communications & Navigation",
+        "priority": "P4",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5143",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "mission_impact"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5144",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "biometric_method",
+            "module_specs",
+            "sequence_to_reproduce"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5145",
+        "category": "Crew Access & Biometrics",
+        "priority": "P1",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5146",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5147",
+        "category": "Communications & Navigation",
+        "priority": "P4",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5148",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs",
+            "previous_signal_id"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5149",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5150",
+        "category": "Flight Software & Instruments",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout",
+            "sequence_to_reproduce",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5151",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5152",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5153",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5154",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "biometric_method"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5155",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5156",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5157",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "previous_signal_id"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5158",
+        "category": "Mission Briefing Request",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the mission briefing request issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the mission briefing request signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5159",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the not a mission signal issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the not a mission signal signal details and assess severity.",
+            "Assign to None for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5160",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5161",
+        "category": "Mission Briefing Request",
+        "priority": "P2",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the mission briefing request issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the mission briefing request signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5162",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5163",
+        "category": "Telemetry & Data Banks",
+        "priority": "P4",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [
+            "mission_impact",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the telemetry & data banks issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the telemetry & data banks signal details and assess severity.",
+            "Assign to Telemetry & Data Core for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5164",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "sequence_to_reproduce"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5165",
+        "category": "Mission Briefing Request",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the mission briefing request issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the mission briefing request signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5166",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "mission_impact",
+            "sector_coordinates",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5167",
+        "category": "Communications & Navigation",
+        "priority": "P4",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5168",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5169",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_subsystem",
+            "stardate",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5170",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "anomaly_readout",
+            "habitat_conditions",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the hull & structural systems issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the hull & structural systems signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5171",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": true,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5172",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "previous_signal_id"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5173",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the not a mission signal issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the not a mission signal signal details and assess severity.",
+            "Assign to None for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5174",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "mission_impact"
+        ],
+        "next_best_action": "Investigate and resolve the telemetry & data banks issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the telemetry & data banks signal details and assess severity.",
+            "Assign to Telemetry & Data Core for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5175",
+        "category": "Communications & Navigation",
+        "priority": "P1",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": true,
+        "missing_information": [
+            "mission_impact",
+            "module_specs",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5176",
+        "category": "Threat Detection & Containment",
+        "priority": "P3",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5177",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the not a mission signal issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the not a mission signal signal details and assess severity.",
+            "Assign to None for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5178",
+        "category": "Threat Detection & Containment",
+        "priority": "P1",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_subsystem",
+            "sector_coordinates",
+            "sensor_log_or_capture",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5179",
+        "category": "Flight Software & Instruments",
+        "priority": "P4",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "sequence_to_reproduce"
+        ],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5180",
+        "category": "Communications & Navigation",
+        "priority": "P4",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "mission_impact",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5181",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5182",
+        "category": "Communications & Navigation",
+        "priority": "P4",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5183",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5184",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5185",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "sequence_to_reproduce"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5186",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_crew",
+            "habitat_conditions",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the threat detection & containment issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the threat detection & containment signal details and assess severity.",
+            "Assign to Threat Response Command for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5187",
+        "category": "Communications & Navigation",
+        "priority": "P4",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5188",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the flight software & instruments issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the flight software & instruments signal details and assess severity.",
+            "Assign to Mission Software Operations for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5189",
+        "category": "Mission Briefing Request",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "crew_contact"
+        ],
+        "next_best_action": "Investigate and resolve the mission briefing request issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the mission briefing request signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5190",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "mission_impact",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via holodeck_comm.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5191",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the not a mission signal issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the not a mission signal signal details and assess severity.",
+            "Assign to None for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5192",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5193",
+        "category": "Communications & Navigation",
+        "priority": "P4",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5194",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Crew Identity & Airlock Control for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5195",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the crew access & biometrics issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the crew access & biometrics signal details and assess severity.",
+            "Assign to Spacecraft Systems Engineering for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5196",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the not a mission signal issue reported via emergency_beacon.",
+        "remediation_steps": [
+            "Review the not a mission signal signal details and assess severity.",
+            "Assign to None for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "standard",
+        "ticket_id": "SIG-5197",
+        "category": "Communications & Navigation",
+        "priority": "P4",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via subspace_relay.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5198",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "recurrence_pattern",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the communications & navigation issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the communications & navigation signal details and assess severity.",
+            "Assign to Deep Space Communications for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "SIG-5199",
+        "category": "Telemetry & Data Banks",
+        "priority": "P4",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "mission_impact",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the telemetry & data banks issue reported via bridge_terminal.",
+        "remediation_steps": [
+            "Review the telemetry & data banks signal details and assess severity.",
+            "Assign to Telemetry & Data Core for investigation.",
+            "Follow standard operating procedures for this category.",
+            "Document findings and close the signal."
+        ]
+    }
+]

@@ -1,0 +1,15 @@
+.git
+.env
+*.pyc
+__pycache__
+.venv
+*.egg-info
+.pytest_cache
+node_modules
+ts/
+infra/
+.devcontainer/
+.agents/
+.claude/
+*.md
+!docs/challenge/task1/routing_guide.md

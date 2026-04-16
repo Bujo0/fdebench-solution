@@ -8,6 +8,24 @@ resolution-markers = [
 ]
 
 [[package]]
+name = "arpeggio"
+version = "2.0.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/3b/58/ba011f3cf8291804ce80f9d81289ac15f0319a27f9d7e3c124aa5e4981cc/Arpeggio-2.0.3.tar.gz", hash = "sha256:9e85ad35cfc6c938676817c7ae9a1000a7c72a34c71db0c687136c460d12b85e", size = 766566, upload-time = "2025-09-12T12:45:20.594Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/84/4d/53b8186b41842f7a5e971b1d1c28e678364dcf841e4170f5d14d38ac1e2a/Arpeggio-2.0.3-py2.py3-none-any.whl", hash = "sha256:9374d9c531b62018b787635f37fd81c9a6ee69ef2d28c5db3cd18791b1f7db2f", size = 54656, upload-time = "2025-09-12T12:45:17.971Z" },
+]
+
+[[package]]
+name = "attrs"
+version = "26.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/9a/8e/82a0fe20a541c03148528be8cac2408564a6c9a0cc7e9171802bc1d26985/attrs-26.1.0.tar.gz", hash = "sha256:d03ceb89cb322a8fd706d4fb91940737b6642aa36998fe130a9bc96c985eff32", size = 952055, upload-time = "2026-03-19T14:22:25.026Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/64/b4/17d4b0b2a2dc85a6df63d1157e028ed19f90d4cd97c36717afef2bc2f395/attrs-26.1.0-py3-none-any.whl", hash = "sha256:c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309", size = 67548, upload-time = "2026-03-19T14:22:23.645Z" },
+]
+
+[[package]]
 name = "debugpy"
 version = "1.8.19"
 source = { registry = "https://pypi.org/simple" }
@@ -108,6 +126,7 @@ version = "0.0.0"
 source = { virtual = "." }
 dependencies = [
     { name = "pulumi" },
+    { name = "pulumi-azure-native" },
 ]
 
 [package.dev-dependencies]
@@ -116,7 +135,10 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "pulumi", specifier = ">=3.214.1" }]
+requires-dist = [
+    { name = "pulumi", specifier = ">=3.214.1" },
+    { name = "pulumi-azure-native", specifier = ">=3.0.0" },
+]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pyright", specifier = ">=1.1.407" }]
@@ -252,6 +274,19 @@ wheels = [
 ]
 
 [[package]]
+name = "parver"
+version = "0.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "arpeggio" },
+    { name = "attrs" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/cc/e5/1c774688a90f0b76e872e30f6f1ba3f5e14056cd0d96a684047d4a986226/parver-0.5.tar.gz", hash = "sha256:b9fde1e6bb9ce9f07e08e9c4bea8d8825c5e78e18a0052d02e02bf9517eb4777", size = 26908, upload-time = "2023-10-03T21:06:54.506Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0f/4c/f98024021bef4d44dce3613feebd702c7ad8883f777ff8488384c59e9774/parver-0.5-py3-none-any.whl", hash = "sha256:2281b187276c8e8e3c15634f62287b2fb6fe0efe3010f739a6bd1e45fa2bf2b2", size = 15172, upload-time = "2023-10-03T21:06:52.796Z" },
+]
+
+[[package]]
 name = "pip"
 version = "26.0"
 source = { registry = "https://pypi.org/simple" }
@@ -294,6 +329,20 @@ dependencies = [
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a1/1a/92d7f682b12c916197cfc185ce8049d781978aff43c2bbb14c13f9d740dc/pulumi-3.225.1-py3-none-any.whl", hash = "sha256:06ba862805456c78d90b2c77c48e2fada1dac418df6ead9320f72bce542769a7", size = 393458, upload-time = "2026-03-05T20:25:32.5Z" },
+]
+
+[[package]]
+name = "pulumi-azure-native"
+version = "3.16.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "parver" },
+    { name = "pulumi" },
+    { name = "semver" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/07/b2/0126d7ec57245069f65b61b4bbd8ac1bad9a0a528fef0f61a412c58ef76d/pulumi_azure_native-3.16.0.tar.gz", hash = "sha256:e3aeaadb187155e7d1661e059c7bb342e2c3db629a2deb3ac43fe63754e37ccf", size = 12687487, upload-time = "2026-03-20T16:55:57.961Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/81/7b/da090c72abb941eb814e1e735627e8b3b0ec3ebfc9bc28a8fc64a100e906/pulumi_azure_native-3.16.0-py3-none-any.whl", hash = "sha256:42b2fc786fc55949edd776450dafc1b3363aa84b6a6b33d73a3757327239efed", size = 21361800, upload-time = "2026-03-20T16:55:54.513Z" },
 ]
 
 [[package]]
