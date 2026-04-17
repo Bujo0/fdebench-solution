@@ -10,7 +10,7 @@ from fastapi import APIRouter, Response
 
 from llm_client import complete_with_vision
 from models import ExtractRequest, ExtractResponse
-from prompts.extract_prompt import EXTRACT_SYSTEM_PROMPT
+from prompts.extract_prompt import EXTRACT_SYSTEM_PROMPT_V4
 from utils import display_model, parse_json_response
 
 import state
@@ -183,7 +183,7 @@ async def _extract_with_timeout(
             complete_with_vision(
                 state.aoai_client,
                 model,
-                EXTRACT_SYSTEM_PROMPT,
+                EXTRACT_SYSTEM_PROMPT_V4,
                 content,
                 user_content,
             ),
