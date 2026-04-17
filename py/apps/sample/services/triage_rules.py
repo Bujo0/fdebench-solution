@@ -310,10 +310,12 @@ def _detect_category(text: str) -> tuple[str, str, float]:
     ]):
         access_score += 3
     # Negative: suppress Access if context is telemetry/data
+    # BUT keep Access when direct auth context (service account, access code) is present
     if any(kw in lower for kw in [
         "pipeline", "403", "deep storage", "data core", "telemetry",
     ]):
-        access_score = max(0, access_score - 5)
+        if not any(kw in lower for kw in ["service account", "access code", "expired"]):
+            access_score = max(0, access_score - 5)
     # Negative: suppress Access if context is hardware
     if any(kw in lower for kw in ["fabricator", "projector", "holographic"]):
         access_score = max(0, access_score - 3)

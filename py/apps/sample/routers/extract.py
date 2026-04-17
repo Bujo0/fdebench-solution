@@ -1,13 +1,16 @@
 """Extract router — POST /extract endpoint."""
 
 import asyncio
+import json
 import logging
+import re
+from datetime import datetime
 
 from fastapi import APIRouter, Response
 
 from llm_client import complete_with_vision
 from models import ExtractRequest, ExtractResponse
-from prompts.extract_prompt import EXTRACT_SYSTEM_PROMPT_V4
+from prompts.extract_prompt import EXTRACT_SYSTEM_PROMPT
 from utils import display_model, parse_json_response
 
 import state
@@ -20,6 +23,81 @@ _LARGE_CONTENT_THRESHOLD = 1_000_000  # ~1 MB base64 ≈ 750 KB raw image
 _DEFAULT_TIMEOUT = 30  # seconds
 _LARGE_CONTENT_TIMEOUT = 55  # more headroom for big documents
 _RETRY_TIMEOUT = 35  # retry budget after first timeout
+
+# Date patterns for post-processing normalization
+_DATE_PATTERNS = [
+    # "November 2, 2025" or "Nov 2, 2025"
+    (re.compile(r"^([A-Z][a-z]+)\s+(\d{1,2}),?\s+(\d{4})$"), "%B %d, %Y"),
+    (re.compile(r"^([A-Z][a-z]{2})\s+(\d{1,2}),?\s+(\d{4})$"), "%b %d, %Y"),
+    # "2 November 2025"
+    (re.compile(r"^(\d{1,2})\s+([A-Z][a-z]+)\s+(\d{4})$"), "%d %B %Y"),
+]
+
+# Fields known to contain dates (by naming convention)
+_DATE_FIELD_NAMES = {"weekStartDate", "startDate", "endDate", "date", "taxDateEnd"}
+
+
+def _try_normalize_date(value: str) -> str:
+    """Try to convert a natural-language date to ISO format (YYYY-MM-DD)."""
+    value = value.strip()
+    # Already ISO format
+    if re.match(r"^\d{4}-\d{2}-\d{2}$", value):
+        return value
+    for pattern, fmt in _DATE_PATTERNS:
+        if pattern.match(value):
+            try:
+                dt = datetime.strptime(value.replace(",", ""), fmt.replace(",", ""))
+                return dt.strftime("%Y-%m-%d")
+            except ValueError:
+                continue
+    return value
+
+
+def _postprocess_dates(data: dict, schema_str: str) -> dict:
+    """Normalize date fields in extracted data to ISO format when appropriate."""
+    try:
+        schema = json.loads(schema_str)
+    except (json.JSONDecodeError, TypeError):
+        return data
+
+    properties = schema.get("properties", {})
+
+    def _should_normalize(field: str, spec: dict) -> bool:
+        desc = spec.get("description", "").lower()
+        # Don't normalize if schema says "as it appears"
+        if "as it appears" in desc:
+            return False
+        # Normalize known date fields
+        if field in _DATE_FIELD_NAMES:
+            return True
+        # Normalize if field name ends with "Date"
+        if field.endswith("Date") or field.endswith("_date"):
+            return True
+        return False
+
+    def _normalize_recursive(obj: dict | list, props: dict) -> dict | list:
+        if isinstance(obj, dict):
+            result = {}
+            for k, v in obj.items():
+                spec = props.get(k, {})
+                if isinstance(v, str) and _should_normalize(k, spec):
+                    result[k] = _try_normalize_date(v)
+                elif isinstance(v, dict) and spec.get("type") == "object":
+                    sub_props = spec.get("properties", {})
+                    result[k] = _normalize_recursive(v, sub_props)
+                elif isinstance(v, list) and spec.get("type") == "array":
+                    item_spec = spec.get("items", {})
+                    if item_spec.get("type") == "object":
+                        sub_props = item_spec.get("properties", {})
+                        result[k] = [_normalize_recursive(item, sub_props) if isinstance(item, dict) else item for item in v]
+                    else:
+                        result[k] = v
+                else:
+                    result[k] = v
+            return result
+        return obj
+
+    return _normalize_recursive(data, properties)
 
 
 @router.post("/extract")
@@ -78,6 +156,10 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
         if extracted is None:
             extracted = {}
 
+        # Post-process: normalize date fields to ISO format
+        if schema_str and extracted:
+            extracted = _postprocess_dates(extracted, schema_str)
+
         return ExtractResponse(document_id=req.document_id, **extracted)
     except Exception:
         logger.exception("Extract LLM error for %s", req.document_id)
@@ -101,7 +183,7 @@ async def _extract_with_timeout(
             complete_with_vision(
                 state.aoai_client,
                 model,
-                EXTRACT_SYSTEM_PROMPT_V4,
+                EXTRACT_SYSTEM_PROMPT,
                 content,
                 user_content,
             ),
