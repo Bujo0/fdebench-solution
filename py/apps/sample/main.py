@@ -1,4 +1,4 @@
-"""Minimal FDEBench starter — stub endpoints that pass schema validation.
+"""FDEBench AI-powered solution — FastAPI app factory.
 
 Run:
     cd py
@@ -7,80 +7,54 @@ Run:
 
 Score:
     make eval      # score all 3 tasks (in a second terminal)
-
-Every endpoint returns valid stub JSON. The eval harness will run
-end-to-end and show you the full scoring breakdown. Replace the stub
-logic with your LLM calls to improve the scores.
 """
 
+import logging
+from contextlib import asynccontextmanager
+
+import httpx
+import state
+from config import Settings
 from fastapi import FastAPI
-from fastapi import Response
-from models import Category
-from models import ExtractRequest
-from models import ExtractResponse
-from models import OrchestrateRequest
-from models import OrchestrateResponse
-from models import Team
-from models import TriageRequest
-from models import TriageResponse
+from fastapi.exceptions import RequestValidationError
+from llm_client import get_client
+from middleware import error_handling_middleware
+from middleware import validation_error_handler
+from prompts.triage_prompt import load_few_shot_examples
+from prompts.triage_prompt import load_routing_guide
+from routers import extract
+from routers import orchestrate
+from routers import triage
 
-app = FastAPI(title="FDEBench Starter")
-
-MODEL_NAME = "gpt-4.1-mini"  # Change to whatever model you use
+logger = logging.getLogger(__name__)
 
 
-def _add_headers(response: Response) -> None:
-    """Add cost-tracking headers. The platform reads X-Model-Name for cost scoring."""
-    response.headers["X-Model-Name"] = MODEL_NAME
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    state.settings = Settings()
+    state.aoai_client = get_client(state.settings)
+    state.tool_http_client = httpx.AsyncClient(timeout=httpx.Timeout(20.0), follow_redirects=True)
+    state.ROUTING_GUIDE = load_routing_guide()
+    state.FEW_SHOT_EXAMPLES = load_few_shot_examples()
+    logger.info(
+        "Loaded routing guide (%d chars), %d few-shot examples",
+        len(state.ROUTING_GUIDE),
+        state.FEW_SHOT_EXAMPLES.count("<example>"),
+    )
+    yield
+    await state.tool_http_client.aclose()
 
 
-# ── Health ───────────────────────────────────────────────────────────
+app = FastAPI(title="FDEBench Solution", lifespan=lifespan)
+
+app.add_exception_handler(RequestValidationError, validation_error_handler)
+app.middleware("http")(error_handling_middleware)
+
+app.include_router(triage.router)
+app.include_router(extract.router)
+app.include_router(orchestrate.router)
 
 
 @app.get("/health")
 async def health() -> dict:
     return {"status": "ok"}
-
-
-# ── Task 1: Signal Triage ────────────────────────────────────────────
-
-
-@app.post("/triage")
-async def triage(req: TriageRequest, response: Response) -> TriageResponse:
-    _add_headers(response)
-    # TODO: replace with LLM classification
-    return TriageResponse(
-        ticket_id=req.ticket_id,
-        category=Category.BRIEFING,
-        priority="P3",
-        assigned_team=Team.SYSTEMS,
-        needs_escalation=False,
-        missing_information=[],
-        next_best_action="Investigate the reported issue.",
-        remediation_steps=["Review the signal details.", "Route to the appropriate team."],
-    )
-
-
-# ── Task 2: Document Extraction ─────────────────────────────────────
-
-
-@app.post("/extract")
-async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
-    _add_headers(response)
-    # TODO: replace with vision model extraction using req.json_schema
-    return ExtractResponse(document_id=req.document_id)
-
-
-# ── Task 3: Workflow Orchestration ───────────────────────────────────
-
-
-@app.post("/orchestrate")
-async def orchestrate(req: OrchestrateRequest, response: Response) -> OrchestrateResponse:
-    _add_headers(response)
-    # TODO: replace with LLM planning + tool execution
-    return OrchestrateResponse(
-        task_id=req.task_id,
-        status="completed",
-        steps_executed=[],
-        constraints_satisfied=[],
-    )
