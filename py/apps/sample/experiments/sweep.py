@@ -96,7 +96,11 @@ def _print_comparison_table(results: list[dict[str, Any]]) -> None:
     print("  FDEBench Sweep Results — Sorted by Composite Score")
     print("=" * 120)
     print()
-    print(f"{'Rank':<5} {'Experiment':<20} {'FDEBench':<12} {'Resolution':<12} {'Efficiency':<12} {'Robustness':<12} {'Timestamp':<20}")
+    print(
+        f"{'Rank':<5} {'Experiment':<20} {'FDEBench':<12} "
+        f"{'Resolution':<12} {'Efficiency':<12} {'Robustness':<12} "
+        f"{'Timestamp':<20}"
+    )
     print("-" * 120)
 
     for rank, result in enumerate(sorted_results, start=1):
@@ -208,9 +212,7 @@ async def main() -> None:
     # Determine which experiments to run
     experiments_to_run = DEFAULT_EXPERIMENTS
     if args.experiments:
-        experiments_to_run = [
-            exp for exp in DEFAULT_EXPERIMENTS if exp["id"] in args.experiments
-        ]
+        experiments_to_run = [exp for exp in DEFAULT_EXPERIMENTS if exp["id"] in args.experiments]
         if not experiments_to_run:
             logger.error("No matching experiments found")
             sys.exit(1)

@@ -4,7 +4,6 @@ These tests validate that endpoints handle malformed input, wrong content types,
 and other edge cases gracefully without crashing (500 errors).
 """
 
-import json
 import pytest
 
 

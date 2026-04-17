@@ -5,7 +5,10 @@
         "priority": "P3",
         "assigned_team": "Crew Identity & Airlock Control",
         "needs_escalation": false,
-        "missing_information": ["anomaly_readout", "software_version"],
+        "missing_information": [
+            "anomaly_readout",
+            "software_version"
+        ],
         "rationale": "Category confusion: Hardware terminal + auth app crash. Core issue is the BioAuth authentication app crashing, not the terminal hardware. Auth is the root problem → Crew Access."
     },
     {
@@ -14,7 +17,10 @@
         "priority": "P3",
         "assigned_team": "Crew Identity & Airlock Control",
         "needs_escalation": false,
-        "missing_information": ["biometric_method", "anomaly_readout"],
+        "missing_information": [
+            "biometric_method",
+            "anomaly_readout"
+        ],
         "rationale": "Category confusion: Hull sensor panel + credential rejection. The hull panel is just the location — the actual issue is credentials not being recognized. This is an auth/access problem, not a hull integrity issue."
     },
     {
@@ -23,7 +29,10 @@
         "priority": "P3",
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": false,
-        "missing_information": ["anomaly_readout", "affected_subsystem"],
+        "missing_information": [
+            "anomaly_readout",
+            "affected_subsystem"
+        ],
         "rationale": "Category confusion: Subspace relay + telemetry pipeline. The relay comms are working fine — the broken part is the data pipeline feeding the analytics dashboard. This is a telemetry/data issue."
     },
     {
@@ -32,7 +41,10 @@
         "priority": "P3",
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": false,
-        "missing_information": ["affected_subsystem", "stardate"],
+        "missing_information": [
+            "affected_subsystem",
+            "stardate"
+        ],
         "rationale": "Category confusion: Comm relay data + deep storage. The comm relay itself works. The issue is data migration/storage in the data core — a telemetry/data problem."
     },
     {
@@ -41,7 +53,10 @@
         "priority": "P3",
         "assigned_team": "Mission Software Operations",
         "needs_escalation": false,
-        "missing_information": ["software_version", "sequence_to_reproduce"],
+        "missing_information": [
+            "software_version",
+            "sequence_to_reproduce"
+        ],
         "rationale": "Category confusion: Console hardware + FlightOS crash. The console is fine for everything else — FlightOS is the broken software. This is a flight software issue."
     },
     {
@@ -50,7 +65,9 @@
         "priority": "P2",
         "assigned_team": "Threat Response Command",
         "needs_escalation": true,
-        "missing_information": ["sensor_log_or_capture"],
+        "missing_information": [
+            "sensor_log_or_capture"
+        ],
         "rationale": "Category confusion: Crew access panel + suspicious activity. 47 failed attempts from an unrecognized ID is suspicious unauthorized access, not a routine access issue. Threat takes priority."
     },
     {
@@ -68,7 +85,10 @@
         "priority": "P3",
         "assigned_team": "Spacecraft Systems Engineering",
         "needs_escalation": false,
-        "missing_information": ["module_specs", "anomaly_readout"],
+        "missing_information": [
+            "module_specs",
+            "anomaly_readout"
+        ],
         "rationale": "Category confusion: Auth certificates + holographic projector hardware. The projector is physical equipment with an embedded auth module failing. The root issue is the hardware device's certificate handling — Hull & Structural Systems."
     },
     {
@@ -77,7 +97,10 @@
         "priority": "P2",
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": false,
-        "missing_information": ["anomaly_readout", "software_version"],
+        "missing_information": [
+            "anomaly_readout",
+            "software_version"
+        ],
         "rationale": "Category confusion: Navigation beacon + telemetry pipeline. Beacons are fine — the corruption happens in the ingest pipeline. This is a data engineering/telemetry issue, not navigation."
     },
     {
@@ -86,7 +109,10 @@
         "priority": "P2",
         "assigned_team": "Spacecraft Systems Engineering",
         "needs_escalation": false,
-        "missing_information": ["module_specs", "recurrence_pattern"],
+        "missing_information": [
+            "module_specs",
+            "recurrence_pattern"
+        ],
         "rationale": "Category confusion: Network switch + fabricator + comms panels. The root cause is a physical network switch (hardware). Despite affecting network connectivity, this is a hardware failure. Hull & Structural."
     },
     {
@@ -95,7 +121,10 @@
         "priority": "P3",
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": false,
-        "missing_information": ["anomaly_readout", "affected_subsystem"],
+        "missing_information": [
+            "anomaly_readout",
+            "affected_subsystem"
+        ],
         "rationale": "Category confusion: Comms relay health metrics on telemetry dashboard. The comms are fine — the dashboard data is stale. This is a telemetry/dashboard issue."
     },
     {
@@ -104,7 +133,10 @@
         "priority": "P2",
         "assigned_team": "Threat Response Command",
         "needs_escalation": false,
-        "missing_information": ["module_specs", "software_version"],
+        "missing_information": [
+            "module_specs",
+            "software_version"
+        ],
         "rationale": "Category confusion: Airlock access panel + threat scanner. Despite being in an access panel, the malfunctioning component is the threat detection scanner. The false positives are a threat detection issue."
     },
     {
@@ -113,7 +145,10 @@
         "priority": "P3",
         "assigned_team": "Mission Software Operations",
         "needs_escalation": false,
-        "missing_information": ["anomaly_readout", "sensor_log_or_capture"],
+        "missing_information": [
+            "anomaly_readout",
+            "sensor_log_or_capture"
+        ],
         "rationale": "Category confusion: Hardware gyroscope vs software rendering. FlightOS diagnostics says sensor nominal but display is wrong — likely a software rendering issue. Flight Software is the best starting point."
     },
     {
@@ -122,7 +157,9 @@
         "priority": "P3",
         "assigned_team": "Spacecraft Systems Engineering",
         "needs_escalation": false,
-        "missing_information": ["module_specs"],
+        "missing_information": [
+            "module_specs"
+        ],
         "rationale": "Category confusion: Mission briefing + broken terminal. Mixed signal — but the actionable issue is the broken hardware (cracked display, dead projector). The briefing docs can be sent digitally as a side action. Primary routing goes to hardware."
     },
     {
@@ -131,7 +168,10 @@
         "priority": "P3",
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": false,
-        "missing_information": ["affected_subsystem", "anomaly_readout"],
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
         "rationale": "Category confusion: Crew access audit logs + environmental sensor data. The access system works fine. The issue is data retention/purging in the data core — a telemetry problem."
     },
     {
@@ -140,7 +180,9 @@
         "priority": "P1",
         "assigned_team": "Spacecraft Systems Engineering",
         "needs_escalation": true,
-        "missing_information": ["sensor_log_or_capture"],
+        "missing_information": [
+            "sensor_log_or_capture"
+        ],
         "rationale": "Priority edge: Calm wording about 'minor atmospheric reading variance' but O2 at 18.3% (drifting down from 20.9%) is potential decompression/atmospheric compromise. P1 override applies."
     },
     {
@@ -158,7 +200,10 @@
         "priority": "P3",
         "assigned_team": "Deep Space Communications",
         "needs_escalation": false,
-        "missing_information": ["module_specs", "stardate"],
+        "missing_information": [
+            "module_specs",
+            "stardate"
+        ],
         "rationale": "Priority edge: 'Major outage' sounds P1/P2 but they've already failed over to backup, all critical comms functional, 72h window. This is P3 — operational issue with workaround and limited time pressure."
     },
     {
@@ -194,7 +239,10 @@
         "priority": "P3",
         "assigned_team": "Telemetry & Data Core",
         "needs_escalation": false,
-        "missing_information": ["anomaly_readout", "recurrence_pattern"],
+        "missing_information": [
+            "anomaly_readout",
+            "recurrence_pattern"
+        ],
         "rationale": "Priority edge: Database connection timeout (P1 keyword) but intermittent (1 in 5), retries work, other apps fine. Not a complete outage. P3 with workaround."
     },
     {
@@ -203,7 +251,9 @@
         "priority": "P2",
         "assigned_team": "Crew Identity & Airlock Control",
         "needs_escalation": false,
-        "missing_information": ["affected_crew"],
+        "missing_information": [
+            "affected_crew"
+        ],
         "rationale": "Priority edge: SSO failures affecting 30 crew with workaround. P2 because: multiple crew affected, SAML SSO service-wide failures, caused by certificate rotation. Workaround exists but is temporary and disruptive."
     },
     {
@@ -212,7 +262,9 @@
         "priority": "P3",
         "assigned_team": "Threat Response Command",
         "needs_escalation": false,
-        "missing_information": ["recurrence_pattern"],
+        "missing_information": [
+            "recurrence_pattern"
+        ],
         "rationale": "Priority edge: 'Containment field generator' has containment keyword but this is a routine test result within tolerances (2% vs 5% threshold). Not an active containment failure. P3 monitoring."
     },
     {
@@ -239,7 +291,9 @@
         "priority": "P2",
         "assigned_team": "Spacecraft Systems Engineering",
         "needs_escalation": false,
-        "missing_information": ["recurrence_pattern"],
+        "missing_information": [
+            "recurrence_pattern"
+        ],
         "rationale": "Priority edge: Not immediate safety threat (no hull/atmo keywords) but if UPS depletes → backup data core loss. P2 — major operational risk requiring timely response but not immediate safety."
     },
     {
@@ -248,7 +302,10 @@
         "priority": "P3",
         "assigned_team": "Mission Software Operations",
         "needs_escalation": false,
-        "missing_information": ["software_version", "anomaly_readout"],
+        "missing_information": [
+            "software_version",
+            "anomaly_readout"
+        ],
         "rationale": "Priority edge: SubComm rendering slow, affects 5 people, workaround exists (share files directly). P3 — limited scope, workaround available, not blocking operations."
     },
     {
@@ -266,7 +323,10 @@
         "priority": "P2",
         "assigned_team": "Deep Space Communications",
         "needs_escalation": true,
-        "missing_information": ["sector_coordinates", "anomaly_readout"],
+        "missing_information": [
+            "sector_coordinates",
+            "anomaly_readout"
+        ],
         "rationale": "Priority edge: Video calls dropping for 40 traders. P2 — multiple crew affected, call drops impacting operations. Workaround exists but still high impact. Escalate: trading desk communications."
     },
     {
@@ -275,7 +335,10 @@
         "priority": "P2",
         "assigned_team": "Crew Identity & Airlock Control",
         "needs_escalation": true,
-        "missing_information": ["module_specs", "previous_signal_id"],
+        "missing_information": [
+            "module_specs",
+            "previous_signal_id"
+        ],
         "rationale": "Escalation edge: No P1 keywords but recurring unresolved issue (4th time today, 2 weeks, command-level reporter Dr. Okonkwo). Locked out nurses during emergency patient transfer. Escalate: recurring unresolved + command-level involvement."
     },
     {
@@ -329,7 +392,9 @@
         "priority": "P2",
         "assigned_team": "Deep Space Communications",
         "needs_escalation": true,
-        "missing_information": ["previous_signal_id"],
+        "missing_information": [
+            "previous_signal_id"
+        ],
         "rationale": "Escalation edge: Third report of same issue, previous fixes didn't hold, near-miss safety incident. Escalate: recurring unresolved issue with safety implications."
     },
     {
@@ -374,7 +439,10 @@
         "priority": "P3",
         "assigned_team": "Deep Space Communications",
         "needs_escalation": false,
-        "missing_information": ["affected_subsystem", "anomaly_readout"],
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
         "rationale": "Missing info edge: Extremely sparse signal — no subsystem, no error details, no location, no context. Needs affected_subsystem and anomaly_readout at minimum."
     },
     {
@@ -383,7 +451,9 @@
         "priority": "P3",
         "assigned_team": "Crew Identity & Airlock Control",
         "needs_escalation": false,
-        "missing_information": ["affected_crew"],
+        "missing_information": [
+            "affected_crew"
+        ],
         "rationale": "Missing info edge: Module specs ARE provided (Model BIO-X200, Firmware v3.4.1, Serial BX-88742) — should NOT request module_specs. Biometric method (palm scan) is provided. Stardate is provided. Previous signal ref is provided. Missing: affected_crew (3 crew tested but who?)."
     },
     {
@@ -392,7 +462,9 @@
         "priority": "P4",
         "assigned_team": "Crew Identity & Airlock Control",
         "needs_escalation": false,
-        "missing_information": ["mission_impact"],
+        "missing_information": [
+            "mission_impact"
+        ],
         "rationale": "Missing info edge: Comprehensive provisioning request with members, purpose, access level, approval. All details provided. Only missing: mission_impact justification (beyond 'starts next Monday')."
     },
     {
@@ -401,7 +473,10 @@
         "priority": "P3",
         "assigned_team": "Spacecraft Systems Engineering",
         "needs_escalation": false,
-        "missing_information": ["module_specs", "recurrence_pattern"],
+        "missing_information": [
+            "module_specs",
+            "recurrence_pattern"
+        ],
         "rationale": "Missing info edge: Comm panel hardware issue — display flickering. No model/serial info for the panel. 'Randomly' happening for a week but no pattern details."
     },
     {
@@ -437,7 +512,10 @@
         "priority": "P3",
         "assigned_team": "Crew Identity & Airlock Control",
         "needs_escalation": false,
-        "missing_information": ["crew_contact", "habitat_conditions"],
+        "missing_information": [
+            "crew_contact",
+            "habitat_conditions"
+        ],
         "rationale": "Missing info edge: Guest researcher can't access anything. Filed on behalf. Missing: crew_contact (no comm frequency for Dr. Yuki) and habitat_conditions (visitor from partner station — remote context)."
     },
     {

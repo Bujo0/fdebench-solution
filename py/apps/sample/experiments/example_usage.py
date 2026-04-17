@@ -73,9 +73,7 @@ def compare_experiments(exp_ids: list[str]) -> None:
     sorted_results = sorted(results, key=lambda r: r["fdebench_composite"], reverse=True)
 
     # Print table
-    print(
-        f"{'Rank':<5} {'Experiment':<25} {'FDEBench':<12} {'Resolution':<12} {'Efficiency':<12} {'Robustness':<12}"
-    )
+    print(f"{'Rank':<5} {'Experiment':<25} {'FDEBench':<12} {'Resolution':<12} {'Efficiency':<12} {'Robustness':<12}")
     print("-" * 80)
 
     for rank, result in enumerate(sorted_results, 1):
@@ -129,7 +127,7 @@ def analyze_task_performance(experiment_id: str) -> None:
 
         # Show dimension scores
         if task.get("dimension_scores"):
-            print(f"  Dimension Scores:")
+            print("  Dimension Scores:")
             for dim, score in task["dimension_scores"].items():
                 weight = task.get("dimension_weights", {}).get(dim, 0)
                 print(f"    {dim:<25} {score:.4f} (weight: {weight:.0%})")

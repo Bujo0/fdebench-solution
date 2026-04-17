@@ -14,7 +14,8 @@ import re
 from typing import Any
 
 import state
-from models import OrchestrateRequest, StepExecuted
+from models import OrchestrateRequest
+from models import StepExecuted
 
 logger = logging.getLogger(__name__)
 
@@ -618,7 +619,7 @@ async def execute_re_engagement_campaign(req: OrchestrateRequest) -> list[StepEx
         step_num += 1
         steps.append(_make_step(step_num, "audit_log", audit_params, a_text, a_ok))
 
-        emails_sent += 1
+        emails_sent += 1  # noqa: SIM113
 
     return steps
 

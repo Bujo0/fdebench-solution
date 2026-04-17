@@ -3,10 +3,10 @@
 import logging
 from typing import Any
 
-from azure.identity import DefaultAzureCredential, get_bearer_token_provider
-from openai import AsyncAzureOpenAI
-
+from azure.identity import DefaultAzureCredential
+from azure.identity import get_bearer_token_provider
 from config import Settings
+from openai import AsyncAzureOpenAI
 
 logger = logging.getLogger(__name__)
 
@@ -23,9 +23,7 @@ def get_client(settings: Settings) -> AsyncAzureOpenAI:
     if _client is None:
         try:
             credential = DefaultAzureCredential()
-            token_provider = get_bearer_token_provider(
-                credential, "https://cognitiveservices.azure.com/.default"
-            )
+            token_provider = get_bearer_token_provider(credential, "https://cognitiveservices.azure.com/.default")
             _client = AsyncAzureOpenAI(
                 azure_endpoint=settings.azure_openai_endpoint,
                 azure_ad_token_provider=token_provider,

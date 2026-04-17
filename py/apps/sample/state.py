@@ -1,17 +1,14 @@
 """Global application state populated during lifespan."""
 
-from __future__ import annotations
-
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     import httpx
+    from config import Settings
     from openai import AsyncAzureOpenAI
 
-    from config import Settings
-
-settings: Settings = None  # type: ignore[assignment]
-aoai_client: AsyncAzureOpenAI = None  # type: ignore[assignment]
-tool_http_client: httpx.AsyncClient = None  # type: ignore[assignment]
+settings: "Settings" = None  # type: ignore[assignment]
+aoai_client: "AsyncAzureOpenAI" = None  # type: ignore[assignment]
+tool_http_client: "httpx.AsyncClient" = None  # type: ignore[assignment]
 ROUTING_GUIDE: str = ""
 FEW_SHOT_EXAMPLES: str = ""

@@ -13,16 +13,18 @@ import logging
 from contextlib import asynccontextmanager
 
 import httpx
+import state
+from config import Settings
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
-
-from config import Settings
 from llm_client import get_client
-from middleware import error_handling_middleware, validation_error_handler
-from prompts.triage_prompt import load_few_shot_examples, load_routing_guide
-from routers import extract, orchestrate, triage
-
-import state
+from middleware import error_handling_middleware
+from middleware import validation_error_handler
+from prompts.triage_prompt import load_few_shot_examples
+from prompts.triage_prompt import load_routing_guide
+from routers import extract
+from routers import orchestrate
+from routers import triage
 
 logger = logging.getLogger(__name__)
 

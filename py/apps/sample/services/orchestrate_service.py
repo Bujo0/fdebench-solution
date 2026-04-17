@@ -4,11 +4,10 @@ import json
 import logging
 from typing import Any
 
+import state
 from llm_client import complete
 from prompts.orchestrate_prompt import ORCHESTRATE_SYSTEM_PROMPT
 from utils import parse_json_response
-
-import state
 
 logger = logging.getLogger(__name__)
 
@@ -89,7 +88,8 @@ async def evaluate_constraints(
 
     steps_text = ""
     for s in steps:
-        steps_text += f"Step {s.step}: {s.tool}({json.dumps(s.parameters)}) → {'OK' if s.success else 'FAIL'}: {s.result_summary[:200]}\n"
+        success_str = "OK" if s.success else "FAIL"
+        steps_text += f"Step {s.step}: {s.tool}({json.dumps(s.parameters)}) → {success_str}: {s.result_summary[:200]}\n"
 
     prompt = f"""Given the goal: {goal}
 
@@ -99,12 +99,21 @@ Steps executed:
 Constraints to evaluate:
 {json.dumps(constraints)}
 
-Return the list of constraints that were satisfied based on the steps executed. Return ALL constraints that the workflow addressed, even if indirectly. Be generous in interpretation - if a step attempted to satisfy a constraint, consider it satisfied.
+Return the list of constraints that were satisfied based on the steps executed.
+Return ALL constraints that the workflow addressed, even if indirectly. Be
+generous in interpretation - if a step attempted to satisfy a constraint,
+consider it satisfied.
 
-Return a JSON array of strings — the satisfied constraint texts. Return the EXACT constraint text from the input list."""
+Return a JSON array of strings — the satisfied constraint texts. Return the EXACT
+constraint text from the input list."""
 
     try:
-        result = await complete(state.aoai_client, model, "You evaluate constraint satisfaction. Return a JSON array of constraint strings.", prompt)
+        result = await complete(
+            state.aoai_client,
+            model,
+            "You evaluate constraint satisfaction. Return a JSON array of constraint strings.",
+            prompt,
+        )
         parsed = parse_json_response(result)
         if isinstance(parsed, list):
             return [str(c) for c in parsed if str(c) in constraints]

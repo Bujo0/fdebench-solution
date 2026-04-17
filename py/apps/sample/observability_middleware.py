@@ -7,10 +7,12 @@ with latency, and attaches X-Request-Id to every response.
 import logging
 import time
 
-from fastapi import Request, Response
-from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
-
-from logging_config import new_request_id, request_id_var
+from fastapi import Request
+from fastapi import Response
+from logging_config import new_request_id
+from logging_config import request_id_var
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.middleware.base import RequestResponseEndpoint
 
 logger = logging.getLogger("observability")
 

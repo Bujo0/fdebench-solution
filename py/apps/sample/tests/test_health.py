@@ -3,8 +3,6 @@
 Tests that the health endpoint is working and returns the expected response.
 """
 
-import pytest
-
 
 class TestHealth:
     """Health endpoint tests."""

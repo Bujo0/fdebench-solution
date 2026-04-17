@@ -12,7 +12,7 @@ import json
 import os
 import random
 import sys
-from datetime import datetime, timezone
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -98,63 +98,172 @@ DEPARTMENTS = [
 ]
 
 FIRST_NAMES = [
-    "Sarah", "Marcus", "Diana", "Jordan", "Priya", "Thomas", "Yuki", "Alejandro",
-    "Fatima", "Dmitri", "Zara", "Chen", "Kwame", "Ingrid", "Raj", "Sofia",
-    "Nikolai", "Amara", "Liam", "Mei", "Omar", "Elena", "Kofi", "Astrid",
-    "Hassan", "Suki", "Diego", "Anya", "Tariq", "Freya", "Ravi", "Nadia",
-    "Kaito", "Isabella", "Viktor", "Luna", "Jamal", "Hana", "Felix", "Olga",
+    "Sarah",
+    "Marcus",
+    "Diana",
+    "Jordan",
+    "Priya",
+    "Thomas",
+    "Yuki",
+    "Alejandro",
+    "Fatima",
+    "Dmitri",
+    "Zara",
+    "Chen",
+    "Kwame",
+    "Ingrid",
+    "Raj",
+    "Sofia",
+    "Nikolai",
+    "Amara",
+    "Liam",
+    "Mei",
+    "Omar",
+    "Elena",
+    "Kofi",
+    "Astrid",
+    "Hassan",
+    "Suki",
+    "Diego",
+    "Anya",
+    "Tariq",
+    "Freya",
+    "Ravi",
+    "Nadia",
+    "Kaito",
+    "Isabella",
+    "Viktor",
+    "Luna",
+    "Jamal",
+    "Hana",
+    "Felix",
+    "Olga",
 ]
 
 LAST_NAMES = [
-    "Chen", "Rodriguez", "Marsh", "Lee", "Sharma", "Wright", "Tanaka", "Reyes",
-    "Al-Hassan", "Petrov", "Okafor", "Nakamura", "Asante", "Lindqvist", "Patel",
-    "Moreau", "Volkov", "Diallo", "O'Brien", "Zhang", "Al-Rashid", "Kowalski",
-    "Mensah", "Johansson", "Khan", "Yamamoto", "Rivera", "Sokolova", "Ahmed",
-    "Bergström", "Kapoor", "Santos", "Hayashi", "Müller", "Osei", "Park",
-    "Fernandez", "Ivanova", "Bell", "Nguyen",
+    "Chen",
+    "Rodriguez",
+    "Marsh",
+    "Lee",
+    "Sharma",
+    "Wright",
+    "Tanaka",
+    "Reyes",
+    "Al-Hassan",
+    "Petrov",
+    "Okafor",
+    "Nakamura",
+    "Asante",
+    "Lindqvist",
+    "Patel",
+    "Moreau",
+    "Volkov",
+    "Diallo",
+    "O'Brien",
+    "Zhang",
+    "Al-Rashid",
+    "Kowalski",
+    "Mensah",
+    "Johansson",
+    "Khan",
+    "Yamamoto",
+    "Rivera",
+    "Sokolova",
+    "Ahmed",
+    "Bergström",
+    "Kapoor",
+    "Santos",
+    "Hayashi",
+    "Müller",
+    "Osei",
+    "Park",
+    "Fernandez",
+    "Ivanova",
+    "Bell",
+    "Nguyen",
 ]
 
 MISSING_INFO_FIELDS = [
-    "affected_subsystem", "anomaly_readout", "sequence_to_reproduce",
-    "affected_crew", "habitat_conditions", "stardate", "previous_signal_id",
-    "crew_contact", "module_specs", "software_version", "sector_coordinates",
-    "mission_impact", "recurrence_pattern", "sensor_log_or_capture",
-    "biometric_method", "system_configuration",
+    "affected_subsystem",
+    "anomaly_readout",
+    "sequence_to_reproduce",
+    "affected_crew",
+    "habitat_conditions",
+    "stardate",
+    "previous_signal_id",
+    "crew_contact",
+    "module_specs",
+    "software_version",
+    "sector_coordinates",
+    "mission_impact",
+    "recurrence_pattern",
+    "sensor_log_or_capture",
+    "biometric_method",
+    "system_configuration",
 ]
 
 # Which missing info fields are most relevant per category
 CATEGORY_MISSING_INFO_AFFINITY: dict[str, list[str]] = {
     "Communications & Navigation": [
-        "affected_subsystem", "anomaly_readout", "sector_coordinates",
-        "module_specs", "mission_impact", "recurrence_pattern",
-        "sensor_log_or_capture", "system_configuration",
+        "affected_subsystem",
+        "anomaly_readout",
+        "sector_coordinates",
+        "module_specs",
+        "mission_impact",
+        "recurrence_pattern",
+        "sensor_log_or_capture",
+        "system_configuration",
     ],
     "Crew Access & Biometrics": [
-        "affected_subsystem", "biometric_method", "module_specs",
-        "software_version", "sequence_to_reproduce", "anomaly_readout",
-        "affected_crew", "previous_signal_id",
+        "affected_subsystem",
+        "biometric_method",
+        "module_specs",
+        "software_version",
+        "sequence_to_reproduce",
+        "anomaly_readout",
+        "affected_crew",
+        "previous_signal_id",
     ],
     "Hull & Structural Systems": [
-        "module_specs", "anomaly_readout", "affected_crew",
-        "habitat_conditions", "sector_coordinates", "recurrence_pattern",
+        "module_specs",
+        "anomaly_readout",
+        "affected_crew",
+        "habitat_conditions",
+        "sector_coordinates",
+        "recurrence_pattern",
         "sensor_log_or_capture",
     ],
     "Flight Software & Instruments": [
-        "software_version", "module_specs", "sequence_to_reproduce",
-        "anomaly_readout", "affected_subsystem", "sensor_log_or_capture",
+        "software_version",
+        "module_specs",
+        "sequence_to_reproduce",
+        "anomaly_readout",
+        "affected_subsystem",
+        "sensor_log_or_capture",
         "system_configuration",
     ],
     "Threat Detection & Containment": [
-        "stardate", "system_configuration", "habitat_conditions",
-        "affected_subsystem", "sensor_log_or_capture", "affected_crew",
+        "stardate",
+        "system_configuration",
+        "habitat_conditions",
+        "affected_subsystem",
+        "sensor_log_or_capture",
+        "affected_crew",
         "sector_coordinates",
     ],
     "Telemetry & Data Banks": [
-        "affected_subsystem", "module_specs", "system_configuration",
-        "anomaly_readout", "recurrence_pattern", "mission_impact",
+        "affected_subsystem",
+        "module_specs",
+        "system_configuration",
+        "anomaly_readout",
+        "recurrence_pattern",
+        "mission_impact",
     ],
     "Mission Briefing Request": [
-        "crew_contact", "affected_crew", "stardate", "module_specs",
+        "crew_contact",
+        "affected_crew",
+        "stardate",
+        "module_specs",
         "mission_impact",
     ],
     "Not a Mission Signal": [],
@@ -163,20 +272,21 @@ CATEGORY_MISSING_INFO_AFFINITY: dict[str, list[str]] = {
 
 # ── Spec generation (deterministic label assignment) ─────────────────
 
+
 def generate_signal_specs(n: int = 200, seed: int = 42) -> list[dict[str, Any]]:
     """Pre-compute all gold labels for n signals deterministically."""
     rng = random.Random(seed)
 
     # Target distribution (200 signals)
     category_counts = {
-        "Communications & Navigation": 60,      # 30%
-        "Crew Access & Biometrics": 50,          # 25%
-        "Hull & Structural Systems": 16,         # 8%
-        "Flight Software & Instruments": 16,     # 8%
-        "Threat Detection & Containment": 16,    # 8%
-        "Telemetry & Data Banks": 14,            # 7%
-        "Mission Briefing Request": 14,          # 7%
-        "Not a Mission Signal": 14,              # 7%
+        "Communications & Navigation": 60,  # 30%
+        "Crew Access & Biometrics": 50,  # 25%
+        "Hull & Structural Systems": 16,  # 8%
+        "Flight Software & Instruments": 16,  # 8%
+        "Threat Detection & Containment": 16,  # 8%
+        "Telemetry & Data Banks": 14,  # 7%
+        "Mission Briefing Request": 14,  # 7%
+        "Not a Mission Signal": 14,  # 7%
     }
     assert sum(category_counts.values()) == n
 
@@ -218,10 +328,7 @@ def generate_signal_specs(n: int = 200, seed: int = 42) -> list[dict[str, Any]]:
         missing_info = _assign_missing_info(category, priority, is_adversarial, rng)
 
         # Assign channel
-        if priority == "P1":
-            channel = rng.choice(["emergency_beacon", "bridge_terminal"])
-        else:
-            channel = rng.choice(CHANNELS)
+        channel = rng.choice(["emergency_beacon", "bridge_terminal"]) if priority == "P1" else rng.choice(CHANNELS)
 
         # Generate reporter
         while True:
@@ -238,14 +345,16 @@ def generate_signal_specs(n: int = 200, seed: int = 42) -> list[dict[str, Any]]:
         # Decide adversarial flavor
         adversarial_type = None
         if is_adversarial:
-            adversarial_type = rng.choice([
-                "vague_description",
-                "contradictory_info",
-                "multi_issue",
-                "prompt_injection",
-                "misleading_subject",
-                "emotional_escalation",
-            ])
+            adversarial_type = rng.choice(
+                [
+                    "vague_description",
+                    "contradictory_info",
+                    "multi_issue",
+                    "prompt_injection",
+                    "misleading_subject",
+                    "emotional_escalation",
+                ]
+            )
 
         # Timestamp
         day = rng.randint(15, 28)
@@ -253,21 +362,23 @@ def generate_signal_specs(n: int = 200, seed: int = 42) -> list[dict[str, Any]]:
         minute = rng.randint(0, 59)
         created_at = f"2026-03-{day:02d}T{hour:02d}:{minute:02d}:00Z"
 
-        specs.append({
-            "ticket_id": ticket_id,
-            "category": category,
-            "priority": priority,
-            "assigned_team": team,
-            "needs_escalation": needs_escalation,
-            "missing_information": missing_info,
-            "difficulty": difficulty,
-            "adversarial_type": adversarial_type,
-            "channel": channel,
-            "reporter_name": full,
-            "reporter_email": email,
-            "reporter_department": dept,
-            "created_at": created_at,
-        })
+        specs.append(
+            {
+                "ticket_id": ticket_id,
+                "category": category,
+                "priority": priority,
+                "assigned_team": team,
+                "needs_escalation": needs_escalation,
+                "missing_information": missing_info,
+                "difficulty": difficulty,
+                "adversarial_type": adversarial_type,
+                "channel": channel,
+                "reporter_name": full,
+                "reporter_email": email,
+                "reporter_department": dept,
+                "created_at": created_at,
+            }
+        )
 
     return specs
 
@@ -289,9 +400,7 @@ def _assign_priority(category: str, is_adversarial: bool, rng: random.Random) ->
     return rng.choices(list(weights.keys()), list(weights.values()))[0]
 
 
-def _assign_escalation(
-    category: str, priority: str, is_adversarial: bool, rng: random.Random
-) -> bool:
+def _assign_escalation(category: str, priority: str, is_adversarial: bool, rng: random.Random) -> bool:
     # P1 always escalates
     if priority == "P1":
         return True
@@ -307,9 +416,7 @@ def _assign_escalation(
     return False
 
 
-def _assign_missing_info(
-    category: str, priority: str, is_adversarial: bool, rng: random.Random
-) -> list[str]:
+def _assign_missing_info(category: str, priority: str, is_adversarial: bool, rng: random.Random) -> list[str]:
     if category == "Not a Mission Signal":
         return []
 
@@ -320,11 +427,7 @@ def _assign_missing_info(
         return []
 
     # Standard signals: 0-3 missing fields
-    if not is_adversarial:
-        n_missing = rng.choice([0, 1, 1, 2, 2, 3])
-    else:
-        # Adversarial signals tend to be missing more info
-        n_missing = rng.choice([0, 1, 2, 2, 3, 3, 4])
+    n_missing = rng.choice([0, 1, 1, 2, 2, 3]) if not is_adversarial else rng.choice([0, 1, 2, 2, 3, 3, 4])
 
     if n_missing == 0:
         return []
@@ -335,9 +438,8 @@ def _assign_missing_info(
 
 # ── LLM-based signal generation ─────────────────────────────────────
 
-def build_generation_prompt(
-    spec: dict[str, Any], routing_guide: str, examples: list[dict[str, Any]]
-) -> str:
+
+def build_generation_prompt(spec: dict[str, Any], routing_guide: str, examples: list[dict[str, Any]]) -> str:
     """Build prompt to generate a single realistic signal."""
 
     adversarial_instruction = ""
@@ -392,8 +494,7 @@ def build_generation_prompt(
         )
     else:
         missing_info_note = (
-            "\n\nCOMPLETENESS: The signal should include all relevant information "
-            "for triage — no critical gaps."
+            "\n\nCOMPLETENESS: The signal should include all relevant information for triage — no critical gaps."
         )
 
     escalation_note = ""
@@ -405,31 +506,32 @@ def build_generation_prompt(
             reasons.append("command-level reporter or repeat failure")
         if not reasons:
             reasons.append("repeat unresolved issue or command-level concern")
-        escalation_note = (
-            f"\n\nESCALATION: Include hints why this needs escalation: "
-            f"{', '.join(reasons)}."
-        )
+        escalation_note = f"\n\nESCALATION: Include hints why this needs escalation: {', '.join(reasons)}."
 
     priority_context = {
-        "P1": "CRITICAL/life-threatening: hull breach, life-support failure, containment failure, hostile contact, decompression",
+        "P1": (
+            "CRITICAL/life-threatening: hull breach, life-support failure, "
+            "containment failure, hostile contact, decompression"
+        ),
         "P2": "Major system failure with no workaround, multiple crew affected",
-        "P3": "Standard operational issue with a workaround or limited impact",
+        "P3": ("Standard operational issue with a workaround or limited impact"),
         "P4": "Routine question, minor annoyance, or low-impact request",
     }
 
-    return f"""You are generating synthetic support signals for the Contoso Deep Space Station (CDSS) signal triage benchmark.
+    return f"""You are generating synthetic support signals for the Contoso Deep Space
+Station (CDSS) signal triage benchmark.
 
 Generate a SINGLE realistic signal that would be correctly triaged as follows:
-- Category: {spec['category']}
-- Priority: {spec['priority']} ({priority_context[spec['priority']]})
-- Assigned Team: {spec['assigned_team']}
-- Needs Escalation: {spec['needs_escalation']}
-- Difficulty: {spec['difficulty']}
+- Category: {spec["category"]}
+- Priority: {spec["priority"]} ({priority_context[spec["priority"]]})
+- Assigned Team: {spec["assigned_team"]}
+- Needs Escalation: {spec["needs_escalation"]}
+- Difficulty: {spec["difficulty"]}
 
 The signal is from:
-- Reporter: {spec['reporter_name']} ({spec['reporter_email']})
-- Department: {spec['reporter_department']}
-- Channel: {spec['channel']}
+- Reporter: {spec["reporter_name"]} ({spec["reporter_email"]})
+- Department: {spec["reporter_department"]}
+- Channel: {spec["channel"]}
 
 ROUTING GUIDE SUMMARY:
 {routing_guide}
@@ -437,11 +539,16 @@ ROUTING GUIDE SUMMARY:
 
 IMPORTANT RULES:
 1. Write ONLY the subject and description fields. Nothing else.
-2. The description should be 3-8 sentences, written in first person as a real crew member.
-3. Include specific technical details relevant to the category (subspace relays, biometric panels, hull sensors, etc.)
+2. The description should be 3-8 sentences, written in first person as a real
+   crew member.
+3. Include specific technical details relevant to the category (subspace relays,
+   biometric panels, hull sensors, etc.)
 4. Match the tone to the priority: P1 should feel urgent, P4 should feel casual.
-5. Include the occasional humorous aside or personality (references to station cats, protein cubes, Mehta's margin notes, etc.) — but keep it secondary to the actual issue.
-6. Do NOT include the category, priority, team, or any triage labels in the signal text.
+5. Include the occasional humorous aside or personality (references to station
+   cats, protein cubes, Mehta's margin notes, etc.) — but keep it secondary to
+   the actual issue.
+6. Do NOT include the category, priority, team, or any triage labels in the
+   signal text.
 7. Make it feel like a real support ticket from a space station crew member.
 
 Respond with ONLY valid JSON in this exact format:
@@ -464,7 +571,12 @@ async def generate_signal_text(
                 resp = await client.chat.completions.create(
                     model="gpt-5-4",
                     messages=[
-                        {"role": "system", "content": "You generate realistic space station support signals. Respond with valid JSON only."},
+                        {
+                            "role": "system",
+                            "content": (
+                                "You generate realistic space station support signals. Respond with valid JSON only."
+                            ),
+                        },
                         {"role": "user", "content": prompt},
                     ],
                     temperature=0.9,
@@ -481,12 +593,12 @@ async def generate_signal_text(
                 parsed = json.loads(content)
                 if "subject" in parsed and "description" in parsed:
                     return parsed
-                print(f"  [WARN] {spec['ticket_id']}: Missing fields, retry {attempt+1}")
+                print(f"  [WARN] {spec['ticket_id']}: Missing fields, retry {attempt + 1}")
             except json.JSONDecodeError as e:
-                print(f"  [WARN] {spec['ticket_id']}: JSON parse error ({e}), retry {attempt+1}")
+                print(f"  [WARN] {spec['ticket_id']}: JSON parse error ({e}), retry {attempt + 1}")
             except Exception as e:
-                print(f"  [WARN] {spec['ticket_id']}: API error ({e}), retry {attempt+1}")
-                await asyncio.sleep(2 ** attempt)
+                print(f"  [WARN] {spec['ticket_id']}: API error ({e}), retry {attempt + 1}")
+                await asyncio.sleep(2**attempt)
 
     print(f"  [ERROR] {spec['ticket_id']}: Failed after 3 attempts")
     return None
@@ -504,11 +616,11 @@ async def generate_all(
 
     # Try DefaultAzureCredential first, fall back to API key
     try:
-        from azure.identity import DefaultAzureCredential, get_bearer_token_provider
+        from azure.identity import DefaultAzureCredential  # noqa: PLC0415
+        from azure.identity import get_bearer_token_provider  # noqa: PLC0415
+
         credential = DefaultAzureCredential()
-        token_provider = get_bearer_token_provider(
-            credential, "https://cognitiveservices.azure.com/.default"
-        )
+        token_provider = get_bearer_token_provider(credential, "https://cognitiveservices.azure.com/.default")
         client = AsyncAzureOpenAI(
             azure_endpoint=endpoint,
             azure_ad_token_provider=token_provider,
@@ -530,17 +642,14 @@ async def generate_all(
     semaphore = asyncio.Semaphore(15)
 
     print(f"Generating {len(specs)} signals with concurrency=15...")
-    tasks = [
-        generate_signal_text(client, spec, routing_guide, examples, semaphore)
-        for spec in specs
-    ]
+    tasks = [generate_signal_text(client, spec, routing_guide, examples, semaphore) for spec in specs]
     results = await asyncio.gather(*tasks)
 
     signals: list[dict[str, Any]] = []
     gold: list[dict[str, Any]] = []
     failed = 0
 
-    for spec, result in zip(specs, results):
+    for spec, result in zip(specs, results, strict=False):
         if result is None:
             failed += 1
             continue
@@ -569,7 +678,9 @@ async def generate_all(
             "assigned_team": spec["assigned_team"],
             "needs_escalation": spec["needs_escalation"],
             "missing_information": spec["missing_information"],
-            "next_best_action": f"Investigate and resolve the {spec['category'].lower()} issue reported via {spec['channel']}.",
+            "next_best_action": (
+                f"Investigate and resolve the {spec['category'].lower()} issue reported via {spec['channel']}."
+            ),
             "remediation_steps": [
                 f"Review the {spec['category'].lower()} signal details and assess severity.",
                 f"Assign to {spec['assigned_team']} for investigation.",
@@ -586,6 +697,7 @@ async def generate_all(
 
 
 # ── Validation ───────────────────────────────────────────────────────
+
 
 def validate_format(signals: list[dict], gold: list[dict]) -> bool:
     """Validate output matches expected schemas."""
@@ -605,9 +717,13 @@ def validate_format(signals: list[dict], gold: list[dict]) -> bool:
 
     valid_categories = set(CATEGORIES)
     valid_teams = {
-        "Crew Identity & Airlock Control", "Spacecraft Systems Engineering",
-        "Deep Space Communications", "Mission Software Operations",
-        "Threat Response Command", "Telemetry & Data Core", "None",
+        "Crew Identity & Airlock Control",
+        "Spacecraft Systems Engineering",
+        "Deep Space Communications",
+        "Mission Software Operations",
+        "Threat Response Command",
+        "Telemetry & Data Core",
+        "None",
     }
     valid_priorities = {"P1", "P2", "P3", "P4"}
     valid_channels = set(CHANNELS)
@@ -648,12 +764,12 @@ def validate_format(signals: list[dict], gold: list[dict]) -> bool:
 
 def validate_with_scorer(gold: list[dict]) -> None:
     """Run the official scorer (gold vs gold) to verify format compatibility."""
-    sys.path.insert(0, str(ROOT / "common" / "libs" / "fdebenchkit" / "src"))
-    from ms.common.fdebenchkit.scorers.ticket_triage import score_submission
+    sys.path.insert(0, str(ROOT / "common" / "libs" / "fdebenchkit" / "src"))  # noqa: TID251
+    from ms.common.fdebenchkit.scorers.ticket_triage import score_submission  # noqa: PLC0415
 
     # Score gold against itself — should be perfect (100.0)
     result = score_submission(gold, gold)
-    print(f"\nScorer validation (gold vs gold):")
+    print("\nScorer validation (gold vs gold):")
     print(f"  Resolution score: {result['resolution']}")
     print(f"  Dimension scores: {result['dimension_scores']}")
     print(f"  Tickets scored: {result['tickets_scored']}")
@@ -666,6 +782,7 @@ def validate_with_scorer(gold: list[dict]) -> None:
 
 
 # ── Main ─────────────────────────────────────────────────────────────
+
 
 async def main() -> None:
     print("=== Synthetic Triage Dataset Generator ===\n")
@@ -687,13 +804,12 @@ software→Mission Software Ops, threats→Threat Response, data→Telemetry & D
             sample_signals = json.load(f)
         with open(SAMPLE_GOLD) as f:
             sample_gold = json.load(f)
-        examples = list(zip(sample_signals[:3], sample_gold[:3]))
+        examples = list(zip(sample_signals[:3], sample_gold[:3], strict=False))
 
     # Generate deterministic specs
     print("Step 1: Generating deterministic gold label specs...")
     specs = generate_signal_specs(n=200, seed=42)
 
-    from collections import Counter
     cat_counts = Counter(s["category"] for s in specs)
     diff_counts = Counter(s["difficulty"] for s in specs)
     pri_counts = Counter(s["priority"] for s in specs)
@@ -729,10 +845,10 @@ software→Mission Software Ops, threats→Threat Response, data→Telemetry & D
     validate_with_scorer(gold)
 
     # Summary
-    print(f"\n=== DONE ===")
+    print("\n=== DONE ===")
     print(f"Total signals generated: {len(signals)}")
-    print(f"Standard: {sum(1 for g in gold if g['difficulty']=='standard')}")
-    print(f"Adversarial: {sum(1 for g in gold if g['difficulty']=='adversarial')}")
+    print(f"Standard: {sum(1 for g in gold if g['difficulty'] == 'standard')}")
+    print(f"Adversarial: {sum(1 for g in gold if g['difficulty'] == 'adversarial')}")
 
 
 if __name__ == "__main__":

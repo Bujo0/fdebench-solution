@@ -3,18 +3,17 @@
 import json
 import logging
 
-from fastapi import APIRouter, Response
-
-from models import OrchestrateRequest, OrchestrateResponse, StepExecuted
-from services.orchestrate_service import (
-    call_tool,
-    format_tools,
-    orchestrate_llm_call,
-)
+import state
+from fastapi import APIRouter
+from fastapi import Response
+from models import OrchestrateRequest
+from models import OrchestrateResponse
+from models import StepExecuted
+from services.orchestrate_service import call_tool
+from services.orchestrate_service import format_tools
+from services.orchestrate_service import orchestrate_llm_call
 from services.template_executor import execute_template
 from utils import display_model
-
-import state
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -91,22 +90,28 @@ Plan and execute. Start with the first tool call(s)."""
                 step_num += 1
                 endpoint = tool_endpoints.get(tool_name, "")
                 if not endpoint:
-                    steps_executed.append(StepExecuted(
-                        step=step_num, tool=tool_name,
-                        parameters=parameters,
-                        result_summary=f"Unknown tool: {tool_name}",
-                        success=False,
-                    ))
+                    steps_executed.append(
+                        StepExecuted(
+                            step=step_num,
+                            tool=tool_name,
+                            parameters=parameters,
+                            result_summary=f"Unknown tool: {tool_name}",
+                            success=False,
+                        )
+                    )
                     call_results.append(f"{tool_name}: ERROR unknown tool")
                     continue
 
                 result_text, success = await call_tool(endpoint, parameters)
-                steps_executed.append(StepExecuted(
-                    step=step_num, tool=tool_name,
-                    parameters=parameters,
-                    result_summary=result_text[:500],
-                    success=success,
-                ))
+                steps_executed.append(
+                    StepExecuted(
+                        step=step_num,
+                        tool=tool_name,
+                        parameters=parameters,
+                        result_summary=result_text[:500],
+                        success=success,
+                    )
+                )
                 call_results.append(f"{tool_name}: {result_text[:800]}")
 
             observation = "\n".join(call_results)

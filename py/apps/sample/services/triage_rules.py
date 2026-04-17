@@ -8,17 +8,16 @@ early exits for high-confidence non-technical categories, then multi-class
 keyword scoring for technical categories with negative evidence.
 """
 
-from __future__ import annotations
-
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+from dataclasses import field
 from functools import lru_cache
 
 
 @lru_cache(maxsize=256)
 def _word_pattern(kw: str) -> re.Pattern[str]:
     """Compile a word-boundary regex for a keyword."""
-    return re.compile(r'\b' + re.escape(kw) + r'\b', re.IGNORECASE)
+    return re.compile(r"\b" + re.escape(kw) + r"\b", re.IGNORECASE)
 
 
 def _kw_in(kw: str, text: str) -> bool:
@@ -84,26 +83,55 @@ def _has_injection(text: str) -> bool:
 
 # Strongly indicate Crew Access & Biometrics (weight 1 each)
 _ACCESS_KEYWORDS = [
-    "bioscan", "bioauth", "biometric", "mfbv",
-    "sso", "saml", "sign-in", "sign in", "login", "log in",
-    "lockout", "locked out",
-    "authenticate", "authentication", "credential", "password",
-    "security group", "distribution group",
-    "permission", "elevated permission",
-    "crew profile", "access screen", "unified auth",
-    "provisioning request", "onboarding", "offboarding",
-    "directory sync", "access code",
-    "retinal", "neural key",
+    "bioscan",
+    "bioauth",
+    "biometric",
+    "mfbv",
+    "sso",
+    "saml",
+    "sign-in",
+    "sign in",
+    "login",
+    "log in",
+    "lockout",
+    "locked out",
+    "authenticate",
+    "authentication",
+    "credential",
+    "password",
+    "security group",
+    "distribution group",
+    "permission",
+    "elevated permission",
+    "crew profile",
+    "access screen",
+    "unified auth",
+    "provisioning request",
+    "onboarding",
+    "offboarding",
+    "directory sync",
+    "access code",
+    "retinal",
+    "neural key",
     "logging into",
     "service account",
 ]
 
 # High-weight access phrases (weight 5 each — almost always Crew Access)
 _ACCESS_STRONG = [
-    "sso", "saml", "biometric", "mfbv", "lockout",
-    "crew profile", "unified auth", "security group",
-    "distribution group", "retinal", "neural key",
-    "sign-in error", "sign-in terminal",
+    "sso",
+    "saml",
+    "biometric",
+    "mfbv",
+    "lockout",
+    "crew profile",
+    "unified auth",
+    "security group",
+    "distribution group",
+    "retinal",
+    "neural key",
+    "sign-in error",
+    "sign-in terminal",
     "biometric recalibration",
     "access troubles",
     "atlas archive",
@@ -113,29 +141,54 @@ _ACCESS_STRONG = [
 
 # Strongly indicate Communications & Navigation (weight 1 each)
 _COMMS_KEYWORDS = [
-    "subspace relay", "subspace tunnel", "relay proxy",
-    "rf mesh", "comm relay", "wireless",
-    "bandwidth", "signal barrier", "wan", "dns beacon",
-    "connectivity", "network", "comms network",
-    "fabricator", "latency", "video call",
-    "hermes comm", "hermes call",
-    "split-tunnel", "split tunnel", "roaming",
-    "speed test", "rdp",
-    "inter-deck", "beacon resolution",
-    "relay client", "aether relay",
-    "signal network", "network segment",
+    "subspace relay",
+    "subspace tunnel",
+    "relay proxy",
+    "rf mesh",
+    "comm relay",
+    "wireless",
+    "bandwidth",
+    "signal barrier",
+    "wan",
+    "dns beacon",
+    "connectivity",
+    "network",
+    "comms network",
+    "fabricator",
+    "latency",
+    "video call",
+    "hermes comm",
+    "hermes call",
+    "split-tunnel",
+    "split tunnel",
+    "roaming",
+    "speed test",
+    "rdp",
+    "inter-deck",
+    "beacon resolution",
+    "relay client",
+    "aether relay",
+    "signal network",
+    "network segment",
     "sd-interstation",
-    "traceroute", "route print",
+    "traceroute",
+    "route print",
     "packet loss",
 ]
 
 # High-weight comms phrases (weight 5 each)
 _COMMS_STRONG = [
-    "subspace relay", "rf mesh", "comm relay",
-    "signal barrier", "wan failover",
-    "split-tunnel", "split tunnel",
-    "beacon resolution", "relay proxy",
-    "packet loss", "sd-interstation",
+    "subspace relay",
+    "rf mesh",
+    "comm relay",
+    "signal barrier",
+    "wan failover",
+    "split-tunnel",
+    "split tunnel",
+    "beacon resolution",
+    "relay proxy",
+    "packet loss",
+    "sd-interstation",
     "signal network segment",
 ]
 
@@ -143,9 +196,16 @@ _COMMS_STRONG = [
 def _briefing_team(lower: str) -> str:
     """Determine team for Mission Briefing Request based on content."""
     # Offboarding with account actions → Crew Identity & Airlock Control
-    if any(kw in lower for kw in [
-        "disable", "revoke", "offboarding", "last duty cycle", "deactivate",
-    ]):
+    if any(
+        kw in lower
+        for kw in [
+            "disable",
+            "revoke",
+            "offboarding",
+            "last duty cycle",
+            "deactivate",
+        ]
+    ):
         return "Crew Identity & Airlock Control"
     # Full setup / onboarding with hardware → Spacecraft Systems Engineering
     if any(kw in lower for kw in ["full setup", "setup needed"]):
@@ -171,9 +231,15 @@ def _detect_category(text: str) -> tuple[str, str, float]:
 
     # ── Phase 1: "Not a Mission Signal" early exit ──
     _non_signal_markers = [
-        "thank you", "thanks for", "thanks!", "got it working",
-        "out of office", "auto-reply", "cryo-sleep",
-        "appreciate the quick", "appreciate the help",
+        "thank you",
+        "thanks for",
+        "thanks!",
+        "got it working",
+        "out of office",
+        "auto-reply",
+        "cryo-sleep",
+        "appreciate the quick",
+        "appreciate the help",
     ]
     non_signal_hits = sum(1 for m in _non_signal_markers if m in lower)
     # Subject patterns that indicate non-signal
@@ -181,14 +247,27 @@ def _detect_category(text: str) -> tuple[str, str, float]:
         non_signal_hits += 1
     if non_signal_hits >= 1:
         _real_issue = [
-            "not working", "error", "failure", "crash",
-            "broken", "outage", "suspicious", "unauthorized",
-            "failing", "down ",
+            "not working",
+            "error",
+            "failure",
+            "crash",
+            "broken",
+            "outage",
+            "suspicious",
+            "unauthorized",
+            "failing",
+            "down ",
         ]
         # Action items indicate a real request, not a closure
         _action_items = [
-            "disable", "revoke", "transfer ownership", "wipe",
-            "please:", "onboarding", "offboarding", "last duty cycle",
+            "disable",
+            "revoke",
+            "transfer ownership",
+            "wipe",
+            "please:",
+            "onboarding",
+            "offboarding",
+            "last duty cycle",
         ]
         real_issue_hits = sum(1 for kw in _real_issue if kw in lower)
         action_hits = sum(1 for kw in _action_items if kw in lower)
@@ -198,19 +277,34 @@ def _detect_category(text: str) -> tuple[str, str, float]:
 
     # ── Phase 2: Threat Detection takes priority ──
     _threat_keywords = [
-        "suspicious", "unauthorized", "malware", "phishing",
-        "exfiltration", "containment breach", "data breach",
-        "social engineering", "impersonation",
-        "galactic credits", "claim now", "totallylegit",
-        "shared externally", "compliance sweep",
-        "cert expir", "certificate expir",
+        "suspicious",
+        "unauthorized",
+        "malware",
+        "phishing",
+        "exfiltration",
+        "containment breach",
+        "data breach",
+        "social engineering",
+        "impersonation",
+        "galactic credits",
+        "claim now",
+        "totallylegit",
+        "shared externally",
+        "compliance sweep",
+        "cert expir",
+        "certificate expir",
         "virus",
     ]
     threat_score = sum(1 for t in _threat_keywords if t in lower)
     # Subject threat signals — use specific phrases, not standalone "breach"
     _threat_subject = [
-        "suspicious", "containment breach", "data breach",
-        "phishing", "won ", "claim", "cert expir",
+        "suspicious",
+        "containment breach",
+        "data breach",
+        "phishing",
+        "won ",
+        "claim",
+        "cert expir",
     ]
     threat_score += sum(2 for t in _threat_subject if t in subj)
     if threat_score >= 2:
@@ -219,24 +313,37 @@ def _detect_category(text: str) -> tuple[str, str, float]:
 
     # ── Phase 3: Mission Briefing Request ──
     _briefing_keywords = [
-        "new crew member", "full setup needed",
-        "last duty cycle", "how do i book",
+        "new crew member",
+        "full setup needed",
+        "last duty cycle",
+        "how do i book",
         "crew member transfer",
-        "orientation", "onboarding checklist",
-        "departure checklist", "mission brief",
+        "orientation",
+        "onboarding checklist",
+        "departure checklist",
+        "mission brief",
     ]
     briefing_score = sum(1 for b in _briefing_keywords if b in lower)
     _briefing_subject = [
-        "new crew member", "transfer", "how do i", "setup needed",
+        "new crew member",
+        "transfer",
+        "how do i",
+        "setup needed",
     ]
     briefing_score += sum(2 for b in _briefing_subject if b in subj)
     # Onboarding/offboarding is briefing, not access
-    if any(kw in lower for kw in ["onboarding", "offboarding"]):
-        if any(kw in lower for kw in [
-            "new crew member", "joining", "last duty cycle",
-            "transferring", "disable her", "disable his",
-        ]):
-            briefing_score += 2
+    if any(kw in lower for kw in ["onboarding", "offboarding"]) and any(
+        kw in lower
+        for kw in [
+            "new crew member",
+            "joining",
+            "last duty cycle",
+            "transferring",
+            "disable her",
+            "disable his",
+        ]
+    ):
+        briefing_score += 2
     if briefing_score >= 2:
         conf = min(0.90, 0.78 + 0.04 * briefing_score)
         team = _briefing_team(lower)
@@ -246,15 +353,30 @@ def _detect_category(text: str) -> tuple[str, str, float]:
 
     # Telemetry & Data Banks
     _telemetry_kw = [
-        "telemetry", "data core", "data bank", "pipeline",
-        "analytics node", "dashboard", "data request",
-        "deep storage", "ingest", "timeout error",
-        "prod-analytics", "500 error",
+        "telemetry",
+        "data core",
+        "data bank",
+        "pipeline",
+        "analytics node",
+        "dashboard",
+        "data request",
+        "deep storage",
+        "ingest",
+        "timeout error",
+        "prod-analytics",
+        "500 error",
     ]
     tel_score = sum(1 for kw in _telemetry_kw if kw in lower)
-    if any(kw in subj for kw in [
-        "telemetry", "data core", "analytics", "dashboard", "pipeline",
-    ]):
+    if any(
+        kw in subj
+        for kw in [
+            "telemetry",
+            "data core",
+            "analytics",
+            "dashboard",
+            "pipeline",
+        ]
+    ):
         tel_score += 3
     # Service account/identity + data pipeline context → telemetry
     if any(kw in lower for kw in ["pipeline", "403", "deep storage"]) and "service" in lower:
@@ -262,15 +384,28 @@ def _detect_category(text: str) -> tuple[str, str, float]:
 
     # Flight Software & Instruments
     _software_kw = [
-        "flightos", "trajectory", "subcomm crash", "subcomm show",
-        "white screen", "holographic calendar", "phantom briefing",
-        "screen share", "share screen", "plotter",
-        "reference frame", "subcomm",
+        "flightos",
+        "trajectory",
+        "subcomm crash",
+        "subcomm show",
+        "white screen",
+        "holographic calendar",
+        "phantom briefing",
+        "screen share",
+        "share screen",
+        "plotter",
+        "reference frame",
+        "subcomm",
     ]
     sw_score = sum(1 for kw in _software_kw if kw in lower)
-    if any(kw in subj for kw in [
-        "flightos", "trajectory", "subcomm",
-    ]):
+    if any(
+        kw in subj
+        for kw in [
+            "flightos",
+            "trajectory",
+            "subcomm",
+        ]
+    ):
         sw_score += 3
     # Screen sharing with any word in between ("share his screen", "share her screen")
     if "share" in lower and "screen" in lower:
@@ -281,21 +416,43 @@ def _detect_category(text: str) -> tuple[str, str, float]:
 
     # Hull & Structural Systems
     _hull_kw = [
-        "holographic projector", "projector offline", "fabricator",
-        "workstation console", "cooling fan",
-        "display flickering", "molecular fabricator",
-        "won't power on", "manual override panel",
-        "hull panel", "structural integrity",
-        "airlock mechanism", "deck plating", "bulkhead",
-        "atmospheric", "decompression", "pressure seal",
-        "oxygen recycler", "life support", "life-support",
-        "power fluctuation", "environmental control",
-        "ventilation", "thermal regulator", "gravity plate",
+        "holographic projector",
+        "projector offline",
+        "fabricator",
+        "workstation console",
+        "cooling fan",
+        "display flickering",
+        "molecular fabricator",
+        "won't power on",
+        "manual override panel",
+        "hull panel",
+        "structural integrity",
+        "airlock mechanism",
+        "deck plating",
+        "bulkhead",
+        "atmospheric",
+        "decompression",
+        "pressure seal",
+        "oxygen recycler",
+        "life support",
+        "life-support",
+        "power fluctuation",
+        "environmental control",
+        "ventilation",
+        "thermal regulator",
+        "gravity plate",
     ]
     hull_score = sum(1 for kw in _hull_kw if kw in lower)
-    if any(kw in subj for kw in [
-        "fabricator", "projector", "holographic", "console", "workstation",
-    ]):
+    if any(
+        kw in subj
+        for kw in [
+            "fabricator",
+            "projector",
+            "holographic",
+            "console",
+            "workstation",
+        ]
+    ):
         hull_score += 3
     # Fabricator/projector are physical equipment
     if any(kw in lower for kw in ["fabricator", "projector"]):
@@ -304,18 +461,33 @@ def _detect_category(text: str) -> tuple[str, str, float]:
     # Crew Access & Biometrics
     access_score = sum(1 for kw in _ACCESS_KEYWORDS if _kw_in(kw, lower))
     access_score += sum(5 for kw in _ACCESS_STRONG if _kw_in(kw, lower))
-    if any(_kw_in(kw, subj) for kw in [
-        "access", "auth", "login", "sign-in", "biometric",
-        "lockout", "sso", "credential",
-    ]):
+    if any(
+        _kw_in(kw, subj)
+        for kw in [
+            "access",
+            "auth",
+            "login",
+            "sign-in",
+            "biometric",
+            "lockout",
+            "sso",
+            "credential",
+        ]
+    ):
         access_score += 3
     # Negative: suppress Access if context is telemetry/data
     # BUT keep Access when direct auth context (service account, access code) is present
-    if any(kw in lower for kw in [
-        "pipeline", "403", "deep storage", "data core", "telemetry",
-    ]):
-        if not any(kw in lower for kw in ["service account", "access code", "expired"]):
-            access_score = max(0, access_score - 5)
+    if any(
+        kw in lower
+        for kw in [
+            "pipeline",
+            "403",
+            "deep storage",
+            "data core",
+            "telemetry",
+        ]
+    ) and not any(kw in lower for kw in ["service account", "access code", "expired"]):
+        access_score = max(0, access_score - 5)
     # Negative: suppress Access if context is hardware
     if any(kw in lower for kw in ["fabricator", "projector", "holographic"]):
         access_score = max(0, access_score - 3)
@@ -323,15 +495,28 @@ def _detect_category(text: str) -> tuple[str, str, float]:
     # Communications & Navigation
     comms_score = sum(1 for kw in _COMMS_KEYWORDS if _kw_in(kw, lower))
     comms_score += sum(5 for kw in _COMMS_STRONG if _kw_in(kw, lower))
-    if any(kw in subj for kw in [
-        "network", "relay", "rf mesh", "connectivity",
-        "subspace", "speed", "latency",
-    ]):
+    if any(
+        kw in subj
+        for kw in [
+            "network",
+            "relay",
+            "rf mesh",
+            "connectivity",
+            "subspace",
+            "speed",
+            "latency",
+        ]
+    ):
         comms_score += 3
     # Negative: suppress Comms if context is hardware
-    if any(kw in lower for kw in [
-        "fabricator", "projector", "holographic display",
-    ]):
+    if any(
+        kw in lower
+        for kw in [
+            "fabricator",
+            "projector",
+            "holographic display",
+        ]
+    ):
         comms_score = max(0, comms_score - 3)
 
     # ── Pick the best category ──
@@ -373,10 +558,13 @@ def _detect_category(text: str) -> tuple[str, str, float]:
             pass  # Screen sharing is a software/policy issue → keep MSO
         elif any(kw in lower for kw in ["console", "workstation"]):
             team = "Spacecraft Systems Engineering"
-    elif best_cat == "Hull & Structural Systems":
+    elif (
+        best_cat == "Hull & Structural Systems"
+        and "fabricator" in lower
+        and any(kw in lower for kw in ["queue", "jobs"])
+    ):
         # Fabricator jobs queuing but not materializing → data path issue → DSC
-        if "fabricator" in lower and any(kw in lower for kw in ["queue", "jobs"]):
-            team = "Deep Space Communications"
+        team = "Deep Space Communications"
 
     return best_cat, team, confidence
 
@@ -384,9 +572,14 @@ def _detect_category(text: str) -> tuple[str, str, float]:
 # ── Priority detection ────────────────────────────────────────────────
 
 _P1_SAFETY_KEYWORDS = [
-    "hull breach", "decompression", "atmospheric compromise",
-    "containment failure", "containment breach",
-    "life support", "life-support", "oxygen failure",
+    "hull breach",
+    "decompression",
+    "atmospheric compromise",
+    "containment failure",
+    "containment breach",
+    "life support",
+    "life-support",
+    "oxygen failure",
     "hostile contact",
 ]
 
@@ -410,15 +603,15 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
         return "P1", 0.85
 
     # P1: Certificate expiring on production system (all fleet connections fail)
-    if "cert" in lower and "expir" in lower and any(
-        kw in lower for kw in ["production", "all external", "gateway", "all fleet"]
+    if (
+        "cert" in lower
+        and "expir" in lower
+        and any(kw in lower for kw in ["production", "all external", "gateway", "all fleet"])
     ):
         return "P1", 0.85
 
     # P1: VIP (Fleet Admiral) with real-time urgency
-    if "fleet admiral" in lower and any(
-        kw in lower for kw in ["happening now", "right now", "arriving in"]
-    ):
+    if "fleet admiral" in lower and any(kw in lower for kw in ["happening now", "right now", "arriving in"]):
         return "P1", 0.80
 
     # P1: Account lockout with urgent signal
@@ -441,28 +634,44 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
     p4_signals = 0
 
     # Questions and how-to (require question framing, not just "how to" embedded)
-    if any(phrase in lower for phrase in [
-        "how do i", "instructions needed",
-        "is there a guide", "is there a current guide",
-        "can we get a new",
-        "what is the process",
-    ]):
+    if any(
+        phrase in lower
+        for phrase in [
+            "how do i",
+            "instructions needed",
+            "is there a guide",
+            "is there a current guide",
+            "can we get a new",
+            "what is the process",
+        ]
+    ):
         p4_signals += 3
 
     # Explicit low-priority / not urgent self-declaration
-    if any(phrase in lower for phrase in [
-        "not urgent", "low priority", "no rush",
-        "when you get a chance", "when someone has a chance",
-        "just want to have it ready",
-        "not blocking",
-    ]):
+    if any(
+        phrase in lower
+        for phrase in [
+            "not urgent",
+            "low priority",
+            "no rush",
+            "when you get a chance",
+            "when someone has a chance",
+            "just want to have it ready",
+            "not blocking",
+        ]
+    ):
         p4_signals += 2
 
     # Requests (not incidents) — match specific request patterns in subject
-    if any(phrase in subj_lower for phrase in [
-        "rule request", "setup instructions",
-        "new security group", "instructions needed",
-    ]):
+    if any(
+        phrase in subj_lower
+        for phrase in [
+            "rule request",
+            "setup instructions",
+            "new security group",
+            "instructions needed",
+        ]
+    ):
         p4_signals += 3
 
     # Chat transcript from past outage (post-event)
@@ -481,13 +690,16 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
         p4_signals += 3
 
     # Single-user intermittent issues
-    if any(phrase in lower for phrase in [
-        "intermittent rf mesh",
-        "speed degraded on our deck",
-        "network drops every",
-        "comm relay keeps dropping",
-        "keeps dropping every",
-    ]):
+    if any(
+        phrase in lower
+        for phrase in [
+            "intermittent rf mesh",
+            "speed degraded on our deck",
+            "network drops every",
+            "comm relay keeps dropping",
+            "keeps dropping every",
+        ]
+    ):
         p4_signals += 2
 
     # Off-ship / remote single-user access
@@ -495,10 +707,12 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
         p4_signals += 2
 
     # Remote user can't authenticate — routine
-    if "can't authenticate" in lower and category == "Crew Access & Biometrics":
-        # Check if single user
-        if not any(kw in lower for kw in ["multiple", "number of", "crew members"]):
-            p4_signals += 1
+    if (
+        "can't authenticate" in lower
+        and category == "Crew Access & Biometrics"
+        and not any(kw in lower for kw in ["multiple", "number of", "crew members"])
+    ):
+        p4_signals += 1
 
     # VPN/relay access to specific app — single user
     if "aether relay client" in lower and ("can't access" in lower or "risk dashboard" in lower):
@@ -517,10 +731,16 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
         p4_signals += 3
 
     # Single-user biometric stopped working (routine)
-    if any(phrase in lower for phrase in [
-        "suddenly stopped working",
-        "biometric scan-in",
-    ]) and category == "Crew Access & Biometrics":
+    if (
+        any(
+            phrase in lower
+            for phrase in [
+                "suddenly stopped working",
+                "biometric scan-in",
+            ]
+        )
+        and category == "Crew Access & Biometrics"
+    ):
         p4_signals += 2
 
     # RF mesh with authentication failure → network issue, not critical
@@ -546,29 +766,38 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
     p2_signals = 0
 
     # Multiple crew / broad impact
-    if any(phrase in lower for phrase in [
-        "number of crew members",
-        "affecting multiple",
-        "multiple systems",
-        "three different issues",
-        "entire floor",
-    ]):
+    if any(
+        phrase in lower
+        for phrase in [
+            "number of crew members",
+            "affecting multiple",
+            "multiple systems",
+            "three different issues",
+            "entire floor",
+        ]
+    ):
         p2_signals += 2
 
     # Call drops / video degradation — affects meetings
-    if any(phrase in lower for phrase in [
-        "calls are dropping",
-        "call drops",
-        "video calls keep dropping",
-        "audio cuts",
-    ]):
+    if any(
+        phrase in lower
+        for phrase in [
+            "calls are dropping",
+            "call drops",
+            "video calls keep dropping",
+            "audio cuts",
+        ]
+    ):
         p2_signals += 2
 
     # Fleet Admiral / VIP with real issue (not injection)
-    if not has_inj and any(phrase in lower for phrase in [
-        "fleet admiral",
-        "submitted on behalf of fleet admiral",
-    ]):
+    if not has_inj and any(
+        phrase in lower
+        for phrase in [
+            "fleet admiral",
+            "submitted on behalf of fleet admiral",
+        ]
+    ):
         p2_signals += 2
 
     # Massive latency spikes
@@ -576,10 +805,13 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
         p2_signals += 1
 
     # Service-wide authentication failures
-    if any(phrase in lower for phrase in [
-        "saml sso failures",
-        "identity beacon security certificate rotation",
-    ]):
+    if any(
+        phrase in lower
+        for phrase in [
+            "saml sso failures",
+            "identity beacon security certificate rotation",
+        ]
+    ):
         p2_signals += 2
 
     # Roaming disconnects (affects many users moving between floors)
@@ -588,21 +820,28 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
 
     # Site-to-site tunnel down with partner SLA — but only if there's
     # evidence of broad impact or SLA breach
-    if "site-to-site" in lower and "tunnel" in lower and "down" in lower:
-        if any(kw in lower for kw in ["sla", "breach", "partner"]):
-            p2_signals += 2
+    if (
+        "site-to-site" in lower
+        and "tunnel" in lower
+        and "down" in lower
+        and any(kw in lower for kw in ["sla", "breach", "partner"])
+    ):
+        p2_signals += 2
 
     # Shared service account expired (broad impact)
     if "service account" in lower and "expired" in lower:
         p2_signals += 2
 
     # Repeated lockdowns / quarantine
-    if any(phrase in lower for phrase in [
-        "crew profile lockdown",
-        "fourth time today",
-        "keeps getting quarantined",
-        "quarantined",
-    ]):
+    if any(
+        phrase in lower
+        for phrase in [
+            "crew profile lockdown",
+            "fourth time today",
+            "keeps getting quarantined",
+            "quarantined",
+        ]
+    ):
         p2_signals += 2
 
     # Unified auth problems with full history
@@ -610,27 +849,36 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
         p2_signals += 2
 
     # Diagnostic screenshots with real connectivity issues (not injection)
-    if not has_inj and "diagnostic" in lower and ("traceroute" in lower or "screenshot" in lower):
-        if "intermittent connectivity" in lower or "losing mission data" in lower:
-            p2_signals += 2
+    if (
+        not has_inj
+        and "diagnostic" in lower
+        and ("traceroute" in lower or "screenshot" in lower)
+        and ("intermittent connectivity" in lower or "losing mission data" in lower)
+    ):
+        p2_signals += 2
 
     # CTO-level without injection
     if "chief technology commander" in lower and not has_inj:
         p2_signals += 2
 
     # CTO-level WITH injection but genuine issue underneath
-    if "chief technology commander" in lower and has_inj:
-        # Check for real operational indicators
-        if any(kw in lower for kw in ["traders", "mission control", "40 "]):
-            p2_signals += 2
+    if (
+        "chief technology commander" in lower
+        and has_inj
+        and any(kw in lower for kw in ["traders", "mission control", "40 "])
+    ):
+        p2_signals += 2
 
     # Multi-person impact with specific numbers
-    if any(phrase in lower for phrase in [
-        "impacting about",
-        "15 people",
-        "40 traders",
-        "about 40",
-    ]):
+    if any(
+        phrase in lower
+        for phrase in [
+            "impacting about",
+            "15 people",
+            "40 traders",
+            "about 40",
+        ]
+    ):
         p2_signals += 2
 
     # Client-facing urgency
@@ -658,8 +906,12 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
 
 # ── Escalation ────────────────────────────────────────────────────────
 
+
 def _detect_escalation(
-    text: str, priority: str, category: str, subject: str,
+    text: str,
+    priority: str,
+    category: str,
+    subject: str,
     original_text: str,
 ) -> bool:
     """Determine if the ticket needs escalation."""
@@ -667,41 +919,59 @@ def _detect_escalation(
 
     # P1 escalates for cross-station, security, VIP/delegation, or safety
     if priority == "P1":
-        if any(kw in lower for kw in [
-            "cross-atlantic", "cross-station",
-            "account lockout",
-        ]):
+        if any(
+            kw in lower
+            for kw in [
+                "cross-atlantic",
+                "cross-station",
+                "account lockout",
+            ]
+        ):
             return True
         # Safety keywords always escalate
         if any(kw in lower for kw in _P1_SAFETY_KEYWORDS):
             return True
         # VIP/delegation with time pressure
-        if any(kw in lower for kw in [
-            "delegation", "fleet admiral", "admiralty",
-        ]):
+        if any(
+            kw in lower
+            for kw in [
+                "delegation",
+                "fleet admiral",
+                "admiralty",
+            ]
+        ):
             return True
         # Cert expiry on production
-        if "cert" in lower and "expir" in lower:
-            return True
-        # Otherwise P1 does NOT auto-escalate (e.g., single-user split-tunnel)
-        return False
+        return "cert" in lower and "expir" in lower
 
     # Threat category — only escalate active threats, not spam/phishing reports
     # (cert expiry escalates via P1 path)
 
     # Airlock access issues — safety-critical infrastructure
-    if "airlock" in lower and any(kw in lower for kw in [
-        "broken", "not working", "still broken", "access code", "doesn't work",
-    ]):
+    if "airlock" in lower and any(
+        kw in lower
+        for kw in [
+            "broken",
+            "not working",
+            "still broken",
+            "access code",
+            "doesn't work",
+        ]
+    ):
         return True
 
     # Threat / security indicators (require context, not just keyword)
-    if any(kw in lower for kw in [
-        "unauthorized access", "unauthorized login",
-        "exfiltration",
-        "malware", "social engineering",
-        "impersonation",
-    ]):
+    if any(
+        kw in lower
+        for kw in [
+            "unauthorized access",
+            "unauthorized login",
+            "exfiltration",
+            "malware",
+            "social engineering",
+            "impersonation",
+        ]
+    ):
         return True
 
     # "hostile" — only if not in routine offboarding/transfer context
@@ -717,13 +987,11 @@ def _detect_escalation(
         return True
 
     # Partner requesting sensitive data (potential social engineering)
-    if "partner" in lower and "needs logs" in lower:
-        return True
-
-    return False
+    return bool("partner" in lower and "needs logs" in lower)
 
 
 # ── Missing information ──────────────────────────────────────────────
+
 
 def _detect_missing_info(text: str, category: str) -> list[str]:
     """Identify the most relevant missing info items using a scoring approach.
@@ -736,251 +1004,569 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
     # ── Text signal detectors ─────────────────────────────────────────
 
     # Infrastructure/config request (firewall, DNS, VPN tunnel config)
-    is_infra_config = any(kw in lower for kw in [
-        "site-to-site", "signal barrier", "firewall rule",
-        "failover", "wan link", "sd-interstation", "interconnection",
-        "decommission", "cutover", "routing protocol", "bgp ",
-        "latency budget", "circuit", "rule request",
-    ])
+    is_infra_config = any(
+        kw in lower
+        for kw in [
+            "site-to-site",
+            "signal barrier",
+            "firewall rule",
+            "failover",
+            "wan link",
+            "sd-interstation",
+            "interconnection",
+            "decommission",
+            "cutover",
+            "routing protocol",
+            "bgp ",
+            "latency budget",
+            "circuit",
+            "rule request",
+        ]
+    )
 
     # DNS-specific request (name resolution)
-    is_dns_change = any(kw in lower for kw in [
-        "dns record", "name resolution service", "dns change",
-        "dns update", "cname", "a record",
-    ])
+    is_dns_change = any(
+        kw in lower
+        for kw in [
+            "dns record",
+            "name resolution service",
+            "dns change",
+            "dns update",
+            "cname",
+            "a record",
+        ]
+    )
 
     # User-facing connectivity/signal issue
-    is_connectivity = any(kw in lower for kw in [
-        "drop", "drops", "dropping", "can't connect", "cannot connect",
-        "no signal", "disconnects", "disconnect", "timeout", "timed out",
-        "times out",
-        "slow", "latency", "buffering", "freezes", "choppy",
-        "rf mesh", "hypernet", "comm relay",
-        "not connecting", "won't connect", "failed to connect",
-        "can't reach", "unable to reach", "connection issue",
-        "roaming", "flapping", "lag", "unusable",
-    ])
+    is_connectivity = any(
+        kw in lower
+        for kw in [
+            "drop",
+            "drops",
+            "dropping",
+            "can't connect",
+            "cannot connect",
+            "no signal",
+            "disconnects",
+            "disconnect",
+            "timeout",
+            "timed out",
+            "times out",
+            "slow",
+            "latency",
+            "buffering",
+            "freezes",
+            "choppy",
+            "rf mesh",
+            "hypernet",
+            "comm relay",
+            "not connecting",
+            "won't connect",
+            "failed to connect",
+            "can't reach",
+            "unable to reach",
+            "connection issue",
+            "roaming",
+            "flapping",
+            "lag",
+            "unusable",
+        ]
+    )
 
     # VPN/tunnel user issue (vs config)
-    is_vpn_user = any(kw in lower for kw in [
-        "subspace relay client", "relay client", "split-tunnel",
-        "split tunnel", "aether relay", "connected to",
-    ]) and not is_infra_config
+    is_vpn_user = (
+        any(
+            kw in lower
+            for kw in [
+                "subspace relay client",
+                "relay client",
+                "split-tunnel",
+                "split tunnel",
+                "aether relay",
+                "connected to",
+            ]
+        )
+        and not is_infra_config
+    )
 
     # Hardware/device mentioned
-    is_hardware = any(kw in lower for kw in [
-        "terminal", "fabricator", "console", "scanner",
-        "device", "wrist-com", "hardware", "relay unit",
-        "holographic display", "comm panel",
-    ])
+    is_hardware = any(
+        kw in lower
+        for kw in [
+            "terminal",
+            "fabricator",
+            "console",
+            "scanner",
+            "device",
+            "wrist-com",
+            "hardware",
+            "relay unit",
+            "holographic display",
+            "comm panel",
+        ]
+    )
 
     # RF mesh roaming issue (device-specific, not location-specific)
     is_roaming = "roaming" in lower
 
     # Intermittent/recurring issue
-    is_recurring = any(kw in lower for kw in [
-        "intermittent", "random", "sometimes", "sporadic", "recurring",
-        "keeps dropping", "keeps disconnecting", "on and off",
-        "comes and goes", "randomly", "flapping", "half the time",
-    ]) or is_roaming
+    is_recurring = (
+        any(
+            kw in lower
+            for kw in [
+                "intermittent",
+                "random",
+                "sometimes",
+                "sporadic",
+                "recurring",
+                "keeps dropping",
+                "keeps disconnecting",
+                "on and off",
+                "comes and goes",
+                "randomly",
+                "flapping",
+                "half the time",
+            ]
+        )
+        or is_roaming
+    )
 
     # References a previous incident (by description, not by ID)
-    is_followup = any(kw in lower for kw in [
-        "same issue", "same problem", "same glitch", "same thing",
-        "happened before", "reported before", "follow-up", "following up",
-        "back again", "last time this happened", "still happening",
-        "similar incident", "same symptoms", "same error",
-        "same authentication", "same sign-in",
-        "going back and forth", "for weeks",
-    ])
+    is_followup = any(
+        kw in lower
+        for kw in [
+            "same issue",
+            "same problem",
+            "same glitch",
+            "same thing",
+            "happened before",
+            "reported before",
+            "follow-up",
+            "following up",
+            "back again",
+            "last time this happened",
+            "still happening",
+            "similar incident",
+            "same symptoms",
+            "same error",
+            "same authentication",
+            "same sign-in",
+            "going back and forth",
+            "for weeks",
+        ]
+    )
 
     # Has actual ticket/incident reference number
-    has_past_ref = any(kw in lower for kw in [
-        "sig-", "signal report #", "ticket #", "incident #",
-        "reference #", "case #",
-    ])
+    has_past_ref = any(
+        kw in lower
+        for kw in [
+            "sig-",
+            "signal report #",
+            "ticket #",
+            "incident #",
+            "reference #",
+            "case #",
+        ]
+    )
 
     # Filing on behalf of someone else
-    is_behalf = any(kw in lower for kw in [
-        "on behalf", "filing this for", "forwarding this from",
-        "forwarding this", "guest", "contractor", "auxiliary",
-    ])
+    is_behalf = any(
+        kw in lower
+        for kw in [
+            "on behalf",
+            "filing this for",
+            "forwarding this from",
+            "forwarding this",
+            "guest",
+            "contractor",
+            "auxiliary",
+        ]
+    )
 
-    filing_for_other = any(kw in lower for kw in [
-        "on behalf", "filing this for", "filing for a",
-        "can't log in to file", "forwarding this from",
-    ])
+    filing_for_other = any(
+        kw in lower
+        for kw in [
+            "on behalf",
+            "filing this for",
+            "filing for a",
+            "can't log in to file",
+            "forwarding this from",
+        ]
+    )
 
     # Outage / widespread issue
-    is_outage = any(kw in lower for kw in [
-        "outage", "down since", "went down",
-        "everyone", "100+", "whole department",
-    ])
+    is_outage = any(
+        kw in lower
+        for kw in [
+            "outage",
+            "down since",
+            "went down",
+            "everyone",
+            "100+",
+            "whole department",
+        ]
+    )
 
     # Has precise sector/location coordinates
-    has_precise_location = any(kw in lower for kw in [
-        "sector ", "bay ", "room ", "corridor ", "coordinates",
-    ])
+    has_precise_location = any(
+        kw in lower
+        for kw in [
+            "sector ",
+            "bay ",
+            "room ",
+            "corridor ",
+            "coordinates",
+        ]
+    )
 
     # Has device model/version details
-    has_device_detail = any(kw in lower for kw in [
-        "model", "serial", "firmware", "build number",
-        "mk-", "gen-", "type-", "series",
-    ])
+    has_device_detail = any(
+        kw in lower
+        for kw in [
+            "model",
+            "serial",
+            "firmware",
+            "build number",
+            "mk-",
+            "gen-",
+            "type-",
+            "series",
+        ]
+    )
 
     # Has stardate or precise timestamp
     has_stardate = "stardate" in lower
 
     # Has specific biometric method named (but NOT in a negated context)
-    _bio_keywords_present = any(kw in lower for kw in [
-        "retinal", "neural key", "palm scan", "fingerprint",
-        "voice auth", "iris", "neural-key", "palm-scan",
-    ])
-    _bio_uncertain = any(kw in lower for kw in [
-        "not sure which", "not sure exactly which",
-        "whatever pops up", "don't know which",
-        "either", "whichever",
-    ])
+    _bio_keywords_present = any(
+        kw in lower
+        for kw in [
+            "retinal",
+            "neural key",
+            "palm scan",
+            "fingerprint",
+            "voice auth",
+            "iris",
+            "neural-key",
+            "palm-scan",
+        ]
+    )
+    _bio_uncertain = any(
+        kw in lower
+        for kw in [
+            "not sure which",
+            "not sure exactly which",
+            "whatever pops up",
+            "don't know which",
+            "either",
+            "whichever",
+        ]
+    )
     has_bio_detail = _bio_keywords_present and not _bio_uncertain
 
     # Auth/login issue
-    is_auth_issue = any(kw in lower for kw in [
-        "login", "log in", "sign-in", "sign in", "sso", "saml",
-        "authentication", "authenticate", "locked out", "lockout",
-        "biometric", "bioscan", "mfbv", "credential", "password",
-        "access denied", "multi-factor", "802.1x",
-        "access code", "service account",
-    ])
+    is_auth_issue = any(
+        kw in lower
+        for kw in [
+            "login",
+            "log in",
+            "sign-in",
+            "sign in",
+            "sso",
+            "saml",
+            "authentication",
+            "authenticate",
+            "locked out",
+            "lockout",
+            "biometric",
+            "bioscan",
+            "mfbv",
+            "credential",
+            "password",
+            "access denied",
+            "multi-factor",
+            "802.1x",
+            "access code",
+            "service account",
+        ]
+    )
 
     # Specific subsystem named
-    has_subsystem_named = any(kw in lower for kw in [
-        "rf mesh", "subspace relay", "signal barrier", "wan",
-        "dns", "hermes", "rdp", "fabricator", "comm relay",
-        "beacon", "nav-client", "hypernet", "intracomm",
-        "comm panel", "aether",
-    ])
+    has_subsystem_named = any(
+        kw in lower
+        for kw in [
+            "rf mesh",
+            "subspace relay",
+            "signal barrier",
+            "wan",
+            "dns",
+            "hermes",
+            "rdp",
+            "fabricator",
+            "comm relay",
+            "beacon",
+            "nav-client",
+            "hypernet",
+            "intracomm",
+            "comm panel",
+            "aether",
+        ]
+    )
 
     # Remote/off-ship
-    is_remote = any(kw in lower for kw in [
-        "outpost", "off-ship", "remote station", "mining",
-        "asteroid", "substation", "kepler",
-    ])
+    is_remote = any(
+        kw in lower
+        for kw in [
+            "outpost",
+            "off-ship",
+            "remote station",
+            "mining",
+            "asteroid",
+            "substation",
+            "kepler",
+        ]
+    )
 
     # Working from home / remote access
-    is_home_access = any(kw in lower for kw in [
-        "from home", "home connection", "coffee shop",
-        "home network", "personal network",
-    ])
+    is_home_access = any(
+        kw in lower
+        for kw in [
+            "from home",
+            "home connection",
+            "coffee shop",
+            "home network",
+            "personal network",
+        ]
+    )
 
     # Impact mentioned
-    mentions_impact = any(kw in lower for kw in [
-        "mission critical", "sla", "breach", "deadline", "quarter-end",
-        "trading", "operations impacted", "blocking",
-        "financial penalties", "compliance",
-    ])
+    mentions_impact = any(
+        kw in lower
+        for kw in [
+            "mission critical",
+            "sla",
+            "breach",
+            "deadline",
+            "quarter-end",
+            "trading",
+            "operations impacted",
+            "blocking",
+            "financial penalties",
+            "compliance",
+        ]
+    )
 
     # Has screenshot/attachment
-    has_attachment = any(kw in lower for kw in [
-        "screenshot", "attached", "attachment", "<img",
-        "sensor log", "log dump", "photo",
-    ])
+    has_attachment = any(
+        kw in lower
+        for kw in [
+            "screenshot",
+            "attached",
+            "attachment",
+            "<img",
+            "sensor log",
+            "log dump",
+            "photo",
+        ]
+    )
 
     # Tried to capture evidence but failed
-    tried_capture_failed = any(kw in lower for kw in [
-        "tried to screenshot", "tried taking a screenshot",
-        "closed the tab before saving", "before saving the result",
-        "didn't capture", "couldn't capture",
-        "didn't think to capture", "can't describe the exact error",
-    ])
+    tried_capture_failed = any(
+        kw in lower
+        for kw in [
+            "tried to screenshot",
+            "tried taking a screenshot",
+            "closed the tab before saving",
+            "before saving the result",
+            "didn't capture",
+            "couldn't capture",
+            "didn't think to capture",
+            "can't describe the exact error",
+        ]
+    )
 
     # Voicemail / transcription (low quality info, needs more details)
-    is_transcription = any(kw in lower for kw in [
-        "voictransmission", "transcription", "transcribed",
-        "auto-transcribed", "comm link transcript",
-    ])
+    is_transcription = any(
+        kw in lower
+        for kw in [
+            "voictransmission",
+            "transcription",
+            "transcribed",
+            "auto-transcribed",
+            "comm link transcript",
+        ]
+    )
 
     # Partial access (some things work, others don't)
-    is_partial_access = any(kw in lower for kw in [
-        "other cadetal tools", "other modules", "other sites",
-        "most cadetal sites", "some fine", "just times out",
-        "works fine when", "other apps", "other cadetal",
-    ]) and any(kw in lower for kw in [
-        "times out", "doesn't work", "just this one",
-        "just times out", "can't access",
-    ])
+    is_partial_access = any(
+        kw in lower
+        for kw in [
+            "other cadetal tools",
+            "other modules",
+            "other sites",
+            "most cadetal sites",
+            "some fine",
+            "just times out",
+            "works fine when",
+            "other apps",
+            "other cadetal",
+        ]
+    ) and any(
+        kw in lower
+        for kw in [
+            "times out",
+            "doesn't work",
+            "just this one",
+            "just times out",
+            "can't access",
+        ]
+    )
 
     # Multiple people affected
-    multi_affected = any(kw in lower for kw in [
-        "100+", "multiple crew", "everyone", "whole department",
-        "entire team", "all crew", "team of", "about 12",
-        "number of crew", "crew members on deck",
-    ])
+    multi_affected = any(
+        kw in lower
+        for kw in [
+            "100+",
+            "multiple crew",
+            "everyone",
+            "whole department",
+            "entire team",
+            "all crew",
+            "team of",
+            "about 12",
+            "number of crew",
+            "crew members on deck",
+        ]
+    )
 
     # Provisioning/group request (not authentication failure)
-    is_provisioning = any(kw in lower for kw in [
-        "new security group", "distribution group", "new broadcast",
-        "provisioning", "provision the", "get access to",
-        "read access", "permissions",
-    ])
+    is_provisioning = any(
+        kw in lower
+        for kw in [
+            "new security group",
+            "distribution group",
+            "new broadcast",
+            "provisioning",
+            "provision the",
+            "get access to",
+            "read access",
+            "permissions",
+        ]
+    )
 
     # Setup/how-to request
-    is_setup = any(kw in lower for kw in [
-        "setup instructions", "set up", "how to",
-        "instructions", "guide",
-    ])
+    is_setup = any(
+        kw in lower
+        for kw in [
+            "setup instructions",
+            "set up",
+            "how to",
+            "instructions",
+            "guide",
+        ]
+    )
 
     # Has error details quoted
-    has_error_detail = any(kw in lower for kw in [
-        "error code", "error message:", "status code",
-        "'error", '"error',
-    ])
+    has_error_detail = any(
+        kw in lower
+        for kw in [
+            "error code",
+            "error message:",
+            "status code",
+            "'error",
+            '"error',
+        ]
+    )
 
     # Vague timing ("about two weeks ago", "a few days ago")
-    has_vague_timing = any(kw in lower for kw in [
-        "about two weeks", "a few days", "a few weeks",
-        "last week", "last night", "can't pinpoint",
-        "don't remember when", "started a while",
-    ])
+    has_vague_timing = any(
+        kw in lower
+        for kw in [
+            "about two weeks",
+            "a few days",
+            "a few weeks",
+            "last week",
+            "last night",
+            "can't pinpoint",
+            "don't remember when",
+            "started a while",
+        ]
+    )
 
     # User explicitly says they don't know version
-    missing_version = any(kw in lower for kw in [
-        "don't know the exact version", "not sure which version",
-        "don't know the version", "outdated",
-    ])
+    missing_version = any(
+        kw in lower
+        for kw in [
+            "don't know the exact version",
+            "not sure which version",
+            "don't know the version",
+            "outdated",
+        ]
+    )
 
     # Auth certificate issue
-    is_cert_auth = any(kw in lower for kw in [
-        "certificate", "802.1x", "security certificate",
-    ])
+    is_cert_auth = any(
+        kw in lower
+        for kw in [
+            "certificate",
+            "802.1x",
+            "security certificate",
+        ]
+    )
 
     # Contact info missing for the third party
-    missing_contact = any(kw in lower for kw in [
-        "don't have their comm", "don't have another way",
-        "no comm frequency", "no crew member id",
-        "don't have reliable subspace", "subspace callback",
-    ])
+    missing_contact = any(
+        kw in lower
+        for kw in [
+            "don't have their comm",
+            "don't have another way",
+            "no comm frequency",
+            "no crew member id",
+            "don't have reliable subspace",
+            "subspace callback",
+        ]
+    )
 
     # Domain/environment issue
-    is_domain_env = any(kw in lower for kw in [
-        "contoso-legacy", "old domain", "domain",
-        "network switch",
-    ])
+    is_domain_env = any(
+        kw in lower
+        for kw in [
+            "contoso-legacy",
+            "old domain",
+            "domain",
+            "network switch",
+        ]
+    )
 
     # SSO/redirect issue
-    is_sso_redirect = any(kw in lower for kw in [
-        "sso portal", "sso redirect", "redirect",
-        "login beacon", "redirect fails",
-    ])
+    is_sso_redirect = any(
+        kw in lower
+        for kw in [
+            "sso portal",
+            "sso redirect",
+            "redirect",
+            "login beacon",
+            "redirect fails",
+        ]
+    )
 
     # Long verbose description with little technical detail
     desc_length = len(lower)
     is_verbose_vague = desc_length > 600 and not has_error_detail
 
     # Software/client mentioned
-    has_software_mention = any(kw in lower for kw in [
-        "relay client", "starprotect", "update", "patch",
-        "client was updated", "updated last", "nav-client",
-    ])
+    has_software_mention = any(
+        kw in lower
+        for kw in [
+            "relay client",
+            "starprotect",
+            "update",
+            "patch",
+            "client was updated",
+            "updated last",
+            "nav-client",
+        ]
+    )
 
     # ── Scoring per category ─────────────────────────────────────────
 
@@ -1023,10 +1609,16 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             ar += 1.5
         if is_transcription:
             ar += 1.5  # transcriptions often lack specific error details
-        if any(kw in lower for kw in [
-            "didn't capture", "couldn't capture", "no error",
-            "without an error", "can't describe",
-        ]):
+        if any(
+            kw in lower
+            for kw in [
+                "didn't capture",
+                "couldn't capture",
+                "no error",
+                "without an error",
+                "can't describe",
+            ]
+        ):
             ar += 2.0
         if has_error_detail:
             ar -= 3.0
@@ -1049,11 +1641,20 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             sc2 += 3.5
         if is_dns_change:
             sc2 += 2.0
-        if any(kw in lower for kw in [
-            "signal barrier", "rule request", "failover",
-            "sd-interstation", "dns", "site-to-site",
-            "interconnection", "tunnel", "supplier",
-        ]):
+        if any(
+            kw in lower
+            for kw in [
+                "signal barrier",
+                "rule request",
+                "failover",
+                "sd-interstation",
+                "dns",
+                "site-to-site",
+                "interconnection",
+                "tunnel",
+                "supplier",
+            ]
+        ):
             sc2 += 0.5
         if "configuration" in lower or "config" in lower:
             sc2 -= 0.5
@@ -1087,9 +1688,17 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             ms += 3.0
         if is_roaming and not has_device_detail:
             ms += 3.0  # roaming needs device model/capabilities
-        if any(kw in lower for kw in [
-            "fabricator", "relay unit", "beacon",
-        ]) and not has_device_detail:
+        if (
+            any(
+                kw in lower
+                for kw in [
+                    "fabricator",
+                    "relay unit",
+                    "beacon",
+                ]
+            )
+            and not has_device_detail
+        ):
             ms += 1.0
         if any(kw in lower for kw in ["rdp", "remote desktop"]) and not has_device_detail:
             ms += 1.5  # RDP issues may need client device info
@@ -1105,10 +1714,17 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         rp = 0.0
         if is_recurring:
             rp += 3.5
-        if any(kw in lower for kw in [
-            "every ", "pattern:", "frequency:", "intervals of",
-            "minute at a time", "about a minute",
-        ]):
+        if any(
+            kw in lower
+            for kw in [
+                "every ",
+                "pattern:",
+                "frequency:",
+                "intervals of",
+                "minute at a time",
+                "about a minute",
+            ]
+        ):
             rp -= 0.5  # some pattern described but may need more
         if not is_recurring:
             rp -= 5.0
@@ -1132,10 +1748,20 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             sl += 4.0
         if has_software_mention and not has_attachment:
             sl += 1.5
-        if any(kw in lower for kw in [
-            "nav-client", "edge", "policy", "refresh",
-            "speed test", "traceroute",
-        ]) and not has_attachment:
+        if (
+            any(
+                kw in lower
+                for kw in [
+                    "nav-client",
+                    "edge",
+                    "policy",
+                    "refresh",
+                    "speed test",
+                    "traceroute",
+                ]
+            )
+            and not has_attachment
+        ):
             sl += 1.5
         if is_transcription and not has_attachment:
             sl += 0.5  # transcriptions may benefit from logs
@@ -1149,9 +1775,15 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         cc = 0.0
         if missing_contact:
             cc += 4.0
-        if is_behalf and any(kw in lower for kw in [
-            "guest", "auxiliary", "contractor", "visitor",
-        ]):
+        if is_behalf and any(
+            kw in lower
+            for kw in [
+                "guest",
+                "auxiliary",
+                "contractor",
+                "visitor",
+            ]
+        ):
             cc += 2.0
         if not is_behalf and not filing_for_other:
             cc -= 5.0
@@ -1201,10 +1833,16 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         bm = 0.0
         if is_cert_auth and is_auth_issue:
             bm += 2.5
-        if any(kw in lower for kw in [
-            "not sure if", "which method", "user certificate",
-            "machine certificate", "802.1x",
-        ]):
+        if any(
+            kw in lower
+            for kw in [
+                "not sure if",
+                "which method",
+                "user certificate",
+                "machine certificate",
+                "802.1x",
+            ]
+        ):
             bm += 2.0
         if has_bio_detail:
             bm -= 5.0
@@ -1240,9 +1878,16 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             s2r += 3.0  # some work some don't → need steps
         if not has_subsystem_named and is_connectivity and not is_auth_issue:
             s2r += 0.5
-        if any(kw in lower for kw in [
-            "times out", "just times out",
-        ]) and not has_subsystem_named:
+        if (
+            any(
+                kw in lower
+                for kw in [
+                    "times out",
+                    "just times out",
+                ]
+            )
+            and not has_subsystem_named
+        ):
             s2r += 1.0
         if has_subsystem_named and not is_partial_access:
             s2r -= 3.0
@@ -1255,27 +1900,56 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             bm += 2.5
         if _bio_uncertain:
             bm += 3.0  # explicitly uncertain about method
-        if any(kw in lower for kw in [
-            "sign-in", "login", "log in", "authenticate", "locked out",
-            "multi-factor", "mfbv", "bioscan", "biometric",
-            "authentication failed", "authentication failure",
-            "service account", "access code",
-        ]) and not has_bio_detail:
+        if (
+            any(
+                kw in lower
+                for kw in [
+                    "sign-in",
+                    "login",
+                    "log in",
+                    "authenticate",
+                    "locked out",
+                    "multi-factor",
+                    "mfbv",
+                    "bioscan",
+                    "biometric",
+                    "authentication failed",
+                    "authentication failure",
+                    "service account",
+                    "access code",
+                ]
+            )
+            and not has_bio_detail
+        ):
             bm += 1.0
         if has_bio_detail:
             bm -= 5.0
-        if is_provisioning and not any(kw in lower for kw in [
-            "multi-factor", "biometric", "mfbv", "auth exemption",
-        ]):
+        if is_provisioning and not any(
+            kw in lower
+            for kw in [
+                "multi-factor",
+                "biometric",
+                "mfbv",
+                "auth exemption",
+            ]
+        ):
             bm -= 3.0
         if is_setup and not is_followup:
             bm -= 2.0
         if is_sso_redirect and not _bio_uncertain:
             bm -= 1.5
-        if is_verbose_vague and not any(kw in lower for kw in [
-            "sign-in", "login", "biometric", "mfbv", "authenticate",
-            "access code", "service account",
-        ]):
+        if is_verbose_vague and not any(
+            kw in lower
+            for kw in [
+                "sign-in",
+                "login",
+                "biometric",
+                "mfbv",
+                "authenticate",
+                "access code",
+                "service account",
+            ]
+        ):
             bm -= 2.0
         scores["biometric_method"] = bm
 
@@ -1283,10 +1957,21 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         ms = 0.0
         if is_hardware and not has_device_detail:
             ms += 3.0
-        if any(kw in lower for kw in [
-            "terminal", "wrist-com", "console", "device",
-            "scanner", "reader", "crew console",
-        ]) and not has_device_detail:
+        if (
+            any(
+                kw in lower
+                for kw in [
+                    "terminal",
+                    "wrist-com",
+                    "console",
+                    "device",
+                    "scanner",
+                    "reader",
+                    "crew console",
+                ]
+            )
+            and not has_device_detail
+        ):
             ms += 1.0
         if has_device_detail:
             ms -= 5.0
@@ -1304,10 +1989,16 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             ar += 2.5  # long description but no technical detail
         if is_sso_redirect:
             ar += 2.0  # redirect without error
-        if any(kw in lower for kw in [
-            "without an error", "no error", "didn't capture",
-            "can't describe", "not sure what error",
-        ]):
+        if any(
+            kw in lower
+            for kw in [
+                "without an error",
+                "no error",
+                "didn't capture",
+                "can't describe",
+                "not sure what error",
+            ]
+        ):
             ar += 2.0
         if is_auth_issue and not has_error_detail and not is_provisioning:
             ar += 1.0
@@ -1321,13 +2012,27 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         psi = 0.0
         if is_followup and not has_past_ref:
             psi += 3.5
-        if any(kw in lower for kw in [
-            "same issue", "same problem", "same glitch",
-            "happened before", "reported before", "back again",
-            "still happening", "last time", "same error",
-            "going back and forth", "for weeks",
-            "same sign-in", "same authentication",
-        ]) and not has_past_ref:
+        if (
+            any(
+                kw in lower
+                for kw in [
+                    "same issue",
+                    "same problem",
+                    "same glitch",
+                    "happened before",
+                    "reported before",
+                    "back again",
+                    "still happening",
+                    "last time",
+                    "same error",
+                    "going back and forth",
+                    "for weeks",
+                    "same sign-in",
+                    "same authentication",
+                ]
+            )
+            and not has_past_ref
+        ):
             psi += 1.0
         if has_past_ref:
             psi -= 5.0
@@ -1383,9 +2088,14 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         ac = 0.0
         if multi_affected:
             ac += 3.0
-        if is_provisioning and any(kw in lower for kw in [
-            "12 people", "about 12", "number of",
-        ]):
+        if is_provisioning and any(
+            kw in lower
+            for kw in [
+                "12 people",
+                "about 12",
+                "number of",
+            ]
+        ):
             ac += 1.0
         if not multi_affected and not is_provisioning:
             ac -= 4.0
@@ -1399,11 +2109,22 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             asub += 2.0
         if has_subsystem_named:
             asub -= 1.0
-        if is_auth_issue and not any(kw in lower for kw in [
-            "sso", "saml", "biometric", "mfbv", "crew profile",
-            "security group", "portal", "atlas archive",
-            "bioscan", "sign-in", "credential",
-        ]):
+        if is_auth_issue and not any(
+            kw in lower
+            for kw in [
+                "sso",
+                "saml",
+                "biometric",
+                "mfbv",
+                "crew profile",
+                "security group",
+                "portal",
+                "atlas archive",
+                "bioscan",
+                "sign-in",
+                "credential",
+            ]
+        ):
             asub += 1.5
         if is_provisioning:
             asub -= 2.0
@@ -1415,10 +2136,17 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             hc += 3.0
         if is_domain_env:
             hc += 3.0  # domain/environment mismatch
-        if any(kw in lower for kw in [
-            "outpost", "off-ship", "mining", "asteroid",
-            "contoso-legacy", "old domain",
-        ]):
+        if any(
+            kw in lower
+            for kw in [
+                "outpost",
+                "off-ship",
+                "mining",
+                "asteroid",
+                "contoso-legacy",
+                "old domain",
+            ]
+        ):
             hc += 1.0
         if not is_remote and not is_domain_env:
             hc -= 4.0
@@ -1426,13 +2154,27 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
 
         # ── software_version ──
         sv = 0.0
-        if is_setup and any(kw in lower for kw in [
-            "outdated", "current guide",
-        ]):
+        if is_setup and any(
+            kw in lower
+            for kw in [
+                "outdated",
+                "current guide",
+            ]
+        ):
             sv += 4.0  # asking for setup with outdated info
-        if any(kw in lower for kw in [
-            "sso", "saml", "portal", "app",
-        ]) and "version" not in lower and not is_sso_redirect:
+        if (
+            any(
+                kw in lower
+                for kw in [
+                    "sso",
+                    "saml",
+                    "portal",
+                    "app",
+                ]
+            )
+            and "version" not in lower
+            and not is_sso_redirect
+        ):
             sv += 1.0
         if has_device_detail:
             sv -= 1.0
@@ -1471,6 +2213,7 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
 
 
 # ── Main entry point ──────────────────────────────────────────────────
+
 
 def classify_by_rules(
     subject: str,

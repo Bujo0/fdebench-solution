@@ -7,10 +7,10 @@ from pathlib import Path
 
 # Add the app to the path
 app_dir = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(app_dir.parent.parent.parent))  # py/ directory
-sys.path.insert(0, str(app_dir))
+sys.path.insert(0, str(app_dir.parent.parent.parent))  # py/ directory  # noqa: TID251
+sys.path.insert(0, str(app_dir))  # noqa: TID251
 
-from services.triage_rules import classify_by_rules
+from services.triage_rules import classify_by_rules  # noqa: E402
 
 EDGE_CASES = app_dir / "synthetic" / "triage_edge_cases.json"
 GOLD_LABELS = app_dir / "synthetic" / "triage_edge_cases_gold.json"
@@ -53,20 +53,24 @@ def main():
             if predicted[f] == gold[f]:
                 correct[f] += 1
             else:
-                ticket_failures.append({
-                    "field": f,
-                    "predicted": predicted[f],
-                    "gold": gold[f],
-                })
+                ticket_failures.append(
+                    {
+                        "field": f,
+                        "predicted": predicted[f],
+                        "gold": gold[f],
+                    }
+                )
 
         if ticket_failures:
-            failures.append({
-                "ticket_id": tid,
-                "subject": sig["subject"],
-                "rationale": gold.get("rationale", ""),
-                "errors": ticket_failures,
-                "confidence": round(result.confidence, 3),
-            })
+            failures.append(
+                {
+                    "ticket_id": tid,
+                    "subject": sig["subject"],
+                    "rationale": gold.get("rationale", ""),
+                    "errors": ticket_failures,
+                    "confidence": round(result.confidence, 3),
+                }
+            )
 
     # Print summary
     print("=" * 72)
@@ -80,7 +84,7 @@ def main():
         print(f"  {f:25s}  {correct[f]:2d}/{total}  ({pct:5.1f}%)")
 
     all_correct = total - len(failures)
-    print(f"\n  {'ALL FIELDS CORRECT':25s}  {all_correct:2d}/{total}  ({all_correct/total*100:5.1f}%)")
+    print(f"\n  {'ALL FIELDS CORRECT':25s}  {all_correct:2d}/{total}  ({all_correct / total * 100:5.1f}%)")
 
     # Failures by category group
     groups = {
@@ -126,7 +130,7 @@ def main():
                 print(f"    Rationale: {rat[:100]}")
                 if len(rat) > 100:
                     for i in range(100, len(rat), 100):
-                        print(f"              {rat[i:i+100]}")
+                        print(f"              {rat[i : i + 100]}")
 
     print("\n" + "=" * 72)
     print("VULNERABILITY SUMMARY — Fields the hidden eval may exploit")
@@ -137,9 +141,7 @@ def main():
     for fail in failures:
         for err in fail["errors"]:
             key = err["field"]
-            vuln_types.setdefault(key, []).append(
-                f"{fail['ticket_id']}: {err['predicted']!r} → {err['gold']!r}"
-            )
+            vuln_types.setdefault(key, []).append(f"{fail['ticket_id']}: {err['predicted']!r} → {err['gold']!r}")
 
     for field, examples in sorted(vuln_types.items(), key=lambda x: -len(x[1])):
         print(f"\n  {field} ({len(examples)} failures):")

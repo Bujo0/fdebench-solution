@@ -20,19 +20,25 @@ import asyncio
 import json
 import logging
 import os
+import signal
+import socket
 import subprocess
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 # Add libraries to the import path
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
-sys.path.insert(0, str(_REPO_ROOT / "common" / "libs" / "fdebenchkit" / "src"))
-sys.path.insert(0, str(_REPO_ROOT / "common" / "libs" / "models" / "src"))
+sys.path.insert(0, str(_REPO_ROOT / "common" / "libs" / "fdebenchkit" / "src"))  # noqa: TID251
+sys.path.insert(0, str(_REPO_ROOT / "common" / "libs" / "models" / "src"))  # noqa: TID251
 
-from ms.common.fdebenchkit.runner import run_scoring, ScoringResult, PreflightValidationError
-from ms.common.fdebenchkit.registry import get_task_definition, TaskRun
+from ms.common.fdebenchkit.registry import TaskRun  # noqa: E402
+from ms.common.fdebenchkit.registry import get_task_definition  # noqa: E402
+from ms.common.fdebenchkit.runner import PreflightValidationError  # noqa: E402
+from ms.common.fdebenchkit.runner import ScoringResult  # noqa: E402
+from ms.common.fdebenchkit.runner import run_scoring  # noqa: E402
 
 logging.basicConfig(
     level=logging.INFO,
@@ -80,7 +86,6 @@ _RESULTS_DIR = Path(__file__).resolve().parent / "results"
 
 def _port_in_use(port: int) -> bool:
     """Check if a port is already in use."""
-    import socket
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         return s.connect_ex(("127.0.0.1", port)) == 0
 
@@ -96,14 +101,13 @@ def _start_mock_service() -> subprocess.Popen | None:
         return None
 
     logger.info("Starting mock tool service on port %d ...", _MOCK_SERVICE_PORT)
-    import signal
+
     proc = subprocess.Popen(
         [sys.executable, str(_MOCK_SERVICE_SCRIPT), "--port", str(_MOCK_SERVICE_PORT)],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.PIPE,
     )
     # Wait for the server to be ready (up to 5 seconds)
-    import time
     for _ in range(50):
         if _port_in_use(_MOCK_SERVICE_PORT):
             logger.info("Mock tool service ready")
@@ -117,7 +121,7 @@ def _stop_mock_service(proc: subprocess.Popen | None) -> None:
     """Gracefully shut down the mock service subprocess."""
     if proc is None:
         return
-    import signal
+
     proc.send_signal(signal.SIGTERM)
     try:
         proc.wait(timeout=3)
@@ -246,7 +250,11 @@ def _print_summary(
     print("  Per-Task Scores")
     print("-" * w)
     for task in result.task_scores:
-        print(f"  {task.label:30s}  {task.tier1_score:6.1f}  (R:{task.resolution:5.1f} E:{task.efficiency_score:5.1f} Ro:{task.robustness_score:5.1f})")
+        print(
+            f"  {task.label:30s}  {task.tier1_score:6.1f}  "
+            f"(R:{task.resolution:5.1f} E:{task.efficiency_score:5.1f} "
+            f"Ro:{task.robustness_score:5.1f})"
+        )
     print()
     print("=" * w)
 

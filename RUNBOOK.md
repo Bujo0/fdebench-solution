@@ -356,7 +356,7 @@ python experiments/run_experiment.py \
   --endpoint http://localhost:8000
 ```
 
-**Expected output**: 
+**Expected output**:
 - Experiment results saved to `experiments/results/baseline.json`
 - Performance metrics printed to console
 
@@ -431,13 +431,13 @@ Before submitting to the FDE Hackathon, verify all requirements:
   - `recommended_actions` (array)
   - `reasoning` (string)
   - `reasoning_steps` (array)
-  
+
 - [ ] **POST /extract** returns valid JSON with required fields:
   - `document_id` (string)
   - `extracted_data` (object)
   - `confidence_scores` (object)
   - `processing_time_ms` (number)
-  
+
 - [ ] **POST /orchestrate** returns valid JSON with required fields:
   - `task_id` (string)
   - `status` (running/completed/failed)

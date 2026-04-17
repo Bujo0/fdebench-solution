@@ -6,22 +6,23 @@ Architecture: rules-first fast path, LLM fallback for low-confidence cases.
 
 import logging
 
-from fastapi import APIRouter, Response
-
+import state
+from fastapi import APIRouter
+from fastapi import Response
 from llm_client import complete
-from models import Category, MissingInfo, Team, TriageRequest, TriageResponse
+from models import Category
+from models import MissingInfo
+from models import Team
+from models import TriageRequest
+from models import TriageResponse
 from prompts.triage_prompt import TRIAGE_SYSTEM_PROMPT
 from services.triage_rules import classify_by_rules
-from services.triage_service import (
-    TriageLLMResponse,
-    match_category,
-    match_missing_info,
-    match_team,
-    validate_category_team,
-)
+from services.triage_service import TriageLLMResponse
+from services.triage_service import match_category
+from services.triage_service import match_missing_info
+from services.triage_service import match_team
+from services.triage_service import validate_category_team
 from utils import display_model
-
-import state
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -43,14 +44,18 @@ async def triage(req: TriageRequest, response: Response) -> TriageResponse:
 
     # ── Fast path: deterministic rules (<10ms) ──
     rules_result = classify_by_rules(
-        req.subject, req.description,
-        req.reporter.department, req.channel,
+        req.subject,
+        req.description,
+        req.reporter.department,
+        req.channel,
     )
 
     if rules_result.confidence >= _RULES_CONFIDENCE_THRESHOLD:
         logger.info(
             "Rules fast-path for %s: %s/%s (conf=%.2f)",
-            req.ticket_id, rules_result.category, rules_result.priority,
+            req.ticket_id,
+            rules_result.category,
+            rules_result.priority,
             rules_result.confidence,
         )
         return TriageResponse(
@@ -71,7 +76,9 @@ async def triage(req: TriageRequest, response: Response) -> TriageResponse:
     fallback_model = "gpt-5-4"  # Stronger model for ambiguous items
     logger.info(
         "LLM fallback for %s (rules conf=%.2f) using %s",
-        req.ticket_id, rules_result.confidence, fallback_model,
+        req.ticket_id,
+        rules_result.confidence,
+        fallback_model,
     )
     try:
         user_content = f"""<signal>
@@ -108,9 +115,12 @@ Channel: {req.channel}
         # De-escalation: exploratory/uncertain signals should not escalate
         desc_lower = req.description.lower()
         subj_lower = req.subject.lower()
-        if "may be nothing" in desc_lower or "may be nothing" in subj_lower:
-            if priority != "P1" and category != Category.THREAT:
-                needs_escalation = False
+        if (
+            ("may be nothing" in desc_lower or "may be nothing" in subj_lower)
+            and priority != "P1"
+            and category != Category.THREAT
+        ):
+            needs_escalation = False
 
         return TriageResponse(
             ticket_id=req.ticket_id,

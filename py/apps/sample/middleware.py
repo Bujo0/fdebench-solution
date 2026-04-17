@@ -21,12 +21,11 @@ async def error_handling_middleware(request: Request, call_next):
         content_type = request.headers.get("content-type", "")
         body = await request.body()
 
-        if "json" in content_type or "text/plain" in content_type or not content_type:
-            if body:
-                try:
-                    json.loads(body)
-                except (json.JSONDecodeError, UnicodeDecodeError):
-                    return JSONResponse(status_code=400, content={"detail": "Malformed JSON"})
+        if ("json" in content_type or "text/plain" in content_type or not content_type) and body:
+            try:
+                json.loads(body)
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                return JSONResponse(status_code=400, content={"detail": "Malformed JSON"})
 
     try:
         response = await call_next(request)

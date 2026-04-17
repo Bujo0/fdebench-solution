@@ -9,11 +9,11 @@ This module provides:
 import json
 import os
 from pathlib import Path
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock
+from unittest.mock import patch
 
 import pytest
 from fastapi.testclient import TestClient
-
 
 # Data directory relative to this file
 DATA_DIR = Path(__file__).parent.parent.parent.parent / "data"
@@ -45,7 +45,7 @@ def client():
         mock_aoai_class.return_value = mock_client
 
         # Import app after mocking
-        from main import app
+        from main import app  # noqa: PLC0415
 
         return TestClient(app)
 

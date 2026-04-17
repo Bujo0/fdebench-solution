@@ -6,14 +6,15 @@ import logging
 import re
 from datetime import datetime
 
-from fastapi import APIRouter, Response
-
-from llm_client import complete_with_vision
-from models import ExtractRequest, ExtractResponse
-from prompts.extract_prompt import EXTRACT_SYSTEM_PROMPT
-from utils import display_model, parse_json_response
-
 import state
+from fastapi import APIRouter
+from fastapi import Response
+from llm_client import complete_with_vision
+from models import ExtractRequest
+from models import ExtractResponse
+from prompts.extract_prompt import EXTRACT_SYSTEM_PROMPT
+from utils import display_model
+from utils import parse_json_response
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -35,8 +36,14 @@ _DATE_PATTERNS = [
 
 # Fields known to contain dates (by naming convention)
 _DATE_FIELD_NAMES = {
-    "weekStartDate", "startDate", "endDate", "date",
-    "taxDateEnd", "taxDateStart", "start", "end",
+    "weekStartDate",
+    "startDate",
+    "endDate",
+    "date",
+    "taxDateEnd",
+    "taxDateStart",
+    "start",
+    "end",
 }
 
 
@@ -74,9 +81,7 @@ def _postprocess_dates(data: dict, schema_str: str) -> dict:
         if field in _DATE_FIELD_NAMES:
             return True
         # Normalize if field name ends with "Date"
-        if field.endswith("Date") or field.endswith("_date"):
-            return True
-        return False
+        return bool(field.endswith("Date") or field.endswith("_date"))
 
     def _normalize_recursive(obj: dict | list, props: dict) -> dict | list:
         if isinstance(obj, dict):
@@ -92,7 +97,9 @@ def _postprocess_dates(data: dict, schema_str: str) -> dict:
                     item_spec = spec.get("items", {})
                     if item_spec.get("type") == "object":
                         sub_props = item_spec.get("properties", {})
-                        result[k] = [_normalize_recursive(item, sub_props) if isinstance(item, dict) else item for item in v]
+                        result[k] = [
+                            _normalize_recursive(item, sub_props) if isinstance(item, dict) else item for item in v
+                        ]
                     else:
                         result[k] = v
                 else:
@@ -133,14 +140,20 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
 
         # First attempt with content-aware timeout
         result = await _extract_with_timeout(
-            model, req.content, user_content, timeout, req.document_id, content_size,
+            model,
+            req.content,
+            user_content,
+            timeout,
+            req.document_id,
+            content_size,
         )
 
         # Retry with a truncation/speed hint if the first attempt timed out
         if result is None:
             logger.warning(
                 "Extract timeout for %s (%d bytes), retrying with truncation hint",
-                req.document_id, content_size,
+                req.document_id,
+                content_size,
             )
             user_content_retry = (
                 "Extract key fields from this document. Focus on the MOST IMPORTANT "
@@ -148,8 +161,12 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
                 f"{schema_str}"
             )
             result = await _extract_with_timeout(
-                model, req.content, user_content_retry,
-                _RETRY_TIMEOUT, req.document_id, content_size,
+                model,
+                req.content,
+                user_content_retry,
+                _RETRY_TIMEOUT,
+                req.document_id,
+                content_size,
             )
 
         if result is None:
@@ -195,6 +212,8 @@ async def _extract_with_timeout(
     except asyncio.TimeoutError:
         logger.warning(
             "Vision call timed out after %ds for %s (%d bytes)",
-            timeout, document_id, content_size,
+            timeout,
+            document_id,
+            content_size,
         )
         return None

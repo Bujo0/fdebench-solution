@@ -2,14 +2,16 @@
 
 import logging
 
-from pydantic import BaseModel
+from models import Category
+from models import MissingInfo
+from models import Team
 
-from models import Category, MissingInfo, Team
+from ms.common.models.base import FrozenBaseModel
 
 logger = logging.getLogger(__name__)
 
 
-class TriageLLMResponse(BaseModel):
+class TriageLLMResponse(FrozenBaseModel):
     """Structured-output model for triage LLM responses."""
 
     category: str
@@ -57,7 +59,12 @@ CATEGORY_VALID_TEAMS = {
     "Flight Software & Instruments": {"Mission Software Operations", "Spacecraft Systems Engineering"},
     "Threat Detection & Containment": {"Threat Response Command"},
     "Telemetry & Data Banks": {"Telemetry & Data Core"},
-    "Mission Briefing Request": {"None", "Spacecraft Systems Engineering", "Crew Identity & Airlock Control", "Mission Software Operations"},
+    "Mission Briefing Request": {
+        "None",
+        "Spacecraft Systems Engineering",
+        "Crew Identity & Airlock Control",
+        "Mission Software Operations",
+    },
     "Not a Mission Signal": {"None"},
 }
 

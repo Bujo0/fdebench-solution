@@ -4,8 +4,6 @@ These tests validate that endpoints return responses matching their declared
 schemas and contain all required fields with valid values.
 """
 
-import pytest
-
 
 class TestTriageContract:
     """Contract tests for POST /triage endpoint."""

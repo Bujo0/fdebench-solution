@@ -214,7 +214,9 @@ container_app = app.ContainerApp(
 )
 
 pulumi.export("containerAppName", container_app.name)
-pulumi.export("containerAppUrl", container_app.configuration.apply(
-    lambda config: f"https://{config.ingress.fqdn}" if config and config.ingress else ""
-))
-
+pulumi.export(
+    "containerAppUrl",
+    container_app.configuration.apply(
+        lambda config: f"https://{config.ingress.fqdn}" if config and config.ingress else ""
+    ),
+)

@@ -18,7 +18,7 @@
                 "parameters": {
                     "account_id": "ACC-0170-0"
                 },
-                "expected_result": "Renewal in 177 days \u2192 low risk",
+                "expected_result": "Renewal in 177 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -29,7 +29,7 @@
                 "parameters": {
                     "account_id": "ACC-0170-1"
                 },
-                "expected_result": "Renewal in 13 days \u2192 high risk",
+                "expected_result": "Renewal in 13 days → high risk",
                 "depends_on": [
                     1
                 ]
@@ -40,7 +40,7 @@
                 "parameters": {
                     "account_id": "ACC-0170-2"
                 },
-                "expected_result": "Renewal in 177 days \u2192 low risk",
+                "expected_result": "Renewal in 177 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -51,7 +51,7 @@
                 "parameters": {
                     "account_id": "ACC-0170-3"
                 },
-                "expected_result": "Renewal in 107 days \u2192 low risk",
+                "expected_result": "Renewal in 107 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -62,7 +62,7 @@
                 "parameters": {
                     "account_id": "ACC-0170-4"
                 },
-                "expected_result": "Renewal in 152 days \u2192 low risk",
+                "expected_result": "Renewal in 152 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -73,7 +73,7 @@
                 "parameters": {
                     "account_id": "ACC-0170-5"
                 },
-                "expected_result": "Renewal in 160 days \u2192 low risk",
+                "expected_result": "Renewal in 160 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -84,13 +84,13 @@
                 "parameters": {
                     "user_id": "lead_retention",
                     "channel": "slack",
-                    "message": "Churn risk (high): ACC-0170-1 \u2014 renewal in 13 days"
+                    "message": "Churn risk (high): ACC-0170-1 — renewal in 13 days"
                 },
                 "expected_result": "Alerted retention team",
                 "depends_on": [
                     7
                 ],
-                "condition": "Risk is high \u2192 route to retention"
+                "condition": "Risk is high → route to retention"
             },
             {
                 "step": 9,
@@ -154,7 +154,7 @@
                 "parameters": {
                     "account_id": "ACC-0306-0"
                 },
-                "expected_result": "Renewal in -6 days \u2192 high risk",
+                "expected_result": "Renewal in -6 days → high risk",
                 "depends_on": [
                     1
                 ]
@@ -165,7 +165,7 @@
                 "parameters": {
                     "account_id": "ACC-0306-1"
                 },
-                "expected_result": "Renewal in 148 days \u2192 low risk",
+                "expected_result": "Renewal in 148 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -176,13 +176,13 @@
                 "parameters": {
                     "user_id": "lead_retention",
                     "channel": "slack",
-                    "message": "Churn risk (high): ACC-0306-0 \u2014 renewal in -6 days"
+                    "message": "Churn risk (high): ACC-0306-0 — renewal in -6 days"
                 },
                 "expected_result": "Alerted retention team",
                 "depends_on": [
                     3
                 ],
-                "condition": "Risk is high \u2192 route to retention"
+                "condition": "Risk is high → route to retention"
             },
             {
                 "step": 5,
@@ -242,7 +242,7 @@
                 "parameters": {
                     "account_id": "ACC-0308-0"
                 },
-                "expected_result": "Renewal in 158 days \u2192 low risk",
+                "expected_result": "Renewal in 158 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -253,7 +253,7 @@
                 "parameters": {
                     "account_id": "ACC-0308-1"
                 },
-                "expected_result": "Renewal in 115 days \u2192 low risk",
+                "expected_result": "Renewal in 115 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -264,7 +264,7 @@
                 "parameters": {
                     "account_id": "ACC-0308-2"
                 },
-                "expected_result": "Renewal in 124 days \u2192 low risk",
+                "expected_result": "Renewal in 124 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -311,7 +311,7 @@
                 "parameters": {
                     "account_id": "ACC-0340-0"
                 },
-                "expected_result": "Renewal in 133 days \u2192 low risk",
+                "expected_result": "Renewal in 133 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -322,7 +322,7 @@
                 "parameters": {
                     "account_id": "ACC-0340-1"
                 },
-                "expected_result": "Renewal in 153 days \u2192 low risk",
+                "expected_result": "Renewal in 153 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -368,7 +368,7 @@
                 "parameters": {
                     "account_id": "ACC-0255-0"
                 },
-                "expected_result": "Renewal in 129 days \u2192 low risk",
+                "expected_result": "Renewal in 129 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -379,7 +379,7 @@
                 "parameters": {
                     "account_id": "ACC-0255-1"
                 },
-                "expected_result": "Renewal in 65 days \u2192 medium risk",
+                "expected_result": "Renewal in 65 days → medium risk",
                 "depends_on": [
                     1
                 ]
@@ -390,7 +390,7 @@
                 "parameters": {
                     "account_id": "ACC-0255-2"
                 },
-                "expected_result": "Renewal in 152 days \u2192 low risk",
+                "expected_result": "Renewal in 152 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -401,13 +401,13 @@
                 "parameters": {
                     "user_id": "lead_customer_success",
                     "channel": "slack",
-                    "message": "Churn risk (medium): ACC-0255-1 \u2014 renewal in 65 days"
+                    "message": "Churn risk (medium): ACC-0255-1 — renewal in 65 days"
                 },
                 "expected_result": "Alerted customer_success team",
                 "depends_on": [
                     4
                 ],
-                "condition": "Risk is medium \u2192 route to customer_success"
+                "condition": "Risk is medium → route to customer_success"
             },
             {
                 "step": 6,
@@ -468,7 +468,7 @@
                 "parameters": {
                     "account_id": "ACC-0369-0"
                 },
-                "expected_result": "Renewal in 136 days \u2192 low risk",
+                "expected_result": "Renewal in 136 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -479,7 +479,7 @@
                 "parameters": {
                     "account_id": "ACC-0369-1"
                 },
-                "expected_result": "Renewal in 176 days \u2192 low risk",
+                "expected_result": "Renewal in 176 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -490,7 +490,7 @@
                 "parameters": {
                     "account_id": "ACC-0369-2"
                 },
-                "expected_result": "Renewal in 54 days \u2192 medium risk",
+                "expected_result": "Renewal in 54 days → medium risk",
                 "depends_on": [
                     1
                 ]
@@ -501,7 +501,7 @@
                 "parameters": {
                     "account_id": "ACC-0369-3"
                 },
-                "expected_result": "Renewal in 104 days \u2192 low risk",
+                "expected_result": "Renewal in 104 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -512,13 +512,13 @@
                 "parameters": {
                     "user_id": "lead_customer_success",
                     "channel": "slack",
-                    "message": "Churn risk (medium): ACC-0369-2 \u2014 renewal in 54 days"
+                    "message": "Churn risk (medium): ACC-0369-2 — renewal in 54 days"
                 },
                 "expected_result": "Alerted customer_success team",
                 "depends_on": [
                     5
                 ],
-                "condition": "Risk is medium \u2192 route to customer_success"
+                "condition": "Risk is medium → route to customer_success"
             },
             {
                 "step": 7,
@@ -580,7 +580,7 @@
                 "parameters": {
                     "account_id": "ACC-0042-0"
                 },
-                "expected_result": "Renewal in 65 days \u2192 medium risk",
+                "expected_result": "Renewal in 65 days → medium risk",
                 "depends_on": [
                     1
                 ]
@@ -591,7 +591,7 @@
                 "parameters": {
                     "account_id": "ACC-0042-1"
                 },
-                "expected_result": "Renewal in 46 days \u2192 medium risk",
+                "expected_result": "Renewal in 46 days → medium risk",
                 "depends_on": [
                     1
                 ]
@@ -602,7 +602,7 @@
                 "parameters": {
                     "account_id": "ACC-0042-2"
                 },
-                "expected_result": "Renewal in 93 days \u2192 low risk",
+                "expected_result": "Renewal in 93 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -613,7 +613,7 @@
                 "parameters": {
                     "account_id": "ACC-0042-3"
                 },
-                "expected_result": "Renewal in 167 days \u2192 low risk",
+                "expected_result": "Renewal in 167 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -624,7 +624,7 @@
                 "parameters": {
                     "account_id": "ACC-0042-4"
                 },
-                "expected_result": "Renewal in 52 days \u2192 medium risk",
+                "expected_result": "Renewal in 52 days → medium risk",
                 "depends_on": [
                     1
                 ]
@@ -635,7 +635,7 @@
                 "parameters": {
                     "account_id": "ACC-0042-5"
                 },
-                "expected_result": "Renewal in 68 days \u2192 medium risk",
+                "expected_result": "Renewal in 68 days → medium risk",
                 "depends_on": [
                     1
                 ]
@@ -646,13 +646,13 @@
                 "parameters": {
                     "user_id": "lead_customer_success",
                     "channel": "slack",
-                    "message": "Churn risk (medium): ACC-0042-0 \u2014 renewal in 65 days"
+                    "message": "Churn risk (medium): ACC-0042-0 — renewal in 65 days"
                 },
                 "expected_result": "Alerted customer_success team",
                 "depends_on": [
                     7
                 ],
-                "condition": "Risk is medium \u2192 route to customer_success"
+                "condition": "Risk is medium → route to customer_success"
             },
             {
                 "step": 9,
@@ -675,13 +675,13 @@
                 "parameters": {
                     "user_id": "lead_customer_success",
                     "channel": "slack",
-                    "message": "Churn risk (medium): ACC-0042-1 \u2014 renewal in 46 days"
+                    "message": "Churn risk (medium): ACC-0042-1 — renewal in 46 days"
                 },
                 "expected_result": "Alerted customer_success team",
                 "depends_on": [
                     9
                 ],
-                "condition": "Risk is medium \u2192 route to customer_success"
+                "condition": "Risk is medium → route to customer_success"
             },
             {
                 "step": 11,
@@ -704,13 +704,13 @@
                 "parameters": {
                     "user_id": "lead_customer_success",
                     "channel": "slack",
-                    "message": "Churn risk (medium): ACC-0042-4 \u2014 renewal in 52 days"
+                    "message": "Churn risk (medium): ACC-0042-4 — renewal in 52 days"
                 },
                 "expected_result": "Alerted customer_success team",
                 "depends_on": [
                     11
                 ],
-                "condition": "Risk is medium \u2192 route to customer_success"
+                "condition": "Risk is medium → route to customer_success"
             },
             {
                 "step": 13,
@@ -733,13 +733,13 @@
                 "parameters": {
                     "user_id": "lead_customer_success",
                     "channel": "slack",
-                    "message": "Churn risk (medium): ACC-0042-5 \u2014 renewal in 68 days"
+                    "message": "Churn risk (medium): ACC-0042-5 — renewal in 68 days"
                 },
                 "expected_result": "Alerted customer_success team",
                 "depends_on": [
                     13
                 ],
-                "condition": "Risk is medium \u2192 route to customer_success"
+                "condition": "Risk is medium → route to customer_success"
             },
             {
                 "step": 15,
@@ -830,7 +830,7 @@
                     1,
                     2
                 ],
-                "condition": "Usage is low \u2192 0% discount"
+                "condition": "Usage is low → 0% discount"
             },
             {
                 "step": 4,
@@ -911,7 +911,7 @@
                     1,
                     2
                 ],
-                "condition": "Usage is high \u2192 15% discount"
+                "condition": "Usage is high → 15% discount"
             },
             {
                 "step": 4,
@@ -1007,7 +1007,7 @@
                     1,
                     2
                 ],
-                "condition": "Usage is high \u2192 15% discount"
+                "condition": "Usage is high → 15% discount"
             },
             {
                 "step": 4,
@@ -1103,7 +1103,7 @@
                     1,
                     2
                 ],
-                "condition": "Usage is low \u2192 0% discount"
+                "condition": "Usage is low → 0% discount"
             },
             {
                 "step": 4,
@@ -1184,7 +1184,7 @@
                     1,
                     2
                 ],
-                "condition": "Usage is low \u2192 0% discount"
+                "condition": "Usage is low → 0% discount"
             },
             {
                 "step": 4,
@@ -1265,7 +1265,7 @@
                     1,
                     2
                 ],
-                "condition": "Usage is medium \u2192 5% discount"
+                "condition": "Usage is medium → 5% discount"
             },
             {
                 "step": 4,
@@ -1361,7 +1361,7 @@
                     1,
                     2
                 ],
-                "condition": "Usage is low \u2192 0% discount"
+                "condition": "Usage is low → 0% discount"
             },
             {
                 "step": 4,
@@ -1421,7 +1421,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Filter-H800 affected in APAC-SOUTH \u2014 severity: high"
+                    "message": "Incident: Filter-H800 affected in APAC-SOUTH — severity: high"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -1440,7 +1440,7 @@
                 "depends_on": [
                     2
                 ],
-                "condition": "Severity is high \u2014 requires management escalation"
+                "condition": "Severity is high — requires management escalation"
             },
             {
                 "step": 4,
@@ -1512,7 +1512,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Sensor-B200 affected in EU-CENTRAL, US-EAST \u2014 severity: critical"
+                    "message": "Incident: Sensor-B200 affected in EU-CENTRAL, US-EAST — severity: critical"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -1532,7 +1532,7 @@
                 "depends_on": [
                     3
                 ],
-                "condition": "Severity is critical \u2014 requires management escalation"
+                "condition": "Severity is critical — requires management escalation"
             },
             {
                 "step": 5,
@@ -1606,7 +1606,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Cable-D400 affected in APAC-SOUTH, US-WEST \u2014 severity: low"
+                    "message": "Incident: Cable-D400 affected in APAC-SOUTH, US-WEST — severity: low"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -1695,7 +1695,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Module-C300 affected in US-EAST, US-WEST, APAC-SOUTH \u2014 severity: critical"
+                    "message": "Incident: Module-C300 affected in US-EAST, US-WEST, APAC-SOUTH — severity: critical"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -1716,7 +1716,7 @@
                 "depends_on": [
                     4
                 ],
-                "condition": "Severity is critical \u2014 requires management escalation"
+                "condition": "Severity is critical — requires management escalation"
             },
             {
                 "step": 6,
@@ -1792,7 +1792,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Valve-G700 affected in EU-CENTRAL, US-EAST \u2014 severity: high"
+                    "message": "Incident: Valve-G700 affected in EU-CENTRAL, US-EAST — severity: high"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -1812,7 +1812,7 @@
                 "depends_on": [
                     3
                 ],
-                "condition": "Severity is high \u2014 requires management escalation"
+                "condition": "Severity is high — requires management escalation"
             },
             {
                 "step": 5,
@@ -1896,7 +1896,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Valve-G700 affected in APAC-SOUTH, LATAM-NORTH, US-WEST \u2014 severity: critical"
+                    "message": "Incident: Valve-G700 affected in APAC-SOUTH, LATAM-NORTH, US-WEST — severity: critical"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -1917,7 +1917,7 @@
                 "depends_on": [
                     4
                 ],
-                "condition": "Severity is critical \u2014 requires management escalation"
+                "condition": "Severity is critical — requires management escalation"
             },
             {
                 "step": 6,
@@ -2003,7 +2003,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Filter-H800 affected in LATAM-NORTH, APAC-SOUTH, US-WEST \u2014 severity: critical"
+                    "message": "Incident: Filter-H800 affected in LATAM-NORTH, APAC-SOUTH, US-WEST — severity: critical"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -2024,7 +2024,7 @@
                 "depends_on": [
                     4
                 ],
-                "condition": "Severity is critical \u2014 requires management escalation"
+                "condition": "Severity is critical — requires management escalation"
             },
             {
                 "step": 6,
@@ -2611,7 +2611,7 @@
         },
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
@@ -2700,7 +2700,7 @@
         },
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
@@ -2748,7 +2748,7 @@
                 "parameters": {
                     "user_id": "REP-349",
                     "channel": "slack",
-                    "message": "Margie's Travel is free tier \u2014 no meetings available"
+                    "message": "Margie's Travel is free tier — no meetings available"
                 },
                 "expected_result": "Rep notified",
                 "depends_on": [
@@ -2788,7 +2788,7 @@
         },
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
@@ -2836,7 +2836,7 @@
                 "parameters": {
                     "user_id": "REP-530",
                     "channel": "slack",
-                    "message": "Coho Vineyard is free tier \u2014 no meetings available"
+                    "message": "Coho Vineyard is free tier — no meetings available"
                 },
                 "expected_result": "Rep notified",
                 "depends_on": [
@@ -2876,7 +2876,7 @@
         },
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
@@ -2965,7 +2965,7 @@
         },
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
@@ -3053,7 +3053,7 @@
         },
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
@@ -3101,7 +3101,7 @@
                 "parameters": {
                     "user_id": "REP-573",
                     "channel": "slack",
-                    "message": "Relecloud is free tier \u2014 no meetings available"
+                    "message": "Relecloud is free tier — no meetings available"
                 },
                 "expected_result": "Rep notified",
                 "depends_on": [
@@ -3141,7 +3141,7 @@
         },
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
@@ -3298,7 +3298,7 @@
                 "depends_on": [
                     2
                 ],
-                "condition": "Subscription is pending \u2014 cannot onboard"
+                "condition": "Subscription is pending — cannot onboard"
             },
             {
                 "step": 4,
@@ -3487,7 +3487,7 @@
                 "depends_on": [
                     2
                 ],
-                "condition": "Subscription is inactive \u2014 cannot onboard"
+                "condition": "Subscription is inactive — cannot onboard"
             },
             {
                 "step": 4,
@@ -3560,7 +3560,7 @@
                 "depends_on": [
                     2
                 ],
-                "condition": "Subscription is inactive \u2014 cannot onboard"
+                "condition": "Subscription is inactive — cannot onboard"
             },
             {
                 "step": 4,
@@ -3749,7 +3749,7 @@
                 "depends_on": [
                     2
                 ],
-                "condition": "Subscription is pending \u2014 cannot onboard"
+                "condition": "Subscription is pending — cannot onboard"
             },
             {
                 "step": 4,
@@ -4954,7 +4954,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Filter-H800 affected in APAC-SOUTH, US-WEST \u2014 severity: critical"
+                    "message": "Incident: Filter-H800 affected in APAC-SOUTH, US-WEST — severity: critical"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -4974,7 +4974,7 @@
                 "depends_on": [
                     3
                 ],
-                "condition": "Severity is critical \u2014 requires management escalation"
+                "condition": "Severity is critical — requires management escalation"
             },
             {
                 "step": 5,
