@@ -26,19 +26,69 @@ def detect_template(goal: str) -> str | None:
     """Detect which of the 7 templates matches the goal text."""
     g = goal.lower()
 
-    if "churn" in g or ("risk" in g and "retention" in g) or ("declining" in g and "usage" in g):
+    if (
+        "churn" in g
+        or ("risk" in g and "retention" in g)
+        or ("declining" in g and "usage" in g)
+        or "attrition" in g
+        or ("disengage" in g or "disengaging" in g)
+        or ("cancel" in g and ("subscription" in g or "account" in g))
+    ):
         return "churn_risk_analysis"
-    if "renewal" in g or ("renew" in g and "renewable" not in g):
+    if (
+        "renewal" in g
+        or ("renew" in g and "renewable" not in g)
+        or ("contract" in g and ("extend" in g or "extension" in g or "expir" in g))
+        or ("agreement" in g and ("extend" in g or "extension" in g or "expir" in g))
+        or ("subscription" in g and ("extend" in g or "extension" in g))
+        or ("license" in g and "prolongation" in g)
+    ):
         return "contract_renewal"
-    if "incident" in g and ("respond" in g or "notify" in g or "escalat" in g):
+    if (
+        ("incident" in g and ("respond" in g or "notify" in g or "escalat" in g or "triage" in g or "response" in g))
+        or ("outage" in g)
+        or ("emergency" in g and ("malfunction" in g or "warehouse" in g or "respond" in g))
+    ):
         return "incident_response"
-    if "inventory" in g or ("stock" in g and "warehouse" in g) or "restock" in g:
+    if (
+        "inventory" in g
+        or ("stock" in g and ("warehouse" in g or "low" in g or "replenish" in g))
+        or "restock" in g
+        or ("warehouse" in g and ("supply" in g or "order" in g or "running out" in g or "replenish" in g or "availability" in g))
+        or ("supply" in g and ("level" in g or "chain" in g or "deplete" in g))
+    ):
         return "inventory_restock"
-    if "meeting" in g and ("schedule" in g or "schedul" in g):
+    if (
+        ("meeting" in g and ("schedule" in g or "schedul" in g or "book" in g))
+        or ("schedule" in g and ("call" in g or "session" in g or "conference" in g))
+        or ("book" in g and ("session" in g or "call" in g or "time" in g))
+        or ("arrange" in g and ("conference" in g or "call" in g or "meeting" in g))
+        or ("coordinate" in g and ("time slot" in g or "presentation" in g or "meeting" in g))
+        or ("set up" in g and ("call" in g or "session" in g))
+    ):
         return "meeting_scheduler"
-    if "onboarding" in g or "onboard" in g:
+    if (
+        "onboarding" in g
+        or "onboard" in g
+        or ("new client" in g and ("setup" in g or "set up" in g or "welcome" in g or "provision" in g))
+        or ("new customer" in g and ("activation" in g or "started" in g or "welcome" in g or "provision" in g))
+        or ("new account" in g and ("welcome" in g or "kick off" in g or "setup" in g))
+        or ("signed" in g and "welcome" in g)
+    ):
         return "onboarding_workflow"
-    if "re-engagement" in g or "re_engagement" in g or "reengagement" in g or ("not contacted" in g and "email" in g):
+    if (
+        "re-engagement" in g
+        or "re_engagement" in g
+        or "reengagement" in g
+        or "re-engage" in g
+        or ("not contacted" in g and "email" in g)
+        or "win-back" in g
+        or "win back" in g
+        or ("dormant" in g and ("account" in g or "outreach" in g or "offer" in g))
+        or ("inactive" in g and ("account" in g or "customer" in g or "campaign" in g or "nudge" in g))
+        or ("lapsed" in g and ("user" in g or "campaign" in g))
+        or ("zero activity" in g or "no activity" in g)
+    ):
         return "re_engagement_campaign"
 
     return None

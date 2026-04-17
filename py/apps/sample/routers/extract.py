@@ -110,6 +110,25 @@ def _postprocess_dates(data: dict, schema_str: str) -> dict:
     return _normalize_recursive(data, properties)
 
 
+def _postprocess_values(data: object) -> object:
+    """Normalize boolean strings and null-like values recursively."""
+    if isinstance(data, dict):
+        return {k: _postprocess_values(v) for k, v in data.items()}
+    if isinstance(data, list):
+        return [_postprocess_values(v) for v in data]
+    if isinstance(data, str):
+        low = data.strip().lower()
+        # Boolean coercion
+        if low in ("true", "yes", "checked", "x"):
+            return True
+        if low in ("false", "no", "unchecked"):
+            return False
+        # Null coercion
+        if low in ("", "n/a", "na", "none", "null", "-", "--"):
+            return None
+    return data
+
+
 @router.post("/extract")
 async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
     model = state.settings.extract_model
@@ -179,6 +198,10 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
         # Post-process: normalize date fields to ISO format
         if schema_str and extracted:
             extracted = _postprocess_dates(extracted, schema_str)
+
+        # Post-process: coerce boolean strings and null-like values
+        if extracted:
+            extracted = _postprocess_values(extracted)
 
         return ExtractResponse(document_id=req.document_id, **extracted)
     except Exception:

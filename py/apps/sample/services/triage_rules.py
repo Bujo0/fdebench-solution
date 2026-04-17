@@ -134,7 +134,6 @@ _ACCESS_STRONG = [
     "sign-in terminal",
     "biometric recalibration",
     "access troubles",
-    "atlas archive",
     "service account",
     "logging into",
 ]
@@ -170,7 +169,6 @@ _COMMS_KEYWORDS = [
     "aether relay",
     "signal network",
     "network segment",
-    "sd-interstation",
     "traceroute",
     "route print",
     "packet loss",
@@ -188,7 +186,6 @@ _COMMS_STRONG = [
     "beacon resolution",
     "relay proxy",
     "packet loss",
-    "sd-interstation",
     "signal network segment",
 ]
 
@@ -234,16 +231,44 @@ def _detect_category(text: str) -> tuple[str, str, float]:
         "thank you",
         "thanks for",
         "thanks!",
+        "thanks for fixing",
+        "thanks for resolving",
         "got it working",
+        "all good now",
+        "resolved",
+        "no longer",
         "out of office",
-        "auto-reply",
+        "cryo notice",
+        "cryo-stasis",
         "cryo-sleep",
+        "auto-reply",
+        "automatic reply",
         "appreciate the quick",
         "appreciate the help",
+        "i'm not reporting",
+        "not reporting a fault",
+        "not actually reporting",
+        "not an outage",
+    ]
+    # Subject patterns that indicate non-signal
+    _non_signal_subject = [
+        "thanks", "re: [signal", "maintenance notification",
+        "reminder:", "fyi:", "info:",
+        "etiquette",
+    ]
+    # Non-incident content markers (informational, not actionable)
+    _non_incident_markers = [
+        "drill at", "scheduled maintenance",
+        "what's the schedule", "cafeteria", "lunch",
+        "just trying to figure out",
+        "just trying to confirm",
+        "just need to know",
+        "wanted to confirm",
+        "wanted to check",
     ]
     non_signal_hits = sum(1 for m in _non_signal_markers if m in lower)
-    # Subject patterns that indicate non-signal
-    if any(p in subj for p in ["thanks", "re: [signal", "maintenance notification"]):
+    non_signal_hits += sum(1 for m in _non_incident_markers if m in lower)
+    if any(p in subj for p in _non_signal_subject):
         non_signal_hits += 1
     if non_signal_hits >= 1:
         _real_issue = [
@@ -257,6 +282,17 @@ def _detect_category(text: str) -> tuple[str, str, float]:
             "unauthorized",
             "failing",
             "down ",
+            "delay",
+            "lag",
+            "intermittent",
+            "dropout",
+            "dropping",
+            "timeout",
+            "drift",
+            "misrouting",
+            "stuttered",
+            "corrupting",
+            "out of sync",
         ]
         # Action items indicate a real request, not a closure
         _action_items = [
@@ -268,6 +304,12 @@ def _detect_category(text: str) -> tuple[str, str, float]:
             "onboarding",
             "offboarding",
             "last duty cycle",
+            "requesting",
+            "request for",
+            "need to know",
+            "pull a copy",
+            "trying to figure out",
+            "trying to confirm",
         ]
         real_issue_hits = sum(1 for kw in _real_issue if kw in lower)
         action_hits = sum(1 for kw in _action_items if kw in lower)
@@ -288,7 +330,6 @@ def _detect_category(text: str) -> tuple[str, str, float]:
         "impersonation",
         "galactic credits",
         "claim now",
-        "totallylegit",
         "shared externally",
         "compliance sweep",
         "cert expir",
@@ -323,12 +364,26 @@ def _detect_category(text: str) -> tuple[str, str, float]:
         "departure checklist",
         "mission brief",
     ]
+    # Intent-based briefing detection (broader)
+    _briefing_intent_patterns = [
+        r"need.*set up", r"need.*provisioned", r"need.*configured",
+        r"how do i", r"how to",
+        r"can someone help me",
+        r"requesting.*access", r"request for",
+        r"new.*arriving", r"new.*joining",
+        r"departure", r"leaving the station",
+        r"room booking", r"reserve.*room",
+        r"status.*request", r"eta on.*request",
+    ]
     briefing_score = sum(1 for b in _briefing_keywords if b in lower)
+    # Add intent-based matches
+    briefing_score += sum(1 for pat in _briefing_intent_patterns if re.search(pat, lower))
     _briefing_subject = [
         "new crew member",
         "transfer",
         "how do i",
         "setup needed",
+        "request for",
     ]
     briefing_score += sum(2 for b in _briefing_subject if b in subj)
     # Onboarding/offboarding is briefing, not access
@@ -602,16 +657,16 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
     if "cross-atlantic" in lower and ("critical" in lower or "severely degraded" in lower):
         return "P1", 0.85
 
-    # P1: Certificate expiring on production system (all fleet connections fail)
+    # P1: Service-wide certificate rotation / expiry
     if (
         "cert" in lower
-        and "expir" in lower
-        and any(kw in lower for kw in ["production", "all external", "gateway", "all fleet"])
+        and any(kw in lower for kw in ["rotation", "expir"])
+        and any(kw in lower for kw in ["production", "all external", "gateway", "all fleet", "service-wide", "identity beacon"])
     ):
         return "P1", 0.85
 
-    # P1: VIP (Fleet Admiral) with real-time urgency
-    if "fleet admiral" in lower and any(kw in lower for kw in ["happening now", "right now", "arriving in"]):
+    # P1: VIP reporter with real-time urgency (general VIP, not specific title)
+    if any(kw in lower for kw in ["admiral", "commander", "director"]) and any(kw in lower for kw in ["happening now", "right now", "arriving in", "immediate"]):
         return "P1", 0.80
 
     # P1: Account lockout with urgent signal
@@ -638,14 +693,20 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
         phrase in lower
         for phrase in [
             "how do i",
+            "what is the process",
             "instructions needed",
             "is there a guide",
             "is there a current guide",
             "can we get a new",
-            "what is the process",
+            "just wondering",
+            "curious about",
         ]
     ):
         p4_signals += 3
+
+    # Questions in subject only (more targeted)
+    if any(phrase in subj_lower for phrase in ["question about", "what is"]):
+        p4_signals += 2
 
     # Explicit low-priority / not urgent self-declaration
     if any(
@@ -658,6 +719,10 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
             "when someone has a chance",
             "just want to have it ready",
             "not blocking",
+            "minor",
+            "cosmetic",
+            "annoyance",
+            "informational",
         ]
     ):
         p4_signals += 2
@@ -715,8 +780,8 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
         p4_signals += 1
 
     # VPN/relay access to specific app — single user
-    if "aether relay client" in lower and ("can't access" in lower or "risk dashboard" in lower):
-        p4_signals += 3
+    if any(kw in lower for kw in ["relay client", "vpn client"]) and "can't access" in lower:
+        p4_signals += 2
 
     # Auto-transcribed calls about DNS / beacon resolution
     if "auto-transcribed" in lower and "beacon resolution" in lower:
@@ -726,9 +791,9 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
     if "failover" in lower and "manually" in lower:
         p4_signals += 3
 
-    # Biometric recalibration from comm link transcript (VIP but routine)
-    if "biometric recalibration" in lower and "comm link transcript" in subj_lower:
-        p4_signals += 3
+    # Biometric recalibration (routine unless combined with urgent keywords)
+    if "biometric recalibration" in lower and not any(kw in lower for kw in ["urgent", "critical", "emergency"]):
+        p4_signals += 2
 
     # Single-user biometric stopped working (routine)
     if (
@@ -747,9 +812,10 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
     if "rf mesh" in lower and "authentication fail" in lower:
         p4_signals += 2
 
-    # "Something's not working" with trading (long rambling, weeks old)
-    if "something's not working" in subj_lower and "trading" in subj_lower:
-        p4_signals += 3
+    # Vague subject with no urgency indicators
+    if any(kw in subj_lower for kw in ["something's not working", "something is not working", "not sure what"]):
+        if not any(kw in lower for kw in ["urgent", "critical", "blocked", "emergency"]):
+            p4_signals += 2
 
     # External hypernet speed degraded — single deck
     if "hypernet speed degraded" in lower:
@@ -771,9 +837,18 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
         for phrase in [
             "number of crew members",
             "affecting multiple",
+            "multiple users",
+            "multiple crew",
+            "affecting everyone",
             "multiple systems",
             "three different issues",
             "entire floor",
+            "no workaround",
+            "completely blocked",
+            "station-wide",
+            "widespread",
+            "degraded",
+            "time-sensitive",
         ]
     ):
         p2_signals += 2
@@ -794,8 +869,8 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
     if not has_inj and any(
         phrase in lower
         for phrase in [
-            "fleet admiral",
-            "submitted on behalf of fleet admiral",
+            "admiral",
+            "submitted on behalf of",
         ]
     ):
         p2_signals += 2
@@ -809,7 +884,7 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
         phrase in lower
         for phrase in [
             "saml sso failures",
-            "identity beacon security certificate rotation",
+            "certificate rotation",
         ]
     ):
         p2_signals += 2
@@ -865,18 +940,18 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
     if (
         "chief technology commander" in lower
         and has_inj
-        and any(kw in lower for kw in ["traders", "mission control", "40 "])
+        and any(kw in lower for kw in ["traders", "mission control"])
     ):
         p2_signals += 2
 
-    # Multi-person impact with specific numbers
-    if any(
+    # Multi-person impact — generalized numeric detection
+    _multi_person_re = re.search(r'\b(\d{2,})\s*(people|users|crew|traders|staff|members|affected)', lower)
+    if _multi_person_re:
+        p2_signals += 2
+    elif any(
         phrase in lower
         for phrase in [
             "impacting about",
-            "15 people",
-            "40 traders",
-            "about 40",
         ]
     ):
         p2_signals += 2
@@ -936,7 +1011,7 @@ def _detect_escalation(
             kw in lower
             for kw in [
                 "delegation",
-                "fleet admiral",
+                "admiral",
                 "admiralty",
             ]
         ):
@@ -1012,7 +1087,6 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             "firewall rule",
             "failover",
             "wan link",
-            "sd-interstation",
             "interconnection",
             "decommission",
             "cutover",
@@ -1389,11 +1463,12 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
     is_transcription = any(
         kw in lower
         for kw in [
-            "voictransmission",
             "transcription",
             "transcribed",
             "auto-transcribed",
             "comm link transcript",
+            "voicemail",
+            "voice message",
         ]
     )
 
@@ -1531,8 +1606,8 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
     is_domain_env = any(
         kw in lower
         for kw in [
-            "contoso-legacy",
             "old domain",
+            "legacy domain",
             "domain",
             "network switch",
         ]
@@ -1647,7 +1722,6 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
                 "signal barrier",
                 "rule request",
                 "failover",
-                "sd-interstation",
                 "dns",
                 "site-to-site",
                 "interconnection",
@@ -2119,7 +2193,6 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
                 "crew profile",
                 "security group",
                 "portal",
-                "atlas archive",
                 "bioscan",
                 "sign-in",
                 "credential",
@@ -2143,8 +2216,8 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
                 "off-ship",
                 "mining",
                 "asteroid",
-                "contoso-legacy",
                 "old domain",
+                "legacy domain",
             ]
         ):
             hc += 1.0
