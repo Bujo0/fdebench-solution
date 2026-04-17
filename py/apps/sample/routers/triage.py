@@ -67,10 +67,11 @@ async def triage(req: TriageRequest, response: Response) -> TriageResponse:
             ],
         )
 
-    # ── Slow path: LLM fallback ──
+    # ── Slow path: LLM fallback (use full model for best accuracy) ──
+    fallback_model = "gpt-5-4"  # Stronger model for ambiguous items
     logger.info(
-        "LLM fallback for %s (rules conf=%.2f)",
-        req.ticket_id, rules_result.confidence,
+        "LLM fallback for %s (rules conf=%.2f) using %s",
+        req.ticket_id, rules_result.confidence, fallback_model,
     )
     try:
         user_content = f"""<signal>
@@ -81,12 +82,12 @@ Channel: {req.channel}
 </signal>"""
 
         full_system_prompt = TRIAGE_SYSTEM_PROMPT
-        if state.FEW_SHOT_EXAMPLES:
-            full_system_prompt += "\n\nFEW-SHOT EXAMPLES:\n" + state.FEW_SHOT_EXAMPLES
+        if state.ROUTING_GUIDE:
+            full_system_prompt += "\n\nROUTING REFERENCE:\n" + state.ROUTING_GUIDE
 
         result = await complete(
             state.aoai_client,
-            model,
+            fallback_model,
             full_system_prompt,
             user_content,
             response_format=TriageLLMResponse,
@@ -104,6 +105,12 @@ Channel: {req.channel}
             needs_escalation = True
         if category == Category.THREAT:
             needs_escalation = True
+        # De-escalation: exploratory/uncertain signals should not escalate
+        desc_lower = req.description.lower()
+        subj_lower = req.subject.lower()
+        if "may be nothing" in desc_lower or "may be nothing" in subj_lower:
+            if priority != "P1" and category != Category.THREAT:
+                needs_escalation = False
 
         return TriageResponse(
             ticket_id=req.ticket_id,
@@ -112,8 +119,11 @@ Channel: {req.channel}
             assigned_team=team,
             needs_escalation=needs_escalation,
             missing_information=missing,
-            next_best_action=result.next_best_action or "Investigate the reported issue.",
-            remediation_steps=result.remediation_steps or ["Review the signal details."],
+            next_best_action="Investigate and resolve the reported issue.",
+            remediation_steps=[
+                "Review signal details and gather additional context.",
+                "Route to assigned team for resolution.",
+            ],
         )
     except Exception:
         logger.exception("Triage LLM error for %s — using rules fallback", req.ticket_id)

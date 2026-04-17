@@ -1,0 +1,452 @@
+[
+    {
+        "ticket_id": "EDGE-CAT-001",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": ["anomaly_readout", "software_version"],
+        "rationale": "Category confusion: Hardware terminal + auth app crash. Core issue is the BioAuth authentication app crashing, not the terminal hardware. Auth is the root problem → Crew Access."
+    },
+    {
+        "ticket_id": "EDGE-CAT-002",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": ["biometric_method", "anomaly_readout"],
+        "rationale": "Category confusion: Hull sensor panel + credential rejection. The hull panel is just the location — the actual issue is credentials not being recognized. This is an auth/access problem, not a hull integrity issue."
+    },
+    {
+        "ticket_id": "EDGE-CAT-003",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": ["anomaly_readout", "affected_subsystem"],
+        "rationale": "Category confusion: Subspace relay + telemetry pipeline. The relay comms are working fine — the broken part is the data pipeline feeding the analytics dashboard. This is a telemetry/data issue."
+    },
+    {
+        "ticket_id": "EDGE-CAT-004",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": ["affected_subsystem", "stardate"],
+        "rationale": "Category confusion: Comm relay data + deep storage. The comm relay itself works. The issue is data migration/storage in the data core — a telemetry/data problem."
+    },
+    {
+        "ticket_id": "EDGE-CAT-005",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": ["software_version", "sequence_to_reproduce"],
+        "rationale": "Category confusion: Console hardware + FlightOS crash. The console is fine for everything else — FlightOS is the broken software. This is a flight software issue."
+    },
+    {
+        "ticket_id": "EDGE-CAT-006",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": ["sensor_log_or_capture"],
+        "rationale": "Category confusion: Crew access panel + suspicious activity. 47 failed attempts from an unrecognized ID is suspicious unauthorized access, not a routine access issue. Threat takes priority."
+    },
+    {
+        "ticket_id": "EDGE-CAT-007",
+        "category": "Mission Briefing Request",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "rationale": "Category confusion: Access provisioning + onboarding. Despite mentioning biometric enrollment and SSO, this is a new crew member onboarding request — a Mission Briefing/setup request, not an access incident."
+    },
+    {
+        "ticket_id": "EDGE-CAT-008",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": ["module_specs", "anomaly_readout"],
+        "rationale": "Category confusion: Auth certificates + holographic projector hardware. The projector is physical equipment with an embedded auth module failing. The root issue is the hardware device's certificate handling — Hull & Structural Systems."
+    },
+    {
+        "ticket_id": "EDGE-CAT-009",
+        "category": "Telemetry & Data Banks",
+        "priority": "P2",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": ["anomaly_readout", "software_version"],
+        "rationale": "Category confusion: Navigation beacon + telemetry pipeline. Beacons are fine — the corruption happens in the ingest pipeline. This is a data engineering/telemetry issue, not navigation."
+    },
+    {
+        "ticket_id": "EDGE-CAT-010",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": ["module_specs", "recurrence_pattern"],
+        "rationale": "Category confusion: Network switch + fabricator + comms panels. The root cause is a physical network switch (hardware). Despite affecting network connectivity, this is a hardware failure. Hull & Structural."
+    },
+    {
+        "ticket_id": "EDGE-CAT-011",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": ["anomaly_readout", "affected_subsystem"],
+        "rationale": "Category confusion: Comms relay health metrics on telemetry dashboard. The comms are fine — the dashboard data is stale. This is a telemetry/dashboard issue."
+    },
+    {
+        "ticket_id": "EDGE-CAT-012",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": false,
+        "missing_information": ["module_specs", "software_version"],
+        "rationale": "Category confusion: Airlock access panel + threat scanner. Despite being in an access panel, the malfunctioning component is the threat detection scanner. The false positives are a threat detection issue."
+    },
+    {
+        "ticket_id": "EDGE-CAT-013",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": ["anomaly_readout", "sensor_log_or_capture"],
+        "rationale": "Category confusion: Hardware gyroscope vs software rendering. FlightOS diagnostics says sensor nominal but display is wrong — likely a software rendering issue. Flight Software is the best starting point."
+    },
+    {
+        "ticket_id": "EDGE-CAT-014",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": ["module_specs"],
+        "rationale": "Category confusion: Mission briefing + broken terminal. Mixed signal — but the actionable issue is the broken hardware (cracked display, dead projector). The briefing docs can be sent digitally as a side action. Primary routing goes to hardware."
+    },
+    {
+        "ticket_id": "EDGE-CAT-015",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": ["affected_subsystem", "anomaly_readout"],
+        "rationale": "Category confusion: Crew access audit logs + environmental sensor data. The access system works fine. The issue is data retention/purging in the data core — a telemetry problem."
+    },
+    {
+        "ticket_id": "EDGE-PRI-001",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": ["sensor_log_or_capture"],
+        "rationale": "Priority edge: Calm wording about 'minor atmospheric reading variance' but O2 at 18.3% (drifting down from 20.9%) is potential decompression/atmospheric compromise. P1 override applies."
+    },
+    {
+        "ticket_id": "EDGE-PRI-002",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [],
+        "rationale": "Priority edge: 'Not urgent' reporter assessment, but life-support backup controller failure means life support is running without redundancy. P1 per the safety keyword rule — life support threat."
+    },
+    {
+        "ticket_id": "EDGE-PRI-003",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": ["module_specs", "stardate"],
+        "rationale": "Priority edge: 'Major outage' sounds P1/P2 but they've already failed over to backup, all critical comms functional, 72h window. This is P3 — operational issue with workaround and limited time pressure."
+    },
+    {
+        "ticket_id": "EDGE-PRI-004",
+        "category": "Hull & Structural Systems",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "rationale": "Priority edge: Fabricator queue slow but functional. Reporter says 'non-urgent parts' for 'next week'. This is a question about queue prioritization, not an incident. P4."
+    },
+    {
+        "ticket_id": "EDGE-PRI-005",
+        "category": "Hull & Structural Systems",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "rationale": "Priority edge: EXTREMELY URGENT language but trivially minor issue — 10% brightness drop on rec room display, week old, no complaints. Urgent language ≠ urgent priority. P4."
+    },
+    {
+        "ticket_id": "EDGE-PRI-006",
+        "category": "Hull & Structural Systems",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "rationale": "Priority edge: 'Hull micro-fracture' sounds alarming but 0.3mm within tolerances, no atmospheric loss, scheduled for routine maintenance. P4 informational logging."
+    },
+    {
+        "ticket_id": "EDGE-PRI-007",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": ["anomaly_readout", "recurrence_pattern"],
+        "rationale": "Priority edge: Database connection timeout (P1 keyword) but intermittent (1 in 5), retries work, other apps fine. Not a complete outage. P3 with workaround."
+    },
+    {
+        "ticket_id": "EDGE-PRI-008",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": ["affected_crew"],
+        "rationale": "Priority edge: SSO failures affecting 30 crew with workaround. P2 because: multiple crew affected, SAML SSO service-wide failures, caused by certificate rotation. Workaround exists but is temporary and disruptive."
+    },
+    {
+        "ticket_id": "EDGE-PRI-009",
+        "category": "Threat Detection & Containment",
+        "priority": "P3",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": false,
+        "missing_information": ["recurrence_pattern"],
+        "rationale": "Priority edge: 'Containment field generator' has containment keyword but this is a routine test result within tolerances (2% vs 5% threshold). Not an active containment failure. P3 monitoring."
+    },
+    {
+        "ticket_id": "EDGE-PRI-010",
+        "category": "Hull & Structural Systems",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [],
+        "rationale": "Priority edge: Hull thermal reading mentions decompression but explicitly says 'decompression risk: none'. Informational trend logging. P4."
+    },
+    {
+        "ticket_id": "EDGE-PRI-011",
+        "category": "Communications & Navigation",
+        "priority": "P1",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": true,
+        "missing_information": [],
+        "rationale": "Priority edge: Certificate expiry in 36 hours would cause total service failure for all authenticated services. Per routing guide: 'Production certificate expiring imminently' → P1. Escalate due to broad impact."
+    },
+    {
+        "ticket_id": "EDGE-PRI-012",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": ["recurrence_pattern"],
+        "rationale": "Priority edge: Not immediate safety threat (no hull/atmo keywords) but if UPS depletes → backup data core loss. P2 — major operational risk requiring timely response but not immediate safety."
+    },
+    {
+        "ticket_id": "EDGE-PRI-013",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": ["software_version", "anomaly_readout"],
+        "rationale": "Priority edge: SubComm rendering slow, affects 5 people, workaround exists (share files directly). P3 — limited scope, workaround available, not blocking operations."
+    },
+    {
+        "ticket_id": "EDGE-PRI-014",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [],
+        "rationale": "Priority edge: Oxygen recycler efficiency drop. Even though backup compensates now, this is a life support system degradation. Per routing guide: life-support threat → P1. The 'if both degrade' scenario is the concern."
+    },
+    {
+        "ticket_id": "EDGE-PRI-015",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": true,
+        "missing_information": ["sector_coordinates", "anomaly_readout"],
+        "rationale": "Priority edge: Video calls dropping for 40 traders. P2 — multiple crew affected, call drops impacting operations. Workaround exists but still high impact. Escalate: trading desk communications."
+    },
+    {
+        "ticket_id": "EDGE-ESC-001",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": true,
+        "missing_information": ["module_specs", "previous_signal_id"],
+        "rationale": "Escalation edge: No P1 keywords but recurring unresolved issue (4th time today, 2 weeks, command-level reporter Dr. Okonkwo). Locked out nurses during emergency patient transfer. Escalate: recurring unresolved + command-level involvement."
+    },
+    {
+        "ticket_id": "EDGE-ESC-002",
+        "category": "Threat Detection & Containment",
+        "priority": "P4",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": false,
+        "missing_information": [],
+        "rationale": "Escalation edge: Alarming language (CRITICAL EMERGENCY) but this is a crew member forwarding an obvious scam/phishing attempt. They haven't been compromised. P4 informational report, no escalation needed."
+    },
+    {
+        "ticket_id": "EDGE-ESC-003",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "rationale": "Escalation edge: Navigation coordinates were wrong (sounds alarming) but the issue is already resolved. 'Closing this signal' + 'Thanks' = Not a Mission Signal. No escalation for resolved issues."
+    },
+    {
+        "ticket_id": "EDGE-ESC-004",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": true,
+        "missing_information": [],
+        "rationale": "Escalation edge: Certificate expiry in 72 hours affecting airlock biometric panels on 6 decks. Expiry would force manual-only airlock operation. P2 (time-sensitive provisioning). Escalate: cert expiry affecting safety-critical access systems."
+    },
+    {
+        "ticket_id": "EDGE-ESC-005",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": true,
+        "missing_information": [],
+        "rationale": "Escalation edge: Fleet Admiral (command-level reporter) with real access issue. No P1 keywords but VIP unable to access classified files before strategic planning. Escalate: command-level reporter."
+    },
+    {
+        "ticket_id": "EDGE-ESC-006",
+        "category": "Threat Detection & Containment",
+        "priority": "P1",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [],
+        "rationale": "Escalation edge: Unauthorized data exfiltration using compromised credentials. Clear security breach — valid creds used while owner in cryo-sleep. P1 confirmed breach. Escalate: data exfiltration + unauthorized access."
+    },
+    {
+        "ticket_id": "EDGE-ESC-007",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": true,
+        "missing_information": ["previous_signal_id"],
+        "rationale": "Escalation edge: Third report of same issue, previous fixes didn't hold, near-miss safety incident. Escalate: recurring unresolved issue with safety implications."
+    },
+    {
+        "ticket_id": "EDGE-ESC-008",
+        "category": "Threat Detection & Containment",
+        "priority": "P4",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": false,
+        "missing_information": [],
+        "rationale": "Escalation edge: Reporter investigated and confirmed it's a legitimate system notification with a known false positive. No actual malware, no active threat. P4 informational, no escalation."
+    },
+    {
+        "ticket_id": "EDGE-ESC-009",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [],
+        "rationale": "Escalation edge: Partner requesting sensitive crew access logs under pressure with unverifiable authorization. Potential social engineering. Escalate: partner needs logs + suspicious urgency."
+    },
+    {
+        "ticket_id": "EDGE-ESC-010",
+        "category": "Flight Software & Instruments",
+        "priority": "P2",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": true,
+        "missing_information": [],
+        "rationale": "Escalation edge: Trajectory correction needed — not an emergency but time-sensitive (18h window) with fuel/mission impact. P2. Escalate: navigation/trajectory risk per routing guide."
+    },
+    {
+        "ticket_id": "EDGE-MIS-001",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [],
+        "rationale": "Missing info edge: Signal provides ALL relevant info — exact time, apps, error code, terminal ID, crash dump, location. Gold: empty missing_information list."
+    },
+    {
+        "ticket_id": "EDGE-MIS-002",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": ["affected_subsystem", "anomaly_readout"],
+        "rationale": "Missing info edge: Extremely sparse signal — no subsystem, no error details, no location, no context. Needs affected_subsystem and anomaly_readout at minimum."
+    },
+    {
+        "ticket_id": "EDGE-MIS-003",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": ["affected_crew"],
+        "rationale": "Missing info edge: Module specs ARE provided (Model BIO-X200, Firmware v3.4.1, Serial BX-88742) — should NOT request module_specs. Biometric method (palm scan) is provided. Stardate is provided. Previous signal ref is provided. Missing: affected_crew (3 crew tested but who?)."
+    },
+    {
+        "ticket_id": "EDGE-MIS-004",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": ["mission_impact"],
+        "rationale": "Missing info edge: Comprehensive provisioning request with members, purpose, access level, approval. All details provided. Only missing: mission_impact justification (beyond 'starts next Monday')."
+    },
+    {
+        "ticket_id": "EDGE-MIS-005",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": ["module_specs", "recurrence_pattern"],
+        "rationale": "Missing info edge: Comm panel hardware issue — display flickering. No model/serial info for the panel. 'Randomly' happening for a week but no pattern details."
+    },
+    {
+        "ticket_id": "EDGE-MIS-006",
+        "category": "Threat Detection & Containment",
+        "priority": "P4",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": false,
+        "missing_information": [],
+        "rationale": "Missing info edge: Phishing report — reporter explicitly says they didn't click links or provide info. This is informational forwarding. No missing info needed. P4."
+    },
+    {
+        "ticket_id": "EDGE-MIS-007",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [],
+        "rationale": "Missing info edge: Question/verification request, not an incident. Nothing is broken — crew member is being thorough. P4 question, no missing info needed."
+    },
+    {
+        "ticket_id": "EDGE-MIS-008",
+        "category": "Telemetry & Data Banks",
+        "priority": "P4",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [],
+        "rationale": "Missing info edge: Backup verification request with all relevant details provided (system, target, timing). This is a question/request, not an incident. P4."
+    },
+    {
+        "ticket_id": "EDGE-MIS-009",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": ["crew_contact", "habitat_conditions"],
+        "rationale": "Missing info edge: Guest researcher can't access anything. Filed on behalf. Missing: crew_contact (no comm frequency for Dr. Yuki) and habitat_conditions (visitor from partner station — remote context)."
+    },
+    {
+        "ticket_id": "EDGE-MIS-010",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "rationale": "Missing info edge: Pure thank-you note. Not a Mission Signal. No info needed, no action needed."
+    }
+]

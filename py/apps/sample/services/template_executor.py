@@ -27,7 +27,7 @@ def detect_template(goal: str) -> str | None:
 
     if "churn" in g or ("risk" in g and "retention" in g) or ("declining" in g and "usage" in g):
         return "churn_risk_analysis"
-    if "renewal" in g or "renew" in g:
+    if "renewal" in g or ("renew" in g and "renewable" not in g):
         return "contract_renewal"
     if "incident" in g and ("respond" in g or "notify" in g or "escalat" in g):
         return "incident_response"

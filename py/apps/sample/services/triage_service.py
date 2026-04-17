@@ -17,8 +17,8 @@ class TriageLLMResponse(BaseModel):
     assigned_team: str
     needs_escalation: bool
     missing_information: list[str]
-    next_best_action: str
-    remediation_steps: list[str]
+    next_best_action: str | None = None
+    remediation_steps: list[str] | None = None
 
 
 def match_category(value: str) -> Category:

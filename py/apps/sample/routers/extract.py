@@ -1,13 +1,14 @@
 """Extract router — POST /extract endpoint."""
 
 import asyncio
+import json
 import logging
 
 from fastapi import APIRouter, Response
 
 from llm_client import complete_with_vision
 from models import ExtractRequest, ExtractResponse
-from prompts.extract_prompt import EXTRACT_SYSTEM_PROMPT
+from prompts.extract_prompt import EXTRACT_SYSTEM_PROMPT_V2
 from utils import display_model, parse_json_response
 
 import state
@@ -22,6 +23,39 @@ _LARGE_CONTENT_TIMEOUT = 45  # more headroom for big documents
 _RETRY_TIMEOUT = 30  # retry budget after first timeout
 
 
+def _build_schema_hints(schema_str: str) -> str:
+    """Parse JSON schema and generate per-field extraction hints."""
+    try:
+        schema = json.loads(schema_str)
+    except (json.JSONDecodeError, TypeError):
+        return ""
+
+    properties = schema.get("properties", {})
+    if not properties:
+        return ""
+
+    hints: list[str] = []
+    for field, spec in properties.items():
+        field_type = spec.get("type", "string")
+        desc = spec.get("description", "")
+        enum_vals = spec.get("enum") or spec.get("emum")  # handle typo in some schemas
+
+        parts = [f"- {field} ({field_type})"]
+        if desc:
+            parts.append(f": {desc}")
+        if enum_vals:
+            parts.append(f" [allowed values: {', '.join(str(v) for v in enum_vals)}]")
+        if field_type == "array":
+            item_spec = spec.get("items", {})
+            if item_spec.get("type") == "object":
+                sub_props = list(item_spec.get("properties", {}).keys())
+                if sub_props:
+                    parts.append(f" → each item has: {', '.join(sub_props)}")
+        hints.append("".join(parts))
+
+    return "\n".join(hints)
+
+
 @router.post("/extract")
 async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
     model = state.settings.extract_model
@@ -34,21 +68,27 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
 
         timeout = _LARGE_CONTENT_TIMEOUT if is_large else _DEFAULT_TIMEOUT
 
+        schema_hints = _build_schema_hints(schema_str)
+        hint_block = f"\n\nField-by-field guide:\n{schema_hints}" if schema_hints else ""
+
         if is_large:
             user_content = (
-                "Extract the most important fields FIRST from this document image "
-                "according to this JSON schema. It is better to return partial data "
-                "than nothing.\n\n"
-                f"{schema_str}\n\n"
+                "Extract ALL fields from this document image according to this JSON schema. "
+                "For large tables/arrays, include EVERY row — do not truncate.\n\n"
+                f"JSON Schema:\n{schema_str}"
+                f"{hint_block}\n\n"
                 "Return a JSON object with the extracted values. "
-                "Use null for any field not found in the document."
+                "Use null for any field not found in the document. "
+                "Preserve dates, names, and IDs EXACTLY as they appear."
             )
         else:
             user_content = (
-                f"Extract all fields from this document image according to this JSON schema:\n\n"
-                f"{schema_str}\n\n"
+                "Extract all fields from this document image according to this JSON schema:\n\n"
+                f"JSON Schema:\n{schema_str}"
+                f"{hint_block}\n\n"
                 "Return a JSON object with the extracted values. "
-                "Use null for any field not found in the document."
+                "Use null for any field not found in the document. "
+                "Preserve dates, names, and IDs EXACTLY as they appear."
             )
 
         # First attempt with content-aware timeout
@@ -102,7 +142,7 @@ async def _extract_with_timeout(
             complete_with_vision(
                 state.aoai_client,
                 model,
-                EXTRACT_SYSTEM_PROMPT,
+                EXTRACT_SYSTEM_PROMPT_V2,
                 content,
                 user_content,
             ),

@@ -140,6 +140,22 @@ _COMMS_STRONG = [
 ]
 
 
+def _briefing_team(lower: str) -> str:
+    """Determine team for Mission Briefing Request based on content."""
+    # Offboarding with account actions → Crew Identity & Airlock Control
+    if any(kw in lower for kw in [
+        "disable", "revoke", "offboarding", "last duty cycle", "deactivate",
+    ]):
+        return "Crew Identity & Airlock Control"
+    # Full setup / onboarding with hardware → Spacecraft Systems Engineering
+    if any(kw in lower for kw in ["full setup", "setup needed"]):
+        return "Spacecraft Systems Engineering"
+    # Software how-to → Mission Software Operations
+    if any(kw in lower for kw in ["how do i", "how to book", "booking", "room booking"]):
+        return "Mission Software Operations"
+    return "None"
+
+
 def _detect_category(text: str) -> tuple[str, str, float]:
     """Return (category, team, confidence) using multi-class scoring.
 
@@ -206,6 +222,8 @@ def _detect_category(text: str) -> tuple[str, str, float]:
         "new crew member", "full setup needed",
         "last duty cycle", "how do i book",
         "crew member transfer",
+        "orientation", "onboarding checklist",
+        "departure checklist", "mission brief",
     ]
     briefing_score = sum(1 for b in _briefing_keywords if b in lower)
     _briefing_subject = [
@@ -221,7 +239,8 @@ def _detect_category(text: str) -> tuple[str, str, float]:
             briefing_score += 2
     if briefing_score >= 2:
         conf = min(0.90, 0.78 + 0.04 * briefing_score)
-        return "Mission Briefing Request", "None", conf
+        team = _briefing_team(lower)
+        return "Mission Briefing Request", team, conf
 
     # ── Phase 4: Multi-class scoring for 5 technical categories ──
 
@@ -246,13 +265,18 @@ def _detect_category(text: str) -> tuple[str, str, float]:
         "flightos", "trajectory", "subcomm crash", "subcomm show",
         "white screen", "holographic calendar", "phantom briefing",
         "screen share", "share screen", "plotter",
-        "reference frame",
+        "reference frame", "subcomm",
+        "autopilot", "navigation software", "flight computer",
+        "instrument panel", "avionics",
     ]
     sw_score = sum(1 for kw in _software_kw if kw in lower)
     if any(kw in subj for kw in [
         "flightos", "trajectory", "subcomm",
     ]):
         sw_score += 3
+    # Screen sharing with any word in between ("share his screen", "share her screen")
+    if "share" in lower and "screen" in lower:
+        sw_score += 2
 
     # Hull & Structural Systems
     _hull_kw = [
@@ -260,6 +284,12 @@ def _detect_category(text: str) -> tuple[str, str, float]:
         "workstation console", "cooling fan",
         "display flickering", "molecular fabricator",
         "won't power on", "manual override panel",
+        "hull panel", "structural integrity",
+        "airlock mechanism", "deck plating", "bulkhead",
+        "atmospheric", "decompression", "pressure seal",
+        "oxygen recycler", "life support", "life-support",
+        "power fluctuation", "environmental control",
+        "ventilation", "thermal regulator", "gravity plate",
     ]
     hull_score = sum(1 for kw in _hull_kw if kw in lower)
     if any(kw in subj for kw in [
@@ -331,7 +361,19 @@ def _detect_category(text: str) -> tuple[str, str, float]:
     # Confidence based on absolute score and margin over second-best
     confidence = min(0.92, 0.55 + 0.04 * best_score + 0.04 * gap)
 
-    return best_cat, _team_map[best_cat], confidence
+    team = _team_map[best_cat]
+
+    # Context-based team overrides
+    if best_cat == "Flight Software & Instruments":
+        # Hardware context (console, workstation) → Spacecraft Systems Engineering
+        if any(kw in lower for kw in ["console", "workstation"]):
+            team = "Spacecraft Systems Engineering"
+    elif best_cat == "Hull & Structural Systems":
+        # Fabricator jobs queuing but not materializing → data path issue → DSC
+        if "fabricator" in lower and any(kw in lower for kw in ["queue", "jobs"]):
+            team = "Deep Space Communications"
+
+    return best_cat, team, confidence
 
 
 # ── Priority detection ────────────────────────────────────────────────
@@ -361,6 +403,18 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
     # P1: Critical infrastructure degradation with broad impact
     if "cross-atlantic" in lower and ("critical" in lower or "severely degraded" in lower):
         return "P1", 0.85
+
+    # P1: Certificate expiring on production system (all fleet connections fail)
+    if "cert" in lower and "expir" in lower and any(
+        kw in lower for kw in ["production", "all external", "gateway", "all fleet"]
+    ):
+        return "P1", 0.85
+
+    # P1: VIP (Fleet Admiral) with real-time urgency
+    if "fleet admiral" in lower and any(
+        kw in lower for kw in ["happening now", "right now", "arriving in"]
+    ):
+        return "P1", 0.80
 
     # P1: Account lockout with urgent signal
     if "account lockout" in lower and "urgent" in subj_lower:
@@ -584,6 +638,12 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
     if "i have been waiting" in lower:
         p2_signals += 1
 
+    # Offboarding with sensitive/classified access — time-bound security action
+    if any(kw in lower for kw in ["last duty cycle", "transferring off"]) and any(
+        kw in lower for kw in ["sensitive", "classified", "threat detection", "containment"]
+    ):
+        p2_signals += 2
+
     if p2_signals >= 2:
         return "P2", min(0.80, 0.55 + 0.04 * p2_signals)
 
@@ -600,7 +660,7 @@ def _detect_escalation(
     """Determine if the ticket needs escalation."""
     lower = text.lower()
 
-    # P1 only escalates for cross-station or security-related P1s
+    # P1 escalates for cross-station, security, VIP/delegation, or safety
     if priority == "P1":
         if any(kw in lower for kw in [
             "cross-atlantic", "cross-station",
@@ -610,16 +670,38 @@ def _detect_escalation(
         # Safety keywords always escalate
         if any(kw in lower for kw in _P1_SAFETY_KEYWORDS):
             return True
+        # VIP/delegation with time pressure
+        if any(kw in lower for kw in [
+            "delegation", "fleet admiral", "admiralty",
+        ]):
+            return True
+        # Cert expiry on production
+        if "cert" in lower and "expir" in lower:
+            return True
         # Otherwise P1 does NOT auto-escalate (e.g., single-user split-tunnel)
         return False
+
+    # Threat category always escalates
+    if category == "Threat Detection & Containment":
+        return True
+
+    # Airlock access issues — safety-critical infrastructure
+    if "airlock" in lower and any(kw in lower for kw in [
+        "broken", "not working", "still broken", "access code", "doesn't work",
+    ]):
+        return True
 
     # Threat / security indicators (require context, not just keyword)
     if any(kw in lower for kw in [
         "unauthorized access", "unauthorized login",
         "exfiltration",
-        "hostile", "malware", "social engineering",
+        "malware", "social engineering",
         "impersonation",
     ]):
+        return True
+
+    # "hostile" — only if not in routine offboarding/transfer context
+    if "hostile" in lower and category != "Mission Briefing Request":
         return True
 
     # Multi-WAN failover — infrastructure-level
@@ -1373,7 +1455,7 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             # Only include a 3rd if its score is very high (strict threshold)
             if len(ranked) > len(result):
                 next_item, next_score = ranked[len(result)]
-                if next_score >= 3.5:
+                if next_score >= 4.5:
                     result.append(next_item)
             break
 
@@ -1411,7 +1493,13 @@ def classify_by_rules(
     if category == "Not a Mission Signal":
         priority, pri_confidence = "P4", 0.90
     elif category == "Mission Briefing Request":
-        priority, pri_confidence = "P4", 0.85
+        cleaned_lower = cleaned.lower()
+        if priority in ("P1", "P2"):
+            pass  # Keep high priority for urgent offboarding/time-critical briefings
+        elif any(kw in cleaned_lower for kw in ["full setup", "setup needed", "new crew member"]):
+            priority, pri_confidence = "P3", 0.80
+        else:
+            priority, pri_confidence = "P4", 0.85
 
     # Escalation (pass original text for injection detection)
     needs_escalation = _detect_escalation(cleaned, priority, category, subject, text)

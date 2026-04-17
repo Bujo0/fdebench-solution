@@ -1,0 +1,452 @@
+[
+    {
+        "ticket_id": "EDGE-CAT-001",
+        "subject": "BioAuth panel on the bridge terminal keeps crashing",
+        "description": "The biometric authentication panel on my bridge terminal crashes whenever I try to scan. Is this a hardware issue with the terminal or a software issue with BioAuth? The panel itself powers on fine but the auth app freezes mid-scan. I've tried rebooting the terminal twice. Panel ID is BRG-T-07.",
+        "reporter": {"name": "Lt. Nakamura", "email": "nakamura@station.gov", "department": "Bridge Ops"},
+        "created_at": "2026-04-15T10:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-CAT-002",
+        "subject": "Hull sensor panel near airlock won't accept my credentials",
+        "description": "The hull integrity monitoring panel adjacent to Airlock 7 is rejecting my biometric scan. I need to access the panel to check pressure readings but it keeps saying 'credential not recognized'. The panel hardware looks fine — lights are green, display is on. My badge works on every other door and console on the deck.",
+        "reporter": {"name": "Eng. Vasquez", "email": "vasquez@station.gov", "department": "Hull Maintenance"},
+        "created_at": "2026-04-15T11:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-CAT-003",
+        "subject": "Subspace relay data not syncing to telemetry dashboard",
+        "description": "Incoming subspace relay transmissions are arriving normally but the data isn't populating in the telemetry dashboard. The comm link itself is stable — I can send and receive messages — but the pipeline that feeds relay data into our analytics node seems broken. The dashboard shows stale readings from 6 hours ago.",
+        "reporter": {"name": "Dr. Chen", "email": "chen@station.gov", "department": "Science Ops"},
+        "created_at": "2026-04-15T12:00:00Z",
+        "channel": "subspace_relay",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-CAT-004",
+        "subject": "Comm relay latency data lost in deep storage migration",
+        "description": "During the deep storage migration last night, historical comm relay latency logs from the past quarter were not transferred. The relay itself is working fine. I need these records for our quarterly comms performance report. The data was in data core partition DC-14 and should have been moved to the new deep storage array.",
+        "reporter": {"name": "Analyst Park", "email": "park@station.gov", "department": "Telemetry"},
+        "created_at": "2026-04-15T13:00:00Z",
+        "channel": "holodeck_comm",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-CAT-005",
+        "subject": "FlightOS trajectory plotter crashes on console reboot",
+        "description": "Every time I reboot my workstation console, the FlightOS trajectory plotter throws a segfault and won't load until I clear the local cache manually. This started after the last FlightOS patch. The console itself seems fine for everything else — comms, crew directory, hull status display all work. Just FlightOS is broken on cold boot.",
+        "reporter": {"name": "Nav. Officer Reyes", "email": "reyes@station.gov", "department": "Navigation"},
+        "created_at": "2026-04-15T14:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-CAT-006",
+        "subject": "Suspicious login attempt on crew quarters access panel",
+        "description": "The access panel at Crew Quarters Section D logged 47 failed biometric attempts from an unrecognized crew ID between 0200 and 0315 station time. The attempts used different biometric methods — palm, iris, and neural key. No one on the night shift roster matches the ID. Panel CQ-D-02 recorded all attempts. Could be a malfunctioning panel or could be someone trying to break in.",
+        "reporter": {"name": "Security Officer Obi", "email": "obi@station.gov", "department": "Station Security"},
+        "created_at": "2026-04-15T04:30:00Z",
+        "channel": "emergency_beacon",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-CAT-007",
+        "subject": "New crew member onboarding — needs all access provisioned",
+        "description": "Lt. Kim is joining Bridge Ops next Monday. Full setup needed — crew profile creation, biometric enrollment for all bridge terminals, BioAuth registration, SSO account, security group membership for Bridge-Level-3, and quarters assignment. New crew member transfer from Deep Space Station Kepler.",
+        "reporter": {"name": "Cmdr. Singh", "email": "singh@station.gov", "department": "Bridge Ops"},
+        "created_at": "2026-04-15T09:00:00Z",
+        "channel": "subspace_relay",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-CAT-008",
+        "subject": "Holographic projector auth module throwing certificate errors",
+        "description": "The holographic projector in Briefing Room 3 started showing certificate validation errors when crew members try to authenticate to load their presentations. The projector hardware is fine — self-test passes, display works in guest mode. But the auth module embedded in the projector keeps rejecting valid crew certificates. This could be a certificate expiry issue or a firmware problem.",
+        "reporter": {"name": "Tech. Kowalski", "email": "kowalski@station.gov", "department": "AV Support"},
+        "created_at": "2026-04-15T15:00:00Z",
+        "channel": "holodeck_comm",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-CAT-009",
+        "subject": "Navigation beacon data corrupted in telemetry ingest pipeline",
+        "description": "Navigation beacon triangulation data from Sector 7G is being corrupted during ingest into the telemetry data banks. The beacons themselves are transmitting fine — raw captures show clean data — but by the time it hits the analytics node, coordinate values are garbled. The ingest pipeline version was updated yesterday.",
+        "reporter": {"name": "Data Eng. Petrov", "email": "petrov@station.gov", "department": "Data Engineering"},
+        "created_at": "2026-04-15T16:00:00Z",
+        "channel": "subspace_relay",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-CAT-010",
+        "subject": "Network switch on Deck 5 causing fabricator connectivity drops",
+        "description": "The molecular fabricator on Deck 5 keeps losing network connectivity every 15-20 minutes. I traced it to the network switch in junction box D5-J3 — the port LEDs are flashing amber. When the fabricator drops, it loses its print queue and in-progress jobs fail. The switch also serves two comms panels and a security camera, all of which experience brief dropouts.",
+        "reporter": {"name": "Tech. Okonkwo", "email": "okonkwo@station.gov", "department": "IT Infrastructure"},
+        "created_at": "2026-04-15T17:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-CAT-011",
+        "subject": "Telemetry dashboard showing comms relay health metrics incorrectly",
+        "description": "The prod-analytics dashboard is displaying comm relay uptime as 23% when manual checks show all relays are operational. I think the dashboard query is pulling from a stale data core partition. The comms team confirmed all relays are green. This is a dashboard/data issue, not a comms issue.",
+        "reporter": {"name": "Analyst Torres", "email": "torres@station.gov", "department": "Telemetry"},
+        "created_at": "2026-04-15T18:00:00Z",
+        "channel": "holodeck_comm",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-CAT-012",
+        "subject": "Threat scanner integrated into airlock panel malfunctioning",
+        "description": "The threat detection scanner embedded in Airlock 12's access panel is throwing false positives — flagging every crew member as carrying contraband. This is causing 20-minute delays at shift change because security has to do manual pat-downs. The airlock door mechanism and biometric auth work fine, it's specifically the threat scanning module.",
+        "reporter": {"name": "Chief Petty Officer Davis", "email": "davis@station.gov", "department": "Station Security"},
+        "created_at": "2026-04-15T06:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-CAT-013",
+        "subject": "Can't tell if this is a software bug or hardware failure on flight console",
+        "description": "My flight console's reference frame indicator is jumping between values randomly. Sometimes it shows correct heading, other times it's 90 degrees off. The console display itself looks fine — no dead pixels, no flickering. The FlightOS diagnostics tool says 'sensor feed nominal' but the displayed values are clearly wrong. Could be a bad gyroscope, could be a rendering bug in FlightOS.",
+        "reporter": {"name": "Pilot Johansson", "email": "johansson@station.gov", "department": "Flight Ops"},
+        "created_at": "2026-04-15T19:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-CAT-014",
+        "subject": "Mission briefing request but also need to report a broken terminal",
+        "description": "Two things: First, I need the standard mission briefing packet for the upcoming Sector 9 survey mission. Second, the crew briefing terminal in Conference Room A has a cracked display and the holographic projector attached to it won't power on. Can someone send me the briefing docs digitally and also dispatch maintenance for the terminal?",
+        "reporter": {"name": "Cmdr. Nakamura", "email": "c.nakamura@station.gov", "department": "Mission Planning"},
+        "created_at": "2026-04-15T08:00:00Z",
+        "channel": "subspace_relay",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-CAT-015",
+        "subject": "Environmental sensor data vanishing from crew access audit logs",
+        "description": "Environmental sensor readings that are supposed to be stored in the crew access audit logs for compliance are disappearing after 24 hours. The data core ingest looks normal for other data types. The crew access system itself works fine — all biometrics, all door logs — but the environmental overlay data that gets attached to each access event is being purged prematurely.",
+        "reporter": {"name": "Compliance Officer Wei", "email": "wei@station.gov", "department": "Compliance"},
+        "created_at": "2026-04-15T20:00:00Z",
+        "channel": "subspace_relay",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-001",
+        "subject": "Minor atmospheric reading variance on Deck 12",
+        "description": "Just flagging a small anomaly — the atmospheric sensor on Deck 12 Frame 7 is showing O2 at 18.3% instead of the standard 20.9%. The reading has been drifting down slowly over the past 3 hours. Not sure if the sensor needs recalibration or if there's an actual atmospheric issue. No one has reported feeling lightheaded. Thought I'd mention it before my shift ends.",
+        "reporter": {"name": "Tech. Alvarez", "email": "alvarez@station.gov", "department": "Environmental Systems"},
+        "created_at": "2026-04-16T06:00:00Z",
+        "channel": "subspace_relay",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-002",
+        "subject": "Life support backup controller showing amber warning",
+        "description": "The backup life-support controller on Deck 8 is showing an amber status light. Primary system is running fine and all readings are nominal. The backup has been amber since this morning's maintenance window. Not urgent since primary is healthy, but wanted to log it. The backup unit is model LS-BC-400 serial 8827.",
+        "reporter": {"name": "Eng. Kowalski", "email": "m.kowalski@station.gov", "department": "Life Support"},
+        "created_at": "2026-04-16T07:00:00Z",
+        "channel": "holodeck_comm",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-003",
+        "subject": "Major comm relay outage but we switched to backup relay",
+        "description": "The primary subspace relay went down at 0400 affecting all departments on Decks 3-7. We immediately failed over to the backup relay which is handling traffic fine. Latency is about 40ms higher than normal but all critical comms are functional. The primary relay shows a hardware fault code HW-7712. We can operate on backup for several days but would like the primary repaired before the next scheduled deep space transmission window in 72 hours.",
+        "reporter": {"name": "Comms Chief Tanaka", "email": "tanaka@station.gov", "department": "Communications"},
+        "created_at": "2026-04-16T05:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-004",
+        "subject": "Fabricator queue is really annoying today",
+        "description": "The molecular fabricator on Deck 3 has a really annoying queue issue — jobs submitted before 0800 aren't starting until 1400 or later. It's not broken, things do eventually print, it's just really slow. I have some non-urgent parts to fabricate for next week's maintenance schedule. Is there a way to prioritize the queue or is this just the normal backlog from yesterday's downtime?",
+        "reporter": {"name": "Tech. Morrison", "email": "morrison@station.gov", "department": "Maintenance"},
+        "created_at": "2026-04-16T14:30:00Z",
+        "channel": "holodeck_comm",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-005",
+        "subject": "EXTREMELY URGENT: Rec room holographic display slightly dim",
+        "description": "CRITICAL ISSUE PLEASE HELP IMMEDIATELY!!! The holographic display in Recreation Room B is slightly dimmer than usual on the left side. It still works fine for movie night and gaming but the brightness is maybe 10% lower on one panel. This has been like this for about a week. I keep forgetting to report it. No one else has complained.",
+        "reporter": {"name": "Ens. Williams", "email": "williams@station.gov", "department": "Crew Welfare"},
+        "created_at": "2026-04-16T20:00:00Z",
+        "channel": "holodeck_comm",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-006",
+        "subject": "Sensor log shows micro-fracture in Hull Section C-14",
+        "description": "Routine hull integrity scan detected a micro-fracture at coordinates C-14-7-Alpha. The fracture is 0.3mm and well within structural tolerances according to the engineering manual. No atmospheric loss detected. Hull stress sensors in the adjacent sections all read normal. Scheduled maintenance can address this during the next dry-dock cycle in 6 weeks. Logging for tracking purposes.",
+        "reporter": {"name": "Structural Eng. Hoffman", "email": "hoffman@station.gov", "department": "Hull Engineering"},
+        "created_at": "2026-04-16T09:00:00Z",
+        "channel": "subspace_relay",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-007",
+        "subject": "Database connection times out on crew directory lookups",
+        "description": "The Nova DB connection for crew directory lookups is timing out intermittently. About 1 in 5 queries fails. The database server is responding to pings and other applications using the same Nova DB cluster are working fine. The connection times out after 30 seconds and returns error code NDB-408. This affects all crew who try to look up contact info but they can retry and it usually works on the second attempt.",
+        "reporter": {"name": "SysAdmin Patel", "email": "patel@station.gov", "department": "IT"},
+        "created_at": "2026-04-16T10:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-008",
+        "subject": "Multiple crew affected by SSO failures but we have a workaround",
+        "description": "About 30 crew members in Science Division are getting SAML SSO failures when trying to access the research portal. The error is 'identity assertion expired'. We discovered that clearing browser cache and re-authenticating fixes it temporarily (lasts about 2 hours before failing again). This started after the identity beacon security certificate rotation last night. It's disruptive but nobody is fully blocked.",
+        "reporter": {"name": "IT Lead Chen", "email": "it.chen@station.gov", "department": "Science Division IT"},
+        "created_at": "2026-04-16T08:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-009",
+        "subject": "Containment field generator test results look odd",
+        "description": "During our scheduled quarterly containment field generator test, one of the eight field generators on Deck 4 Lab 2 showed a 2% variance from spec. The other seven were within normal parameters. We ran the test twice and got the same result. The containment field is currently operating normally with all eight generators contributing. The variance is within the 5% tolerance threshold but it's trending in the wrong direction compared to last quarter's 0.8% reading.",
+        "reporter": {"name": "Lab Chief Rodriguez", "email": "rodriguez@station.gov", "department": "Science Labs"},
+        "created_at": "2026-04-16T11:00:00Z",
+        "channel": "subspace_relay",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-010",
+        "subject": "Hull section thermal reading 0.5 degrees above baseline",
+        "description": "Hull Section E-22 is reading 0.5 degrees Celsius above its usual baseline temperature. All surrounding sections are normal. No visible damage, no atmospheric readings out of spec. This is the section adjacent to the main engine exhaust manifold so it runs warmer anyway. Just documenting it for the trend log. Decompression risk: none based on current readings.",
+        "reporter": {"name": "Thermal Eng. Sato", "email": "sato@station.gov", "department": "Hull Engineering"},
+        "created_at": "2026-04-16T12:00:00Z",
+        "channel": "subspace_relay",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-011",
+        "subject": "Security certificate on main gateway expires in 36 hours",
+        "description": "The TLS security certificate on our main communications gateway expires in 36 hours. If it expires, all encrypted subspace relay traffic will fail and crew won't be able to access any authenticated services including BioAuth, crew directory, and the data core. The renewal process requires approval from two command-level officers and takes about 4 hours to complete. I've started the request but haven't gotten approvals yet.",
+        "reporter": {"name": "Security Eng. Park", "email": "s.park@station.gov", "department": "IT Security"},
+        "created_at": "2026-04-16T13:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-012",
+        "subject": "Intermittent power fluctuation in auxiliary server room",
+        "description": "The auxiliary server room on Deck 9 is experiencing brief power fluctuations — the lights flicker every 20 minutes or so and the UPS has switched to battery backup three times today. No servers have gone down yet but if the UPS batteries deplete, we'll lose the backup data core and secondary telemetry processing. The primary data center on Deck 2 is unaffected.",
+        "reporter": {"name": "Facilities Eng. Grant", "email": "grant@station.gov", "department": "Facilities"},
+        "created_at": "2026-04-16T14:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-013",
+        "subject": "Very slow holodeck rendering but everything else is fine",
+        "description": "The holographic calendar and screen share tools in SubComm are taking 15-20 seconds to render. Regular voice calls work fine. This has been happening for about 3 days. It's annoying during briefings but we can work around it by sharing files directly instead of screen sharing. Nobody's blocked, just mildly frustrated. Affects about 5 people in my department who use SubComm daily.",
+        "reporter": {"name": "Lt. Okafor", "email": "l.okafor@station.gov", "department": "Mission Planning"},
+        "created_at": "2026-04-16T15:00:00Z",
+        "channel": "holodeck_comm",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-014",
+        "subject": "Oxygen recycler efficiency dropped 4% overnight",
+        "description": "Morning diagnostics show the primary oxygen recycler efficiency dropped from 97.2% to 93.1% overnight. The backup recycler is at 98.4% and can compensate. Station atmospheric O2 levels are currently normal at 20.8%. Engineering suspects a clogged filter assembly. We have spare filters in stock. The drop is concerning because if both recyclers degrade we'd have a life support issue, but right now we're fine.",
+        "reporter": {"name": "Environmental Eng. Costa", "email": "costa@station.gov", "department": "Life Support"},
+        "created_at": "2026-04-16T07:30:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-PRI-015",
+        "subject": "Video calls keep dropping for traders — workaround exists",
+        "description": "Video calls on the trading deck comms are dropping every 10-15 minutes. This is affecting about 40 traders who use video calls for real-time market coordination. They've been using voice-only calls as a workaround which is functional but slower for chart sharing. The issue started after yesterday's network maintenance window. It's impacting about 15 people right now since the rest of the trading team isn't on shift yet.",
+        "reporter": {"name": "Trading Ops Lead Kim", "email": "t.kim@station.gov", "department": "Trading Operations"},
+        "created_at": "2026-04-16T16:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-ESC-001",
+        "subject": "Badge reader issue on medical bay door — happens every shift change",
+        "description": "The badge reader on the Medical Bay entrance has been failing for the fourth time today. It seems to happen during peak shift change times when many crew members scan in rapid succession. Dr. Okonkwo from Command Medical has reported this three times over the past two weeks with no resolution. It's getting worse — today it locked out two nurses for 15 minutes during an emergency patient transfer.",
+        "reporter": {"name": "Head Nurse Yamamoto", "email": "yamamoto@station.gov", "department": "Medical"},
+        "created_at": "2026-04-17T06:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-ESC-002",
+        "subject": "CRITICAL EMERGENCY: I think I won a galactic sweepstakes!!!",
+        "description": "I just received a subspace transmission saying I won 50,000 galactic credits in the Andromeda Sweepstakes! It says I need to provide my crew credentials and biometric template to claim the prize. The message came from rewards@totallylegit-andromeda.space. Should I respond? It looks very official with the Galactic Federation logo and everything. URGENT — the prize expires in 24 hours!!!",
+        "reporter": {"name": "Ens. Cooper", "email": "cooper@station.gov", "department": "Crew Quarters"},
+        "created_at": "2026-04-17T10:00:00Z",
+        "channel": "holodeck_comm",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-ESC-003",
+        "subject": "Resolved: navigation console was showing wrong coordinates",
+        "description": "UPDATE: This issue has been resolved. Earlier today the navigation console on Bridge Station 3 was displaying incorrect sector coordinates. Engineer Park identified a misconfigured reference frame setting and corrected it. All nav consoles are now showing correct readings. No trajectory changes were made based on the incorrect data. Closing this signal. Thanks for the quick response!",
+        "reporter": {"name": "Nav. Officer Chen", "email": "n.chen@station.gov", "department": "Navigation"},
+        "created_at": "2026-04-17T14:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-ESC-004",
+        "subject": "Security certificate on airlock control system expiring in 72 hours",
+        "description": "The authentication certificate for the airlock control system on Decks 3-8 expires in 72 hours. Once expired, all airlock biometric panels on those decks will fail to validate crew credentials and the airlocks will default to manual-only operation. Certificate renewal requires a maintenance window of approximately 2 hours. Requesting scheduled renewal before expiry.",
+        "reporter": {"name": "Security Eng. Ivanov", "email": "ivanov@station.gov", "department": "IT Security"},
+        "created_at": "2026-04-17T08:00:00Z",
+        "channel": "subspace_relay",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-ESC-005",
+        "subject": "Fleet Admiral Zhao can't access classified mission files",
+        "description": "Fleet Admiral Zhao is unable to access the classified mission briefing files on the secure data core. His credentials authenticate fine for all other systems but the classified archive returns 'insufficient clearance' which is obviously wrong for his rank. He needs these files for tomorrow's strategic planning session. He asked me to file this since he's in back-to-back meetings.",
+        "reporter": {"name": "Aide-de-Camp Lt. Murray", "email": "murray@station.gov", "department": "Command Staff"},
+        "created_at": "2026-04-17T09:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-ESC-006",
+        "subject": "Unauthorized data export detected from research database",
+        "description": "Our monitoring system flagged an unusual data export from the restricted research database at 0247 station time. Approximately 2.3 TB of classified xenobiology data was copied to an external storage device connected to Terminal RES-T-14. The access was authenticated with valid crew credentials belonging to Dr. Vasquez, but Dr. Vasquez was confirmed to be in cryo-sleep during that time period. The export has been stopped and the terminal isolated.",
+        "reporter": {"name": "CISO Nakamura", "email": "ciso@station.gov", "department": "Information Security"},
+        "created_at": "2026-04-17T03:00:00Z",
+        "channel": "emergency_beacon",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-ESC-007",
+        "subject": "Third time reporting the same docking bay comm static",
+        "description": "This is the third time I'm reporting static on the Docking Bay 4 comm system. Previous signals SIG-4821 and SIG-4856 were both closed as 'resolved' but the static came back within 48 hours each time. The static makes it impossible to coordinate incoming shuttle traffic safely. Last week we had a near-miss because the docking controller couldn't hear the shuttle pilot's approach callout. Someone needs to actually fix the root cause this time.",
+        "reporter": {"name": "Dock Master Obi", "email": "dockmaster@station.gov", "department": "Docking Operations"},
+        "created_at": "2026-04-17T07:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-ESC-008",
+        "subject": "Suspicious-looking but actually legitimate system notification",
+        "description": "I received an automated notification from our StarProtect antivirus system saying it quarantined a file on my terminal. The notification looks suspicious because the formatting is different from usual, but I checked the StarProtect admin console and confirmed it is a legitimate quarantine action — it caught a corrupted data file that matched a known false-positive signature. No actual malware. The quarantined file is a harmless sensor log export. Just reporting for the record.",
+        "reporter": {"name": "SysAdmin Lee", "email": "lee@station.gov", "department": "IT"},
+        "created_at": "2026-04-17T11:00:00Z",
+        "channel": "holodeck_comm",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-ESC-009",
+        "subject": "Partner station needs our crew access logs urgently",
+        "description": "The engineering liaison from Partner Station Kepler-7 contacted me requesting copies of our crew access logs for the past 30 days. They say they need them for a joint security audit. They claim it's authorized by Joint Command Directive 447. I can't verify this directive in our systems. They're pressuring us to send the logs immediately and say any delay will breach the partner SLA.",
+        "reporter": {"name": "Compliance Officer Wei", "email": "c.wei@station.gov", "department": "Compliance"},
+        "created_at": "2026-04-17T12:00:00Z",
+        "channel": "subspace_relay",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-ESC-010",
+        "subject": "Trajectory correction needed before tomorrow's orbital insertion",
+        "description": "Post-burn telemetry analysis shows we're 0.003 degrees off the planned approach vector for tomorrow's orbital insertion around Kepler-442b. Current trajectory is safe but if uncorrected will require 12% more fuel for the insertion burn. The correction burn needs to happen within the next 18 hours to be fuel-efficient. Navigation has computed the correction parameters. Requesting authorization to execute.",
+        "reporter": {"name": "Flight Director Tanaka", "email": "fd.tanaka@station.gov", "department": "Flight Operations"},
+        "created_at": "2026-04-17T15:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-MIS-001",
+        "subject": "Complete system failure on my workstation",
+        "description": "Everything stopped working on my terminal in Engineering Bay 4. I was running diagnostics on the hull stress sensors when the screen went white, then blue, then black. After rebooting, all my applications load fine, all my credentials work, I can access the network, and my biometric scans are accepted. I documented the exact time (1432 station time), the applications I had open (FlightOS diagnostics v4.2.1, hull sensor monitor, SubComm), the error code that flashed briefly (KERNEL-PANIC-0x7FF2), my terminal ID (ENG-B4-T09), and attached the crash dump log. Deck 4 Engineering Bay, Workstation 9.",
+        "reporter": {"name": "Eng. Vasquez", "email": "j.vasquez@station.gov", "department": "Engineering"},
+        "created_at": "2026-04-18T14:32:00Z",
+        "channel": "bridge_terminal",
+        "attachments": ["crash_dump_20260418.log"]
+    },
+    {
+        "ticket_id": "EDGE-MIS-002",
+        "subject": "Something's wrong with the network",
+        "description": "Can't connect. Fix please.",
+        "reporter": {"name": "Crew Member Jones", "email": "jones@station.gov", "department": "Crew Quarters"},
+        "created_at": "2026-04-18T09:00:00Z",
+        "channel": "holodeck_comm",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-MIS-003",
+        "subject": "Biometric panel error on Deck 6 — includes module_specs in description",
+        "description": "The BioAuth panel (Model BIO-X200, Firmware v3.4.1, Serial BX-88742) at Deck 6 Corridor Junction is intermittently rejecting palm scans. I've tested with 3 different crew members and all experience the same issue. The panel's built-in diagnostic shows 'sensor calibration drift — recalibration recommended'. The panel was last serviced on stardate 2026.103. Previous signal SIG-4990 reported a similar issue on a different deck.",
+        "reporter": {"name": "Security Tech. Adams", "email": "adams@station.gov", "department": "Security"},
+        "created_at": "2026-04-18T10:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-MIS-004",
+        "subject": "Request for new security group — all details provided",
+        "description": "Please create a new security group called 'Xenobiology-Lab-Access' with the following specifications: Members — Dr. Chen, Dr. Park, Dr. Okonkwo, Tech. Morrison (4 crew). Purpose — controlled access to Xenobiology Lab on Deck 11. Access level — biometric + neural key required. Approving authority — Science Division Head Dr. Rodriguez (approval attached). Mission impact — needed for the upcoming xenobiology sample analysis starting next Monday. Current workaround — manual escort by security, which is available but inefficient.",
+        "reporter": {"name": "Lab Manager Singh", "email": "lab.singh@station.gov", "department": "Science Division"},
+        "created_at": "2026-04-18T11:00:00Z",
+        "channel": "subspace_relay",
+        "attachments": ["approval_rodriguez.pdf"]
+    },
+    {
+        "ticket_id": "EDGE-MIS-005",
+        "subject": "Comms panel flickering intermittently in corridor D3",
+        "description": "The comm panel outside quarters D3-14 flickers on and off randomly. Sometimes the screen goes completely dark for a few seconds then comes back. I can usually get my messages through if I wait for it to stabilize. This has been happening for about a week. No error messages, no beeping, just the display going dark and coming back. Not sure if it's the panel hardware, the power supply, or the software.",
+        "reporter": {"name": "Ens. Taylor", "email": "taylor@station.gov", "department": "Crew Quarters"},
+        "created_at": "2026-04-18T15:00:00Z",
+        "channel": "holodeck_comm",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-MIS-006",
+        "subject": "Forwarding phishing message for awareness",
+        "description": "Just forwarding this phishing attempt I received for the security team's awareness. Subject was 'Your account has been compromised — click here to reset'. Came from 'support@station-security-update.fake'. I did NOT click any links or provide any information. Just wanted to make sure the team knows these are circulating. The message tried to get me to enter my biometric template code and crew ID.",
+        "reporter": {"name": "Lt. Patel", "email": "lt.patel@station.gov", "department": "Science Ops"},
+        "created_at": "2026-04-18T12:00:00Z",
+        "channel": "subspace_relay",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-MIS-007",
+        "subject": "Need to verify if I have the right access permissions",
+        "description": "I was recently transferred from Engineering to Medical. My crew profile was updated last week and I can access Medical Bay doors and systems fine. I just want to confirm that my old Engineering access has been properly revoked and that I'm in the right security groups. I don't think anything is wrong, I'm just being thorough. Is there a guide for checking my own permission status?",
+        "reporter": {"name": "Medic Torres", "email": "medic.torres@station.gov", "department": "Medical"},
+        "created_at": "2026-04-18T13:00:00Z",
+        "channel": "holodeck_comm",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-MIS-008",
+        "subject": "Data core backup verification request",
+        "description": "Requesting verification that last night's data core backup completed successfully. The automated backup report didn't arrive in my inbox this morning. I don't have any evidence that the backup failed — it might just be an email delivery issue — but given that we're about to start the quarterly data migration next week, I want to make sure our backup chain is intact. The backup job runs on the prod-analytics data core cluster and targets deep storage array DS-7.",
+        "reporter": {"name": "Data Eng. Petrov", "email": "d.petrov@station.gov", "department": "Data Engineering"},
+        "created_at": "2026-04-18T08:00:00Z",
+        "channel": "subspace_relay",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-MIS-009",
+        "subject": "Guest researcher from Kepler can't log into station systems",
+        "description": "Dr. Yuki from Partner Station Kepler arrived yesterday for a 2-week research collaboration. She can't log into any station systems — crew directory doesn't have her profile, BioAuth panels don't recognize her, and she has no SSO credentials. She's supposed to start work in Lab 3 tomorrow. I don't have her comm frequency for callback since she's been using my terminal to check messages. Filing this on behalf of her since she can't access the ticket system herself.",
+        "reporter": {"name": "Dr. Park", "email": "research.park@station.gov", "department": "Research"},
+        "created_at": "2026-04-18T16:00:00Z",
+        "channel": "bridge_terminal",
+        "attachments": []
+    },
+    {
+        "ticket_id": "EDGE-MIS-010",
+        "subject": "Thank you for fixing the projector in Lab 2!",
+        "description": "Just wanted to say thanks for the quick turnaround on the holographic projector repair in Lab 2. Everything is working perfectly now. The display is crisp, the calibration is spot-on, and the auth module accepts our credentials without any delay. Great work by the maintenance team. Appreciate the help! No further action needed.",
+        "reporter": {"name": "Dr. Okonkwo", "email": "okonkwo@station.gov", "department": "Science Labs"},
+        "created_at": "2026-04-18T17:00:00Z",
+        "channel": "holodeck_comm",
+        "attachments": []
+    }
+]
