@@ -266,8 +266,6 @@ def _detect_category(text: str) -> tuple[str, str, float]:
         "white screen", "holographic calendar", "phantom briefing",
         "screen share", "share screen", "plotter",
         "reference frame", "subcomm",
-        "autopilot", "navigation software", "flight computer",
-        "instrument panel", "avionics",
     ]
     sw_score = sum(1 for kw in _software_kw if kw in lower)
     if any(kw in subj for kw in [
@@ -277,6 +275,9 @@ def _detect_category(text: str) -> tuple[str, str, float]:
     # Screen sharing with any word in between ("share his screen", "share her screen")
     if "share" in lower and "screen" in lower:
         sw_score += 2
+    # Personal console reference — device-specific issue
+    if any(kw in lower for kw in ["my console", "his console", "her console"]):
+        sw_score += 5
 
     # Hull & Structural Systems
     _hull_kw = [
@@ -365,8 +366,10 @@ def _detect_category(text: str) -> tuple[str, str, float]:
 
     # Context-based team overrides
     if best_cat == "Flight Software & Instruments":
-        # Hardware context (console, workstation) → Spacecraft Systems Engineering
-        if any(kw in lower for kw in ["console", "workstation"]):
+        # Hardware context (console, workstation) → SSE, unless it's a screen-sharing issue
+        if "share" in lower and "screen" in lower:
+            pass  # Screen sharing is a software/policy issue → keep MSO
+        elif any(kw in lower for kw in ["console", "workstation"]):
             team = "Spacecraft Systems Engineering"
     elif best_cat == "Hull & Structural Systems":
         # Fabricator jobs queuing but not materializing → data path issue → DSC
@@ -681,9 +684,8 @@ def _detect_escalation(
         # Otherwise P1 does NOT auto-escalate (e.g., single-user split-tunnel)
         return False
 
-    # Threat category always escalates
-    if category == "Threat Detection & Containment":
-        return True
+    # Threat category — only escalate active threats, not spam/phishing reports
+    # (cert expiry escalates via P1 path)
 
     # Airlock access issues — safety-critical infrastructure
     if "airlock" in lower and any(kw in lower for kw in [
