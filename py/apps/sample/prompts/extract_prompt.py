@@ -11,5 +11,6 @@ Rules:
 - Preserve exact text as it appears (don't correct typos in names/addresses)
 - For checkboxes/radio buttons, determine if they are checked or unchecked
 - Be thorough — examine all parts of the document carefully
+- For large or complex documents: extract the most important fields FIRST. It is better to return partial data than nothing.
 
 IMPORTANT: Return a JSON object matching the schema. Only include fields from the schema."""

@@ -667,6 +667,7 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
     is_connectivity = any(kw in lower for kw in [
         "drop", "drops", "dropping", "can't connect", "cannot connect",
         "no signal", "disconnects", "disconnect", "timeout", "timed out",
+        "times out",
         "slow", "latency", "buffering", "freezes", "choppy",
         "rf mesh", "hypernet", "comm relay",
         "not connecting", "won't connect", "failed to connect",
@@ -910,14 +911,22 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             sc += 1.5  # DNS changes still need to know scope
         if is_outage and not is_infra_config:
             sc += 1.0
+        if is_transcription:
+            sc += 1.5  # transcriptions often lack location detail
         if has_precise_location:
             sc -= 5.0
-        if is_vpn_user or is_home_access:
-            sc -= 3.0  # VPN/home issues don't need location
-        if is_infra_config and not is_connectivity:
+        if is_roaming:
+            sc -= 3.0  # roaming issues are device-specific, not location
+        if is_vpn_user and not is_home_access:
+            sc -= 2.0  # VPN issues may still need location for RDP
+        if is_home_access and not any(kw in lower for kw in ["rdp", "remote desktop"]):
+            sc -= 2.0  # home issues only need location for RDP
+        if is_infra_config and not is_connectivity and not is_transcription:
             sc -= 2.0  # pure config doesn't need location
         if is_recurring and not is_connectivity:
             sc -= 1.0
+        if is_partial_access:
+            sc -= 2.0  # partial access is about config, not location
         scores["sector_coordinates"] = sc
 
         # ── anomaly_readout ──
@@ -962,13 +971,15 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             sc2 += 0.5
         if "configuration" in lower or "config" in lower:
             sc2 -= 0.5
+        if is_transcription and is_connectivity:
+            sc2 -= 3.0  # transcriptions are user reports, not config requests
         if not is_infra_config and not is_dns_change:
             sc2 -= 5.0
         scores["system_configuration"] = sc2
 
         # ── stardate ──
         sd = 0.0
-        if is_infra_config and not has_stardate:
+        if is_infra_config and not has_stardate and not is_transcription:
             sd += 2.5
         if is_outage and not has_stardate:
             sd += 1.5
@@ -980,6 +991,8 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             sd -= 5.0
         if is_connectivity and not is_infra_config and not is_outage and not is_recurring:
             sd -= 2.0  # pure connectivity doesn't need stardate
+        if is_transcription:
+            sd -= 1.5  # transcriptions are user reports, less about timing
         scores["stardate"] = sd
 
         # ── module_specs ──
@@ -1010,7 +1023,7 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             "every ", "pattern:", "frequency:", "intervals of",
             "minute at a time", "about a minute",
         ]):
-            rp -= 1.0  # some pattern described but may need more
+            rp -= 0.5  # some pattern described but may need more
         if not is_recurring:
             rp -= 5.0
         scores["recurrence_pattern"] = rp
@@ -1080,8 +1093,10 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             asub += 3.0  # some work, some don't → which subsystem?
         if is_auth_issue and not has_subsystem_named:
             asub += 1.0
-        if has_subsystem_named:
+        if has_subsystem_named and not is_partial_access:
             asub -= 5.0
+        elif has_subsystem_named and is_partial_access:
+            asub -= 1.0  # subsystem named but affected one unclear
         scores["affected_subsystem"] = asub
 
         # ── software_version ──
@@ -1115,10 +1130,12 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         hc = 0.0
         if is_remote:
             hc += 2.5
-        if is_home_access:
+        if is_home_access and not is_partial_access:
             hc += 2.0
         if not is_remote and not is_home_access:
             hc -= 4.0
+        if is_partial_access:
+            hc -= 2.0  # partial access is about routing, not habitat
         scores["habitat_conditions"] = hc
 
         # ── previous_signal_id ──
@@ -1141,7 +1158,7 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             "times out", "just times out",
         ]) and not has_subsystem_named:
             s2r += 1.0
-        if has_subsystem_named:
+        if has_subsystem_named and not is_partial_access:
             s2r -= 3.0
         scores["sequence_to_reproduce"] = s2r
 
@@ -1311,7 +1328,7 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         if is_remote:
             hc += 3.0
         if is_domain_env:
-            hc += 2.0  # domain/environment mismatch
+            hc += 3.0  # domain/environment mismatch
         if any(kw in lower for kw in [
             "outpost", "off-ship", "mining", "asteroid",
             "contoso-legacy", "old domain",
@@ -1353,10 +1370,10 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             break
         result.append(item)
         if len(result) >= 2:
-            # Only include a 3rd if its score is high enough
+            # Only include a 3rd if its score is very high (strict threshold)
             if len(ranked) > len(result):
                 next_item, next_score = ranked[len(result)]
-                if next_score >= 2.5:
+                if next_score >= 3.5:
                     result.append(next_item)
             break
 
