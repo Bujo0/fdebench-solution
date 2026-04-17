@@ -85,6 +85,8 @@ async def complete_with_vision(
     *,
     response_format: Any = None,
     temperature: float = 0.0,
+    detail: str = "auto",
+    mime_type: str = "image/png",
 ) -> Any:
     """Send a vision chat completion with a base64 image."""
     messages: list[dict[str, Any]] = [
@@ -94,7 +96,7 @@ async def complete_with_vision(
             "content": [
                 {
                     "type": "image_url",
-                    "image_url": {"url": f"data:image/png;base64,{image_base64}", "detail": "high"},
+                    "image_url": {"url": f"data:{mime_type};base64,{image_base64}", "detail": detail},
                 },
                 {"type": "text", "text": user_content},
             ],

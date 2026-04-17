@@ -12,7 +12,7 @@ COPY py/apps/sample/pyproject.toml ./py/apps/sample/
 COPY py/common/ ./py/common/
 
 # Install dependencies
-RUN cd py && uv sync --all-packages --no-dev --frozen
+RUN cd py && uv sync --package sample --no-dev --frozen
 
 # Copy application code
 COPY py/apps/sample/ ./py/apps/sample/

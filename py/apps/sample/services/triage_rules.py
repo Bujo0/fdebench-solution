@@ -687,12 +687,15 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         "holographic display", "comm panel",
     ])
 
+    # RF mesh roaming issue (device-specific, not location-specific)
+    is_roaming = "roaming" in lower
+
     # Intermittent/recurring issue
     is_recurring = any(kw in lower for kw in [
         "intermittent", "random", "sometimes", "sporadic", "recurring",
         "keeps dropping", "keeps disconnecting", "on and off",
         "comes and goes", "randomly", "flapping", "half the time",
-    ])
+    ]) or is_roaming
 
     # References a previous incident (by description, not by ID)
     is_followup = any(kw in lower for kw in [
@@ -701,6 +704,7 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         "back again", "last time this happened", "still happening",
         "similar incident", "same symptoms", "same error",
         "same authentication", "same sign-in",
+        "going back and forth", "for weeks",
     ])
 
     # Has actual ticket/incident reference number
@@ -740,11 +744,17 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
     # Has stardate or precise timestamp
     has_stardate = "stardate" in lower
 
-    # Has specific biometric method named
-    has_bio_detail = any(kw in lower for kw in [
+    # Has specific biometric method named (but NOT in a negated context)
+    _bio_keywords_present = any(kw in lower for kw in [
         "retinal", "neural key", "palm scan", "fingerprint",
         "voice auth", "iris", "neural-key", "palm-scan",
     ])
+    _bio_uncertain = any(kw in lower for kw in [
+        "not sure which", "not sure exactly which",
+        "whatever pops up", "don't know which",
+        "either", "whichever",
+    ])
+    has_bio_detail = _bio_keywords_present and not _bio_uncertain
 
     # Auth/login issue
     is_auth_issue = any(kw in lower for kw in [
@@ -793,6 +803,23 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         "tried to screenshot", "tried taking a screenshot",
         "closed the tab before saving", "before saving the result",
         "didn't capture", "couldn't capture",
+        "didn't think to capture", "can't describe the exact error",
+    ])
+
+    # Voicemail / transcription (low quality info, needs more details)
+    is_transcription = any(kw in lower for kw in [
+        "voictransmission", "transcription", "transcribed",
+        "auto-transcribed", "comm link transcript",
+    ])
+
+    # Partial access (some things work, others don't)
+    is_partial_access = any(kw in lower for kw in [
+        "other cadetal tools", "other modules", "other sites",
+        "most cadetal sites", "some fine", "just times out",
+        "works fine when", "other apps", "other cadetal",
+    ]) and any(kw in lower for kw in [
+        "times out", "doesn't work", "just this one",
+        "just times out", "can't access",
     ])
 
     # Multiple people affected
@@ -899,6 +926,8 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             ar += 2.0
         if is_infra_config and not is_connectivity and not has_error_detail:
             ar += 1.5
+        if is_transcription:
+            ar += 1.5  # transcriptions often lack specific error details
         if any(kw in lower for kw in [
             "didn't capture", "couldn't capture", "no error",
             "without an error", "can't describe",
@@ -907,11 +936,13 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         if has_error_detail:
             ar -= 3.0
         # Demote if another signal is much stronger
-        if is_hardware and not has_device_detail:
+        if is_roaming:
+            ar -= 2.0  # roaming → module_specs + recurrence more important
+        if is_hardware and not has_device_detail and not is_transcription:
             ar -= 1.0  # module_specs likely more important
-        if is_recurring:
+        if is_recurring and not is_connectivity:
             ar -= 0.5  # recurrence_pattern likely more important
-        if is_followup:
+        if is_followup and not is_connectivity:
             ar -= 1.0  # previous_signal_id likely more important
         if is_behalf and not is_connectivity:
             ar -= 1.0
@@ -955,15 +986,19 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         ms = 0.0
         if is_hardware and not has_device_detail and not is_vpn_user:
             ms += 3.0
+        if is_roaming and not has_device_detail:
+            ms += 3.0  # roaming needs device model/capabilities
         if any(kw in lower for kw in [
             "fabricator", "relay unit", "beacon",
         ]) and not has_device_detail:
             ms += 1.0
+        if any(kw in lower for kw in ["rdp", "remote desktop"]) and not has_device_detail:
+            ms += 1.5  # RDP issues may need client device info
         if has_device_detail:
             ms -= 5.0
-        if not is_hardware:
+        if not is_hardware and not is_roaming and "rdp" not in lower:
             ms -= 3.0
-        if is_vpn_user:
+        if is_vpn_user and not is_roaming:
             ms -= 2.0  # VPN is software, not hardware
         scores["module_specs"] = ms
 
@@ -997,16 +1032,18 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         if tried_capture_failed:
             sl += 4.0
         if has_software_mention and not has_attachment:
-            sl += 1.0
+            sl += 1.5
         if any(kw in lower for kw in [
             "nav-client", "edge", "policy", "refresh",
             "speed test", "traceroute",
         ]) and not has_attachment:
             sl += 1.5
+        if is_transcription and not has_attachment:
+            sl += 0.5  # transcriptions may benefit from logs
         if has_attachment:
             sl -= 5.0
         if not tried_capture_failed and not has_software_mention:
-            sl -= 1.0
+            sl -= 1.5
         scores["sensor_log_or_capture"] = sl
 
         # ── crew_contact ──
@@ -1027,6 +1064,8 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             mi += 1.5
         if is_outage and not mentions_impact:
             mi += 1.0
+        if any(kw in lower for kw in ["wan ", "cross-atlantic"]) and not mentions_impact:
+            mi += 1.0  # WAN issues need impact assessment
         if mentions_impact:
             mi -= 3.0
         if not is_infra_config and not is_outage:
@@ -1037,6 +1076,8 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         asub = 0.0
         if not has_subsystem_named and is_connectivity:
             asub += 2.0
+        if is_partial_access:
+            asub += 3.0  # some work, some don't → which subsystem?
         if is_auth_issue and not has_subsystem_named:
             asub += 1.0
         if has_subsystem_named:
@@ -1092,8 +1133,10 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
 
         # ── sequence_to_reproduce ──
         s2r = 0.0
+        if is_partial_access:
+            s2r += 3.0  # some work some don't → need steps
         if not has_subsystem_named and is_connectivity and not is_auth_issue:
-            s2r += 1.5
+            s2r += 0.5
         if any(kw in lower for kw in [
             "times out", "just times out",
         ]) and not has_subsystem_named:
@@ -1107,6 +1150,8 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
         bm = 0.0
         if is_auth_issue and not has_bio_detail and not is_provisioning:
             bm += 2.5
+        if _bio_uncertain:
+            bm += 3.0  # explicitly uncertain about method
         if any(kw in lower for kw in [
             "sign-in", "login", "log in", "authenticate", "locked out",
             "multi-factor", "mfbv", "bioscan", "biometric",
@@ -1116,14 +1161,17 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             bm += 1.0
         if has_bio_detail:
             bm -= 5.0
-        if is_provisioning:
-            bm -= 3.0  # group/permission requests don't need auth method
+        if is_provisioning and not any(kw in lower for kw in [
+            "multi-factor", "biometric", "mfbv", "auth exemption",
+        ]):
+            bm -= 3.0
         if is_setup and not is_followup:
-            bm -= 2.0  # setup requests, not auth failures
-        if is_sso_redirect:
-            bm -= 1.5  # SSO issues are more about subsystem
+            bm -= 2.0
+        if is_sso_redirect and not _bio_uncertain:
+            bm -= 1.5
         if is_verbose_vague and not any(kw in lower for kw in [
             "sign-in", "login", "biometric", "mfbv", "authenticate",
+            "access code", "service account",
         ]):
             bm -= 2.0
         scores["biometric_method"] = bm
@@ -1190,6 +1238,8 @@ def _detect_missing_info(text: str, category: str) -> list[str]:
             sl += 2.5  # long vague description, needs evidence
         if tried_capture_failed:
             sl += 3.0
+        if _bio_uncertain and not has_attachment:
+            sl += 1.5  # uncertain about bio method → need capture of what happens
         if is_remote and not has_attachment:
             sl += 1.0
         if has_attachment:
