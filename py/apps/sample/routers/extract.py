@@ -207,7 +207,8 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
     try:
         schema_str = req.json_schema or "{}"
         # Optimize oversized images to reduce AOAI processing time
-        optimized_content = _optimize_image(req.content) if req.content else ""
+        # Use original content — image downscaling loses text detail
+        optimized_content = req.content if req.content else ""
         content_size = len(optimized_content)
         is_large = content_size > _LARGE_CONTENT_THRESHOLD
 
