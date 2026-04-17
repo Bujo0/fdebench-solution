@@ -1,6 +1,8 @@
 """Extract router — POST /extract endpoint."""
 
 import asyncio
+import base64
+import io
 import json
 import logging
 import re
@@ -12,6 +14,7 @@ from fastapi import Response
 from llm_client import complete_with_vision
 from models import ExtractRequest
 from models import ExtractResponse
+from PIL import Image
 from prompts.extract_prompt import EXTRACT_SYSTEM_PROMPT
 from utils import display_model
 from utils import parse_json_response
@@ -21,9 +24,46 @@ router = APIRouter()
 
 # Size thresholds for content-aware timeout (base64 bytes)
 _LARGE_CONTENT_THRESHOLD = 1_000_000  # ~1 MB base64 ≈ 750 KB raw image
+_MAX_IMAGE_DIMENSION = 2048  # Max width/height before downscaling
 _DEFAULT_TIMEOUT = 30  # seconds
 _LARGE_CONTENT_TIMEOUT = 55  # more headroom for big documents
 _RETRY_TIMEOUT = 35  # retry budget after first timeout
+
+
+def _optimize_image(content_b64: str) -> str:
+    """Downscale oversized images to reduce AOAI processing time.
+
+    Only resizes if the image exceeds _MAX_IMAGE_DIMENSION on either axis.
+    Returns the original base64 if the image is already small or can't be processed.
+    """
+    if len(content_b64) < _LARGE_CONTENT_THRESHOLD:
+        return content_b64  # Small enough — don't touch
+
+    try:
+        raw = base64.b64decode(content_b64)
+        img = Image.open(io.BytesIO(raw))
+        w, h = img.size
+
+        if w <= _MAX_IMAGE_DIMENSION and h <= _MAX_IMAGE_DIMENSION:
+            return content_b64  # Already within bounds
+
+        # Downscale preserving aspect ratio
+        ratio = min(_MAX_IMAGE_DIMENSION / w, _MAX_IMAGE_DIMENSION / h)
+        new_w, new_h = int(w * ratio), int(h * ratio)
+        img = img.resize((new_w, new_h), Image.LANCZOS)
+
+        buf = io.BytesIO()
+        fmt = img.format or "PNG"
+        img.save(buf, format=fmt, optimize=True)
+        optimized = base64.b64encode(buf.getvalue()).decode("ascii")
+
+        logger.info(
+            "Image optimized: %dx%d → %dx%d, %dKB → %dKB",
+            w, h, new_w, new_h, len(content_b64) // 1024, len(optimized) // 1024,
+        )
+        return optimized
+    except Exception:
+        return content_b64  # Can't process — return original
 
 # Date patterns for post-processing normalization
 _DATE_PATTERNS = [
@@ -166,7 +206,9 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
 
     try:
         schema_str = req.json_schema or "{}"
-        content_size = len(req.content) if req.content else 0
+        # Optimize oversized images to reduce AOAI processing time
+        optimized_content = _optimize_image(req.content) if req.content else ""
+        content_size = len(optimized_content)
         is_large = content_size > _LARGE_CONTENT_THRESHOLD
 
         timeout = _LARGE_CONTENT_TIMEOUT if is_large else _DEFAULT_TIMEOUT
@@ -190,7 +232,7 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
         # First attempt with content-aware timeout
         result = await _extract_with_timeout(
             model,
-            req.content,
+            optimized_content,
             user_content,
             timeout,
             req.document_id,
@@ -211,7 +253,7 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
             )
             result = await _extract_with_timeout(
                 model,
-                req.content,
+                optimized_content,
                 user_content_retry,
                 _RETRY_TIMEOUT,
                 req.document_id,

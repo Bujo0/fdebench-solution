@@ -1,0 +1,62 @@
+{
+  "V1-baseline": {
+    "resolution": 76.1,
+    "dimension_scores": {
+      "category": 0.9379,
+      "priority": 0.901,
+      "routing": 0.8901,
+      "missing_info": 0.1933,
+      "escalation": 0.6667
+    },
+    "tickets_scored": 50,
+    "tickets_errored": 0
+  },
+  "V2-priority-examples": {
+    "resolution": 75.6,
+    "dimension_scores": {
+      "category": 0.9379,
+      "priority": 0.9142,
+      "routing": 0.8901,
+      "missing_info": 0.17,
+      "escalation": 0.625
+    },
+    "tickets_scored": 50,
+    "tickets_errored": 0
+  },
+  "V3-anti-escalation": {
+    "resolution": 76.1,
+    "dimension_scores": {
+      "category": 0.9379,
+      "priority": 0.9142,
+      "routing": 0.8914,
+      "missing_info": 0.1393,
+      "escalation": 0.7143
+    },
+    "tickets_scored": 50,
+    "tickets_errored": 0
+  },
+  "V4-decision-tree": {
+    "resolution": 76.2,
+    "dimension_scores": {
+      "category": 0.9379,
+      "priority": 0.901,
+      "routing": 0.8901,
+      "missing_info": 0.17,
+      "escalation": 0.7143
+    },
+    "tickets_scored": 50,
+    "tickets_errored": 0
+  },
+  "V5-combined": {
+    "resolution": 77.1,
+    "dimension_scores": {
+      "category": 0.9548,
+      "priority": 0.9142,
+      "routing": 0.9094,
+      "missing_info": 0.1513,
+      "escalation": 0.7143
+    },
+    "tickets_scored": 50,
+    "tickets_errored": 0
+  }
+}

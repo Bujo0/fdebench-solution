@@ -92,20 +92,27 @@ P4 (LOW — routine, informational, no operational urgency):
 - Same issue recurring unresolved
 - Airlock access failures (safety-critical)
 
-## MISSING INFO (use ONLY these values, pick 0-3 most critical):
+## MISSING INFO (use ONLY these values):
 affected_subsystem, anomaly_readout, sequence_to_reproduce, affected_crew,
 habitat_conditions, stardate, previous_signal_id, crew_contact, module_specs,
 software_version, sector_coordinates, mission_impact, recurrence_pattern,
 sensor_log_or_capture, biometric_method, system_configuration
 
 Guidelines for missing_information:
-- Only include info that is ACTUALLY missing and would be CRITICAL to resolve the issue
-- If the reporter provided error details, don't ask for anomaly_readout
-- If a specific subsystem is named, don't ask for affected_subsystem
-- If it's a follow-up referencing a prior ticket, ask for previous_signal_id
-- If filing on behalf of someone else, consider crew_contact
-- For recurring issues, consider recurrence_pattern
-- Target 1-2 items on average
+- DEFAULT IS EMPTY LIST []. Most tickets do NOT need missing info.
+- Only include an item if the information is CLEARLY absent AND would be CRITICAL to resolve
+- If the reporter already described the error, device, location, etc. → do NOT request it
+- Prefer returning [] over guessing — precision matters more than recall
+- Only add items when you can point to a specific gap in the signal:
+  - module_specs → hardware issue but device model/asset not mentioned
+  - anomaly_readout → crash/error but no error text/code provided
+  - sequence_to_reproduce → intermittent bug but no steps given
+  - recurrence_pattern → "keeps happening" but no frequency
+  - previous_signal_id → explicit follow-up to a prior ticket
+  - crew_contact → onboarding/setup request but no contact info
+  - biometric_method → auth issue but which method is unclear
+- NEVER include: sensor_log_or_capture, mission_impact, system_configuration, software_version
+  unless the signal EXPLICITLY indicates they are needed
 
 ## OUTPUT FORMAT:
 For next_best_action: always return "Investigate and resolve the reported issue."
