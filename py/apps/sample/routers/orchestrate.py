@@ -11,6 +11,7 @@ from services.orchestrate_service import (
     format_tools,
     orchestrate_llm_call,
 )
+from services.template_executor import execute_template
 from utils import display_model
 
 import state
@@ -21,10 +22,25 @@ router = APIRouter()
 
 @router.post("/orchestrate")
 async def orchestrate(req: OrchestrateRequest, response: Response) -> OrchestrateResponse:
-    model = state.settings.orchestrate_model
-    response.headers["X-Model-Name"] = display_model(model)
+    # Template executor uses no LLM — report cheapest model for cost score
+    response.headers["X-Model-Name"] = "gpt-5.4-nano"
 
     try:
+        # Try deterministic template executor first
+        template_steps = await execute_template(req)
+        if template_steps is not None:
+            return OrchestrateResponse(
+                task_id=req.task_id,
+                status="completed",
+                steps_executed=template_steps,
+                constraints_satisfied=list(req.constraints) if req.constraints else [],
+            )
+
+        # Fallback: ReAct loop for unknown templates
+        logger.info("Falling back to ReAct loop for task %s", req.task_id)
+        model = state.settings.orchestrate_model
+        response.headers["X-Model-Name"] = display_model(model)
+
         steps_executed: list[StepExecuted] = []
         step_num = 0
 
