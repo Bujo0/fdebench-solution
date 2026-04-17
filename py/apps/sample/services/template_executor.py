@@ -23,18 +23,46 @@ logger = logging.getLogger(__name__)
 
 
 def detect_template(goal: str) -> str | None:
-    """Detect which of the 7 templates matches the goal text."""
+    """Detect which of the 7 templates matches the goal text.
+
+    Order matters: more specific templates (onboarding, re-engagement) are
+    checked before broader ones (churn) to avoid false positives when goals
+    mention "cancelled" subscriptions as context rather than intent.
+    """
     g = goal.lower()
 
-    if (
-        "churn" in g
-        or ("risk" in g and "retention" in g)
-        or ("declining" in g and "usage" in g)
-        or "attrition" in g
-        or ("disengage" in g or "disengaging" in g)
-        or ("cancel" in g and ("subscription" in g or "account" in g))
+    # ── 1. Onboarding — check early so "cancel" in company names doesn't
+    #       trigger churn, and "schedule kickoff" doesn't trigger meeting.
+    #       Exclude "onboarding meeting/call" which is a meeting_scheduler intent.
+    _onboarding_meeting = re.search(r"onboarding\s+(meeting|call|session)", g) is not None
+    if not _onboarding_meeting and (
+        "onboarding" in g
+        or "onboard" in g
+        or ("new client" in g and ("setup" in g or "set up" in g or "welcome" in g or "provision" in g))
+        or ("new customer" in g and ("activation" in g or "started" in g or "welcome" in g or "provision" in g))
+        or ("new account" in g and ("welcome" in g or "kick off" in g or "setup" in g or "set up" in g or "get started" in g))
+        or ("signed" in g and ("welcome" in g or "signed up" in g))
     ):
-        return "churn_risk_analysis"
+        return "onboarding_workflow"
+
+    # ── 2. Re-engagement — check before churn so "cancelled subscriptions"
+    #       in context doesn't hijack the detection.
+    if (
+        "re-engagement" in g
+        or "re_engagement" in g
+        or "reengagement" in g
+        or "re-engage" in g
+        or ("not contacted" in g and ("email" in g or "days" in g))
+        or "win-back" in g
+        or "win back" in g
+        or ("dormant" in g and ("account" in g or "outreach" in g or "offer" in g))
+        or ("inactive" in g and ("account" in g or "customer" in g or "campaign" in g or "nudge" in g))
+        or ("lapsed" in g and ("user" in g or "campaign" in g))
+        or ("zero activity" in g or "no activity" in g)
+    ):
+        return "re_engagement_campaign"
+
+    # ── 3. Contract renewal — check before churn so "renew" + "cancel" = renewal.
     if (
         "renewal" in g
         or ("renew" in g and "renewable" not in g)
@@ -44,12 +72,29 @@ def detect_template(goal: str) -> str | None:
         or ("license" in g and "prolongation" in g)
     ):
         return "contract_renewal"
+
+    # ── 4. Churn risk analysis
     if (
-        ("incident" in g and ("respond" in g or "notify" in g or "escalat" in g or "triage" in g or "response" in g))
+        "churn" in g
+        or ("risk" in g and "retention" in g)
+        or ("declining" in g and "usage" in g)
+        or "attrition" in g
+        or ("disengage" in g or "disengaging" in g)
+        or ("cancel" in g and ("subscription" in g or "account" in g))
+    ):
+        return "churn_risk_analysis"
+
+    # ── 5. Incident response
+    if (
+        ("incident" in g and ("respond" in g or "notify" in g or "escalat" in g
+                              or "triage" in g or "response" in g or "handle" in g
+                              or "manage" in g or "report" in g or "affect" in g))
         or ("outage" in g)
         or ("emergency" in g and ("malfunction" in g or "warehouse" in g or "respond" in g))
     ):
         return "incident_response"
+
+    # ── 6. Inventory restock
     if (
         "inventory" in g
         or ("stock" in g and ("warehouse" in g or "low" in g or "replenish" in g))
@@ -58,38 +103,17 @@ def detect_template(goal: str) -> str | None:
         or ("supply" in g and ("level" in g or "chain" in g or "deplete" in g))
     ):
         return "inventory_restock"
+
+    # ── 7. Meeting scheduler
     if (
-        ("meeting" in g and ("schedule" in g or "schedul" in g or "book" in g))
+        ("meeting" in g and ("schedule" in g or "schedul" in g or "book" in g or "set up" in g))
         or ("schedule" in g and ("call" in g or "session" in g or "conference" in g))
         or ("book" in g and ("session" in g or "call" in g or "time" in g))
         or ("arrange" in g and ("conference" in g or "call" in g or "meeting" in g))
         or ("coordinate" in g and ("time slot" in g or "presentation" in g or "meeting" in g))
-        or ("set up" in g and ("call" in g or "session" in g))
+        or ("set up" in g and ("call" in g or "session" in g or "meeting" in g))
     ):
         return "meeting_scheduler"
-    if (
-        "onboarding" in g
-        or "onboard" in g
-        or ("new client" in g and ("setup" in g or "set up" in g or "welcome" in g or "provision" in g))
-        or ("new customer" in g and ("activation" in g or "started" in g or "welcome" in g or "provision" in g))
-        or ("new account" in g and ("welcome" in g or "kick off" in g or "setup" in g))
-        or ("signed" in g and "welcome" in g)
-    ):
-        return "onboarding_workflow"
-    if (
-        "re-engagement" in g
-        or "re_engagement" in g
-        or "reengagement" in g
-        or "re-engage" in g
-        or ("not contacted" in g and "email" in g)
-        or "win-back" in g
-        or "win back" in g
-        or ("dormant" in g and ("account" in g or "outreach" in g or "offer" in g))
-        or ("inactive" in g and ("account" in g or "customer" in g or "campaign" in g or "nudge" in g))
-        or ("lapsed" in g and ("user" in g or "campaign" in g))
-        or ("zero activity" in g or "no activity" in g)
-    ):
-        return "re_engagement_campaign"
 
     return None
 
@@ -182,7 +206,11 @@ def _extract_max_emails(goal: str) -> int:
 
 
 async def _call_tool(endpoint: str, parameters: dict[str, Any]) -> tuple[dict[str, Any] | None, str, bool]:
-    """Call a tool endpoint. Returns (parsed_json, result_text, success)."""
+    """Call a tool endpoint. Returns (parsed_json, result_text, success).
+
+    NO RETRY — retrying consumes the next mock response slot, causing
+    incorrect data for subsequent accounts. On error, skip gracefully.
+    """
     try:
         resp = await state.tool_http_client.post(endpoint, json=parameters, timeout=15.0)
         if resp.status_code == 200:
@@ -192,24 +220,9 @@ async def _call_tool(endpoint: str, parameters: dict[str, Any]) -> tuple[dict[st
             except Exception:
                 return None, resp.text[:2000], True
         else:
-            # Retry once on non-200
-            resp2 = await state.tool_http_client.post(endpoint, json=parameters, timeout=15.0)
-            if resp2.status_code == 200:
-                try:
-                    data = resp2.json()
-                    return data, json.dumps(data, default=str)[:2000], True
-                except Exception:
-                    return None, resp2.text[:2000], True
-            return None, f"HTTP {resp2.status_code}: {resp2.text[:500]}", False
+            return None, f"HTTP {resp.status_code}: {resp.text[:500]}", False
     except Exception as e:
-        try:
-            resp = await state.tool_http_client.post(endpoint, json=parameters, timeout=15.0)
-            if resp.status_code == 200:
-                data = resp.json()
-                return data, json.dumps(data, default=str)[:2000], True
-            return None, f"HTTP {resp.status_code}", False
-        except Exception:
-            return None, f"Error: {e}", False
+        return None, f"Error: {e}", False
 
 
 def _get_endpoint(req: OrchestrateRequest, tool_name: str) -> str:

@@ -1,0 +1,1666 @@
+[
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7000",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "biometric_method",
+            "affected_crew"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7001",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7002",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7003",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7004",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7005",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7006",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7007",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "software_version",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7008",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7009",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7010",
+        "category": "Hull & Structural Systems",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7011",
+        "category": "Mission Briefing Request",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7012",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "software_version",
+            "sequence_to_reproduce"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7013",
+        "category": "Mission Briefing Request",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7014",
+        "category": "Hull & Structural Systems",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7015",
+        "category": "Mission Briefing Request",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7016",
+        "category": "Hull & Structural Systems",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7017",
+        "category": "Telemetry & Data Banks",
+        "priority": "P4",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7018",
+        "category": "Threat Detection & Containment",
+        "priority": "P3",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": false,
+        "missing_information": [
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7019",
+        "category": "Mission Briefing Request",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7020",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7021",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "anomaly_readout",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7022",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7023",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7024",
+        "category": "Hull & Structural Systems",
+        "priority": "P4",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7025",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7026",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "software_version",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7027",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7028",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "habitat_conditions"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7029",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "anomaly_readout",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7030",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [
+            "recurrence_pattern",
+            "previous_signal_id"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7031",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "affected_crew"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7032",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "anomaly_readout",
+            "affected_crew"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7033",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_crew",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7034",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7035",
+        "category": "Threat Detection & Containment",
+        "priority": "P1",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "anomaly_readout",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7036",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7037",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "anomaly_readout",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7038",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7039",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7040",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "biometric_method",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7041",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7042",
+        "category": "Mission Briefing Request",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7043",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "software_version",
+            "sequence_to_reproduce"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7044",
+        "category": "Telemetry & Data Banks",
+        "priority": "P2",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7045",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "software_version",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7046",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "affected_crew"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7047",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7048",
+        "category": "Mission Briefing Request",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7049",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7050",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "software_version",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7051",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7052",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_crew",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7053",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "anomaly_readout",
+            "sequence_to_reproduce"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7054",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [
+            "system_configuration",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7055",
+        "category": "Flight Software & Instruments",
+        "priority": "P2",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "software_version",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7056",
+        "category": "Crew Access & Biometrics",
+        "priority": "P4",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7057",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7058",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "software_version",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7059",
+        "category": "Threat Detection & Containment",
+        "priority": "P1",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "affected_crew"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7060",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7061",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7062",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": true,
+        "missing_information": [
+            "anomaly_readout",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7063",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "sequence_to_reproduce"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7064",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7065",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7066",
+        "category": "Mission Briefing Request",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7067",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "software_version",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7068",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7069",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7070",
+        "category": "Flight Software & Instruments",
+        "priority": "P2",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7071",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "anomaly_readout",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7072",
+        "category": "Telemetry & Data Banks",
+        "priority": "P3",
+        "assigned_team": "Telemetry & Data Core",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7073",
+        "category": "Flight Software & Instruments",
+        "priority": "P2",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": true,
+        "missing_information": [
+            "software_version",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7074",
+        "category": "Crew Access & Biometrics",
+        "priority": "P2",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "biometric_method",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7075",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7076",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs",
+            "habitat_conditions"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7077",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "affected_crew",
+            "sensor_log_or_capture"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7078",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "anomaly_readout",
+            "crew_contact"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7079",
+        "category": "Flight Software & Instruments",
+        "priority": "P2",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": true,
+        "missing_information": [
+            "software_version",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7080",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_subsystem",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7081",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "affected_crew",
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7082",
+        "category": "Communications & Navigation",
+        "priority": "P2",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7083",
+        "category": "Not a Mission Signal",
+        "priority": "P4",
+        "assigned_team": "None",
+        "needs_escalation": false,
+        "missing_information": [],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7084",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "sector_coordinates"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7085",
+        "category": "Hull & Structural Systems",
+        "priority": "P3",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "recurrence_pattern"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7086",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "system_configuration",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7087",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7088",
+        "category": "Flight Software & Instruments",
+        "priority": "P2",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": true,
+        "missing_information": [
+            "software_version",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7089",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7090",
+        "category": "Flight Software & Instruments",
+        "priority": "P3",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": false,
+        "missing_information": [
+            "software_version",
+            "sequence_to_reproduce"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7091",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "software_version"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7092",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7093",
+        "category": "Hull & Structural Systems",
+        "priority": "P1",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": true,
+        "missing_information": [
+            "anomaly_readout",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7094",
+        "category": "Communications & Navigation",
+        "priority": "P3",
+        "assigned_team": "Deep Space Communications",
+        "needs_escalation": false,
+        "missing_information": [
+            "anomaly_readout",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7095",
+        "category": "Crew Access & Biometrics",
+        "priority": "P3",
+        "assigned_team": "Crew Identity & Airlock Control",
+        "needs_escalation": false,
+        "missing_information": [
+            "biometric_method",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7096",
+        "category": "Hull & Structural Systems",
+        "priority": "P2",
+        "assigned_team": "Spacecraft Systems Engineering",
+        "needs_escalation": false,
+        "missing_information": [
+            "module_specs",
+            "anomaly_readout"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7097",
+        "category": "Threat Detection & Containment",
+        "priority": "P3",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": false,
+        "missing_information": [
+            "system_configuration"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7098",
+        "category": "Flight Software & Instruments",
+        "priority": "P2",
+        "assigned_team": "Mission Software Operations",
+        "needs_escalation": true,
+        "missing_information": [
+            "anomaly_readout",
+            "module_specs"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    },
+    {
+        "difficulty": "adversarial",
+        "ticket_id": "ADV-7099",
+        "category": "Threat Detection & Containment",
+        "priority": "P2",
+        "assigned_team": "Threat Response Command",
+        "needs_escalation": true,
+        "missing_information": [
+            "sensor_log_or_capture",
+            "affected_subsystem"
+        ],
+        "next_best_action": "Investigate and resolve the reported issue.",
+        "remediation_steps": [
+            "Review signal details.",
+            "Route to assigned team."
+        ]
+    }
+]

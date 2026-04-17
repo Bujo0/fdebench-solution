@@ -110,22 +110,52 @@ def _postprocess_dates(data: dict, schema_str: str) -> dict:
     return _normalize_recursive(data, properties)
 
 
-def _postprocess_values(data: object) -> object:
-    """Normalize boolean strings and null-like values recursively."""
+def _postprocess_values(data: object, schema: dict | None = None) -> object:
+    """Normalize values recursively, but only when schema confirms the expected type.
+
+    Without schema context, we ONLY coerce:
+    - Empty strings → None (safe — empty string never matches gold content)
+    - Already-boolean strings when inside a schema-typed boolean field
+
+    We do NOT blindly coerce "yes"/"no"/"na" — these can be valid field values.
+    """
     if isinstance(data, dict):
-        return {k: _postprocess_values(v) for k, v in data.items()}
+        props = (schema or {}).get("properties", {})
+        result = {}
+        for k, v in data.items():
+            field_schema = props.get(k, {})
+            field_type = field_schema.get("type", "")
+            item_schema = field_schema.get("items", {}) if field_type == "array" else None
+
+            if field_type == "boolean" and isinstance(v, str):
+                low = v.strip().lower()
+                if low in ("true", "yes", "checked", "x", "1"):
+                    result[k] = True
+                elif low in ("false", "no", "unchecked", "0"):
+                    result[k] = False
+                else:
+                    result[k] = v
+            elif field_type == "object" and isinstance(v, dict):
+                result[k] = _postprocess_values(v, field_schema)
+            elif field_type == "array" and isinstance(v, list):
+                if item_schema and item_schema.get("type") == "object":
+                    result[k] = [_postprocess_values(item, item_schema) if isinstance(item, dict) else item for item in v]
+                else:
+                    result[k] = v
+            elif field_type == "number" and isinstance(v, str):
+                # Strip currency symbols and commas, try to parse as number
+                cleaned = v.strip().replace(",", "").replace("$", "").replace("€", "").replace("£", "").replace("%", "")
+                try:
+                    result[k] = float(cleaned)
+                except ValueError:
+                    result[k] = v
+            elif isinstance(v, str) and v.strip() == "":
+                result[k] = None
+            else:
+                result[k] = v
+        return result
     if isinstance(data, list):
         return [_postprocess_values(v) for v in data]
-    if isinstance(data, str):
-        low = data.strip().lower()
-        # Boolean coercion
-        if low in ("true", "yes", "checked", "x"):
-            return True
-        if low in ("false", "no", "unchecked"):
-            return False
-        # Null coercion
-        if low in ("", "n/a", "na", "none", "null", "-", "--"):
-            return None
     return data
 
 
@@ -199,9 +229,13 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
         if schema_str and extracted:
             extracted = _postprocess_dates(extracted, schema_str)
 
-        # Post-process: coerce boolean strings and null-like values
-        if extracted:
-            extracted = _postprocess_values(extracted)
+        # Post-process: schema-aware type coercion (booleans, numbers, empty strings)
+        if extracted and schema_str:
+            try:
+                schema_obj = json.loads(schema_str)
+            except (json.JSONDecodeError, TypeError):
+                schema_obj = None
+            extracted = _postprocess_values(extracted, schema_obj)
 
         return ExtractResponse(document_id=req.document_id, **extracted)
     except Exception:
