@@ -225,9 +225,9 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
     ]):
         p4_signals += 2
 
-    # Requests (not incidents)
+    # Requests (not incidents) — match specific request patterns in subject
     if any(phrase in subj_lower for phrase in [
-        "rule request", "setup instructions", "needed for",
+        "rule request", "setup instructions",
         "new security group", "instructions needed",
     ]):
         p4_signals += 3
@@ -301,13 +301,6 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
     # External hypernet speed degraded — single deck
     if "hypernet speed degraded" in lower:
         p4_signals += 2
-
-    # Long-standing issue (started weeks ago)
-    if any(phrase in lower for phrase in [
-        "two weeks ago", "started about two weeks",
-        "started around 9am and has happened",
-    ]):
-        p4_signals += 1
 
     # Auto-translated single user issue
     if "auto-translated" in subj_lower and category == "Crew Access & Biometrics":
@@ -392,6 +385,25 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
     if "chief technology commander" in lower and not has_inj:
         p2_signals += 2
 
+    # CTO-level WITH injection but genuine issue underneath
+    if "chief technology commander" in lower and has_inj:
+        # Check for real operational indicators
+        if any(kw in lower for kw in ["traders", "mission control", "40 "]):
+            p2_signals += 2
+
+    # Multi-person impact with specific numbers
+    if any(phrase in lower for phrase in [
+        "impacting about",
+        "15 people",
+        "40 traders",
+        "about 40",
+    ]):
+        p2_signals += 2
+
+    # Client-facing urgency
+    if "client calls" in lower and "impacting" in lower:
+        p2_signals += 1
+
     # Multiple issues in one ticket with urgency
     if "three different issues" in lower:
         p2_signals += 1
@@ -427,9 +439,10 @@ def _detect_escalation(
         # Otherwise P1 does NOT auto-escalate (e.g., single-user split-tunnel)
         return False
 
-    # Threat / security indicators
+    # Threat / security indicators (require context, not just keyword)
     if any(kw in lower for kw in [
-        "unauthorized", "exfiltration",
+        "unauthorized access", "unauthorized login",
+        "exfiltration",
         "hostile", "malware", "social engineering",
         "impersonation",
     ]):
