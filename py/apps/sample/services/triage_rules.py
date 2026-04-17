@@ -207,9 +207,9 @@ def _detect_priority(text: str, category: str, subject: str, original_text: str)
     # ── P4: Clear informational / question / request / noise ──
     p4_signals = 0
 
-    # Questions and how-to
+    # Questions and how-to (require question framing, not just "how to" embedded)
     if any(phrase in lower for phrase in [
-        "how do i", "how to", "instructions needed",
+        "how do i", "instructions needed",
         "is there a guide", "is there a current guide",
         "can we get a new",
         "what is the process",
