@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 # Confidence threshold: above this → use rules (skip LLM)
-_RULES_CONFIDENCE_THRESHOLD = 0.55
+_RULES_CONFIDENCE_THRESHOLD = 0.75
 
 
 def _safe_missing_info(items: list[str]) -> list[MissingInfo]:

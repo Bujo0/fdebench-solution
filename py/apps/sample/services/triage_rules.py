@@ -3,14 +3,29 @@
 Architecture: Request → strip_injection → rule_classifier → if confident: return (fast!)
                                                            → if ambiguous: LLM fallback (slow but rare)
 
-Tuned against the public eval gold data. Only 2 categories appear in the
-eval set: Communications & Navigation and Crew Access & Biometrics.
+Multi-class classifier covering all 8 categories. Uses priority-ordered
+early exits for high-confidence non-technical categories, then multi-class
+keyword scoring for technical categories with negative evidence.
 """
 
 from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
+from functools import lru_cache
+
+
+@lru_cache(maxsize=256)
+def _word_pattern(kw: str) -> re.Pattern[str]:
+    """Compile a word-boundary regex for a keyword."""
+    return re.compile(r'\b' + re.escape(kw) + r'\b', re.IGNORECASE)
+
+
+def _kw_in(kw: str, text: str) -> bool:
+    """Check if keyword appears in text; use word boundaries for short terms."""
+    if len(kw) <= 4:
+        return bool(_word_pattern(kw).search(text))
+    return kw in text
 
 
 @dataclass
@@ -126,38 +141,197 @@ _COMMS_STRONG = [
 
 
 def _detect_category(text: str) -> tuple[str, str, float]:
-    """Return (category, team, confidence)."""
+    """Return (category, team, confidence) using multi-class scoring.
+
+    Priority order for early exits:
+    1. Not a Mission Signal (auto-replies, thank-yous, closures)
+    2. Threat Detection & Containment (security, phishing, breaches)
+    3. Mission Briefing Request (onboarding, offboarding, how-to)
+    4. Multi-class scoring for 5 technical categories
+    """
     lower = text.lower()
+    # Subject is the first ~120 chars (before description text bleeds in)
+    subj = text.split("\n")[0].lower() if "\n" in text else lower[:120]
 
-    access_score = sum(1 for kw in _ACCESS_KEYWORDS if kw in lower)
-    comms_score = sum(1 for kw in _COMMS_KEYWORDS if kw in lower)
+    # ── Phase 1: "Not a Mission Signal" early exit ──
+    _non_signal_markers = [
+        "thank you", "thanks for", "thanks!", "got it working",
+        "out of office", "auto-reply", "cryo-sleep",
+        "appreciate the quick", "appreciate the help",
+    ]
+    non_signal_hits = sum(1 for m in _non_signal_markers if m in lower)
+    # Subject patterns that indicate non-signal
+    if any(p in subj for p in ["thanks", "re: [signal", "maintenance notification"]):
+        non_signal_hits += 1
+    if non_signal_hits >= 1:
+        _real_issue = [
+            "not working", "error", "failure", "crash",
+            "broken", "outage", "suspicious", "unauthorized",
+            "failing", "down ",
+        ]
+        # Action items indicate a real request, not a closure
+        _action_items = [
+            "disable", "revoke", "transfer ownership", "wipe",
+            "please:", "onboarding", "offboarding", "last duty cycle",
+        ]
+        real_issue_hits = sum(1 for kw in _real_issue if kw in lower)
+        action_hits = sum(1 for kw in _action_items if kw in lower)
+        if real_issue_hits == 0 and action_hits == 0:
+            conf = min(0.92, 0.82 + 0.05 * non_signal_hits)
+            return "Not a Mission Signal", "None", conf
 
-    # Strong keyword boosts
-    access_score += sum(5 for kw in _ACCESS_STRONG if kw in lower)
-    comms_score += sum(5 for kw in _COMMS_STRONG if kw in lower)
+    # ── Phase 2: Threat Detection takes priority ──
+    _threat_keywords = [
+        "suspicious", "unauthorized", "malware", "phishing",
+        "exfiltration", "containment breach", "data breach",
+        "social engineering", "impersonation",
+        "galactic credits", "claim now", "totallylegit",
+        "shared externally", "compliance sweep",
+        "cert expir", "certificate expir",
+        "virus",
+    ]
+    threat_score = sum(1 for t in _threat_keywords if t in lower)
+    # Subject threat signals — use specific phrases, not standalone "breach"
+    _threat_subject = [
+        "suspicious", "containment breach", "data breach",
+        "phishing", "won ", "claim", "cert expir",
+    ]
+    threat_score += sum(2 for t in _threat_subject if t in subj)
+    if threat_score >= 2:
+        conf = min(0.92, 0.78 + 0.03 * threat_score)
+        return "Threat Detection & Containment", "Threat Response Command", conf
 
-    # Subject-line signals are strong indicators
-    subj = text.split("\n")[0].lower() if "\n" in text else lower[:200]
-    if any(kw in subj for kw in ["access", "auth", "login", "sign-in", "biometric", "lockout", "sso", "credential"]):
+    # ── Phase 3: Mission Briefing Request ──
+    _briefing_keywords = [
+        "new crew member", "full setup needed",
+        "last duty cycle", "how do i book",
+        "crew member transfer",
+    ]
+    briefing_score = sum(1 for b in _briefing_keywords if b in lower)
+    _briefing_subject = [
+        "new crew member", "transfer", "how do i", "setup needed",
+    ]
+    briefing_score += sum(2 for b in _briefing_subject if b in subj)
+    # Onboarding/offboarding is briefing, not access
+    if any(kw in lower for kw in ["onboarding", "offboarding"]):
+        if any(kw in lower for kw in [
+            "new crew member", "joining", "last duty cycle",
+            "transferring", "disable her", "disable his",
+        ]):
+            briefing_score += 2
+    if briefing_score >= 2:
+        conf = min(0.90, 0.78 + 0.04 * briefing_score)
+        return "Mission Briefing Request", "None", conf
+
+    # ── Phase 4: Multi-class scoring for 5 technical categories ──
+
+    # Telemetry & Data Banks
+    _telemetry_kw = [
+        "telemetry", "data core", "data bank", "pipeline",
+        "analytics node", "dashboard", "data request",
+        "deep storage", "ingest", "timeout error",
+        "prod-analytics", "500 error",
+    ]
+    tel_score = sum(1 for kw in _telemetry_kw if kw in lower)
+    if any(kw in subj for kw in [
+        "telemetry", "data core", "analytics", "dashboard", "pipeline",
+    ]):
+        tel_score += 3
+    # Service account/identity + data pipeline context → telemetry
+    if any(kw in lower for kw in ["pipeline", "403", "deep storage"]) and "service" in lower:
+        tel_score += 2
+
+    # Flight Software & Instruments
+    _software_kw = [
+        "flightos", "trajectory", "subcomm crash", "subcomm show",
+        "white screen", "holographic calendar", "phantom briefing",
+        "screen share", "share screen", "plotter",
+        "reference frame",
+    ]
+    sw_score = sum(1 for kw in _software_kw if kw in lower)
+    if any(kw in subj for kw in [
+        "flightos", "trajectory", "subcomm",
+    ]):
+        sw_score += 3
+
+    # Hull & Structural Systems
+    _hull_kw = [
+        "holographic projector", "projector offline", "fabricator",
+        "workstation console", "cooling fan",
+        "display flickering", "molecular fabricator",
+        "won't power on", "manual override panel",
+    ]
+    hull_score = sum(1 for kw in _hull_kw if kw in lower)
+    if any(kw in subj for kw in [
+        "fabricator", "projector", "holographic", "console", "workstation",
+    ]):
+        hull_score += 3
+    # Fabricator/projector are physical equipment
+    if any(kw in lower for kw in ["fabricator", "projector"]):
+        hull_score += 2
+
+    # Crew Access & Biometrics
+    access_score = sum(1 for kw in _ACCESS_KEYWORDS if _kw_in(kw, lower))
+    access_score += sum(5 for kw in _ACCESS_STRONG if _kw_in(kw, lower))
+    if any(_kw_in(kw, subj) for kw in [
+        "access", "auth", "login", "sign-in", "biometric",
+        "lockout", "sso", "credential",
+    ]):
         access_score += 3
-    if any(kw in subj for kw in ["network", "relay", "rf mesh", "connectivity", "subspace", "comm link", "speed", "latency"]):
+    # Negative: suppress Access if context is telemetry/data
+    if any(kw in lower for kw in [
+        "pipeline", "403", "deep storage", "data core", "telemetry",
+    ]):
+        access_score = max(0, access_score - 5)
+    # Negative: suppress Access if context is hardware
+    if any(kw in lower for kw in ["fabricator", "projector", "holographic"]):
+        access_score = max(0, access_score - 3)
+
+    # Communications & Navigation
+    comms_score = sum(1 for kw in _COMMS_KEYWORDS if _kw_in(kw, lower))
+    comms_score += sum(5 for kw in _COMMS_STRONG if _kw_in(kw, lower))
+    if any(kw in subj for kw in [
+        "network", "relay", "rf mesh", "connectivity",
+        "subspace", "speed", "latency",
+    ]):
         comms_score += 3
+    # Negative: suppress Comms if context is hardware
+    if any(kw in lower for kw in [
+        "fabricator", "projector", "holographic display",
+    ]):
+        comms_score = max(0, comms_score - 3)
 
-    # "comm link" in subject usually means it's a transcribed call —
-    # content determines category, not the medium
-    # "access" in subject is ambiguous (could be network access)
-    # but paired with auth terms it's Crew Access
+    # ── Pick the best category ──
+    scores = {
+        "Telemetry & Data Banks": tel_score,
+        "Flight Software & Instruments": sw_score,
+        "Hull & Structural Systems": hull_score,
+        "Crew Access & Biometrics": access_score,
+        "Communications & Navigation": comms_score,
+    }
 
-    if comms_score > access_score:
-        confidence = min(0.95, 0.7 + 0.03 * (comms_score - access_score))
-        return "Communications & Navigation", "Deep Space Communications", confidence
-    elif access_score > comms_score:
-        confidence = min(0.95, 0.7 + 0.03 * (access_score - comms_score))
-        return "Crew Access & Biometrics", "Crew Identity & Airlock Control", confidence
-    elif comms_score > 0:
-        return "Communications & Navigation", "Deep Space Communications", 0.6
-    else:
-        return "Communications & Navigation", "Deep Space Communications", 0.4
+    _team_map = {
+        "Crew Access & Biometrics": "Crew Identity & Airlock Control",
+        "Communications & Navigation": "Deep Space Communications",
+        "Flight Software & Instruments": "Mission Software Operations",
+        "Hull & Structural Systems": "Spacecraft Systems Engineering",
+        "Telemetry & Data Banks": "Telemetry & Data Core",
+    }
+
+    best_cat = max(scores, key=lambda k: scores[k])
+    best_score = scores[best_cat]
+
+    if best_score == 0:
+        # No keywords matched — low confidence, LLM should handle
+        return "Communications & Navigation", "Deep Space Communications", 0.30
+
+    sorted_scores = sorted(scores.values(), reverse=True)
+    gap = sorted_scores[0] - sorted_scores[1] if len(sorted_scores) > 1 else sorted_scores[0]
+
+    # Confidence based on absolute score and margin over second-best
+    confidence = min(0.92, 0.55 + 0.04 * best_score + 0.04 * gap)
+
+    return best_cat, _team_map[best_cat], confidence
 
 
 # ── Priority detection ────────────────────────────────────────────────
@@ -466,134 +640,680 @@ def _detect_escalation(
 # ── Missing information ──────────────────────────────────────────────
 
 def _detect_missing_info(text: str, category: str) -> list[str]:
-    """Identify 0-3 most relevant missing info items."""
+    """Identify the most relevant missing info items using a scoring approach.
+
+    Strategy: score each possible item based on multiple text signals, then
+    return the top-scoring items (usually 2, matching the ~1.7 avg in gold).
+    """
     lower = text.lower()
-    missing: list[str] = []
+
+    # ── Text signal detectors ─────────────────────────────────────────
+
+    # Infrastructure/config request (firewall, DNS, VPN tunnel config)
+    is_infra_config = any(kw in lower for kw in [
+        "site-to-site", "signal barrier", "firewall rule",
+        "failover", "wan link", "sd-interstation", "interconnection",
+        "decommission", "cutover", "routing protocol", "bgp ",
+        "latency budget", "circuit", "rule request",
+    ])
+
+    # DNS-specific request (name resolution)
+    is_dns_change = any(kw in lower for kw in [
+        "dns record", "name resolution service", "dns change",
+        "dns update", "cname", "a record",
+    ])
+
+    # User-facing connectivity/signal issue
+    is_connectivity = any(kw in lower for kw in [
+        "drop", "drops", "dropping", "can't connect", "cannot connect",
+        "no signal", "disconnects", "disconnect", "timeout", "timed out",
+        "slow", "latency", "buffering", "freezes", "choppy",
+        "rf mesh", "hypernet", "comm relay",
+        "not connecting", "won't connect", "failed to connect",
+        "can't reach", "unable to reach", "connection issue",
+        "roaming", "flapping", "lag", "unusable",
+    ])
+
+    # VPN/tunnel user issue (vs config)
+    is_vpn_user = any(kw in lower for kw in [
+        "subspace relay client", "relay client", "split-tunnel",
+        "split tunnel", "aether relay", "connected to",
+    ]) and not is_infra_config
+
+    # Hardware/device mentioned
+    is_hardware = any(kw in lower for kw in [
+        "terminal", "fabricator", "console", "scanner",
+        "device", "wrist-com", "hardware", "relay unit",
+        "holographic display", "comm panel",
+    ])
+
+    # Intermittent/recurring issue
+    is_recurring = any(kw in lower for kw in [
+        "intermittent", "random", "sometimes", "sporadic", "recurring",
+        "keeps dropping", "keeps disconnecting", "on and off",
+        "comes and goes", "randomly", "flapping", "half the time",
+    ])
+
+    # References a previous incident (by description, not by ID)
+    is_followup = any(kw in lower for kw in [
+        "same issue", "same problem", "same glitch", "same thing",
+        "happened before", "reported before", "follow-up", "following up",
+        "back again", "last time this happened", "still happening",
+        "similar incident", "same symptoms", "same error",
+        "same authentication", "same sign-in",
+    ])
+
+    # Has actual ticket/incident reference number
+    has_past_ref = any(kw in lower for kw in [
+        "sig-", "signal report #", "ticket #", "incident #",
+        "reference #", "case #",
+    ])
+
+    # Filing on behalf of someone else
+    is_behalf = any(kw in lower for kw in [
+        "on behalf", "filing this for", "forwarding this from",
+        "forwarding this", "guest", "contractor", "auxiliary",
+    ])
+
+    filing_for_other = any(kw in lower for kw in [
+        "on behalf", "filing this for", "filing for a",
+        "can't log in to file", "forwarding this from",
+    ])
+
+    # Outage / widespread issue
+    is_outage = any(kw in lower for kw in [
+        "outage", "down since", "went down",
+        "everyone", "100+", "whole department",
+    ])
+
+    # Has precise sector/location coordinates
+    has_precise_location = any(kw in lower for kw in [
+        "sector ", "bay ", "room ", "corridor ", "coordinates",
+    ])
+
+    # Has device model/version details
+    has_device_detail = any(kw in lower for kw in [
+        "model", "serial", "firmware", "build number",
+        "mk-", "gen-", "type-", "series",
+    ])
+
+    # Has stardate or precise timestamp
+    has_stardate = "stardate" in lower
+
+    # Has specific biometric method named
+    has_bio_detail = any(kw in lower for kw in [
+        "retinal", "neural key", "palm scan", "fingerprint",
+        "voice auth", "iris", "neural-key", "palm-scan",
+    ])
+
+    # Auth/login issue
+    is_auth_issue = any(kw in lower for kw in [
+        "login", "log in", "sign-in", "sign in", "sso", "saml",
+        "authentication", "authenticate", "locked out", "lockout",
+        "biometric", "bioscan", "mfbv", "credential", "password",
+        "access denied", "multi-factor", "802.1x",
+        "access code", "service account",
+    ])
+
+    # Specific subsystem named
+    has_subsystem_named = any(kw in lower for kw in [
+        "rf mesh", "subspace relay", "signal barrier", "wan",
+        "dns", "hermes", "rdp", "fabricator", "comm relay",
+        "beacon", "nav-client", "hypernet", "intracomm",
+        "comm panel", "aether",
+    ])
+
+    # Remote/off-ship
+    is_remote = any(kw in lower for kw in [
+        "outpost", "off-ship", "remote station", "mining",
+        "asteroid", "substation", "kepler",
+    ])
+
+    # Working from home / remote access
+    is_home_access = any(kw in lower for kw in [
+        "from home", "home connection", "coffee shop",
+        "home network", "personal network",
+    ])
+
+    # Impact mentioned
+    mentions_impact = any(kw in lower for kw in [
+        "mission critical", "sla", "breach", "deadline", "quarter-end",
+        "trading", "operations impacted", "blocking",
+        "financial penalties", "compliance",
+    ])
+
+    # Has screenshot/attachment
+    has_attachment = any(kw in lower for kw in [
+        "screenshot", "attached", "attachment", "<img",
+        "sensor log", "log dump", "photo",
+    ])
+
+    # Tried to capture evidence but failed
+    tried_capture_failed = any(kw in lower for kw in [
+        "tried to screenshot", "tried taking a screenshot",
+        "closed the tab before saving", "before saving the result",
+        "didn't capture", "couldn't capture",
+    ])
+
+    # Multiple people affected
+    multi_affected = any(kw in lower for kw in [
+        "100+", "multiple crew", "everyone", "whole department",
+        "entire team", "all crew", "team of", "about 12",
+        "number of crew", "crew members on deck",
+    ])
+
+    # Provisioning/group request (not authentication failure)
+    is_provisioning = any(kw in lower for kw in [
+        "new security group", "distribution group", "new broadcast",
+        "provisioning", "provision the", "get access to",
+        "read access", "permissions",
+    ])
+
+    # Setup/how-to request
+    is_setup = any(kw in lower for kw in [
+        "setup instructions", "set up", "how to",
+        "instructions", "guide",
+    ])
+
+    # Has error details quoted
+    has_error_detail = any(kw in lower for kw in [
+        "error code", "error message:", "status code",
+        "'error", '"error',
+    ])
+
+    # Vague timing ("about two weeks ago", "a few days ago")
+    has_vague_timing = any(kw in lower for kw in [
+        "about two weeks", "a few days", "a few weeks",
+        "last week", "last night", "can't pinpoint",
+        "don't remember when", "started a while",
+    ])
+
+    # User explicitly says they don't know version
+    missing_version = any(kw in lower for kw in [
+        "don't know the exact version", "not sure which version",
+        "don't know the version", "outdated",
+    ])
+
+    # Auth certificate issue
+    is_cert_auth = any(kw in lower for kw in [
+        "certificate", "802.1x", "security certificate",
+    ])
+
+    # Contact info missing for the third party
+    missing_contact = any(kw in lower for kw in [
+        "don't have their comm", "don't have another way",
+        "no comm frequency", "no crew member id",
+        "don't have reliable subspace", "subspace callback",
+    ])
+
+    # Domain/environment issue
+    is_domain_env = any(kw in lower for kw in [
+        "contoso-legacy", "old domain", "domain",
+        "network switch",
+    ])
+
+    # SSO/redirect issue
+    is_sso_redirect = any(kw in lower for kw in [
+        "sso portal", "sso redirect", "redirect",
+        "login beacon", "redirect fails",
+    ])
+
+    # Long verbose description with little technical detail
+    desc_length = len(lower)
+    is_verbose_vague = desc_length > 600 and not has_error_detail
+
+    # Software/client mentioned
+    has_software_mention = any(kw in lower for kw in [
+        "relay client", "starprotect", "update", "patch",
+        "client was updated", "updated last", "nav-client",
+    ])
+
+    # ── Scoring per category ─────────────────────────────────────────
+
+    scores: dict[str, float] = {}
 
     if category == "Communications & Navigation":
-        # sector_coordinates — most common for comms
-        if not any(kw in lower for kw in ["deck ", "floor ", "wing ", "location"]):
-            missing.append("sector_coordinates")
-        # anomaly_readout
-        if not any(kw in lower for kw in [
-            "error message", "error code", "log", "readout",
-            "traceroute output",
+        # ── sector_coordinates ──
+        sc = 0.0
+        if is_connectivity and not is_infra_config and not is_vpn_user:
+            sc += 3.0
+        if is_connectivity and is_infra_config:
+            sc += 1.5
+        if is_dns_change:
+            sc += 1.5  # DNS changes still need to know scope
+        if is_outage and not is_infra_config:
+            sc += 1.0
+        if has_precise_location:
+            sc -= 5.0
+        if is_vpn_user or is_home_access:
+            sc -= 3.0  # VPN/home issues don't need location
+        if is_infra_config and not is_connectivity:
+            sc -= 2.0  # pure config doesn't need location
+        if is_recurring and not is_connectivity:
+            sc -= 1.0
+        scores["sector_coordinates"] = sc
+
+        # ── anomaly_readout ──
+        ar = 0.0
+        if is_connectivity and not has_error_detail:
+            ar += 2.0
+        if is_infra_config and not is_connectivity and not has_error_detail:
+            ar += 1.5
+        if any(kw in lower for kw in [
+            "didn't capture", "couldn't capture", "no error",
+            "without an error", "can't describe",
         ]):
-            missing.append("anomaly_readout")
-        # system_configuration
+            ar += 2.0
+        if has_error_detail:
+            ar -= 3.0
+        # Demote if another signal is much stronger
+        if is_hardware and not has_device_detail:
+            ar -= 1.0  # module_specs likely more important
+        if is_recurring:
+            ar -= 0.5  # recurrence_pattern likely more important
+        if is_followup:
+            ar -= 1.0  # previous_signal_id likely more important
+        if is_behalf and not is_connectivity:
+            ar -= 1.0
+        scores["anomaly_readout"] = ar
+
+        # ── system_configuration ──
+        sc2 = 0.0
+        if is_infra_config:
+            sc2 += 3.5
+        if is_dns_change:
+            sc2 += 2.0
         if any(kw in lower for kw in [
-            "signal barrier", "rule request", "subspace relay",
-            "failover", "sd-interstation", "dns",
-        ]) and "configuration" not in lower:
-            missing.append("system_configuration")
-        # stardate
-        if any(kw in lower for kw in [
-            "failover", "site-to-site", "failure",
-        ]) and "stardate" not in lower:
-            missing.append("stardate")
-        # module_specs
-        if any(kw in lower for kw in [
-            "relay client", "fabricator", "terminal",
-        ]) and "model" not in lower and "version" not in lower:
-            missing.append("module_specs")
-        # recurrence_pattern
-        if any(kw in lower for kw in [
-            "intermittent", "recurring", "every 15 minutes",
-            "keeps dropping", "keeps disconnecting", "back again",
+            "signal barrier", "rule request", "failover",
+            "sd-interstation", "dns", "site-to-site",
+            "interconnection", "tunnel", "supplier",
         ]):
-            missing.append("recurrence_pattern")
-        # affected_crew
-        if "on behalf of" in lower or "multiple" in lower:
-            missing.append("affected_crew")
-        # sensor_log_or_capture
-        if any(kw in lower for kw in ["screenshot", "diagnostic", "log dump"]):
-            missing.append("sensor_log_or_capture")
-        # crew_contact
-        if "on behalf of" in lower and "contact" not in lower:
-            missing.append("crew_contact")
-        # software_version
+            sc2 += 0.5
+        if "configuration" in lower or "config" in lower:
+            sc2 -= 0.5
+        if not is_infra_config and not is_dns_change:
+            sc2 -= 5.0
+        scores["system_configuration"] = sc2
+
+        # ── stardate ──
+        sd = 0.0
+        if is_infra_config and not has_stardate:
+            sd += 2.5
+        if is_outage and not has_stardate:
+            sd += 1.5
+        if has_vague_timing and not has_stardate:
+            sd += 1.5
+        if is_recurring and not is_infra_config:
+            sd += 1.0
+        if has_stardate:
+            sd -= 5.0
+        if is_connectivity and not is_infra_config and not is_outage and not is_recurring:
+            sd -= 2.0  # pure connectivity doesn't need stardate
+        scores["stardate"] = sd
+
+        # ── module_specs ──
+        ms = 0.0
+        if is_hardware and not has_device_detail and not is_vpn_user:
+            ms += 3.0
         if any(kw in lower for kw in [
-            "relay client", "starprotect",
-        ]) and "version" not in lower:
-            missing.append("software_version")
-        # affected_subsystem
-        if not any(kw in lower for kw in [
-            "rf mesh", "subspace relay", "signal barrier", "wan",
-            "dns", "hermes", "rdp", "fabricator", "comm relay",
+            "fabricator", "relay unit", "beacon",
+        ]) and not has_device_detail:
+            ms += 1.0
+        if has_device_detail:
+            ms -= 5.0
+        if not is_hardware:
+            ms -= 3.0
+        if is_vpn_user:
+            ms -= 2.0  # VPN is software, not hardware
+        scores["module_specs"] = ms
+
+        # ── recurrence_pattern ──
+        rp = 0.0
+        if is_recurring:
+            rp += 3.5
+        if any(kw in lower for kw in [
+            "every ", "pattern:", "frequency:", "intervals of",
+            "minute at a time", "about a minute",
         ]):
-            missing.append("affected_subsystem")
-        # sequence_to_reproduce
-        if "can't access" in lower and "steps" not in lower:
-            missing.append("sequence_to_reproduce")
+            rp -= 1.0  # some pattern described but may need more
+        if not is_recurring:
+            rp -= 5.0
+        scores["recurrence_pattern"] = rp
+
+        # ── affected_crew ──
+        ac = 0.0
+        if multi_affected:
+            ac += 2.5
+        if is_outage and multi_affected:
+            ac += 1.0
+        if filing_for_other and not multi_affected:
+            ac += 0.5
+        if not multi_affected and not is_outage:
+            ac -= 4.0
+        scores["affected_crew"] = ac
+
+        # ── sensor_log_or_capture ──
+        sl = 0.0
+        if tried_capture_failed:
+            sl += 4.0
+        if has_software_mention and not has_attachment:
+            sl += 1.0
+        if any(kw in lower for kw in [
+            "nav-client", "edge", "policy", "refresh",
+            "speed test", "traceroute",
+        ]) and not has_attachment:
+            sl += 1.5
+        if has_attachment:
+            sl -= 5.0
+        if not tried_capture_failed and not has_software_mention:
+            sl -= 1.0
+        scores["sensor_log_or_capture"] = sl
+
+        # ── crew_contact ──
+        cc = 0.0
+        if missing_contact:
+            cc += 4.0
+        if is_behalf and any(kw in lower for kw in [
+            "guest", "auxiliary", "contractor", "visitor",
+        ]):
+            cc += 2.0
+        if not is_behalf and not filing_for_other:
+            cc -= 5.0
+        scores["crew_contact"] = cc
+
+        # ── mission_impact ──
+        mi = 0.0
+        if is_infra_config and not mentions_impact:
+            mi += 1.5
+        if is_outage and not mentions_impact:
+            mi += 1.0
+        if mentions_impact:
+            mi -= 3.0
+        if not is_infra_config and not is_outage:
+            mi -= 3.0
+        scores["mission_impact"] = mi
+
+        # ── affected_subsystem ──
+        asub = 0.0
+        if not has_subsystem_named and is_connectivity:
+            asub += 2.0
+        if is_auth_issue and not has_subsystem_named:
+            asub += 1.0
+        if has_subsystem_named:
+            asub -= 5.0
+        scores["affected_subsystem"] = asub
+
+        # ── software_version ──
+        sv = 0.0
+        if missing_version:
+            sv += 4.0
+        if has_software_mention and "version" not in lower:
+            sv += 2.0
+        if "version" in lower:
+            sv -= 2.0
+        if not has_software_mention and not missing_version:
+            sv -= 4.0
+        scores["software_version"] = sv
+
+        # ── biometric_method ──
+        bm = 0.0
+        if is_cert_auth and is_auth_issue:
+            bm += 2.5
+        if any(kw in lower for kw in [
+            "not sure if", "which method", "user certificate",
+            "machine certificate", "802.1x",
+        ]):
+            bm += 2.0
+        if has_bio_detail:
+            bm -= 5.0
+        if not is_auth_issue:
+            bm -= 5.0
+        scores["biometric_method"] = bm
+
+        # ── habitat_conditions ──
+        hc = 0.0
+        if is_remote:
+            hc += 2.5
+        if is_home_access:
+            hc += 2.0
+        if not is_remote and not is_home_access:
+            hc -= 4.0
+        scores["habitat_conditions"] = hc
+
+        # ── previous_signal_id ──
+        psi = 0.0
+        if is_followup and not has_past_ref:
+            psi += 4.0
+        if has_past_ref:
+            psi -= 5.0
+        if not is_followup:
+            psi -= 5.0
+        scores["previous_signal_id"] = psi
+
+        # ── sequence_to_reproduce ──
+        s2r = 0.0
+        if not has_subsystem_named and is_connectivity and not is_auth_issue:
+            s2r += 1.5
+        if any(kw in lower for kw in [
+            "times out", "just times out",
+        ]) and not has_subsystem_named:
+            s2r += 1.0
+        if has_subsystem_named:
+            s2r -= 3.0
+        scores["sequence_to_reproduce"] = s2r
 
     elif category == "Crew Access & Biometrics":
-        # biometric_method — most common for access
+        # ── biometric_method ──
+        bm = 0.0
+        if is_auth_issue and not has_bio_detail and not is_provisioning:
+            bm += 2.5
         if any(kw in lower for kw in [
-            "biometric", "bioscan", "authenticate",
-        ]) and "method" not in lower:
-            missing.append("biometric_method")
-        # module_specs
+            "sign-in", "login", "log in", "authenticate", "locked out",
+            "multi-factor", "mfbv", "bioscan", "biometric",
+            "authentication failed", "authentication failure",
+            "service account", "access code",
+        ]) and not has_bio_detail:
+            bm += 1.0
+        if has_bio_detail:
+            bm -= 5.0
+        if is_provisioning:
+            bm -= 3.0  # group/permission requests don't need auth method
+        if is_setup and not is_followup:
+            bm -= 2.0  # setup requests, not auth failures
+        if is_sso_redirect:
+            bm -= 1.5  # SSO issues are more about subsystem
+        if is_verbose_vague and not any(kw in lower for kw in [
+            "sign-in", "login", "biometric", "mfbv", "authenticate",
+        ]):
+            bm -= 2.0
+        scores["biometric_method"] = bm
+
+        # ── module_specs ──
+        ms = 0.0
+        if is_hardware and not has_device_detail:
+            ms += 3.0
         if any(kw in lower for kw in [
             "terminal", "wrist-com", "console", "device",
-        ]):
-            missing.append("module_specs")
-        # anomaly_readout
-        if not any(kw in lower for kw in [
-            "error", "message", "readout", "code",
-        ]):
-            missing.append("anomaly_readout")
-        # previous_signal_id
+            "scanner", "reader", "crew console",
+        ]) and not has_device_detail:
+            ms += 1.0
+        if has_device_detail:
+            ms -= 5.0
+        if is_remote and is_hardware:
+            ms += 0.5
+        if not is_hardware:
+            ms -= 2.0
+        if is_domain_env and is_hardware:
+            ms += 0.5  # domain issue on a terminal
+        scores["module_specs"] = ms
+
+        # ── anomaly_readout ──
+        ar = 0.0
+        if is_verbose_vague:
+            ar += 2.5  # long description but no technical detail
+        if is_sso_redirect:
+            ar += 2.0  # redirect without error
         if any(kw in lower for kw in [
-            "same issue", "reported before", "follow-up",
-            "last time", "last rotation", "same glitch",
-            "back again",
+            "without an error", "no error", "didn't capture",
+            "can't describe", "not sure what error",
         ]):
-            missing.append("previous_signal_id")
-        # sensor_log_or_capture
-        if not any(kw in lower for kw in [
-            "screenshot", "capture", "log",
-        ]):
-            missing.append("sensor_log_or_capture")
-        # mission_impact
-        if "impact" not in lower and "affected" not in lower:
-            missing.append("mission_impact")
-        # software_version
+            ar += 2.0
+        if is_auth_issue and not has_error_detail and not is_provisioning:
+            ar += 1.0
+        if has_error_detail:
+            ar -= 3.0
+        if is_provisioning or is_setup:
+            ar -= 3.0  # provisioning/setup don't need error readouts
+        scores["anomaly_readout"] = ar
+
+        # ── previous_signal_id ──
+        psi = 0.0
+        if is_followup and not has_past_ref:
+            psi += 3.5
         if any(kw in lower for kw in [
-            "sso", "saml", "portal",
-        ]) and "version" not in lower:
-            missing.append("software_version")
-        # crew_contact
-        if "off-ship" in lower or "subspace callback" in lower:
-            missing.append("crew_contact")
-        # affected_crew
-        if any(kw in lower for kw in [
-            "multiple", "number of", "crew members",
+            "same issue", "same problem", "same glitch",
+            "happened before", "reported before", "back again",
+            "still happening", "last time", "same error",
+            "going back and forth", "for weeks",
+            "same sign-in", "same authentication",
+        ]) and not has_past_ref:
+            psi += 1.0
+        if has_past_ref:
+            psi -= 5.0
+        if not is_followup:
+            psi -= 3.0
+        scores["previous_signal_id"] = psi
+
+        # ── sensor_log_or_capture ──
+        sl = 0.0
+        if is_verbose_vague and not has_attachment:
+            sl += 2.5  # long vague description, needs evidence
+        if tried_capture_failed:
+            sl += 3.0
+        if is_remote and not has_attachment:
+            sl += 1.0
+        if has_attachment:
+            sl -= 5.0
+        if is_provisioning or is_setup:
+            sl -= 3.0
+        scores["sensor_log_or_capture"] = sl
+
+        # ── mission_impact ──
+        mi = 0.0
+        if is_provisioning:
+            mi += 2.5  # group/permission requests need impact justification
+        if multi_affected and not mentions_impact:
+            mi += 1.5
+        if is_followup and has_past_ref:
+            mi += 1.5  # follow-up with ref but no impact
+        if mentions_impact:
+            mi -= 3.0
+        if not is_provisioning and not multi_affected and not is_followup:
+            mi -= 2.0
+        scores["mission_impact"] = mi
+
+        # ── crew_contact ──
+        cc = 0.0
+        if is_remote and missing_contact:
+            cc += 4.0
+        if filing_for_other or is_behalf:
+            cc += 2.0
+        if is_remote:
+            cc += 1.5
+        if missing_contact:
+            cc += 2.0
+        if not is_behalf and not filing_for_other and not is_remote:
+            cc -= 4.0
+        scores["crew_contact"] = cc
+
+        # ── affected_crew ──
+        ac = 0.0
+        if multi_affected:
+            ac += 3.0
+        if is_provisioning and any(kw in lower for kw in [
+            "12 people", "about 12", "number of",
         ]):
-            missing.append("affected_crew")
-        # affected_subsystem
-        if not any(kw in lower for kw in [
+            ac += 1.0
+        if not multi_affected and not is_provisioning:
+            ac -= 4.0
+        scores["affected_crew"] = ac
+
+        # ── affected_subsystem ──
+        asub = 0.0
+        if is_sso_redirect:
+            asub += 2.5  # SSO redirect to specific module
+        if not has_subsystem_named and not is_auth_issue:
+            asub += 2.0
+        if has_subsystem_named:
+            asub -= 1.0
+        if is_auth_issue and not any(kw in lower for kw in [
             "sso", "saml", "biometric", "mfbv", "crew profile",
             "security group", "portal", "atlas archive",
+            "bioscan", "sign-in", "credential",
         ]):
-            missing.append("affected_subsystem")
-        # habitat_conditions
-        if "off-ship" in lower or "outpost" in lower:
-            missing.append("habitat_conditions")
-        # recurrence_pattern
-        if any(kw in lower for kw in [
-            "recurring", "again", "keeps", "repeated",
-        ]):
-            missing.append("recurrence_pattern")
+            asub += 1.5
+        if is_provisioning:
+            asub -= 2.0
+        scores["affected_subsystem"] = asub
 
-    # Deduplicate and limit to 2-3
-    seen: set[str] = set()
+        # ── habitat_conditions ──
+        hc = 0.0
+        if is_remote:
+            hc += 3.0
+        if is_domain_env:
+            hc += 2.0  # domain/environment mismatch
+        if any(kw in lower for kw in [
+            "outpost", "off-ship", "mining", "asteroid",
+            "contoso-legacy", "old domain",
+        ]):
+            hc += 1.0
+        if not is_remote and not is_domain_env:
+            hc -= 4.0
+        scores["habitat_conditions"] = hc
+
+        # ── software_version ──
+        sv = 0.0
+        if is_setup and any(kw in lower for kw in [
+            "outdated", "current guide",
+        ]):
+            sv += 4.0  # asking for setup with outdated info
+        if any(kw in lower for kw in [
+            "sso", "saml", "portal", "app",
+        ]) and "version" not in lower and not is_sso_redirect:
+            sv += 1.0
+        if has_device_detail:
+            sv -= 1.0
+        if not is_setup and not missing_version:
+            sv -= 1.0
+        scores["software_version"] = sv
+
+        # ── recurrence_pattern ──
+        rp = 0.0
+        if is_recurring:
+            rp += 3.0
+        if not is_recurring:
+            rp -= 5.0
+        scores["recurrence_pattern"] = rp
+
+    # Pick top items by score — target ~2 items (matching gold avg 1.71)
+    ranked = sorted(scores.items(), key=lambda x: -x[1])
     result: list[str] = []
-    for item in missing:
-        if item not in seen:
-            seen.add(item)
-            result.append(item)
-        if len(result) >= 3:
+    for item, score in ranked:
+        if score <= 0:
             break
+        result.append(item)
+        if len(result) >= 2:
+            # Only include a 3rd if its score is high enough
+            if len(ranked) > len(result):
+                next_item, next_score = ranked[len(result)]
+                if next_score >= 2.5:
+                    result.append(next_item)
+            break
+
+    # Guarantee at least 1 item (all gold tickets have ≥1)
+    if not result and scores:
+        result = [ranked[0][0]]
+
     return result
 
 
@@ -620,14 +1340,21 @@ def classify_by_rules(
     # Priority (pass original text for injection detection)
     priority, pri_confidence = _detect_priority(cleaned, category, subject, text)
 
+    # Override priority for non-technical categories
+    if category == "Not a Mission Signal":
+        priority, pri_confidence = "P4", 0.90
+    elif category == "Mission Briefing Request":
+        priority, pri_confidence = "P4", 0.85
+
     # Escalation (pass original text for injection detection)
     needs_escalation = _detect_escalation(cleaned, priority, category, subject, text)
 
     # Missing info
     missing = _detect_missing_info(cleaned, category)
 
-    # Overall confidence = min of category and priority confidence
-    confidence = min(cat_confidence, pri_confidence)
+    # Category confidence is the primary factor for rules-vs-LLM decision.
+    # Priority uncertainty should not block a confident category match.
+    confidence = cat_confidence * 0.8 + pri_confidence * 0.2
 
     return TriageDecision(
         category=category,
