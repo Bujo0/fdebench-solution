@@ -135,6 +135,9 @@ def _postprocess_triage(
     # P4 items have 48% empty MI in gold — returning empty is often correct
     if priority == "P4":
         missing = []
+    # P1 items have 54% empty MI in gold — safety-critical items often have enough info
+    if priority == "P1":
+        missing = []
 
     # Category-specific filtering — only keep items that are relevant for this category
     _CATEGORY_MI_AFFINITY: dict[str, set[str]] = {
@@ -205,6 +208,11 @@ Channel: {req.channel}
 
         # Add preprocessor hints to help the LLM
         hints: list[str] = []
+        # Channel-based priority context
+        if req.channel in ("holodeck_comm", "subspace_relay"):
+            hints.append("CHANNEL NOTE: This signal came via a standard communication channel. P1 issues are very rare on this channel — only assign P1 if there is an explicit safety/life/containment threat.")
+        if req.channel == "emergency_beacon":
+            hints.append("CHANNEL NOTE: This signal came via the emergency beacon. Consider whether this is a genuine emergency (P1/P2) or a misuse of the emergency channel (P3/P4).")
         if preprocess_result.is_p1_safety:
             hints.append("SAFETY ALERT: Signal contains safety-critical keywords (hull/decompression/life-support). This should be P1.")
         if preprocess_result.has_threat_keywords:

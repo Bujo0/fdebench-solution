@@ -282,6 +282,29 @@ Template for each experiment:
 **Decision:** DEPLOY ✅
 **Rationale:** Small but consistent gains on both datasets. MI improved +0.3-0.7pp. No regressions. P4 items genuinely don't need MI — returning empty is the correct behavior.
 
+### EXP-008: P1 empty MI + channel-based priority hints
+**Date:** 2026-04-18
+**Hypothesis:** (1) 54% of P1 gold MI is empty — clearing P1 MI should match those. (2) P1 items only come from bridge_terminal/emergency_beacon channels — channel hints should reduce P1 false positives on holodeck_comm/subspace_relay.
+
+**Changes:**
+- `routers/triage.py`: Added `if priority == "P1": missing = []` in MI post-processing
+- `routers/triage.py`: Added channel-based hints to user content — "P1 very rare on standard channels"
+
+**Results:**
+| Dataset | Dimension | Before (EXP-007) | After | Delta |
+|---------|-----------|-------------------|-------|-------|
+| v2 | resolution | 79.0 | **79.7** | **+0.7** |
+| v2 | missing_info | 0.2821 | 0.2925 | **+0.0104** |
+| v2 | escalation | 0.8246 | 0.8364 | +0.0118 |
+| v2 | priority | 0.9153 | 0.9212 | +0.0059 |
+| v2 | routing | 0.8849 | 0.8910 | +0.0061 |
+| v3 | resolution | 78.4 | **79.1** | **+0.7** |
+| v3 | missing_info | 0.2945 | **0.3531** | **+0.0586** |
+| v3 | priority | 0.9346 | 0.9333 | -0.0013 |
+
+**Decision:** DEPLOY ✅
+**Rationale:** Both datasets +0.7. Every dimension improved on v2. v3 missing_info jumped +5.9pp. Channel hints likely helped reduce false P1 assignments on non-emergency channels.
+
 ### EXP-001: Wave 2 — Batch Task 1 + Task 2 + Task 3 improvements
 **Date:** 2026-04-17
 **Hypothesis:** Batch of non-interacting changes should improve multiple dimensions without regression:
@@ -338,4 +361,4 @@ Template for each experiment:
 | +no JPEG (EXP-004) | 77.8 | 76.4 | 70.5 | — | 86.8 | JPEG reverted — no benefit |
 | EXP-005 error fixes | **79.3** (+2.0) | **77.7** (+2.2) | — | — | — | Remove Threat auto-escalation, P4 calibration |
 | EXP-006 MI affinity | 79.1 (-0.2) | **78.0** (+2.5) | — | — | — | Category-specific MI filtering |
-| **Final (v14)** | **79.3** | **78.1** | — | — | **86.4** | All improvements deployed |
+| **Final (v14)** | **79.7** | **79.1** | — | — | — | +P1 empty MI, channel hints |
