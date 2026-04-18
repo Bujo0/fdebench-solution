@@ -5,9 +5,9 @@
 **Starting composite: 86.9 → Deployed: v15**
 
 **Real improvement signal (synthetic data — stable across 4 runs, ±0.3 variance):**
-- v2 tune set: **77.3 → 79.0 (+1.7 resolution)**
-- v3 holdout: **75.5 → 78.4 (+2.9 resolution)**
-- Escalation F1: **0.62 → 0.82 (+20pp)** — largest single dimension gain
+- v2 tune set: **77.3 → 80.0 (+2.7 resolution)**
+- v3 holdout: **75.5 → 79.4 (+3.9 resolution)**
+- Escalation F1: **0.62 → 0.86 (+24pp)** — largest single dimension gain
 
 **Final comprehensive sweep (all triage datasets):**
 | Dataset | Items | Resolution | Best Dimension | Worst Dimension |
@@ -109,6 +109,10 @@ The golden composite varies ±5pts between runs due to LLM non-determinism on th
 | 5 | Remove Threat auto-escalation + P4 cal | **+1.5** | **+1.3** | ✅ Deploy | **Biggest win. Error slicing → targeted fix = highest ROI** |
 | 6 | Category-affinity MI filtering | -0.2 | +0.3 | ✅ Deploy | Marginal, but structurally sound |
 | 7 | P4 empty missing_info | +0.2 | +0.1 | ✅ Deploy | 48% of P4 gold is empty MI — matching = free points |
+| 8 | P1 empty MI + channel hints | **+0.7** | **+0.7** | ✅ Deploy | Channel data reveals P1 only on bridge/emergency channels |
+| 9 | detail:"low" for Task 2 | — | — | ❌ Revert | **CATASTROPHIC: -28.9pp resolution.** 512×512 destroys text. |
+| 10 | gpt-5-4 for triage | -1.5 | — | ❌ Revert | Bigger model ≠ better. Escalation cratered -12.6pp. |
+| 11 | Mission Briefing routing guide | +0.3 | +0.3 | ✅ Deploy | Briefing routing 50%→improved with explicit subtype rules |
 
 **Failed experiments are documented in EXPERIMENT_LOG.md** — they prevent future agents from repeating the same mistakes.
 

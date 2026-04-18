@@ -8,10 +8,10 @@
 |-------|-------|
 | **Repo** | `https://github.com/Bujo0/fdebench-solution` |
 | **API Endpoint** | `https://fdebench-api.ashyplant-a5c239d3.eastus2.azurecontainerapps.io` |
-| **Deployed Version** | v15 |
+| **Deployed Version** | v16 |
 | **FDEBench Composite** | **82-89** (varies ±5pts on 25-item triage due to LLM variance) |
-| **Synthetic v2 Triage** | **79.0** (499 items, all 8 categories — stable ±0.3) |
-| **Synthetic v3 Triage** | **78.4** (500 items, holdout — stable ±0.3) |
+| **Synthetic v2 Triage** | **80.0** (499 items, all 8 categories — stable ±0.3) |
+| **Synthetic v3 Triage** | **79.4** (500 items, holdout — stable ±0.3) |
 
 ## Architecture & Design Decisions
 
@@ -82,6 +82,10 @@
 | EXP-005: Error-driven fixes | **79.3 (+1.5)** | **77.7 (+1.3)** | Remove Threat auto-escalation, P4 cal | **DEPLOY ✅** |
 | EXP-006: MI affinity | 79.1 (-0.2) | 78.0 (+0.3) | Category-specific MI filtering | DEPLOY ✅ |
 | EXP-007: P4 empty MI | 79.3 (+0.2) | 78.1 (+0.1) | P4 → empty missing_info | DEPLOY ✅ |
+| EXP-008: P1 MI + channels | **79.7 (+0.7)** | **79.1 (+0.7)** | P1 empty MI + channel hints | DEPLOY ✅ |
+| EXP-009: detail:low | — | — | Task 2 resolution 91→62 (**-29pp**) | **REVERT ❌** |
+| EXP-010: gpt-5-4 triage | 78.2 (-1.5) | — | Escalation cratered -12.6pp | **REVERT ❌** |
+| EXP-011: Briefing routing | **80.0 (+0.3)** | **79.4 (+0.3)** | Mission Briefing routing guide | DEPLOY ✅ |
 
 ### What Failed (and why it matters)
 1. **Blanket Threat escalation** (EXP-002) — routing guide says escalate Threats, but gold data only escalates 41%. Trusting data over docs = +13pp.
