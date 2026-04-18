@@ -283,6 +283,63 @@ Template for each experiment:
 **Rationale:** Small but consistent gains on both datasets. MI improved +0.3-0.7pp. No regressions. P4 items genuinely don't need MI — returning empty is the correct behavior.
 
 ### EXP-008: P1 empty MI + channel-based priority hints
+...
+(see above)
+
+### EXP-009: detail:"low" for Task 2 extraction (REVERTED)
+**Date:** 2026-04-18
+**Hypothesis:** `detail:"low"` uses 512×512 fixed-size image representation → should halve latency.
+
+**Changes:** Added `detail="low"` parameter to `complete_with_vision()` in `_extract_with_timeout()`
+
+**Results:**
+| Config | Task 2 Tier1 | Task 2 Resolution | Task 2 P95 | Composite |
+|--------|-------------|-------------------|-----------|-----------|
+| detail:auto (current) | 89.3 | 91.4 | 7688ms | 86.4 |
+| **detail:low** | **65.8** | **62.5** | 9774ms | **79.1** |
+
+**Decision:** REVERT ❌ — **CATASTROPHIC.** Resolution dropped 91.4→62.5 (-28.9pp). Latency didn't even improve. The 512×512 representation destroys text legibility for forms, tables, and fine print.
+**Learnings:** `detail:"low"` is unsuitable for document extraction. The handoff doc was right: full resolution is non-negotiable for OCR tasks. This is now a documented anti-pattern.
+
+### EXP-010: gpt-5-4 (bigger model) for triage (REVERTED)
+**Date:** 2026-04-18
+**Hypothesis:** gpt-5-4 (Tier 3, bigger model) might classify more accurately than gpt-5-4-mini.
+
+**Changes:** Changed `_LLM_MODEL = "gpt-5-4"` in `routers/triage.py`
+
+**Results (v2 only — v3 not completed):**
+| Dimension | gpt-5-4-mini | gpt-5-4 | Delta |
+|-----------|-------------|---------|-------|
+| resolution | 79.7 | 78.2 | **-1.5** |
+| escalation | 0.8364 | 0.7101 | **-0.1263** |
+| routing | 0.8910 | 0.8628 | -0.0282 |
+| missing_info | 0.2925 | 0.3235 | +0.0310 |
+| priority | 0.9212 | 0.9325 | +0.0113 |
+| latency | ~530s/499 items | 1064s/499 items | **2x slower** |
+
+**Decision:** REVERT ❌
+**Rationale:** Escalation cratered -12.6pp (the bigger model interprets escalation rules differently). 2x slower. Cost score drops from 0.9→0.75. Even though MI improved, the escalation/routing regression + cost + latency make this clearly worse.
+**Learnings:** gpt-5-4-mini is genuinely optimal for this task. The prompt was tuned for mini's behavior — switching models without re-tuning prompts is counterproductive.
+
+### EXP-011: Mission Briefing routing improvement
+**Date:** 2026-04-18
+**Hypothesis:** Briefing routing was 50% accurate — model defaulted to "None" for all briefings, but gold routes 66% to specific teams (SSE/CIAC/MSO). Adding explicit briefing routing guide to prompt should fix this.
+
+**Changes:**
+- `prompts/triage_prompt.py`: Added "MISSION BRIEFING ROUTING GUIDE" section with explicit rules: onboarding→SSE, offboarding→CIAC, software→MSO, general→None
+
+**Results:**
+| Dataset | Dimension | Before (EXP-008) | After | Delta |
+|---------|-----------|-------------------|-------|-------|
+| v2 | resolution | 79.7 | **80.0** | **+0.3** |
+| v2 | escalation | 0.8364 | 0.8624 | +0.0260 |
+| v2 | priority | 0.9212 | 0.9245 | +0.0033 |
+| v3 | resolution | 79.1 | **79.4** | **+0.3** |
+| v3 | category | 0.8668 | 0.8775 | **+0.0107** |
+| v3 | routing | 0.8745 | 0.8893 | **+0.0148** |
+
+**Decision:** DEPLOY ✅
+**Rationale:** Both datasets +0.3. v3 routing improved +1.5pp confirming the briefing fix generalizes. First time crossing 80.0 on v2.
 **Date:** 2026-04-18
 **Hypothesis:** (1) 54% of P1 gold MI is empty — clearing P1 MI should match those. (2) P1 items only come from bridge_terminal/emergency_beacon channels — channel hints should reduce P1 false positives on holodeck_comm/subspace_relay.
 
@@ -361,4 +418,4 @@ Template for each experiment:
 | +no JPEG (EXP-004) | 77.8 | 76.4 | 70.5 | — | 86.8 | JPEG reverted — no benefit |
 | EXP-005 error fixes | **79.3** (+2.0) | **77.7** (+2.2) | — | — | — | Remove Threat auto-escalation, P4 calibration |
 | EXP-006 MI affinity | 79.1 (-0.2) | **78.0** (+2.5) | — | — | — | Category-specific MI filtering |
-| **Final (v14)** | **79.7** | **79.1** | — | — | — | +P1 empty MI, channel hints |
+| **Final (v14)** | **80.0** | **79.4** | — | — | — | +Briefing routing guide |

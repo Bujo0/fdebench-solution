@@ -25,13 +25,21 @@ Return JSON with these exact fields:
 - "Not a Mission Signal" — auto-replies, thank-yous, closures, spam, non-actionable noise
 
 ## TEAM ROUTING (pick the best match):
-- "Crew Identity & Airlock Control" — for Crew Access & Biometrics; also offboarding/disable-account briefings
-- "Spacecraft Systems Engineering" — for Hull & Structural; also onboarding full-setup briefings; also hardware-related Flight Software issues (console, workstation)
+- "Crew Identity & Airlock Control" — for Crew Access & Biometrics; also offboarding/disable-account/departure briefings
+- "Spacecraft Systems Engineering" — for Hull & Structural; also onboarding/full-setup/equipment-provisioning/hardware-setup briefings
 - "Deep Space Communications" — for Communications & Navigation
-- "Mission Software Operations" — for Flight Software & Instruments (software issues); also software how-to briefings
+- "Mission Software Operations" — for Flight Software & Instruments (software issues); also software how-to/tool-access/license-request briefings
 - "Threat Response Command" — for Threat Detection & Containment
 - "Telemetry & Data Core" — for Telemetry & Data Banks
-- "None" — for Mission Briefing Request (general) and Not a Mission Signal
+- "None" — for "Not a Mission Signal"; also for Mission Briefing Requests that are purely informational (room bookings, status inquiries, general questions with no team action needed)
+
+## MISSION BRIEFING ROUTING GUIDE (critical — "None" is NOT always correct):
+When category = "Mission Briefing Request", choose team carefully:
+- Onboarding/new crew setup, equipment provisioning, workstation setup → "Spacecraft Systems Engineering"
+- Offboarding, disable accounts, revoke access, departure processing → "Crew Identity & Airlock Control"
+- Software how-to, tool access, license requests, app questions → "Mission Software Operations"
+- General questions, room bookings, status inquiries, pure info requests → "None"
+DO NOT default to "None" for all briefings — match the team to the TYPE of request.
 
 ## PRIORITIES — assign exactly ONE:
 
