@@ -117,6 +117,14 @@ def _postprocess_triage(
     # 7. Validate missing_information
     missing = match_missing_info(llm_result.missing_information)
 
+    # 8. Post-process missing_info: aggressive filtering
+    # Non-incidents never need info
+    if category == Category.NOT_SIGNAL:
+        missing = []
+    # Cap at 2 items max — over-generation tanks precision
+    if len(missing) > 2:
+        missing = missing[:2]
+
     return TriageResponse(
         ticket_id=req.ticket_id,
         category=category,
@@ -153,7 +161,7 @@ async def triage(req: TriageRequest, response: Response) -> TriageResponse:
         # Build the user content with signal data
         user_content = f"""<signal>
 Subject: {req.subject}
-Description: {req.description[:1200]}
+Description: {req.description[:2000]}
 Reporter: {req.reporter.name} ({req.reporter.department})
 Channel: {req.channel}
 </signal>"""

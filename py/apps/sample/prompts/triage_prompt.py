@@ -159,9 +159,11 @@ CATEGORY-SPECIFIC GUIDANCE for missing_information:
 - "Not a Mission Signal" → typically needs: [] (empty)
 
 IMPORTANT RULES:
-- Target 2-3 items per ticket on average.
-- Do NOT leave missing_information empty for real incidents — the team always needs SOMETHING.
+- Return missing_information: [] (EMPTY) unless you are VERY confident the team
+  genuinely cannot begin work without that specific piece of information.
 - DO leave it empty for "Not a Mission Signal" (no action needed).
+- When in doubt, return FEWER items. An empty list is better than a wrong list.
+- Maximum 2 items. Never 3+.
 - Only include fields that are genuinely MISSING from the signal text.
 - If the reporter already provided error details or logs, don't ask for anomaly_readout.
 - If a specific subsystem is named, don't ask for affected_subsystem.
@@ -200,7 +202,7 @@ Classification:
 - priority: "P4"
 - assigned_team: "Threat Response Command"
 - needs_escalation: false
-- missing_information: ["sensor_log_or_capture"]
+- missing_information: []
 Reasoning: Spam/phishing report — not an active threat, just forwarding junk. Category is Threat but priority is P4.
 </example>
 
@@ -211,7 +213,7 @@ Classification:
 - priority: "P3"
 - assigned_team: "Spacecraft Systems Engineering"
 - needs_escalation: false
-- missing_information: ["affected_subsystem", "module_specs"]
+- missing_information: ["module_specs"]
 Reasoning: Onboarding request with full setup → Mission Briefing Request, routed to SSE for hardware setup.
 </example>
 
@@ -222,8 +224,41 @@ Classification:
 - priority: "P3"
 - assigned_team: "Mission Software Operations"
 - needs_escalation: false
-- missing_information: ["software_version", "anomaly_readout"]
+- missing_information: ["software_version"]
 Reasoning: Software crash affecting single user with workaround attempted — P3 standard issue.
+</example>
+
+<example>
+Signal: "Subspace relay on Deck 4 has been intermittently dropping comms for all crew in the aft section since last watch cycle. No workaround — at least 30 crew affected. We've had to reroute through a backup channel but it's saturated."
+Classification:
+- category: "Communications & Navigation"
+- priority: "P2"
+- assigned_team: "Deep Space Communications"
+- needs_escalation: false
+- missing_information: ["affected_subsystem"]
+Reasoning: Major comms failure affecting multiple crew with degraded workaround → P2 (not P1 since no safety threat).
+</example>
+
+<example>
+Signal: "My badge stopped scanning at the Lab 3 airlock after lunch. I can still get in with my backup code but the scanner light doesn't even blink. Might need a replacement."
+Classification:
+- category: "Crew Access & Biometrics"
+- priority: "P3"
+- assigned_team: "Crew Identity & Airlock Control"
+- needs_escalation: false
+- missing_information: ["biometric_method"]
+Reasoning: Single-user badge issue with workaround (backup code) → P3 standard issue.
+</example>
+
+<example>
+Signal: "Requesting read access to the archived telemetry logs from last quarter's deep-space survey. Need them for the annual mission report."
+Classification:
+- category: "Telemetry & Data Banks"
+- priority: "P4"
+- assigned_team: "Telemetry & Data Core"
+- needs_escalation: false
+- missing_information: []
+Reasoning: Routine data access request, no urgency, no incident → P4.
 </example>
 """
 

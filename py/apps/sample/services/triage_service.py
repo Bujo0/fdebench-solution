@@ -55,9 +55,9 @@ CATEGORY_TEAM_DEFAULT = {
 CATEGORY_VALID_TEAMS = {
     "Crew Access & Biometrics": {"Crew Identity & Airlock Control", "Spacecraft Systems Engineering"},
     "Hull & Structural Systems": {"Spacecraft Systems Engineering", "Deep Space Communications"},
-    "Communications & Navigation": {"Deep Space Communications"},
+    "Communications & Navigation": {"Deep Space Communications", "Spacecraft Systems Engineering"},
     "Flight Software & Instruments": {"Mission Software Operations", "Spacecraft Systems Engineering"},
-    "Threat Detection & Containment": {"Threat Response Command"},
+    "Threat Detection & Containment": {"Threat Response Command", "Telemetry & Data Core"},
     "Telemetry & Data Banks": {"Telemetry & Data Core"},
     "Mission Briefing Request": {
         "None",

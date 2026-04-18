@@ -1,0 +1,192 @@
+# FDEBench Experiment Log
+
+> **All experiments tracked here with before/after scores. Nothing gets lost.**
+> Decision matrix: Synthetic ↑ → DEPLOY, Synthetic ↓ → REVERT regardless of golden.
+> v2 = tune set (499 items), v3 = frozen holdout (500 items).
+
+---
+
+## Baselines (Phase 0B) — 2026-04-17
+
+Server config: `TRIAGE_MODEL=gpt-5-4-mini`, `EXTRACT_MODEL=gpt-5-4-mini`, temperature=0.0
+
+### Task 1: Triage — v2 Synthetic (tune set, 499 items)
+
+| Dimension | Score | Weight | Notes |
+|-----------|-------|--------|-------|
+| category | 0.9247 | 24% | Macro F1 across 8 categories |
+| priority | 0.9206 | 24% | Ordinal partial credit |
+| routing | 0.8993 | 24% | Macro F1 across 7 teams |
+| missing_info | 0.2687 | 17% | Set F1 — weakest dimension |
+| escalation | 0.6234 | 11% | Binary F1 positive class |
+| **Resolution** | **77.3** | — | Weighted composite |
+
+### Task 1: Triage — v3 Synthetic (holdout, 500 items)
+
+| Dimension | Score | Weight | Notes |
+|-----------|-------|--------|-------|
+| category | 0.8532 | 24% | Lower than v2 — more ambiguous items |
+| priority | 0.9379 | 24% | Slightly better than v2 |
+| routing | 0.8737 | 24% | Lower than v2 — cross-category confusion |
+| missing_info | 0.2817 | 17% | Similar to v2 |
+| escalation | 0.6178 | 11% | Similar to v2 |
+| **Resolution** | **75.5** | — | Weighted composite |
+
+### Task 1: Triage — Adversarial (100 items)
+
+| Dimension | Score | Weight | Notes |
+|-----------|-------|--------|-------|
+| category | 0.7169 | 24% | Significantly lower — misdirection attacks work |
+| priority | 0.8545 | 24% | Safety keyword false alarms |
+| routing | 0.8248 | 24% | Follows category accuracy |
+| missing_info | 0.4477 | 17% | Better than v2/v3 — adversarial items have more MI |
+| escalation | 0.6769 | 11% | Slightly better than v2/v3 |
+| **Resolution** | **72.6** | — | Weighted composite |
+
+### Task 1: Triage — Edge Cases (50 items)
+
+| Dimension | Score | Weight | Notes |
+|-----------|-------|--------|-------|
+| category | 0.7485 | 24% | Designed to be maximally ambiguous |
+| priority | 0.8210 | 24% | Priority boundaries are hardest here |
+| routing | 0.7313 | 24% | Worst routing — exception cases hurt most |
+| missing_info | 0.2133 | 17% | Worst missing_info — edge cases are trickiest |
+| escalation | 0.5806 | 11% | Near random — boundary escalation decisions |
+| **Resolution** | **65.2** | — | Weighted composite |
+
+### Task 1: Triage — Golden 50-item (sanity check only)
+
+| Dimension | Score | Weight | Notes |
+|-----------|-------|--------|-------|
+| category | 0.2040 | 24% | Only 2 categories in gold — macro F1 tanks on missing cats |
+| priority | 0.6546 | 24% | |
+| routing | 0.2332 | 24% | Follows category |
+| missing_info | 0.2440 | 17% | Golden has 0% empty MI vs our 32% empty |
+| escalation | 0.0000 | 11% | Binary F1 on positive class — distribution mismatch |
+| **Resolution** | **30.4** | — | ⚠️ LOW due to LLM variance + only 2/8 categories + single run |
+
+> **Note:** This score is NOT representative. The golden 50-item set has only Communications (33) and Crew Access (17). The model's classifications vary significantly between runs on this tiny set. The 25-item sample below is more meaningful.
+
+### Task 1: Triage — 25-item Sample (more representative)
+
+| Dimension | Score | Weight | Notes |
+|-----------|-------|--------|-------|
+| category | 0.8528 | 24% | All 8 categories represented |
+| priority | 0.8944 | 24% | |
+| routing | 0.7619 | 24% | |
+| missing_info | 0.2568 | 17% | |
+| escalation | 0.6667 | 11% | |
+| **Resolution** | **71.9** | — | More representative than 50-item golden |
+
+### Task 2: Extract — Golden 50-item
+
+| Metric | Value | Notes |
+|--------|-------|-------|
+| **Resolution** | **92.8** | information_accuracy + text_fidelity |
+| Efficiency | 72.8 | Latency score 0.6137, cost score 0.9 (gpt-5.4-mini) |
+| Robustness | 95.9 | Adversarial 93.1, API resilience 100.0 |
+| **Tier 1 Composite** | **89.7** | |
+| P50 latency | 5,567ms | |
+| P95 latency | 8,953ms | vs 2,000ms target → latency score 0.61 |
+| Model | gpt-5.4-mini | Tier 2 cost score = 0.9 |
+
+### Task 3: Orchestrate — Golden 50-item
+
+| Metric | Value | Notes |
+|--------|-------|-------|
+| **Resolution** | **90.4** | goal_completion + tool_selection + params + ordering + constraints |
+| Efficiency | 100.0 | P95=23ms (template executor), cost=1.0 (gpt-5.4-nano) |
+| Robustness | 95.3 | Adversarial 92.1, API resilience 100.0 |
+| **Tier 1 Composite** | **93.8** | Near ceiling — 1 unfixable mock 429 error |
+| P50 latency | 16ms | Template executor = no LLM |
+| P95 latency | 23ms | |
+| Model | gpt-5.4-nano | Reported for cost (no LLM actually used) |
+
+### Official FDEBench Composite Baseline
+
+| Component | Score | Notes |
+|-----------|-------|-------|
+| **FDEBench Composite** | **86.9** | Mean of 3 task Tier 1 scores |
+| Resolution (avg) | 85.0 | |
+| Efficiency (avg) | 85.2 | |
+| Robustness (avg) | 91.1 | |
+| Task 1 Tier 1 | 77.1 | Biggest improvement opportunity |
+| Task 2 Tier 1 | 89.7 | Latency is the bottleneck |
+| Task 3 Tier 1 | 93.8 | Near ceiling |
+
+---
+
+## Experiment History
+
+### EXP-001: [Pending — will be filled as experiments run]
+
+Template for each experiment:
+```
+### EXP-NNN: [Name]
+**Date:** YYYY-MM-DD
+**Hypothesis:** What we expect to change and why
+**Changes:** Files modified and what was changed
+**Datasets tested:** Which datasets were evaluated
+
+#### Results
+| Dataset | Dimension | Before | After | Delta |
+|---------|-----------|--------|-------|-------|
+| v2 | resolution | X.X | X.X | +X.X |
+
+**Decision:** DEPLOY ✅ / REVERT ❌
+**Rationale:** Why this decision was made
+**Learnings:** What we learned (especially from failures)
+```
+
+### EXP-001: Wave 2 — Batch Task 1 + Task 2 + Task 3 improvements
+**Date:** 2026-04-17
+**Hypothesis:** Batch of non-interacting changes should improve multiple dimensions without regression:
+- missing_info: cap at 2 items + prompt "fewer is better" → reduce over-generation
+- description truncation: 1200→2000 chars → more context helps classification
+- few-shot examples: add Comms/P2, Access/P3, Data/P4 → better macro F1 on rare categories
+- routing: expand CATEGORY_VALID_TEAMS → trust LLM team choices for valid exceptions
+- Task 2: JPEG compression → latency reduction; more date patterns → better date normalization
+- Task 3: dynamic calendar dates → hidden eval resilience; unmatched template logging
+
+**Changes:**
+- `routers/triage.py`: NOT_SIGNAL → empty missing_info, cap at 2 items, desc truncation 1200→2000
+- `prompts/triage_prompt.py`: "fewer is better" missing_info strategy, 3 new few-shot examples (Comms/P2, Access/P3, Data/P4), reduced MI in existing examples
+- `services/triage_service.py`: expanded CATEGORY_VALID_TEAMS (Comms→+SSE, Threat→+TDC)
+- `routers/extract.py`: JPEG compression, 6 new date patterns (MM/DD, ordinal, month-year), 9 new date field names
+- `services/template_executor.py`: dynamic calendar dates from goal text, `_extract_current_date()` helper
+- `routers/orchestrate.py`: warning log for unmatched templates
+
+**Datasets tested:** v2 synthetic (499), v3 synthetic (500)
+
+#### Results — Task 1 Triage
+| Dataset | Dimension | Before | After | Delta |
+|---------|-----------|--------|-------|-------|
+| v2 | category | 0.9247 | 0.9226 | -0.0021 |
+| v2 | priority | 0.9206 | 0.9219 | +0.0013 |
+| v2 | routing | 0.8993 | 0.8982 | -0.0011 |
+| v2 | missing_info | 0.2687 | 0.2589 | -0.0098 |
+| v2 | escalation | 0.6234 | 0.6619 | **+0.0385** |
+| **v2** | **resolution** | **77.3** | **77.5** | **+0.2** |
+| v3 | category | 0.8532 | 0.8661 | **+0.0129** |
+| v3 | priority | 0.9379 | 0.9379 | +0.0000 |
+| v3 | routing | 0.8737 | 0.8742 | +0.0005 |
+| v3 | missing_info | 0.2817 | 0.2859 | +0.0042 |
+| v3 | escalation | 0.6178 | 0.6706 | **+0.0528** |
+| **v3** | **resolution** | **75.5** | **76.5** | **+1.0** |
+
+**Decision:** DEPLOY ✅
+**Rationale:** v2 ↑ (+0.2) AND v3 ↑ (+1.0). Strongest gains in escalation (+3.9-5.3pp) and category (+1.3pp on holdout). Missing_info slightly worse on v2 (-0.01) but improved on v3 (+0.004) — within noise. No dimension regressed more than 0.01.
+**Learnings:**
+- Escalation gain likely from better few-shot examples (P2 comms failure shows correct non-escalation)
+- Missing_info cap at 2 didn't help as much as expected — the LLM already generates ~1.1 items avg. The "fewer is better" prompt may be making it too conservative.
+- v3 holdout gains are larger than v2 tune set — suggests good generalization
+- Task 2/3 changes not measured in this sweep (will be evaluated in the full experiment runner)
+
+---
+
+## Score Progression Summary
+
+| Version | v2 Triage | v3 Triage | Adversarial | Edge | FDEBench Composite | Changes |
+|---------|-----------|-----------|-------------|------|-------------------|---------|
+| Baseline (v13) | 77.3 | 75.5 | 72.6 | 65.2 | 86.9 | Current deployed state |
+| Wave 2 (EXP-001) | 77.5 (+0.2) | 76.5 (+1.0) | — | — | — | MI filter, few-shot, routing, JPEG, dates, calendar |

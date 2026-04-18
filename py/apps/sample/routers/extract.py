@@ -65,6 +65,24 @@ def _optimize_image(content_b64: str) -> str:
     except Exception:
         return content_b64  # Can't process — return original
 
+
+def _compress_to_jpeg(content_b64: str, quality: int = 85) -> tuple[str, str]:
+    """Compress image to JPEG without resizing. Returns (base64, mime_type)."""
+    try:
+        raw = base64.b64decode(content_b64)
+        img = Image.open(io.BytesIO(raw))
+        if img.mode in ("RGBA", "P"):
+            img = img.convert("RGB")
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG", quality=quality, optimize=True)
+        compressed = base64.b64encode(buf.getvalue()).decode("ascii")
+        # Only use compressed if it's actually smaller
+        if len(compressed) < len(content_b64):
+            return compressed, "image/jpeg"
+        return content_b64, "image/png"
+    except Exception:
+        return content_b64, "image/png"
+
 # Date patterns for post-processing normalization
 _DATE_PATTERNS = [
     # "November 2, 2025" or "Nov 2, 2025"
@@ -72,6 +90,12 @@ _DATE_PATTERNS = [
     (re.compile(r"^([A-Z][a-z]{2})\s+(\d{1,2}),?\s+(\d{4})$"), "%b %d, %Y"),
     # "2 November 2025"
     (re.compile(r"^(\d{1,2})\s+([A-Z][a-z]+)\s+(\d{4})$"), "%d %B %Y"),
+    # "11/02/2025" or "11-02-2025" (MM/DD/YYYY)
+    (re.compile(r"^(\d{1,2})[/\-](\d{1,2})[/\-](\d{4})$"), None),
+    # "15th November 2025" (ordinal)
+    (re.compile(r"^(\d{1,2})(?:st|nd|rd|th)\s+([A-Z][a-z]+)\s+(\d{4})$"), "%d %B %Y"),
+    # "November 2025" (month-year only)
+    (re.compile(r"^([A-Z][a-z]+)\s+(\d{4})$"), None),
 ]
 
 # Fields known to contain dates (by naming convention)
@@ -84,6 +108,15 @@ _DATE_FIELD_NAMES = {
     "taxDateStart",
     "start",
     "end",
+    "dateOfBirth",
+    "dob",
+    "expiryDate",
+    "issueDate",
+    "effectiveDate",
+    "invoiceDate",
+    "dueDate",
+    "paymentDate",
+    "signatureDate",
 }
 
 
@@ -93,13 +126,36 @@ def _try_normalize_date(value: str) -> str:
     # Already ISO format
     if re.match(r"^\d{4}-\d{2}-\d{2}$", value):
         return value
+    # Strip ordinal suffixes for matching
+    cleaned = re.sub(r"(\d)(st|nd|rd|th)", r"\1", value)
     for pattern, fmt in _DATE_PATTERNS:
-        if pattern.match(value):
-            try:
-                dt = datetime.strptime(value.replace(",", ""), fmt.replace(",", ""))
-                return dt.strftime("%Y-%m-%d")
-            except ValueError:
-                continue
+        if pattern.match(cleaned):
+            if fmt is not None:
+                try:
+                    dt = datetime.strptime(cleaned.replace(",", ""), fmt.replace(",", ""))
+                    return dt.strftime("%Y-%m-%d")
+                except ValueError:
+                    continue
+            elif re.match(r"^\d{1,2}[/\-]\d{1,2}[/\-]\d{4}$", cleaned):
+                # MM/DD/YYYY or DD/MM/YYYY — assume MM/DD/YYYY (US convention)
+                parts = re.split(r"[/\-]", cleaned)
+                try:
+                    dt = datetime(int(parts[2]), int(parts[0]), int(parts[1]))
+                    return dt.strftime("%Y-%m-%d")
+                except ValueError:
+                    # Try DD/MM/YYYY
+                    try:
+                        dt = datetime(int(parts[2]), int(parts[1]), int(parts[0]))
+                        return dt.strftime("%Y-%m-%d")
+                    except ValueError:
+                        continue
+            elif re.match(r"^[A-Z][a-z]+\s+\d{4}$", cleaned):
+                # Month-year only → first of month
+                try:
+                    dt = datetime.strptime(cleaned, "%B %Y")
+                    return dt.strftime("%Y-%m-%d")
+                except ValueError:
+                    continue
     return value
 
 
@@ -207,8 +263,11 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
     try:
         schema_str = req.json_schema or "{}"
         # Optimize oversized images to reduce AOAI processing time
-        # Use original content — image downscaling loses text detail
+        # Use JPEG compression (no resize) to reduce payload while keeping full resolution
         optimized_content = req.content if req.content else ""
+        mime_type = "image/png"
+        if optimized_content:
+            optimized_content, mime_type = _compress_to_jpeg(optimized_content)
         content_size = len(optimized_content)
         is_large = content_size > _LARGE_CONTENT_THRESHOLD
 
@@ -238,6 +297,7 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
             timeout,
             req.document_id,
             content_size,
+            mime_type=mime_type,
         )
 
         # Retry with a truncation/speed hint if the first attempt timed out
@@ -259,6 +319,7 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
                 _RETRY_TIMEOUT,
                 req.document_id,
                 content_size,
+                mime_type=mime_type,
             )
 
         if result is None:
@@ -293,6 +354,7 @@ async def _extract_with_timeout(
     timeout: float,
     document_id: str,
     content_size: int,
+    mime_type: str = "image/png",
 ) -> str | None:
     """Call complete_with_vision wrapped in an asyncio timeout.
 
@@ -306,6 +368,7 @@ async def _extract_with_timeout(
                 EXTRACT_SYSTEM_PROMPT,
                 content,
                 user_content,
+                mime_type=mime_type,
             ),
             timeout=timeout,
         )

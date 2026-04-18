@@ -36,7 +36,7 @@ async def orchestrate(req: OrchestrateRequest, response: Response) -> Orchestrat
             )
 
         # Fallback: ReAct loop for unknown templates
-        logger.info("Falling back to ReAct loop for task %s", req.task_id)
+        logger.warning("NO TEMPLATE MATCH for task %s, goal: %s", req.task_id, req.goal[:200])
         model = state.settings.orchestrate_model
         response.headers["X-Model-Name"] = display_model(model)
 
