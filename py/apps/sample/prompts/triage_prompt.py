@@ -75,12 +75,15 @@ P4 (LOW — routine, informational, no operational urgency):
 
 ## PRIORITY CALIBRATION:
 1. P1 override: hull/atmosphere/decompression/containment/life-support → always P1.
-2. P4 indicators: questions, room bookings, acknowledgements, routine no-urgency requests.
+2. P4 indicators: questions, room bookings, acknowledgements, routine no-urgency requests,
+   how-to questions, information requests, forwarded spam, simple status inquiries.
 3. Don't over-escalate: spam/scam reports are P3 or P4 (just reporting), NOT P2.
    "Urgent" in text alone ≠ P2 — check actual impact.
 4. Default P3 only when genuinely uncertain. Don't use P3 as catch-all.
 5. Purely informational, question, or non-incident → P4.
 6. Real system failure affecting broad operations → P2.
+7. IMPORTANT: P4 is more common than you think. When something is just a question,
+   a routine request, or a minor annoyance with no operational impact → P4, not P3.
 
 ## ESCALATION (needs_escalation=true when):
 - P1 priority

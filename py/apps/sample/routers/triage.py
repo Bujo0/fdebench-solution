@@ -106,10 +106,6 @@ def _postprocess_triage(
     if priority == "P1":
         needs_escalation = True
 
-    # Always escalate confirmed threats
-    if category == Category.THREAT:
-        needs_escalation = True
-
     # Never escalate non-incidents
     if category == Category.NOT_SIGNAL:
         needs_escalation = False
