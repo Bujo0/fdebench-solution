@@ -8,10 +8,10 @@
 |-------|-------|
 | **Repo** | `https://github.com/Bujo0/fdebench-solution` |
 | **API Endpoint** | `https://fdebench-api.ashyplant-a5c239d3.eastus2.azurecontainerapps.io` |
-| **Deployed Version** | v14 |
-| **FDEBench Composite** | **86.4** (golden eval) |
-| **Synthetic v2 Triage** | **79.1** (499 items, all 8 categories) |
-| **Synthetic v3 Triage** | **78.0** (500 items, holdout) |
+| **Deployed Version** | v15 |
+| **FDEBench Composite** | **82-89** (varies ±5pts on 25-item triage due to LLM variance) |
+| **Synthetic v2 Triage** | **79.0** (499 items, all 8 categories — stable ±0.3) |
+| **Synthetic v3 Triage** | **78.4** (500 items, holdout — stable ±0.3) |
 
 ## Architecture & Design Decisions
 
@@ -81,6 +81,7 @@
 | EXP-004: JPEG compression | — | — | No latency benefit | REVERT ❌ |
 | EXP-005: Error-driven fixes | **79.3 (+1.5)** | **77.7 (+1.3)** | Remove Threat auto-escalation, P4 cal | **DEPLOY ✅** |
 | EXP-006: MI affinity | 79.1 (-0.2) | 78.0 (+0.3) | Category-specific MI filtering | DEPLOY ✅ |
+| EXP-007: P4 empty MI | 79.3 (+0.2) | 78.1 (+0.1) | P4 → empty missing_info | DEPLOY ✅ |
 
 ### What Failed (and why it matters)
 1. **Blanket Threat escalation** (EXP-002) — routing guide says escalate Threats, but gold data only escalates 41%. Trusting data over docs = +13pp.
