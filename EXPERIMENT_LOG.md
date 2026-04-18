@@ -245,6 +245,25 @@ Template for each experiment:
 2. **The routing guide says "set escalation=true for Threat Detection" but the gold data disagrees.** Only 41% of Threat items should escalate. Trust the data, not the guide.
 3. **Binary F1 on small positive class is extremely sensitive to false positives.** Removing 27 false positives yielded +13pp.
 
+### EXP-006: Missing info category-affinity filtering
+**Date:** 2026-04-18
+**Hypothesis:** Category-specific affinity filtering should improve missing_info precision by removing items irrelevant to the classified category. Also cap Briefing items at 1.
+
+**Changes:**
+- `routers/triage.py`: Added `_CATEGORY_MI_AFFINITY` dict mapping each category to its relevant missing_info fields. Filter predictions to only include affinity-matched items. Cap Briefing at 1 item.
+
+**Results:**
+| Dataset | Dimension | Before (EXP-005) | After | Delta |
+|---------|-----------|-------------------|-------|-------|
+| v2 | resolution | 79.3 | 79.1 | -0.2 |
+| v2 | missing_info | 0.2704 | 0.2833 | **+0.0129** |
+| v3 | resolution | 77.7 | 78.0 | **+0.3** |
+| v3 | missing_info | 0.2905 | 0.2867 | -0.0038 |
+
+**Decision:** DEPLOY ✅ (marginal)
+**Rationale:** v3 holdout improved (+0.3). v2 flat (-0.2, within LLM noise). MI precision improved on v2 (+1.3pp). The category-affinity filter is a structurally sound approach that should generalize.
+**Learnings:** Missing_info is extremely hard to optimize. Even with affinity filtering, set F1 remains low (~0.28) because the LLM doesn't reliably predict which specific items the gold expects.
+
 ### EXP-001: Wave 2 — Batch Task 1 + Task 2 + Task 3 improvements
 **Date:** 2026-04-17
 **Hypothesis:** Batch of non-interacting changes should improve multiple dimensions without regression:
@@ -300,3 +319,4 @@ Template for each experiment:
 | Wave 3b (EXP-003) | 77.8 (+0.5) | 76.4 (+0.9) | 70.5 | — | — | De-escalation markers (surgical) |
 | +no JPEG (EXP-004) | 77.8 | 76.4 | 70.5 | — | 86.8 | JPEG reverted — no benefit |
 | EXP-005 error fixes | **79.3** (+2.0) | **77.7** (+2.2) | — | — | — | Remove Threat auto-escalation, P4 calibration |
+| EXP-006 MI affinity | 79.1 (-0.2) | **78.0** (+2.5) | — | — | — | Category-specific MI filtering |

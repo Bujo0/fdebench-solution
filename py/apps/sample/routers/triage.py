@@ -127,9 +127,26 @@ def _postprocess_triage(
     missing = match_missing_info(llm_result.missing_information)
 
     # 8. Post-process missing_info: aggressive filtering
-    # Non-incidents never need info
+    # Non-incidents and briefings rarely need info
     if category == Category.NOT_SIGNAL:
         missing = []
+    if category == Category.BRIEFING:
+        missing = missing[:1]  # Briefings rarely need more than 1
+
+    # Category-specific filtering — only keep items that are relevant for this category
+    _CATEGORY_MI_AFFINITY: dict[str, set[str]] = {
+        "Crew Access & Biometrics": {"biometric_method", "affected_crew", "system_configuration", "affected_subsystem"},
+        "Hull & Structural Systems": {"affected_subsystem", "sector_coordinates", "anomaly_readout", "module_specs", "habitat_conditions"},
+        "Communications & Navigation": {"affected_subsystem", "sector_coordinates", "system_configuration", "mission_impact"},
+        "Flight Software & Instruments": {"software_version", "sequence_to_reproduce", "anomaly_readout", "module_specs"},
+        "Threat Detection & Containment": {"sensor_log_or_capture", "affected_crew", "system_configuration", "affected_subsystem"},
+        "Telemetry & Data Banks": {"affected_subsystem", "system_configuration", "mission_impact", "anomaly_readout"},
+        "Mission Briefing Request": {"affected_subsystem", "module_specs", "crew_contact"},
+    }
+    affinity = _CATEGORY_MI_AFFINITY.get(category.value, set())
+    if affinity:
+        missing = [m for m in missing if m.value in affinity]
+
     # Cap at 2 items max — over-generation tanks precision
     if len(missing) > 2:
         missing = missing[:2]
