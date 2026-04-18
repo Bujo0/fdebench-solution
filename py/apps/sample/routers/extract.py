@@ -263,11 +263,9 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
     try:
         schema_str = req.json_schema or "{}"
         # Optimize oversized images to reduce AOAI processing time
-        # Use JPEG compression (no resize) to reduce payload while keeping full resolution
+        # JPEG compression disabled — testing showed -1.5 on resolution (EXP-004)
         optimized_content = req.content if req.content else ""
         mime_type = "image/png"
-        if optimized_content:
-            optimized_content, mime_type = _compress_to_jpeg(optimized_content)
         content_size = len(optimized_content)
         is_large = content_size > _LARGE_CONTENT_THRESHOLD
 

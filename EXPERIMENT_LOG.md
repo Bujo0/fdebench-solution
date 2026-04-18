@@ -196,6 +196,19 @@ Template for each experiment:
 - Surgical approach works — de-escalation markers alone help without the damage from command/recurrence rules
 - Adversarial noise is high on 100 items — need to weight v2/v3 results more heavily
 
+### EXP-004: JPEG compression A/B test
+**Date:** 2026-04-18
+**Hypothesis:** JPEG compression (without resize) should reduce payload size and improve Task 2 latency.
+
+**Results:**
+| Config | Task 2 Tier1 | Task 2 Resolution | Task 2 P95 | Composite |
+|--------|-------------|-------------------|-----------|-----------|
+| With JPEG | 88.2 | 91.3 | 9191ms | 86.8 |
+| Without JPEG | 88.9 | 91.3 | 8115ms | 86.8 |
+
+**Decision:** REVERT JPEG ✅ — no resolution benefit, latency was noise between runs. Without JPEG is simpler and marginally faster.
+**Learnings:** JPEG compression at quality=85 doesn't meaningfully reduce AOAI processing time. The bottleneck is model inference, not network transfer.
+
 ### EXP-001: Wave 2 — Batch Task 1 + Task 2 + Task 3 improvements
 **Date:** 2026-04-17
 **Hypothesis:** Batch of non-interacting changes should improve multiple dimensions without regression:
@@ -249,3 +262,4 @@ Template for each experiment:
 | Baseline (v13) | 77.3 | 75.5 | 72.6 | 65.2 | 86.9 | Current deployed state |
 | Wave 2 (EXP-001) | 77.5 (+0.2) | 76.5 (+1.0) | — | — | — | MI filter, few-shot, routing, JPEG, dates, calendar |
 | Wave 3b (EXP-003) | 77.8 (+0.5) | 76.4 (+0.9) | 70.5 | — | — | De-escalation markers (surgical) |
+| +no JPEG (EXP-004) | 77.8 | 76.4 | 70.5 | — | 86.8 | JPEG reverted — no benefit |
