@@ -320,3 +320,4 @@ Template for each experiment:
 | +no JPEG (EXP-004) | 77.8 | 76.4 | 70.5 | — | 86.8 | JPEG reverted — no benefit |
 | EXP-005 error fixes | **79.3** (+2.0) | **77.7** (+2.2) | — | — | — | Remove Threat auto-escalation, P4 calibration |
 | EXP-006 MI affinity | 79.1 (-0.2) | **78.0** (+2.5) | — | — | — | Category-specific MI filtering |
+| **Final (v14)** | **79.1** | **78.0** | — | — | **86.4** | All improvements deployed |
