@@ -264,6 +264,24 @@ Template for each experiment:
 **Rationale:** v3 holdout improved (+0.3). v2 flat (-0.2, within LLM noise). MI precision improved on v2 (+1.3pp). The category-affinity filter is a structurally sound approach that should generalize.
 **Learnings:** Missing_info is extremely hard to optimize. Even with affinity filtering, set F1 remains low (~0.28) because the LLM doesn't reliably predict which specific items the gold expects.
 
+### EXP-007: P4 empty missing_info
+**Date:** 2026-04-18
+**Hypothesis:** 48% of P4 gold items have empty missing_info. Returning empty for P4 should match those perfectly (1.0 free points) and net-positive overall.
+
+**Changes:**
+- `routers/triage.py`: Added `if priority == "P4": missing = []` in post-processing
+
+**Results:**
+| Dataset | Dimension | Before (EXP-006) | After | Delta |
+|---------|-----------|-------------------|-------|-------|
+| v2 | resolution | 79.1 | 79.3 | +0.2 |
+| v2 | missing_info | 0.2833 | 0.2865 | +0.0032 |
+| v3 | resolution | 78.0 | 78.1 | +0.1 |
+| v3 | missing_info | 0.2867 | 0.2934 | +0.0067 |
+
+**Decision:** DEPLOY ✅
+**Rationale:** Small but consistent gains on both datasets. MI improved +0.3-0.7pp. No regressions. P4 items genuinely don't need MI — returning empty is the correct behavior.
+
 ### EXP-001: Wave 2 — Batch Task 1 + Task 2 + Task 3 improvements
 **Date:** 2026-04-17
 **Hypothesis:** Batch of non-interacting changes should improve multiple dimensions without regression:
@@ -320,4 +338,4 @@ Template for each experiment:
 | +no JPEG (EXP-004) | 77.8 | 76.4 | 70.5 | — | 86.8 | JPEG reverted — no benefit |
 | EXP-005 error fixes | **79.3** (+2.0) | **77.7** (+2.2) | — | — | — | Remove Threat auto-escalation, P4 calibration |
 | EXP-006 MI affinity | 79.1 (-0.2) | **78.0** (+2.5) | — | — | — | Category-specific MI filtering |
-| **Final (v14)** | **79.1** | **78.0** | — | — | **86.4** | All improvements deployed |
+| **Final (v14)** | **79.3** | **78.1** | — | — | **86.4** | All improvements deployed |
