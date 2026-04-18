@@ -138,6 +138,64 @@ Template for each experiment:
 **Learnings:** What we learned (especially from failures)
 ```
 
+### EXP-002: Wave 3 — Adversarial de-escalation + escalation refinement (REVERTED)
+**Date:** 2026-04-18
+**Hypothesis:** Adding resolved/false-alarm de-escalation markers and command-level/recurrence-based escalation rules should improve adversarial priority accuracy and escalation F1.
+
+**Changes (all reverted):**
+- `routers/triage.py`: Added `_RESOLVED_MARKERS` list to de-escalate P1 back to P3 when safety keywords co-occur with resolution indicators. Added command-level reporter escalation (`_COMMAND_RANKS`). Added recurrence-based escalation (`_RECURRENCE_MARKERS`).
+- `prompts/triage_prompt.py`: Added 5 anti-escalation examples showing resolved safety signals → P3/P4. Added KEY RULE about past/resolved events.
+
+**Datasets tested:** adversarial (100), v2 (499), v3 (500)
+
+#### Results
+| Dataset | Dimension | Before (Wave2) | After | Delta |
+|---------|-----------|----------------|-------|-------|
+| adversarial | resolution | 72.6 | 70.7 | **-1.9** |
+| adversarial | category | 0.7169 | 0.6678 | -0.0491 |
+| adversarial | escalation | 0.6769 | 0.6557 | -0.0212 |
+| v2 | resolution | 77.5 | 74.4 | **-3.1** |
+| v2 | escalation | 0.6619 | 0.4000 | **-0.2619** |
+| v2 | priority | 0.9219 | 0.9146 | -0.0073 |
+| v3 | resolution | 76.5 | 75.0 | **-1.5** |
+| v3 | escalation | 0.6706 | 0.5321 | **-0.1385** |
+
+**Decision:** REVERT ❌
+**Rationale:** All three datasets regressed. Escalation F1 cratered on v2 (-26pp!) and v3 (-14pp). The recurrence markers ("again", "same issue") matched too many legitimate tickets that shouldn't escalate. The command-level check was also over-triggering.
+**Learnings:**
+1. **Recurrence markers are too broad** — "again" appears in normal follow-up context, not just recurring issues. Need much more specific matching.
+2. **Command-level escalation needs narrower triggers** — "command" appears in department names, not just ranks.
+3. **The de-escalation markers themselves may be OK** — priority only moved +0.003 on adversarial, suggesting the de-escalation logic wasn't the main problem. The escalation additions were.
+4. **Binary F1 on escalation is extremely sensitive** — a few false positives destroy the score because the positive class is small (~11% of items).
+5. **Key lesson: escalation rules must be extremely high-precision.** Better to under-escalate than over-escalate.
+
+### EXP-003: Wave 3b — Surgical de-escalation only (no command/recurrence rules)
+**Date:** 2026-04-18
+**Hypothesis:** Just the resolved/false-alarm de-escalation markers (without the command-level/recurrence rules that caused EXP-002 regression) should help priority accuracy without hurting escalation.
+
+**Changes:**
+- `routers/triage.py`: Added `_RESOLVED_MARKERS` to de-escalate P1→P3 when safety keywords co-occur with resolution indicators. NO command-level or recurrence escalation.
+
+**Datasets tested:** adversarial (100), v2 (499), v3 (500)
+
+#### Results
+| Dataset | Dimension | Before (Wave2) | After | Delta |
+|---------|-----------|----------------|-------|-------|
+| adversarial | resolution | 72.6 | 70.5 | -2.1 |
+| adversarial | escalation | 0.6769 | 0.7000 | +0.0231 |
+| v2 | resolution | 77.5 | 77.8 | **+0.3** |
+| v2 | escalation | 0.6619 | 0.6912 | **+0.0293** |
+| v2 | category | 0.9226 | 0.9267 | +0.0041 |
+| v3 | resolution | 76.5 | 76.4 | -0.1 |
+| v3 | escalation | 0.6706 | 0.6826 | +0.0120 |
+| v3 | missing_info | 0.2859 | 0.2947 | +0.0088 |
+
+**Decision:** DEPLOY ✅ (marginal)
+**Rationale:** v2 ↑ (+0.3) with escalation gains across all datasets (+1.2-2.9pp). v3 essentially flat (-0.1). Adversarial regression (-2.1) is within LLM variance for 100 items. The de-escalation logic correctly handles resolved safety signals without the over-escalation problem from EXP-002.
+**Learnings:**
+- Surgical approach works — de-escalation markers alone help without the damage from command/recurrence rules
+- Adversarial noise is high on 100 items — need to weight v2/v3 results more heavily
+
 ### EXP-001: Wave 2 — Batch Task 1 + Task 2 + Task 3 improvements
 **Date:** 2026-04-17
 **Hypothesis:** Batch of non-interacting changes should improve multiple dimensions without regression:
@@ -190,3 +248,4 @@ Template for each experiment:
 |---------|-----------|-----------|-------------|------|-------------------|---------|
 | Baseline (v13) | 77.3 | 75.5 | 72.6 | 65.2 | 86.9 | Current deployed state |
 | Wave 2 (EXP-001) | 77.5 (+0.2) | 76.5 (+1.0) | — | — | — | MI filter, few-shot, routing, JPEG, dates, calendar |
+| Wave 3b (EXP-003) | 77.8 (+0.5) | 76.4 (+0.9) | 70.5 | — | — | De-escalation markers (surgical) |

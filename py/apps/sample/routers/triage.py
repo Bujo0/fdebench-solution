@@ -81,6 +81,20 @@ def _postprocess_triage(
         priority = "P1"
         logger.info("P1 safety override for %s", req.ticket_id)
 
+    # 4b. De-escalate resolved/false-alarm safety signals back from P1
+    # Only fires when P1 was set by the safety override above (not by LLM)
+    _RESOLVED_MARKERS = [
+        "calibration", "false positive", "resolved", "test completed",
+        "turned out to be", "nominal", "passed", "maintenance check",
+        "all readings normal", "was a false", "drill", "diagnostic",
+        "within spec", "within tolerances",
+    ]
+    desc_lower = req.description.lower()
+    if priority == "P1" and preprocess.is_p1_safety:
+        if any(marker in desc_lower for marker in _RESOLVED_MARKERS):
+            priority = "P3"
+            logger.info("De-escalated resolved/false-alarm signal %s to P3", req.ticket_id)
+
     # 5. Non-incident priority override
     if category == Category.NOT_SIGNAL:
         priority = "P4"
@@ -101,7 +115,6 @@ def _postprocess_triage(
         needs_escalation = False
 
     # De-escalation for exploratory/uncertain signals
-    desc_lower = req.description.lower()
     subj_lower = req.subject.lower()
     if (
         ("may be nothing" in desc_lower or "may be nothing" in subj_lower)
