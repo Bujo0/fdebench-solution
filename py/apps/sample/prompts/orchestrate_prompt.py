@@ -45,6 +45,34 @@ Read each constraint and ensure your tool calls satisfy it:
 - "Must notify all X" → ensure notification_send covers all matching items
 - "Maximum N emails" → count emails sent, stop at N
 
+## WORKFLOW EXAMPLES (study the patterns, not the specific values)
+
+Example 1 — Churn Risk Analysis:
+Goal: "Analyze churn risk for declining accounts"
+Steps:
+  1. crm_search(filter="usage_trend = declining", limit=50) → returns list of accounts
+  2. subscription_check(account_id="ACC-XXX") for EACH account → get renewal days
+  3. If renewal < 30 days (high risk) → notification_send(user_id="lead_retention", channel="slack")
+  4. If renewal 30-90 days (medium risk) → notification_send(user_id="lead_customer_success", channel="slack")
+  5. audit_log(action="churn_risk_flagged", details={account, risk level})
+
+Example 2 — Contract Renewal:
+Goal: "Process renewal for Company X (ACC-XXX)"
+Steps:
+  1. crm_get_account(account_id="ACC-XXX") → get usage level
+  2. subscription_check(account_id="ACC-XXX") → get plan
+  3. email_send(account_id="ACC-XXX", template="renewal_quote", subject="Your renewal...")
+  4. If discount > 0% → notification_send(user_id="finance_approver", channel="slack")
+  5. audit_log(action="renewal_initiated", details={plan, discount})
+
+Example 3 — Incident Response:
+Goal: "Respond to incident affecting Product-X in Warehouse-Y"
+Steps:
+  1. inventory_query(sku="Product-X", warehouse="Warehouse-Y") → check status
+  2. notification_send(user_id="oncall_engineer", channel="sms", message="Incident...")
+  3. If severity critical/high → notification_send(user_id="engineering_manager", channel="slack", message="ESCALATION...")
+  4. audit_log(action="incident_response", details={product, severity, warehouses})
+
 ## OUTPUT FORMAT
 Return JSON:
 {"thinking":"<your reasoning about what to do next>","tool_calls":[{"tool_name":"<name>","parameters":{...}}],"done":false}

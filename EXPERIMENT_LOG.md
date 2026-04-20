@@ -708,3 +708,54 @@ Systematic review of every deployed change asking: "Would this help on items we'
 
 ### Conclusion
 Solution prioritizes GENERAL patterns over item-specific tuning. The strongest evidence is T1 v3 holdout (+3.9) which was never used for optimization. T2 changes are purely additive. T3 ReAct prompt teaches workflows, not memorized sequences.
+
+### EXP-023: ReAct few-shot synthetic examples
+**Date:** 2026-04-20
+**Changes:** Added 3 synthetic workflow examples (churn, renewal, incident) to ReAct prompt. Examples show patterns not specific values.
+
+| Metric | EXP-019 | EXP-023 | Delta |
+|--------|---------|---------|-------|
+| T3 Resolution | 79.9 | **82.2** | **+2.3** |
+| T3 Tier 1 | 72.1 | **74.2** | **+2.1** |
+| T3 Adversarial | 78.6 | **84.1** | **+5.5** |
+| Composite | 79.5 | **80.1** | **+0.6** |
+
+**Decision:** KEEP ✅ — resolution improved +2.3, adversarial +5.5. Examples teach general patterns.
+
+### EXP-024: ReAct 7 few-shot examples (WORSE — reverted to 3)
+**Date:** 2026-04-20
+**Changes:** Added 4 more examples (meeting, onboarding, inventory, re-engagement) for total of 7.
+
+| Metric | 3 examples (EXP-023) | 7 examples | Delta |
+|--------|---------------------|-----------|-------|
+| T3 Resolution | 82.2 | 74.1 | **-8.1** |
+| T3 Tier 1 | 74.2 | 67.4 | -6.8 |
+
+**Decision:** REVERT ❌ — too many examples confused the model. Reverted to 3 examples.
+**Learnings:** Prompt length has diminishing returns. 3 diverse examples is the sweet spot. More examples may cause over-pattern-matching or attention dilution.
+
+### EXP-025: ReAct constraint verification prompt (NEUTRAL)
+**Date:** 2026-04-20
+**Changes:** Added "BEFORE setting done=true, mentally verify EACH constraint" instruction.
+
+| Metric | EXP-023 (3 examples) | EXP-025 | Delta |
+|--------|---------------------|---------|-------|
+| T3 Resolution | 82.2 | 79.2 | -3.0 |
+| T3 Tier 1 | 74.2 | 72.6 | -1.6 |
+
+**Decision:** REVERT ❌ — no improvement, likely LLM variance. Reverted.
+
+### ReAct Hill-Climbing Final Summary
+
+| # | Config | T3 Resolution | T3 Tier 1 | Notes |
+|---|--------|--------------|-----------|-------|
+| EXP-018 | 9-line prompt baseline | 65.7 | 62.0 | Starting point |
+| **EXP-019** | **Comprehensive prompt** | **79.9** | **72.1** | **+14.2 resolution** |
+| EXP-020 | o4-mini model | 0.0 | 30.0 | Incompatible format |
+| EXP-021 | gpt-5-4-mini model | 59.3 | 60.1 | Too weak |
+| **EXP-023** | **+ 3 few-shot examples** | **82.2** | **74.2** | **Best: +16.5 from baseline** |
+| EXP-024 | 7 few-shot examples | 74.1 | 67.4 | Too many examples |
+| EXP-025 | + constraint verification | 79.2 | 72.6 | No improvement |
+
+**Winner: EXP-023** — comprehensive prompt + 3 synthetic few-shot examples + no retries + max_iter=20
+**ReAct T3 Resolution: 65.7 → 82.2 (+16.5)**
