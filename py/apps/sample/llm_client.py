@@ -62,6 +62,7 @@ async def complete(
         "model": model,
         "messages": messages,
         "temperature": temperature,
+        "seed": 42,
     }
     if response_format is not None:
         resp = await client.beta.chat.completions.parse(
@@ -104,6 +105,7 @@ async def complete_with_vision(
         "model": model,
         "messages": messages,
         "temperature": temperature,
+        "seed": 42,
     }
     if response_format is not None:
         resp = await client.beta.chat.completions.parse(
