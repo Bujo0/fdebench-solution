@@ -21,23 +21,26 @@
 | Adversarial | 100 | 70.2 | 0.684 | 0.864 | 0.770 | 0.378 | 0.737 |
 | Edge cases | 50 | 67.7 | 0.729 | 0.821 | 0.709 | 0.380 | 0.640 |
 
-### Golden Eval (composite — high variance due to 25-item triage set)
+### Golden Eval Composite (3 runs of v21)
 
-| Task | Tier 1 | Resolution | Efficiency | Robustness | Model | P95 Latency |
-|------|--------|-----------|-----------|-----------|-------|-------------|
-| Task 1: Triage | 77-79 | 72-75 | 82-86 | 81-82 | gpt-5.4-mini | ~1.2-1.5s |
-| Task 2: Extract | 87-90 | 91.4 | 70-77 | 94-96 | gpt-5.4-mini | ~8-10s |
-| Task 3: Orchestrate | 93.7 | 90.3 | 100.0 | 95.2 | gpt-5.4-nano | ~25ms |
-| **Composite** | **82-89** | | | | | |
+| Task | Tier 1 (mean) | Resolution | Model | Key Change |
+|------|--------------|-----------|-------|-----------|
+| Task 1: Triage | **77.9 ±2.1** | 74.4-75.9 | gpt-5.4-mini | +escalation +MI +routing |
+| Task 2: Extract | **87.6 ±2.3** | 89.4-91.7 | gpt-5.4-mini | +date patterns |
+| Task 3: Orchestrate | **98.0** | 97.6 | gpt-5.4-nano | **+template detection fix** |
+| **Composite** | **87.9 ±1.2** | | | |
 
 ### Improvement from Baseline
 
-| Metric | Baseline (v13) | Final (v17) | Gain |
+| Metric | Baseline (v13) | Final (v21) | Gain |
 |--------|---------------|------------|------|
+| **FDEBench Composite** | **86.9** | **87.9** | **+1.0** |
+| Task 1 Tier 1 | 77.1 | 77.9 | +0.8 |
+| **Task 3 Tier 1** | **93.8** | **98.0** | **+4.2** |
+| Task 3 Resolution | 90.4 | **97.6** | **+7.2** |
 | v2 triage resolution | 77.3 | **80.3** | **+3.0** |
 | v3 triage resolution | 75.5 | **79.4** | **+3.9** |
 | Escalation F1 | 0.645 | **0.870** | **+22.5pp** |
-| Missing info F1 | 0.265 | 0.301 | +3.6pp |
 
 ---
 

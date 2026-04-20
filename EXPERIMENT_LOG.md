@@ -557,3 +557,22 @@ v17 wins on v3 holdout (79.4 vs 79.0 for clean) which is the stronger signal for
 2. **Template detection order is critical.** "Renewal" is a common word in churn goals.
 3. **This validates the T2/T3 hill-climbing plan.** Error slicing finds bugs that batched testing can't.
 4. **Never assume near-ceiling tasks can't improve.** T3 at 93.8 seemed "done" — it had a 7-point bug.
+
+### T2/T3 Error Slicing Results (2026-04-20)
+
+**Task 2 post-fix analysis (v21):**
+- Resolution: 87.9 (information_accuracy=0.884, text_fidelity=0.868)
+- DOC-OCR-0410: 0.000 — 60s timeout on 2.7MB adversarial doc (unfixable without latency breakthrough)
+- DOC-OCR-0601: 0.438 — date format mismatch (gold="12-07-1995", pred="1995-12-07") + OCR digit error
+- DOC-OCR-0386: 0.500 — complete OCR failures (wrong name, address, marital status)
+- 4 gold fields have non-ISO dates; 3 have "as it appears" (correctly skipped), 1 does not (marginal impact)
+- Large docs (>1MB) score 0.836 vs small (<500KB) at 0.964 — size strongly correlates with accuracy
+- Adversarial items: 0.832 vs standard: 0.926
+
+**Task 3 post-fix analysis (v21):**
+- Resolution: **98.4** (up from 90.4 baseline!)
+- parameter_accuracy: 1.000 (date fix worked)
+- ordering_correctness: 0.980 (up from 0.840)
+- constraint_compliance: 0.983
+- Only 2 remaining mismatches: TASK-0430 (mock 429, unfixable) and TASK-0351 (data-driven count diff)
+- T3 is now at practical ceiling
