@@ -882,3 +882,16 @@ T2 Resolution: 91.1-91.5 (stable, ±0.2 between runs)
 
 **Decision:** KEEP ✅ — zero downside, T2 improved across all metrics. Schema descriptions help the model understand WHAT each field is and HOW to format it (especially "as it appears" for dates).
 **Learnings:** The model was already seeing the raw JSON schema, but structured field-by-field instructions make descriptions more salient. This is a pure-additive improvement with zero overfitting risk.
+
+### EXP-033: T1 confidence-gated MI (REVERTED)
+**Date:** 2026-04-20
+**Changes:** Added mi_confidence field to TriageLLMResponse. Low→empty, medium→1 item, high→2.
+
+| Metric | v27 | EXP-033 | Delta |
+|--------|-----|---------|-------|
+| v2 resolution | 80.3 | 79.7 | **-0.6** |
+| v3 resolution | 79.4 | 78.5 | **-0.9** |
+| v2 MI | 0.301 | 0.297 | -0.004 |
+
+**Decision:** REVERT ❌ — both datasets regressed. LLM confidence calibration isn't reliable. Adding mi_confidence field to structured output may distract from other fields.
+**Learnings:** Self-reported LLM confidence is not trustworthy enough to gate output. The model reports "high" confidence on wrong predictions and "low" on correct ones. Calibration would need fine-tuning.
