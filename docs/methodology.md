@@ -324,3 +324,38 @@ An early version of `_postprocess_steps()` tried to rewrite the entire step sequ
 4. **Efficiency scoring rewards mixed-model strategies.** Using nano for triage (where rules can compensate for model size) and standard for extract/orchestrate (where capability matters) gives better composite scores than a uniform model choice.
 
 5. **The adversarial subset is a hidden multiplier.** At 18% of the final score (0.60 × 0.30 × 1.00), adversarial defense is worth more than the entire efficiency dimension (20%). Ignoring it is a major competitive disadvantage.
+
+---
+
+## 5. Final Optimization Phase (April 2026)
+
+### 5.1 Eval-Driven Development Loop
+
+Every change followed this protocol:
+1. **Measure BEFORE** on v2 synthetic (tune set, 499 items) + v3 synthetic (holdout, 500 items)
+2. **Make one change** (or a small non-interacting batch)
+3. **Measure AFTER** on the same datasets
+4. **Deploy only if** v2 ↑ AND v3 non-negative (min +0.5 pts, averaged across 2-3 runs)
+5. **Revert** if synthetic ↓ regardless of golden score
+
+### 5.2 Key Methodology Insights
+
+**Error slicing is the highest-ROI approach.** Analyzing per-category, per-priority, and per-dimension error patterns revealed that blanket Threat escalation caused 27/46 false positives — removing it yielded +1.6 resolution (the biggest single win). Generic prompt tuning produced much smaller gains.
+
+**Batching hides regressions.** Wave 2 batched 6 changes showing +0.2 total. Incremental isolation later revealed that description truncation (1200→2000) and routing expansion were individually negative (-0.3 each), masked by the positive changes. Leave-one-out testing after batching is essential.
+
+**Interaction effects are real.** Changes that hurt in isolation (P4 calibration -0.3, de-escalation markers -0.6) were neutral-to-positive in the full combination. Both incremental AND full-combination testing are needed for confidence.
+
+**Synthetic data > golden data.** The golden 50-item eval covers only 2/8 categories. Optimizing for it leads to catastrophic overfitting (rules engine scored 93.6 golden, 60.2 synthetic — a 33-point gap). All decisions prioritized synthetic data.
+
+**Prompt caching is free latency.** Azure OpenAI automatically caches the first 3328 tokens of our 3886-token prompt, providing ~168ms savings per call with zero configuration.
+
+### 5.3 What Didn't Work
+
+| Approach | Outcome | Learning |
+|----------|---------|---------|
+| Bigger model (gpt-5-4) | Escalation -12.6pp, 2× slower | Prompt tuned for mini, switching models without re-tuning is counterproductive |
+| Image detail:"low" | Resolution -29pp | 512×512 too small for OCR on forms/tables |
+| JPEG compression | No latency change | Bottleneck is model inference, not payload transfer |
+| Recurrence markers ("again") | Escalation -26pp | Too broad — matched normal follow-up messages |
+| Routing expansion (Comms→SSE) | Net negative | Gold data never uses those routes — only allowed wrong team assignments |
