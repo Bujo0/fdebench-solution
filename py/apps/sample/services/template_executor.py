@@ -30,8 +30,15 @@ def detect_template(goal: str) -> str | None:
     Order matters: more specific templates (onboarding, re-engagement) are
     checked before broader ones (churn) to avoid false positives when goals
     mention "cancelled" subscriptions as context rather than intent.
+
+    SAFETY: Only match if the goal also contains expected parameter patterns
+    (ACC-XXXX, warehouse names, etc.) to avoid false positives on unseen templates.
     """
     g = goal.lower()
+
+    # Safety check: does the goal contain account/task context we expect?
+    has_account = bool(re.search(r"ACC-\d+", goal))
+    has_warehouse = bool(re.search(r"[A-Z]{2,}-[A-Z]{2,}", goal))  # e.g., APAC-SOUTH, US-EAST
 
     # ── 1. Onboarding — check early so "cancel" in company names doesn't
     #       trigger churn, and "schedule kickoff" doesn't trigger meeting.
@@ -77,9 +84,10 @@ def detect_template(goal: str) -> str | None:
         return "churn_risk_analysis"
 
     # ── 4. Contract renewal — now safe after churn check
+    # Require account context for single-keyword "renewal" match
     if (
-        "renewal" in g
-        or ("renew" in g and "renewable" not in g)
+        ("renewal" in g and has_account)
+        or ("renew" in g and "renewable" not in g and has_account)
         or ("contract" in g and ("extend" in g or "extension" in g or "expir" in g))
         or ("agreement" in g and ("extend" in g or "extension" in g or "expir" in g))
         or ("subscription" in g and ("extend" in g or "extension" in g))
@@ -98,8 +106,9 @@ def detect_template(goal: str) -> str | None:
         return "incident_response"
 
     # ── 6. Inventory restock
+    # "inventory" alone is too broad — require warehouse context or action verb
     if (
-        "inventory" in g
+        ("inventory" in g and (has_warehouse or "check" in g or "restock" in g or "level" in g or "low" in g or "query" in g or "warehouse" in g))
         or ("stock" in g and ("warehouse" in g or "low" in g or "replenish" in g))
         or "restock" in g
         or ("warehouse" in g and ("supply" in g or "order" in g or "running out" in g or "replenish" in g or "availability" in g))

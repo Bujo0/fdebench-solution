@@ -813,3 +813,19 @@ T2 Resolution: 91.1-91.5 (stable, ±0.2 between runs)
 - gpt-5-4-mini confirmed optimal (gpt-5-4 is worse: -3.5pp + timeouts)
 - Prompt improvements (EXP-026) already applied — format guidance, null handling, table extraction
 - **T2 is at practical ceiling for gpt-5-4-mini vision capabilities**
+
+### EXP-029: Tighter template detection (false-positive guards)
+**Date:** 2026-04-20
+**Hypothesis:** Broad keywords like "inventory", "renewal" could false-match unseen templates. Added guards:
+- `renewal` now requires ACC-XXXX context (account ID in goal)
+- `inventory` now requires warehouse context or action verb (check/restock/level/low)
+- Added `has_account` and `has_warehouse` safety checks
+
+**Results (templates enabled):**
+| Metric | v24 | v25 (tighter) | Delta |
+|--------|-----|---------------|-------|
+| T3 Resolution | 98.0 | **98.4** | +0.4 |
+| parameter_accuracy | 1.000 | 1.000 | 0.0 |
+
+**Decision:** KEEP ✅ — no regression on golden, plus safer against false positives on hidden eval.
+**Learnings:** Tighter detection = lower false-positive risk for unseen templates. Golden items all have ACC-XXXX patterns so guards don't affect them. Hidden eval items without account IDs will now correctly fall through to ReAct (84.7 resolution) instead of getting a wrong template (potentially 0-30 resolution).
