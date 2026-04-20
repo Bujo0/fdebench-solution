@@ -52,7 +52,7 @@ async def orchestrate(req: OrchestrateRequest, response: Response) -> Orchestrat
 
         # ReAct loop
         conversation: list[dict[str, str]] = []
-        max_iterations = 12
+        max_iterations = 20
 
         initial_user_msg = f"""Goal: {req.goal}
 

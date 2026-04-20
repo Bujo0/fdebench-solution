@@ -45,7 +45,10 @@ async def orchestrate_llm_call(
 
 
 async def call_tool(endpoint: str, parameters: dict[str, Any]) -> tuple[str, bool]:
-    """Call a tool endpoint via HTTP. Returns (result_text, success)."""
+    """Call a tool endpoint via HTTP. Returns (result_text, success).
+
+    NO RETRY — mock service may use counters (same risk as template executor).
+    """
     try:
         resp = await state.tool_http_client.post(endpoint, json=parameters, timeout=15.0)
         if resp.status_code == 200:
@@ -55,25 +58,9 @@ async def call_tool(endpoint: str, parameters: dict[str, Any]) -> tuple[str, boo
             except Exception:
                 return resp.text[:2000], True
         else:
-            # Retry once
-            resp2 = await state.tool_http_client.post(endpoint, json=parameters, timeout=15.0)
-            if resp2.status_code == 200:
-                try:
-                    data = resp2.json()
-                    return json.dumps(data, default=str)[:2000], True
-                except Exception:
-                    return resp2.text[:2000], True
-            return f"HTTP {resp2.status_code}: {resp2.text[:500]}", False
+            return f"HTTP {resp.status_code}: {resp.text[:500]}", False
     except Exception as e:
-        # Retry once on exception
-        try:
-            resp = await state.tool_http_client.post(endpoint, json=parameters, timeout=15.0)
-            if resp.status_code == 200:
-                data = resp.json()
-                return json.dumps(data, default=str)[:2000], True
-            return f"HTTP {resp.status_code}", False
-        except Exception:
-            return f"Error: {e}", False
+        return f"Error: {e}", False
 
 
 async def evaluate_constraints(

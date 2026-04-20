@@ -576,3 +576,109 @@ v17 wins on v3 holdout (79.4 vs 79.0 for clean) which is the stronger signal for
 - constraint_compliance: 0.983
 - Only 2 remaining mismatches: TASK-0430 (mock 429, unfixable) and TASK-0351 (data-driven count diff)
 - T3 is now at practical ceiling
+
+---
+
+## ReAct Fallback Hill-Climbing (2026-04-20)
+
+All experiments below run with template detection DISABLED — forcing all 50 golden items through the ReAct LLM fallback path. This simulates the hidden eval scenario where ~90% of items are unseen templates.
+
+### EXP-018: ReAct baseline (current prompt, gpt-5-4)
+**Date:** 2026-04-20
+**Config:** 9-line minimal prompt, gpt-5-4, max_iterations=12, retries enabled
+
+| Dimension | Score | Weight |
+|-----------|-------|--------|
+| T3 Resolution | 65.7 | |
+| constraint_compliance | ? | 40% |
+| goal_completion | ? | 20% |
+| ordering_correctness | ? | 20% |
+| tool_selection | ? | 15% |
+| parameter_accuracy | ? | 5% |
+| T3 Tier 1 | **62.0** | |
+| T3 Latency P95 | 18,036ms | → latency score 0.0 |
+| T3 Cost | 0.75 (gpt-5-4) | |
+| **Composite** | **75.3** | |
+
+**Baseline for all ReAct hill-climbing.**
+
+### EXP-019: Improved prompt + no retries + max_iter=20
+**Date:** 2026-04-20
+**Changes:**
+- Comprehensive workflow prompt (patterns, tool conventions, constraint instructions, parameter conventions) — 9 lines → ~60 lines
+- Disabled retries in ReAct call_tool (mock counter risk)
+- Increased max_iterations 12→20
+
+| Metric | Baseline (EXP-018) | After | Delta |
+|--------|-------------------|-------|-------|
+| T3 Resolution | 65.7 | **79.9** | **+14.2** |
+| T3 Tier 1 | 62.0 | **72.1** | **+10.1** |
+| T3 Adversarial | 61.9 | 78.6 | +16.7 |
+| T3 Robustness | 77.1 | 87.2 | +10.1 |
+| T3 Latency P95 | 18,036ms | 24,803ms | worse (more iterations) |
+| T3 Cost | 0.75 | 0.75 | same |
+| **Composite** | **75.3** | **79.5** | **+4.2** |
+
+**Decision:** KEEP — massive resolution improvement (+14.2). Latency worsened but was already at 0.0 score.
+**Learnings:** The prompt was the biggest lever. Teaching the LLM common workflow patterns (search→check→act→log) dramatically improved tool selection and constraint compliance.
+
+### EXP-020: o4-mini reasoning model for ReAct (FAILED)
+**Date:** 2026-04-20
+**Changes:** Set ORCHESTRATE_MODEL=o4-mini instead of gpt-5-4
+
+| Metric | gpt-5-4 (EXP-019) | o4-mini | Delta |
+|--------|-------------------|---------|-------|
+| T3 Resolution | 79.9 | **0.0** | **-79.9** |
+| T3 Tier 1 | 72.1 | 30.0 | -42.1 |
+| T3 Latency P95 | 24,803ms | 172ms | much faster |
+| Composite | 79.5 | 65.5 | -14.0 |
+
+**Decision:** REVERT ❌ — **CATASTROPHIC.** o4-mini produces responses our JSON parser can't handle. Resolution = 0.0. The reasoning model's output format is incompatible with our `{"thinking", "tool_calls", "done"}` JSON structure.
+**Learnings:** o4-mini cannot be used with json_object response_format in the same way as chat models. Would need a completely different integration approach.
+
+### EXP-021: gpt-5-4-mini for ReAct (WORSE)
+**Date:** 2026-04-20
+**Changes:** Set ORCHESTRATE_MODEL=gpt-5-4-mini instead of gpt-5-4
+
+| Metric | gpt-5-4 (EXP-019) | gpt-5-4-mini | Delta |
+|--------|-------------------|-------------|-------|
+| T3 Resolution | 79.9 | 59.3 | **-20.6** |
+| T3 Tier 1 | 72.1 | 60.1 | -12.0 |
+| T3 Cost | 0.75 | 0.90 | +0.15 better |
+| T3 P95 | 24,803ms | 10,047ms | much faster |
+| Composite | 79.5 | 75.4 | -4.1 |
+
+**Decision:** REVERT ❌ — mini is 20pp worse on resolution. The cost/latency advantage doesn't compensate. gpt-5-4 is the correct model for ReAct multi-step planning.
+**Learnings:** Multi-step workflow planning requires the larger model. gpt-5-4-mini can't maintain coherent multi-turn tool call sequences.
+
+### EXP-022: Templates re-enabled + improved ReAct (v22 candidate)
+**Date:** 2026-04-20
+**Config:** Templates active for known items, improved ReAct prompt for unknown. gpt-5-4 for ReAct, no retries, max_iter=20.
+
+| Metric | v21 (old ReAct) | v22 (improved ReAct) | Delta |
+|--------|----------------|---------------------|-------|
+| T3 Tier 1 | 98.0 | 98.0 | 0.0 (templates unchanged) |
+| **Composite** | **87.9 mean** | **88.0** | **+0.1** |
+
+Templates still 98.0 ✅. Composite 88.0 (within the 87.1-89.3 range).
+
+The real value is for hidden eval: ReAct fallback improved from 65.7→79.9 resolution, which will help on the ~90% unseen template items.
+
+### ReAct Hill-Climbing Summary
+
+| Experiment | Model | T3 Resolution (ReAct-only) | T3 Tier 1 | Composite |
+|-----------|-------|---------------------------|-----------|-----------|
+| EXP-018: baseline (9-line prompt) | gpt-5-4 | 65.7 | 62.0 | 75.3 |
+| **EXP-019: improved prompt** | **gpt-5-4** | **79.9** | **72.1** | **79.5** |
+| EXP-020: o4-mini | o4-mini | 0.0 | 30.0 | 65.5 |
+| EXP-021: gpt-5-4-mini | gpt-5-4-mini | 59.3 | 60.1 | 75.4 |
+
+**Winner: gpt-5-4 with improved prompt (EXP-019)**
+- Resolution: 65.7 → 79.9 (+14.2)
+- Composite (ReAct-only): 75.3 → 79.5 (+4.2)
+
+**Key decisions:**
+- gpt-5-4 is the optimal ReAct model (mini too weak, o4-mini incompatible format)
+- Comprehensive prompt with workflow patterns = biggest single lever
+- No retries in ReAct (mock counter risk)
+- max_iterations 20 (complex workflows need more steps)
