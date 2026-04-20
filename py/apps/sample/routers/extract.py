@@ -271,10 +271,29 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
 
         timeout = _LARGE_CONTENT_TIMEOUT if is_large else _DEFAULT_TIMEOUT
 
+        # Build field-level instructions from schema descriptions
+        field_instructions = ""
+        try:
+            schema_obj = json.loads(schema_str)
+            props = schema_obj.get("properties", {})
+            if props:
+                instructions = []
+                for field_name, field_spec in props.items():
+                    desc = field_spec.get("description", "")
+                    ftype = field_spec.get("type", "")
+                    if desc:
+                        instructions.append(f"- {field_name} ({ftype}): {desc}")
+                    else:
+                        instructions.append(f"- {field_name} ({ftype})")
+                field_instructions = "Fields to extract:\n" + "\n".join(instructions) + "\n\n"
+        except (json.JSONDecodeError, TypeError):
+            pass
+
         if is_large:
             user_content = (
                 "Extract all fields from this document image according to this JSON schema. "
                 "Include ALL rows in tables/arrays — do not truncate.\n\n"
+                f"{field_instructions}"
                 f"{schema_str}\n\n"
                 "Return a JSON object with the extracted values. "
                 "Use null for any field not found in the document."
@@ -282,6 +301,7 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
         else:
             user_content = (
                 f"Extract all fields from this document image according to this JSON schema:\n\n"
+                f"{field_instructions}"
                 f"{schema_str}\n\n"
                 "Return a JSON object with the extracted values. "
                 "Use null for any field not found in the document."

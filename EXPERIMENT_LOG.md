@@ -853,3 +853,32 @@ T2 Resolution: 91.1-91.5 (stable, ±0.2 between runs)
 - "Analyze employee churn trends" → NO match (no customer context) → ReAct
 - "Post-outage incident review" → NO match (no warehouse/action) → ReAct
 - "Process renewal for ACC-0199" → STILL matches (has ACC-XXXX + renewal) → Template (98+)
+
+### EXP-031: T3 Single-shot planning (WORSE)
+**Date:** 2026-04-20
+**Changes:** Added single-shot path: one LLM call returns ALL tool calls, then execute sequentially. Falls back to ReAct if single-shot produces no steps.
+
+| Metric | ReAct (EXP-027) | Single-shot | Delta |
+|--------|----------------|-------------|-------|
+| T3 Resolution | 84.7 | **68.4** | **-16.3** |
+| T3 P95 | 25s | 9.7s | -15s faster |
+| T3 Latency score | 0.0 | 0.04 | +0.04 |
+| T3 Tier 1 | 74.2 | 66.7 | -7.5 |
+
+**Decision:** REVERT ❌ — resolution dropped 16pp for negligible latency score gain. Single-shot can't adapt to tool results (e.g., can't know how many accounts crm_search returns to call subscription_check for each).
+**Learnings:** Data-driven adaptation is essential for workflow orchestration. The ReAct loop's ability to parse results and plan next steps based on actual data is worth the latency cost.
+
+### EXP-032: T2 schema field descriptions injected into prompt
+**Date:** 2026-04-20
+**Changes:** Parse JSON schema "description" fields and inject as explicit instructions above the raw schema. e.g., "- dob (string): Patient's date of birth as it appears"
+
+| Metric | v26 typical | EXP-032 | Delta |
+|--------|-----------|---------|-------|
+| T2 Resolution | 91.1-91.5 | 91.7 | +0.2-0.6 |
+| T2 P95 | 8-10s | 6,554ms | improved |
+| T2 Latency score | 0.55-0.65 | 0.75 | +0.10-0.20 |
+| T2 Tier 1 | 85-88 | **89.6** | +1.6-4.6 |
+| **Composite** | **~88** | **88.8** | **+0.8** (best ever) |
+
+**Decision:** KEEP ✅ — zero downside, T2 improved across all metrics. Schema descriptions help the model understand WHAT each field is and HOW to format it (especially "as it appears" for dates).
+**Learnings:** The model was already seeing the raw JSON schema, but structured field-by-field instructions make descriptions more salient. This is a pure-additive improvement with zero overfitting risk.
