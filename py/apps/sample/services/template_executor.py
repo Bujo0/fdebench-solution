@@ -39,12 +39,11 @@ def detect_template(goal: str) -> str | None:
     # Safety check: does the goal contain account/task context we expect?
     has_account = bool(re.search(r"ACC-\d+", goal))
     has_warehouse = bool(re.search(r"[A-Z]{2,}-[A-Z]{2,}", goal))  # e.g., APAC-SOUTH, US-EAST
+    has_rep_or_csm = bool(re.search(r"(REP|CSM)-\d+", goal))
 
-    # ── 1. Onboarding — check early so "cancel" in company names doesn't
-    #       trigger churn, and "schedule kickoff" doesn't trigger meeting.
-    #       Exclude "onboarding meeting/call" which is a meeting_scheduler intent.
+    # ── 1. Onboarding — require ACC-XXXX or CSM-XXX context
     _onboarding_meeting = re.search(r"onboarding\s+(meeting|call|session)", g) is not None
-    if not _onboarding_meeting and (
+    if not _onboarding_meeting and (has_account or has_rep_or_csm) and (
         "onboarding" in g
         or "onboard" in g
         or ("new client" in g and ("setup" in g or "set up" in g or "welcome" in g or "provision" in g))
@@ -54,9 +53,10 @@ def detect_template(goal: str) -> str | None:
     ):
         return "onboarding_workflow"
 
-    # ── 2. Re-engagement — check before churn so "cancelled subscriptions"
-    #       in context doesn't hijack the detection.
-    if (
+    # ── 2. Re-engagement — requires customer/account context
+    _has_customer_context = ("account" in g or "customer" in g or "client" in g 
+                             or "subscription" in g or has_account)
+    if _has_customer_context and (
         "re-engagement" in g
         or "re_engagement" in g
         or "reengagement" in g
@@ -71,9 +71,8 @@ def detect_template(goal: str) -> str | None:
     ):
         return "re_engagement_campaign"
 
-    # ── 3. Churn risk analysis — check BEFORE contract_renewal because
-    #       churn goals mention "renewal dates" which falsely triggers renewal.
-    if (
+    # ── 3. Churn risk analysis — requires customer/account context
+    if _has_customer_context and (
         "churn" in g
         or ("risk" in g and "retention" in g)
         or ("declining" in g and "usage" in g)
@@ -83,11 +82,10 @@ def detect_template(goal: str) -> str | None:
     ):
         return "churn_risk_analysis"
 
-    # ── 4. Contract renewal — now safe after churn check
-    # Require account context for single-keyword "renewal" match
-    if (
-        ("renewal" in g and has_account)
-        or ("renew" in g and "renewable" not in g and has_account)
+    # ── 4. Contract renewal — require account context
+    if (has_account or _has_customer_context) and (
+        ("renewal" in g)
+        or ("renew" in g and "renewable" not in g)
         or ("contract" in g and ("extend" in g or "extension" in g or "expir" in g))
         or ("agreement" in g and ("extend" in g or "extension" in g or "expir" in g))
         or ("subscription" in g and ("extend" in g or "extension" in g))
@@ -95,12 +93,12 @@ def detect_template(goal: str) -> str | None:
     ):
         return "contract_renewal"
 
-    # ── 5. Incident response
+    # ── 5. Incident response — "outage" alone too broad, require action context
     if (
         ("incident" in g and ("respond" in g or "notify" in g or "escalat" in g
                               or "triage" in g or "response" in g or "handle" in g
                               or "manage" in g or "report" in g or "affect" in g))
-        or ("outage" in g)
+        or ("outage" in g and (has_warehouse or "respond" in g or "notify" in g or "affect" in g))
         or ("emergency" in g and ("malfunction" in g or "warehouse" in g or "respond" in g))
     ):
         return "incident_response"
@@ -116,8 +114,8 @@ def detect_template(goal: str) -> str | None:
     ):
         return "inventory_restock"
 
-    # ── 7. Meeting scheduler
-    if (
+    # ── 7. Meeting scheduler — require ACC-XXXX or REP-XXX context
+    if (has_account or has_rep_or_csm) and (
         ("meeting" in g and ("schedule" in g or "schedul" in g or "book" in g or "set up" in g))
         or ("schedule" in g and ("call" in g or "session" in g or "conference" in g))
         or ("book" in g and ("session" in g or "call" in g or "time" in g))

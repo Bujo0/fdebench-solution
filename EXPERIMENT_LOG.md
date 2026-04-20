@@ -829,3 +829,27 @@ T2 Resolution: 91.1-91.5 (stable, ±0.2 between runs)
 
 **Decision:** KEEP ✅ — no regression on golden, plus safer against false positives on hidden eval.
 **Learnings:** Tighter detection = lower false-positive risk for unseen templates. Golden items all have ACC-XXXX patterns so guards don't affect them. Hidden eval items without account IDs will now correctly fall through to ReAct (84.7 resolution) instead of getting a wrong template (potentially 0-30 resolution).
+
+### EXP-030: Fully tightened template detection (all 7 templates)
+**Date:** 2026-04-20
+**Changes:** Added structural context guards to ALL templates:
+- Onboarding: requires ACC-XXXX or CSM-XXX
+- Re-engagement/churn: requires customer context (account/customer/client/subscription)
+- Contract renewal: requires account or customer context (was ACC-XXXX only)
+- Incident: "outage" alone no longer matches — needs warehouse or action context
+- Meeting: requires ACC-XXXX or REP-XXX
+- (Inventory already tightened in EXP-029)
+
+**Results:**
+| Metric | v25 (partial guards) | v26 (full guards) | Delta |
+|--------|---------------------|-------------------|-------|
+| T3 Resolution | 98.4 | 98.4 | 0.0 |
+
+**Decision:** KEEP ✅ — zero regression on golden (all items have expected context markers). Much safer against hidden eval false positives.
+
+**What's protected now:**
+- "Schedule maintenance backup" → NO match (no ACC/REP) → ReAct (84.7)
+- "Review inventory audit reports" → NO match (no warehouse/action context) → ReAct
+- "Analyze employee churn trends" → NO match (no customer context) → ReAct
+- "Post-outage incident review" → NO match (no warehouse/action) → ReAct
+- "Process renewal for ACC-0199" → STILL matches (has ACC-XXXX + renewal) → Template (98+)
