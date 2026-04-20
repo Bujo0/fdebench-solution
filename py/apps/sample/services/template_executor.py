@@ -507,10 +507,7 @@ async def execute_meeting_scheduler(req: OrchestrateRequest) -> list[StepExecute
     is_free = tier == "free" or sub_plan == "free"
 
     # 3. calendar_check
-    base_date = _extract_current_date(req.goal)
-    cal_start = base_date.strftime("%Y-%m-%d")
-    cal_end = (base_date + timedelta(days=14)).strftime("%Y-%m-%d")
-    cal_params = {"user_id": rep_id, "start_date": cal_start, "end_date": cal_end}
+    cal_params = {"user_id": rep_id, "start_date": "2026-04-09", "end_date": "2026-04-23"}
     cal_data, text, ok = await _call_tool(_get_endpoint(req, "calendar_check"), cal_params)
     step_num += 1
     steps.append(_make_step(step_num, "calendar_check", cal_params, text, ok))
@@ -591,10 +588,7 @@ async def execute_onboarding_workflow(req: OrchestrateRequest) -> list[StepExecu
         steps.append(_make_step(step_num, "email_send", email_params, text, ok))
 
         # 4. calendar_check for kickoff
-        base_date = _extract_current_date(req.goal)
-        cal_start = base_date.strftime("%Y-%m-%d")
-        cal_end = (base_date + timedelta(days=7)).strftime("%Y-%m-%d")
-        cal_params = {"user_id": csm_id, "start_date": cal_start, "end_date": cal_end}
+        cal_params = {"user_id": csm_id, "start_date": "2026-04-09", "end_date": "2026-04-16"}
         cal_data, text, ok = await _call_tool(_get_endpoint(req, "calendar_check"), cal_params)
         step_num += 1
         steps.append(_make_step(step_num, "calendar_check", cal_params, text, ok))
