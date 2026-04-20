@@ -759,3 +759,31 @@ Solution prioritizes GENERAL patterns over item-specific tuning. The strongest e
 
 **Winner: EXP-023** — comprehensive prompt + 3 synthetic few-shot examples + no retries + max_iter=20
 **ReAct T3 Resolution: 65.7 → 82.2 (+16.5)**
+
+### EXP-026: T2 improved extraction prompt
+**Date:** 2026-04-20
+**Changes:** Enhanced extraction prompt with format-specific guidance: date YYYY-MM-DD, numbers without currency, null not empty string, ALL table rows, nested objects, valid JSON.
+
+| Metric | Typical v22 | EXP-026 | Notes |
+|--------|------------|---------|-------|
+| T2 Tier 1 | 85-87 | **88.5** | Upper range |
+| T2 Resolution | 89-91 | 90.9 | Stable |
+| T2 P95 | 9-13s | 8,494ms | Better |
+| T2 Latency score | 0.52-0.60 | 0.64 | Improved |
+| Composite | 87-88 | 87.8 | T1 latency variance |
+
+**Decision:** KEEP ✅ — T2 improved or held across metrics. Prompt adds generalizable guidance (format rules, not item-specific).
+
+### EXP-027: ReAct "plan-first" user message
+**Date:** 2026-04-20
+**Changes:** Changed initial user message from "Plan and execute. Start with the first tool call(s)." to "First, analyze the goal and constraints. Then plan the full sequence of tool calls needed. Finally, start executing with the first tool call."
+
+| Metric | EXP-023 (3 examples) | EXP-027 (plan-first) | Delta |
+|--------|---------------------|---------------------|-------|
+| T3 Resolution | 82.2 | **84.7** | **+2.5** |
+| tool_selection | ~0.90 | 0.9304 | +0.03 |
+| constraint_compliance | ~0.93 | 0.8900 | -0.04 |
+| goal_completion | ~0.92 | 0.7717 | -0.15 |
+
+**Decision:** KEEP ✅ — resolution improved +2.5. Some dimension trade-offs (goal_completion down, tool_selection up) but net positive on the weighted composite.
+**Learnings:** Explicit "plan before executing" instruction helps the LLM produce more coherent tool sequences. The planning step in the first LLM response improves downstream tool selection.

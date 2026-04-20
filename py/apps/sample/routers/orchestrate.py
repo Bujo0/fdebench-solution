@@ -62,7 +62,7 @@ Tools:
 Constraints:
 {constraint_text}
 
-Plan and execute. Start with the first tool call(s)."""
+First, analyze the goal and constraints. Then plan the full sequence of tool calls needed. Finally, start executing with the first tool call."""
 
         conversation.append({"role": "user", "content": initial_user_msg})
 
