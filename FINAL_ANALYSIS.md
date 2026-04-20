@@ -5,9 +5,9 @@
 **Starting composite: 86.9 → Deployed: v15**
 
 **Real improvement signal (synthetic data — stable across 4 runs, ±0.3 variance):**
-- v2 tune set: **77.3 → 80.0 (+2.7 resolution)**
+- v2 tune set: **77.3 → 80.3 (+3.0 resolution)**
 - v3 holdout: **75.5 → 79.4 (+3.9 resolution)**
-- Escalation F1: **0.62 → 0.86 (+24pp)** — largest single dimension gain
+- Escalation F1: **0.62 → 0.87 (+25pp)** — largest single dimension gain
 
 **Final comprehensive sweep (all triage datasets):**
 | Dataset | Items | Resolution | Best Dimension | Worst Dimension |
@@ -113,6 +113,9 @@ The golden composite varies ±5pts between runs due to LLM non-determinism on th
 | 9 | detail:"low" for Task 2 | — | — | ❌ Revert | **CATASTROPHIC: -28.9pp resolution.** 512×512 destroys text. |
 | 10 | gpt-5-4 for triage | -1.5 | — | ❌ Revert | Bigger model ≠ better. Escalation cratered -12.6pp. |
 | 11 | Mission Briefing routing guide | +0.3 | +0.3 | ✅ Deploy | Briefing routing 50%→improved with explicit subtype rules |
+| 12 | Simplified MI prompt | 0.0 | -0.2 | — Not deployed | Conflicting signal; holdout guard rejected |
+| 13 | **Revert truncation 2000→1200** | **+0.3** | -0.1 | ✅ Deploy | **Wave 2 batching hid this negative. Shorter = less noise.** |
+| 14 | Revert routing expansion | 0.0 | +0.1 | ✅ Deploy | Gold never uses Comms→SSE or Threat→TDC routes |
 
 **Failed experiments are documented in EXPERIMENT_LOG.md** — they prevent future agents from repeating the same mistakes.
 

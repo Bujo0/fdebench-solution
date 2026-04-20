@@ -8,9 +8,9 @@
 |-------|-------|
 | **Repo** | `https://github.com/Bujo0/fdebench-solution` |
 | **API Endpoint** | `https://fdebench-api.ashyplant-a5c239d3.eastus2.azurecontainerapps.io` |
-| **Deployed Version** | v16 |
+| **Deployed Version** | v17 |
 | **FDEBench Composite** | **82-89** (varies ±5pts on 25-item triage due to LLM variance) |
-| **Synthetic v2 Triage** | **80.0** (499 items, all 8 categories — stable ±0.3) |
+| **Synthetic v2 Triage** | **80.3** (499 items, all 8 categories — stable ±0.3) |
 | **Synthetic v3 Triage** | **79.4** (500 items, holdout — stable ±0.3) |
 
 ## Architecture & Design Decisions
@@ -86,6 +86,8 @@
 | EXP-009: detail:low | — | — | Task 2 resolution 91→62 (**-29pp**) | **REVERT ❌** |
 | EXP-010: gpt-5-4 triage | 78.2 (-1.5) | — | Escalation cratered -12.6pp | **REVERT ❌** |
 | EXP-011: Briefing routing | **80.0 (+0.3)** | **79.4 (+0.3)** | Mission Briefing routing guide | DEPLOY ✅ |
+| EXP-013: Revert truncation | **80.3 (+0.3)** | 79.3 (-0.1) | 2000→1200 chars (less noise) | DEPLOY ✅ |
+| EXP-014: Revert routing expansion | 80.3 (0.0) | 79.4 (+0.1) | Remove unused Comms→SSE, Threat→TDC | DEPLOY ✅ |
 
 ### What Failed (and why it matters)
 1. **Blanket Threat escalation** (EXP-002) — routing guide says escalate Threats, but gold data only escalates 41%. Trusting data over docs = +13pp.

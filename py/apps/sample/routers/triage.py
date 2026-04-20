@@ -193,7 +193,7 @@ async def triage(req: TriageRequest, response: Response) -> TriageResponse:
         # Build the user content with signal data
         user_content = f"""<signal>
 Subject: {req.subject}
-Description: {req.description[:2000]}
+Description: {req.description[:1200]}
 Reporter: {req.reporter.name} ({req.reporter.department})
 Channel: {req.channel}
 </signal>"""

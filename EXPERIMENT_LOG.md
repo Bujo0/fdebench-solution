@@ -321,7 +321,50 @@ Template for each experiment:
 **Rationale:** Escalation cratered -12.6pp (the bigger model interprets escalation rules differently). 2x slower. Cost score drops from 0.9→0.75. Even though MI improved, the escalation/routing regression + cost + latency make this clearly worse.
 **Learnings:** gpt-5-4-mini is genuinely optimal for this task. The prompt was tuned for mini's behavior — switching models without re-tuning prompts is counterproductive.
 
-### EXP-011: Mission Briefing routing improvement
+### EXP-014: Revert routing expansion (Comms→SSE, Threat→TDC)
+**Date:** 2026-04-18
+**Hypothesis:** Gold data analysis shows 0 items route Comms→SSE or Threat→TDC. The Wave 2 expansion only allowed wrong routes through the validator.
+
+**Changes:**
+- `services/triage_service.py`: Reverted `CATEGORY_VALID_TEAMS` — removed SSE from Comms, removed TDC from Threat
+
+**Results:**
+| Dataset | Dimension | Before (EXP-013) | After | Delta |
+|---------|-----------|-------------------|-------|-------|
+| v2 | resolution | 80.3 | 80.3 | 0.0 |
+| v2 | routing | 0.8911 | 0.8923 | +0.0012 |
+| v3 | resolution | 79.3 | 79.4 | +0.1 |
+| v3 | escalation | 0.8296 | 0.8382 | +0.0086 |
+
+**Decision:** DEPLOY ✅
+**Rationale:** Marginal improvement on both datasets. Tighter routing validation = fewer false-positive routing. This was a Wave 2 change that had no positive signal in gold data.
+**Learnings:** **Always verify that routing expansions are justified by gold data.** Expanding valid teams without evidence that the gold uses those routes only increases error surface.
+
+### EXP-012: Simplified MI prompt (not deployed)
+**Date:** 2026-04-18
+**Hypothesis:** The "fewer is better, empty is better than wrong" MI prompt might be too aggressive. A simpler "0-2 items, fewer when in doubt" might let the LLM be more accurate.
+**Result:** v2 flat (80.0, MI +2.1pp) but v3 -0.2 (MI -1.0pp). Conflicting signal between datasets.
+**Decision:** Not deployed — holdout guard says v3 must be non-negative.
+
+### EXP-013: Revert description truncation 2000→1200
+**Date:** 2026-04-18
+**Hypothesis:** The 2000-char truncation from Wave 2 might be adding noise — longer descriptions may confuse the model more than they help.
+
+**Changes:**
+- `routers/triage.py`: Reverted `req.description[:2000]` → `req.description[:1200]`
+
+**Results:**
+| Dataset | Dimension | Before (2000) | After (1200) | Delta |
+|---------|-----------|---------------|-------------|-------|
+| v2 | resolution | 80.0 | **80.3** | **+0.3** |
+| v2 | missing_info | 0.2934 | 0.3025 | +0.0091 |
+| v2 | escalation | 0.8624 | 0.8704 | +0.0080 |
+| v3 | resolution | 79.4 | 79.3 | -0.1 |
+| v3 | escalation | 0.7887 | 0.8296 | **+0.0409** |
+
+**Decision:** DEPLOY ✅
+**Rationale:** v2 improved +0.3 with gains across MI, escalation, category, routing. v3 flat (-0.1, within noise) but escalation improved +4.1pp. Shorter descriptions reduce noise — the important classification signal is in the first 1200 chars.
+**Learnings:** More context ≠ better classification. The Wave 2 truncation increase was a net negative that was hidden by being batched with positive changes. **This validates the user's concern about batching hiding individual regressions.**
 **Date:** 2026-04-18
 **Hypothesis:** Briefing routing was 50% accurate — model defaulted to "None" for all briefings, but gold routes 66% to specific teams (SSE/CIAC/MSO). Adding explicit briefing routing guide to prompt should fix this.
 
@@ -418,4 +461,4 @@ Template for each experiment:
 | +no JPEG (EXP-004) | 77.8 | 76.4 | 70.5 | — | 86.8 | JPEG reverted — no benefit |
 | EXP-005 error fixes | **79.3** (+2.0) | **77.7** (+2.2) | — | — | — | Remove Threat auto-escalation, P4 calibration |
 | EXP-006 MI affinity | 79.1 (-0.2) | **78.0** (+2.5) | — | — | — | Category-specific MI filtering |
-| **Final (v14)** | **80.0** | **79.4** | — | — | — | +Briefing routing guide |
+| **Final (v17)** | **80.3** | **79.4** | — | — | — | +Revert truncation + routing expansion |
