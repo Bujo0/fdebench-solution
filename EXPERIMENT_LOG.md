@@ -787,3 +787,29 @@ Solution prioritizes GENERAL patterns over item-specific tuning. The strongest e
 
 **Decision:** KEEP ✅ — resolution improved +2.5. Some dimension trade-offs (goal_completion down, tool_selection up) but net positive on the weighted composite.
 **Learnings:** Explicit "plan before executing" instruction helps the LLM produce more coherent tool sequences. The planning step in the first LLM response improves downstream tool selection.
+
+### EXP-028: gpt-5-4 (bigger model) for T2 extraction (WORSE)
+**Date:** 2026-04-20
+**Changes:** Set EXTRACT_MODEL=gpt-5-4 instead of gpt-5-4-mini
+
+| Metric | gpt-5-4-mini | gpt-5-4 | Delta |
+|--------|-------------|---------|-------|
+| T2 Resolution | 91.1-91.5 | **87.8** | **-3.5** |
+| info_accuracy | 0.916-0.919 | 0.882 | -3.5pp |
+| text_fidelity | 0.900-0.905 | 0.869 | -3.5pp |
+| T2 P95 | 8-10s | **60s** (timeouts!) | catastrophic |
+| Cost | 0.9 (Tier 2) | 0.75 (Tier 3) | worse |
+
+**Decision:** REVERT ❌ — bigger model is worse on every dimension for extraction. Slower, less accurate, more expensive. gpt-5-4-mini is optimal for T2.
+**Learnings:** gpt-5-4 may have different vision processing that hurts document extraction. The mini model's faster inference also means fewer timeouts, which improves both latency AND resolution (timed-out docs score 0).
+
+### T2 Hill-Climbing Summary
+
+T2 Resolution: 91.1-91.5 (stable, ±0.2 between runs)
+- 15/50 docs score perfect (1.000)
+- 6/50 docs score < 0.80 (OCR accuracy failures — model misreads text)
+- Text fidelity gap: info > fidelity for 10 docs (formatting lost in post-processing)
+- Remaining errors are model-level OCR misreads — not fixable without better vision model
+- gpt-5-4-mini confirmed optimal (gpt-5-4 is worse: -3.5pp + timeouts)
+- Prompt improvements (EXP-026) already applied — format guidance, null handling, table extraction
+- **T2 is at practical ceiling for gpt-5-4-mini vision capabilities**
