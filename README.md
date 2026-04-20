@@ -8,7 +8,7 @@
 |-------|-------|
 | **Repo** | `https://github.com/Bujo0/fdebench-solution` |
 | **API Endpoint** | `https://fdebench-api.ashyplant-a5c239d3.eastus2.azurecontainerapps.io` |
-| **Deployed Version** | v17 |
+| **Deployed Version** | v20 |
 
 ## Results
 
