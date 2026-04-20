@@ -533,3 +533,27 @@ v17 wins on v3 holdout (79.4 vs 79.0 for clean) which is the stronger signal for
 - Task 3: fixed date bug, restored to 93.8
 
 **Lesson:** Future eval-driven development should run the FULL composite scorer after every experiment, not just the task-specific resolution scorer.
+
+### EXP-017: Reorder template detection — churn before renewal (T3 FIX)
+**Date:** 2026-04-20
+**Hypothesis:** Error slicing showed 7/50 T3 items calling `crm_get_account` (contract_renewal) when gold expects `crm_search` (churn_risk_analysis). The word "renewal" in "check renewal dates" triggered contract_renewal before churn got a chance.
+
+**Root cause:** Template detection order: onboarding → re-engagement → **contract_renewal** → churn. Churn goals say "check renewal dates" → "renewal" matches contract_renewal first.
+
+**Fix:** Reordered: onboarding → re-engagement → **churn** → contract_renewal.
+
+**Results (full composite):**
+| Task | Before (v20) | After (v21) | Delta |
+|------|-------------|-------------|-------|
+| Task 1 Tier 1 | 78.0 | 75.7 | -2.3 (latency variance) |
+| Task 2 Tier 1 | 84.6 | 87.5 | +2.9 (latency variance) |
+| **Task 3 Tier 1** | **93.8** | **98.0** | **+4.2** |
+| **Task 3 Resolution** | **90.4** | **97.6** | **+7.2** |
+| **Composite** | **85.5** | **87.1** | **+1.6** |
+
+**Decision:** DEPLOY ✅ — deterministic bug fix, largest single improvement found
+**Learnings:**
+1. **Error slicing Task 3 → immediate +7.2 resolution.** We should have done this from the start.
+2. **Template detection order is critical.** "Renewal" is a common word in churn goals.
+3. **This validates the T2/T3 hill-climbing plan.** Error slicing finds bugs that batched testing can't.
+4. **Never assume near-ceiling tasks can't improve.** T3 at 93.8 seemed "done" — it had a 7-point bug.
