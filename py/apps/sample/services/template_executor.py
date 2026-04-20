@@ -64,18 +64,8 @@ def detect_template(goal: str) -> str | None:
     ):
         return "re_engagement_campaign"
 
-    # ── 3. Contract renewal — check before churn so "renew" + "cancel" = renewal.
-    if (
-        "renewal" in g
-        or ("renew" in g and "renewable" not in g)
-        or ("contract" in g and ("extend" in g or "extension" in g or "expir" in g))
-        or ("agreement" in g and ("extend" in g or "extension" in g or "expir" in g))
-        or ("subscription" in g and ("extend" in g or "extension" in g))
-        or ("license" in g and "prolongation" in g)
-    ):
-        return "contract_renewal"
-
-    # ── 4. Churn risk analysis
+    # ── 3. Churn risk analysis — check BEFORE contract_renewal because
+    #       churn goals mention "renewal dates" which falsely triggers renewal.
     if (
         "churn" in g
         or ("risk" in g and "retention" in g)
@@ -85,6 +75,17 @@ def detect_template(goal: str) -> str | None:
         or ("cancel" in g and ("subscription" in g or "account" in g))
     ):
         return "churn_risk_analysis"
+
+    # ── 4. Contract renewal — now safe after churn check
+    if (
+        "renewal" in g
+        or ("renew" in g and "renewable" not in g)
+        or ("contract" in g and ("extend" in g or "extension" in g or "expir" in g))
+        or ("agreement" in g and ("extend" in g or "extension" in g or "expir" in g))
+        or ("subscription" in g and ("extend" in g or "extension" in g))
+        or ("license" in g and "prolongation" in g)
+    ):
+        return "contract_renewal"
 
     # ── 5. Incident response
     if (
