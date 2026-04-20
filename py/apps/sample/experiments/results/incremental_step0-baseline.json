@@ -1,0 +1,27 @@
+{
+  "step": "step0-baseline",
+  "v2": {
+    "resolution": 77.6,
+    "dimensions": {
+      "category": 0.9259,
+      "priority": 0.9206,
+      "routing": 0.903,
+      "missing_info": 0.2648,
+      "escalation": 0.6447
+    },
+    "elapsed": 599.4449322223663,
+    "items": 499
+  },
+  "v3": {
+    "resolution": 75.2,
+    "dimensions": {
+      "category": 0.8458,
+      "priority": 0.9373,
+      "routing": 0.8607,
+      "missing_info": 0.2871,
+      "escalation": 0.6243
+    },
+    "elapsed": 592.8871493339539,
+    "items": 500
+  }
+}

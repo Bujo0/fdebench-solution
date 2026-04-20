@@ -340,6 +340,42 @@ Template for each experiment:
 **Rationale:** Marginal improvement on both datasets. Tighter routing validation = fewer false-positive routing. This was a Wave 2 change that had no positive signal in gold data.
 **Learnings:** **Always verify that routing expansions are justified by gold data.** Expanding valid teams without evidence that the gold uses those routes only increases error surface.
 
+---
+
+## Incremental Isolation Analysis (2026-04-20)
+
+Went back to baseline (commit 9587a78) and added each change ONE AT A TIME to isolate individual impact. This revealed hidden negative changes that were masked by batching.
+
+### Incremental Steps (v2 synthetic, 499 items)
+
+| Step | Configuration | v2 Res | Δ from prev | cat | pri | rout | mi | esc |
+|------|--------------|--------|-------------|-----|-----|------|-----|-----|
+| 0 | Baseline | 77.6 | — | 0.926 | 0.921 | 0.903 | 0.265 | 0.645 |
+| 1 | +Remove Threat auto-esc | **79.2** | **+1.6** ✅ | 0.924 | 0.920 | 0.901 | 0.271 | 0.797 |
+| 2 | +P4 calibration prompt | 78.9 | **-0.3** ❌ | 0.929 | 0.925 | 0.906 | 0.268 | 0.734 |
+| 3 | +Resolved de-escalation | 78.3 | **-0.6** ❌ | 0.919 | 0.919 | 0.896 | 0.270 | 0.740 |
+
+### Configuration Comparison (full combos, both datasets)
+
+| Config | v2 Res | v3 Res | v2 MI | v3 MI | v2 esc | v3 esc |
+|--------|--------|--------|-------|-------|--------|--------|
+| Baseline | 77.6 | 75.2 | 0.265 | 0.287 | 0.645 | 0.624 |
+| A: Clean (no P4cal/deesc) | 80.2 | 79.0 | **0.318** | **0.358** | 0.862 | 0.809 |
+| B: Clean + deesc only | 79.6 | **79.4** | 0.308 | 0.356 | 0.847 | 0.830 |
+| C: v17 (P4cal + deesc) | **80.3** | **79.4** | 0.301 | 0.349 | **0.870** | **0.838** |
+
+### Key Findings
+
+1. **Remove Threat auto-escalation = +1.6 pts** — the single biggest win, confirmed in isolation.
+2. **P4 calibration prompt = -0.3 in isolation** — hurts escalation by -6pp when added alone. But in the full v17 context with other changes, the interaction is neutral. Likely because the few-shot examples and channel hints compensate.
+3. **Resolved de-escalation markers = -0.6 in isolation** — hurts when added to step 1+2. But in v17 context, neutral-to-positive.
+4. **Config A (clean) has best MI** (+1.7pp v2 over v17) but worst v3 holdout (-0.4 vs v17).
+5. **v17 has best v3 holdout** (79.4) which is the generalization signal. **v17 remains optimal.**
+6. **Interaction effects are real** — changes that hurt in isolation can be neutral-to-positive in combination. Incremental testing alone is insufficient; must also test full combinations.
+
+### Decision: KEEP v17
+v17 wins on v3 holdout (79.4 vs 79.0 for clean) which is the stronger signal for the hidden eval. The MI advantage of the clean config (+1.7pp) doesn't compensate for the worse holdout score. All configs within ±0.7 of each other — well within noise.
+
 ### EXP-012: Simplified MI prompt (not deployed)
 **Date:** 2026-04-18
 **Hypothesis:** The "fewer is better, empty is better than wrong" MI prompt might be too aggressive. A simpler "0-2 items, fewer when in doubt" might let the LLM be more accurate.
