@@ -16,10 +16,8 @@ class TriageLLMResponse(FrozenBaseModel):
     """Structured-output model for triage LLM responses.
 
     Uses Literal types so OpenAI structured output ENFORCES valid values.
-    The reasoning field forces chain-of-thought BEFORE classification.
     """
 
-    reasoning: str  # Chain-of-thought: model analyzes signal before classifying
     category: Literal[
         "Crew Access & Biometrics",
         "Hull & Structural Systems",
