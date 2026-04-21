@@ -1020,3 +1020,45 @@ Tested properly with --timeout 120 on golden eval (templates disabled, all 50 it
 
 **Decision:** REVERT ❌ — Worse on BOTH dimensions. Stripping thinking from conversation history removes reasoning context the model uses to inform subsequent steps. This caused worse decisions AND more iterations (higher latency). The thinking field is NOT redundant — the model references its prior reasoning.
 **Learnings:** The "thinking" field in conversation history is load-bearing. The model uses its prior reasoning to maintain coherence across iterations. Removing it forces the model to re-derive context from tool results alone, which is less efficient and less accurate. Context compression in ReAct requires more sophisticated approaches (e.g., summarization, not deletion).
+
+### EXP-042: T3 max_completion_tokens cap (REVERTED)
+**Date:** 2026-04-21
+**Changes:** Added max_completion_tokens parameter to ReAct LLM calls.
+- 042a: max_tokens=300 → API error (wrong param name: max_tokens vs max_completion_tokens). Resolution=0.
+- 042b: max_tokens=500 → Same API error. Resolution=0.  
+- 042c: max_completion_tokens=500 → Resolution=82.7 (-2.0), P95=32.3s (+7.3s WORSE)
+
+| Metric | Baseline | max_completion_tokens=500 | Delta |
+|--------|----------|--------------------------|-------|
+| Resolution | 84.7 | 82.7 | **-2.0** |
+| P95 latency | 25s | 32.3s | **+7.3s** |
+
+**Decision:** REVERT ❌ — Constraining output tokens WORSENED both resolution AND latency. Shorter thinking → worse planning → more iterations → higher total latency.
+**Learnings:** The thinking field is essential for quality. Constraining it causes worse decisions that require more iterations to compensate, actually increasing total latency. API uses max_completion_tokens, not max_tokens.
+
+### EXP-043: T3 gpt-5-4-mini ReAct with improved prompt (REVERTED)
+**Date:** 2026-04-21
+**Changes:** Used gpt-5-4-mini for all ReAct iterations (was gpt-5-4). Templates disabled.
+
+| Metric | gpt-5-4 | gpt-5-4-mini | Delta |
+|--------|---------|--------------|-------|
+| Resolution | 84.7 | **43.1** | **-41.6** |
+| P95 latency | 25s | 9.9s | **-15.1s** |
+| Latency score | 0.000 | 0.010 | +0.01 |
+
+**Decision:** REVERT ❌ — Resolution catastrophic even with improved prompt. Mini gets P95 under 10s but can't follow the JSON ReAct format reliably. Cost tier improves (0.90 vs 0.75) but resolution loss far outweighs.
+
+### EXP-044: T3 Hybrid model ReAct (REVERTED)
+**Date:** 2026-04-21
+**Changes:** gpt-5-4 for first 2 iterations (planning), gpt-5-4-mini for subsequent iterations. X-Model-Name set to mini (modal model).
+
+| Metric | gpt-5-4 only | Hybrid | Delta |
+|--------|-------------|--------|-------|
+| Resolution | 84.7 | 81.9 | **-2.8** |
+| P95 latency | 25s | 18s | **-7s** |
+| Latency score | 0.000 | 0.000 | 0.000 |
+| Cost tier | 0.75 | 0.90 | +0.15 |
+| Tier1 | 75.4 | 75.3 | -0.1 |
+
+**Decision:** REVERT ❌ — P95 still above 10s threshold (latency score stays 0). Resolution loss -2.8pp. Cost improvement +0.15 almost offsets but net Tier1 is neutral. Not worth the complexity.
+**Learnings:** T3 ReAct latency is fundamentally constrained by sequential LLM architecture. 10-15 sequential calls × 1-2s each = 15-25s minimum. No model swap, token cap, or hybrid can get P95 under 10s without catastrophic resolution loss. The only viable latency fix would be parallel tool calls (blocked by mock counters) or fewer iterations (blocked by resolution requirements).
