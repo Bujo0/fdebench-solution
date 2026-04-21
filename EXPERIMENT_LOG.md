@@ -1163,3 +1163,27 @@ Tested properly with --timeout 120 on golden eval (templates disabled, all 50 it
 - T1 Tier1: 73.4 (R=72.7, E=63.5, B=81.0)
 - T2 Tier1: 87.2 (R=88.6, E=74.0, B=93.8)
 - T3 Tier1: 97.5 (R=96.8, E=100.0, B=96.9)
+
+### EXP-065: T2 json_mode response_format (CATASTROPHIC — reverted)
+**Date:** 2026-04-21
+**Changes:** Added response_format={"type":"json_object"} to complete_with_vision call.
+**Golden eval:** T2 R=2.8 (!!!) — model returns empty/minimal JSON when forced to json_object with vision.
+**Decision:** REVERT ❌ — json_object mode is incompatible with vision API for complex extraction.
+
+### EXP-066: T1 gpt-5-4-mini with Literal types (NOT TESTED)
+**Date:** 2026-04-21
+**Changes:** Attempted TRIAGE_MODEL=gpt-5-4-mini env var, but v45 router hardcodes _LLM_MODEL = "gpt-5-4".
+**Result:** Env var ignored, model stayed gpt-5-4. Not a valid test.
+**Decision:** Keep gpt-5-4 for T1 — code is hardcoded, and gpt-5-4 gives better category.
+
+### EXP-067: T2 gpt-5-4 (base) model for extraction
+**Date:** 2026-04-21
+**Changes:** EXTRACT_MODEL=gpt-5-4 (base model instead of mini)
+**Golden eval:** R=87.2 (same as mini 87.1), P95=15092ms (vs 8952ms), Tier1=80.6 (vs 85.2).
+**Decision:** REVERT ❌ — No resolution benefit, much worse latency. -4.6 Tier1.
+
+### EXP-068: Chain-of-thought reasoning for T1 (REVERTED in v45)
+**Date:** 2026-04-21
+**Changes:** Added reasoning:str as first field in TriageLLMResponse + CoT instructions.
+**Golden eval:** T1 R=70.4 (same as without), P95=11328ms (latency=0!), Tier1=64.2 (vs 71.8).
+**Decision:** REVERT ❌ — Resolution unchanged, latency catastrophic. -7.6 Tier1.
