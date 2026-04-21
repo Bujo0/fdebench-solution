@@ -75,8 +75,9 @@ def detect_template(goal: str) -> str | None:
     if _has_customer_context and (
         "churn" in g
         or ("risk" in g and "retention" in g)
-        or ("declining" in g and "usage" in g)
+        or ("declining" in g and ("usage" in g or "engagement" in g))
         or "attrition" in g
+        or ("at-risk" in g or "at risk" in g)
         or ("disengage" in g or "disengaging" in g)
         or ("cancel" in g and ("subscription" in g or "account" in g))
     ):
@@ -99,6 +100,7 @@ def detect_template(goal: str) -> str | None:
                               or "triage" in g or "response" in g or "handle" in g
                               or "manage" in g or "report" in g or "affect" in g))
         or ("outage" in g and (has_warehouse or "respond" in g or "notify" in g or "affect" in g))
+        or ("disruption" in g and (has_warehouse or "respond" in g or "notify" in g or "service" in g))
         or ("emergency" in g and ("malfunction" in g or "warehouse" in g or "respond" in g))
     ):
         return "incident_response"
