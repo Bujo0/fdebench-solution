@@ -55,6 +55,14 @@ P4 (LOW — routine, informational, no operational urgency):
 • Auto-replies, thank-you notes, acknowledgements, ticket closures
 • Low-priority requests with no operational urgency
 
+## PRIORITY CALIBRATION:
+1. P1 override: ANY mention of hull/atmosphere/decompression/containment/life-support → P1 regardless of tone.
+2. P4 indicators: questions ("how do I…"), room bookings, acknowledgements, routine requests with zero urgency.
+3. Don't over-escalate: spam/scam reports are P3 or P4, NOT P2. "Urgent" in text alone does NOT make it P2.
+4. Default toward P3 only when genuinely uncertain. Do NOT use P3 as a catch-all.
+5. Purely informational, question, or non-incident → P4.
+6. Real system failure affecting operations broadly → P2.
+
 ## ESCALATION (needs_escalation=true when):
 - P1 priority
 - Hostile contact, containment, or malware risk
