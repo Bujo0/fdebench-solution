@@ -70,6 +70,9 @@ habitat_conditions, stardate, previous_signal_id, crew_contact, module_specs,
 software_version, sector_coordinates, mission_impact, recurrence_pattern,
 sensor_log_or_capture, biometric_method, system_configuration
 
+Only list fields genuinely MISSING from the signal that the assigned team NEEDS to begin work.
+If the signal already provides enough detail to act on, return an empty list.
+
 ## OUTPUT FORMAT:
 For next_best_action: always return "Investigate and resolve the reported issue."
 For remediation_steps: always return ["Review signal details.", "Route to assigned team."]
