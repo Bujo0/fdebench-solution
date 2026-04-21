@@ -33,12 +33,9 @@ _RETRY_TIMEOUT = 35  # retry budget after first timeout
 def _optimize_image(content_b64: str) -> str:
     """Downscale oversized images to reduce AOAI processing time.
 
-    Only resizes if the image exceeds _MAX_IMAGE_DIMENSION on either axis.
-    Returns the original base64 if the image is already small or can't be processed.
+    The vision API processes images at max 2048×2048 internally,
+    so resizing client-side saves upload time with zero quality loss.
     """
-    if len(content_b64) < _LARGE_CONTENT_THRESHOLD:
-        return content_b64  # Small enough — don't touch
-
     try:
         raw = base64.b64decode(content_b64)
         img = Image.open(io.BytesIO(raw))
@@ -53,8 +50,7 @@ def _optimize_image(content_b64: str) -> str:
         img = img.resize((new_w, new_h), Image.LANCZOS)
 
         buf = io.BytesIO()
-        fmt = img.format or "PNG"
-        img.save(buf, format=fmt, optimize=True)
+        img.save(buf, format="PNG", optimize=True)
         optimized = base64.b64encode(buf.getvalue()).decode("ascii")
 
         logger.info(
@@ -263,7 +259,7 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
     try:
         schema_str = req.json_schema or "{}"
         # Optimize oversized images to reduce AOAI processing time
-        # JPEG compression disabled — testing showed -1.5 on resolution (EXP-004)
+        # Image resize disabled — EXP-045 showed -2pp resolution, +1.8s latency
         optimized_content = req.content if req.content else ""
         mime_type = "image/png"
         content_size = len(optimized_content)

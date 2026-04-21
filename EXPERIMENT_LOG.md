@@ -1062,3 +1062,27 @@ Tested properly with --timeout 120 on golden eval (templates disabled, all 50 it
 
 **Decision:** REVERT ❌ — P95 still above 10s threshold (latency score stays 0). Resolution loss -2.8pp. Cost improvement +0.15 almost offsets but net Tier1 is neutral. Not worth the complexity.
 **Learnings:** T3 ReAct latency is fundamentally constrained by sequential LLM architecture. 10-15 sequential calls × 1-2s each = 15-25s minimum. No model swap, token cap, or hybrid can get P95 under 10s without catastrophic resolution loss. The only viable latency fix would be parallel tool calls (blocked by mock counters) or fewer iterations (blocked by resolution requirements).
+
+### EXP-045: T2 image resize to 2048 (REVERTED)
+**Date:** 2026-04-21
+**Changes:** Enabled _optimize_image() — resizes images >2048px to 2048 with LANCZOS. Function existed but was never called.
+
+| Metric | Baseline | EXP-045 | Delta |
+|--------|----------|---------|-------|
+| T2 Resolution | 91.4-91.9 | 89.5 | **-2.0** |
+| T2 P95 latency | 8027ms | 9860ms | **+1833ms** |
+| T2 Tier1 | 88.2-88.8 | 86.2 | **-2.0** |
+
+**Decision:** REVERT ❌ — Both resolution AND latency worsened. PIL resize overhead (+100ms/image) plus quality loss on detailed docs. The API handles image resizing internally more effectively.
+
+### EXP-046: T1 adversarial hardening (REVERTED)
+**Date:** 2026-04-21
+**Changes:** Expanded security section from 3 lines to 10 lines with explicit injection patterns, reporter-urgency warnings, and "UNTRUSTED DATA" framing.
+
+| Metric | Baseline | EXP-046 | Delta |
+|--------|----------|---------|-------|
+| T1 Adversarial | 70.6 | 69.9 | **-0.7** |
+| T1 Resolution | 74.4 | 74.9 | +0.5 (noise) |
+| Composite | 88.2 | 88.0 | -0.2 |
+
+**Decision:** REVERT ❌ — Adversarial accuracy actually decreased. Verbose security instructions make the model too defensive, under-classifying real issues. The original 3-line section strikes the right balance.
