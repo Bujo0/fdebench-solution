@@ -97,6 +97,9 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
         if extracted is None:
             extracted = {}
 
+        # Remove document_id from extracted to prevent duplicate kwarg crash
+        extracted.pop("document_id", None)
+
         return ExtractResponse(document_id=req.document_id, **extracted)
     except Exception:
         logger.exception("Extract LLM error for %s", req.document_id)

@@ -70,6 +70,14 @@ P4 (LOW — routine, informational, no operational urgency):
 4. Default toward P3 only when genuinely uncertain. Do NOT use P3 as a catch-all.
 5. Purely informational, question, or non-incident → P4.
 6. Real system failure affecting operations broadly → P2.
+7. People say "urgent" about everything. Context matters more than keywords.
+8. Quiet signals can be the real emergencies.
+
+## SIGNAL CHANNELS (context for interpreting the signal):
+- subspace_relay: longer, more detailed reports
+- holodeck_comm: short crew chatter, often missing context
+- bridge_terminal: structured form input with inconsistent quality
+- emergency_beacon: noisy, often panicked transcriptions
 
 ## ESCALATION (needs_escalation=true when):
 - P1 priority
