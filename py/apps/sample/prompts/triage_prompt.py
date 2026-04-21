@@ -8,6 +8,14 @@ from pathlib import Path
 
 TRIAGE_SYSTEM_PROMPT = """Classify spaceship IT support signals. Return JSON with the exact field values specified below.
 
+IMPORTANT: In the "reasoning" field, FIRST analyze the signal step by step:
+1. What system or component is affected?
+2. What is the actual problem (vs what the reporter claims)?
+3. Which category best matches the affected system?
+4. How severe is the impact? Who is affected? Is there a workaround?
+5. What information is missing that the team would need?
+Then fill in the classification fields based on your analysis.
+
 ## CATEGORIES (use exactly one):
 - "Crew Access & Biometrics" — biometric access, directory sync, SSO, lockouts, provisioning
 - "Hull & Structural Systems" — hardware faults, device issues, fabricators, peripherals, physical equipment
