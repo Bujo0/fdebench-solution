@@ -2,7 +2,6 @@
 
 import asyncio
 import base64
-import io
 import json
 import logging
 import state
@@ -11,7 +10,6 @@ from fastapi import Response
 from llm_client import complete_with_vision
 from models import ExtractRequest
 from models import ExtractResponse
-from PIL import Image
 from prompts.extract_prompt import EXTRACT_SYSTEM_PROMPT
 from utils import display_model
 from utils import parse_json_response
@@ -21,60 +19,9 @@ router = APIRouter()
 
 # Size thresholds for content-aware timeout (base64 bytes)
 _LARGE_CONTENT_THRESHOLD = 1_000_000  # ~1 MB base64 ≈ 750 KB raw image
-_MAX_IMAGE_DIMENSION = 2048  # Max width/height before downscaling
 _DEFAULT_TIMEOUT = 30  # seconds
 _LARGE_CONTENT_TIMEOUT = 55  # more headroom for big documents
 _RETRY_TIMEOUT = 35  # retry budget after first timeout
-
-
-def _optimize_image(content_b64: str) -> str:
-    """Downscale oversized images to reduce AOAI processing time.
-
-    The vision API processes images at max 2048×2048 internally,
-    so resizing client-side saves upload time with zero quality loss.
-    """
-    try:
-        raw = base64.b64decode(content_b64)
-        img = Image.open(io.BytesIO(raw))
-        w, h = img.size
-
-        if w <= _MAX_IMAGE_DIMENSION and h <= _MAX_IMAGE_DIMENSION:
-            return content_b64  # Already within bounds
-
-        # Downscale preserving aspect ratio
-        ratio = min(_MAX_IMAGE_DIMENSION / w, _MAX_IMAGE_DIMENSION / h)
-        new_w, new_h = int(w * ratio), int(h * ratio)
-        img = img.resize((new_w, new_h), Image.LANCZOS)
-
-        buf = io.BytesIO()
-        img.save(buf, format="PNG", optimize=True)
-        optimized = base64.b64encode(buf.getvalue()).decode("ascii")
-
-        logger.info(
-            "Image optimized: %dx%d → %dx%d, %dKB → %dKB",
-            w, h, new_w, new_h, len(content_b64) // 1024, len(optimized) // 1024,
-        )
-        return optimized
-    except Exception:
-        return content_b64  # Can't process — return original
-
-
-def _compress_to_jpeg(content_b64: str, quality: int = 85) -> tuple[str, str]:
-    """Compress image to JPEG without resizing. Returns (base64, mime_type)."""
-    try:
-        raw = base64.b64decode(content_b64)
-        img = Image.open(io.BytesIO(raw))
-        if img.mode in ("RGBA", "P"):
-            img = img.convert("RGB")
-        buf = io.BytesIO()
-        img.save(buf, format="JPEG", quality=quality, optimize=True)
-        compressed = base64.b64encode(buf.getvalue()).decode("ascii")
-        # Only use compressed if it's actually smaller
-        if len(compressed) < len(content_b64):
-            return compressed, "image/jpeg"
-        return content_b64, "image/png"
-    except Exception:
-        return content_b64, "image/png"
 
 
 @router.post("/extract")
