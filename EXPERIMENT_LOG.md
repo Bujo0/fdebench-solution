@@ -1086,3 +1086,37 @@ Tested properly with --timeout 120 on golden eval (templates disabled, all 50 it
 | Composite | 88.2 | 88.0 | -0.2 |
 
 **Decision:** REVERT ❌ — Adversarial accuracy actually decreased. Verbose security instructions make the model too defensive, under-classifying real issues. The original 3-line section strikes the right balance.
+
+## === EMERGENCY RECOVERY (after hidden eval scored 58.7) ===
+
+### Hidden Eval Results (submission 1): 58.7/100
+- T1: Tier1=48.9, R=32.8 (category=0.22, routing=0.24, escalation=0.17)
+- T2: Tier1=51.9, R=35.6 (info_acc=0.36, text_fid=0.35)
+- T3: Tier1=75.4, R=61.8 (ordering=0.50, goal_comp=0.51)
+
+### EXP-049: T2 Remove truncation + post-processing (KEPT)
+**Changes:** Removed max_completion_tokens=4096 (truncation bug), date normalization, type coercion. Kept schema field descriptions + timeout/retry.
+**Golden eval:** T2 R=91.2 (recovered from hidden 35.6). info_acc=0.917, text_fid=0.901.
+
+### EXP-050-056: T1 Simplify prompt + better model (KEPT)
+**Changes:** 
+- Prompt 298→101 lines. Removed few-shots, decision trees, anti-escalation rules, MI affinity
+- Switched gpt-5-4-mini → gpt-5-4 for better 8-way category classification
+- Added official routing_guide.md to prompt
+- Removed ALL preprocessing (non-incident detection had false positive risk)
+- Removed ALL MI post-processing (affinity, P4/P1 empty, cap)
+- Re-enabled Threat→escalate
+**Golden eval:** T1 R=69.5 (up from hidden 32.8). category=0.848, priority=0.788.
+
+### EXP-057-060: T3 Fix template execution ordering (KEPT)
+**Changes:**
+- Fixed meeting_scheduler hardcoded dates → dynamic dates
+- Fixed inventory_restock missing audit_log step
+- Fixed onboarding_workflow hardcoded dates → dynamic dates
+- More flexible parameter extraction (multi-word SKUs, severity synonyms)
+**Golden eval:** T3 R=96.8 (up from hidden 61.8). ordering=0.977, goal_comp=0.943.
+
+### Combined Golden Eval After Recovery: 85.1
+- T1 Tier1: 70.4 (was 48.9 hidden)
+- T2 Tier1: 87.4 (was 51.9 hidden)
+- T3 Tier1: 97.5 (was 75.4 hidden)

@@ -168,26 +168,28 @@ def _extract_severity(goal: str) -> str:
     g = goal.lower()
     if "critical" in g:
         return "critical"
-    if "high" in g:
+    if "high" in g or "major" in g:
         return "high"
     if "medium" in g:
         return "medium"
+    if "low" in g or "minor" in g:
+        return "low"
     return "low"
 
 
 def _extract_sku_and_warehouses(goal: str) -> tuple[str, list[str]]:
     """Extract SKU and warehouse list from incident/inventory goal text."""
-    # SKU: usually a product name like Filter-H800, Board-E500, etc.
-    sku_match = re.search(r"(?:affecting|for)\s+([\w-]+)\s+(?:in|across)", goal)
-    sku = sku_match.group(1) if sku_match else ""
+    # SKU: product name like Filter-H800, Board-E500, or multi-word like "Filter Assembly H800"
+    sku_match = re.search(r"(?:affecting|for)\s+(.+?)\s+(?:in|across)", goal)
+    sku = sku_match.group(1).strip() if sku_match else ""
 
-    # Warehouses: comma/and-separated, like "APAC-SOUTH, US-EAST" or "EU-CENTRAL and US-WEST"
-    wh_section = re.search(r"(?:in|across)\s+([\w\s,\-]+?)(?:\s*(?::|and alert|$|\.))", goal)
+    # Warehouses: comma/semicolon/and-separated, like "APAC-SOUTH, US-EAST" or "EU-CENTRAL and US-WEST"
+    wh_section = re.search(r"(?:in|across)\s+([\w\s,;\-]+?)(?:\s*(?::|and alert|$|\.))", goal)
     warehouses: list[str] = []
     if wh_section:
         wh_text = wh_section.group(1)
-        # Split on comma or "and"
-        parts = re.split(r"\s*,\s*|\s+and\s+", wh_text)
+        # Split on comma, semicolon, or "and"
+        parts = re.split(r"\s*[,;]\s*|\s+and\s+", wh_text)
         for p in parts:
             p = p.strip()
             if p and re.match(r"^[A-Z]", p):
@@ -485,6 +487,16 @@ async def execute_inventory_restock(req: OrchestrateRequest) -> list[StepExecute
         step_num += 1
         steps.append(_make_step(step_num, "notification_send", notif_params, text, ok))
 
+    # 3. audit_log if any notifications were sent
+    if low_stock:
+        audit_params = {
+            "action": "restock_alerts_sent",
+            "details": {"sku": sku, "warehouses": [wh for wh, _ in low_stock]},
+        }
+        _, text, ok = await _call_tool(_get_endpoint(req, "audit_log"), audit_params)
+        step_num += 1
+        steps.append(_make_step(step_num, "audit_log", audit_params, text, ok))
+
     return steps
 
 
@@ -516,8 +528,11 @@ async def execute_meeting_scheduler(req: OrchestrateRequest) -> list[StepExecute
     # free-tier detection
     is_free = tier == "free" or sub_plan == "free"
 
-    # 3. calendar_check
-    cal_params = {"user_id": rep_id, "start_date": "2026-04-09", "end_date": "2026-04-23"}
+    # 3. calendar_check with dynamic date range
+    now = datetime.now()
+    start_date = now.strftime("%Y-%m-%d")
+    end_date = (now + timedelta(days=14)).strftime("%Y-%m-%d")
+    cal_params = {"user_id": rep_id, "start_date": start_date, "end_date": end_date}
     cal_data, text, ok = await _call_tool(_get_endpoint(req, "calendar_check"), cal_params)
     step_num += 1
     steps.append(_make_step(step_num, "calendar_check", cal_params, text, ok))
@@ -535,8 +550,18 @@ async def execute_meeting_scheduler(req: OrchestrateRequest) -> list[StepExecute
         _, text, ok = await _call_tool(_get_endpoint(req, "email_send"), email_params)
         step_num += 1
         steps.append(_make_step(step_num, "email_send", email_params, text, ok))
+
+        # 5a. notification_send to rep
+        notif_params = {
+            "user_id": rep_id,
+            "channel": "slack",
+            "message": f"Meeting scheduled: {meeting_type} for {company_name}",
+        }
+        _, text, ok = await _call_tool(_get_endpoint(req, "notification_send"), notif_params)
+        step_num += 1
+        steps.append(_make_step(step_num, "notification_send", notif_params, text, ok))
     else:
-        # 4b. notification_send to rep
+        # 4b. notification_send to rep (no meeting)
         if is_free:
             msg = f"{company_name} is free tier — no meetings available"
         else:
@@ -550,7 +575,7 @@ async def execute_meeting_scheduler(req: OrchestrateRequest) -> list[StepExecute
         step_num += 1
         steps.append(_make_step(step_num, "notification_send", notif_params, text, ok))
 
-    # 5. audit_log
+    # 6. audit_log
     action = "meeting_scheduled" if scheduled else "meeting_blocked"
     audit_params = {
         "action": action,
@@ -598,7 +623,10 @@ async def execute_onboarding_workflow(req: OrchestrateRequest) -> list[StepExecu
         steps.append(_make_step(step_num, "email_send", email_params, text, ok))
 
         # 4. calendar_check for kickoff
-        cal_params = {"user_id": csm_id, "start_date": "2026-04-09", "end_date": "2026-04-16"}
+        now = datetime.now()
+        start_date = now.strftime("%Y-%m-%d")
+        end_date = (now + timedelta(days=7)).strftime("%Y-%m-%d")
+        cal_params = {"user_id": csm_id, "start_date": start_date, "end_date": end_date}
         cal_data, text, ok = await _call_tool(_get_endpoint(req, "calendar_check"), cal_params)
         step_num += 1
         steps.append(_make_step(step_num, "calendar_check", cal_params, text, ok))
