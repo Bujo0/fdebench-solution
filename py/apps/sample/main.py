@@ -64,4 +64,4 @@ async def health() -> dict:
     status = "ok"
     if state.aoai_client is None:
         status = "degraded"
-    return {"status": status}
+    return {"status": status, "version": "v34"}
