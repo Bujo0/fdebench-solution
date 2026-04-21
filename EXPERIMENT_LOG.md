@@ -992,3 +992,31 @@ First attempt (EXP-037a, not deployed) was too aggressive — expanded P4 criter
 
 **Decision:** REVERT ❌ — MI score DROPPED. The P4/P1 empty rules are NET positive because the LLM's MI predictions for P4/P1 items are worse than returning empty. False positives (predicting MI for items where gold is empty) outweigh true positives. The wider affinity sets also introduced more false positives.
 **Learnings:** Counter-intuitive: returning empty MI for certain priorities is BETTER than letting the LLM predict. This means the LLM's MI reasoning is poor for these priority levels. The P4→empty rule works because 48% of P4 items genuinely have empty MI, and the LLM's predictions for the other 52% are so noisy that they hurt more than help via Jaccard scoring (false positives tank precision).
+
+### EXP-040: T1 MI cap 3 for P2/P3 (NEUTRAL — not deployed)
+**Date:** 2026-04-21
+**Changes:** Changed MI cap from 2→3 for P2/P3 items only (P4/P1 stay empty).
+
+| Metric | EXP-037b | EXP-040 | Delta |
+|--------|----------|---------|-------|
+| v2 resolution | 80.3 | 80.3 | +0.0 |
+| v2 MI | 0.318 | 0.318 | 0.000 |
+
+**Decision:** NOT DEPLOYED — zero impact. Model rarely generates >2 MI items that pass affinity filtering, so raising the cap has no effect.
+
+### EXP-041: T3 ReAct context compression (REVERTED — hurt both resolution and latency)
+**Date:** 2026-04-21
+**Changes:** Strip "thinking" from assistant messages in ReAct conversation history. Results kept at 800 chars.
+
+Tested properly with --timeout 120 on golden eval (templates disabled, all 50 items through ReAct).
+
+| Metric | Baseline ReAct (EXP-027) | EXP-041 | Delta |
+|--------|--------------------------|---------|-------|
+| Resolution | 84.7 | 83.7 | **-1.0** |
+| P95 latency | 25s | 36.4s | **+11.4s** |
+| constraint_compliance | 0.98 | 0.880 | -0.10 |
+| ordering_correctness | 0.98 | 0.802 | -0.18 |
+| tool_selection | ~0.95 | 0.911 | -0.04 |
+
+**Decision:** REVERT ❌ — Worse on BOTH dimensions. Stripping thinking from conversation history removes reasoning context the model uses to inform subsequent steps. This caused worse decisions AND more iterations (higher latency). The thinking field is NOT redundant — the model references its prior reasoning.
+**Learnings:** The "thinking" field in conversation history is load-bearing. The model uses its prior reasoning to maintain coherence across iterations. Removing it forces the model to re-derive context from tool results alone, which is less efficient and less accurate. Context compression in ReAct requires more sophisticated approaches (e.g., summarization, not deletion).
