@@ -34,9 +34,11 @@ async def triage(req: TriageRequest, response: Response) -> TriageResponse:
     response.headers["X-Model-Name"] = display_model(_LLM_MODEL)
 
     try:
+        # Truncate very long descriptions to prevent token limit errors
+        desc = req.description[:4000] if req.description else ""
         user_content = f"""<signal>
 Subject: {req.subject}
-Description: {req.description}
+Description: {desc}
 Reporter: {req.reporter.name} ({req.reporter.department})
 Channel: {req.channel}
 Created: {req.created_at}
