@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     di_endpoint: str = ""
     di_api_key: str = ""
     max_concurrent_requests: int = 10
-    llm_timeout_seconds: int = 25
+    llm_timeout_seconds: int = 60
 
     @field_validator("*", mode="before")
     @classmethod

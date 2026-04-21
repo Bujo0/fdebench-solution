@@ -1,6 +1,7 @@
 """Triage business logic — category matching and post-processing."""
 
 import logging
+from typing import Literal
 
 from models import Category
 from models import MissingInfo
@@ -12,13 +13,41 @@ logger = logging.getLogger(__name__)
 
 
 class TriageLLMResponse(FrozenBaseModel):
-    """Structured-output model for triage LLM responses."""
+    """Structured-output model for triage LLM responses.
 
-    category: str
-    priority: str
-    assigned_team: str
+    Uses Literal types so OpenAI structured output ENFORCES valid values.
+    Without this, the model can return variations like 'Hull Systems' which
+    fail match_category() and silently fall back to BRIEFING.
+    """
+
+    category: Literal[
+        "Crew Access & Biometrics",
+        "Hull & Structural Systems",
+        "Communications & Navigation",
+        "Flight Software & Instruments",
+        "Threat Detection & Containment",
+        "Telemetry & Data Banks",
+        "Mission Briefing Request",
+        "Not a Mission Signal",
+    ]
+    priority: Literal["P1", "P2", "P3", "P4"]
+    assigned_team: Literal[
+        "Crew Identity & Airlock Control",
+        "Spacecraft Systems Engineering",
+        "Deep Space Communications",
+        "Mission Software Operations",
+        "Threat Response Command",
+        "Telemetry & Data Core",
+        "None",
+    ]
     needs_escalation: bool
-    missing_information: list[str]
+    missing_information: list[Literal[
+        "affected_subsystem", "anomaly_readout", "sequence_to_reproduce",
+        "affected_crew", "habitat_conditions", "stardate", "previous_signal_id",
+        "crew_contact", "module_specs", "software_version", "sector_coordinates",
+        "mission_impact", "recurrence_pattern", "sensor_log_or_capture",
+        "biometric_method", "system_configuration",
+    ]]
     next_best_action: str | None = None
     remediation_steps: list[str] | None = None
 

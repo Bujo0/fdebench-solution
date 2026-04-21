@@ -19,7 +19,7 @@ def display_model(deployment: str) -> str:
 
 
 def parse_json_response(text: str | None) -> dict | None:
-    """Parse JSON from LLM response, handling markdown code blocks and multi-object responses."""
+    """Parse JSON from LLM response, handling markdown code blocks and text around JSON."""
     if not text:
         return None
     text = text.strip()
@@ -33,11 +33,14 @@ def parse_json_response(text: str | None) -> dict | None:
     try:
         return json.loads(text)
     except json.JSONDecodeError:
-        decoder = json.JSONDecoder()
-        try:
-            result, _ = decoder.raw_decode(text)
-            if isinstance(result, dict):
-                return result
-        except (json.JSONDecodeError, ValueError):
-            pass
+        # Try to find a JSON object anywhere in the text
+        start = text.find("{")
+        if start >= 0:
+            decoder = json.JSONDecoder()
+            try:
+                result, _ = decoder.raw_decode(text, start)
+                if isinstance(result, dict):
+                    return result
+            except (json.JSONDecodeError, ValueError):
+                pass
         return None

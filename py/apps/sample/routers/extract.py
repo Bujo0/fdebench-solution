@@ -4,7 +4,7 @@ import logging
 
 from fastapi import APIRouter, Response
 
-from llm_client import complete_with_vision
+from llm_client import complete_with_vision, detect_mime_type
 from models import ExtractRequest, ExtractResponse
 from prompts.extract_prompt import EXTRACT_SYSTEM_PROMPT
 from utils import display_model, parse_json_response
@@ -28,12 +28,16 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
 
 Return a JSON object with the extracted values. Use null for any field not found in the document."""
 
+        # Auto-detect image format from base64 content
+        mime_type = detect_mime_type(req.content) if req.content else "image/png"
+
         result = await complete_with_vision(
             state.aoai_client,
             model,
             EXTRACT_SYSTEM_PROMPT,
             req.content,
             user_content,
+            mime_type=mime_type,
         )
 
         extracted = parse_json_response(result)

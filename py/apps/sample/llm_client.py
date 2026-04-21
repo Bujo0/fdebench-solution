@@ -1,5 +1,6 @@
 """Async Azure OpenAI client factory with retry and structured output support."""
 
+import base64
 import logging
 from typing import Any
 
@@ -11,6 +12,31 @@ from openai import AsyncAzureOpenAI
 logger = logging.getLogger(__name__)
 
 _client: AsyncAzureOpenAI | None = None
+
+
+def detect_mime_type(image_base64: str) -> str:
+    """Detect image MIME type from base64-encoded content.
+
+    Checks the magic bytes at the start of the decoded data to determine
+    the actual image format, regardless of what the caller thinks it is.
+    """
+    try:
+        raw = base64.b64decode(image_base64[:32])
+        if raw[:2] == b"\xff\xd8":
+            return "image/jpeg"
+        if raw[:4] == b"\x89PNG":
+            return "image/png"
+        if raw[:4] == b"RIFF" and raw[8:12] == b"WEBP":
+            return "image/webp"
+        if raw[:3] == b"GIF":
+            return "image/gif"
+        if raw[:2] in (b"II", b"MM"):
+            return "image/tiff"
+        if raw[:2] == b"BM":
+            return "image/bmp"
+    except Exception:
+        pass
+    return "image/png"  # safe fallback
 
 
 def get_client(settings: Settings) -> AsyncAzureOpenAI:
