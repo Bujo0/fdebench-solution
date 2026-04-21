@@ -895,3 +895,100 @@ T2 Resolution: 91.1-91.5 (stable, ±0.2 between runs)
 
 **Decision:** REVERT ❌ — both datasets regressed. LLM confidence calibration isn't reliable. Adding mi_confidence field to structured output may distract from other fields.
 **Learnings:** Self-reported LLM confidence is not trustworthy enough to gate output. The model reports "high" confidence on wrong predictions and "low" on correct ones. Calibration would need fine-tuning.
+
+### EXP-034: T3 ReAct parallel tool calls (CATASTROPHIC — reverted)
+**Date:** 2026-04-21
+**Changes:** Changed prompt from "Call ONE tool at a time" to "Return ALL independent tool calls for the current step." Also updated ReAct loop continue message.
+
+| Metric | EXP-027 (sequential) | EXP-034 (parallel) | Delta |
+|--------|---------------------|-------------------|-------|
+| T3 Resolution | 84.7 | **63.4** | **-21.3** |
+| ordering_correctness | 0.98 | 0.54 | -0.44 |
+| constraint_compliance | 0.98 | 0.67 | -0.31 |
+| P95 | 25s | 18.6s | -6.4s |
+
+**Decision:** REVERT ❌ — CATASTROPHIC. Mock service counter corruption when multiple calls execute. Ordering destroyed. Latency improvement (6s) not worth 21pp resolution loss.
+**Learnings:** The mock service is strictly sequential — counter-based responses assume one call at a time. Batching independent calls in theory is sound but the mock's implementation makes it impossible. This is a fundamental constraint of the evaluation infrastructure.
+
+### EXP-035: T1 P4/P3 issue-vs-request framing (REVERTED)
+**Date:** 2026-04-21
+**Changes:** Added explicit "Is it a PROBLEM or a REQUEST?" decision rule to triage prompt P3/P4 section. Included 6 examples showing the distinction.
+
+| Metric | v27 | EXP-035 | Delta |
+|--------|-----|---------|-------|
+| v2 resolution | 80.3 | 79.8 | **-0.5** |
+| v2 priority | 0.924 | 0.923 | -0.001 |
+| v2 MI | 0.301 | 0.301 | 0.000 |
+| v3 resolution | 79.4 | (not completed) | — |
+
+**Decision:** REVERT ❌ — v2 regressed. The explicit decision rule is too blunt — it pushes the LLM to over-classify things as P4 "requests" when they're actually P3 operational issues with symptoms. The existing P4 calibration examples are already doing this job more subtly.
+**Learnings:** Binary decision rules for priority don't work well because many tickets are ambiguous blends of problem+request. The LLM needs to weigh multiple signals, not follow a single binary test. Better approach would be to find specific misclassification patterns and add targeted few-shot examples.
+
+### EXP-036: T3 Native Function Calling API (REVERTED)
+**Date:** 2026-04-21
+**Changes:** Rewrote ReAct loop to use OpenAI native function calling API (tools parameter) instead of JSON mode. Converted available_tools to OpenAI function definitions. Used tool role messages. Added parallel_tool_calls=False. Fixed object type mapping and string-encoded nested object post-processing.
+
+| Metric | EXP-027 (JSON mode) | EXP-036 (native FC) | Delta |
+|--------|---------------------|---------------------|-------|
+| T3 Resolution | 84.7 | **75.1** | **-9.6** |
+| constraint_compliance | 0.98 | 0.833 | -0.15 |
+| goal_completion | ~0.90 | 0.570 | -0.33 |
+| ordering_correctness | 0.98 | 0.725 | -0.26 |
+| parameter_accuracy | ~0.95 | 0.603 | -0.35 |
+| tool_selection | ~0.95 | 0.855 | -0.10 |
+| P95 latency | 25s | 16s | -9s |
+
+**Decision:** REVERT ❌ — Resolution dropped 9.6pp across all dimensions. Native function calling removes the model's ability to use the explicit "thinking" field and custom JSON format, which our prompt was heavily optimized for. The model loses context about HOW to structure its reasoning. Parameter accuracy dropped most (-0.35), suggesting the model passes params worse through the native API than through explicit JSON construction.
+**Learnings:** Native function calling is NOT universally better than JSON mode. When the prompt has been heavily optimized for a specific JSON output format with domain knowledge, switching to native FC loses that optimization. The "thinking" field in our JSON format forces the model to reason explicitly before acting. The latency improvement (9s) is not worth the 9.6pp resolution loss. JSON mode with custom format > native FC when prompt engineering is mature.
+
+### EXP-037: T1 P4 boundary expansion — few-shot + criteria (KEPT — marginal)
+**Date:** 2026-04-21
+**Changes:** Two-part change to shift P4/P3 boundary:
+1. Added P4 criteria: "Minor cosmetic/display issues", "Profile/directory update requests"
+2. Added 4 P4 few-shot examples targeting real error patterns: intermittent packet loss, badge reader second tap, relay sluggishness, directory update
+3. Kept original P3 criteria (reverted aggressive P3 tightening from first attempt)
+
+First attempt (EXP-037a, not deployed) was too aggressive — expanded P4 criteria with "intermittent glitches," "single-occurrence anomalies," etc. Fixed 47 P4→P3 but created 66 P3→P4. Second attempt kept it conservative.
+
+| Metric | Baseline | EXP-037b | Delta |
+|--------|----------|----------|-------|
+| v2 resolution | 80.3 | 80.3 | +0.0 |
+| v2 priority | 0.923 | 0.930 | **+0.007** |
+| v2 MI | 0.284 | 0.318 | **+0.034** |
+| v2 P4→P3 errors | 60 | 29 | **-31** |
+| v2 P3→P4 errors | 6 | 25 | +19 |
+| v3 resolution | 79.4 | 79.0 | -0.4 |
+| v3 priority | ~0.92 | 0.937 | **+0.017** |
+| v3 MI | ~0.28 | 0.339 | **+0.055** |
+
+**Decision:** KEEP ✅ (marginal) — Priority and MI improved consistently on BOTH datasets. Resolution flat/within noise. P4→P3 errors halved. The P3→P4 increase is the tradeoff, but net priority improved. Hidden eval with 1000+ items benefits from better priority calibration.
+**Learnings:** P4 few-shot examples are the right lever — they teach the model the boundary by example rather than by rule. Criteria expansion must be very conservative; the first attempt swung too far. 4 targeted examples > 8 broad criteria lines.
+
+### EXP-038: T3 ReAct with gpt-4-1 model (CATASTROPHIC — reverted)
+**Date:** 2026-04-21
+**Changes:** Changed ORCHESTRATE_MODEL from gpt-5-4 to gpt-4-1. Templates disabled for ReAct-only eval.
+
+| Metric | gpt-5-4 (EXP-027) | gpt-4-1 (EXP-038) | Delta |
+|--------|-------------------|-------------------|-------|
+| T3 Resolution | 84.7 | **27.6** | **-57.1** |
+| constraint_compliance | 0.98 | 0.347 | -0.63 |
+| ordering_correctness | 0.98 | 0.111 | -0.87 |
+| tool_selection | ~0.95 | 0.306 | -0.64 |
+| P95 latency | 25s | 10.4s | -14.6s |
+| Adversarial | 75.9 | 28.3 | -47.6 |
+
+**Decision:** REVERT ❌ — CATASTROPHIC. gpt-4-1 cannot follow our JSON ReAct format. Every dimension collapsed. The model is faster (10s vs 25s) but completely fails at the task.
+**Learnings:** gpt-4-1 is not a drop-in replacement for gpt-5-4 on complex JSON mode tasks. Our ReAct prompt was optimized for gpt-5-4's capabilities. Different model families have fundamentally different strengths.
+
+### EXP-039: T1 MI fix — remove P4/P1 empty rules + widen affinity (REVERTED)
+**Date:** 2026-04-21
+**Changes:** Removed P4→empty and P1→empty MI post-processing rules. Widened category affinity sets to include anomaly_readout, module_specs, sensor_log_or_capture in more categories.
+
+| Metric | EXP-037b | EXP-039 | Delta |
+|--------|----------|---------|-------|
+| v2 resolution | 80.3 | 79.7 | **-0.6** |
+| v2 MI | 0.318 | 0.285 | **-0.033** |
+| v2 priority | 0.930 | 0.929 | -0.001 |
+
+**Decision:** REVERT ❌ — MI score DROPPED. The P4/P1 empty rules are NET positive because the LLM's MI predictions for P4/P1 items are worse than returning empty. False positives (predicting MI for items where gold is empty) outweigh true positives. The wider affinity sets also introduced more false positives.
+**Learnings:** Counter-intuitive: returning empty MI for certain priorities is BETTER than letting the LLM predict. This means the LLM's MI reasoning is poor for these priority levels. The P4→empty rule works because 48% of P4 items genuinely have empty MI, and the LLM's predictions for the other 52% are so noisy that they hurt more than help via Jaccard scoring (false positives tank precision).

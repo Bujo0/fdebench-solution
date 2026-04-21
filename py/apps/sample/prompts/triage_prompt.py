@@ -80,7 +80,8 @@ P4 (LOW — routine, informational, no operational urgency):
 • Low-priority requests with no operational urgency
 • Informational, non-incident noise
 • Spam/phishing reports that are simply forwarding junk
-
+• Minor cosmetic or display issues with no operational impact
+• Profile/directory update requests, admin corrections
 ## PRIORITY CALIBRATION:
 1. P1 override: hull/atmosphere/decompression/containment/life-support → always P1.
 2. P4 indicators: questions, room bookings, acknowledgements, routine no-urgency requests,
@@ -152,6 +153,10 @@ P2 EXAMPLE: "Database cluster failing, all data queries timing out for 50+ crew"
 P3 EXAMPLE: "SubComm app freezes when I try to share my screen" — annoying single-user bug, workaround exists → P3.
 P4 EXAMPLE: "How do I change my notification settings?" — just a question, no incident → P4.
 P4 EXAMPLE: "Forwarding this phishing email I received" — just reporting spam, no active threat → P4.
+P4 EXAMPLE: "Intermittent packet loss on deck 8 comm mesh" — minor/intermittent, barely noticeable, no impact → P4.
+P4 EXAMPLE: "Badge reader occasionally needs a second tap" — minor glitch, works on retry → P4.
+P4 EXAMPLE: "Relay feels a bit sluggish today, latency 280-320ms vs usual 200ms" — slight degradation, still functional → P4.
+P4 EXAMPLE: "Directory still shows my old department after transfer" — admin update request → P4.
 P3 EXAMPLE: "CO2 scrubber sensor reads 2% above normal but all other readings nominal" — minor anomaly within tolerances, no safety risk → P3.
 P2 EXAMPLE: "Fabricator on Deck 5 jammed and it's the only one available for emergency hull patches" — equipment failure with mission impact, no workaround → P2.
 P3 EXAMPLE: "Fabricator in the lab keeps producing slightly warped parts" — degraded quality but functional → P3.
