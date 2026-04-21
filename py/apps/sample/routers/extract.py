@@ -2,6 +2,7 @@
 
 import base64
 import io
+import json
 import logging
 
 from fastapi import APIRouter, Response
@@ -43,6 +44,46 @@ def _ensure_supported_format(content_b64: str, detected_mime: str) -> tuple[str,
     except Exception:
         logger.warning("Failed to convert %s to PNG, passing as-is", detected_mime)
         return content_b64, detected_mime
+
+
+def _coerce_to_schema(data: dict, schema_str: str) -> dict:
+    """Light type coercion to match json_schema expectations.
+
+    Only coerces obvious safe cases — doesn't transform complex structures.
+    """
+    try:
+        schema = json.loads(schema_str)
+    except (json.JSONDecodeError, TypeError):
+        return data
+
+    props = schema.get("properties", {})
+    if not props:
+        return data
+
+    for field, spec in props.items():
+        if field not in data or data[field] is None:
+            continue
+
+        expected_type = spec.get("type", "")
+        value = data[field]
+
+        try:
+            if expected_type == "integer" and isinstance(value, str):
+                cleaned = value.replace(",", "").replace("$", "").replace("%", "").strip()
+                if cleaned.lstrip("-").isdigit():
+                    data[field] = int(cleaned)
+            elif expected_type == "number" and isinstance(value, str):
+                cleaned = value.replace(",", "").replace("$", "").replace("%", "").strip()
+                data[field] = float(cleaned)
+            elif expected_type == "boolean" and isinstance(value, str):
+                data[field] = value.lower() in ("true", "yes", "1")
+            elif expected_type == "integer" and isinstance(value, float):
+                if value == int(value):
+                    data[field] = int(value)
+        except (ValueError, TypeError):
+            pass  # Leave original value if coercion fails
+
+    return data
 
 
 @router.post("/extract")
@@ -99,6 +140,9 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
 
         # Remove document_id from extracted to prevent duplicate kwarg crash
         extracted.pop("document_id", None)
+
+        # Light schema validation: coerce types to match json_schema
+        extracted = _coerce_to_schema(extracted, schema_str)
 
         return ExtractResponse(document_id=req.document_id, **extracted)
     except Exception:
