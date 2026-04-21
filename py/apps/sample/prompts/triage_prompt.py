@@ -78,7 +78,15 @@ habitat_conditions, stardate, previous_signal_id, crew_contact, module_specs,
 software_version, sector_coordinates, mission_impact, recurrence_pattern,
 sensor_log_or_capture, biometric_method, system_configuration
 
-Only list fields genuinely MISSING from the signal that the assigned team NEEDS to begin work.
+Think about what the ASSIGNED TEAM would need to begin investigating:
+- Crew Identity & Airlock Control typically needs: biometric_method, affected_crew, system_configuration
+- Spacecraft Systems Engineering typically needs: affected_subsystem, sector_coordinates, anomaly_readout, module_specs
+- Deep Space Communications typically needs: affected_subsystem, sector_coordinates, anomaly_readout
+- Mission Software Operations typically needs: software_version, sequence_to_reproduce, anomaly_readout
+- Threat Response Command typically needs: sensor_log_or_capture, affected_crew, system_configuration
+- Telemetry & Data Core typically needs: affected_subsystem, system_configuration, mission_impact
+
+Only list fields genuinely MISSING from the signal that the team NEEDS to begin work.
 If the signal already provides enough detail to act on, return an empty list.
 
 ## OUTPUT FORMAT:
