@@ -1120,3 +1120,16 @@ Tested properly with --timeout 120 on golden eval (templates disabled, all 50 it
 - T1 Tier1: 70.4 (was 48.9 hidden)
 - T2 Tier1: 87.4 (was 51.9 hidden)
 - T3 Tier1: 97.5 (was 75.4 hidden)
+
+### EXP-047: T2 max_completion_tokens=4096 (DEPLOYED as v29 — CAUSED T2 COLLAPSE)
+**Date:** 2026-04-21
+**Changes:** Added max_completion_tokens=4096 to T2 extract vision calls.
+**Golden eval:** T2 R=92.7 (+1pp), adversarial +6pp. Looked great.
+**Hidden eval:** T2 R=35.6 — CATASTROPHIC. Complex hidden docs need >4096 tokens. Truncated JSON → empty responses → 0 score for those docs. No truncation detection in code.
+**LESSON:** Golden eval is not a reliable proxy. This change passed golden but destroyed hidden.
+
+### EXP-048: T3 constrained tool batching (REVERTED)
+**Date:** 2026-04-21
+**Changes:** Added "BATCHING RULE" to ReAct prompt — batch only same-tool follow-ups after search.
+**Golden eval (ReAct only):** R=83.8 (-0.9), P95=27.7s (+2.7s), ordering=0.829 (-0.15).
+**Decision:** REVERT — model still can't batch reliably, even with constrained guidance.
