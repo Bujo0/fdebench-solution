@@ -383,6 +383,7 @@ async def _extract_with_timeout(
                 content,
                 user_content,
                 mime_type=mime_type,
+                max_completion_tokens=4096,
             ),
             timeout=timeout,
         )

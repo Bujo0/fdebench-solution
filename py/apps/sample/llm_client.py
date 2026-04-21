@@ -85,6 +85,7 @@ async def complete_with_vision(
     temperature: float = 0.0,
     detail: str = "auto",
     mime_type: str = "image/png",
+    max_completion_tokens: int | None = None,
 ) -> Any:
     """Send a vision chat completion with a base64 image."""
     messages: list[dict[str, Any]] = [
@@ -105,6 +106,8 @@ async def complete_with_vision(
         "messages": messages,
         "temperature": temperature,
     }
+    if max_completion_tokens is not None:
+        kwargs["max_completion_tokens"] = max_completion_tokens
     if response_format is not None:
         resp = await client.beta.chat.completions.parse(
             **kwargs,
