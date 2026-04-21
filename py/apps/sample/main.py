@@ -18,14 +18,17 @@ from config import Settings
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from llm_client import get_client
+from logging_config import setup_logging
 from middleware import error_handling_middleware
 from middleware import validation_error_handler
+from observability_middleware import ObservabilityMiddleware
 from prompts.triage_prompt import load_few_shot_examples
 from prompts.triage_prompt import load_routing_guide
 from routers import extract
 from routers import orchestrate
 from routers import triage
 
+setup_logging()
 logger = logging.getLogger(__name__)
 
 
@@ -49,6 +52,7 @@ app = FastAPI(title="FDEBench Solution", lifespan=lifespan)
 
 app.add_exception_handler(RequestValidationError, validation_error_handler)
 app.middleware("http")(error_handling_middleware)
+app.add_middleware(ObservabilityMiddleware)
 
 app.include_router(triage.router)
 app.include_router(extract.router)
@@ -57,4 +61,7 @@ app.include_router(orchestrate.router)
 
 @app.get("/health")
 async def health() -> dict:
-    return {"status": "ok"}
+    status = "ok"
+    if state.aoai_client is None:
+        status = "degraded"
+    return {"status": status}
