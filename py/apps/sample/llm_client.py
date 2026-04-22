@@ -54,7 +54,7 @@ def get_client(settings: Settings) -> AsyncAzureOpenAI:
                 azure_endpoint=settings.azure_openai_endpoint,
                 azure_ad_token_provider=token_provider,
                 api_version=settings.azure_openai_api_version,
-                max_retries=3,
+                max_retries=8,
                 timeout=settings.llm_timeout_seconds,
             )
             logger.info("Using DefaultAzureCredential for AOAI auth")
@@ -64,7 +64,7 @@ def get_client(settings: Settings) -> AsyncAzureOpenAI:
                 azure_endpoint=settings.azure_openai_endpoint,
                 api_key=settings.azure_openai_api_key,
                 api_version=settings.azure_openai_api_version,
-                max_retries=3,
+                max_retries=8,
                 timeout=settings.llm_timeout_seconds,
             )
     return _client
