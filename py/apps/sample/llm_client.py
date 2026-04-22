@@ -19,7 +19,7 @@ _call_counter = 0
 
 # Semaphore to limit concurrent LLM calls — prevents overwhelming AOAI rate limits.
 # Sub4 had 777/1000 T1 items fail with 429 due to concurrent burst.
-_llm_semaphore = asyncio.Semaphore(20)
+_llm_semaphore = asyncio.Semaphore(200)
 
 
 def _get_round_robin_client() -> AsyncAzureOpenAI:
