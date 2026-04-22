@@ -73,6 +73,39 @@ Steps:
   3. If severity critical/high → notification_send(user_id="engineering_manager", channel="slack", message="ESCALATION...")
   4. audit_log(action="incident_response", details={product, severity, warehouses})
 
+Example 4 — Inventory Restock:
+Goal: "Check inventory for Product-X across warehouses and alert if low"
+Steps:
+  1. inventory_query(sku="Product-X", warehouse="Warehouse-1") for EACH warehouse
+  2. If stock below threshold → notification_send(user_id="warehouse_ops", channel="slack", message="Low stock...")
+
+Example 5 — Meeting Scheduler:
+Goal: "Schedule a demo meeting with Company (ACC-XXX)"
+Steps:
+  1. crm_get_account(account_id="ACC-XXX") → check tier
+  2. subscription_check(account_id="ACC-XXX") → check if free/paid
+  3. calendar_check(user_id="REP-XXX", start_date, end_date) → find slots
+  4. If slots available and paid → email_send(account_id="ACC-XXX", template="meeting_invite")
+  5. If no slots or free tier → notification_send(user_id="REP-XXX", channel="slack", message="No meeting...")
+  6. audit_log(action="meeting_scheduled" or "meeting_blocked")
+
+Example 6 — Onboarding:
+Goal: "Run onboarding for new account Company (ACC-XXX)"
+Steps:
+  1. crm_get_account(account_id="ACC-XXX") → get account details
+  2. subscription_check(account_id="ACC-XXX") → verify subscription
+  3. If active subscription → email_send(account_id, template="welcome_email") + calendar_check + email_send(template="orientation_meeting")
+  4. notification_send(user_id="CSM-XXX", channel="slack", message="New account onboarded")
+  5. audit_log(action="onboarding_complete")
+
+Example 7 — Re-engagement Campaign:
+Goal: "Run re-engagement campaign for dormant accounts"
+Steps:
+  1. crm_search(filter="last_contact_date < X days", limit=50) → find dormant accounts
+  2. subscription_check(account_id="ACC-XXX") for each → check if still active
+  3. If active but dormant → email_send(account_id, template="re_engagement_offer")
+  4. audit_log(action="re_engagement_sent") for each email
+
 ## OUTPUT FORMAT
 Return JSON:
 {"thinking":"<your reasoning about what to do next>","tool_calls":[{"tool_name":"<name>","parameters":{...}}],"done":false}
