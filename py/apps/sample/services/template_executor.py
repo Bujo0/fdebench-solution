@@ -550,16 +550,6 @@ async def execute_meeting_scheduler(req: OrchestrateRequest) -> list[StepExecute
         _, text, ok = await _call_tool(_get_endpoint(req, "email_send"), email_params)
         step_num += 1
         steps.append(_make_step(step_num, "email_send", email_params, text, ok))
-
-        # 5a. notification_send to rep
-        notif_params = {
-            "user_id": rep_id,
-            "channel": "slack",
-            "message": f"Meeting scheduled: {meeting_type} for {company_name}",
-        }
-        _, text, ok = await _call_tool(_get_endpoint(req, "notification_send"), notif_params)
-        step_num += 1
-        steps.append(_make_step(step_num, "notification_send", notif_params, text, ok))
     else:
         # 4b. notification_send to rep (no meeting)
         if is_free:
