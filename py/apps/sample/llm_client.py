@@ -15,19 +15,19 @@ logger = logging.getLogger(__name__)
 
 _client: AsyncAzureOpenAI | None = None
 _client_2: AsyncAzureOpenAI | None = None
+_client_3: AsyncAzureOpenAI | None = None
+_clients: list[AsyncAzureOpenAI] = []
 _call_counter = 0
 
-# Semaphore to limit concurrent LLM calls — prevents overwhelming AOAI rate limits.
-# Sub4 had 777/1000 T1 items fail with 429 due to concurrent burst.
 _llm_semaphore = asyncio.Semaphore(200)
 
 
 def _get_round_robin_client() -> AsyncAzureOpenAI:
-    """Return client via round-robin if secondary endpoint is available."""
+    """Return client via round-robin across all available endpoints."""
     global _call_counter
     _call_counter += 1
-    if _client_2 is not None:
-        return _client if _call_counter % 2 == 0 else _client_2
+    if _clients:
+        return _clients[_call_counter % len(_clients)]
     return _client  # type: ignore
 
 
@@ -59,10 +59,10 @@ def detect_mime_type(image_base64: str) -> str:
 def get_client(settings: Settings) -> AsyncAzureOpenAI:
     """Return a cached AsyncAzureOpenAI client (app-scoped singleton).
 
-    Uses DefaultAzureCredential for auth. Creates secondary client for
-    load-balancing if azure_openai_endpoint_2 is configured.
+    Uses DefaultAzureCredential for auth. Creates up to 3 clients for
+    round-robin load-balancing across AOAI endpoints.
     """
-    global _client, _client_2
+    global _client, _client_2, _client_3, _clients
     if _client is None:
         try:
             credential = DefaultAzureCredential()
@@ -74,7 +74,8 @@ def get_client(settings: Settings) -> AsyncAzureOpenAI:
                 max_retries=5,
                 timeout=settings.llm_timeout_seconds,
             )
-            logger.info("Primary AOAI: %s", settings.azure_openai_endpoint)
+            _clients = [_client]
+            logger.info("AOAI[A]: %s", settings.azure_openai_endpoint)
 
             if settings.azure_openai_endpoint_2:
                 _client_2 = AsyncAzureOpenAI(
@@ -84,7 +85,21 @@ def get_client(settings: Settings) -> AsyncAzureOpenAI:
                     max_retries=5,
                     timeout=settings.llm_timeout_seconds,
                 )
-                logger.info("Secondary AOAI: %s (round-robin ON)", settings.azure_openai_endpoint_2)
+                _clients.append(_client_2)
+                logger.info("AOAI[B]: %s", settings.azure_openai_endpoint_2)
+
+            if settings.azure_openai_endpoint_3:
+                _client_3 = AsyncAzureOpenAI(
+                    azure_endpoint=settings.azure_openai_endpoint_3,
+                    azure_ad_token_provider=token_provider,
+                    api_version=settings.azure_openai_api_version,
+                    max_retries=5,
+                    timeout=settings.llm_timeout_seconds,
+                )
+                _clients.append(_client_3)
+                logger.info("AOAI[C]: %s", settings.azure_openai_endpoint_3)
+
+            logger.info("Round-robin across %d AOAI endpoints", len(_clients))
         except Exception:
             logger.warning("DefaultAzureCredential failed, falling back to API key")
             _client = AsyncAzureOpenAI(
@@ -94,6 +109,7 @@ def get_client(settings: Settings) -> AsyncAzureOpenAI:
                 max_retries=5,
                 timeout=settings.llm_timeout_seconds,
             )
+            _clients = [_client]
     return _client
 
 
