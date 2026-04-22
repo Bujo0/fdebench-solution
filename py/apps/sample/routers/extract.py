@@ -61,7 +61,7 @@ def _sanitize_node(node: dict) -> dict:
     node_type = node.get("type")
 
     if node_type == "object":
-        props = node.get("properties", {})
+        props = node.get("properties") or {}
         node["required"] = list(props.keys())
         node["additionalProperties"] = False
         for field in props:
@@ -69,7 +69,7 @@ def _sanitize_node(node: dict) -> dict:
         return node
 
     if node_type == "array":
-        items = node.get("items", {})
+        items = node.get("items") or {}
         node["items"] = _sanitize_node(items)
         return node
 

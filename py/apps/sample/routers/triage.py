@@ -14,7 +14,6 @@ from models import Team
 from models import TriageRequest
 from models import TriageResponse
 from prompts.triage_prompt import TRIAGE_SYSTEM_PROMPT
-from prompts.triage_prompt import load_routing_guide
 from services.triage_service import TriageLLMResponse
 from services.triage_service import match_category
 from services.triage_service import match_missing_info
@@ -46,7 +45,7 @@ Channel: {req.channel}
 Created: {req.created_at}{att_line}
 </signal>"""
 
-        routing_guide = load_routing_guide()
+        routing_guide = state.ROUTING_GUIDE or ""
         full_prompt = TRIAGE_SYSTEM_PROMPT
         if routing_guide:
             full_prompt += "\n\nROUTING GUIDE:\n" + routing_guide
