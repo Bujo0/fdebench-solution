@@ -1197,3 +1197,10 @@ Tested properly with --timeout 120 on golden eval (templates disabled, all 50 it
   T3 R=68.4 (down from 96.8!) — something in the code change broke T3
 **Decision:** REVERT ❌ — DI adds too much latency for marginal T2 improvement, AND somehow broke T3. Net composite -8.4.
 **Learnings:** DI works and improves OCR quality, but the 6s per-doc overhead makes P95 unacceptable. Would need async/parallel DI calls or DI-only-for-degraded approach to be viable. T3 breakage needs investigation (may have been import side effect).
+
+### EXP-070: DI-primary extraction, vision fallback (REVERTED)
+**Date:** 2026-04-22
+**Changes:** DI OCR first, text-only LLM to structure. Vision fallback if DI fails.
+**Golden eval:** T2 R=88.4 (+1.3), T2 P95=19719ms (latency=0.016), T2 Tier1=77.5 (-7.7). T3=97.5 (fixed from EXP-069).
+**Decision:** REVERT ❌ — DI adds 6-10s per doc. P95 nearly hits 20s worst threshold. Latency penalty far outweighs resolution gain. Would be even worse on hidden eval with concurrent requests.
+**Learnings:** DI improves OCR quality (R+1.3 even on golden which is all clean PNG). On hidden eval with degraded docs, DI improvement would likely be larger. But the 6-10s overhead makes it impractical under current latency thresholds. Would need async DI (fire-and-forget with parallel vision) to be viable, but that's too complex to implement safely.
