@@ -74,12 +74,10 @@ def _sanitize_node(node: dict) -> dict:
         return node
 
     # For leaf types (string, number, integer, boolean): make nullable via anyOf
+    # Preserve all constraints (enum, format, pattern, etc.) in the typed branch
     if isinstance(node_type, str) and node_type not in ("object", "array", "null"):
-        desc = node.get("description")
-        result = {"anyOf": [{"type": node_type}, {"type": "null"}]}
-        if desc:
-            result["description"] = desc
-        return result
+        typed_branch = dict(node)  # preserves enum, format, pattern, description, etc.
+        return {"anyOf": [typed_branch, {"type": "null"}]}
 
     return node
 

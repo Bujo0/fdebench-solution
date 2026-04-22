@@ -36,12 +36,14 @@ async def triage(req: TriageRequest, response: Response) -> TriageResponse:
     try:
         # Truncate very long descriptions to prevent token limit errors
         desc = req.description[:4000] if req.description else ""
+        attachments = getattr(req, "attachments", None) or []
+        att_line = f"\nAttachments: {', '.join(attachments)}" if attachments else ""
         user_content = f"""<signal>
 Subject: {req.subject}
 Description: {desc}
 Reporter: {req.reporter.name} ({req.reporter.department})
 Channel: {req.channel}
-Created: {req.created_at}
+Created: {req.created_at}{att_line}
 </signal>"""
 
         routing_guide = load_routing_guide()
