@@ -141,6 +141,8 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
         content = req.content if req.content else ""
         mime_type = detect_mime_type(content)
         content, mime_type = _ensure_supported_format(content, mime_type)
+        logger.info("T2 start: %s mime=%s schema_len=%d img_kb=%d",
+                     req.document_id, mime_type, len(schema_str), len(content)//1024)
 
         # Attempt 1: structured output with schema enforcement
         response_format = _build_structured_response_format(schema_str)
@@ -192,6 +194,11 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
         extracted = _clean_nulls(extracted)
 
         extracted.pop("document_id", None)
+        path = "structured" if response_format and extracted else "text"
+        field_count = len(extracted) if extracted else 0
+        null_count = sum(1 for v in extracted.values() if v is None) if extracted else 0
+        logger.info("T2 done: %s path=%s fields=%d nulls=%d",
+                     req.document_id, path, field_count, null_count)
         return ExtractResponse(document_id=req.document_id, **extracted)
     except Exception:
         logger.exception("Extract error for %s", req.document_id)

@@ -86,6 +86,10 @@ Created: {req.created_at}{att_line}
 
         missing = match_missing_info(llm_result.missing_information)
 
+        logger.info("T1 result: %s cat=%s pri=%s team=%s esc=%s mi=%d",
+                     req.ticket_id, category.value, priority, team.value,
+                     needs_escalation, len(missing))
+
         return TriageResponse(
             ticket_id=req.ticket_id,
             category=category,
