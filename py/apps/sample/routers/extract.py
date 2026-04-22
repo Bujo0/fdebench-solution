@@ -84,20 +84,20 @@ def _sanitize_node(node: dict) -> dict:
 
 
 def _clean_nulls(data: Any) -> Any:
-    """Recursively convert empty strings to None.
+    """Recursively convert empty strings and N/A variants to None.
 
     The scorer gives (1.0, 1.0) for null-null match but (0.0, 0.0) for
     any non-null vs null. Since 21.5% of gold values are null, correctly
-    returning null for missing fields is critical. Empty strings from the
-    model almost always mean "not found" — converting to null is safe
-    (gold has 0 empty string values).
+    returning null for missing fields is critical.
     """
     if isinstance(data, dict):
         return {k: _clean_nulls(v) for k, v in data.items()}
     if isinstance(data, list):
         return [_clean_nulls(item) for item in data]
-    if isinstance(data, str) and data.strip() == "":
-        return None
+    if isinstance(data, str):
+        stripped = data.strip()
+        if stripped == "" or stripped.lower() in ("n/a", "na", "none", "null", "n.a."):
+            return None
     return data
 
 
