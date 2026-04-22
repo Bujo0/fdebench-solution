@@ -68,15 +68,28 @@ Default to false. Set true only when the signal content clearly supports one of
 the criteria above. Do NOT escalate for uncertainty, incompleteness, or ordinary
 urgency alone.
 
-## MISSING INFO — valid values:
-affected_subsystem, anomaly_readout, sequence_to_reproduce, affected_crew,
-habitat_conditions, stardate, previous_signal_id, crew_contact, module_specs,
-software_version, sector_coordinates, mission_impact, recurrence_pattern,
-sensor_log_or_capture, biometric_method, system_configuration
+## MISSING INFO — valid values with definitions:
+- affected_subsystem: which specific subsystem/component is affected
+- anomaly_readout: sensor readings, error codes, or diagnostic output
+- sequence_to_reproduce: steps to reproduce the issue
+- affected_crew: names or roles of crew members affected
+- habitat_conditions: environmental readings (temperature, pressure, atmosphere)
+- stardate: when the issue started or was observed
+- previous_signal_id: reference to prior related tickets
+- crew_contact: who to contact for follow-up
+- module_specs: hardware/software module details (model, version, location)
+- software_version: version of the software involved
+- sector_coordinates: physical location (deck, section, bay)
+- mission_impact: how this affects ongoing missions or operations
+- recurrence_pattern: how often and when the issue recurs
+- sensor_log_or_capture: log files, screenshots, or sensor captures
+- biometric_method: which biometric method is involved (fingerprint, retinal, etc.)
+- system_configuration: current system settings or configuration details
 
-Identify what information is MISSING from the signal that the assigned team would
-need to begin investigating. Pick 0-3 of the most critical missing fields.
-If the signal provides enough detail for the team to start work, return an empty list.
+Identify which of the above fields are genuinely MISSING from the signal AND would
+be needed by the assigned team to begin investigating. Be precise — only include
+fields whose absence would meaningfully slow the investigation. Return an empty
+list if the signal already provides enough detail to start work.
 
 ## OUTPUT FORMAT:
 For next_best_action: always return "Investigate and resolve the reported issue."
