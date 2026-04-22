@@ -64,15 +64,19 @@ P4 (LOW — routine, informational, no operational urgency):
 - Command-level reporter (admiral, commander)
 - Same issue recurring unresolved
 
-## MISSING INFO (use ONLY these values, pick 0-3 most critical):
+Default to false. Set true only when the signal content clearly supports one of
+the criteria above. Do NOT escalate for uncertainty, incompleteness, or ordinary
+urgency alone.
+
+## MISSING INFO — valid values:
 affected_subsystem, anomaly_readout, sequence_to_reproduce, affected_crew,
 habitat_conditions, stardate, previous_signal_id, crew_contact, module_specs,
 software_version, sector_coordinates, mission_impact, recurrence_pattern,
 sensor_log_or_capture, biometric_method, system_configuration
 
-Think about what the ASSIGNED TEAM would need to begin investigating.
-Only list fields genuinely MISSING from the signal that the team NEEDS to begin work.
-If the signal already provides enough detail to act on, return an empty list.
+Identify what information is MISSING from the signal that the assigned team would
+need to begin investigating. Pick 0-3 of the most critical missing fields.
+If the signal provides enough detail for the team to start work, return an empty list.
 
 ## OUTPUT FORMAT:
 For next_best_action: always return "Investigate and resolve the reported issue."
