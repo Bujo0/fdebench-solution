@@ -113,7 +113,7 @@ async def complete_with_vision(
     *,
     response_format: Any = None,
     temperature: float = 0.0,
-    detail: str = "auto",
+    detail: str = "high",
     mime_type: str = "image/png",
 ) -> Any:
     """Send a vision chat completion with a base64 image."""
