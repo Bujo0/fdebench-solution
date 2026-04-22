@@ -359,3 +359,45 @@ Every change followed this protocol:
 | JPEG compression | No latency change | Bottleneck is model inference, not payload transfer |
 | Recurrence markers ("again") | Escalation -26pp | Too broad — matched normal follow-up messages |
 | Routing expansion (Comms→SSE) | Net negative | Gold data never uses those routes — only allowed wrong team assignments |
+
+---
+
+## 8. Future Improvements (Not Implemented — Risk/Reward Analysis)
+
+### 8.1 Task 1: Triage
+
+| Idea | Expected Impact | Risk | Why Not Implemented |
+|------|----------------|------|---------------------|
+| **Regex-based adversarial sanitization** — strip injection patterns ("ignore previous instructions", "classify as P1") before LLM, replace with `[REDACTED_INJECTION]` | +5pp adversarial accuracy (0.50→0.60) | Medium — aggressive regex could strip legitimate content | Adversarial category drops from 0.68→0.38; sanitization would directly target this. Needed careful regex tuning we didn't have time for. |
+| **MI inversion** — ask "which fields ARE present" then compute missing as complement | +2-4pp MI score | Medium — requires knowing which fields are relevant per category | LLMs are better at grounded extraction (what IS there) than ungrounded reasoning (what's missing). Would need per-category relevance mapping. |
+| **Priority calibration from hidden data** — use Sub5 logs showing 51% P2 to add explicit calibration | +3-5pp priority | Low | Sub5 showed our model scored 0.630 vs all-P3 baseline of 0.699. We removed the biasing "4-hour test" but a stronger P3 default could help more. |
+| **Few-shot examples per category** — 1 example each for all 8 categories | +2-3pp category | Medium — previous few-shots caused bias toward shown categories | Could work if examples are balanced across all 8 categories equally. |
+| **gpt-5.4-mini for T1** — trade accuracy for cost+latency | +5pp efficiency (cost 0.75→0.90, faster) | High — resolution may drop | Cost saves are significant but quality risk is high. Would need extensive A/B testing. |
+
+### 8.2 Task 2: Extraction
+
+| Idea | Expected Impact | Risk | Why Not Implemented |
+|------|----------------|------|---------------------|
+| **Azure Document Intelligence hybrid** — run DI `prebuilt-read` in parallel, inject OCR text into vision prompt | +4-8pp on adversarial docs | Medium — adds 1-3s latency, DI config already exists | Dual-path (vision + OCR text) gives the model two sources. DI handles degraded images better than vision alone. Previous attempt hurt P95 latency but parallel execution could mitigate. |
+| **Image preprocessing (CLAHE + denoising)** — enhance contrast on degraded images before sending to vision model | +1-3pp adversarial | Medium — aggressive parameters could degrade clean docs | CLAHE specifically helps unevenly-lit scans (36% of hidden eval). Requires `opencv-python-headless` dependency. |
+| **Multi-pass consensus** — extract 2-3 times with different temperatures, majority vote per field | +2-5pp on adversarial | High — 2-3× latency and cost | Proven to boost accuracy on noisy OCR. Selective application (only when first pass has low confidence) could mitigate latency. |
+| **Schema-aware enum fuzzy matching** — post-process extracted strings to match closest enum value | +1-2pp text_fidelity | Low | "Aluminium"→"aluminum" would score 0 on fidelity but 1.0 with fuzzy match. Low-hanging fruit we didn't implement. |
+| **Structured output for nested arrays** — enhance sanitizer to handle deeply nested array-of-objects schemas | +1pp on complex docs | Low | Some complex schemas may not sanitize correctly for strict mode. 52/530 items fell back to text mode. |
+
+### 8.3 Task 3: Orchestration
+
+| Idea | Expected Impact | Risk | Why Not Implemented |
+|------|----------------|------|---------------------|
+| **Local scoring harness** — run the actual scorer on our output to find per-item failures | Diagnostic (enables all other fixes) | None | Would identify exactly which items lose points and why. Critical for targeted fixes. |
+| **Handle mock failure gracefully** — when `crm_search` returns empty/error, generate synthetic accounts to continue workflow | +5-10pp on churn/re-engagement (34% of items) | High — generated data won't match gold exactly | Sub5 logs showed 180/527 items produced only 1 step because `crm_search` failed. Generating reasonable accounts would produce more steps matching gold patterns. |
+| **Expand template detection** — add synonyms and alternative phrasings for goal matching | +2-5pp if capturing more items from ReAct | Medium — false positives send items to wrong template | Hidden eval had 0 ReAct fallbacks (100% template match), so this may not help. But if new goal phrasings appear, broader detection prevents ReAct fallback. |
+| **Post-execution constraint validator** — check output against scorer's known assertion patterns and surgically add/remove steps | +1-3pp constraint_compliance | High — requires perfectly replicating scorer logic | The scorer checks specific patterns (notification_send count, tool_count bounds). Validating before returning could catch edge cases. |
+| **Native OpenAI function calling for ReAct** — replace JSON mode with tools API | +1-2pp on ReAct items | Medium — restructures the ReAct loop | The model was trained for the native tools API. Would improve ReAct quality for the ~0-5% of items that don't match templates. |
+
+### 8.4 Infrastructure
+
+| Idea | Expected Impact | Risk |
+|------|----------------|------|
+| **4+ AOAI endpoints** — add southcentralus, swedencentral for more capacity | Reduces 429 rate from 64→near-zero | Low |
+| **Adaptive semaphore** — dynamically adjust concurrency based on 429 rate | Better throughput under variable load | Medium |
+| **Response caching** — cache identical tool call responses within a workflow | Reduces T3 latency and mock service load | Low |
