@@ -487,16 +487,6 @@ async def execute_inventory_restock(req: OrchestrateRequest) -> list[StepExecute
         step_num += 1
         steps.append(_make_step(step_num, "notification_send", notif_params, text, ok))
 
-    # 3. audit_log if any notifications were sent
-    if low_stock:
-        audit_params = {
-            "action": "restock_alerts_sent",
-            "details": {"sku": sku, "warehouses": [wh for wh, _ in low_stock]},
-        }
-        _, text, ok = await _call_tool(_get_endpoint(req, "audit_log"), audit_params)
-        step_num += 1
-        steps.append(_make_step(step_num, "audit_log", audit_params, text, ok))
-
     return steps
 
 
@@ -528,7 +518,7 @@ async def execute_meeting_scheduler(req: OrchestrateRequest) -> list[StepExecute
     # free-tier detection
     is_free = tier == "free" or sub_plan == "free"
 
-    # 3. calendar_check with dynamic date range
+    # 3. calendar_check
     now = datetime.now()
     start_date = now.strftime("%Y-%m-%d")
     end_date = (now + timedelta(days=14)).strftime("%Y-%m-%d")
