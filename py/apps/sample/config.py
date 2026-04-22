@@ -8,6 +8,8 @@ class Settings(BaseSettings):
     azure_openai_endpoint: str = ""
     azure_openai_api_key: str = ""
     azure_openai_api_version: str = "2025-01-01-preview"
+    # Secondary AOAI endpoint for load-balancing (doubles rate limit capacity)
+    azure_openai_endpoint_2: str = ""
     triage_model: str = "gpt-5-4-nano"
     extract_model: str = "gpt-5-4"
     orchestrate_model: str = "gpt-5-4"
