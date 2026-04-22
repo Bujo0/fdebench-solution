@@ -57,13 +57,35 @@ Created: {req.created_at}{att_line}
         if routing_guide:
             full_prompt += "\n\nROUTING GUIDE:\n" + routing_guide
 
-        llm_result = await complete(
-            state.aoai_client,
-            _LLM_MODEL,
-            full_prompt,
-            user_content,
-            response_format=TriageLLMResponse,
-        )
+        llm_result = None
+        try:
+            llm_result = await complete(
+                state.aoai_client,
+                _LLM_MODEL,
+                full_prompt,
+                user_content,
+                response_format=TriageLLMResponse,
+            )
+        except Exception:
+            # Structured output rejected — retry without response_format
+            logger.warning("EVAL_T1|event=struct_retry|id=%s|reason=BadRequest", req.ticket_id)
+            try:
+                from utils import parse_json_response
+                raw = await complete(
+                    state.aoai_client,
+                    _LLM_MODEL,
+                    full_prompt + "\n\nReturn your answer as a JSON object.",
+                    user_content,
+                )
+                parsed = parse_json_response(raw) if isinstance(raw, str) else None
+                if parsed:
+                    llm_result = TriageLLMResponse(**parsed)
+            except Exception:
+                pass
+
+        if llm_result is None:
+            raise ValueError("LLM returned no result after structured + text retry")
+
         llm_ms = int((time.time() - t0) * 1000)
 
         # Basic validation
