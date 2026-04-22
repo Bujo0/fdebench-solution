@@ -70,16 +70,31 @@ Created: {req.created_at}{att_line}
             # Structured output rejected — retry without response_format
             logger.warning("EVAL_T1|event=struct_retry|id=%s|reason=BadRequest", req.ticket_id)
             try:
-                from utils import parse_json_response
                 raw = await complete(
                     state.aoai_client,
                     _LLM_MODEL,
                     full_prompt + "\n\nReturn your answer as a JSON object.",
                     user_content,
                 )
+                from utils import parse_json_response
                 parsed = parse_json_response(raw) if isinstance(raw, str) else None
-                if parsed:
-                    llm_result = TriageLLMResponse(**parsed)
+                if parsed and isinstance(parsed, dict):
+                    # Try to construct TriageLLMResponse, falling back field-by-field
+                    try:
+                        llm_result = TriageLLMResponse(**parsed)
+                    except Exception:
+                        # Manual field extraction with defaults
+                        llm_result = TriageLLMResponse(
+                            category=parsed.get("category", "Mission Briefing Request"),
+                            priority=parsed.get("priority", "P3"),
+                            assigned_team=parsed.get("assigned_team", "None"),
+                            needs_escalation=bool(parsed.get("needs_escalation", False)),
+                            missing_information=[
+                                f for f in parsed.get("missing_information", [])
+                                if isinstance(f, str)
+                            ],
+                        )
+                        logger.info("EVAL_T1|event=struct_retry_partial|id=%s", req.ticket_id)
             except Exception:
                 pass
 
