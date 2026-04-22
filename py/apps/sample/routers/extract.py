@@ -94,28 +94,8 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
     try:
         schema_str = req.json_schema or "{}"
 
-        # Build field-level instructions from schema descriptions
-        field_instructions = ""
-        try:
-            import json as _json
-            schema_obj = _json.loads(schema_str)
-            props = schema_obj.get("properties", {})
-            if props:
-                instructions = []
-                for field_name, field_spec in props.items():
-                    desc = field_spec.get("description", "")
-                    ftype = field_spec.get("type", "")
-                    if desc:
-                        instructions.append(f"- {field_name} ({ftype}): {desc}")
-                    else:
-                        instructions.append(f"- {field_name} ({ftype})")
-                field_instructions = "Fields to extract:\n" + "\n".join(instructions) + "\n\n"
-        except Exception:
-            pass
-
         user_content = (
             f"Extract all fields from this document image according to this JSON schema:\n\n"
-            f"{field_instructions}"
             f"{schema_str}\n\n"
             f"Return a JSON object with the extracted values. Use null for any field not found in the document."
         )
@@ -140,9 +120,6 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
 
         # Remove document_id from extracted to prevent duplicate kwarg crash
         extracted.pop("document_id", None)
-
-        # Light schema validation: coerce types to match json_schema
-        extracted = _coerce_to_schema(extracted, schema_str)
 
         return ExtractResponse(document_id=req.document_id, **extracted)
     except Exception:

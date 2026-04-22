@@ -1204,3 +1204,20 @@ Tested properly with --timeout 120 on golden eval (templates disabled, all 50 it
 **Golden eval:** T2 R=88.4 (+1.3), T2 P95=19719ms (latency=0.016), T2 Tier1=77.5 (-7.7). T3=97.5 (fixed from EXP-069).
 **Decision:** REVERT ❌ — DI adds 6-10s per doc. P95 nearly hits 20s worst threshold. Latency penalty far outweighs resolution gain. Would be even worse on hidden eval with concurrent requests.
 **Learnings:** DI improves OCR quality (R+1.3 even on golden which is all clean PNG). On hidden eval with degraded docs, DI improvement would likely be larger. But the 6-10s overhead makes it impractical under current latency thresholds. Would need async DI (fire-and-forget with parallel vision) to be viable, but that's too complex to implement safely.
+
+### EXP-071: A/B test — all 15 items vs stripped (7 core only) (STRIPPED WINS)
+**Date:** 2026-04-22
+**Changes:** Removed 8 testable items: priority calibration rules, MI hints, channel semantics, enhanced extract prompt, field descriptions, schema coercion, degraded guidance, anti-injection.
+**Kept 7 core items:** MIME detection, Pillow, Literal types, document_id fix, JSON parser, 60s timeout, description truncation.
+
+| Metric | All 15 | Stripped 7 | Delta |
+|--------|--------|-----------|-------|
+| Composite | 84.8 | **85.8** | **+1.0** |
+| T1 Tier1 | 71.8 | **73.1** | **+1.3** |
+| T1 category | 0.813 | **0.887** | +0.074 |
+| T1 priority | 0.815 | **0.855** | +0.040 |
+| T2 Tier1 | 85.2 | **86.8** | **+1.6** |
+| T2 info_acc | 0.876 | **0.905** | +0.029 |
+| T2 adversarial | 84.0 | **90.1** | +6.1 |
+
+**Decision:** DEPLOY STRIPPED ✅ — Simpler prompts + no post-processing = better results. The extra rules/hints added noise that confused the model. Less is more.
