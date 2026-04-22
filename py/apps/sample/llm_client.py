@@ -90,11 +90,15 @@ async def complete(
         "temperature": temperature,
     }
     if response_format is not None:
-        resp = await client.beta.chat.completions.parse(
-            **kwargs,
-            response_format=response_format,
-        )
-        return resp.choices[0].message.parsed
+        if isinstance(response_format, dict):
+            resp = await client.chat.completions.create(**kwargs, response_format=response_format)
+            return resp.choices[0].message.content
+        else:
+            resp = await client.beta.chat.completions.parse(
+                **kwargs,
+                response_format=response_format,
+            )
+            return resp.choices[0].message.parsed
     else:
         resp = await client.chat.completions.create(**kwargs)
         return resp.choices[0].message.content
@@ -132,11 +136,15 @@ async def complete_with_vision(
         "temperature": temperature,
     }
     if response_format is not None:
-        resp = await client.beta.chat.completions.parse(
-            **kwargs,
-            response_format=response_format,
-        )
-        return resp.choices[0].message.parsed
+        if isinstance(response_format, dict):
+            resp = await client.chat.completions.create(**kwargs, response_format=response_format)
+            return resp.choices[0].message.content
+        else:
+            resp = await client.beta.chat.completions.parse(
+                **kwargs,
+                response_format=response_format,
+            )
+            return resp.choices[0].message.parsed
     else:
         resp = await client.chat.completions.create(**kwargs)
         return resp.choices[0].message.content
