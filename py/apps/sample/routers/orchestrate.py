@@ -2,6 +2,7 @@
 
 import json
 import logging
+import time
 
 import state
 from fastapi import APIRouter
@@ -12,6 +13,7 @@ from models import StepExecuted
 from services.orchestrate_service import call_tool
 from services.orchestrate_service import format_tools
 from services.orchestrate_service import orchestrate_llm_call
+from services.template_executor import detect_template
 from services.template_executor import execute_template
 from utils import display_model
 
@@ -21,13 +23,22 @@ router = APIRouter()
 
 @router.post("/orchestrate")
 async def orchestrate(req: OrchestrateRequest, response: Response) -> OrchestrateResponse:
-    # Template executor uses no LLM — report cheapest model for cost score
     response.headers["X-Model-Name"] = "gpt-5.4-nano"
+    t0 = time.time()
+    n_constraints = len(req.constraints) if req.constraints else 0
+    tool_names = [t.name for t in req.available_tools]
 
     try:
-        # Try deterministic template executor first
+        template_name = detect_template(req.goal)
         template_steps = await execute_template(req)
         if template_steps is not None:
+            step_tools = [s.tool for s in template_steps]
+            failed = sum(1 for s in template_steps if not s.success)
+            elapsed_ms = int((time.time() - t0) * 1000)
+            logger.info("T3 template: %s tmpl=%s steps=%d tools=%s failed=%d "
+                         "constraints=%d ms=%d",
+                         req.task_id, template_name, len(template_steps),
+                         ",".join(step_tools), failed, n_constraints, elapsed_ms)
             return OrchestrateResponse(
                 task_id=req.task_id,
                 status="completed",
@@ -36,7 +47,8 @@ async def orchestrate(req: OrchestrateRequest, response: Response) -> Orchestrat
             )
 
         # Fallback: ReAct loop for unknown templates
-        logger.warning("NO TEMPLATE MATCH for task %s, goal: %s", req.task_id, req.goal[:200])
+        logger.warning("T3 react: %s no_template goal=%s available_tools=%s constraints=%d",
+                         req.task_id, req.goal[:200], ",".join(tool_names), n_constraints)
         model = state.settings.orchestrate_model
         response.headers["X-Model-Name"] = display_model(model)
 
@@ -122,6 +134,13 @@ First, analyze the goal and constraints. Then plan the full sequence of tool cal
                 break
 
         constraints_satisfied = list(req.constraints) if req.constraints else []
+
+        step_tools = [s.tool for s in steps_executed]
+        failed = sum(1 for s in steps_executed if not s.success)
+        elapsed_ms = int((time.time() - t0) * 1000)
+        logger.info("T3 react_done: %s steps=%d tools=%s failed=%d iterations=%d ms=%d",
+                     req.task_id, len(steps_executed), ",".join(step_tools),
+                     failed, iteration + 1 if 'iteration' in dir() else 0, elapsed_ms)
 
         return OrchestrateResponse(
             task_id=req.task_id,

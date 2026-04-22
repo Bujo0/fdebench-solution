@@ -5,6 +5,7 @@ import copy
 import io
 import json
 import logging
+import time
 from typing import Any
 
 from fastapi import APIRouter, Response
@@ -128,9 +129,18 @@ def _build_structured_response_format(schema_str: str) -> dict | None:
 async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
     model = state.settings.extract_model
     response.headers["X-Model-Name"] = display_model(model)
+    t0 = time.time()
+    attempt_used = 0
 
     try:
         schema_str = req.json_schema or "{}"
+
+        # Parse schema to log field names
+        try:
+            schema_obj = json.loads(schema_str)
+            schema_fields = list((schema_obj.get("properties") or {}).keys())
+        except Exception:
+            schema_fields = []
 
         user_content = (
             f"Extract all fields from this document image according to this JSON schema:\n\n"
@@ -141,8 +151,9 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
         content = req.content if req.content else ""
         mime_type = detect_mime_type(content)
         content, mime_type = _ensure_supported_format(content, mime_type)
-        logger.info("T2 start: %s mime=%s schema_len=%d img_kb=%d",
-                     req.document_id, mime_type, len(schema_str), len(content)//1024)
+        logger.info("T2 start: %s mime=%s schema_len=%d img_kb=%d schema_fields=%s",
+                     req.document_id, mime_type, len(schema_str), len(content)//1024,
+                     ",".join(schema_fields[:10]) if schema_fields else "none")
 
         # Attempt 1: structured output with schema enforcement
         response_format = _build_structured_response_format(schema_str)
@@ -159,9 +170,14 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
                     extracted = parse_json_response(result)
                 elif isinstance(result, dict):
                     extracted = result
-            except Exception:
-                logger.warning("Structured output failed for %s, falling back to text mode",
-                               req.document_id)
+                if extracted:
+                    attempt_used = 1
+            except Exception as e:
+                logger.warning("T2 attempt1_fail: %s structured_output err=%s",
+                               req.document_id, type(e).__name__)
+        else:
+            logger.info("T2 schema_skip: %s schema not compatible with strict mode",
+                         req.document_id)
 
         # Attempt 2: text mode (current approach)
         if extracted is None:
@@ -171,8 +187,11 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
                     content, user_content, mime_type=mime_type,
                 )
                 extracted = parse_json_response(result)
-            except Exception:
-                logger.warning("Text mode extraction failed for %s", req.document_id)
+                if extracted:
+                    attempt_used = 2
+            except Exception as e:
+                logger.warning("T2 attempt2_fail: %s text_mode err=%s",
+                               req.document_id, type(e).__name__)
 
         # Attempt 3: retry with detail="high" for degraded documents
         if extracted is None:
@@ -183,23 +202,36 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
                     detail="high",
                 )
                 extracted = parse_json_response(result)
-            except Exception:
-                logger.warning("High-detail retry failed for %s", req.document_id)
+                if extracted:
+                    attempt_used = 3
+            except Exception as e:
+                logger.warning("T2 attempt3_fail: %s high_detail err=%s",
+                               req.document_id, type(e).__name__)
 
         if extracted is None:
             extracted = {}
 
-        # Post-process: convert empty strings to null (scorer gives 1.0,1.0 for
-        # null-null match, 0.0,0.0 for anything vs null — huge impact on 21.5% null fields)
         extracted = _clean_nulls(extracted)
-
         extracted.pop("document_id", None)
-        path = "structured" if response_format and extracted else "text"
-        field_count = len(extracted) if extracted else 0
-        null_count = sum(1 for v in extracted.values() if v is None) if extracted else 0
-        logger.info("T2 done: %s path=%s fields=%d nulls=%d",
-                     req.document_id, path, field_count, null_count)
+
+        # Count value types for diagnostics
+        field_count = len(extracted)
+        null_count = sum(1 for v in extracted.values() if v is None)
+        str_count = sum(1 for v in extracted.values() if isinstance(v, str))
+        num_count = sum(1 for v in extracted.values() if isinstance(v, (int, float)) and not isinstance(v, bool))
+        bool_count = sum(1 for v in extracted.values() if isinstance(v, bool))
+        list_count = sum(1 for v in extracted.values() if isinstance(v, list))
+        dict_count = sum(1 for v in extracted.values() if isinstance(v, dict))
+        elapsed_ms = int((time.time() - t0) * 1000)
+
+        logger.info("T2 done: %s attempt=%d fields=%d null=%d str=%d num=%d "
+                     "bool=%d list=%d dict=%d ms=%d",
+                     req.document_id, attempt_used, field_count, null_count,
+                     str_count, num_count, bool_count, list_count, dict_count,
+                     elapsed_ms)
+
         return ExtractResponse(document_id=req.document_id, **extracted)
     except Exception:
-        logger.exception("Extract error for %s", req.document_id)
+        elapsed_ms = int((time.time() - t0) * 1000)
+        logger.exception("T2 FAIL: %s after %dms — returning empty", req.document_id, elapsed_ms)
         return ExtractResponse(document_id=req.document_id)
