@@ -42,11 +42,13 @@ P2 (HIGH — major operational issue, no immediate safety threat):
 • Major system failure WITHOUT immediate safety risk
 • Service degradation affecting multiple crew or multiple systems
 • Suspicious activity requiring investigation (not yet confirmed breach)
+P2 requires BROAD impact across multiple systems or crew. Single-system issues are P3.
 
 P3 (STANDARD — operational issue with workaround or limited scope):
 • System issues WITH a known workaround or limited scope
 • Single-user or single-system problems
 • Performance degradation (slow, intermittent, but not fully broken)
+RULE: P3 is the DEFAULT for operational issues. When in doubt between P2 and P3, choose P3.
 
 P4 (LOW — routine, informational, no operational urgency):
 • Questions and how-to requests
