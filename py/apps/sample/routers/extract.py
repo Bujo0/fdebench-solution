@@ -151,7 +151,7 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
         content = req.content if req.content else ""
         mime_type = detect_mime_type(content)
         content, mime_type = _ensure_supported_format(content, mime_type)
-        logger.info("T2 start: %s mime=%s schema_len=%d img_kb=%d schema_fields=%s",
+        logger.info("EVAL_T2|event=start|id=%s| mime=%s schema_len=%d img_kb=%d schema_fields=%s",
                      req.document_id, mime_type, len(schema_str), len(content)//1024,
                      ",".join(schema_fields[:10]) if schema_fields else "none")
 
@@ -173,10 +173,10 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
                 if extracted:
                     attempt_used = 1
             except Exception as e:
-                logger.warning("T2 attempt1_fail: %s structured_output err=%s",
+                logger.warning("EVAL_T2|event=attempt1_fail|id=%s| structured_output err=%s",
                                req.document_id, type(e).__name__)
         else:
-            logger.info("T2 schema_skip: %s schema not compatible with strict mode",
+            logger.info("EVAL_T2|event=schema_skip|id=%s| schema not compatible with strict mode",
                          req.document_id)
 
         # Attempt 2: text mode (current approach)
@@ -190,7 +190,7 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
                 if extracted:
                     attempt_used = 2
             except Exception as e:
-                logger.warning("T2 attempt2_fail: %s text_mode err=%s",
+                logger.warning("EVAL_T2|event=attempt2_fail|id=%s| text_mode err=%s",
                                req.document_id, type(e).__name__)
 
         # Attempt 3: retry with detail="high" for degraded documents
@@ -205,7 +205,7 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
                 if extracted:
                     attempt_used = 3
             except Exception as e:
-                logger.warning("T2 attempt3_fail: %s high_detail err=%s",
+                logger.warning("EVAL_T2|event=attempt3_fail|id=%s| high_detail err=%s",
                                req.document_id, type(e).__name__)
 
         if extracted is None:
@@ -224,7 +224,7 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
         dict_count = sum(1 for v in extracted.values() if isinstance(v, dict))
         elapsed_ms = int((time.time() - t0) * 1000)
 
-        logger.info("T2 done: %s attempt=%d fields=%d null=%d str=%d num=%d "
+        logger.info("EVAL_T2|event=done|id=%s| attempt=%d fields=%d null=%d str=%d num=%d "
                      "bool=%d list=%d dict=%d ms=%d",
                      req.document_id, attempt_used, field_count, null_count,
                      str_count, num_count, bool_count, list_count, dict_count,
@@ -233,5 +233,5 @@ async def extract(req: ExtractRequest, response: Response) -> ExtractResponse:
         return ExtractResponse(document_id=req.document_id, **extracted)
     except Exception:
         elapsed_ms = int((time.time() - t0) * 1000)
-        logger.exception("T2 FAIL: %s after %dms — returning empty", req.document_id, elapsed_ms)
+        logger.exception("EVAL_T2|event=fail|id=%s| after %dms — returning empty", req.document_id, elapsed_ms)
         return ExtractResponse(document_id=req.document_id)

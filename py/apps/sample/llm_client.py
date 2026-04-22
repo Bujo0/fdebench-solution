@@ -3,6 +3,7 @@
 import asyncio
 import base64
 import logging
+import time
 from typing import Any
 
 from azure.identity import DefaultAzureCredential
@@ -106,8 +107,13 @@ async def complete(
     temperature: float = 0.0,
 ) -> Any:
     """Send a chat completion request and return the parsed content."""
+    t_wait = time.time()
     async with _llm_semaphore:
+        wait_ms = int((time.time() - t_wait) * 1000)
         active_client = _get_round_robin_client()
+        client_tag = "B" if active_client is _client_2 else "A"
+        if wait_ms > 100:
+            logger.info("EVAL_SEM|wait_ms=%d|client=%s|model=%s", wait_ms, client_tag, model)
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_content},
@@ -145,8 +151,13 @@ async def complete_with_vision(
     mime_type: str = "image/png",
 ) -> Any:
     """Send a vision chat completion with a base64 image."""
+    t_wait = time.time()
     async with _llm_semaphore:
+        wait_ms = int((time.time() - t_wait) * 1000)
         active_client = _get_round_robin_client()
+        client_tag = "B" if active_client is _client_2 else "A"
+        if wait_ms > 100:
+            logger.info("EVAL_SEM|wait_ms=%d|client=%s|model=%s", wait_ms, client_tag, model)
         messages: list[dict[str, Any]] = [
             {"role": "system", "content": system_prompt},
             {

@@ -35,7 +35,7 @@ async def orchestrate(req: OrchestrateRequest, response: Response) -> Orchestrat
             step_tools = [s.tool for s in template_steps]
             failed = sum(1 for s in template_steps if not s.success)
             elapsed_ms = int((time.time() - t0) * 1000)
-            logger.info("T3 template: %s tmpl=%s steps=%d tools=%s failed=%d "
+            logger.info("EVAL_T3|event=template|id=%s| tmpl=%s steps=%d tools=%s failed=%d "
                          "constraints=%d ms=%d",
                          req.task_id, template_name, len(template_steps),
                          ",".join(step_tools), failed, n_constraints, elapsed_ms)
@@ -47,7 +47,7 @@ async def orchestrate(req: OrchestrateRequest, response: Response) -> Orchestrat
             )
 
         # Fallback: ReAct loop for unknown templates
-        logger.warning("T3 react: %s no_template goal=%s available_tools=%s constraints=%d",
+        logger.warning("EVAL_T3|event=react_start|id=%s| no_template goal=%s available_tools=%s constraints=%d",
                          req.task_id, req.goal[:200], ",".join(tool_names), n_constraints)
         model = state.settings.orchestrate_model
         response.headers["X-Model-Name"] = display_model(model)
@@ -138,7 +138,7 @@ First, analyze the goal and constraints. Then plan the full sequence of tool cal
         step_tools = [s.tool for s in steps_executed]
         failed = sum(1 for s in steps_executed if not s.success)
         elapsed_ms = int((time.time() - t0) * 1000)
-        logger.info("T3 react_done: %s steps=%d tools=%s failed=%d iterations=%d ms=%d",
+        logger.info("EVAL_T3|event=react_done|id=%s| steps=%d tools=%s failed=%d iterations=%d ms=%d",
                      req.task_id, len(steps_executed), ",".join(step_tools),
                      failed, iteration + 1 if 'iteration' in dir() else 0, elapsed_ms)
 
@@ -149,7 +149,7 @@ First, analyze the goal and constraints. Then plan the full sequence of tool cal
             constraints_satisfied=constraints_satisfied,
         )
     except Exception:
-        logger.exception("Orchestrate error for %s", req.task_id)
+        logger.exception("EVAL_T3|event=error|id=%s", req.task_id)
         return OrchestrateResponse(
             task_id=req.task_id,
             status="completed",

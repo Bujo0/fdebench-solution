@@ -39,7 +39,7 @@ async def triage(req: TriageRequest, response: Response) -> TriageResponse:
         attachments = getattr(req, "attachments", None) or []
         att_line = f"\nAttachments: {', '.join(attachments)}" if attachments else ""
 
-        logger.info("T1 input: %s ch=%s dept=%s subj_len=%d desc_len=%d att=%d att_names=%s",
+        logger.info("EVAL_T1|event=input|id=%s|ch=%s|dept=%s|subj_len=%d|desc_len=%d|att=%d|att_names=%s",
                      req.ticket_id, req.channel, req.reporter.department,
                      len(req.subject), len(desc), len(attachments),
                      ",".join(attachments)[:200] if attachments else "none")
@@ -99,8 +99,8 @@ Created: {req.created_at}{att_line}
         missing = match_missing_info(llm_result.missing_information)
         mi_names = [m.value for m in missing]
 
-        logger.info("T1 result: %s cat=%s pri=%s team=%s esc=%s mi=%s "
-                     "team_override=%s esc_override=%s llm_ms=%d",
+        logger.info("EVAL_T1|event=result|id=%s|cat=%s|pri=%s|team=%s|esc=%s|mi=%s|"
+                     "team_override=%s|esc_override=%s|llm_ms=%d",
                      req.ticket_id, category.value, priority, team.value,
                      needs_escalation, ",".join(mi_names) if mi_names else "[]",
                      team_overridden, esc_override, llm_ms)
@@ -119,10 +119,12 @@ Created: {req.created_at}{att_line}
             ],
         )
 
-    except Exception:
+    except Exception as exc:
         elapsed_ms = int((time.time() - t0) * 1000)
-        logger.exception("T1 FALLBACK: %s after %dms — using BRIEFING/P3/None",
-                          req.ticket_id, elapsed_ms)
+        err_type = type(exc).__name__
+        is_429 = "429" in str(exc) or "RateLimitError" in err_type
+        logger.error("EVAL_T1|event=fallback|id=%s|ms=%d|err=%s|is_429=%s",
+                      req.ticket_id, elapsed_ms, err_type, is_429)
         return TriageResponse(
             ticket_id=req.ticket_id,
             category=Category.BRIEFING,
