@@ -1187,3 +1187,13 @@ Tested properly with --timeout 120 on golden eval (templates disabled, all 50 it
 **Changes:** Added reasoning:str as first field in TriageLLMResponse + CoT instructions.
 **Golden eval:** T1 R=70.4 (same as without), P95=11328ms (latency=0!), Tier1=64.2 (vs 71.8).
 **Decision:** REVERT ❌ — Resolution unchanged, latency catastrophic. -7.6 Tier1.
+
+### EXP-069: DI+LLM hybrid extraction (REVERTED)
+**Date:** 2026-04-22
+**Changes:** Added Azure Document Intelligence OCR as first pass. DI extracts text, then LLM structures it. Falls back to vision-only if DI fails.
+**Golden eval:** 
+  T2 R=88.6 (+1.5 vs 87.1 vision-only) — better resolution!
+  T2 P95=16499ms (+7547ms) — latency killed Tier1 (-5.3)
+  T3 R=68.4 (down from 96.8!) — something in the code change broke T3
+**Decision:** REVERT ❌ — DI adds too much latency for marginal T2 improvement, AND somehow broke T3. Net composite -8.4.
+**Learnings:** DI works and improves OCR quality, but the 6s per-doc overhead makes P95 unacceptable. Would need async/parallel DI calls or DI-only-for-degraded approach to be viable. T3 breakage needs investigation (may have been import side effect).
