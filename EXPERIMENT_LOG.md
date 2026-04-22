@@ -1256,3 +1256,49 @@ Reverted MI to balanced. ESC FP: 21.4% (down from 42%).
 **What**: Changed MI to "Return [] by default. Only include TRULY BLOCKING fields."
 **Result**: MI FP rate dropped to 0% but MI SCORE dropped from 0.328→0.317. Because 68% of items genuinely have MI, suppressing all MI was wrong.
 **Action**: REVERTED to balanced MI guidance. Lesson: don't optimize for empty MI when most items have non-empty MI.
+
+## EXP-074: T2 Structured Output (json_schema mode) (v51)
+
+**Date**: 2026-04-22
+**Hypothesis**: Using OpenAI structured output (json_schema response_format) with vision API will guarantee correct field names, types, and nesting — improving T2 resolution.
+**Key insight**: json_schema mode is FUNDAMENTALLY different from json_object mode (which was catastrophic in EXP-065). json_schema provides the exact schema the model must follow.
+
+**Changes**:
+1. Schema sanitizer: parse request schema → make all props required → additionalProperties=false → wrap leaf types in anyOf for nullable
+2. 3-attempt extraction: structured output → text fallback → retry with detail="high"
+3. Prompt tightened: preserve exact text, don't normalize dates/currency
+4. LLM client: complete_with_vision handles dict response_format via create() (vs Pydantic parse())
+
+**Golden eval**:
+| Metric | v50 (before) | v51 (after) | Δ |
+|--------|-------------|-------------|---|
+| T2 Resolution | 87.4 | **89.3** | +1.9 |
+| T2 info_accuracy | 0.879 | **0.902** | +0.023 |
+| T2 text_fidelity | 0.862 | **0.872** | +0.010 |
+| T2 P95 latency | 9941ms | **7709ms** | -2232ms |
+| T2 Tier1 | 85.4 | **88.0** | +2.6 |
+| T2 adversarial | 87.8 | **89.5** | +1.7 |
+
+**Decision**: KEEP. Clear improvement across all T2 metrics. Structured output also faster!
+
+## EXP-075: Attachment Filenames in T1 Signal (v51b)
+
+**Date**: 2026-04-22
+**Hypothesis**: Attachment filenames (threat_scanner_alert.json, biometric_scan_report.csv, etc.) contain strong category/team signals. Including them should help classification and missing info identification.
+**Finding**: 38% of golden items have attachments. Filenames are highly discriminative.
+
+**Golden eval (v51b)**:
+| Metric | v51 (before) | v51b (after) | Δ |
+|--------|-------------|-------------|---|
+| T1 missing_info | 0.380-0.423 | **0.483** | +0.060-0.100 |
+| T1 Resolution | 70.3-73.1 | **73.2** | stable/improved |
+| Composite | 83.3-85.7 | **86.2** | BEST |
+
+**Decision**: KEEP. MI improved significantly. No regression on other dimensions.
+
+## EXP-076: T2 Sanitizer Fix — Preserve enum/format/pattern (v51b)
+
+**Date**: 2026-04-22
+**Finding**: Original sanitizer dropped enum, format, pattern constraints when wrapping types in anyOf. Fixed to preserve all original constraints in typed branch.
+**Impact**: Better schema enforcement → more precise extraction for enum fields.
+**Decision**: KEEP. Correctness fix, low risk.
