@@ -1221,3 +1221,38 @@ Tested properly with --timeout 120 on golden eval (templates disabled, all 50 it
 | T2 adversarial | 84.0 | **90.1** | +6.1 |
 
 **Decision:** DEPLOY STRIPPED ✅ — Simpler prompts + no post-processing = better results. The extra rules/hints added noise that confused the model. Less is more.
+
+## EXP-072: MI/ESC False Positive Analysis + Conservative Escalation (v50)
+
+**Date**: 2026-04-22
+**Hypothesis**: Model over-generates missing_info (58% FP rate on golden) and over-escalates (43% FP rate). Making escalation more conservative should improve hidden eval.
+
+**Critical finding**: Earlier analysis had a field name bug — checked `missing_info` instead of `missing_information`. Synthetic gold actually has 68% non-empty MI and 11% true escalation. Model isn't just generating false MI — it's picking wrong fields.
+
+**Changes tested**:
+1. Conservative escalation: "Default to false. Set true only when signal clearly supports criteria."
+2. Balanced MI: Reverted from over-conservative "return [] by default" to balanced guidance.
+3. Version marker updated.
+
+**Synthetic T1 results (499 items)**:
+| Dimension | v49 (before) | v50 (after) | Δ |
+|-----------|-------------|-------------|---|
+| category | 0.891 | 0.896 | +0.005 |
+| priority | 0.895 | 0.898 | +0.003 |
+| routing | 0.848 | 0.864 | +0.016 |
+| missing_info | 0.328 | 0.317 | -0.011 |
+| escalation | 0.577 | 0.596 | +0.019 |
+| **Resolution** | **75.1** | **75.8** | **+0.7** |
+
+MI FP rate: 0% (v50) vs ~58% (v49) — BUT this was too conservative, suppressed valid MI.
+Reverted MI to balanced. ESC FP: 21.4% (down from 42%).
+
+**Golden eval**: Composite 85.7 (same). T1 escalation 0.667→0.737 (+0.070). T2 85.4→87.2.
+**Decision**: Deploy v50 as final submission. Conservative escalation helps without risk.
+
+## EXP-073: MI Conservative Prompt (REVERTED)
+
+**Date**: 2026-04-22
+**What**: Changed MI to "Return [] by default. Only include TRULY BLOCKING fields."
+**Result**: MI FP rate dropped to 0% but MI SCORE dropped from 0.328→0.317. Because 68% of items genuinely have MI, suppressing all MI was wrong.
+**Action**: REVERTED to balanced MI guidance. Lesson: don't optimize for empty MI when most items have non-empty MI.
