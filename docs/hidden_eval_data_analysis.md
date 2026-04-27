@@ -51,6 +51,25 @@ The hidden eval scores 2,000 items: 1,000 triage (T1), 500 extraction (T2), 500 
 | P95 | 104 chars |
 | Max | 152 chars |
 
+**Attachment filenames (specific examples from logs):**
+
+```
+SIG-2903: [thermal_report.html, shield_integrity_scan.pdf]
+SIG-2318: [mission_audit_log.pdf, event_timeline.json, reactor_config.xml]
+SIG-2029: [deep_space_signal.pcapng, sensor_fusion_output.log, signal_headers.txt]
+SIG-2033: [firmware_manifest.xlsx, drone_status_report.pdf, sensor_firmware_version.txt]
+SIG-2034: [reactor_diagnostics.xml]
+SIG-2041: [sensor_fusion_output.log, sensor_firmware_version.txt, vulnerability_assessment.csv]
+SIG-2074: [reactor_diagnostics.xml, biometric_scan_report.csv, sensor_readout.dat]
+SIG-2078: [holodisplay_glitch.png]
+SIG-2079: [airlock_breach_alert.png, nav_core_dump.bin, shield_integrity_scan.pdf]
+SIG-2081: [nav_core_dump.bin, reactor_config.xml, reactor_diagnostics.xml]
+SIG-2040: [drone_status_report.pdf, telemetry_error.log]
+SIG-2035: [firmware_manifest.xlsx, subspace_relay_diag.zip]
+```
+
+Filenames are highly discriminative for category: `threat_scanner_alert.json` → Threat, `biometric_scan_report.csv` → Crew Access, `hull_integrity_scan.dat` → Hull, `nav_core_dump.bin` → Communications/Navigation, `reactor_diagnostics.xml` → Hull/Power.
+
 **Description length:**
 
 | Metric | Value |
@@ -86,6 +105,28 @@ The hidden eval scores 2,000 items: 1,000 triage (T1), 500 extraction (T2), 500 
 | Max | 63,090 ms |
 
 The P95 of 4,739ms is close to the 5,000ms worst threshold — every ms counts for efficiency scoring.
+
+**ID ranges:**
+- Ticket IDs: `SIG-2001` through `SIG-3000` (1,000 sequential, distinct from golden's `SIG-2000`–`SIG-3000` range)
+- Document IDs: `DOC-OCR-0000` through `DOC-OCR-0999` (500 unique, same naming as golden)
+- Task IDs: `TASK-0001` through `TASK-0500` (500 sequential, same as golden)
+
+**Specific input examples (from department/channel logs):**
+
+```
+SIG-2001: holodeck_comm,     Mission Planning
+SIG-2028: emergency_beacon,  Astrogation
+SIG-2029: holodeck_comm,     Sensor Array Division
+SIG-2030: emergency_beacon,  Power Core Engineering
+SIG-2031: subspace_relay,    Weapons Systems
+SIG-2032: bridge_terminal,   AI Ethics & Oversight
+SIG-2033: bridge_terminal,   Flight Deck Operations
+SIG-2034: bridge_terminal,   Stellar Observatory
+SIG-2038: subspace_relay,    Crew Medical Bay
+SIG-2039: bridge_terminal,   Crew Medical Bay
+```
+
+No obvious channel→department correlation — departments are randomly distributed across channels.
 
 **T1 structured output failures (Sub6):**
 - 51 items triggered text-mode retry (BadRequestError from structured output)
@@ -154,6 +195,20 @@ Our Sub6 predictions (with P3 default bias):
 | Mean | 1,261 KB |
 | P95 | 3,151 KB |
 | Max | 20,682 KB |
+
+**Specific document examples (from logs):**
+
+```
+DOC-OCR-0366: tableData,accountInfo,institution,clientServices,portfolioSummary (2464KB)
+DOC-OCR-0428: latestPatent,patentStatus,technologyCategory (1435KB)
+DOC-OCR-0699: issueDate,documentNumber,mostRecentShipment (558KB)
+DOC-OCR-0735: checkpoints,equipmentInfo,overallStatus (993KB)
+DOC-OCR-0640: clientNumber,documentNumber,mostRecentShipment (117KB)
+DOC-OCR-0812: palmOilMills,traceability,certifiedVolumes,sourcesWithNDPEPct (4504KB)
+DOC-OCR-0080: title,facility,employees,weekStartDate (1095KB)
+```
+
+Document types range from financial portfolios (2.4MB) to shipping manifests (117KB) to sustainability reports (4.5MB). The `DOC-OCR-` prefix and sequential numbering (0000-0999) suggests programmatic generation.
 
 **Schema complexity (JSON schema string length):**
 
