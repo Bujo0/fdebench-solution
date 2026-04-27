@@ -41,6 +41,16 @@ The hidden eval scores 2,000 items: 1,000 triage (T1), 500 extraction (T2), 500 
 
 ~30 departments, fairly evenly distributed (23–68 each). Much more diverse than golden data.
 
+**Subject length:**
+
+| Metric | Value |
+|--------|-------|
+| Min | 1 char |
+| Median | 59 chars |
+| Mean | 63 chars |
+| P95 | 104 chars |
+| Max | 152 chars |
+
 **Description length:**
 
 | Metric | Value |
@@ -50,6 +60,42 @@ The hidden eval scores 2,000 items: 1,000 triage (T1), 500 extraction (T2), 500 
 | Mean | 812 chars |
 | P95 | 1,577 chars |
 | Max | 4,000 chars (truncated) |
+
+**Attachment distribution:**
+
+| Attachments | Count | % |
+|------------|-------|---|
+| 0 (none) | 649 | 63% |
+| 1 file | 108 | 10% |
+| 2 files | 135 | 13% |
+| 3 files | 137 | 13% |
+| 4 files | 2 | <1% |
+
+37% of items have attachments — more than golden (38%). Attachment filenames contain discriminative signals (e.g., `threat_scanner_alert.json`, `hull_integrity_scan.dat`).
+
+### LLM Processing Characteristics
+
+**T1 LLM latency:**
+
+| Metric | Value |
+|--------|-------|
+| Mean | 2,900 ms |
+| Median | 2,431 ms |
+| P95 | 4,739 ms |
+| P99 | 7,229 ms |
+| Max | 63,090 ms |
+
+The P95 of 4,739ms is close to the 5,000ms worst threshold — every ms counts for efficiency scoring.
+
+**T1 structured output failures (Sub6):**
+- 51 items triggered text-mode retry (BadRequestError from structured output)
+- 6 of those needed field-level partial fallback
+- 45 items still fell back to BRIEFING/P3/None despite retry
+- The retry added a second LLM call, spiking P95 latency 3886→4609ms
+
+**Team validation overrides:** 39/987 items (4%) had their team corrected by `validate_category_team()` — the LLM picked a team not valid for the selected category.
+
+**Escalation overrides:** 60 items forced to `esc=True` by the `Threat_forced_true` deterministic rule. No P1 overrides triggered (only 7 P1 items, model already escalated them).
 
 ### Inferred Hidden Data Labels
 
@@ -126,6 +172,49 @@ Our Sub6 predictions (with P3 default bias):
 - Attempt 2 (text fallback): 52/529 = 10% needed fallback
 - Attempt 0 (empty): 1 item
 
+**T2 latency by extraction path:**
+
+| Attempt | Avg ms | Median ms | P95 ms | Count |
+|---------|--------|-----------|--------|-------|
+| 1 (structured) | 5,124 | 3,653 | 10,808 | 476 |
+| 2 (text fallback) | 7,038 | 6,748 | 11,270 | 52 |
+
+Text fallback takes ~37% longer — it's a second LLM call after structured output fails.
+
+**Schema field names (most common across 500 documents):**
+
+| Field | Count | Field | Count |
+|-------|-------|-------|-------|
+| title | 83 | transactions | 58 |
+| address | 54 | date | 53 |
+| portfolioSummary | 52 | tableData | 52 |
+| header | 51 | clientServices | 51 |
+| accountInfo | 49 | institution | 40 |
+| items | 30 | transactionsByCity | 30 |
+| period | 28 | accountNumber | 27 |
+| witness | 26 | latestPatent | 26 |
+| candidate | 26 | lastName | 26 |
+| signatures | 26 | lessee | 26 |
+| firstName | 26 | rent | 26 |
+| checks | 26 | lease | 26 |
+
+Document types include: financial statements (transactions, portfolioSummary, accountInfo), medical forms (firstName, lastName, address), invoices (items, header), legal documents (witness, signatures, lessee, lessor, lease, rent), and patent filings (latestPatent, candidate).
+
+**Extracted field count distribution:**
+
+| Fields | Count | | Fields | Count |
+|--------|-------|-|--------|-------|
+| 0 | 1 | | 8 | 4 |
+| 1 | 48 | | 9 | 26 |
+| 2 | 120 | | 10 | 17 |
+| 3 | 91 | | 11 | 13 |
+| 4 | 78 | | 12 | 5 |
+| 5 | 73 | | 13 | 7 |
+| 6 | 35 | | 14 | 5 |
+| 7 | 2 | | 15-16 | 4 |
+
+Most documents have 2-5 top-level fields (68%). Some complex documents have 9-16 fields.
+
 **Average extracted value types per document:**
 
 | Type | Avg per doc |
@@ -163,6 +252,32 @@ Documents are moderately complex — ~4.4 top-level fields on average, with nest
 *Churn and re-engagement show 10 steps in Sub6 due to synthetic account generation. In Sub5 they showed 1 step (crm_search only).
 
 **Template coverage:** 100% — zero ReAct fallbacks on hidden eval (only 2 items went to ReAct, likely smoke tests).
+
+### Tool Sequences Produced (Sub6)
+
+| Template | Typical tool sequence | Steps |
+|----------|----------------------|-------|
+| churn_risk_analysis | crm_search → 3× subscription_check → 3× (notification_send + audit_log) | 10 |
+| re_engagement_campaign | crm_search → 3× subscription_check → 3× (email_send + audit_log) | 10 |
+| meeting_scheduler | crm_get_account → subscription_check → calendar_check → notification_send → audit_log | 5 |
+| incident_response | 1-3× inventory_query → 1-2× notification_send → audit_log | 3-6 |
+| contract_renewal | crm_get_account → subscription_check → email_send → audit_log | 4 |
+| onboarding_workflow | crm_get_account → subscription_check → notification_send → audit_log | 4 |
+| inventory_restock | 2-4× inventory_query | 2-4 |
+
+### Template Latency
+
+| Template | Avg ms | P95 ms | Max ms |
+|----------|--------|--------|--------|
+| churn_risk_analysis | 126 | 359 | 537 |
+| re_engagement_campaign | 87 | 119 | 151 |
+| meeting_scheduler | 46 | 65 | 84 |
+| incident_response | 42 | 61 | 79 |
+| contract_renewal | 35 | 54 | 71 |
+| onboarding_workflow | 32 | 50 | 54 |
+| inventory_restock | 25 | 42 | 56 |
+
+All templates are sub-second. Churn is slowest (10 tool calls × network round trip). Overall T3 P95 = 154ms — well within the 1000ms best threshold.
 
 ### Tool Call Behavior
 
