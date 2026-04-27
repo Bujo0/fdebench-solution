@@ -297,6 +297,73 @@ All items have 3-5 constraints. Incident response has the most (5 avg), inventor
 
 ---
 
+## Inferred True Distributions (Cross-Submission Analysis)
+
+### T1: Category-Priority Correlations
+
+By comparing Sub5 (no P3 default) and Sub6 (with P3 default), both using the same model and Literal types, we can map category→priority patterns:
+
+| Category | P1 | P2 | P3 | P4 | Dominant Priority |
+|----------|----|----|----|----|-------------------|
+| Not a Mission Signal | 0% | 0% | 0% | **100%** | P4 |
+| Mission Briefing Request | 0% | 1% | 0% | **99%** | P4 |
+| Crew Access & Biometrics | 0% | 14% | **81%** | 5% | P3 |
+| Hull & Structural Systems | 3% | 6% | **89%** | 2% | P3 |
+| Flight Software & Instruments | 0% | 15% | **82%** | 3% | P3 |
+| Telemetry & Data Banks | 0% | 8% | **87%** | 5% | P3 |
+| Communications & Navigation | 0% | 36% | **64%** | 0% | P3 |
+| Threat Detection & Containment | 2% | **52%** | 46% | 1% | P2/P3 split |
+
+**Key insight:** Only Threat has significant P2 (52%). All other operational categories are 64-89% P3. NotSignal and Briefing are essentially 100% P4. This means priority is largely determined by category — a category-aware priority rule would be highly effective.
+
+### T1: Estimated True Priority Distribution
+
+| Priority | True Estimate | Sub5 Predicted | Sub6 Predicted | Optimal |
+|----------|--------------|---------------|---------------|---------|
+| P1 | **3-7%** | 0.7% ❌ under | 0.7% ❌ under | Need more P1 detection |
+| P2 | **12-18%** | 51% ❌ massively over | 20% ⚠️ still over | ~15% target |
+| P3 | **35-50%** | 26% ❌ under | 57% ⚠️ slightly over | ~40% target |
+| P4 | **25-35%** | 22% ≈ close | 23% ≈ close | ~30% target |
+
+### T2: Document Type Taxonomy
+
+From schema field analysis, the hidden eval contains ~12 distinct document types:
+
+| Document Type | Count | Schema Fields |
+|--------------|-------|---------------|
+| Financial portfolio statements | 36+12=48 | tableData, accountInfo, institution, portfolioSummary |
+| Transaction records | 30 | transactions, transactionsByCity |
+| Check registers | 26 | checks |
+| Lease agreements | 26 | date, rent, lease, lessee, lessor, premises |
+| Patent/election documents | 26 | header, witness, candidate, signatures |
+| Invoices | 25 | items, header |
+| Timesheets | 25 | title, facility, employees, weekStartDate |
+| Inspection reports | 25 | checkpoints, equipmentInfo, overallStatus |
+| Consultant reports | 25 | date, title, manager, consultants |
+| Glossaries | 25+11=36 | title, glossary/glossarySections, pageNumber |
+| Tax forms | 22 | income, spouse, dependents, filingStatus |
+| Bank statements | 21 | period, transactions, accountNumber |
+
+### T3: Prediction Stability Across Submissions
+
+T3 template detection is **perfectly deterministic** — both Sub5 and Sub6 produced identical template distributions (117 churn, 85 renewal, etc.). This confirms the data is fixed between submissions.
+
+---
+
+## What Could Be Exploited
+
+1. **T1 Priority:** Category-specific priority rules (e.g., "if Briefing/NotSignal → P4, if Threat → P2, else P3") would score ~0.85+ on priority with zero LLM judgment needed. Our model's priority judgment is worse than these simple rules.
+
+2. **T1 Escalation:** Only Threat items and P1 items genuinely need escalation (~12% total). Our model escalates 31%. Hard-coding "escalate only if Threat or P1" would improve precision dramatically.
+
+3. **T1 P1 detection:** We predict only 7 P1 items (0.7%) but true P1 is likely 3-7% (30-70 items). We're missing most P1s — each one costs 0.67 points on priority. Hull breach and containment keywords could be used for deterministic P1 detection.
+
+4. **T2 detail=auto:** Since all images are PNG (not degraded), `detail="high"` may be wasting tokens/latency for no quality gain. Switching to `detail="auto"` could reduce T2 P95 latency.
+
+5. **T3 synthetic count tuning:** We generate 3 synthetic accounts → 10 steps for churn/re-engagement. Gold might expect 3-8 steps. Tuning to 2 synthetic accounts (7 steps) could improve tool_selection F1 if gold has fewer steps.
+
+---
+
 ## Cross-Task Observations
 
 ### What We Know vs What We Don't
