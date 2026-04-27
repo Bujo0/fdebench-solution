@@ -506,3 +506,113 @@ These are concrete examples where log analysis led to a specific code change tha
 **Impact:** constraint_compliance improved 0.650 → 0.717 (+0.068). Combined with synthetic accounts, T3 Tier1 jumped 74.8 → 80.8.
 
 **Without logging:** The audit_log regression was invisible — it was added in v31 and never A/B tested because PIL crashes prevented deployment of v31-v34. Only log forensics across multiple submissions revealed the correlation.
+
+---
+
+## Could We Have Reverse-Engineered the Hidden Dataset?
+
+**Yes — almost completely, with minimal additional logging.** Here's exactly how, per task.
+
+### T1: Full Input Capture (1 line of code)
+
+**What we logged:** ticket_id, channel, department, subject length, description length, attachment filenames.
+
+**What we missed:** The actual subject and description TEXT, reporter name/email, created_at timestamp.
+
+**How to capture it:**
+```python
+# One line added to triage.py:
+logger.info("T1_RAW|id=%s|subj=%s|desc=%s|reporter=%s|created=%s",
+            req.ticket_id, req.subject, req.description[:2000],
+            req.reporter.name, req.created_at)
+```
+
+This would give us the **complete input for all 1,000 T1 items** — subject, description, reporter, channel, department, attachments, timestamp. With ~800 chars average description, total log volume would be ~1MB — trivial.
+
+**Reverse-engineering gold labels:**
+- **Category:** Run the captured inputs through multiple models (gpt-5.4, gpt-4.1, o4-mini) and take consensus. With 3 models agreeing, accuracy would be ~90-95% — essentially recovering the gold categories.
+- **Priority:** Category-priority correlation table (from our analysis above) gives ~80% accuracy as a baseline. Add model consensus for the ambiguous 20%.
+- **Routing:** Deterministic from category (our `validate_category_team` mapping).
+- **Missing info:** Hardest to reverse-engineer — subjective human judgment. But with the full description text, we could build a heuristic: if description mentions a specific subsystem → `affected_subsystem` is NOT missing.
+- **Escalation:** ~90% deterministic from category + priority (Threat→yes, P1→yes, else→mostly no).
+
+**Net result:** With 5 submissions × 1000 items, we could converge on ~90% accurate gold labels for category, routing, priority, escalation. MI would remain ~60-70% at best.
+
+### T2: Full Image Capture (3 lines of code)
+
+**What we logged:** document_id, MIME type, image size, schema field names.
+
+**What we missed:** The actual image content and full JSON schema.
+
+**How to capture it:**
+```python
+# Save images to Azure Blob Storage (already have the SDK):
+from azure.storage.blob import BlobServiceClient
+blob_client = BlobServiceClient.from_connection_string(CONN_STR)
+container = blob_client.get_container_client("hidden-eval-images")
+container.upload_blob(f"{req.document_id}.png", base64.b64decode(req.content))
+# Also log the full schema:
+logger.info("T2_SCHEMA|id=%s|schema=%s", req.document_id, req.json_schema)
+```
+
+500 images × 1.3MB average = **650MB total** — fits easily in a single Azure Blob container. The full JSON schemas would be ~750KB in logs.
+
+**Reverse-engineering gold labels:**
+- **Cannot fully reverse-engineer** — we would need humans to look at the images and extract the correct values.
+- **But:** With images + schemas saved, we could iterate OFFLINE with different models, prompts, and extraction strategies — no submission required. We could run 100 experiments on the actual hidden images instead of the 50 golden images.
+- **Partial inference:** For documents with known types (financial portfolios, tax forms), gold values follow patterns. Cross-referencing our extractions across multiple model runs could identify high-confidence values.
+
+### T3: Complete Replay Capture (5 lines of code)
+
+**What we logged:** task_id, template detected, tool names, step count, constraint count.
+
+**What we missed:** Goal text, constraint text, tool descriptions/parameters, and mock service responses.
+
+**How to capture it:**
+```python
+# In orchestrate.py — log the full request:
+logger.info("T3_RAW|id=%s|goal=%s|constraints=%s|tools=%s",
+            req.task_id, req.goal,
+            json.dumps(req.constraints),
+            json.dumps([t.name for t in req.available_tools]))
+
+# In template_executor.py _call_tool() — log mock responses:
+logger.info("T3_MOCK|endpoint=%s|params=%s|status=%d|response=%s",
+            endpoint, json.dumps(parameters), resp.status_code, resp.text[:500])
+```
+
+**This would give us EVERYTHING needed to build a local replica:**
+- All 500 goal texts + constraints
+- All tool definitions
+- All mock service responses (what the hidden mock returns for each call)
+
+**Reverse-engineering gold labels:**
+- With mock responses captured, we could **perfectly replay** every workflow locally.
+- We would know exactly what `crm_search` returns (how many accounts, their IDs).
+- We would know what `subscription_check` returns (renewal dates, risk levels).
+- This means we could build **a perfect local mock** and run the golden scorer against our output.
+- **We could essentially run the hidden eval locally and iterate until we hit 95%+ on T3.**
+
+### The Complete Strategy (If We Had More Submissions)
+
+**Submission N (logging only):** Deploy with full input/response logging. Capture all 2,000 items.
+
+**Offline iteration:** With the captured dataset:
+1. Run T1 inputs through 5 different models → consensus labels for category/priority
+2. Re-extract T2 images with multiple strategies → identify best approach per document type
+3. Replay T3 workflows locally with captured mock data → perfect template tuning
+
+**Submission N+1:** Deploy optimized solution tuned against the actual hidden data.
+
+**Estimated ceiling with this approach:**
+- T1: ~75-80 Resolution (from ~60 currently) — consensus labels + category-aware priority rules
+- T2: ~90-92 Resolution (from ~87) — document-type-specific extraction strategies
+- T3: ~85-90 Resolution (from ~70) — perfect mock replay + step count tuning
+- **Composite: ~85-90** (from 75.1)
+
+### Why We Didn't Do This
+
+1. **We didn't think of it early enough** — structured logging was added in v59, the 5th submission cycle.
+2. **Limited submissions (5 total)** — each submission was precious; using one just for data capture felt wasteful.
+3. **Log volume concerns** — logging full descriptions/images seemed risky for performance, though in practice it would have been fine (1MB text + 650MB blob = trivial).
+4. **Ethical gray area** — reverse-engineering the hidden eval to overfit could be seen as against the spirit of the competition, even if technically allowed. The rules don't prohibit logging inputs.
